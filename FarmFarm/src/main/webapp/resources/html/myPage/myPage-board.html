@@ -6,13 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="../../css/myPage/myPage-style.css" />
+    <link rel="stylesheet" href="../../css/myPage/myPageBoard-style.css" />
+    <script
+      src="https://kit.fontawesome.com/591746f9e8.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <main>
       <section class="profile-container">
         <div class="profile-background">
           <img
-            src="../../images/myPage/background/bgImg.png"
+            src="../../images/myPage/background/bgImg2.jpg"
             alt=""
             class="member-bg-img"
           />
@@ -28,7 +33,10 @@
             <span class="member-nickname">memberNickname</span>
           </div>
 
-          <button type="button" class="profile-setting-btn">설정</button>
+          <button
+            type="button"
+            class="profile-setting-btn fa-solid fa-gear"
+          ></button>
 
           <div class="member-info-container">
             <div class="member-info member-signup-date">
@@ -62,13 +70,25 @@
           </div>
         </div>
       </section>
-      <sectionc class="mypage-nav">
-        <a href="">작성 글</a>
-        <a href="">작성 댓글</a>
-        <a href="">주문 내역</a>
-        <a href="">작성 후기</a>
-        <a href="">찜 목록</a>
-      </sectionc>
+      <section class="mypage-nav">
+        <a href="" class="board-wrote"
+          ><i class="fa-regular fa-clipboard"></i> <span> 작성 글</span></a
+        >
+        <a href="" class="comment-wrote"
+          ><i class="fa-regular fa-comment-dots"></i> <span>작성 댓글</span></a
+        >
+        <a href=""
+          ><i class="fa-regular fa-rectangle-list"></i>
+          <span>주문 내역</span></a
+        >
+        <a href=""
+          ><i class="fa-regular fa-thumbs-up"></i> <span>작성 후기</span></a
+        >
+        <a href=""
+          ><i class="fa-brands fa-gratipay"></i> <span>찜 목록</span></a
+        >
+      </section>
+
       <section class="my-board-container">
         <div class="board-list-header">
           <select name="SortBoard" id="SortBoard">
@@ -243,7 +263,7 @@
                 <a href="/board/${boardCode}?cp=${pagination.prevPage}">&lt;</a>
               </li>
 
-              <c:forEach
+              <!-- <c:forEach
                 var="i"
                 begin="${pagination.startPage}"
                 end="${pagination.endPage}"
@@ -251,7 +271,7 @@
               >
                 <c:choose>
                   <c:when test="${i == pagination.currentPage}">
-                    <!-- 현재 보고있는 페이지 -->
+                   현재 보고있는 페이지
                     <li><a class="current">${i}</a></li>
                   </c:when>
 
@@ -259,7 +279,7 @@
                     <li><a href="/board/${boardCode}?cp=${i}">${i}</a></li>
                   </c:otherwise>
                 </c:choose>
-              </c:forEach>
+              </c:forEach> -->
 
               <!-- 다음 목록 시작 번호로 이동 -->
               <li>

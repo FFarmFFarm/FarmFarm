@@ -8,15 +8,16 @@
   --main-font-color: #222;
   --icon-button-color: #333;
   --point-color: #2bbc44;
+  --line-color: #ddd;
   --small-font-size: 12px;
   --main-font-size: 14px;
   --medium-font-size: 16px;
-  --large-font-size: 24px;
+  --large-font-size: 18px;
 }
 
 @font-face {
-  font-family: "S-CoreDream-4Legular";
-  src: url("../font/SCDream4.otf") format("woff");
+  font-family: 'S-CoreDream-4Legular';
+  src: url('../font/SCDream4.otf') format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -27,7 +28,7 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  font-family: "S-CoreDream-4Legular";
+  font-family: 'S-CoreDream-4Legular';
 }
 
 body {
