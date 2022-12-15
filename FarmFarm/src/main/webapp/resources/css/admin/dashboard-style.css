@@ -1,0 +1,61 @@
+@import "../root-style.css";
+
+html{
+    display: flex;
+    justify-content: center;
+    background-color: rgb(238, 236, 236);
+}
+
+body{
+    width: 1500px;
+    margin: 0 100px;
+    border: solid 1px black;
+    border-radius: 10px;
+    background-color: rgb(89,85,179);
+    display: flex;
+}
+
+.admin-nav-section{
+    /* flex-basis: 30%; */
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 50px;
+}
+
+
+.admin-nav-section a{
+    color: white;
+}
+
+
+
+.admin-profile{
+    width: 200px;
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.admin-nav-menu{
+    margin-top: 30px;
+    margin-bottom: 3px;
+}
+
+
+.admin-nav-sub{
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+
+
+
+
+
+.admin-content-section{
+    width: 1200px;
+    background-color: white;
+    border-radius: 10px;
+}
