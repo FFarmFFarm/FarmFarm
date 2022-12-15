@@ -33,7 +33,7 @@
 
 
 	<!-- favicon 추가 -->
-	<!-- <resources mapping="/favicon.ico" location="/resources/images/favicon/favicon.ico" /> -->
+	<resources mapping="/favicon.ico" location="/resources/images/favicon/favicon_farmfarm.png" />
 
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
