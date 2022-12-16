@@ -8,12 +8,14 @@ body {
   color: var(--main-font-color);
   display: flex;
   justify-content: center;
+  background-color: rgb(237, 241, 244);
 }
 
 main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: white;
 }
 
 button:hover,
@@ -127,7 +129,7 @@ a:hover {
   width: 1000px;
   height: 70px;
 
-  background: #ffffff;
+  background-color: #ffffff;
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
   border-radius: 2px;
