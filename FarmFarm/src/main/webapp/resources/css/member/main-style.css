@@ -1,1 +1,16 @@
 @import "../root-style.css";
+
+main{
+    display: flex;
+}
+
+.back-img{
+    width: 1080px;
+    height: 100vh;
+    background-color: #FCEFDF;
+    display: flex;
+}
+
+.login-page img{
+    width: 100px;
+}
