@@ -3,11 +3,13 @@
 body {
   width: 100vw;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 main {
   width: 1000px;
+  margin-top: 20px;
 }
 
 button:hover,
