@@ -6,7 +6,6 @@
 body{
     width: 100vw;
     height:auto;
-    /* background-color: rgb(237,241,244); */
     background-color: #eef4ed;
 
     display: flex;
@@ -17,7 +16,6 @@ body{
 main{
     width: 1200px;
     height: auto;
-    /* border-radius: 10px; */
     background-color: white;
 
     display: flex;
@@ -106,7 +104,7 @@ main{
 }
 
 
-.nav-lower a {
+.nav-lower a{
     width: 200px;
 }
 
@@ -118,7 +116,7 @@ main{
     border-left: 5px solid var(--point-color);
 }
 
-#dashboard{
+.admin-nav-sub:first-of-type{
     height: 30px;
     padding-top: 5px;
     background-color: #eef4ed;;
@@ -133,84 +131,63 @@ main{
     width: 1000px;
     height: 780px;
     padding-bottom: 10px;
-    /* background-color: rgb(237,241,244); */
     background-color: #eef4ed;;
-    /* border-radius: 10px; */
-    position: relative;
 
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    border: 1px solid black;
 }
 
 
-/* 오늘 날짜 */
-.todayDate{
-    width: 100%;
-    height: 40px;
-    text-align: center;
-    color: black;
-    font-weight: bold;
-    font-family: "NotoSansKR-Medium";
-    font-size: var(--medium-font-size);
-
-    position: absolute;
-    top: 15px;
-    right: 0;
-
-    padding-top: 5px;
-    padding-right: 10px;
-}
-
-
-.board-stat{
+.upper-board{
     width: 900px;
+    height: 300px;
     display: flex;
-    justify-content: space-between;
-    margin-top: 80px;
 }
 
-.board-stat span{
-    width: 200px;
-    height: 150px;
+
+/* 오른쪽-상단 게시글 */
+.upper-detail{
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    margin-right: 20px;
+}
+
+
+.upper-history{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+
+
+.member-detail{
+    width: 600px;
+    height: 250px;
     border-radius: 10px;
     background-color: white;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* justify-content: space-evenly; */
-}
-
-.span-text{
-    padding-top: 33px;
-    font-size: var(--large-font-size); 
-    font-weight: bold;
-}
-
-.span-number{
-    padding-top: 20px;
-    font-size: 26px;
-    font-weight: bold;
-}
-
-.s-green{
-    color: var(--point-color);
-}
-
-.s-red{
-    color: red;
-}
-
-.s-blue{
-    color: rgb(48, 77, 241);
 }
 
 
-.board-graph{
+.member-history{
+    width: 300px;
+    height: 250px;
+    border-radius: 10px;
     background-color: white;
-    width: 900px;
-    height: 300px;
+}
+
+
+/* 회원 조회 */
+.member-select{
+    background-color: white;
+    width: 920px;
+    min-height: 450px;
+    height: auto;
     border-radius: 10px;
     margin-top: 20px;
 }
