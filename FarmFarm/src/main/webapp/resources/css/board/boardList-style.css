@@ -92,7 +92,7 @@ main{
 .board-List-title{
     height: 60px;
     font-size: var(--medium-font-size);
-    border-bottom: 1px solid purple;
+    border-bottom: 1px solid #2B8C44;
     display: flex;
     align-items: center;
 }
@@ -101,7 +101,6 @@ main{
     display: inline-block;
     text-align: center;
     font-size: var(--main-font-size);
-    /* border: 1px solid black; */
     margin: 0 5px;
 }
 .board-no{
@@ -126,7 +125,7 @@ li{
     height: 60px;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid red;
+    border-bottom: 1px solid #2B8C44;
 }
 li > .board-title {
     padding-left: 10px;
