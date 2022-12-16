@@ -1,4 +1,4 @@
-@import '../root-style.css';
+@import "../root-style.css";
 
 .my-comment-container {
   width: 1000px;
@@ -13,6 +13,7 @@
 
 .comment-list-header {
   height: 50px;
+  background-color: var(--line-color);
 }
 
 .comment-list-container {
