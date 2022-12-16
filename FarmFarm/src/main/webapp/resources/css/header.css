@@ -1,5 +1,12 @@
 @import "../css/root-style.css";
 
+.header-container{
+    height: 165px;
+    width: 100vw;
+    background-color: var(--background-color);
+    border-bottom: 1px solid #bcbcbc;
+}
+
 /* Header */
 header{
     width: 1000px;
@@ -28,10 +35,11 @@ header{
     list-style: none;
     display: flex;
     margin-right: 20px;
+    align-items: center;
 }
 
 .widget-item{
-    font-size: 1.5em;
+    font-size: var(--large-font-size);
     line-height: 1;
     margin-left: 25px;
 }
@@ -56,7 +64,7 @@ header{
 
 .header-icon{
     color: var(--icon-button-color);
-    font-size: 1.8em;
+    font-size: var(--large-font-size);
 }
 
 .login-list{
@@ -129,7 +137,7 @@ header{
     background-color: white;
     border-radius: 10px;
     overflow: hidden;
-    top: 40px;
+    top: 34px;
     right: -5px;
     box-shadow: 2px 2px 10px 0px #bcbcbc;
 }
@@ -144,7 +152,7 @@ header{
     background-color: white;
     border-radius: 10px;
     overflow: hidden;
-    top: 40px;
+    top: 34px;
     right: -5px;
     box-shadow: 2px 2px 10px 0px #bcbcbc;
 }
@@ -200,11 +208,6 @@ nav{
     width: 1000px;
 }
 
-.nav-head{
-    border-top: 1px solid #bcbcbc;
-    border-bottom: 1px solid #bcbcbc;
-
-}
 
 .nav-body{
     display: flex;
