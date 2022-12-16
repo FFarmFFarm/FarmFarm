@@ -94,34 +94,52 @@ body{
     flex-direction: column;
 }
 
-.locations-label{
-    font-size: var(--title-font-size)
+/* 카테고리 영역 */
+.category-area{
+    padding: 10px;
 }
 
-.locations-menu{
+
+.area-title{
+    font-size: var(--large-font-size);
+
+}
+
+
+
+/* 상위 카테고리 */
+.sur{
+    font-weight: 900;
+    font-size: var(--medium-font-size);
+    height: 30px;
+
+    margin: 10px 0px;
     display: flex;
-    /* flex-direction: column; */
-    flex-wrap: wrap;
-}
+    align-items: center;
 
-/* 전체 카테고리 */
-#al{
-    width: 100%;
 }
 
 /* 세부 카테고리 */
 .category-dropdown{
+    font-size: var(--small-font-size);
+
     display: flex;
     flex-wrap: wrap;
 }
 
 .category-dropdown > input{
-    width: 10%;
+    display: none;
 }
 
 
 .category-dropdown > label{
     width: 90%;
+    margin-bottom: 5px;
+}
+
+.category-dropdown > input:checked + label{
+    font-weight: 900;
+    color: var(--point-color);
 }
 
 /* list-area */
