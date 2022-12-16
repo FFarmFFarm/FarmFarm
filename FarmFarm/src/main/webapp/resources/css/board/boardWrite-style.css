@@ -1,0 +1,19 @@
+@import "../root-style.css";
+
+main{
+    width: 1000px;
+    margin: auto;
+    border: 1px solid black;
+}
+
+/* 커뮤니티 상단 제목 */
+.board-top{
+    height: 140px;
+}
+.board-top-title{
+    display: flex;
+    justify-content: center;
+    font-size: var(--headline-font-size);
+    height: 100%;
+    align-items: center;
+}
