@@ -79,6 +79,8 @@ body{
     width: 1000px;
     min-height: 800px;
     height: 800px;
+
+    display: flex;
 }
 
 
@@ -87,4 +89,27 @@ body{
     border: 1px solid black;
     width: 220px;
     height: 100%;
+}
+
+/* list-area */
+.list-area{
+    display: flex;
+    flex-direction: column;
+    width: 780px;
+}
+
+.list-area-header{
+    border: 1px solid black;
+    height: 60px;
+    width: 100%;
+
+    padding: 10px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.opt{
+    margin-left: 10px;
 }
