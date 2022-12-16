@@ -1,0 +1,64 @@
+@import "../root-style.css";
+
+/* 상품등록 페이지 전체 */
+.enroll-section{
+    display: flex;
+    flex-direction: column;
+    width: 900px;
+    margin: auto;
+}
+
+/* 페이지 제목 */
+.page-title{
+    text-align: center;
+    font-size: 36px;
+    height: 115px;
+    padding-top: 50px;
+}
+
+/* 항목별 공통설정 */
+.product-items{
+    margin-bottom: 10px;
+}
+
+.item-title{
+    padding: 13px 5px;
+}
+
+/* 카테고리 설정 */
+.category-list{
+    display: flex;
+    height: 45px;
+}
+
+.category{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #C7C7C7;
+}
+
+.category p{
+    display: inline-block;
+}
+
+.category-title{
+    width: 20%;
+    font-size: var(--main-font-size);
+    text-align: center;
+}
+
+.category-selected{
+    width: 40%;
+    font-size: var(--small-font-size);
+    margin-right: 15px;
+    text-align: right;
+}
+
+.category-selected>p:first-child{
+    padding-right: 5px;
+    color: var(--point-color);
+}
