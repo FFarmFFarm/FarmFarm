@@ -1,0 +1,170 @@
+.ordered {
+  border-top: 3px solid var(--point-color);
+  font-weight: bold;
+}
+
+/* 마이페이지 주문 목록 */
+.my-order-container {
+  width: 1000px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.order-list-header {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 70px;
+  background-color: var(--line-color);
+}
+
+.order-list-header > select {
+  font-size: var(--medium-font-size);
+  outline: none;
+}
+
+.order-list-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: space-between;
+}
+
+.list-category {
+  height: 60px;
+  border-top: 1px solid #ccc;
+
+  font-size: var(--large-font-size);
+  font-weight: bold;
+}
+
+.list-category,
+.order {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #ccc;
+}
+
+.order-list {
+  width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: space-between;
+  justify-content: center;
+}
+
+.order {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  padding: 15px 0;
+  font-size: var(--medium-font-size);
+}
+
+.order-no {
+  display: inline-block;
+  width: 15%;
+  text-align: center;
+}
+
+.order-thumbnail {
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+}
+
+.order-thumbnail-img {
+  width: 100%;
+  height: 100%;
+}
+
+.order-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 55%;
+}
+
+.order-total {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 75%;
+  height: 100%;
+  padding: 10px 0;
+}
+
+.order-total > * {
+  margin-left: 30px;
+}
+
+.order-total > span:last-child {
+  border-top: 1px solid var(--line-color);
+  font-size: var(--small-font-size);
+  margin-right: 20px;
+  padding-top: 5px;
+}
+
+.order-title {
+  font-size: var(--medium-font-size);
+  font-weight: 600;
+}
+
+.order-detail {
+  display: flex;
+  align-items: center;
+}
+
+.order-price {
+  margin-right: 10px;
+  font-size: var(--main-font-size);
+  font-weight: 600;
+}
+
+.order-reg-date {
+  display: inline-block;
+  width: 15%;
+  text-align: center;
+  font-size: var(--small-font-size);
+  color: var(--sub-font-color);
+}
+
+.order-status > * {
+  font-size: var(--small-font-size);
+  color: var(--sub-font-color);
+}
+
+.order-shipping {
+  color: var(--point-color);
+}
+
+.button-area {
+  width: 10%;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.button-area > * {
+  width: 110px;
+  height: 30px;
+  color: var(--main-font-color);
+  background-color: var(--background-color);
+  border: 1px solid var(--line-color);
+  margin: 2px 0;
+  cursor: pointer;
+}
+
+.pagination {
+  display: flex;
+  margin-top: 10px;
+}
