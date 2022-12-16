@@ -9,7 +9,133 @@
     <script src="https://kit.fontawesome.com/345198b845.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    
-    
+    <main>
+        <section class="profile-container">
+            <div class="profile-background">
+                <img
+                src="../../images/myPage/background/bgImg2.jpg"
+                alt=""
+                class="member-bg-img"
+                />
+            </div>
+
+            <!-- 판매자 정보 -->
+            <div class="profile-info">
+                <div class="profile-img-container">
+                    <img
+                    src="../../images/myPage/profile/profileImg.png"
+                    alt=""
+                    class="member-profile-img"
+                    />
+                    <span class="member-nickname">현재네 농장</span>
+                </div>
+
+                <button
+                type="button"
+                class="profile-setting-btn fa-solid fa-gear"
+                ></button>
+
+                <div class="member-info-container">
+                    <div class="member-info">
+                        <span class="info-title member-name">판매자</span>
+                        <span class="info-content">김길자</span>
+                    </div>
+                    
+                    <div class="member-info">
+                        <span class="info-title count-title">판매글 수</span>
+                        <span class="info-content">12</span>
+                    </div>
+
+                    <div class="member-info">
+                        <span class="info-title member-signup-date">가입일</span>
+                        <span class="info-content">2022.10.13</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="mypage-nav">
+            <a href="" class="board-wrote">
+                <i class="fa-regular fa-clipboard"></i> 
+                <span> 판매글</span>
+            </a>
+        </section>
+
+        <section class="my-order-container">
+            <div class="order-list-header"></div>
+            <div class="order-list-container">
+                <div class="order-list">
+                    <div class="order">
+                        <input type="hidden" value="order-no" />
+                        <div class="order-thumbnail">
+                            <img
+                            src="../../images/board/thumbnail.png"
+                            alt=""
+                            class="order-thumbnail-img"
+                            />
+                        </div>
+                        <div class="order-total">
+                            <a href="" class="order-title">게시글 제목 샘플</a>
+                            <div class="order-detail">
+                                <div class="order-price">가격 <span>15,000</span></div>
+                                <span class="order-reg-date">2022.12.15</span>
+                            </div>
+                            <div class="order-status">
+                                <a class="order-shipping">배송중</a>
+                                <span>결제완료</span>
+                                <span>구매확정</span>
+                            </div>
+                            <span>주문하신 상품이 현재 배송중입니다</span>
+                        </div>
+                        <div class="button-area">
+                            <button type="button">주문취소</button>
+                            <button type="button">구매확정</button>
+                            <!--                 <button type="button">반품요청</button>
+                            <button type="button">리뷰작성</button> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pagination-area">
+                    <ul class="pagination">
+                        <!-- 첫 페이지로 이동 -->
+                        <li><a href="/board/${boardCode}">&lt;&lt;</a></li>
+        
+                        <!-- 이전 목록 마지막 번호로 이동 -->
+                        <li>
+                            <a href="/board/${boardCode}?cp=${pagination.prevPage}">&lt;</a>
+                        </li>
+                        <!-- <c:forEach
+                            var="i"
+                            begin="${pagination.startPage}"
+                            end="${pagination.endPage}"
+                            step="1"
+                        >
+                            <c:choose>
+                                <c:when test="${i == pagination.currentPage}">
+                                현재 보고있는 페이지
+                                <li><a class="current">${i}</a></li>
+                            </c:when>
+
+                            <c:otherwise>
+                                <li><a href="/board/${boardCode}?cp=${i}">${i}</a></li>
+                            </c:otherwise>
+                            </c:choose>
+                        </c:forEach> -->
+
+                        <!-- 다음 목록 시작 번호로 이동 -->
+                        <li>
+                            <a href="/board/${boardCode}?cp=${pagination.nextPage}">&gt;</a>
+                        </li>
+
+                        <!-- 끝 페이지로 이동 -->
+                        <li>
+                            <a href="/board/${boardCode}?cp=${pagination.maxPage}"
+                            >&gt;&gt;</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
 </body>
 </html>

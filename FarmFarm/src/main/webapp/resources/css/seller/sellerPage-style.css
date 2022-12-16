@@ -1,0 +1,314 @@
+@import "../root-style.css";
+
+a {
+    color: var(--main-font-color);
+}
+
+body {
+    color: var(--main-font-color);
+    display: flex;
+    justify-content: center;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+button:hover,
+a:hover {
+    opacity: 0.8;
+}
+
+/* 회원 정보 */
+.profile-container {
+    height: 360px;
+}
+
+.profile-background {
+    width: 1000px;
+    height: 55%;
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.member-bg-img {
+    width: 100%;
+}
+
+.profile-info {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 1000px;
+    height: 45%;
+
+    cursor: default;
+}
+
+.profile-setting-btn {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    border: none;
+    font-size: var(--large-font-size);
+    cursor: pointer;
+}
+
+.profile-setting-btn:active {
+    transform: scale(0.95);
+}
+
+.profile-img-container {
+    width: 300px;
+    height: 250px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    position: absolute;
+    left: 60px;
+    top: -110px;
+}
+
+.member-profile-img {
+    width: 200px;
+    height: 200px;
+}
+
+.member-nickname {
+    margin-top: 10px;
+    font-size: var(--large-font-size);
+    font-weight: bold;
+}
+
+
+/* 판매자 정보 */
+.member-info-container {
+    width: 500px;
+    height: 130px;
+
+    margin-right: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-size: var(--medium-font-size);
+}
+
+.member-nickname{
+    font-size: var(--title-font-size);
+}
+
+.info-title{
+    margin-right: 20px;
+    font-weight: 600;
+}
+
+
+
+/* 마이페이지 메뉴바 */
+.mypage-nav {
+    width: 1000px;
+    height: 70px;
+
+    background: #ffffff;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-radius: 2px;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.mypage-nav > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 15%;
+    font-size: var(--large-font-size);
+}
+
+.mypage-nav > a > span {
+    margin-left: 5px;
+}
+
+.ordered {
+    border-top: 3px solid var(--point-color);
+    font-weight: bold;
+}
+
+/* 마이페이지 주문 목록 */
+.my-order-container {
+width: 1000px;
+
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.order-list-header {
+width: 100%;
+height: 50px;
+display: flex;
+justify-content: flex-end;
+align-items: center;
+padding: 0 70px;
+background-color: var(--line-color);
+}
+
+.order-list-header > select {
+font-size: var(--medium-font-size);
+outline: none;
+}
+
+.order-list-container {
+display: flex;
+flex-direction: column;
+align-items: center;
+align-content: space-between;
+}
+
+.list-category {
+height: 60px;
+border-top: 1px solid #ccc;
+
+font-size: var(--large-font-size);
+font-weight: bold;
+}
+
+.list-category,
+.order {
+width: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+border-bottom: 1px solid #ccc;
+}
+
+.order-list {
+width: 1000px;
+display: flex;
+flex-direction: column;
+align-items: center;
+align-content: space-between;
+justify-content: center;
+}
+
+.order {
+display: flex;
+justify-content: center;
+align-items: center;
+height: 200px;
+padding: 15px 0;
+font-size: var(--medium-font-size);
+}
+
+.order-no {
+display: inline-block;
+width: 15%;
+text-align: center;
+}
+
+.order-thumbnail {
+width: 120px;
+height: 120px;
+overflow: hidden;
+}
+
+.order-thumbnail-img {
+width: 100%;
+height: 100%;
+}
+
+.order-content {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: space-around;
+width: 55%;
+}
+
+.order-total {
+display: flex;
+flex-direction: column;
+justify-content: space-around;
+width: 75%;
+height: 100%;
+padding: 10px 0;
+}
+
+.order-total > * {
+margin-left: 30px;
+}
+
+.order-total > span:last-child {
+border-top: 1px solid var(--line-color);
+font-size: var(--small-font-size);
+margin-right: 20px;
+padding-top: 5px;
+}
+
+.order-title {
+font-size: var(--medium-font-size);
+font-weight: 600;
+}
+
+.order-detail {
+display: flex;
+align-items: center;
+}
+
+.order-price {
+margin-right: 10px;
+font-size: var(--main-font-size);
+font-weight: 600;
+}
+
+.order-reg-date {
+display: inline-block;
+width: 15%;
+text-align: center;
+font-size: var(--small-font-size);
+color: var(--sub-font-color);
+}
+
+.order-status > * {
+font-size: var(--small-font-size);
+color: var(--sub-font-color);
+}
+
+.order-shipping {
+color: var(--point-color);
+}
+
+.button-area {
+width: 10%;
+
+display: flex;
+flex-direction: column;
+}
+
+.button-area > * {
+width: 110px;
+height: 30px;
+color: var(--main-font-color);
+background-color: var(--background-color);
+border: 1px solid var(--line-color);
+margin: 2px 0;
+cursor: pointer;
+}
+
+.pagination {
+display: flex;
+margin-top: 10px;
+}
