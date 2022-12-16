@@ -1,0 +1,81 @@
+@import "../root-style.css";
+
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    width: 1200px;
+    margin: 80px auto;
+    background-color: #eeeeee;
+}
+
+h1{
+    color: #222;
+    font-weight: 800;
+}
+
+p{
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.7;
+    color: #999;
+}
+
+main{
+    margin-top: 50px;
+}
+
+main span{
+    text-align: center;
+}
+
+.main-logo{
+    width: 150px;
+    height: 82px;
+    margin: 30px auto;
+}
+
+.main-logo img{
+    width: 150px;
+}
+
+.select{
+    display: flex;
+    justify-content: center;
+    margin: 50px 0;
+}
+
+.select-user{
+    margin-right: 50px;
+}
+
+.select-farmer{
+    margin-left: 50px;
+}
+
+.select-btn{
+    cursor: pointer;
+    border: none;
+}
+
+.select-img{
+    margin-bottom: 20px;
+}
+
+.select-img:hover{
+    opacity: 80%;
+}
+
+.select-p{
+    width: 208px;
+    height: 38px;
+    background-color: var(--point-color);
+}
+
+.select-p p{
+    color: white;
+    font-size: 22px;
+}
