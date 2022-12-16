@@ -16,50 +16,54 @@
                 <img src="../../images/mainLogo.png">
             </div>
 
-            <form action="#" method="post" id="loginFrm">
-                <section class="inputbox">
-                    <input type="text" name="memberId" id="memberId" placeholder="아이디"
-                    autocomplete="off" value="${cookie.saveId.value}">
-                </section>
-                <section class="inputbox">
-                    <input type="password" name="memberPw" id="memberPw"  placeholder="비밀번호">
-                </section>
-                <div class="loginCheck" id="loginCheck"></div>
-                <div class="login-btn">
-                    <button class="inputbox">로그인</button>
-                </div>
-
-                <section class="saveId-area">
-                <!-- 쿠키에 svaeId 있을 때 -->
-                <c:if test="${!empty cookie.saveId.value}">
-                    <c:set var="temp" value="checked"/>
-                </c:if>
-    
-                    <label for="saveId">
-                        <div class="saveIdArea" id="idCheck">
-                            <i class="fa-solid fa-check" id="idCheck2">
-                                <input type="checkbox" name="saveId" id="saveId" ${temp}> 
-                            </i>
-                        </div>아이디 저장
-                    </label> 
-
-                    <div class="find-area">
-                        <div class="find"><a href="#">아이디 찾기</a></div>
-                        <div class="find">|</div>
-                        <div class="find"><a href="#">비밀번호 찾기</a></div>
+            <div class="form-wrap">
+                <form action="#" method="post" id="loginFrm">
+                    <section class="inputbox">
+                        <input type="text" name="memberId" id="memberId" placeholder="아이디"
+                        autocomplete="off" value="">
+                    </section>
+                    <section class="inputbox">
+                        <input type="password" name="memberPw" id="memberPw"  placeholder="비밀번호">
+                    </section>
+                    <div class="loginCheck" id="loginCheck"></div>
+                    <div class="login-btn">
+                        <button class="inputbox input-button">로그인</button>
                     </div>
 
-                    <div class="line-area"></div>
+                    <section class="saveid-area">
+                    <!-- 쿠키에 svaeId 있을 때 -->
+                    <!-- <c:if test="${!empty cookie.saveId.value}">
+                        <c:set var="temp" value="checked"/>
+                    </c:if> -->
 
-                    <div>
-                        <p>팜팜 회원이 되어 품질 높은 농산물을 만나보세요!</p>
-                    </div>
+                        <div class="save-find">
+                            <label for="saveId">
+                                <div class="saveIdArea" id="idCheck">
+                                    <i class="fa-solid fa-check" id="idCheck2">
+                                        <input type="checkbox" name="saveId" id="saveId" ${temp}> 
+                                    </i>
+                                </div>아이디 저장
+                            </label> 
 
-                    <div class="signup-btn">
-                        <button class="inputbox">회원가입</button>
-                    </div>
-                </section>
-            </form>
+                            <div class="find-area">
+                                <div class="find"><a href="#">아이디 찾기</a></div>
+                                <div class="find">|</div>
+                                <div class="find"><a href="#">비밀번호 찾기</a></div>
+                            </div>
+                        </div>
+
+                        <div class="line-area"></div>
+
+                        <div>
+                            <p>팜팜 회원이 되어 품질 높은 농산물을 만나보세요!</p>
+                        </div>
+
+                        <div class="signup-btn">
+                            <button class="inputbox input-button">회원가입</button>
+                        </div>
+                    </section>
+                </form>
+            </div>
         </div>
     </main>
 
