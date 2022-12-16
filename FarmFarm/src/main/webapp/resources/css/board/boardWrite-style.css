@@ -32,8 +32,8 @@ main{
     height: 100%;
     display: flex;
 }
-.board-category-area > span{
-    padding-left: 20px;
+.board-category-area > span, input{
+    /* padding-left: 20px; */
     margin: auto;
 }
 .category{
@@ -60,6 +60,39 @@ main{
 }
 
 /* 글쓰기 제목 */
-.board-write-title{
-    padding-left: 120px;
+.board-write{
+    padding: 0 120px;
+    margin: 30px 0;
+}
+.write-title{
+    padding: 0 10px 10px;
+    border-bottom: 1px solid var(--point-color);
+}
+.input-write-title{
+    padding-left: 10px;
+    width: 600px;
+    border: none;
+}
+
+/* 글쓰기 내용 */
+.write-content{
+    margin: 20px;
+    padding: 10px;
+    width: 700px;
+    height: 400px;
+    resize: none;
+    line-height: 1.5;
+    letter-spacing: 1px;
+}
+
+/* 이미지 첨부하기 */
+.board-img-ex{
+    border-bottom: 1px solid var(--point-color);
+    padding: 10px;
+}
+.board-img{
+    width: 180px;
+    height: 180px;
+    border: 1px solid var(--line-color);
+    margin: 10px 3px;
 }
