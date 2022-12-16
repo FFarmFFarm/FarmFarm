@@ -16,15 +16,18 @@
         <section class="board-category">
             <div class="board-category-area">
                 <span class="category">카테고리 선택</span>
-                <input type="checkbox" value="share">물물교환
-                <input type="checkbox" value="tip">팁
-                <input type="checkbox" value="question">질문
+                <input type="radio" name="category" id="share" value="share">
+                <label for="share">물물교환</label>
+                <input type="radio" name="category" id="tip" value="tip">
+                <label for="tip">팁</label>
+                <input type="radio" name="category" id="question" value="question">
+                <label for="question">질문</label>
             </div>
             <button class="board-submit">게시하기</button>
         </section>
         <section class="board-write">
             <div class="write-title">
-                <span>제목 : </span>
+                <span>제목 &nbsp; : </span>
                 <input type="text" class="input-write-title">
             </div>
             <textarea class="write-content"></textarea>

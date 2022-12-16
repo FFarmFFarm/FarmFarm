@@ -22,32 +22,40 @@ main{
 /* 카테고리 선택 부분 */
 .board-category{
     height: 70px;
-    padding-left: 100px;
+    width: 100%;
+    padding-left: 40px;
     display: flex;
     align-items: center;
     border: 1px solid var(--line-color);
+    white-space: nowrap;
 }
 .board-category-area{
-    width: 700px;
+    width: 650px;
     height: 100%;
     display: flex;
-}
-.board-category-area > span, input{
-    /* padding-left: 20px; */
-    margin: auto;
+    margin-right: 140px;
 }
 .category{
-    width: 150px;
+    width: 170px;
+    text-align: center;
     font-weight: bold;
 }
-.share{
-    width: 150px;
+.board-category-area > span{
+    margin: auto 0;
 }
-.tip{
-    width: 150px;
+.board-category-area > label{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 3px solid white;
+    width: 110px;
 }
-.question{
-    width: 150px;
+input[type="radio"]{
+    appearance: none;
+    margin: 0;
+}
+input[type="radio"]:focus + label{
+    border-bottom: 3px solid var(--point-color);
 }
 .board-submit{
     width: 100px;
@@ -67,11 +75,13 @@ main{
 .write-title{
     padding: 0 10px 10px;
     border-bottom: 1px solid var(--point-color);
+    font-weight: bold;
 }
 .input-write-title{
     padding-left: 10px;
     width: 600px;
     border: none;
+    font-size: var(--medium-font-size);
 }
 
 /* 글쓰기 내용 */
