@@ -1,16 +1,25 @@
 @import "../root-style.css";
 
 main{
+    width: 100%;
     display: flex;
 }
 
 .back-img{
-    width: 1080px;
+    width: 70%;
     height: 100vh;
     background-color: #FCEFDF;
     display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.login-page-img{
+    display: flex;
+    justify-content: center;
+    margin-top: 130px;
 }
 
 .login-page img{
-    width: 100px;
+    width: 30%;
 }
