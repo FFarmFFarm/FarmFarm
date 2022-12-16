@@ -46,11 +46,12 @@
                 <ul class="post-info">
                     <li class="info-list">
                         <p>상품명</p>
-                        <input type="text" name="postTitle">
+                        <input type="text" name="postTitle" size="60" maxlength="20">
                     </li>
                     <li class="info-list">
                         <p>판매가격</p>
                         <input type="text" name="unitPrice">
+                        <p>원</p>
                     </li>
                     <li class="info-list">
                         <p>생산일</p>
@@ -58,15 +59,14 @@
                     </li>
                     <li class="info-list">
                         <p>대표이미지</p>
-                        <div class="img-box">
-                            <div class="post-img thumbnail">
-                                <label for="img0">
-                                    <img class="preview" src="">
-                                </label>
-                                <input type="file" name="postImg" class="input-img"
-                                id="img0" accept="image/*">
-                                <span class="delete-img">&times;</span>
-                            </div>
+                        <div class="post-img thumbnail">
+                            <label for="img0">
+                                <img class="preview" src="">
+                                <i class="fa-solid fa-plus"></i>
+                            </label>
+                            <input type="file" name="postImg" class="input-img"
+                            id="img0" accept="image/*">
+                            <span class="delete-img">&times;</span>
                         </div>
                     </li>
                     <li class="info-list">
@@ -81,13 +81,49 @@
                                 id="img1" accept="image/*">
                                 <span class="delete-img">&times;</span>
                             </div>
+                            <div class="post-img">
+                                <label for="img2">
+                                    <img class="preview" src="">
+                                    <p>사진추가</p>
+                                </label>
+                                <input type="file" name="postImg" class="input-img"
+                                id="img2" accept="image/*">
+                                <span class="delete-img">&times;</span>
+                            </div>
+                            <div class="post-img">
+                                <label for="img3">
+                                    <img class="preview" src="">
+                                    <p>사진추가</p>
+                                </label>
+                                <input type="file" name="postImg" class="input-img"
+                                id="img3" accept="image/*">
+                                <span class="delete-img">&times;</span>
+                            </div>
+                            <div class="post-img">
+                                <label for="img4">
+                                    <img class="preview" src="">
+                                    <p>사진추가</p>
+                                </label>
+                                <input type="file" name="postImg" class="input-img"
+                                id="img4" accept="image/*">
+                                <span class="delete-img">&times;</span>
+                            </div>
+
                         </div>
                     </li>
-
                 </ul>
             </div>
+            <div class="product-items">
+                <p class="item-title">상품 상세 설명</p>
+                <textarea rows="15" cols="106" class="post-content" name="postContent"
+                    placeholder="상품에 대한 상세 정보를 작성해주세요."
+                    style="resize: none"></textarea>
+            </div>
 
-
+            <div class="button-area">
+                <button type="" id="cancelBtn">등록취소</button>
+                <button id="enrollBtn">상품등록</button>
+            </div>
 
 
         </section>
