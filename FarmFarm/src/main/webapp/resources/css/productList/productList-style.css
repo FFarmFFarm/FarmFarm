@@ -45,7 +45,7 @@ body{
 
 #title{
     color: var(--main-font-color);
-    font-size: 40px;
+    font-size: var(--headline-font-size);
 }
 
 #searchBar{
@@ -89,6 +89,39 @@ body{
     border: 1px solid black;
     width: 220px;
     height: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.locations-label{
+    font-size: var(--title-font-size)
+}
+
+.locations-menu{
+    display: flex;
+    /* flex-direction: column; */
+    flex-wrap: wrap;
+}
+
+/* 전체 카테고리 */
+#al{
+    width: 100%;
+}
+
+/* 세부 카테고리 */
+.category-dropdown{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.category-dropdown > input{
+    width: 10%;
+}
+
+
+.category-dropdown > label{
+    width: 90%;
 }
 
 /* list-area */
@@ -113,3 +146,4 @@ body{
 .opt{
     margin-left: 10px;
 }
+
