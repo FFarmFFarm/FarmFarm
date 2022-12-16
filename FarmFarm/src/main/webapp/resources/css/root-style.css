@@ -26,9 +26,6 @@
   font-style: normal;
 }
 
-
-
-
 @font-face {
   font-family: "NotoSansKR-Bold";
   src: url("../font/NotoSansKR/NotoSansKR-Bold.otf") format("woff");
@@ -49,13 +46,6 @@
   src: url("../font/NotoSansKR/NotoSansKR-Light.otf") format("woff");
 }
 
-
-
-
-
-
-
-
 * {
   text-decoration: none;
   box-sizing: border-box;
@@ -63,6 +53,9 @@
   padding: 0;
   list-style: none;
   font-family: "S-CoreDream-4Legular";
+  font-family: "NotoSansKR-Light";
+  font-family: "NotoSansKR-Medium";
+  font-family: "NotoSansKR-Regular";
 }
 
 body {
@@ -80,5 +73,3 @@ a {
 button {
   cursor: pointer;
 }
-
-
