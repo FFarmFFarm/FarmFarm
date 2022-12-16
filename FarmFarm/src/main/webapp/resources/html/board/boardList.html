@@ -6,24 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>와글와글 커뮤니티</title>
     <script src="https://kit.fontawesome.com/345198b845.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../../css/board/boardList.css">
+    <link rel="stylesheet" href="../../css/board/boardList-style.css">
 </head>
 <body>
-    <main class="board-ListAll">
-        <section class="board-Nav">
-            <div class="board-NavArea">
+    <main>
+        <section class="board-nav">
+            <div class="board-nav-area">
                 <span>물물교환</span>
                 <span>팁</span>
                 <span>질문</span>
             </div>
         </section>
         <section class="board-search">
-            <div class="board-searchArea">
+            <div class="board-search-area">
                 <input type="text" placeholder="검색어를 입력해주세요">
-                <button class="board-searchBtn">
+                <button class="board-search-btn">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </div>
+            <select class="board-select" id="boardSelect">
+                <option value="new">최신순</option>
+                <option value="view">조회수</option>
+                <option value="like">좋아요</option>
+            </select>
         </section>
         <section class="board-list">
             <div class="board-ListTop">

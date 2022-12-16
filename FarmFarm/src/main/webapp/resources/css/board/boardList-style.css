@@ -2,8 +2,47 @@
 
 
 body{
+    width: 1920px;
+    height: 1080px;
+}
+
+main{
     width: 1000px;
     margin: auto;
+    border: 1px solid black;
 }
+
 /* 커뮤니티 네브 */
-.board-Nav
+.board-nav{
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    height: 70px;
+}
+.board-nav-area{
+    display: flex;
+    justify-content: space-between;
+    margin: 24px 100px;
+    font-weight: 400;
+    font-size: var(--medium-font-size);
+    line-height: 24px;
+}
+
+/* 커뮤니티 검색 */
+.board-search{
+    height: 50px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+}
+.board-search-area{
+    width: 600px;
+    height: 35px;
+}
+.board-search-area > input{
+    width: 550px;
+    height: 100%;
+}
+/* 커뮤니티 최신순, 조회수, 좋아요 */
+.board-select{
+    width: 100px;
+    height: 35px;
+    text-align: center;
+}
