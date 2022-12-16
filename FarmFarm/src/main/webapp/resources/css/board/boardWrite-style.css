@@ -16,4 +16,50 @@ main{
     font-size: var(--headline-font-size);
     height: 100%;
     align-items: center;
+    border: 1px solid var(--line-color);
+}
+
+/* 카테고리 선택 부분 */
+.board-category{
+    height: 70px;
+    padding-left: 100px;
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--line-color);
+}
+.board-category-area{
+    width: 700px;
+    height: 100%;
+    display: flex;
+}
+.board-category-area > span{
+    padding-left: 20px;
+    margin: auto;
+}
+.category{
+    width: 150px;
+    font-weight: bold;
+}
+.share{
+    width: 150px;
+}
+.tip{
+    width: 150px;
+}
+.question{
+    width: 150px;
+}
+.board-submit{
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: var(--point-color);
+    color: white;
+    border: none;
+    letter-spacing: 2px;
+}
+
+/* 글쓰기 제목 */
+.board-write-title{
+    padding-left: 120px;
 }

@@ -22,6 +22,7 @@ main{
     font-size: var(--headline-font-size);
     height: 100%;
     align-items: center;
+    border: 1px solid var(--line-color);
 }
 
 /* 커뮤니티 네브 */
