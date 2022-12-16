@@ -8,7 +8,7 @@
   --main-font-color: #222;
   --sub-font-color: rgb(105, 105, 105);
   --icon-button-color: #333;
-  --point-color: #2bbc44;
+  --point-color: #2b8c44;
   --line-color: #ddd;
 
   --small-font-size: 12px;
@@ -26,6 +26,36 @@
   font-style: normal;
 }
 
+
+
+
+@font-face {
+  font-family: "NotoSansKR-Bold";
+  src: url("../font/NotoSansKR/NotoSansKR-Bold.otf") format("woff");
+}
+
+@font-face {
+  font-family: "NotoSansKR-Regular";
+  src: url("../font/NotoSansKR/NotoSansKR-Regular.otf") format("woff");
+}
+
+@font-face {
+  font-family: "NotoSansKR-Medium";
+  src: url("../font/NotoSansKR/NotoSansKR-Medium.otf") format("woff");
+}
+
+@font-face {
+  font-family: "NotoSansKR-Light";
+  src: url("../font/NotoSansKR/NotoSansKR-Light.otf") format("woff");
+}
+
+
+
+
+
+
+
+
 * {
   text-decoration: none;
   box-sizing: border-box;
@@ -38,3 +68,17 @@
 body {
   width: 100vw;
 }
+
+input:focus {
+  outline: none;
+}
+
+a {
+  color: var(--main-font-color);
+}
+
+button {
+  cursor: pointer;
+}
+
+
