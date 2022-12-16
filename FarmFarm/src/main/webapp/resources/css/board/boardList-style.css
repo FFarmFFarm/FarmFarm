@@ -1,0 +1,9 @@
+@import "../root-style.css";
+
+
+body{
+    width: 1000px;
+    margin: auto;
+}
+/* 커뮤니티 네브 */
+.board-Nav
