@@ -1,0 +1,90 @@
+@import '../root-style.css';
+
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* banner */
+.banner{
+    border: 1px solid black;
+    width: 1000px;
+    height: 600px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* 배너 > 광고 영역 */
+.add-area{
+    width: 1000px;
+    height: 400px;
+}
+
+/* 배너 > 광고 영역 > 사진 */
+.add-area > img{
+    width: 100%;
+    height: 600px;
+    transform: translateY(-100px);
+}
+
+/* 배너 > 검색 */
+.search-area{
+    background-color: white;
+    width: 100%;
+    height: 200px;
+    z-index: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#title{
+    color: var(--main-font-color);
+    font-size: 40px;
+}
+
+#searchBar{
+    border: 1px solid var(--point-color);
+    width: 400px;
+    height: 40px;
+    padding: 5px 10px;
+    margin-top: 10px;
+
+    border-radius: 5px;
+}
+
+#keyword{
+    color: var(--main-font-color);
+    border: none;
+    width: 95%;
+
+    outline: none;
+}
+
+#searchBtn{
+    height: 100%;
+    background-color: white;
+    border: none;
+
+}
+
+/* container */
+.container{
+    border: 1px solid black;
+    width: 1000px;
+    min-height: 800px;
+    height: 800px;
+}
+
+
+/* category-area */
+.category-area{
+    border: 1px solid black;
+    width: 220px;
+    height: 100%;
+}
