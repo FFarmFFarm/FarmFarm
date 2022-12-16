@@ -1,0 +1,159 @@
+@import "../root-style.css";
+
+
+
+body{
+    width: 100vw;
+    height:auto;
+    background-color: rgb(237,241,244);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header{
+    height: 155px;
+    width: 1000px;
+    border: 1px solid black;
+}
+
+main{
+    width: 1400px;
+    border-radius: 10px;
+    margin: auto;
+    background-color: white;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+/* 왼쪽 nav메뉴 */
+.admin-nav-section{
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 0;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    position: sticky;
+}
+
+
+
+/* 팜팜관리자 */
+.admin-nav-section > div:first-child {
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+
+.admin-profile{
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    color: rgb(10, 21, 15); ;
+    font-weight: bold;
+}
+
+
+/* nav 메뉴 (팜팜보드~)*/
+.admin-nav-section > div:nth-child(2){
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+}
+
+
+
+.admin-nav-menu{
+    display: inline-block;
+    font-size: var(--large-font-size);
+    color: white;
+    color: black;
+    font-family: "NotoSansKR-Medium";
+    font-weight: 100;  
+}
+
+
+.admin-nav-sub{
+    width: 250px;
+    margin-top: 5px;
+    padding-left: 80px;
+    font-size: var(--medium-font-size);
+    color: rgb(87, 87, 87, 0.9);
+    font-family: "NotoSansKR-Medium";
+}
+
+
+.with-icon-div{
+    padding: 5px 0;
+    margin-top: 20px;
+    color: black;
+}
+
+.with-icon-div i{
+    padding: 0 5px 5px 60px;
+}
+
+
+a {
+    width: 250px;
+}
+
+a:hover{
+    color: var(--point-color);
+    font-weight: 700;
+    transition-duration: 0.1s;
+    cursor: pointer;
+    border-left: 5px solid var(--point-color);
+}
+
+
+/* 오른쪽 내용 부분 */
+.admin-content-section{
+    width: 1150px;
+    height: 780px;
+    margin: 10px;
+    background-color: rgb(237,241,244);
+    border-radius: 10px;
+    position: relative;
+}
+
+
+/* 오늘 날짜 */
+.todayDate{
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    font-family: "NotoSansKR-Medium";
+    font-size: var(--large-font-size);
+
+    position: absolute;
+    top: 15px;
+    right: 0;
+
+    padding-top: 5px;
+    padding-right: 10px;
+}
+
+
+.board-stat{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 80px;
+}
+
+.board-stat span{
+    width: 250px;
+    height: 200px;
+    border-radius: 10px;
+    background-color: white;
+}
