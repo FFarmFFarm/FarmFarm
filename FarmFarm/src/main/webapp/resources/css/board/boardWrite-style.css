@@ -65,6 +65,7 @@ input[type="radio"]:focus + label{
     color: white;
     border: none;
     letter-spacing: 2px;
+    font-size: var(--medium-font-size);
 }
 
 /* 글쓰기 제목 */
@@ -83,16 +84,22 @@ input[type="radio"]:focus + label{
     border: none;
     font-size: var(--medium-font-size);
 }
-
+.aaa{
+    border-bottom: 1px solid var(--point-color);
+}
 /* 글쓰기 내용 */
 .write-content{
-    margin: 20px;
+    margin: 20px 0;
     padding: 10px;
-    width: 700px;
+    width: 100%;
     height: 400px;
     resize: none;
     line-height: 1.5;
     letter-spacing: 1px;
+    border: 1px solid var(--line-color);
+}
+.write-content:focus{
+    outline: none;
 }
 
 /* 이미지 첨부하기 */
