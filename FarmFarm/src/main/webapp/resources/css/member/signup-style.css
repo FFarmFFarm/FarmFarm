@@ -51,8 +51,51 @@ main{
 
 .title{
     font-size: var(--medium-font-size);
-    margin-top: 15px;
+    margin-top: 20px;
     margin-left: 12px;
+}
+
+.tel{
+    display: inline-block;
+    position: relative;
+}
+
+.find-btn{
+    position: absolute;
+    border: none;
+    background-color: var(--point-color);
+    color: var(--background-color);
+    width: 80px;
+    height: 27px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+}
+
+.address-btn, .tel-btn1{
+    top: 60px;
+    left: 315px;
+}
+
+.tel-btn2{
+    top: 17px;
+    left: 315px;
+
+}
+
+.agree-wrap{
+    display: flex;
+}
+
+.agree-wrap > i{
+    font-size: var(--main-font-size);
+
+}
+
+.agree-wrap input{
+    width: 17px;
+    margin: 0 10px;
 }
 
 .signup-btn{

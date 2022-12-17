@@ -32,19 +32,43 @@
                         <div id="nameConfirm" class="coner">한글, 영어, 숫자 2~10자리 입력해주세요.</div>
                     </section>
                     <section class="signup">
-                        <input type="text" name="memberTel" id="memberTel" placeholder="전화번호(-제외)" maxlength="11"
-                        autocomplete="off">
-                        <div id="telConfirm" class="coner"></div>
-                    </section>
-                    <section class="signup">
                         <div class="title">생년월일</div>
                         <input type="date" name="memberBirth" id="memberBirth">
                         <div id="birthConfirm" class="coner"></div>
                     </section>
+                    <section class="signup tel">
+                        <div class="title">주소</div>
+                        <input type="text" name="memberAddress" id="memberAddress" placeholder="우편번호" maxlength="5"
+                        autocomplete="off">
+                        <button class="find-btn address-btn">주소찾기</button>
+                        <input type="text" name="memberAddress" id="memberAddress"  maxlength="5"
+                        autocomplete="off">
+                        <input type="text" name="memberAddress" id="memberAddress" placeholder="상세주소" maxlength="5"
+                        autocomplete="off">
+                        <div id="telConfirm" class="coner"></div>
+                    </section>
+                    <section class="signup tel">
+                        <div class="title">전화번호 인증</div>
+                        <input type="text" name="memberTel" id="memberTel" placeholder="전화번호(-제외)" maxlength="11"
+                        autocomplete="off">
+                        <button class="find-btn tel-btn1">본인인증</button>
+                        <div id="telConfirm" class="coner"></div>
+                    </section>
+                    <section class="signup tel">
+                        <input type="text" name="memberTel" id="memberTel" placeholder="인증번호 4자리" maxlength="4"
+                        autocomplete="off">
+                        <button class="find-btn tel-btn2">인증하기</button>
+                        <div id="telConfirm" class="coner"></div>
+                    </section>
+                    <section class="agree-wrap">
+                        <i class="fa-solid fa-check">
+                            <input type="checkbox" name="agree"> 
+                        </i>
+                        <div class="">이용약관 동의(필수)</div>
+                    </section>
                     <button class="signup-btn">회원가입</button>
                 </form>
             </div>
-            <!-- 아이디 비번 비번확인 이름 생년월일 주소 전화번호 인증 농장인증사진  -->
         </main>
         </div>
 </body>
