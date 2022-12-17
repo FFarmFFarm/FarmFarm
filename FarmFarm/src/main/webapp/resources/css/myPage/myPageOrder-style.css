@@ -1,43 +1,10 @@
-body {
-  background-color: rgb(237, 241, 244);
-  background-color: #eef4ed;
-}
-
-.ordered {
-  border-top: 3px solid var(--point-color);
+a.ordered > span,
+a.ordered > i {
   font-weight: bold;
+  color: var(--point-color);
 }
 
 /* 마이페이지 주문 목록 */
-.my-order-container {
-  width: 1000px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.order-list-header {
-  width: 100%;
-  height: 50px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 0 70px;
-  background-color: #eef4ed;
-}
-
-.order-list-header > select {
-  font-size: var(--medium-font-size);
-  outline: none;
-}
-
-.order-list-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  align-content: space-between;
-}
 
 .list-category {
   height: 60px;
@@ -53,16 +20,28 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ddd;
 }
 
 .order-list {
-  width: 1000px;
+  width: 75%;
   display: flex;
   flex-direction: column;
   align-items: center;
   align-content: space-between;
   justify-content: center;
+}
+
+.order-list-title {
+  font-size: var(--large-font-size);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  width: 100%;
+  height: 100px;
+  border-bottom: 1px solid var(--main-font-color);
+  font-weight: bold;
 }
 
 .order {
@@ -72,12 +51,6 @@ body {
   height: 200px;
   padding: 15px 0;
   font-size: var(--medium-font-size);
-}
-
-.order-no {
-  display: inline-block;
-  width: 15%;
-  text-align: center;
 }
 
 .order-thumbnail {
@@ -91,19 +64,11 @@ body {
   height: 100%;
 }
 
-.order-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  width: 55%;
-}
-
 .order-total {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 75%;
+  width: 60%;
   height: 100%;
   padding: 10px 0;
 }
@@ -137,7 +102,6 @@ body {
 
 .order-reg-date {
   display: inline-block;
-  width: 15%;
   text-align: center;
   font-size: var(--small-font-size);
   color: var(--sub-font-color);
@@ -160,7 +124,7 @@ body {
 }
 
 .button-area > * {
-  width: 110px;
+  width: 100px;
   height: 30px;
   color: var(--main-font-color);
   background-color: var(--background-color);
