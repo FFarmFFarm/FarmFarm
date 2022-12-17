@@ -6,8 +6,6 @@ a {
 
 body {
     color: var(--main-font-color);
-    display: flex;
-    justify-content: center;
 }
 
 main {
@@ -21,14 +19,22 @@ a:hover {
     opacity: 0.8;
 }
 
+/* 페이지 제목 */
+.page-title{
+    text-align: center;
+    font-size: var(--headline-font-size);
+    height: 115px;
+    padding: 40px 0 30px;
+}
+
 /* 회원 정보 */
 .profile-container {
-    height: 360px;
+    height: 350px;
 }
 
 .profile-background {
     width: 1000px;
-    height: 55%;
+    height: 60%;
     overflow: hidden;
 
     display: flex;
@@ -44,10 +50,12 @@ a:hover {
     position: relative;
 
     display: flex;
-    align-items: center;
-    justify-content: flex-end;
+    flex-direction: column;
     width: 1000px;
-    height: 45%;
+    height: 40%;
+
+    padding-left: 360px;
+    padding-top: 23px;
 
     cursor: default;
 }
@@ -67,7 +75,7 @@ a:hover {
 
 .profile-img-container {
     width: 300px;
-    height: 250px;
+    height: 230px;
 
     display: flex;
     flex-direction: column;
@@ -83,33 +91,22 @@ a:hover {
     height: 200px;
 }
 
-.member-nickname {
-    margin-top: 10px;
-    font-size: var(--large-font-size);
-    font-weight: bold;
-}
-
 
 /* 판매자 정보 */
 .member-info-container {
     width: 500px;
-    height: 130px;
-
-    margin-right: 70px;
-
     display: flex;
-    align-items: center;
-    justify-content: space-around;
-    font-size: var(--medium-font-size);
+    justify-content: space-between;
 }
 
 .member-nickname{
+    margin: 10px 0;
     font-size: var(--title-font-size);
 }
 
 .info-title{
     margin-right: 20px;
-    font-weight: 600;
+    font-weight: bold;
 }
 
 
@@ -117,7 +114,7 @@ a:hover {
 /* 마이페이지 메뉴바 */
 .mypage-nav {
     width: 1000px;
-    height: 70px;
+    height: 65px;
 
     background: #ffffff;
     border-top: 1px solid #ccc;
@@ -142,13 +139,13 @@ a:hover {
     margin-left: 5px;
 }
 
-.ordered {
+.posted {
     border-top: 3px solid var(--point-color);
     font-weight: bold;
 }
 
 /* 마이페이지 주문 목록 */
-.my-order-container {
+.my-post-container {
 width: 1000px;
 
 display: flex;
@@ -156,22 +153,12 @@ flex-direction: column;
 align-items: center;
 }
 
-.order-list-header {
-width: 100%;
-height: 50px;
-display: flex;
-justify-content: flex-end;
-align-items: center;
-padding: 0 70px;
-background-color: var(--line-color);
-}
-
-.order-list-header > select {
+.post-list-header > select {
 font-size: var(--medium-font-size);
 outline: none;
 }
 
-.order-list-container {
+.post-list-container {
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -187,7 +174,7 @@ font-weight: bold;
 }
 
 .list-category,
-.order {
+.post {
 width: 100%;
 display: flex;
 align-items: center;
@@ -195,7 +182,7 @@ justify-content: center;
 border-bottom: 1px solid #ccc;
 }
 
-.order-list {
+.post-list {
 width: 1000px;
 display: flex;
 flex-direction: column;
@@ -204,41 +191,27 @@ align-content: space-between;
 justify-content: center;
 }
 
-.order {
+.post {
 display: flex;
 justify-content: center;
 align-items: center;
-height: 200px;
+height: 150px;
 padding: 15px 0;
 font-size: var(--medium-font-size);
 }
 
-.order-no {
-display: inline-block;
-width: 15%;
-text-align: center;
-}
-
-.order-thumbnail {
-width: 120px;
-height: 120px;
+.post-thumbnail {
+width: 100px;
+height: 100px;
 overflow: hidden;
 }
 
-.order-thumbnail-img {
+.post-thumbnail-img {
 width: 100%;
 height: 100%;
 }
 
-.order-content {
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: space-around;
-width: 55%;
-}
-
-.order-total {
+.post-total {
 display: flex;
 flex-direction: column;
 justify-content: space-around;
@@ -247,47 +220,59 @@ height: 100%;
 padding: 10px 0;
 }
 
-.order-total > * {
+.post-total > * {
 margin-left: 30px;
 }
 
-.order-total > span:last-child {
-border-top: 1px solid var(--line-color);
-font-size: var(--small-font-size);
-margin-right: 20px;
-padding-top: 5px;
+.post-head {
+    position: relative;
 }
 
-.order-title {
+.post-status{
+    background-color: var(--point-color);
+    color: #ffffff;
+    border-radius: 3px;
+    font-size: var(--small-font-size);
+    padding: 1px 5px 3px;
+    margin-left: 10px;
+
+    position: absolute;
+    top: 2px;
+}
+
+.sold-out {
+    background-color: #ccc;
+}
+
+.post-title {
 font-size: var(--medium-font-size);
 font-weight: 600;
 }
 
-.order-detail {
-display: flex;
-align-items: center;
-}
-
-.order-price {
+.post-price {
 margin-right: 10px;
 font-size: var(--main-font-size);
 font-weight: 600;
 }
 
-.order-reg-date {
-display: inline-block;
-width: 15%;
-text-align: center;
+.post-detail {
+    display: flex;
+}
+
+.post-detail span{
+    padding-left: 10px;
+}
+
+.post-detail>div{
+    width: 16%;
+}
+
+.post-detail > * {
 font-size: var(--small-font-size);
 color: var(--sub-font-color);
 }
 
-.order-status > * {
-font-size: var(--small-font-size);
-color: var(--sub-font-color);
-}
-
-.order-shipping {
+.post-shipping {
 color: var(--point-color);
 }
 
