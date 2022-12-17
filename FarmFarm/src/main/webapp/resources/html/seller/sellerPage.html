@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>판매자 페이지</title>
+    <link rel="stylesheet" href="../../css/seller/sellerPage-style.css">
+    <link rel="stylesheet" href="../../css/header.css">
+    <script src="https://kit.fontawesome.com/345198b845.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="header-container">
+        <header>
+            <div class="home-logo">
+                <a href="/">
+                    <img src="../../images/mainLogo.png">
+                </a>
+            </div>
+
+            <div class="header-widget-area">
+                <!-- 로그인O 상태 -->
+                <ul class="widget-list">
+                    <li class="widget-item">
+                        <div class="dropdown">
+                            <button type="button" class="dropbtn1">
+                                    <i class="fa-solid fa-bell header-icon"></i>
+                            </button>
+
+                            <div id="myDropdown1" class="dropdown-message">
+                                <div class="notice"><p>알림</p></div>
+                                <ul>
+                                    <li>
+                                        <div class="message-box">
+                                            <a href="">배송이 시작되었습니다.</a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="message-box">
+                                            <a href="">신팜팜님이 신고했습니다..</a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="message-box">
+                                            <a href="">정팜팜님이 신고를 거부하셨습니다.</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>   
+                        </div>                 
+                    </li>
+                    <li class="widget-item">
+                        <a href="#">
+                            <i class="fa-solid fa-comment-dots"></i>
+                        </a>
+                        <!-- <div class="chat-count">21</div> -->
+                    </li>
+                    <li class="widget-item">
+                        <div class="dropdown">
+                            <button type="button" class="dropbtn">
+                                <span>
+                                    <i class="fa-solid fa-user header-icon" id="profilePhoto"></i>
+                                </span>
+                                <!-- <span>
+                                    <img src="../images/member/farmer.png" class="login-profile-img">
+                                </span> -->
+                                <i class="fa-solid fa-caret-down caret-icon" id="triangleIcon"></i>
+                            </button>
+
+                            <div id="myDropdown" class="dropdown-content">
+                                <a href="#">내프로필</a>
+                                <a href="#">로그아웃</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <!-- 로그인X 상태 -->
+                <!-- <ul class="login-list">
+                    <li class="login-item"><a href="#">로그인</a></li>
+                    <li class="login-item"><a href="#">회원가입</a></li>
+                </ul> -->
+            </div>
+        </header>
+
+        <nav>
+            <div class="nav-head">
+                <div class="nav-body">
+                    <div class="nav-list"><a href="#">홈</a></div>
+                    <div class="nav-list"><a href="#">팜팜마켓</a></div>
+                    <div class="nav-list"><a href="#">사고팔고</a></div>
+                    <div class="nav-list"><a href="#">커뮤니티</a></div>
+                    <div class="nav-list"><a href="#">문의게시판</a></div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <main>
+        <section class="profile-container">
+            <div class="profile-background">
+                <img
+                src="../../images/myPage/background/bgImg2.jpg"
+                alt=""
+                class="member-bg-img"
+                />
+            </div>
+
+            <!-- 판매자 정보 -->
+            <div class="profile-info">
+                <div class="profile-img-container">
+                    <img
+                    src="../../images/myPage/profile/profileImg.png"
+                    alt=""
+                    class="member-profile-img"
+                    />
+                </div>
+                
+                <button
+                type="button"
+                class="profile-setting-btn fa-solid fa-gear"
+                ></button>
+                
+                <span class="member-nickname">현재네 농장</span>
+                <div class="member-info-container">
+                    <div class="member-info">
+                        <span class="info-title member-name">판매자</span>
+                        <span class="info-content">김길자</span>
+                    </div>
+                    
+                    <div class="member-info">
+                        <span class="info-title count-title">판매글 수</span>
+                        <span class="info-content">12</span>
+                    </div>
+
+                    <div class="member-info">
+                        <span class="info-title member-signup-date">가입일</span>
+                        <span class="info-content">2022.10.13</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="mypage-nav">
+            <a href="" class="board-wrote">
+                <i class="fa-regular fa-clipboard"></i> 
+                <span> 판매글</span>
+            </a>
+        </section>
+
+        <section class="my-post-container">
+            <div class="post-list-container">
+                <div class="post-list">
+                    <div class="post">
+                        <div class="post-thumbnail">
+                            <img
+                            src="../../images/board/thumbnail.png"
+                            alt=""
+                            class="post-thumbnail-img"
+                            />
+                        </div>
+                        <div class="post-total">
+                            <div class="post-head">
+                                <a href="" class="post-title">게시글 제목 샘플</a>
+                                <span class="post-status">판매중</span>
+                                <span class="post-status sold-out">판매완료</span>
+                            </div>
+                            <div class="post-price">
+                                가격 <span>15,000</span>
+                            </div>
+                            <div class="post-detail">
+                                <div class="post-reg-date">
+                                    작성일<span>2022.12.15</span>
+                                </div>
+                                <div class="post-view-count">
+                                    조회수<span>20</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="button-area">
+                            <button type="button">게시물 수정</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pagination-area">
+                    <ul class="pagination">
+                        <!-- 첫 페이지로 이동 -->
+                        <li><a href="/board/${boardCode}">&lt;&lt;</a></li>
+        
+                        <!-- 이전 목록 마지막 번호로 이동 -->
+                        <li>
+                            <a href="/board/${boardCode}?cp=${pagination.prevPage}">&lt;</a>
+                        </li>
+                        <!-- <c:forEach
+                            var="i"
+                            begin="${pagination.startPage}"
+                            end="${pagination.endPage}"
+                            step="1"
+                        >
+                            <c:choose>
+                                <c:when test="${i == pagination.currentPage}">
+                                현재 보고있는 페이지
+                                <li><a class="current">${i}</a></li>
+                            </c:when>
+
+                            <c:otherwise>
+                                <li><a href="/board/${boardCode}?cp=${i}">${i}</a></li>
+                            </c:otherwise>
+                            </c:choose>
+                        </c:forEach> -->
+
+                        <!-- 다음 목록 시작 번호로 이동 -->
+                        <li>
+                            <a href="/board/${boardCode}?cp=${pagination.nextPage}">&gt;</a>
+                        </li>
+
+                        <!-- 끝 페이지로 이동 -->
+                        <li>
+                            <a href="/board/${boardCode}?cp=${pagination.maxPage}"
+                            >&gt;&gt;</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

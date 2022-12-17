@@ -1,0 +1,299 @@
+@import "../root-style.css";
+
+a {
+    color: var(--main-font-color);
+}
+
+body {
+    color: var(--main-font-color);
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+button:hover,
+a:hover {
+    opacity: 0.8;
+}
+
+/* 페이지 제목 */
+.page-title{
+    text-align: center;
+    font-size: var(--headline-font-size);
+    height: 115px;
+    padding: 40px 0 30px;
+}
+
+/* 회원 정보 */
+.profile-container {
+    height: 350px;
+}
+
+.profile-background {
+    width: 1000px;
+    height: 60%;
+    overflow: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.member-bg-img {
+    width: 100%;
+}
+
+.profile-info {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    width: 1000px;
+    height: 40%;
+
+    padding-left: 360px;
+    padding-top: 23px;
+
+    cursor: default;
+}
+
+.profile-setting-btn {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    border: none;
+    font-size: var(--large-font-size);
+    cursor: pointer;
+}
+
+.profile-setting-btn:active {
+    transform: scale(0.95);
+}
+
+.profile-img-container {
+    width: 300px;
+    height: 230px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    position: absolute;
+    left: 60px;
+    top: -110px;
+}
+
+.member-profile-img {
+    width: 200px;
+    height: 200px;
+}
+
+
+/* 판매자 정보 */
+.member-info-container {
+    width: 500px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.member-nickname{
+    margin: 10px 0;
+    font-size: var(--title-font-size);
+}
+
+.info-title{
+    margin-right: 20px;
+    font-weight: bold;
+}
+
+
+
+/* 마이페이지 메뉴바 */
+.mypage-nav {
+    width: 1000px;
+    height: 65px;
+
+    background: #ffffff;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-radius: 2px;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.mypage-nav > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 15%;
+    font-size: var(--large-font-size);
+}
+
+.mypage-nav > a > span {
+    margin-left: 5px;
+}
+
+.posted {
+    border-top: 3px solid var(--point-color);
+    font-weight: bold;
+}
+
+/* 마이페이지 주문 목록 */
+.my-post-container {
+width: 1000px;
+
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.post-list-header > select {
+font-size: var(--medium-font-size);
+outline: none;
+}
+
+.post-list-container {
+display: flex;
+flex-direction: column;
+align-items: center;
+align-content: space-between;
+}
+
+.list-category {
+height: 60px;
+border-top: 1px solid #ccc;
+
+font-size: var(--large-font-size);
+font-weight: bold;
+}
+
+.list-category,
+.post {
+width: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+border-bottom: 1px solid #ccc;
+}
+
+.post-list {
+width: 1000px;
+display: flex;
+flex-direction: column;
+align-items: center;
+align-content: space-between;
+justify-content: center;
+}
+
+.post {
+display: flex;
+justify-content: center;
+align-items: center;
+height: 150px;
+padding: 15px 0;
+font-size: var(--medium-font-size);
+}
+
+.post-thumbnail {
+width: 100px;
+height: 100px;
+overflow: hidden;
+}
+
+.post-thumbnail-img {
+width: 100%;
+height: 100%;
+}
+
+.post-total {
+display: flex;
+flex-direction: column;
+justify-content: space-around;
+width: 75%;
+height: 100%;
+padding: 10px 0;
+}
+
+.post-total > * {
+margin-left: 30px;
+}
+
+.post-head {
+    position: relative;
+}
+
+.post-status{
+    background-color: var(--point-color);
+    color: #ffffff;
+    border-radius: 3px;
+    font-size: var(--small-font-size);
+    padding: 1px 5px 3px;
+    margin-left: 10px;
+
+    position: absolute;
+    top: 2px;
+}
+
+.sold-out {
+    background-color: #ccc;
+}
+
+.post-title {
+font-size: var(--medium-font-size);
+font-weight: 600;
+}
+
+.post-price {
+margin-right: 10px;
+font-size: var(--main-font-size);
+font-weight: 600;
+}
+
+.post-detail {
+    display: flex;
+}
+
+.post-detail span{
+    padding-left: 10px;
+}
+
+.post-detail>div{
+    width: 16%;
+}
+
+.post-detail > * {
+font-size: var(--small-font-size);
+color: var(--sub-font-color);
+}
+
+.post-shipping {
+color: var(--point-color);
+}
+
+.button-area {
+width: 10%;
+
+display: flex;
+flex-direction: column;
+}
+
+.button-area > * {
+width: 110px;
+height: 30px;
+color: var(--main-font-color);
+background-color: var(--background-color);
+border: 1px solid var(--line-color);
+margin: 2px 0;
+cursor: pointer;
+}
+
+.pagination {
+display: flex;
+margin-top: 10px;
+}
