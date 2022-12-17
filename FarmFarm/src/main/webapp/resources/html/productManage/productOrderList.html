@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주문내역관리</title>
+    <link rel="stylesheet" href="../../css/productManage/productOrderList-style.css">
+</head>
+<body>
+    <section class="order-list-section">
+        <div class="page-title">
+            <p>주문내역관리</p>
+        </div>
+        
+        <div class="set-period">
+            <p class="part-title">기간설정</p>
+            <div class="input-period">
+                <input type="date" name="orderDate" id="startDate"
+                placeholder="시작일">
+                ~
+                <input type="date" name="orderDate" id="endDate"
+                placeholder="종료일">
+                <button id="search-period">기간검색</button>
+                <div class="button-area">
+                    <button id="this-month">당월조회</button>
+                    <button id="last-month">전월조회</button>
+                    <button id="period-all">전체조회</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="order-list">
+            <p class="part-title">주문목록</p>
+            <div class="count-list">총
+                <span>2</span>건
+            </div>
+
+            <table class="order-list-table">
+                <tr class="table-row table-head">
+                    <th><input type="checkbox" name="selectList"></th>
+                    <th class="order-date">주문일</th>
+                    <th class="product-name">주문상품</th>
+                    <th class="order-member">주문회원</th>
+                    <th class="order-amount">수량</th>
+                    <th class="product-price">판매가</th>
+                    <th class="total-price">결제금액</th>
+                    <th class="order-status">주문상태</th>
+                </tr>
+                <tr class="table-row">
+                    <td><input type="checkbox" name="selectList"></td>
+                    <td class="order-date">2022-12-13 </td>
+                    <td class="product-name">모종모종 모종임</td>
+                    <td class="order-member">memberId</td>
+                    <td class="order-amount">2</td>
+                    <td class="product-price">8,000</td>
+                    <td class="total-price">19,000</td>
+                    <td class="order-status">결제완료</td>
+                </tr>
+                <tr class="table-row">
+                    <td><input type="checkbox" name="selectList"></td>
+                    <td class="order-date">2022-12-13 </td>
+                    <td class="product-name">일이삼사오육칠팔구십일이삼사오육칠팔구십</td>
+                    <td class="order-member">memberIdmemberId</td>
+                    <td class="order-amount">100</td>
+                    <td class="product-price">10,000,000</td>
+                    <td class="total-price">1,000,000,000</td>
+                    <td class="order-status">결제완료</td>
+                </tr>
+
+
+            </table>
+        </div>
+        
+
+    </section>
+    
+</body>
+</html>

@@ -1,0 +1,109 @@
+@import "../root-style.css";
+
+.order-list-section{
+    width: 900px;
+    min-height: 800px;
+    border: 1px solid #ddd;
+}
+
+.page-title{
+    text-align: center;
+    font-size: var(--headline-font-size);
+    height: 115px;
+    padding-top: 30px;
+}
+
+/* 기간 설정 */
+.set-period{
+    display: flex;
+    height: 100px;
+}
+
+.part-title{
+    font-size: var(--medium-font-size);
+    font-weight: 600;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.input-period{
+    display: inline-block;
+}
+
+[name=orderDate]{
+    text-align: center;
+    height: 25px;
+    width: 160px;
+    border: 1px solid #d8d8d8;
+    border-radius: 3px;
+}
+
+/* 기간 검색 버튼 */
+.input-period button{
+    border: none;
+    border-radius: 3px;
+    height: 25px;
+}
+
+#search-period{
+    width: 100px;
+    background-color: var(--background-color);
+    border: 1px solid #d8d8d8;
+}
+
+.button-area{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.button-area>button{
+    background-color: #eee;
+    width: 33%;
+}
+
+/* 리스트 조회결과 */
+.order-list{
+    margin: auto;
+}
+
+.count-list{
+    display: inline-block;
+    font-size: var(--main-font-size);
+    color: var(--sub-font-color);
+}
+
+.order-list-table{
+    width: 100%;
+    margin: 20px auto;
+
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+
+    font-size: var(--small-font-size);
+    text-align: center;
+}
+
+td, th, tr{
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+}
+
+.table-row{
+    height: 50px;
+}
+
+.table-head{
+    background-color: #eee;
+    height: 40px;
+    font-size: var(--main-font-size);
+}
+
+.table-row>*:nth-child(1){width: 3%;}
+.table-row>*:nth-child(2){width: 11%;}
+.table-row>*:nth-child(3){width: 33%;}
+.table-row>*:nth-child(4){width: 15%;}
+.table-row>*:nth-child(5){width: 6%;}
+.table-row>*:nth-child(6){width: 10%;}
+.table-row>*:nth-child(7){width: 12%;}
+.table-row>*:nth-child(8){width: 10%;}
