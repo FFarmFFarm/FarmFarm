@@ -28,10 +28,8 @@ main{
 }
 
 .form-wrap{
-    display: flex;
-    width: 800px;
+    width: 400px;
     margin: 40px auto;
-    justify-content: center;
 }
 
 .form-wrap input{
@@ -40,18 +38,34 @@ main{
     border: none;
     border-bottom: 1px solid #ccc;
     margin-top: 10px;
-}
-
-.form-wrap input::placeholder{
+    padding-left: 15px;
     font-size: var(--medium-font-size);
-    padding-left: 12px;
+    color: #888;
 }
 
 .coner{
     font-size: var(--main-font-size);
-    color: red;
+    color: var(--point-color);
     margin: 4px 0 0 13px;
-    
 }
 
+.title{
+    font-size: var(--medium-font-size);
+    margin-top: 15px;
+    margin-left: 12px;
+}
+
+.signup-btn{
+    border: 0;
+    width: 100%;
+    height: 40px;
+    display: block;
+    margin: 20px 0;
+    color: var(--background-color);
+    background-color: var(--point-color);
+    cursor: pointer;
+    font-size: var(--medium-font-size);
+    border-radius: 5px;
+    font-weight: 600;
+}
 
