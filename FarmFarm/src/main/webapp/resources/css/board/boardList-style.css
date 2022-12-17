@@ -9,7 +9,7 @@
 main{
     width: 1000px;
     margin: auto;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 /* 커뮤니티 상단 제목 */
@@ -22,13 +22,14 @@ main{
     font-size: var(--headline-font-size);
     height: 100%;
     align-items: center;
-    border: 1px solid var(--line-color);
+    /* border: 1px solid var(--line-color); */
 }
 
 /* 커뮤니티 네브 */
 .board-nav{
     font-size: 20px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-top: 1px solid var(--line-color);
+    border-bottom: 1px solid var(--line-color);
     height: 70px;
 }
 .board-nav-area{
@@ -38,11 +39,15 @@ main{
     margin: 0 160px;
     align-items: center;
 }
+.board-nav-area >span:hover{
+    color: var(--point-color);
+    cursor: pointer;
+}
 
 /* 커뮤니티 검색 */
 .board-search{
     height: 70px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid var(--line-color);
     display: flex;
     padding: 0 60px;
     align-items: center;
@@ -51,7 +56,7 @@ main{
     width: 600px;
     height: 40px;
     margin: auto;
-    border: 1px solid #222;
+    border: 1px solid var(--line-color);
     border-radius: 5px;
     overflow: hidden;
 }
@@ -72,6 +77,11 @@ main{
     background-color: white;
     cursor: pointer;
     font-size: var(--medium-font-size);
+}
+input[type="text"]:focus{
+}
+.board-search-area:focus-within{
+    border: 1px solid var(--point-color);
 }
 
 /* 커뮤니티 최신순, 조회수, 좋아요 */
@@ -122,13 +132,13 @@ main{
 }
 
 /* 게시판 목록 */
-li{
+.board-list li{
     height: 60px;
     display: flex;
     align-items: center;
     border-bottom: 1px solid #2B8C44;
 }
-li > .board-title {
+.board-list li > .board-title {
     padding-left: 10px;
 }
 

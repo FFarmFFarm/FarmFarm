@@ -3,7 +3,7 @@
 main{
     width: 1000px;
     margin: auto;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 /* 커뮤니티 상단 제목 */
@@ -16,7 +16,7 @@ main{
     font-size: var(--headline-font-size);
     height: 100%;
     align-items: center;
-    border: 1px solid var(--line-color);
+    /* border: 1px solid var(--line-color); */
 }
 
 /* 카테고리 선택 부분 */
@@ -70,12 +70,12 @@ input[type="radio"]:focus + label{
 
 /* 글쓰기 제목 */
 .board-write{
-    padding: 0 120px;
-    margin: 30px 0;
+    padding: 30px 120px;
+    border: 1px solid var(--line-color);
 }
 .write-title{
     padding: 0 10px 10px;
-    border-bottom: 1px solid var(--point-color);
+    border-bottom: 1px solid var(--line-color);
     font-weight: bold;
 }
 .input-write-title{
@@ -84,9 +84,11 @@ input[type="radio"]:focus + label{
     border: none;
     font-size: var(--medium-font-size);
 }
-.aaa{
+.input-write-title:focus{}
+.write-title:focus-within{
     border-bottom: 1px solid var(--point-color);
 }
+
 /* 글쓰기 내용 */
 .write-content{
     margin: 20px 0;
@@ -100,6 +102,7 @@ input[type="radio"]:focus + label{
 }
 .write-content:focus{
     outline: none;
+    border: 1px solid var(--point-color);
 }
 
 /* 이미지 첨부하기 */

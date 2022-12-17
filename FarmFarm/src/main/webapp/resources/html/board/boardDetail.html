@@ -4,14 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>와글와글 커뮤니티</title>
-    <script src="https://kit.fontawesome.com/345198b845.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../../css/board/boardList-style.css">
+    <title>와글와글 게시글 보기</title>
+    <link rel="stylesheet" href="../../css/board/boardDetail.css">
     <link rel="stylesheet" href="../../css/header.css">
+    <script src="https://kit.fontawesome.com/345198b845.js" crossorigin="anonymous"></script>
 </head>
 <body>
     
-
     <div class="header-container">
         <header>
             <div class="home-logo">
@@ -158,7 +157,6 @@
         // };
     </script>
 
-
     <main>
         <section class="board-top">
             <div class="board-top-title">와글와글 물물교환</div>
@@ -170,94 +168,70 @@
                 <span>질문</span>
             </div>
         </section>
-        <section class="board-search">
-            <div class="board-search-area">
-                <input type="text" placeholder="검색어를 입력해주세요">
-                <button class="board-search-btn">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-            </div>
-            <select class="board-select" id="boardSelect">
-                <option value="new">최신순</option>
-                <option value="view">조회수</option>
-                <option value="like">좋아요</option>
-            </select>
-        </section>
-        <section class="board-list">
-            <div class="board-list-top">
-                <div class="board-List-title">
-                    <span class="board-no">No.</span>
-                    <span class="board-img"></span>
-                    <span class="board-title">게시글 제목</span>
-                    <span class="board-date">작성일</span>
-                    <span class="board-view">조회수</span>
+        <section class="board-title-content">
+            <div class="board-title-area">
+                <div class="writer-img">사진들어갈거</div>
+                <div class="writer-ect">
+                    <div class="writer-name">못생겼지만 맛있습니다</div>
+                    <div class="writer-date-view">2022.12.15.  5분전  조회 2</div>
                 </div>
-                <ul class="board-list-area">
-                    <li>
-                        <span class="board-no">10</span>
-                        <span class="board-img">이미지 나온다</span>
-                        <span class="board-title">우리 밭 싱싱한 당근 깻잎으로 교환 원해요</span>
-                        <span class="board-date">5분전</span>
-                        <span class="board-view">4</span>
-                    </li>
-                    <li>
-                        <span class="board-no">10</span>
-                        <span class="board-img">이미지 나온다</span>
-                        <span class="board-title">우리 밭 싱싱한 당근 깻잎으로 교환 원해요</span>
-                        <span class="board-date">5분전</span>
-                        <span class="board-view">4</span>
-                    </li>
-                    <li>
-                        <span class="board-no">10</span>
-                        <span class="board-img">이미지 나온다</span>
-                        <span class="board-title">우리 밭 싱싱한 당근 깻잎으로 교환 원해요</span>
-                        <span class="board-date">5분전</span>
-                        <span class="board-view">4</span>
-                    </li>
-                    <li>
-                        <span class="board-no">10</span>
-                        <span class="board-img">이미지 나온다</span>
-                        <span class="board-title">우리 밭 싱싱한 당근 깻잎으로 교환 원해요</span>
-                        <span class="board-date">5분전</span>
-                        <span class="board-view">4</span>
-                    </li>
-                    <li>
-                        <span class="board-no">10</span>
-                        <span class="board-img">이미지 나온다</span>
-                        <span class="board-title">우리 밭 싱싱한 당근 깻잎으로 교환 원해요</span>
-                        <span class="board-date">5분전</span>
-                        <span class="board-view">4</span>
-                    </li>
-                    <li>
-                        <span class="board-no">10</span>
-                        <span class="board-img">이미지 나온다</span>
-                        <span class="board-title">우리 밭 싱싱한 당근 깻잎으로 교환 원해요</span>
-                        <span class="board-date">5분전</span>
-                        <span class="board-view">4</span>
-                    </li>
-                    <li>
-                        <span class="board-no">10</span>
-                        <span class="board-img">이미지 나온다</span>
-                        <span class="board-title">우리 밭 싱싱한 당근 깻잎으로 교환 원해요</span>
-                        <span class="board-date">5분전</span>
-                        <span class="board-view">4</span>
-                    </li>
-                    <li>
-                        <span class="board-no">10</span>
-                        <span class="board-img">이미지 나온다</span>
-                        <span class="board-title">우리 밭 싱싱한 당근 깻잎으로 교환 원해요</span>
-                        <span class="board-date">5분전</span>
-                        <span class="board-view">4</span>
-                    </li>
-                    <li>
-                        <span class="board-no">10</span>
-                        <span class="board-img">이미지 나온다</span>
-                        <span class="board-title">우리 밭 싱싱한 당근 깻잎으로 교환 원해요</span>
-                        <span class="board-date">5분전</span>
-                        <span class="board-view">4</span>
-                    </li>
-                </ul>
-                <div class="board-list-number"> << < 1  2  3  4  5  6  7  8  9  10 > >> </div>
+                <div class="board-title">
+                    못생겼지만 맛있는 호박고구마 교환원해요
+                </div>
+            </div>
+            <div class="board-content-area">
+                <div class="board-content">
+                    <pre>
+채소교환 하고 싶어요
+저희 집 못난이 호박이랑 예쁜 자색 옷을 입고 있는 자색고구마랑 바꿔요
+너무 못생겨서 먹기 싫어요
+                    </pre>
+                </div>
+                <div class="board-img-area">
+
+                    <div class="board-img">
+                        <img src="" class="board-preview">
+                    </div>
+                    
+                    <div class="board-img">
+                        <img src="" class="board-preview">
+                    </div>
+                    
+                    <div class="board-img">
+                        <img src="" class="board-preview">
+                    </div>
+                    
+                    <div class="board-img">
+                        <img src="" class="board-preview">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="board-like-report">
+            <div class="board-like"><i class="fa-solid fa-heart"></i> &nbsp; 좋아요</div>
+            <div class="board-report">신고</div>
+        </section>
+        <!-- <section class="board-like-report">
+            <span>수정하기</span>
+            <span>삭제하기</span>
+        </section> -->
+        <section class="comment-area">
+            <div class="comment-all">
+                <div class="comment-writer">
+                    <div class="writer-profile">사진</div>
+                    <div class="writer-name-time">
+                        <div class="writer-name">옆집판매자</div>
+                        <div class="writer-time">5분전</div>
+                    </div>
+                    <div class="comment-like-report">
+                        <span class="comment-like"><i class="fa-solid fa-heart"></i> &nbsp;좋아요</span>
+                        <span class="comment-report">신고</span>
+                    </div>
+                </div>
+                <div class="comment-content">진짜 호박 맛없게 보이네요
+                    저런 호박은 도대체 어떻게 하면 키울 수 있는건가요
+                    정말 못생겼다 그냥 버리세요
+                </div>
             </div>
         </section>
     </main>
