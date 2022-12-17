@@ -32,8 +32,17 @@ main{
 }
 
 .signup-title{
-    font-size: var(--title-font-size);
+    font-size: 27px;
     color: var(--main-font-color);
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    letter-spacing :5px;
+}
+
+.signup-subtitle{
+    font-size: 20px;
+    color: #999;
     font-weight: 600;
     display: flex;
     justify-content: center;
@@ -95,7 +104,41 @@ main{
 .tel-btn2{
     top: 17px;
     left: 315px;
+}
 
+.farm-img{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.farm-img label{
+    width: 180px;
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+}
+
+.farm-img input[type="file"]{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+}
+
+.farm-img-upload{
+    border: 1px solid #ccc;
+    width: 180px;
+    height: 180px;
+}
+
+.farm-img-upload:first-child{
+    margin-right: 10px;
 }
 
 .agree-wrap{

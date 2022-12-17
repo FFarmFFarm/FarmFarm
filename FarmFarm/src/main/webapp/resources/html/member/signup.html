@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FarmFarm | 회원가입 | 구매자 </title>
+    <title>FarmFarm | 회원가입 </title>
 
     <link rel="stylesheet" href="../../css/member/signup-style.css">
 
@@ -17,6 +17,8 @@
         <main>
             <div class="form-wrap">
                 <div class="signup-title">회원가입</div>
+                <!-- <div class="signup-subtitle">-구매자-</div> -->
+                <div class="signup-subtitle">-판매자-</div>
                 <form action="#" method="post" id="signUpFrm">
                     <section class="signup">
                         <input type="text" name="memberId" id="memberId" placeholder="아이디"
@@ -61,7 +63,27 @@
                         <button class="find-btn tel-btn2">인증하기</button>
                         <div id="telConfirm" class="coner"></div>
                     </section>
+                    <section class="signup">
+                        <div class="title">농장 인증</div>
+                        <div class="farm-img">
+                            <div class="farm-img-upload">
+                                <label for="farmerImg">사진올리기</label>
+                                <input type="file" name="farmerImg" id="farmerImg" accept=".jpg,.jpeg,.png">
+                            </div>
+                            <div class="farm-img-upload">
+                                <label for="farmerImg">사진올리기</label>
+                                <input type="file" name="farmerImg" id="farmerImg" accept=".jpg,.jpeg,.png">
+                            </div>
+                        </div>
+                        <div id="telConfirm" class="coner"></div>
+                    </section>
                     <section class="agree-wrap agree-wrapper">
+                        <i class="fa-solid fa-check check-icon">
+                            <input type="checkbox" name="agree"> 
+                        </i>
+                        <div class="agree-text">농장인증 절차로 인해 가입승인이 1-2일 소요됩니다.(필수)</div>
+                    </section>
+                    <section class="agree-wrap">
                         <i class="fa-solid fa-check check-icon">
                             <input type="checkbox" name="agree"> 
                         </i>
