@@ -1,0 +1,185 @@
+@import "../root-style.css";
+
+body{
+    margin: 0 auto;
+    width: 1000px;
+    background-color: #eeeeee;
+}
+
+main{
+    display: flex;
+    width: 1000px;
+    min-height: 500px;
+    background-color: var(--background-color);
+    margin: 0 auto;
+    border-radius: 20px;
+    box-shadow: 3px 3px 15px rgba(120, 120, 120, 0.6);
+}
+
+.signup-page{
+    margin-bottom: 100px;
+}
+
+.signup-page-img{
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+    margin-bottom: 65px;
+}
+
+.signup-page img{
+    width: 180px;
+}
+
+.signup-title{
+    font-size: 27px;
+    color: var(--main-font-color);
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    letter-spacing :5px;
+}
+
+.signup-subtitle{
+    font-size: 20px;
+    color: #999;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+    letter-spacing :5px;
+}
+
+.form-wrap{
+    width: 400px;
+    margin: 55px auto;
+}
+
+.form-wrap input{
+    width: 400px;
+    height: 40px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    margin-top: 10px;
+    padding-left: 15px;
+    font-size: var(--medium-font-size);
+    color: #888;
+}
+
+.coner{
+    font-size: var(--main-font-size);
+    color: var(--point-color);
+    margin: 4px 0 0 13px;
+}
+
+.title{
+    font-size: var(--medium-font-size);
+    margin-top: 30px;
+    margin-left: 12px;
+}
+
+.tel{
+    display: inline-block;
+    position: relative;
+}
+
+.find-btn{
+    position: absolute;
+    border: none;
+    background-color: var(--point-color);
+    color: var(--background-color);
+    width: 80px;
+    height: 27px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+}
+
+.address-btn, .tel-btn1{
+    top: 60px;
+    left: 315px;
+}
+
+.tel-btn2{
+    top: 17px;
+    left: 315px;
+}
+
+.farm-img{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.farm-img label{
+    width: 180px;
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+}
+
+.farm-img input[type="file"]{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+}
+
+.farm-img-upload{
+    border: 1px solid #ccc;
+    width: 180px;
+    height: 180px;
+}
+
+.farm-img-upload:first-child{
+    margin-right: 10px;
+}
+
+.agree-wrap{
+    display: flex;
+    align-items: center;
+    height: 27px;
+}
+
+.agree-wrapper{
+    margin-top: 15px;
+}
+
+.check-icon{
+    font-size: var(--main-font-size);
+    padding-top: 5px;
+
+}
+
+.agree-wrap input{
+    width: 17px;
+    margin: 0 10px;
+}
+
+.agree-text{
+    height: 44spx;
+    font-size: var(--main-font-size);
+    display: flex;
+    align-items: center;
+}
+
+.signup-btn{
+    border: 0;
+    width: 100%;
+    height: 45px;
+    display: block;
+    margin: 25px 0;
+    color: var(--background-color);
+    background-color: var(--point-color);
+    cursor: pointer;
+    font-size: var(--medium-font-size);
+    border-radius: 5px;
+    font-weight: 600;
+}
+
