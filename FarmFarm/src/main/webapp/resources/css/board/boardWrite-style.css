@@ -107,9 +107,35 @@ input[type="radio"]:focus + label{
     border-bottom: 1px solid var(--point-color);
     padding: 10px;
 }
+.board-img-area{
+    display: flex;
+    justify-content: space-between;
+}
 .board-img{
     width: 180px;
     height: 180px;
     border: 1px solid var(--line-color);
     margin: 10px 3px;
+    position: relative;;
+}
+.board-img > label{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.board-input-img{
+    display: none;
+}
+.board-img-delete{
+    position: absolute;
+    top: 0;
+    right: 7px;
+    font-size: var(--title-font-size);
+    cursor: pointer;
+}
+.board-img-delete:hover{
+    color: red;
 }
