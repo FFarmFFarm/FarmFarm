@@ -284,15 +284,44 @@ body{
     -webkit-box-orient: vertical;
 }
 
+/* top 버튼 */
+.topBtn{
+    width: 50px;
+    background-color: white;
+
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid var(--line-color);
+
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+}
+
+.topBtn:hover{
+    background-color: #F6F6F6;
+    transition-duration: 0.1s;
+}
+
+.topBtn:active{
+    background-color: #F1F1F1;
+}
+
 /* 페이지네이션 영역 */
 .pagination-area{
     display: flex;
     justify-content: center;
 }
 
-
 /* 페이지 박스 */
 .page-box{
+    color: var(--sub-font-color);
     border: 1px solid var(--line-color);
     width: 30px;
     height: 30px;
@@ -302,4 +331,12 @@ body{
     align-items: center;
 
     font: var(--sub-font-color);
+
+    cursor: pointer;
+}
+
+.page-box:hover{
+    color: var(--main-font-color);
+    font-weight: 600;
+    transition-duration: 0.1s;
 }
