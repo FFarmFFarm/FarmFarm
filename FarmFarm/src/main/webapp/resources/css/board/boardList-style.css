@@ -1,15 +1,10 @@
 @import "../root-style.css";
 
 
-/* body{
-    width: 1920px;
-    height: 1080px;
-} */
-
 main{
     width: 1000px;
     margin: auto;
-    /* border: 1px solid black; */
+    margin-bottom: 80px;
 }
 
 /* 커뮤니티 상단 제목 */
@@ -22,13 +17,12 @@ main{
     font-size: var(--headline-font-size);
     height: 100%;
     align-items: center;
-    /* border: 1px solid var(--line-color); */
+    border-bottom: 1px solid var(--line-color);
 }
 
 /* 커뮤니티 네브 */
 .board-nav{
     font-size: 20px;
-    border-top: 1px solid var(--line-color);
     border-bottom: 1px solid var(--line-color);
     height: 70px;
 }

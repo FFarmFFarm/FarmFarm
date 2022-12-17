@@ -3,12 +3,13 @@
 main{
     width: 1000px;
     margin: auto;
-    /* border: 1px solid black; */
+    margin-bottom: 80px;
 }
 
 /* 커뮤니티 상단 제목 */
 .board-top{
     height: 140px;
+    border-bottom: 1px solid var(--line-color);
 }
 .board-top-title{
     display: flex;
@@ -16,7 +17,6 @@ main{
     font-size: var(--headline-font-size);
     height: 100%;
     align-items: center;
-    /* border: 1px solid var(--line-color); */
 }
 
 /* 카테고리 선택 부분 */
@@ -26,7 +26,7 @@ main{
     padding-left: 40px;
     display: flex;
     align-items: center;
-    border: 1px solid var(--line-color);
+    border-bottom: 1px solid var(--line-color);
     white-space: nowrap;
 }
 .board-category-area{
@@ -71,7 +71,7 @@ input[type="radio"]:focus + label{
 /* 글쓰기 제목 */
 .board-write{
     padding: 30px 120px;
-    border: 1px solid var(--line-color);
+    border-bottom: 1px solid var(--line-color);
 }
 .write-title{
     padding: 0 10px 10px;
