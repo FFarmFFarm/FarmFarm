@@ -1,0 +1,57 @@
+@import "../root-style.css";
+
+body{
+    margin: 0 auto;
+    width: 1000px;
+    background-color: #eeeeee;
+}
+
+main{
+    display: flex;
+    width: 1000px;
+    min-height: 500px;
+    background-color: var(--background-color);
+    margin: 0 auto;
+    border-radius: 20px;
+    box-shadow: 3px 3px 15px rgba(120, 120, 120, 0.6);
+}
+
+.signup-page-img{
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+    margin-bottom: 55px;
+}
+
+.signup-page img{
+    width: 180px;
+}
+
+.form-wrap{
+    display: flex;
+    width: 800px;
+    margin: 40px auto;
+    justify-content: center;
+}
+
+.form-wrap input{
+    width: 400px;
+    height: 40px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    margin-top: 10px;
+}
+
+.form-wrap input::placeholder{
+    font-size: var(--medium-font-size);
+    padding-left: 12px;
+}
+
+.coner{
+    font-size: var(--main-font-size);
+    color: red;
+    margin: 4px 0 0 13px;
+    
+}
+
+
