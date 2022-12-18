@@ -1,11 +1,5 @@
 @import "../root-style.css";
 
-.header-container{
-    z-index: 50;
-}
-
-
-
 
 body{
     width: 100vw;
@@ -121,7 +115,7 @@ main{
 }
 
 /* todo: 카테고리 선택 부분 _카테고리별로 다르게 표시! */
-.admin-nav-sub:first-of-type{
+.admin-nav-sub:nth-of-type(2){
     height: 30px;
     padding-top: 5px;
     background-color: #eef4ed;;
@@ -136,162 +130,49 @@ main{
     width: 1000px;
     min-height: 900px;
     height: auto;
-    padding-bottom: 20px;
+    padding: 20px;
     background-color: #eef4ed;
 
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-
-.upper-board{
-    width: 900px;
-    height: 320px;
-    display: flex;
-    justify-content: center;
-}
-
-
-/* 모든 타이틀(회원 상세 정보, 활동 내역, 회원 조회 span) */
-.member-title{
-    color: var(--icon-button-color);
-    font-weight: bold;
-    margin-bottom: 8px;
-}
-
-
-/* 오른쪽 상단 */
-.upper-detail{
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    margin-top: 50px;
-    margin-right: 10px;
-}
-
-
-.upper-history{
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    margin-top: 50px;
-}
-
-
-/* 회원 상세 정보 */
-.member-detail{
-    width: 600px;
-    height: 240px;
-    padding-top: 10px;
-    border-radius: 10px;
-    background-color: white;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
     align-content: center;
 }
 
-.member-detail-table{
-    width: 550px;
-    height: 200px;
-    font-size: 13px;
-}
 
-.member-detail-table td{
-    padding-bottom: 15px;
-}
-
-
-.detail-bold{
-    color: var(--point-color);
-    font-weight: bold;
-}
-
-.status-bold{
-    font-weight: bold;
-}
-
-
-
-/*  계정 상태 내역 */
-.member-history{
-    width: 280px;
-    height: 240px;
-    border-radius: 10px;
-    background-color: white;
+.board-content{
+    width: 880px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    align-content: flex-start;
+}
+
+
+
+.board-title{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+/* 인증 신청 목록 */
+.seller-auth{
+    width: 880px;
+    height: 300px;
+    background-color: white;
+    border-radius: 10px;
+    
+    display: flex;
     align-items: flex-start;
 }
 
-.member-history-table{
-    width: 300px;
-    text-align: center;
-    padding: 10px 0;
-    margin-top: 15px;
-    border-collapse: collapse;
-}
 
-
-.member-history-table th{
-    padding-bottom: 10px;
-    font-size: var(--main-font-size);
-    color: var(--point-color);
-}
-
-.member-history-table td{
-    padding-bottom: 5px;
-    font-size: var(--small-font-size);
-}
-
-
-.history-reason{
-    color: red;
-}
-
-
-
-
-
-/* 회원 조회 */
-.lower-board{
-    width: 900px;
-    height: auto;
-    margin-top: 30px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.member-select{
-    width: 100%;
-    min-height: 450px;
-    height: 500px;
-    border-radius: 10px;
-    background-color: white;
-    overflow: auto;
-
-    display: flex;
-    justify-content: space-between;
-}
-
-
-.title-div{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-}
-
-
-
-.member-select-table{
-    width: 900px;
-    /* height: auto; */
-    height: 500px;
+.auth-list-table{
+    width: 880px;
     padding: 10px;
     margin: 15px 20px;
     font-size: var(--small-font-size);
@@ -299,34 +180,20 @@ main{
     border-collapse: collapse;
 }
 
-.member-select-table th{
+
+.auth-list-table th{
     color: var(--point-color);
     padding-bottom: 10px;
 }
 
-.member-select-table td{
-    padding-bottom: 5px;
+.auth-list-table td{
+    padding-bottom: 7px;
 }
 
-.member-select-row{
-    height: 30px;
-}
-
-
-
-.member-select-row:hover{
+.auth-list-row:hover{
     background-color: #eef4ed;
     transition-duration: 0.1s;
 }
-
-
-.select-filter{
-    background-color: none;
-    padding-left: 0;
-    margin-left: 0;
-}
-
-
 
 
 /* 페이지네이션 */
@@ -356,39 +223,92 @@ main{
 /* todo:현재 페이지색은 point-color로 */
 
 
-/* 회원 조회 - 검색 */
-.member-search{
-    width: 200px;
-    height: auto;
-    padding: 1px 15px;
+
+/* 인증 신청서 조회 */
+.select-auth-paper{
+    width: 880px;
+    height: 500px;
+    background-color: white;
+    border-radius: 10px;
 
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+    justify-content: center;
+
+    padding: 20px 30px;
+}
+
+/* 증빙 사진 */
+.seller-auth-image{
+    width: 440px;
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-image-title{
+    font-size: var(--small-font-size);
+    color: var(--point-color);
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.auth-image{
+    width: 350px;
+    height: 450px;
+}
+
+/* 신청서 */
+.seller-auth-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
 
 
-    margin-right: 5px;
-    margin-bottom: 5px;
-    
+.seller-auth-table{
+    width: 440px;
+    height: 400px;
+    margin: 30px;
+    font-size: var(--small-font-size);
+    margin-left: 30px;
+
+    display: flex;
+    align-content: flex-start;
+
+}
+
+.seller-auth-table tr{
+    height: 35px;
+}
+
+.detail-bold{
+    color: var(--point-color);
+    font-weight: bold;
+}
+
+/* 버튼 */
+.auth-button-div{
+    width: 100%;
+    height: 50px;
+    padding-right: 30px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#authApproveBtn{
+    width: 100px;
+    height: 30px;
     border-radius: 5px;
-
-
-    background-color: #e2e2e2;
-}
-
-#memberSearchInput{
-    width: 160px;
+    color: white;
     border: none;
-    background-color: #e2e2e2;
+    background-color: var(--point-color);
+    margin-right: 20px;
 }
 
-#memberSearchBtn{
-    background-color: #e2e2e2;
+#authDenyBtn{
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;    
+    color: white;
     border: none;
-    cursor: pointer;
+    background-color: #C43819;
 }
-
-
-
-
-
