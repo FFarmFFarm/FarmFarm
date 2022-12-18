@@ -48,6 +48,18 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+
+    cursor: pointer;
+
+}
+
+.title:hover{
+    transform: translateY(-2px);
+}
+
+.title:active{
+    transition-duration: 0.2s;
+    opacity: 0.9;
 }
 
 /* 채팅방 검색창 */
@@ -363,7 +375,7 @@ body{
 }
 
 #roomEditBtn:hover{
-    opacity: 0.7;
+    color: var(--point-color);;
 }
 
 /* 설정 버튼 드롭다운 */
@@ -565,6 +577,37 @@ body{
     position: absolute;
 }
 
+/* 하단 이동 버튼 */
+#bottomBtn{
+    background-color: white;
+
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+
+    position: absolute;
+    right: 30px;
+    bottom: 50px;
+
+    z-index: 30;
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    transition-duration: 0.2s;
+}
+
+#bottomBtn:hover{
+    color: var(--point-color);
+}
+
+#bottomBtn:active{
+    opacity: 0.7;
+}
+
 
 /* 입력창 */
 #writingArea{
@@ -593,6 +636,16 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
+
+    transition-duration: 0.2s;
+}
+
+#addImageBtn:hover{
+    color: var(--point-color);
+}
+
+#addImageBtn:active{
+    opacity: 0.7;
 }
 
 #inputBox{
@@ -611,9 +664,10 @@ body{
     width: 90%;
 }
 
+
 #sendMessage{
     color: white;
-    background-color: #2b8c44;
+    background-color: var(--point-color);
     
     font-size: var(--medium-font-size);
 
@@ -626,4 +680,15 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
+
+    transition-duration: 0.2s;
 }
+
+#sendMessage:hover{
+    color: var(--main-font-color);
+}
+
+#sendMessage:active{
+    opacity: 0.7;
+}
+
