@@ -20,13 +20,11 @@ body{
     width: 1000px;
     height: 600px;
 
-    background-color: white;
     display: flex;
     flex-direction: column;
 }
 
 /* 배너 > 광고 영역 */
-
 /* 스와이퍼 사용 */
 .swiper {
     width: 1000px;
@@ -84,10 +82,6 @@ body{
     align-items: center;
     justify-content: center;
 }
-
-
-
-/* 배너 > 광고영역 끝 */
 
 /* 배너 > 검색 */
 .search-area{
@@ -257,12 +251,13 @@ body{
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+
     min-height: 1000px;
 }
 
 
-/* product-container */
-.product-box{
+/* post-container */
+.post-box{
     width: 32%;
     height: 400px;
     margin-bottom: 18px;
@@ -270,11 +265,11 @@ body{
     cursor: pointer;
 }
 
-.product-box:hover{
+.post-box:hover{
     transform: translateY(-3px);
 }
 
-.product-content{
+.post-img{
     height: 250px;
     width: 100%;
 
@@ -283,16 +278,16 @@ body{
     align-items: center;
 }
 
-.product-content > img{
+.post-img > img{
     width: 100%;
     height: 100%;
 }
 
-.product-detail{
+.post-detail{
     padding: 10px;
 }
 
-.product-name{
+.post-title{
     font-size: var(--medium-font-size);
     font-weight: 600;
     color: var(--main-font-color);
@@ -318,14 +313,14 @@ body{
 
 }
 
-.product-price{
+.unit-price{
     font-size: var(--small-font-size);
     font-weight: 600;
     color: var(--sub-font-color);
     margin-bottom: 5px;
 }
 
-.product-message{
+.post-message{
     font-size: var(--small-font-size);
     color: var(--sub-font-color);
 
