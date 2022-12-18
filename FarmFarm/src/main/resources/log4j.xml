@@ -30,7 +30,7 @@
    </appender>
    
    <!-- Application Loggers -->
-   <logger name="edu.kh.fiesta">
+   <logger name="edu.kh.farmfarm">
       <level value="debug" />
       <appender-ref ref="dailyRollingFile" />
    </logger>
