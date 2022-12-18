@@ -133,3 +133,4 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/java,eclipse,windows
+FarmFarm/src/main/resources/log4j.xml
