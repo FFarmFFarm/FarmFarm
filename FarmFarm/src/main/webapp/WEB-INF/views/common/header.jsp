@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>header</title>
 
-    <link rel="stylesheet" href="resources/common/css/main.css" />
+    <link rel="stylesheet" href="resources/common/css/header.css" />
     <script
       src="https://kit.fontawesome.com/1ce4f19a7a.js"
       crossorigin="anonymous"
@@ -23,17 +23,6 @@
             <img src="../images/mainLogo.png" />
           </a>
         </div>
-
-        <nav>
-            <div class="nav-head">
-              <div class="nav-body">
-                <div class="nav-list"><a href="#">팜팜마켓</a></div>
-                <div class="nav-list"><a href="#">사고팔고</a></div>
-                <div class="nav-list"><a href="#">커뮤니티</a></div>
-                <div class="nav-list"><a href="#">문의게시판</a></div>
-              </div>
-            </div>
-        </nav>
 
         <div class="header-widget-area">
           <!-- 로그인O 상태 -->
@@ -106,9 +95,17 @@
         </div>
       </header>
 
+      <nav>
+        <div class="nav-head">
+          <div class="nav-body">
+            <div class="nav-list"><a href="#">팜팜마켓</a></div>
+            <div class="nav-list"><a href="#">사고팔고</a></div>
+            <div class="nav-list"><a href="#">커뮤니티</a></div>
+            <div class="nav-list"><a href="#">문의게시판</a></div>
+          </div>
+        </div>
+      </nav>
     </div>
-
-    
     <script>
       // 프로필 드롭다운
       const dropbtn = document.querySelector('.dropbtn');

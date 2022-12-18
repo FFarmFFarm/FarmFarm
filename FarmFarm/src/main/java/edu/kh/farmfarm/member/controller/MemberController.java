@@ -33,7 +33,7 @@ public class MemberController {
 						@RequestHeader(value="referer") String referer,
 						@RequestParam(value="saveId", required = false) String saveId,
 						HttpServletResponse resp) {
-		Member loginMember = service.login(inputMember);
+//		Member loginMember = service.login(inputMember);
 		
 		String path = null;
 		
