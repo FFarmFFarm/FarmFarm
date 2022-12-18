@@ -285,15 +285,13 @@ body{
 }
 
 /* top 버튼 */
-.topBtn{
+#topBtn{
     width: 50px;
     background-color: white;
 
     height: 50px;
     border-radius: 50%;
     border: 1px solid var(--line-color);
-
-    cursor: pointer;
 
     display: flex;
     justify-content: center;
@@ -302,14 +300,29 @@ body{
     position: fixed;
     right: 30px;
     bottom: 30px;
+
+    transition-duration: 0.3s;
+
 }
 
-.topBtn:hover{
+.view-hidden{
+    display: none;
+    height: 0;
+    opacity: 0;
+}
+
+.view-flex{
+    cursor: pointer;
+    height: 50px;
+    opacity: 1;
+}
+
+#topBtn:hover{
     background-color: #F6F6F6;
     transition-duration: 0.1s;
 }
 
-.topBtn:active{
+#topBtn:active{
     background-color: #F1F1F1;
 }
 
