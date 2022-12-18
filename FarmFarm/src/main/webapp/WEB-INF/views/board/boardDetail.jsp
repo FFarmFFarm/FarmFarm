@@ -18,7 +18,7 @@
 
     <main>
         <section class="board-top">
-            <div class="board-top-title">와글와글 물물교환</div>
+            <div class="board-top-title">와글와글 ${boardType.boardName}</div>
         </section>
         <section class="board-nav">
             <div class="board-nav-area">
@@ -29,23 +29,32 @@
         </section>
         <section class="board-title-content">
             <div class="board-title-area">
-                <div class="writer-img">사진들어갈거</div>
+                <div class="writer-img">
+                    <c:if test="${empty board.profileImg}">
+                        <img src="" alt=""><%-- 기본 이미지 주소 넣기 --%>
+                    </c:if>
+                    <c:if test="${!empty board.profileImg}">
+                        <img src="${board.profileImg}" alt="">
+                    </c:if>
+                </div>
                 <div class="writer-ect">
-                    <div class="writer-name">못생겼지만 맛있습니다</div>
-                    <div class="writer-date-view">2022.12.15.  5분전  조회 2</div>
+                    <div class="writer-name">${board.memberName}</div>
+                    <div class="writer-date-view">${board.date}  5분전  조회 ${board.view}</div>
                 </div>
                 <div class="board-title">
-                    못생겼지만 맛있는 호박고구마 교환원해요
+                    ${board.barodTitle}
                 </div>
             </div>
             <div class="board-content-area">
                 <div class="board-content">
-                    <pre>
+                    <pre> 
+${board.boardContent}
 채소교환 하고 싶어요
 저희 집 못난이 호박이랑 예쁜 자색 옷을 입고 있는 자색고구마랑 바꿔요
 너무 못생겨서 먹기 싫어요
                     </pre>
                 </div>
+
                 <div class="board-img-area">
 
                     <div class="board-img">
@@ -67,32 +76,19 @@
             </div>
         </section>
         <section class="board-like-report">
-            <div class="board-like"><i class="fa-solid fa-heart"></i> &nbsp; 좋아요</div>
-            <div class="board-report">신고</div>
+            <c:if test="${loginMember.memberNo == board.memberNo}">
+                <button class="board-like"><i class="fa-solid fa-heart"></i>좋아요<span id="likeCount">2</span></button>
+                <button class="board-report">신고</button>
+            </c:if>
+            <c:if test="${loginMember.memberNo != board.memberNo}">
+                <button>수정하기</button>
+                <button>삭제하기</button>
+            </c:if>
         </section>
-        <!-- <section class="board-like-report">
-            <span>수정하기</span>
-            <span>삭제하기</span>
-        </section> -->
-        <section class="comment-area">
-            <div class="comment-all">
-                <div class="comment-writer">
-                    <div class="writer-profile">사진</div>
-                    <div class="writer-name-time">
-                        <div class="writer-name">옆집판매자</div>
-                        <div class="writer-time">5분전</div>
-                    </div>
-                    <div class="comment-like-report">
-                        <span class="comment-like"><i class="fa-solid fa-heart"></i> &nbsp;좋아요</span>
-                        <span class="comment-report">신고</span>
-                    </div>
-                </div>
-                <div class="comment-content">진짜 호박 맛없게 보이네요
-                    저런 호박은 도대체 어떻게 하면 키울 수 있는건가요
-                    정말 못생겼다 그냥 버리세요
-                </div>
-            </div>
-        </section>
+
+    <%-- 댓글 --%>
+    <jsp:include page="/WEB-INF/views/board/comment.jsp"/>
+
     </main>
     
 </body>
