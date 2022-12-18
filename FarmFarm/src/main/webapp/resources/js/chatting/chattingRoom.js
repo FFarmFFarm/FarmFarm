@@ -1,3 +1,4 @@
+/* 채팅방 정보(roomLabel) */
 const chattingBoxList = document.getElementsByClassName("chatting-box")
 const postTitle = document.getElementById("postTitle");
 const spreadBtn = document.getElementById("spreadBtn");
@@ -7,11 +8,15 @@ const roomLabel = document.getElementById("roomLabel");
 const roomEditBtn = document.getElementById("roomEditBtn");
 const roomEditDropdown = document.getElementById("roomEditDropdown");
 
+/* 채팅방 스크롤 하단 */
+const readingArea = document.getElementById("readingArea")
+
 
 window.addEventListener('DOMContentLoaded', ()=>{
     roomEditDropdown.classList.add('dropdown-fold');
+    const readingAreaHeight = readingArea.scrollHeight
+    readingArea.scrollTo(0,readingAreaHeight);
 })
-
 
 /* 로딩 후 */
 window.addEventListener("load", ()=>{
@@ -78,3 +83,5 @@ roomEditBtn.addEventListener("click", ()=>{
     roomEditDropdown.classList.toggle('dropdown-spread');
     roomEditDropdown.classList.toggle('dropdown-fold');
 })
+
+

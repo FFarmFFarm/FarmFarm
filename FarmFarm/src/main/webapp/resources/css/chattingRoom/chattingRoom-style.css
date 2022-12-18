@@ -243,13 +243,17 @@ body{
     width: 740px;
     height: 670px;
 
+    position: relative;
 }
 
 /* 채팅방 라벨(사진 + 이름 + 구매버튼 + 설정) */
 #roomLabel{
     border-left: 3px solid #2b8c4410;
     border-right: 3px solid #2b8c4410;
-    border-radius: 5px;
+    border-bottom: 3px solid #2b8c4410;
+
+    border-radius: 10px;
+    width: 100%;
 
     background-color: white;
     min-height: 80px;
@@ -261,7 +265,9 @@ body{
 
     transition-duration: 0.2s;
 
-    position: relative;
+    position: absolute;
+
+    z-index: 5;
 }
 
 
@@ -433,3 +439,191 @@ body{
     transform: rotate(180deg);
 }
 
+
+/* 채팅방 메인 */
+#roomBody{
+    /* background-color: white; */
+    width: 740px;
+    margin-top: 20px;
+    height: 515px;
+
+    border-left: 3px solid #2b8c4410;
+    border-right: 3px solid #2b8c4410;
+
+    position: absolute;
+    bottom: 5px;
+
+}
+
+/* 메세지 읽기 영역 */
+#readingArea{
+    height: 470px;
+    
+    overflow-y: scroll;
+}
+
+/* 수신 채팅 */
+.received-message{
+    width: 50%;
+    min-height: 50px;
+    height: auto;
+
+    padding: 10px;
+
+    display: flex;
+
+    position: relative;
+}
+
+.message-profile-img{
+    width: 50px;
+    height: 50px;
+}
+
+.message-profile-img > img{
+    border: 1px solid var(--line-color);
+    border-radius: 50%;
+    
+    width: 50px;
+    height: 50px;
+    
+    padding: 1px;
+}
+
+/* 발신 채팅 */
+.sent-message{
+    width: 45%;
+    min-height: 50px;
+    height: auto;
+
+    padding: 10px;
+    margin-left: 53%;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    position: relative;
+}
+
+/* 메세지 버블버블 */
+.received-bubble{
+    background-color: white;
+    border-radius: 10px;
+    width: auto;
+
+    min-height: 50px;
+    height: auto;
+
+    margin-left: 20px;
+
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.sent-bubble{
+    background-color: white;
+    border-radius: 10px;
+    width: auto;
+
+    min-height: 50px;
+    height: auto;
+
+    margin-right: 20px;
+
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+/* 메세지 꼬리 */
+.received-bubble-tail{
+    /* width: 20px;
+    height: 20px; */
+
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 20px solid transparent;
+    border-right: 20px solid white;
+
+    top: 25px;
+    left: 47px;
+    
+    position: absolute;
+}
+
+.sent-bubble-tail{
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 20px solid white;
+    border-right: 20px solid transparent;
+
+    bottom: 18px;
+    right: -4px;
+    
+    position: absolute;
+}
+
+
+/* 입력창 */
+#writingArea{
+    width: 100%;
+    height: 35px;
+    margin: 10px 3px 0px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    position: absolute;
+    bottom: 8px;
+}
+
+#addImageBtn{
+    background-color: white;
+    border: none;
+
+    border: none;
+    border-radius: 10px;
+    height: 35px;
+    width: 5%;
+    margin-left: 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#inputBox{
+    background: white;
+    border-radius: 5px;
+
+    height: 35px;
+
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    padding: 0px 10px;
+
+    margin: 0px 5px;
+    
+    width: 90%;
+}
+
+#sendMessage{
+    color: white;
+    background-color: #2b8c44;
+    
+    font-size: var(--medium-font-size);
+
+    border: none;
+    border-radius: 10px;
+    height: 35px;
+    width: 5%;
+    margin-right: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

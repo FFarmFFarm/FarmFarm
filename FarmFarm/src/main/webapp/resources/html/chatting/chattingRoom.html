@@ -308,9 +308,96 @@
           <!-- end roomLabel -->
 
           <!-- 채팅창 메인 -->
-          <div id="messageList">
+          <div id="roomBody">
+            <!-- 채팅방 메세지 예시 -->
+            <div id="readingArea">
+
+              <!-- 송신/수신한 메세지가 들어갈 영역입니다 -->
+              <!-- 받은 메세지 received-message -->
+              <!-- message-profile-img, received-bubble. received-bubble-tail -->
+
+              <!-- 보낸 메세지 sent-message -->
+              <!-- sent-bubble, sent-bubble-tail -->
+              <div class="received-message">
+                <div class="message-profile-img">
+                  <img src="/src/main/webapp/resources/images/chatting/farmer.png">
+                </div>
+
+                <div class="received-bubble-tail"></div>
+
+                <div class="received-bubble">
+                  ‘박제가 되어 버린 천재’를 아시오? 나는 유쾌하오. 이런 때 연애까지가 유쾌하오.
+                  육신이 흐느적흐느적하도록 피로했을 때만 정신이 은화처럼 맑소. 
+                  니코틴이 내 횟배 앓는 뱃속으로 스미면 머릿속에 으레 백지가 준비되는 법이오. 
+                  그 위에다 나는 위트와 패러독스를 바둑 포석처럼 늘어놓소. 가증할 상식의 병이오.
+                  나는 또 여인과 생활을 설계하오. 연애기법에마저 서먹서먹해진 지성의 극치를 흘깃 좀 들여다본 일이 있는, 말하자면 일종의 정신분일자말이오. 
+                  이런 여인의 반 — 그것은 온갖 것의 반이오. — 만을 영수하는 생활을 설계한다는 말이오. 그런 생활 속에 한 발만 들여놓고 흡사 두 개의 태양처럼 마주 쳐다보면서 낄낄거리는 것이오. 
+                  나는 아마 어지간히 인생의 제행이 싱거워서 견딜 수가 없게끔 되고 그만둔 모양이오. 굿바이.
+                </div>
+
+              </div>
+  
+              <div class="sent-message">
+                <div class="sent-bubble">
+                  나는 불현듯 겨드랑이가 가렵다. 아하, 그것은 내 인공의 날개가 돋았던 자국이다. 
+                  오늘은 없는 이 날개. 머릿속에서는 희망과 야심이 말소된 페이지가 딕셔너리 넘어가듯 번뜩였다.
+                  나는 걷던 걸음을 멈추고 그리고 일어나 한 번 이렇게 외쳐 보고 싶었다.
+                  날개야 다시 돋아라.
+                  날자. 날자. 한 번만 더 날자꾸나.
+                  한 번만 더 날아 보자꾸나.
+                </div>
+                <div class="sent-bubble-tail"></div>
+              </div>
+
+                <div class="received-message">
+                  <div class="message-profile-img">
+                    <img src="/src/main/webapp/resources/images/chatting/farmer.png">
+                  </div>
+                  <div class="received-bubble-tail"></div>
+                  <div class="received-bubble">
+                    ‘박제가 되어 버린 천재’를 아시오? 나는 유쾌하오. 이런 때 연애까지가 유쾌하오.
+                    육신이 흐느적흐느적하도록 피로했을 때만 정신이 은화처럼 맑소. 
+                    니코틴이 내 횟배 앓는 뱃속으로 스미면 머릿속에 으레 백지가 준비되는 법이오. 
+                    그 위에다 나는 위트와 패러독스를 바둑 포석처럼 늘어놓소. 가증할 상식의 병이오.
+                    나는 또 여인과 생활을 설계하오. 연애기법에마저 서먹서먹해진 지성의 극치를 흘깃 좀 들여다본 일이 있는, 말하자면 일종의 정신분일자말이오. 
+                    이런 여인의 반 — 그것은 온갖 것의 반이오. — 만을 영수하는 생활을 설계한다는 말이오. 그런 생활 속에 한 발만 들여놓고 흡사 두 개의 태양처럼 마주 쳐다보면서 낄낄거리는 것이오. 
+                    나는 아마 어지간히 인생의 제행이 싱거워서 견딜 수가 없게끔 되고 그만둔 모양이오. 굿바이.
+                  </div>
+                </div>
+    
+                <div class="sent-message">
+                  <div class="sent-bubble">
+                    나는 불현듯 겨드랑이가 가렵다. 아하, 그것은 내 인공의 날개가 돋았던 자국이다. 
+                    오늘은 없는 이 날개. 머릿속에서는 희망과 야심이 말소된 페이지가 딕셔너리 넘어가듯 번뜩였다.
+                    나는 걷던 걸음을 멈추고 그리고 일어나 한 번 이렇게 외쳐 보고 싶었다.
+                    날개야 다시 돋아라.
+                    날자. 날자. 한 번만 더 날자꾸나.
+                    한 번만 더 날아 보자꾸나.
+                  </div>
+                  <div class="sent-bubble-tail"></div>
+                </div>
+              </div>
+
+            </div>
+
             
+            <!-- 메세지 입력 영역 -->
+            <div id="writingArea">
+
+              <button id="addImageBtn">
+                <i class="fa-solid fa-image"></i>
+              </button>
+              <input id="inputBox" type="text" placeholder="메세지를 입력하세요">
+              <button id="sendMessage">
+                <i class="fa-solid fa-paper-plane"></i>
+              </button>
+
+            </div>
+
+
           </div>
+
+
         </section>
     </div>
 
