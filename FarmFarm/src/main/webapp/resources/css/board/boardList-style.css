@@ -1,0 +1,145 @@
+@import "../root-style.css";
+
+
+main{
+    width: 1000px;
+    margin: auto;
+    margin-bottom: 80px;
+}
+
+/* 커뮤니티 상단 제목 */
+.board-top{
+    height: 140px;
+}
+.board-top-title{
+    display: flex;
+    justify-content: center;
+    font-size: var(--headline-font-size);
+    height: 100%;
+    align-items: center;
+    border-bottom: 1px solid var(--line-color);
+}
+
+/* 커뮤니티 네브 */
+.board-nav{
+    font-size: 20px;
+    border-bottom: 1px solid var(--line-color);
+    height: 70px;
+}
+.board-nav-area{
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 160px;
+    align-items: center;
+}
+.board-nav-area >span:hover{
+    color: var(--point-color);
+    cursor: pointer;
+}
+
+/* 커뮤니티 검색 */
+.board-search{
+    height: 70px;
+    border-bottom: 1px solid var(--line-color);
+    display: flex;
+    padding: 0 60px;
+    align-items: center;
+}
+.board-search-area{
+    width: 600px;
+    height: 40px;
+    margin: auto;
+    border: 1px solid var(--line-color);
+    border-radius: 5px;
+    overflow: hidden;
+}
+.board-search-area > input{
+    width: 550px;
+    height: 100%;
+    padding-left: 10px;
+    font-size: var(--main-font-size);
+    border: none;
+}
+.board-search-area > input:focus{
+    outline: none;
+}
+.board-search-btn{
+    width: 34px;
+    height: 34px;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    font-size: var(--medium-font-size);
+}
+input[type="text"]:focus{
+}
+.board-search-area:focus-within{
+    border: 1px solid var(--point-color);
+}
+
+/* 커뮤니티 최신순, 조회수, 좋아요 */
+.board-select{
+    width: 100px;
+    height: 35px;
+    text-align: center;
+    font-size: var(--main-font-size);
+    border-radius: 5px;
+}
+
+/* 커뮤니티 목록 */
+.board-list{
+    width: 850px;
+    margin: auto;
+}
+
+/* 커뮤니티 목록 타이틀 */
+.board-List-title{
+    height: 60px;
+    font-size: var(--medium-font-size);
+    border-bottom: 1px solid #2B8C44;
+    display: flex;
+    align-items: center;
+}
+.board-list-top  span{
+    align-items: center;
+    display: inline-block;
+    text-align: center;
+    font-size: var(--main-font-size);
+    margin: 0 5px;
+}
+.board-no{
+    width: 70px;
+}
+.board-img{
+    width: 50px;
+    height: 50px;
+}
+.board-title{
+    width: 520px;
+}
+.board-date{
+    width: 120px;
+}
+.board-view{
+    width: 80px;
+}
+
+/* 게시판 목록 */
+.board-list li{
+    height: 60px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #2B8C44;
+}
+.board-list li > .board-title {
+    padding-left: 10px;
+}
+
+/* 목록 페이지 번호 */
+.board-list-number{
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
