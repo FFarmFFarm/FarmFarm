@@ -1,106 +1,149 @@
-.wishing {
-  border-top: 3px solid var(--point-color);
+a.wish > span,
+a.wish > i {
   font-weight: bold;
+  color: var(--point-color);
 }
 
 /* 마이페이지 작성 게시글 목록 */
-.my-board-container {
-  width: 1000px;
-
+.wish-list {
+  width: 75%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  align-content: space-between;
+  justify-content: center;
 }
 
-.board-list-header {
+.wish-list-title {
+  font-size: var(--large-font-size);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  width: 100%;
+  height: 100px;
+  border-bottom: 1px solid var(--main-font-color);
+  font-weight: bold;
+}
+
+.wish-list-header {
   width: 100%;
   height: 50px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 0 70px;
-  background-color: var(--line-color);
+  padding: 0 10px;
 }
 
-.board-list-header > select {
-  font-size: var(--medium-font-size);
+.wish-list-header > button {
+  font-size: var(--main-font-size);
   outline: none;
-}
-
-.board-list-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  align-content: space-between;
+  border: none;
+  color: var(--sub-font-color);
 }
 
 .list-category {
   height: 60px;
   border-top: 1px solid #ccc;
 
-  font-size: var(--large-font-size);
+  font-size: var(--medium-font-size);
   font-weight: bold;
 }
 
 .list-category,
-.board {
+.wish {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px solid #ccc;
 }
 
-.board-list {
-  width: 1000px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  align-content: space-between;
-  justify-content: center;
-}
-
-.board {
+.wish {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 90px;
-  font-size: var(--medium-font-size);
+  height: 150px;
+  font-size: var(--main-font-size);
+  position: relative;
 }
 
-.board-no {
-  display: inline-block;
-  width: 10%;
-  text-align: center;
+input#selectWish {
+  display: none;
 }
 
-.board-thumbnail {
-  width: 70px;
-  height: 70px;
-  margin-left: 15px;
+label.checkbox {
+  width: 17px;
+  height: 17px;
+  border: 1px solid #ccc;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border-radius: 2px;
+
+  margin-right: 10px;
+  position: absolute;
+  top: 20px;
+  left: 5px;
+
+  font-size: var(--small-font-size);
 }
 
-.board-thumbnail-img {
+input#selectWish:checked + label.checkbox {
+  content: '';
+  width: 16px;
+  height: 16px;
+  background-color: var(--point-color);
+  border: none;
+}
+
+.wish-thumbnail {
+  width: 120px;
+  height: 120px;
+  margin-right: 20px;
+}
+
+.wish-thumbnail-img {
   width: 100%;
   height: 100%;
 }
 
-.board-title {
-  display: inline-block;
-  width: 55%;
-  text-align: center;
+.wish-info {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
 }
 
-.board-reg-date {
-  display: inline-block;
-  width: 15%;
-  text-align: center;
+.wish-reg-date {
+  font-size: var(--small-font-size);
+  color: var(--sub-font-color);
+  margin-bottom: 20px;
 }
 
-.board-read-count {
-  display: inline-block;
-  width: 10%;
-  text-align: center;
+.wish-price {
+  font-size: var(--small-font-size);
+}
+
+.wish-price > span {
+  font-weight: bold;
+  font-size: var(--main-font-size);
+}
+.delete-wish-btn {
+  position: absolute;
+
+  top: 20px;
+  right: 10px;
+
+  width: 20px;
+  height: 20px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  font-size: var(--title-font-size);
+  color: #aaa;
 }
 
 .pagination {

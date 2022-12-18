@@ -1,63 +1,50 @@
-@import "../root-style.css";
+@import '../root-style.css';
 
-.my-review-container {
-  width: 1000px;
-  cursor: default;
-}
-
-.review-wrote {
-  width: 15%;
-  border-top: 3px solid var(--point-color);
+a.review-wrote > span,
+a.review-wrote > i {
   font-weight: bold;
+  color: var(--point-color);
 }
 
-.review-list-header {
-  height: 50px;
-  background-color: var(--line-color);
-}
-
-.review-list-container {
+.review-list {
+  width: 75%;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
-.list-category {
-  border-bottom: 1px solid var(--line-color);
+.review-list-title {
   font-size: var(--large-font-size);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  width: 100%;
+  height: 100px;
+  border-bottom: 1px solid var(--main-font-color);
   font-weight: bold;
 }
 
-.list-category,
 .review {
   display: flex;
   align-items: center;
   width: 100%;
   height: 50px;
-}
-
-.review {
   height: 90px;
   border-bottom: 1px solid var(--line-color);
+
+  font-size: var(--main-font-size);
 }
 
-.review-category,
 .review-container {
-  width: 80%;
+  width: 75%;
   text-align: center;
 }
 
 .review-reg-date {
   width: 20%;
   text-align: center;
-}
-
-.review-list {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
 }
 
 .review-container {
@@ -70,12 +57,77 @@
   margin-left: 50px;
 }
 
+.review-detail {
+  margin: 20px 0;
+}
+
 .review-content {
   cursor: pointer;
 }
 
+/* 리뷰 하나 */
 .review-detail {
-  margin: 20px 0;
+  width: 80%;
+
+  display: flex;
+  font-size: var(--main-font-size);
+  margin: 30px 0;
+
+  border-bottom: 1px solid hsl(0, 0%, 93%);
+}
+
+.review-detail-content {
+  padding-top: 10px;
+  width: 100%;
+}
+
+.review-detail-content > span {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: var(--sub-font-color);
+}
+
+.review-img {
+  margin-top: 30px;
+  border-radius: 5px;
+  overflow: hidden;
+  width: fit-content;
+  cursor: pointer;
+}
+
+.review-img > img {
+  width: 100px;
+  height: 100px;
+}
+
+.review-create-date {
+  height: 50px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  color: var(--sub-font-color);
+}
+
+.review-create-date > button {
+  width: 100px;
+  height: 30px;
+
+  border-radius: 15px;
+
+  border: 1px solid var(--line-color);
+  color: var(--sub-font-color);
+}
+
+.review-create-date > button:hover {
+  color: var(--point-color);
+}
+
+.review-helped {
+  font-size: var(--main-font-size);
+  font-weight: bold;
+  color: var(--point-color);
 }
 
 .pagination {

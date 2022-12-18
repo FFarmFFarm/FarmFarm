@@ -1,4 +1,4 @@
-@import "../root-style.css";
+@import '../root-style.css';
 
 a {
   color: var(--main-font-color);
@@ -7,7 +7,9 @@ a {
 body {
   color: var(--main-font-color);
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  background-color: var(--background-color);
 }
 
 main {
@@ -16,28 +18,45 @@ main {
   align-items: center;
 }
 
-button:hover,
-a:hover {
-  opacity: 0.8;
-}
-
 /* 회원 정보 */
 .profile-container {
-  height: 400px;
+  height: 350px;
+  background-color: white;
 }
 
 .profile-background {
   width: 1000px;
-  height: 200px;
+  height: 150px;
   overflow: hidden;
 
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .member-bg-img {
   width: 100%;
+}
+
+.bg-change-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+  display: inline-block;
+  font-size: var(--title-font-size);
+  color: var(--sub-font-color);
+  opacity: 0.5;
+
+  border-radius: 50%;
+  border: none;
+
+  cursor: pointer;
+}
+
+.bg-change-btn:hover {
+  opacity: 1;
 }
 
 .profile-info {
@@ -52,7 +71,7 @@ a:hover {
   cursor: default;
 }
 
-.profile-setting-btn {
+/* .profile-setting-btn {
   position: absolute;
   right: 15px;
   top: 15px;
@@ -63,11 +82,11 @@ a:hover {
 
 .profile-setting-btn:active {
   transform: scale(0.95);
-}
+} */
 
 .profile-img-container {
-  width: 300px;
-  height: 280px;
+  width: 200px;
+  height: 250px;
 
   display: flex;
   flex-direction: column;
@@ -75,12 +94,23 @@ a:hover {
 
   position: absolute;
   left: 60px;
-  top: -110px;
+  top: -70px;
+}
+
+.member-profile {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  overflow: hidden;
+
+  background-color: white;
+  border-radius: 50%;
+  border: 1px solid var(--line-color);
 }
 
 .member-profile-img {
-  width: 200px;
-  height: 200px;
+  width: 100%;
+  height: 100%;
 }
 
 .member-nickname {
@@ -98,7 +128,7 @@ a:hover {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  font-size: var(--medium-font-size);
+  font-size: var(--main-font-size);
 }
 
 .member-count {
@@ -123,29 +153,64 @@ a:hover {
 }
 
 /* 마이페이지 메뉴바 */
-.mypage-nav {
-  width: 1000px;
-  height: 70px;
 
-  background: #ffffff;
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-  border-radius: 2px;
+.list-container {
+  width: 1000px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  align-content: space-between;
+  position: relative;
+}
+
+.mypage-nav {
+  width: 20%;
+  background-color: #ffffff;
 
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  flex-direction: column;
+
+  margin-right: 30px;
+  position: absolute;
+  top: 10px;
+  left: 0;
 }
 
 .mypage-nav > a {
+  width: 100%;
+  height: 60px;
   display: flex;
+  justify-content: flex-end;
   align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 15%;
-  font-size: var(--large-font-size);
+  font-size: var(--main-font-size);
 }
 
 .mypage-nav > a > span {
   margin-left: 5px;
+  margin-right: 50px;
+
+  width: 60%;
+  display: flex;
+  justify-content: flex-start;
+  color: var(--sub-font-color);
+  font-weight: bold;
+}
+
+.mypage-nav-title {
+  display: inline-block;
+  font-size: var(--title-font-size);
+  margin: 20px 0 30px;
+  font-weight: bold;
+}
+
+.mypage-nav > a > i {
+  font-size: var(--main-font-size);
+}
+
+button:hover,
+a:hover,
+a:hover > span,
+button:hover > span {
+  color: var(--point-color);
 }
