@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>팜팜 | 내 채팅</title>
+
+    <link rel="stylesheet" href="/src/main/webapp/resources/css/chattingRoom/chattingRoom-style.css">
+    <link rel="stylesheet" href="/src/main/webapp/resources/css/header.css">
+
+    
+    <script src="https://kit.fontawesome.com/d449774bd8.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="header-container">
+        <header>
+          <div class="home-logo">
+            <a href="/">
+              <img src="../images/mainLogo.png" />
+            </a>
+          </div>
+  
+          <div class="header-widget-area">
+            <!-- 로그인O 상태 -->
+            <ul class="widget-list">
+              <li class="widget-item">
+                <div class="dropdown">
+                  <button type="button" class="dropbtn1">
+                    <i class="fa-solid fa-bell header-icon"></i>
+                  </button>
+  
+                  <div id="myDropdown1" class="dropdown-message">
+                    <div class="notice"><p>알림</p></div>
+                    <ul>
+                      <li>
+                        <div class="message-box">
+                          <a href="">배송이 시작되었습니다.</a>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="message-box">
+                          <a href="">신팜팜님이 신고했습니다..</a>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="message-box">
+                          <a href="">정팜팜님이 신고를 거부하셨습니다.</a>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+              <li class="widget-item">
+                <a href="#">
+                  <i class="fa-solid fa-comment-dots"></i>
+                </a>
+                <!-- <div class="chat-count">21</div> -->
+              </li>
+              <li class="widget-item">
+                <div class="dropdown">
+                  <button type="button" class="dropbtn">
+                    <span>
+                      <i
+                        class="fa-solid fa-user header-icon"
+                        id="profilePhoto"
+                      ></i>
+                    </span>
+                    <!-- <span>
+                                      <img src="../images/member/farmer.png" class="login-profile-img">
+                                  </span> -->
+                    <i
+                      class="fa-solid fa-caret-down caret-icon"
+                      id="triangleIcon"
+                    ></i>
+                  </button>
+  
+                  <div id="myDropdown" class="dropdown-content">
+                    <a href="#">내프로필</a>
+                    <a href="#">로그아웃</a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+  
+            <!-- 로그인X 상태 -->
+            <!-- <ul class="login-list">
+                      <li class="login-item"><a href="#">로그인</a></li>
+                      <li class="login-item"><a href="#">회원가입</a></li>
+                  </ul> -->
+          </div>
+        </header>
+  
+        <nav>
+          <div class="nav-head">
+            <div class="nav-body">
+              <div class="nav-list"><a href="#">팜팜마켓</a></div>
+              <div class="nav-list"><a href="#">사고팔고</a></div>
+              <div class="nav-list"><a href="#">커뮤니티</a></div>
+              <div class="nav-list"><a href="#">문의게시판</a></div>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <script>
+        // 프로필 드롭다운
+        const dropbtn = document.querySelector('.dropbtn');
+        dropbtn.addEventListener('click', () => {
+          const icon = document.querySelector('.caret-icon');
+          const myDropdown = document.querySelector('.dropdown-content');
+  
+          if (
+            myDropdown.style.display == 'none' ||
+            myDropdown.style.display == ''
+          ) {
+            icon.style.transform = 'perspective(500px) rotateX(180deg)';
+            myDropdown.style.display = 'block';
+          } else {
+            icon.style.transform = 'perspective(500px) rotateX(360deg)';
+            myDropdown.style.display = 'none';
+          }
+        });
+  
+        dropbtn.addEventListener('blur', () => {
+          const icon = document.querySelector('.caret-icon');
+          const myDropdown = document.querySelector('.dropdown-content');
+  
+          myDropdown.style.display = '';
+          icon.style.transform = 'perspective(500px) rotateX(360deg)';
+        });
+  
+        // 알림 드롭다운
+        const dropbtn1 = document.querySelector('.dropbtn1');
+        dropbtn1.addEventListener('click', () => {
+          const myDropdown1 = document.querySelector('.dropdown-message');
+  
+          if (
+            myDropdown1.style.display == 'none' ||
+            myDropdown1.style.display == ''
+          ) {
+            myDropdown1.style.display = 'block';
+          } else {
+            myDropdown1.style.display = 'none';
+          }
+        });
+  
+        dropbtn1.addEventListener('blur', () => {
+          const myDropdown1 = document.querySelector('.dropdown-message');
+  
+          myDropdown1.style.display = '';
+        });
+        // const myDropdown1 = document.getElementById("myDropdown1");
+  
+        // function dropDown1(){
+        //     myDropdown1.classList.toggle("show1");
+        // };
+  
+        // window.onclick=function(e){
+        //     if(!e.target.matches(".dropbtn, .dropbtn *")){
+  
+        //         if(myDropdown1.classList.contains("show1")){
+        //             myDropdown1.classList.remove("show1");
+        //         }
+        //     }
+        // };
+      </script>
+    </div>
+
+    <!-- 본문 영역 -->
+    <div class="container" role="main">
+
+        <!-- 좌측 사이드바 채팅방 목록 -->
+        <section class="chatting-list-area">
+            <div class="title">
+                내 채팅
+            </div>
+            <div class="search-area">
+                <input id="searchBar" placeholder="채팅방 검색">
+                <button id="searchBtn">
+                    검색
+                </button>
+            </div>
+
+            <!-- 이하는 채팅방 영역 -->
+
+            <div class="chatting-box">
+              
+              <div class="profile-img">
+                <img src="/src/main/webapp/resources/images/chatting/farmer.png">
+              </div>
+              
+              <div class="enter-icon">
+                <i class="fa-solid fa-right-to-bracket"></i>
+              </div>
+
+              <div class="box-label">
+                <div class="member-nickname">
+                  착한 판매자
+                </div>
+              
+                <div class="last-message-time">
+                  2022-12-18
+                </div>
+              
+              </div>
+              
+              <div class="last-message-content">
+                메세지가 아무리 길어도 2줄 이상은 출력되지 않게 만들려고 합니다. 메세지가 긴 경우는 이렇게 됩니다.
+              </div>
+            
+            </div> <!-- end box -->
+
+            <div class="chatting-box">
+              <div class="profile-img">
+                <img src="/src/main/webapp/resources/images/chatting/farmer.png">
+              </div>
+              
+              <div class="enter-icon">
+                <i class="fa-solid fa-right-to-bracket"></i>
+              </div>
+              
+              <div class="box-label">
+                <div class="member-nickname">
+                  이름이 정말 너무너무 긴 판매자가 있다면 어떻게 될까요?
+                </div>
+              
+                <div class="last-message-time">
+                  2022-12-18
+                </div>
+              
+              </div>
+              
+              <div class="last-message-content">
+                메세지가 아무리 길어도 2줄 이상은 출력되지 않게 만들려고 합니다. 메세지가 긴 경우는 이렇게 됩니다.
+              </div>
+            
+            </div> <!-- end box -->
+
+            <div class="chatting-box">
+
+              <div class="profile-img">
+                <img src="/src/main/webapp/resources/images/chatting/farmer.png">
+              </div>
+
+              <div class="enter-icon">
+                <i class="fa-solid fa-right-to-bracket"></i>
+              </div>
+
+              <div class="box-label">
+                <div class="member-nickname">
+                  이름이 정말 너무너무 긴 판매자가 있다면 어떻게 될까요? 이건 3줄을 넘어서 4줄, 5줄까지 가는 아주 긴 이름입니다..
+                </div>
+                
+                <div class="last-message-time">
+                  오후 6:26
+                </div>
+              </div>
+
+              <div class="last-message-content">
+                메세지가 아무리 길어도 2줄 이상은 출력되지 않게 만들려고 합니다. 메세지가 긴 경우는 이렇게 됩니다.
+              </div>
+
+            </div> <!-- end box -->
+
+        </section>
+
+        <!-- 우측 채팅 내역 -->
+        <section class="chatting-room">
+
+        </section>
+    </div>
+
+
+</body>
+</html>
