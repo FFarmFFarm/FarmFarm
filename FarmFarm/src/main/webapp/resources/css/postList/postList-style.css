@@ -13,6 +13,25 @@ body{
     transition-duration: 0.3s;
 }
 
+/* nav custom : nav 부착 검색창 */
+#navSearchBar{
+    height: 40px;
+
+    border: 1px solid var(--point-color);
+    border-radius: 5px;
+    padding: 10px;
+    
+    align-items: center;
+}
+
+.view-hidden{
+    display: none;
+}
+
+.view-flex{
+    display: flex;
+}
+
 
 /* banner */
 .banner{
@@ -236,13 +255,30 @@ body{
     align-items: center;
 }
 
+#listCount{
+    color: var(--main-font-color);
+    font-weight: 600;
+}
+
+.view-option{
+    color: var(--sub-font-color);
+    font-size: var(--small-font-size);
+    
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.view-option > span{
+    margin: 0px 5px;
+}
+
 .opt{
-    margin-left: 10px;
     cursor: pointer;
 }
 
 .opt:hover{
-    font-weight: 900;
+    color: var(--main-font-color);
 }
 
 /* list-area-body */

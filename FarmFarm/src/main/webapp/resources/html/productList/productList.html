@@ -101,6 +101,17 @@
               <div class="nav-list"><a href="#">사고팔고</a></div>
               <div class="nav-list"><a href="#">커뮤니티</a></div>
               <div class="nav-list"><a href="#">문의게시판</a></div>
+
+              <!-- nav custom -->
+              <div class="nav-list view-hidden" id="navSearchBar">
+
+                    <input id="keyword" placeholder="검색어를 입력하세요">
+                    <button id="searchBtn">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+
+              </div>
+
             </div>
           </div>
         </nav>
@@ -288,7 +299,9 @@
                 </div>
                 <div class="view-option">
                     <span class="opt">신상품순</span>
+                    <span>|</span>
                     <span class="opt">낮은가격순</span>
+                    <span>|</span>
                     <span class="opt">높은가격순</span>
                 </div>
             </div>
@@ -519,7 +532,7 @@
         </section>
     </div>
 
-    <div id="topBtn" class="view-hidden">
+    <div id="topBtn" class="opacity-zero">
         <i class="fa-sharp fa-solid fa-arrow-up"></i>
     </div>
 

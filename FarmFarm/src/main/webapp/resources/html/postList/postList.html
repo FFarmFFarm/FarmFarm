@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>팜팜 | 사고팔고</title>
-    
+
     <!-- swiper-style -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
 
@@ -103,6 +103,17 @@
               <div class="nav-list"><a href="#">사고팔고</a></div>
               <div class="nav-list"><a href="#">커뮤니티</a></div>
               <div class="nav-list"><a href="#">문의게시판</a></div>
+
+              <!-- nav custom -->
+              <div class="nav-list view-hidden" id="navSearchBar">
+  
+                  <input id="keyword" placeholder="검색어를 입력하세요">
+                  <button id="searchBtn">
+                      <i class="fa-solid fa-magnifying-glass"></i>
+                  </button>
+  
+              </div>
+
             </div>
           </div>
         </nav>
@@ -289,7 +300,9 @@
                 </div>
                 <div class="view-option">
                     <span class="opt">신상품순</span>
+                    <span>|</span>
                     <span class="opt">낮은가격순</span>
+                    <span>|</span>
                     <span class="opt">높은가격순</span>
                 </div>
             </div>
