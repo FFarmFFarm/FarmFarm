@@ -4,7 +4,6 @@
   height: 180px;
   width: 100vw;
   background-color: var(--background-color);
-  /* border-bottom: 1px solid #bcbcbc; */
   box-shadow: rgb(0 0 0 / 7%) 0px 3px;
 }
 
@@ -40,13 +39,17 @@ header {
 }
 
 .widget-item {
-  font-size: var(--large-font-size);
+  font-size: 22px;
   line-height: 1;
   margin-left: 25px;
 }
 
 .widget-item a {
   color: var(--icon-button-color);
+}
+
+.widget-item a:hover {
+  color: var(--point-color);
 }
 
 /* .chat-count{
@@ -65,7 +68,7 @@ header {
 
 .header-icon {
   color: var(--icon-button-color);
-  font-size: var(--large-font-size);
+  font-size: 22px;
 }
 
 .header-icon:hover {
@@ -124,6 +127,15 @@ header {
   margin-top: 7px;
   padding-left: 7px;
   color: var(--icon-button-color);
+}
+
+.dropdown:hover span{
+  border: 1.5px solid var(--point-color);
+  background-color: var(--point-color);
+}
+
+.dropdown:hover #triangleIcon{
+  color: var(--point-color);
 }
 
 .login-profile-img {
