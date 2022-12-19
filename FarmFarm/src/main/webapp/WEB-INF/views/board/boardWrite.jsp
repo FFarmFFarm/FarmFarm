@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -6,8 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>와글와글 글쓰기</title>
     <script src="https://kit.fontawesome.com/345198b845.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../../css/board/boardWrite-style.css">
-    <link rel="stylesheet" href="../../css/header.css">
+    <link rel="stylesheet" href="/css/board/boardWrite-style.css">
+    <link rel="stylesheet" href="/css/header.css">
 </head>
 <body>
 
@@ -15,7 +18,7 @@
         <header>
             <div class="home-logo">
                 <a href="/">
-                    <img src="../../images/mainLogo.png">
+                    <img src="/images/mainLogo.png">
                 </a>
             </div>
 
@@ -163,17 +166,16 @@
             <div class="board-top-title">와글와글 글쓰기</div>
         </section>
         <form action="">
-
             <section class="board-category">
                 <div class="board-category-area">
                     <span class="category">카테고리 선택</span>
-    
+
                     <input type="radio" name="category" id="share" value="share">
                     <label for="share">물물교환</label>
-    
+
                     <input type="radio" name="category" id="tip" value="tip">
                     <label for="tip">팁</label>
-    
+
                     <input type="radio" name="category" id="question" value="question">
                     <label for="question">질문</label>
                 </div>
@@ -187,7 +189,7 @@
                 <textarea class="write-content"></textarea>
                 <div class="board-img-ex">이미지 첨부하기</div>
                 <div class="board-img-area">
-    
+
                     <div class="board-img">
                         <label for="img1">
                             <img src="" class="board-preview">
