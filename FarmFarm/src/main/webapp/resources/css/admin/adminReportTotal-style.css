@@ -1,11 +1,8 @@
 @import "../root-style.css";
 
-
 .header-container{
     z-index: 50;
 }
-
-
 
 body{
     width: 100vw;
@@ -19,19 +16,16 @@ body{
 main{
     width: 1200px;
     height: auto;
-
     display: flex;
     justify-content: space-between;
-
 }
-
 
 
 
 /** 왼쪽 nav메뉴 */
 .admin-nav-section{
     width: 200px;
-    height: 100vh;
+    /* height: 100vh; */
     margin-top: 50px;
     display: flex;
     flex-direction: column;
@@ -109,7 +103,7 @@ main{
 }
 
 
-.nav-lower a {
+.nav-lower a{
     width: 200px;
 }
 
@@ -122,14 +116,14 @@ main{
 }
 
 /* todo: 카테고리 선택 부분 _카테고리별로 다르게 표시! */
-#dashboard{
+.admin-nav-sub:nth-of-type(7){
     height: 30px;
     padding-top: 5px;
     background-color: #eef4ed;;
 }
 
 
-
+/** -------------------------------------- */
 
 
 /** 오른쪽 내용 부분 */
@@ -137,11 +131,8 @@ main{
     width: 1000px;
     min-height: 900px;
     height: auto;
-    padding-bottom: 10px;
-    /* background-color: rgb(237,241,244); */
-    background-color: #eef4ed;;
-    /* border-radius: 10px; */
-    position: relative;
+    padding-bottom: 20px;
+    background-color: #eef4ed;
 
     display: flex;
     flex-direction: column;
@@ -149,74 +140,120 @@ main{
 }
 
 
-/* 오늘 날짜 */
-.todayDate{
+.title-div{
     width: 100%;
-    height: 40px;
-    text-align: center;
-    color: black;
-    font-weight: bold;
-    font-family: "NotoSansKR-Medium";
-    font-size: var(--medium-font-size);
-
-    position: absolute;
-    top: 15px;
-    right: 0;
-
-    padding-top: 5px;
-    padding-right: 10px;
-}
-
-
-.board-stat{
-    width: 900px;
     display: flex;
     justify-content: space-between;
-    margin-top: 80px;
 }
 
-.board-stat span{
-    width: 200px;
-    height: 150px;
+.board-title{
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+
+.report-total-div{
+    width: 100%;
+    min-height: 800px;
     border-radius: 10px;
     background-color: white;
+    overflow: auto;
 
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* justify-content: space-evenly; */
-}
-
-.span-text{
-    padding-top: 33px;
-    font-size: var(--large-font-size); 
-    font-weight: bold;
-}
-
-.span-number{
-    padding-top: 20px;
-    font-size: 26px;
-    font-weight: bold;
-}
-
-.s-green{
-    color: var(--point-color);
-}
-
-.s-red{
-    color: red;
-}
-
-.s-blue{
-    color: rgb(48, 77, 241);
 }
 
 
-.board-graph{
-    background-color: white;
+.report-list-table{
     width: 900px;
-    height: 300px;
-    border-radius: 10px;
-    margin-top: 30px;
+    /* height: auto; */
+    height: 580px;
+    padding: 10px;
+    margin: 5px 20px;
+    font-size: var(--small-font-size);
+    text-align: center;
+    border-collapse: collapse;
 }
 
+.report-list-table th{
+    color: var(--point-color);
+    padding-bottom: 10px;
+}
+
+.report-list-table td{
+    padding-bottom: 5px;
+}
+
+.report-list-row:hover{
+    background-color: #eef4ed;
+    transition-duration: 0.1s;
+}
+
+
+.select-filter{
+    background-color: none;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+
+
+
+/* 페이지네이션 */
+.admin-pagination{
+    list-style: none;
+    width: 920px;
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+
+    font-size: var(--small-font-size);
+}
+
+.admin-pagination li{
+    width: 20px;
+    margin: 0 5px;
+    text-align: center;
+}
+
+.admin-pagination a{
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: lightgray;
+}
+
+/* todo:현재 페이지색은 point-color로 */
+
+
+/* 회원 조회 - 검색 */
+.report-search{
+    width: 200px;
+    height: auto;
+    padding: 1px 15px;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+
+    margin-right: 5px;
+    margin-bottom: 5px;
+    
+    border-radius: 5px;
+
+
+    background-color: #e2e2e2;
+}
+
+#reportSearchInput{
+    width: 160px;
+    border: none;
+    background-color: #e2e2e2;
+}
+
+#reportSearchBtn{
+    background-color: #e2e2e2;
+    border: none;
+    cursor: pointer;
+}

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>주문</title>
+    <link rel="stylesheet" href="../../css/root-style.css" />
+    <link rel="stylesheet" href="../../css/header.css" />
+    <link rel="stylesheet" href="../../css/order/order-style.css" />
+    <script
+      src="https://kit.fontawesome.com/1ce4f19a7a.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="header-container">
+      <header>
+        <div class="home-logo">
+          <a href="/">
+            <img src="../../images/mainLogo.png" />
+          </a>
+        </div>
+
+        <div class="header-widget-area">
+          <!-- 로그인O 상태 -->
+          <ul class="widget-list">
+            <li class="widget-item">
+              <div class="dropdown">
+                <button type="button" class="dropbtn1">
+                  <i class="fa-solid fa-bell header-icon"></i>
+                </button>
+
+                <div id="myDropdown1" class="dropdown-message">
+                  <div class="notice"><p>알림</p></div>
+                  <ul>
+                    <li>
+                      <div class="message-box">
+                        <a href="">배송이 시작되었습니다.</a>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="message-box">
+                        <a href="">신팜팜님이 신고했습니다..</a>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="message-box">
+                        <a href="">정팜팜님이 신고를 거부하셨습니다.</a>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li class="widget-item">
+              <a href="#">
+                <i class="fa-solid fa-comment-dots"></i>
+              </a>
+              <!-- <div class="chat-count">21</div> -->
+            </li>
+            <li class="widget-item">
+              <div class="dropdown">
+                <button type="button" class="dropbtn">
+                  <span>
+                    <i
+                      class="fa-solid fa-user header-icon"
+                      id="profilePhoto"
+                    ></i>
+                  </span>
+                  <!-- <span>
+                                    <img src="../images/member/farmer.png" class="login-profile-img">
+                                </span> -->
+                  <i
+                    class="fa-solid fa-caret-down caret-icon"
+                    id="triangleIcon"
+                  ></i>
+                </button>
+
+                <div id="myDropdown" class="dropdown-content">
+                  <a href="#">내프로필</a>
+                  <a href="#">로그아웃</a>
+                </div>
+              </div>
+            </li>
+          </ul>
+
+          <!-- 로그인X 상태 -->
+          <!-- <ul class="login-list">
+                    <li class="login-item"><a href="#">로그인</a></li>
+                    <li class="login-item"><a href="#">회원가입</a></li>
+                </ul> -->
+        </div>
+      </header>
+
+      <nav>
+        <div class="nav-head">
+          <div class="nav-body">
+            <div class="nav-list"><a href="#">팜팜마켓</a></div>
+            <div class="nav-list"><a href="#">사고팔고</a></div>
+            <div class="nav-list"><a href="#">커뮤니티</a></div>
+            <div class="nav-list"><a href="#">문의게시판</a></div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <script>
+      // 프로필 드롭다운
+      const dropbtn = document.querySelector(".dropbtn");
+      dropbtn.addEventListener("click", () => {
+        const icon = document.querySelector(".caret-icon");
+        const myDropdown = document.querySelector(".dropdown-content");
+
+        if (
+          myDropdown.style.display == "none" ||
+          myDropdown.style.display == ""
+        ) {
+          icon.style.transform = "perspective(500px) rotateX(180deg)";
+          myDropdown.style.display = "block";
+        } else {
+          icon.style.transform = "perspective(500px) rotateX(360deg)";
+          myDropdown.style.display = "none";
+        }
+      });
+
+      dropbtn.addEventListener("blur", () => {
+        const icon = document.querySelector(".caret-icon");
+        const myDropdown = document.querySelector(".dropdown-content");
+
+        myDropdown.style.display = "";
+        icon.style.transform = "perspective(500px) rotateX(360deg)";
+      });
+
+      // 알림 드롭다운
+      const dropbtn1 = document.querySelector(".dropbtn1");
+      dropbtn1.addEventListener("click", () => {
+        const myDropdown1 = document.querySelector(".dropdown-message");
+
+        if (
+          myDropdown1.style.display == "none" ||
+          myDropdown1.style.display == ""
+        ) {
+          myDropdown1.style.display = "block";
+        } else {
+          myDropdown1.style.display = "none";
+        }
+      });
+
+      dropbtn1.addEventListener("blur", () => {
+        const myDropdown1 = document.querySelector(".dropdown-message");
+
+        myDropdown1.style.display = "";
+      });
+      // const myDropdown1 = document.getElementById("myDropdown1");
+
+      // function dropDown1(){
+      //     myDropdown1.classList.toggle("show1");
+      // };
+
+      // window.onclick=function(e){
+      //     if(!e.target.matches(".dropbtn, .dropbtn *")){
+
+      //         if(myDropdown1.classList.contains("show1")){
+      //             myDropdown1.classList.remove("show1");
+      //         }
+      //     }
+      // };
+    </script>
+    <main>
+      <div class="order-title">주문서</div>
+      <section class="product-container">
+        <ul>
+          <div class="order-headline order-product-list">
+            <span> 주문 상품 </span>
+            <span><i class="fa-solid fa-chevron-down"></i></span>
+          </div>
+          <div class="order-content">
+            <span> 양념 소불고기 1kg(냉장)외 </span>
+            <span class="order-count"> 1개 </span>
+            <span> 상품을 주문합니다 </span>
+          </div>
+          <li>
+            <div class="order-thumbnail">
+              <img
+                src="../../images/product/thumbnail/productThumbnail.png"
+                alt=""
+                class="order-thumbnail-img"
+              />
+            </div>
+            <span class="order-product-name">상품 이름</span>
+            <span class="order-amount">수량</span>
+            <span class="order-price-info">가격</span>
+          </li>
+        </ul>
+      </section>
+      <section class="member-info-container">
+        <div class="order-headline">주문자 정보</div>
+        <div>
+          <div class="info-subject">
+            <div class="member-name">보내는 분</div>
+            <div class="member-tel">휴대폰</div>
+            <div class="member-email">이메일</div>
+          </div>
+          <div class="info-content">
+            <div class="member-name">신보경</div>
+            <div class="member-tel">01043394858</div>
+            <div class="member-email">
+              <span> bboya0518@naver.com </span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="shipping-info-container">
+        <div class="order-headline">배송 정보</div>
+        <div class="info-container">
+          <div class="info-subject">
+            <div class="member-address">배송지</div>
+            <div class="member-detail">상세 정보</div>
+          </div>
+          <div class="info-content">
+            <div class="member-address">
+              <span>기본 배송지</span>
+              <span>서울시 도봉구 도봉로 ...</span>
+            </div>
+            <div class="member-detail">
+              <span>이름, 휴대폰 번호</span>
+              <span>문앞 | 자유 출입 가능</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="order-container">
+        <div class="payment-container">
+          <div class="order-headline">결제 수단</div>
+          <div>
+            <span class="select-payment">결제수단 선택</span>
+            <div class="payment-list">
+              <button type="button" class="kakaopay-btn">
+                <i class="fa-solid fa-comment"></i>Pay
+              </button>
+            </div>
+          </div>
+          <span class="notice"
+            >카카오페이 결제 시 결제하신 수단으로만 환불되는 점
+            양해부탁드립니다.</span
+          >
+        </div>
+        <div class="price-container">
+          <span class="order-headline total-price">결제 금액</span>
+          <div>
+            <div class="price-one-line">
+              <span>주문 금액</span>
+              <span>30,000원</span>
+            </div>
+            <div class="price-one-line">
+              <span>배송비</span>
+              <span>3,000원</span>
+            </div>
+            <div class="price-one-line">
+              <span>최종결제금액</span>
+              <span class="result-price">33,000원</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="agreement-container">
+        <div class="order-headline">개인정보 수집/제공</div>
+        <div>
+          <div class="agree-all">
+            <label for=""></label>
+            <input type="checkbox" />
+            <span>결제 진행 필수 전체 동의</span>
+          </div>
+          <div>
+            <label for=""></label>
+            <input type="checkbox" />
+            <span>(필수) 개인정보 수집/이용 및 처리 동의</span>
+          </div>
+          <div>
+            <label for=""></label>
+            <input type="checkbox" />
+            <span>(필수) 개인정보 제3자 제공 동의</span>
+          </div>
+          <div>
+            <label for=""></label>
+            <input type="checkbox" />
+            <span>(필수) 전자지급 결제대행 서비스 이용약관 동의</span>
+          </div>
+        </div>
+      </section>
+      <section class="submit-container">
+        <button type="button">33,000원 결제하기</button>
+        <div class="notice-container">
+          <p class="notice notice-p">
+            [주문완료] 상태일 경우에만 주문 취소 가능합니다. <br />
+            미성년자가 결제 시 법정대리인이 그 거래를 취소할 수 있습니다. <br />
+            배송 불가 시, 결제수단으로 환불됩니다. 일부 또는 전체 상품이 품절
+            등의 사유로 배송 되지 못할 경우, 신속하게 환불해 드리겠습니다.
+          </p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
