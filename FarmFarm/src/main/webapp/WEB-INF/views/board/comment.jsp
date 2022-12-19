@@ -10,9 +10,16 @@
      <section class="comment-area">
             <div class="comment-all">
                 <div class="comment-writer">
-                    <div class="writer-profile">사진</div>
+                    <div class="writer-profile">
+                        <c:if test="${empty comment.profileImg}">
+                            <img src="" alt=""><%-- 기본 이미지 주소 넣기 --%>
+                        </c:if>
+                        <c:if test="${!empty comment.profileImg}">
+                            <img src="${comment.profileImg}" alt="">
+                        </c:if>
+                    </div>
                     <div class="writer-name-time">
-                        <div class="writer-name">옆집판매자</div>
+                        <div class="writer-name">${comment.memberName}</div>
                         <div class="writer-time">5분전</div>
                     </div>
                     <div class="comment-like-report">
@@ -20,9 +27,8 @@
                         <span class="comment-report">신고</span>
                     </div>
                 </div>
-                <div class="comment-content">진짜 호박 맛없게 보이네요
-                    저런 호박은 도대체 어떻게 하면 키울 수 있는건가요
-                    정말 못생겼다 그냥 버리세요
+                <div class="comment-content">
+                    <pre>${comment.commentContent}</pre>
                 </div>
             </div>
         </section>
