@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>채팅 드롭다운 위젯</title>
+    <title>알림 드롭다운 위젯</title>
 
-    <link rel="stylesheet" href="/src/main/webapp/resources/css/chatting/chattingWidget-style.css">
     <link rel="stylesheet" href="/src/main/webapp/resources/css/header.css">
+    <link rel="stylesheet" href="/src/main/webapp/resources/css/chatting/chattingWidget-style.css">
+    <link rel="stylesheet" href="/src/main/webapp/resources/css/alarmcenter/alarmWidget-style.css">
 
     <script src="https://kit.fontawesome.com/d449774bd8.js" crossorigin="anonymous"></script>
 </head>
@@ -31,23 +32,153 @@
                   </button>
   
                   <div id="myDropdown1" class="dropdown-message">
-                    <div class="notice"><p>알림</p></div>
+                    <div class="dropdown-header">
+                      <div class="dropdown-title">
+                        알림
+                      </div>
+                      <div id="goAlarmcenterBtn">
+                        더보기
+                        &nbsp;
+                        <i class="fa-solid fa-chevron-right"></i>
+                      </div>
+                    </div>
+                    
                     <ul>
                       <li>
-                        <div class="message-box">
-                          <a href="">배송이 시작되었습니다.</a>
+                        <div class="alarmWidget-box">
+                          <div class="alarmWidget-type-icon">
+                            <i class="fa-solid fa-box"></i>
+                          </div>
+                          <div class="alarmWidget-label">
+                            <div class="alarmWidget-content">
+                              고구마맛 감자채볶음
+                            </div>
+                            <div class="alarmWidget-detail-mention">
+                              상품을 받으셨나요? 구매 확정 버튼을 눌러주시면 판매자에게 도움이 됩니다!
+                            </div>
+                          </div>
+                          <div class="alarmWidget-date">
+                            2022-11-11
+                          </div>
                         </div>
                       </li>
+
                       <li>
-                        <div class="message-box">
-                          <a href="">신팜팜님이 신고했습니다..</a>
+                        <div class="alarmWidget-box">
+                          <div class="alarmWidget-type-icon">
+                            <i class="fa-solid fa-envelope-open-text"></i>
+                          </div>
+                          <div class="alarmWidget-label">
+                            <div class="alarmWidget-content">
+                              당도가 높고 신선하며 효능이 많고 집에서 직접 키워 믿을 수 있고
+                              달고 맛있고 달고 맛있고 달고 맛있고 정말정말 맛이 좋아서 아무나 못 사먹는 
+                              귀하디 귀한 사과
+                            </div>
+                            <div class="alarmWidget-detail-mention">
+                              주문이 완료되었습니다.
+                            </div>
+                          </div>
+                          <div class="alarmWidget-date">
+                            1시간 전
+                          </div>
                         </div>
                       </li>
+
                       <li>
-                        <div class="message-box">
-                          <a href="">정팜팜님이 신고를 거부하셨습니다.</a>
+                        <div class="alarmWidget-box">
+                          <div class="alarmWidget-type-icon">
+                            <i class="fa-solid fa-pen"></i>
+                          </div>
+                          <div class="alarmWidget-label">
+                            <div class="alarmWidget-content">
+                              팀장 몰래 먹는 블루베리
+                            </div>
+                            <div class="alarmWidget-detail-mention">
+                              후기를 작성해주시면<br>다른 이용자에게 도움이 됩니다!
+                            </div>
+                          </div>
+                          <div class="alarmWidget-date">
+                            오전 01:32
+                          </div>
                         </div>
                       </li>
+
+                      <li>
+                        <div class="alarmWidget-box">
+                          <div class="alarmWidget-type-icon">
+                            <i class="fa-solid fa-comment"></i>
+                          </div>
+                          <div class="alarmWidget-label">
+                            <div class="alarmWidget-content">
+                              아침 메뉴로 밥 vs 빵
+                            </div>
+                            <div class="alarmWidget-detail-mention">
+                              내가 작성한 게시글에 댓글이 달렸습니다.
+                            </div>
+                          </div>
+                          <div class="alarmWidget-date">
+                            오전 05:32
+                          </div>
+                        </div>
+                      </li>
+
+                      <li>
+                        <div class="alarmWidget-box">
+                          <div class="alarmWidget-type-icon">
+                            <i class="fa-solid fa-comments"></i>
+                          </div>
+                          <div class="alarmWidget-label">
+                            <div class="alarmWidget-content">
+                              아침 메뉴로 밥 vs 빵
+                            </div>
+                            <div class="alarmWidget-detail-mention">
+                              내가 작성한 댓글에 대댓글이 달렸습니다.
+                            </div>
+                          </div>
+                          <div class="alarmWidget-date">
+                            오전 05:32
+                          </div>
+                        </div>
+                      </li>
+
+                      <li>
+                        <div class="alarmWidget-box">
+                          <div class="alarmWidget-type-icon">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                          </div>
+                          <div class="alarmWidget-label">
+                            <div class="alarmWidget-content">
+                              신고를 남발하는 유저 조치 문의
+                            </div>
+                            <div class="alarmWidget-detail-mention">
+                              문의에 답변이 등록되었습니다.
+                            </div>
+                          </div>
+                          <div class="alarmWidget-date">
+                            오전 05:32
+                          </div>
+                        </div>
+                      </li>
+
+                      <li>
+                        <div class="alarmWidget-box">
+                          <div class="alarmWidget-type-icon">
+                            <i class="fa-solid fa-message"></i>
+                          </div>
+                          <div class="alarmWidget-label">
+                            <div class="alarmWidget-content">
+                              확인하지 않은 채팅이 32건 있습니다.
+                            </div>
+                            <div class="alarmWidget-detail-mention">
+                              지금 바로 확인해보세요.
+                            </div>
+                          </div>
+                          <div class="alarmWidget-date">
+                            오전 05:32
+                          </div>
+                        </div>
+                      </li>
+
                     </ul>
                   </div>
                 </div>
@@ -60,6 +191,16 @@
 
                   <!-- 채팅 드롭다운 영역 -->
                   <div id="chattingWidget" class="dropdown-chatting">
+                    <div class="dropdown-header">
+                      <div class="dropdown-title">
+                        채팅
+                      </div>
+                      <div id="goChattingRoomBtn">
+                        더보기
+                        &nbsp;
+                        <i class="fa-solid fa-chevron-right"></i>
+                      </div>
+                    </div>
                     
                     <!-- 채팅 드롭다운에 표시될 메뉴(최대 6개) -->
                     <div class="chattingWidget-box">
@@ -229,11 +370,6 @@
                     
                     </div> <!-- end box -->  
                     
-                    <!-- 채팅방 전체화면으로 이동하기 -->
-                    <div id="goChattingRoom">
-                      채팅 더보기&nbsp;<i class="fa-solid fa-chevron-right"></i>
-                    </div>
-
                   </div>  
 
                 </div>
@@ -370,6 +506,6 @@
       </script>
     </div>
 
-    <script src="/src/main/webapp/resources/js/chatting/chattingDropdown.js"></script>
+    <script src="/src/main/webapp/resources/js/alarmCenter/alarmWidget.js"></script>
 </body>
 </html>
