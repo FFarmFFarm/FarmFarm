@@ -1,0 +1,22 @@
+.review-form-container {
+  width: 600px;
+  height: 800px;
+
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.review-form {
+  background-color: aqua;
+  width: 700px;
+  height: 600px;
+
+  border-radius: 5px;
+}
