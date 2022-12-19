@@ -6,7 +6,7 @@
       <header>
         <div class="home-logo">
           <a href="/">
-            <img src="../images/mainLogo.png" />
+            <img src="/resources/images/mainLogo.png" />
           </a>
         </div>
 
@@ -29,7 +29,7 @@
                     </li>
                     <li>
                       <div class="message-box">
-                        <a href="">신팜팜님이 신고했습니다..</a>
+                        <a href="">신팜팜님이 신고했습니다/resources</a>
                       </div>
                     </li>
                     <li>
@@ -57,7 +57,7 @@
                     ></i>
                   </span>
                   <!-- <span>
-                                    <img src="../images/member/farmer.png" class="login-profile-img">
+                                    <img src="/resources/images/member/farmer.png" class="login-profile-img">
                                 </span> -->
                   <i
                     class="fa-solid fa-caret-down caret-icon"
