@@ -120,6 +120,7 @@ main{
     height: 30px;
     padding-top: 5px;
     background-color: #eef4ed;;
+    font-weight: bold;
 }
 
 
@@ -155,10 +156,16 @@ main{
 
 
 .caret-icon{
-    padding-left: 3px;
+    padding-left: 2px;
     margin: 0;
-     color: var(--point-color);
+    color: var(--point-color);
 }
+
+.report-list-type span{
+    padding-left: 10px;
+}
+
+
 
 .report-select{
     width: 920px;
@@ -177,7 +184,7 @@ main{
     width: 860px;
     height: auto;
     padding: 10px;
-    margin: 15px 20px;
+    margin: 10px 20px;
     font-size: var(--small-font-size);
     text-align: center;
     border-collapse: collapse;
@@ -186,6 +193,8 @@ main{
 .report-list-table th{
     color: var(--point-color);
     padding: 10px 0;
+    /* background-color: #eef4ed; */
+    /* border-bottom: 1px solid #bdf0b4; */
 }
 
 .report-list-table td{
@@ -193,19 +202,10 @@ main{
 }
 
 .report-list-row:hover{
-    background-color: #eef4ed;
+    background-color: #e1fadd;
     transition-duration: 0.1s;
     cursor: pointer;
 }
-
-
-.select-filter{
-    background-color: none;
-    padding-left: 0;
-    margin-left: 0;
-}
-
-
 
 
 /* 페이지네이션 */
@@ -262,4 +262,12 @@ main{
     background-color: #e2e2e2;
     border: none;
     cursor: pointer;
+}
+
+
+/* 신고 상세 조회 -클릭하면 모달로 */
+/* //todo: 클릭하면 모달로 */
+
+.report-detail-modal{
+
 }

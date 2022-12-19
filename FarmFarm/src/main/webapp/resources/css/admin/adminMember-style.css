@@ -124,7 +124,8 @@ main{
 .admin-nav-sub:first-of-type{
     height: 30px;
     padding-top: 5px;
-    background-color: #eef4ed;;
+    background-color: #eef4ed;
+    font-weight: bold;
 }
 
 
@@ -145,14 +146,7 @@ main{
 }
 
 
-.upper-board{
-    width: 900px;
-    height: 320px;
-    display: flex;
-    justify-content: center;
-}
-
-
+/* 오른쪽 상단 */
 /* 모든 타이틀(회원 상세 정보, 활동 내역, 회원 조회 span) */
 .member-title{
     color: var(--icon-button-color);
@@ -161,105 +155,13 @@ main{
 }
 
 
-/* 오른쪽 상단 */
-.upper-detail{
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    margin-top: 50px;
-    margin-right: 10px;
-}
-
-
-.upper-history{
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    margin-top: 50px;
-}
-
-
-/* 회원 상세 정보 */
-.member-detail{
-    width: 600px;
-    height: 240px;
-    padding-top: 10px;
-    border-radius: 10px;
-    background-color: white;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-}
-
-.member-detail-table{
-    width: 550px;
-    height: 200px;
-    font-size: 13px;
-}
-
-.member-detail-table td{
-    padding-bottom: 15px;
-}
-
-
-.detail-bold{
-    color: var(--point-color);
-    font-weight: bold;
-}
-
-.status-bold{
-    font-weight: bold;
-}
-
-
-
-/*  계정 상태 내역 */
-.member-history{
-    width: 280px;
-    height: 240px;
-    border-radius: 10px;
-    background-color: white;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-}
-
-.member-history-table{
-    width: 300px;
-    text-align: center;
-    padding: 10px 0;
-    margin-top: 15px;
-    border-collapse: collapse;
-}
-
-
-.member-history-table th{
-    padding-bottom: 10px;
-    font-size: var(--main-font-size);
-    color: var(--point-color);
-}
-
-.member-history-table td{
-    padding-bottom: 5px;
-    font-size: var(--small-font-size);
-}
-
-
-.history-reason{
-    color: red;
-}
-
-
-
 
 
 /* 회원 조회 */
-.lower-board{
+.upper-board{
     width: 900px;
     height: auto;
-    margin-top: 30px;
+    margin-top: 40px;
 
     display: flex;
     flex-direction: column;
@@ -269,8 +171,8 @@ main{
 
 .member-select{
     width: 100%;
-    min-height: 450px;
-    height: 500px;
+    min-height: 350px;
+    height: 350px;
     border-radius: 10px;
     background-color: white;
     overflow: auto;
@@ -323,6 +225,7 @@ main{
 .member-select-row:hover{
     background-color: #eef4ed;
     transition-duration: 0.1s;
+    cursor: pointer;
 }
 
 
@@ -393,6 +296,129 @@ main{
     border: none;
     cursor: pointer;
 }
+
+
+
+/* 회원 상세 정보 middle board */
+/* 계정 변경 내역 lower board */
+.middle-board{
+    height: 350px;
+    display: flex;
+}
+
+
+.lower-board{
+    min-height: 320px;
+    display: flex;
+    justify-content: center;
+}
+
+.middle-detail{
+    width: 900px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    margin-right: 10px;
+}
+
+.lower-history{
+    width: 900px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+}
+
+
+
+/* 회원 상세 정보 */
+.member-detail{
+    width: 900px;
+    padding-top: 20px;
+    border-radius: 10px;
+    background-color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+/* 프로필 이미지 */
+.detail-profileImg{
+    width: 250px;
+    height: 250px;
+    text-align: center;
+}
+
+.detail-profileImg img{
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+}
+
+
+.member-detail-table{
+    width: 900px;
+    height: 200px;
+    font-size: 13px;
+}
+
+.member-detail-table td{
+    padding-bottom: 15px;
+}
+
+
+.detail-bold{
+    color: var(--point-color);
+    font-weight: bold;
+    padding-left: 20px;
+}
+
+.status-bold{
+    font-weight: bold;
+}
+
+
+
+
+
+
+/*  계정 상태 내역 */
+.member-history{
+    width: 900px;
+    height: 240px;
+    border-radius: 10px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.member-history-table{
+    width: 800px;
+    padding: 20px 0;
+    margin-top: 15px;
+    border-collapse: collapse;
+}
+
+
+.member-history-table th{
+    padding-bottom: 10px;
+    font-size: var(--main-font-size);
+    color: var(--point-color);
+    /* border: 1px solid black; */
+}
+
+.member-history-table td{
+    text-align: center;
+    padding: 10px;
+    font-size: var(--main-font-size);
+}
+
+
+
 
 
 

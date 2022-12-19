@@ -179,7 +179,7 @@
 
             <div class="nav-lower">
                 <div class="with-icon-div">
-                    <a href="" class="admin-nav-menu" id="dashboard">
+                    <a href="../admin/dashboard.html" class="admin-nav-menu" id="dashboard">
                         <i class="fa-solid fa-table-columns"></i>
                         팜팜보드
                     </a>
@@ -189,8 +189,8 @@
                     <i class="fa-solid fa-bars-progress"></i>
                     <span class="admin-nav-menu">팜팜 관리</span>
                 </div>
-                <a href="" class="admin-nav-sub">회원 관리</a>
-                <a href="" class="admin-nav-sub">판매자 인증 관리</a>
+                <a href="../admin/adminMember.html" class="admin-nav-sub">회원 관리</a>
+                <a href="../admin/adminSellerAuth.html" class="admin-nav-sub">판매자 인증 관리</a>
                 
                 <div class="with-icon-div">
                     <i class="fa-solid fa-chart-line"></i>
@@ -207,7 +207,7 @@
                         신고 관리
                     </span>
                 </div>
-                <a href="" class="admin-nav-sub">전체 신고 관리</a>
+                <a href="../admin/adminReportTotal.html" class="admin-nav-sub">전체 신고 관리</a>
                 <a href="" class="admin-nav-sub">신고 접수 내역</a>
             </div>
         </nav>
@@ -235,23 +235,24 @@
                   <div class="report-select">
                       <table class="report-list-table">
                           <tr>
-                              <th>신고 번호</th>
-                              <th>유형
-                                <i class="fa-solid fa-caret-down caret-icon" class="select-filter"></i>
+                              <th>신고번호</th>
+                              <th class="report-list-type">
+                                <span>유형</span>
+                                <i class="fa-solid fa-caret-down caret-icon"></i>
                               </th>
                               <th>타이틀</th>
                               <th>신고 대상 아이디</th>
                               <th>신고 일자
-                                <i class="fa-solid fa-arrows-up-down"></i>
+                                <i class="fa-solid fa-sort"></i>
                               </th>
                               <th>처리 일자</th>
-                              <th>누적 신고 횟수
-                                <i class="fa-solid fa-arrows-up-down"></i>
+                              <th>누적 신고
+                                <i class="fa-solid fa-sort"></i>
                               </th>
-                              <th>누적 정지 횟수
-                                <i class="fa-solid fa-arrows-up-down"></i>
+                              <th>누적 정지
+                                <i class="fa-solid fa-sort"></i>
                               </th>
-                              <th>처리 여부</th>
+                              <th>처리 상태</th>
                           </tr>
 
                           <!-- 한 행 반복 -->
