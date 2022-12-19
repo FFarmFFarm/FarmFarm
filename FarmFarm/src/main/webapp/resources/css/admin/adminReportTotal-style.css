@@ -116,10 +116,11 @@ main{
 }
 
 /* todo: 카테고리 선택 부분 _카테고리별로 다르게 표시! */
-.admin-nav-sub:nth-of-type(7){
+.admin-nav-sub:nth-of-type(6){
     height: 30px;
     padding-top: 5px;
     background-color: #eef4ed;;
+    font-weight: bold;
 }
 
 
@@ -137,39 +138,53 @@ main{
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
-
 
 .title-div{
     width: 100%;
+    height: 30px;
+    margin-top: 40px;
+    margin-bottom: 7px;
     display: flex;
     justify-content: space-between;
 }
 
-.board-title{
+.report-title{
     font-weight: bold;
-    margin-top: 20px;
-    margin-bottom: 10px;
 }
 
 
-.report-total-div{
-    width: 100%;
-    min-height: 800px;
+.caret-icon{
+    padding-left: 2px;
+    margin: 0;
+    color: var(--point-color);
+}
+
+.report-list-type span{
+    padding-left: 10px;
+}
+
+
+
+.report-select{
+    width: 920px;
+    height: 800px;
     border-radius: 10px;
     background-color: white;
     overflow: auto;
 
     display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 
 .report-list-table{
-    width: 900px;
-    /* height: auto; */
-    height: 580px;
+    width: 860px;
+    height: auto;
     padding: 10px;
-    margin: 5px 20px;
+    margin: 10px 20px;
     font-size: var(--small-font-size);
     text-align: center;
     border-collapse: collapse;
@@ -177,26 +192,20 @@ main{
 
 .report-list-table th{
     color: var(--point-color);
-    padding-bottom: 10px;
+    padding: 10px 0;
+    /* background-color: #eef4ed; */
+    /* border-bottom: 1px solid #bdf0b4; */
 }
 
 .report-list-table td{
-    padding-bottom: 5px;
+    padding: 10px 0;
 }
 
 .report-list-row:hover{
-    background-color: #eef4ed;
+    background-color: #e1fadd;
     transition-duration: 0.1s;
+    cursor: pointer;
 }
-
-
-.select-filter{
-    background-color: none;
-    padding-left: 0;
-    margin-left: 0;
-}
-
-
 
 
 /* 페이지네이션 */
@@ -238,10 +247,7 @@ main{
 
 
     margin-right: 5px;
-    margin-bottom: 5px;
-    
     border-radius: 5px;
-
 
     background-color: #e2e2e2;
 }
@@ -256,4 +262,12 @@ main{
     background-color: #e2e2e2;
     border: none;
     cursor: pointer;
+}
+
+
+/* 신고 상세 조회 -클릭하면 모달로 */
+/* //todo: 클릭하면 모달로 */
+
+.report-detail-modal{
+
 }

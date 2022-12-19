@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,9 +8,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>마이페이지 - 작성 게시글</title>
-    <link rel="stylesheet" href="../../css/header.css" />
-    <link rel="stylesheet" href="../../css/myPage/myPage-style.css" />
-    <link rel="stylesheet" href="../../css/myPage/myPageBoard-style.css" />
+    <link rel="stylesheet" href="/resources/css/header.css" />
+    <link rel="stylesheet" href="/resources/css/myPage/myPage-style.css" />
+    <link rel="stylesheet" href="/resources/css/myPage/myPageBoard-style.css" />
     <script
       src="https://kit.fontawesome.com/591746f9e8.js"
       crossorigin="anonymous"
@@ -15,91 +18,14 @@
   </head>
 
   <body>
+
+      <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+
     <main>
-      <section class="profile-container">
-        <div class="profile-background">
-          <img
-            src="../../images/myPage/background/bgImg2.jpg"
-            alt=""
-            class="member-bg-img"
-          />
-          <span class="bg-change-btn fa-solid fa-image"></span>
-        </div>
-
-        <div class="profile-info">
-          <div class="profile-img-container">
-            <div class="member-profile">
-              <img
-                src="../../images/myPage/profile/profileImg.png"
-                alt=""
-                class="member-profile-img"
-              />
-            </div>
-            <span class="member-nickname">닉네임</span>
-          </div>
-          <!-- 
-          <button
-            type="button"
-            class="profile-setting-btn fa-solid fa-gear"
-          ></button> -->
-
-          <div class="member-info-container">
-            <div class="member-info member-signup-date">
-              <span class="info-title basic-title">가입일</span>
-              <span class="info-content">2022.10.13</span>
-            </div>
-
-            <div class="member-info member-address">
-              <span class="info-title basic-title">기본 주소지</span>
-              <span class="info-content"
-                >서울시 도봉구 도봉로 169나길 110 아트빌청 502호</span
-              >
-            </div>
-
-            <div class="member-info member-count">
-              <div class="board-count">
-                <span class="info-title count-title">게시글</span>
-                <span class="info-content">12</span>
-              </div>
-
-              <div class="comment-count">
-                <span class="info-title count-title">댓글</span>
-                <span class="info-content">53</span>
-              </div>
-
-              <div class="order-count">
-                <span class="info-title count-title">주문</span>
-                <span class="info-content">2</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- <div class="order-list-header"></div> -->
+      <jsp:include page="/WEB-INF/views/myPage/myPage.jsp"/>
+      
       <section class="list-container">
-        <section class="mypage-nav">
-          <span class="mypage-nav-title">마이팜팜</span>
-          <a href="myPageOrder.html" class="ordered">
-            <span>주문 내역</span><i class="fa-solid fa-chevron-right"></i
-          ></a>
-          <a href="myPageReview.html" class="review-wrote">
-            <span>작성 후기</span><i class="fa-solid fa-chevron-right"></i
-          ></a>
-          <a href="myPageBoard.html" class="board-wrote">
-            <span> 작성 게시글</span><i class="fa-solid fa-chevron-right"></i
-          ></a>
-          <a href="myPageComment.html" class="comment-wrote">
-            <span>작성 댓글</span><i class="fa-solid fa-chevron-right"></i
-          ></a>
-          <a href="myPageWish.html" class="wish">
-            <span>찜 목록</span><i class="fa-solid fa-chevron-right"></i
-          ></a>
-          <a href="" class="setting">
-            <span>개인 정보 수정</span><i class="fa-solid fa-chevron-right"></i
-          ></a>
-        </section>
-
+        <jsp:include page="/WEB-INF/views/myPage/myPageNav.jsp"/>
         <div class="board-list">
           <span class="board-list-title">작성 게시글</span>
           <div class="board-list-header">
@@ -119,7 +45,7 @@
             <span class="board-no">12</span>
             <div class="board-thumbnail">
               <img
-                src="../../images/board/thumbnail.png"
+                src="/resources/images/board/thumbnail.png"
                 alt=""
                 class="board-thumbnail-img"
               />
@@ -133,7 +59,7 @@
             <span class="board-no">12</span>
             <div class="board-thumbnail">
               <img
-                src="../../images/board/thumbnail.png"
+                src="/resources/images/board/thumbnail.png"
                 alt=""
                 class="board-thumbnail-img"
               />
@@ -147,7 +73,7 @@
             <span class="board-no">12</span>
             <div class="board-thumbnail">
               <img
-                src="../../images/board/thumbnail.png"
+                src="/resources/images/board/thumbnail.png"
                 alt=""
                 class="board-thumbnail-img"
               />
@@ -161,7 +87,7 @@
             <span class="board-no">12</span>
             <div class="board-thumbnail">
               <img
-                src="../../images/board/thumbnail.png"
+                src="/resources/images/board/thumbnail.png"
                 alt=""
                 class="board-thumbnail-img"
               />
@@ -183,7 +109,7 @@
             <span class="board-no">12</span>
             <div class="board-thumbnail">
               <img
-                src="../../images/board/thumbnail.png"
+                src="/resources/images/board/thumbnail.png"
                 alt=""
                 class="board-thumbnail-img"
               />
@@ -197,7 +123,7 @@
             <span class="board-no">12</span>
             <div class="board-thumbnail">
               <img
-                src="../../images/board/thumbnail.png"
+                src="/resources/images/board/thumbnail.png"
                 alt=""
                 class="board-thumbnail-img"
               />
@@ -211,7 +137,7 @@
             <span class="board-no">12</span>
             <div class="board-thumbnail">
               <img
-                src="../../images/board/thumbnail.png"
+                src="/resources/images/board/thumbnail.png"
                 alt=""
                 class="board-thumbnail-img"
               />
@@ -225,7 +151,7 @@
             <span class="board-no">12</span>
             <div class="board-thumbnail">
               <img
-                src="../../images/board/thumbnail.png"
+                src="/resources/images/board/thumbnail.png"
                 alt=""
                 class="board-thumbnail-img"
               />
@@ -239,7 +165,7 @@
             <span class="board-no">12</span>
             <div class="board-thumbnail">
               <img
-                src="../../images/board/thumbnail.png"
+                src="/resources/images/board/thumbnail.png"
                 alt=""
                 class="board-thumbnail-img"
               />
@@ -253,7 +179,7 @@
             <span class="board-no">12</span>
             <div class="board-thumbnail">
               <img
-                src="../../images/board/thumbnail.png"
+                src="/resources/images/board/thumbnail.png"
                 alt=""
                 class="board-thumbnail-img"
               />

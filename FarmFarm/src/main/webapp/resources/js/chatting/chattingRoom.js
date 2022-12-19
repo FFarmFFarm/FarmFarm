@@ -22,7 +22,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
 
 /* 로딩 후 */
 window.addEventListener("load", ()=>{
-    if(postTitle.scrollHeight > 80) {
+    if(postTitle.scrollHeight > 67) {
         postTitle.classList.add("label-fold");
         postTitle.classList.remove("label-flex");
         spreadBtn.style.display="block";
@@ -37,7 +37,7 @@ window.addEventListener("load", ()=>{
 /* 버튼을 눌렀을 떄! */
 for(box of chattingBoxList) {
     box.addEventListener("click", ()=> {
-        if(postTitle.scrollHeight > 80) {
+        if(postTitle.scrollHeight > 67) {
             postTitle.classList.add("label-fold");
             postTitle.classList.remove("label-flex");
             postTitle.classList.remove("label-spread");

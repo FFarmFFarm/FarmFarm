@@ -156,6 +156,7 @@ main{
     display: flex;
     justify-content: flex-start;
     margin-bottom: 8px;
+    margin-top: 20px;
     font-weight: bold;
 }
 
