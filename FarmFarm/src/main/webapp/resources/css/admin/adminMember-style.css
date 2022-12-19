@@ -1,0 +1,394 @@
+@import "../root-style.css";
+
+.header-container{
+    z-index: 50;
+}
+
+
+
+
+body{
+    width: 100vw;
+    height:auto;
+    /* background-color: #eef4ed; */
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main{
+    width: 1200px;
+    height: auto;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+/** 왼쪽 nav메뉴 */
+.admin-nav-section{
+    width: 200px;
+    /* height: 100vh; */
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    /* position: sticky; */
+}
+
+
+
+/* 팜팜관리자 */
+.admin-nav-section > div:first-child {
+    width: 210px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+
+.admin-profile{
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    font-size: var(--main-font-size);
+    /* color: rgb(10, 21, 15); */
+    color: var(--point-color);
+    font-weight: bold;
+}
+
+.admin-nav-section > div:first-child > img{
+    margin-bottom: 20px;
+}
+
+
+
+/* nav 메뉴 (팜팜보드~)*/
+.admin-nav-section > div:nth-child(2){
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+
+
+.admin-nav-menu{
+    display: inline-block;
+    font-size: var(--main-font-size);
+    color: white;
+    color: black;
+    font-family: "NotoSansKR-Medium";
+    font-weight: 100;  
+}
+
+
+.admin-nav-sub{
+    width: 200px;
+    margin-top: 8px;
+    padding-left: 60px;
+    font-size: var(--main-font-size);
+    color: rgb(87, 87, 87, 0.9);
+    font-family: "NotoSansKR-Medium";
+}
+
+
+.with-icon-div{
+    padding: 5px 0;
+    margin-top: 20px;
+    color: black;
+}
+
+.with-icon-div i{
+    padding: 0 5px 5px 40px;
+}
+
+
+.nav-lower a{
+    width: 200px;
+}
+
+.nav-lower a:hover{
+    color: var(--point-color);
+    font-weight: 700;
+    transition-duration: 0.1s;
+    cursor: pointer;
+    border-left: 5px solid var(--point-color);
+}
+
+/* todo: 카테고리 선택 부분 _카테고리별로 다르게 표시! */
+.admin-nav-sub:first-of-type{
+    height: 30px;
+    padding-top: 5px;
+    background-color: #eef4ed;;
+}
+
+
+/** -------------------------------------- */
+
+
+/** 오른쪽 내용 부분 */
+.admin-content-section{
+    width: 1000px;
+    min-height: 900px;
+    height: auto;
+    padding-bottom: 20px;
+    background-color: #eef4ed;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.upper-board{
+    width: 900px;
+    height: 320px;
+    display: flex;
+    justify-content: center;
+}
+
+
+/* 모든 타이틀(회원 상세 정보, 활동 내역, 회원 조회 span) */
+.member-title{
+    color: var(--icon-button-color);
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+
+/* 오른쪽 상단 */
+.upper-detail{
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    margin-right: 10px;
+}
+
+
+.upper-history{
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+
+/* 회원 상세 정보 */
+.member-detail{
+    width: 600px;
+    height: 240px;
+    padding-top: 10px;
+    border-radius: 10px;
+    background-color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.member-detail-table{
+    width: 550px;
+    height: 200px;
+    font-size: 13px;
+}
+
+.member-detail-table td{
+    padding-bottom: 15px;
+}
+
+
+.detail-bold{
+    color: var(--point-color);
+    font-weight: bold;
+}
+
+.status-bold{
+    font-weight: bold;
+}
+
+
+
+/*  계정 상태 내역 */
+.member-history{
+    width: 280px;
+    height: 240px;
+    border-radius: 10px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.member-history-table{
+    width: 300px;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 15px;
+    border-collapse: collapse;
+}
+
+
+.member-history-table th{
+    padding-bottom: 10px;
+    font-size: var(--main-font-size);
+    color: var(--point-color);
+}
+
+.member-history-table td{
+    padding-bottom: 5px;
+    font-size: var(--small-font-size);
+}
+
+
+.history-reason{
+    color: red;
+}
+
+
+
+
+
+/* 회원 조회 */
+.lower-board{
+    width: 900px;
+    height: auto;
+    margin-top: 30px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.member-select{
+    width: 100%;
+    min-height: 450px;
+    height: 500px;
+    border-radius: 10px;
+    background-color: white;
+    overflow: auto;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.title-div{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+.member-select-table{
+    width: 900px;
+    /* height: auto; */
+    height: 500px;
+    padding: 10px;
+    margin: 15px 20px;
+    font-size: var(--small-font-size);
+    text-align: center;
+    border-collapse: collapse;
+}
+
+.member-select-table th{
+    color: var(--point-color);
+    padding-bottom: 10px;
+}
+
+.member-select-table td{
+    padding-bottom: 5px;
+}
+
+.member-select-row{
+    height: 30px;
+}
+
+
+
+.member-select-row:hover{
+    background-color: #eef4ed;
+    transition-duration: 0.1s;
+}
+
+
+.select-filter{
+    background-color: none;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+
+
+
+/* 페이지네이션 */
+.admin-pagination{
+    list-style: none;
+    width: 920px;
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+
+    font-size: var(--small-font-size);
+}
+
+.admin-pagination li{
+    width: 20px;
+    margin: 0 5px;
+    text-align: center;
+}
+
+.admin-pagination a{
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: lightgray;
+}
+
+/* todo:현재 페이지색은 point-color로 */
+
+
+/* 회원 조회 - 검색 */
+.member-search{
+    width: 200px;
+    height: auto;
+    padding: 1px 15px;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+
+    margin-right: 5px;
+    margin-bottom: 5px;
+    
+    border-radius: 5px;
+
+
+    background-color: #e2e2e2;
+}
+
+#memberSearchInput{
+    width: 160px;
+    border: none;
+    background-color: #e2e2e2;
+}
+
+#memberSearchBtn{
+    background-color: #e2e2e2;
+    border: none;
+    cursor: pointer;
+}
+
+
+
+
+

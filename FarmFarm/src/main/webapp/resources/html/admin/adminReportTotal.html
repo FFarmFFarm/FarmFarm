@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전체 신고 내역</title>
+
+    <link rel="stylesheet" href="../../css/admin/adminReportTotal-style.css" />
+    <link rel="stylesheet" href="../../css/header.css">
+
+    <script src="https://kit.fontawesome.com/d4fbceca97.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <div class="header-container">
+        <header>
+          <div class="home-logo">
+            <a href="/">
+              <img src="../../images/mainLogo.png" />
+            </a>
+          </div>
+  
+          <div class="header-widget-area">
+            <!-- 로그인O 상태 -->
+            <ul class="widget-list">
+              <li class="widget-item">
+                <div class="dropdown">
+                  <button type="button" class="dropbtn1">
+                    <i class="fa-solid fa-bell header-icon"></i>
+                  </button>
+  
+                  <div id="myDropdown1" class="dropdown-message">
+                    <div class="notice"><p>알림</p></div>
+                    <ul>
+                      <li>
+                        <div class="message-box">
+                          <a href="">배송이 시작되었습니다.</a>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="message-box">
+                          <a href="">신팜팜님이 신고했습니다..</a>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="message-box">
+                          <a href="">정팜팜님이 신고를 거부하셨습니다.</a>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+              <li class="widget-item">
+                <a href="#">
+                  <i class="fa-solid fa-comment-dots"></i>
+                </a>
+                <!-- <div class="chat-count">21</div> -->
+              </li>
+              <li class="widget-item">
+                <div class="dropdown">
+                  <button type="button" class="dropbtn">
+                    <span>
+                      <i
+                        class="fa-solid fa-user header-icon"
+                        id="profilePhoto"
+                      ></i>
+                    </span>
+                    <!-- <span>
+                                      <img src="../images/member/farmer.png" class="login-profile-img">
+                                  </span> -->
+                    <i
+                      class="fa-solid fa-caret-down caret-icon"
+                      id="triangleIcon"
+                    ></i>
+                  </button>
+  
+                  <div id="myDropdown" class="dropdown-content">
+                    <a href="#">내프로필</a>
+                    <a href="#">로그아웃</a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+  
+            <!-- 로그인X 상태 -->
+            <!-- <ul class="login-list">
+                      <li class="login-item"><a href="#">로그인</a></li>
+                      <li class="login-item"><a href="#">회원가입</a></li>
+                  </ul> -->
+          </div>
+        </header>
+  
+        <nav>
+          <div class="nav-head">
+            <div class="nav-body">
+              <div class="nav-list"><a href="#">팜팜마켓</a></div>
+              <div class="nav-list"><a href="#">사고팔고</a></div>
+              <div class="nav-list"><a href="#">커뮤니티</a></div>
+              <div class="nav-list"><a href="#">문의게시판</a></div>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <script>
+        // 프로필 드롭다운
+        const dropbtn = document.querySelector('.dropbtn');
+        dropbtn.addEventListener('click', () => {
+          const icon = document.querySelector('.caret-icon');
+          const myDropdown = document.querySelector('.dropdown-content');
+  
+          if (
+            myDropdown.style.display == 'none' ||
+            myDropdown.style.display == ''
+          ) {
+            icon.style.transform = 'perspective(500px) rotateX(180deg)';
+            myDropdown.style.display = 'block';
+          } else {
+            icon.style.transform = 'perspective(500px) rotateX(360deg)';
+            myDropdown.style.display = 'none';
+          }
+        });
+  
+        dropbtn.addEventListener('blur', () => {
+          const icon = document.querySelector('.caret-icon');
+          const myDropdown = document.querySelector('.dropdown-content');
+  
+          myDropdown.style.display = '';
+          icon.style.transform = 'perspective(500px) rotateX(360deg)';
+        });
+  
+        // 알림 드롭다운
+        const dropbtn1 = document.querySelector('.dropbtn1');
+        dropbtn1.addEventListener('click', () => {
+          const myDropdown1 = document.querySelector('.dropdown-message');
+  
+          if (
+            myDropdown1.style.display == 'none' ||
+            myDropdown1.style.display == ''
+          ) {
+            myDropdown1.style.display = 'block';
+          } else {
+            myDropdown1.style.display = 'none';
+          }
+        });
+  
+        dropbtn1.addEventListener('blur', () => {
+          const myDropdown1 = document.querySelector('.dropdown-message');
+  
+          myDropdown1.style.display = '';
+        });
+        // const myDropdown1 = document.getElementById("myDropdown1");
+  
+        // function dropDown1(){
+        //     myDropdown1.classList.toggle("show1");
+        // };
+  
+        // window.onclick=function(e){
+        //     if(!e.target.matches(".dropbtn, .dropbtn *")){
+  
+        //         if(myDropdown1.classList.contains("show1")){
+        //             myDropdown1.classList.remove("show1");
+        //         }
+        //     }
+        // };
+      </script>
+
+
+
+
+    <main>
+        <!-- 왼쪽 nav -->
+        <nav class="admin-nav-section">
+            <div>
+                <img class="admin-profile" src="../../images/admin/farmer.png" alt="">
+                <span class="admin-profile">팜팜 관리자</span>
+            </div>
+
+            <div class="nav-lower">
+                <div class="with-icon-div">
+                    <a href="" class="admin-nav-menu" id="dashboard">
+                        <i class="fa-solid fa-table-columns"></i>
+                        팜팜보드
+                    </a>
+                </div>
+
+                <div class="with-icon-div">
+                    <i class="fa-solid fa-bars-progress"></i>
+                    <span class="admin-nav-menu">팜팜 관리</span>
+                </div>
+                <a href="" class="admin-nav-sub">회원 관리</a>
+                <a href="" class="admin-nav-sub">판매자 인증 관리</a>
+                
+                <div class="with-icon-div">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span class="admin-nav-menu">판매 관리</span>
+                </div>
+
+                <a href="" class="admin-nav-sub">주문 내역 관리</a>
+                <a href="" class="admin-nav-sub">재고 관리</a>
+                <a href="" class="admin-nav-sub">반품 관리</a>
+                <a href="" class="admin-nav-sub">상품 후기 관리</a>
+        
+                <div class="with-icon-div">
+                    <span class="admin-nav-menu">
+                        <i class="fa-solid fa-circle-exclamation"></i>                            
+                        신고 관리
+                    </span>
+                </div>
+                <a href="" class="admin-nav-sub">전체 신고 관리</a>
+                <a href="" class="admin-nav-sub">신고 접수 내역</a>
+            </div>
+        </nav>
+        
+
+        <!-- 오른쪽 -->
+        <section class="admin-content-section">
+            <div class="board-content">
+                <div class="title-div">
+                  <span class="board-title">전체 신고 내역</span>
+                  <span class="report-search"> 
+                      <input type="text" name="reportSearch" id="reportSearchInput" placeholder="검색">
+                      <button type="button" id="reportSearchBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                  </span>
+              </div>
+
+                <div class="report-total-div">
+                    <table class="report-list-table">
+                        <tr>
+                            <th>NO</th>
+                            <th>신고 번호</th>
+                            <th>유형</th>
+                            <th>신고 대상</th>
+                            <th>신고 일자</th>
+                            <th>누적 정지 횟수</th>
+                            <th>처리 여부</th>
+                        </tr>
+
+                        <!-- todo: ajax로 해서 신청 완료 되면 바로바로 목록에서 없어지도록! -->
+                        <!-- 한 행 반복 -->
+                        <tr class="report-list-row">
+                            <td>1</td>
+                            <td>452</td>
+                            <td width="170px">댓글</td>
+                            <td>USER01</td>
+                            <td>2022-12-14 21:09:29</td>
+                            <td>0</td>
+                            <td>정지</td>
+                        </tr>
+
+
+                        <tr class="report-list-row">
+                            <td>1</td>
+                            <td>452</td>
+                            <td width="170px">후기</td>
+                            <td>USER01</td>
+                            <td>2022-12-14 21:09:29</td>
+                            <td>0</td>
+                            <td>접수</td>
+                        </tr>
+                        <tr class="report-list-row">
+                            <td>1</td>
+                            <td>452</td>
+                            <td width="170px">게시글</td>
+                            <td>USER01</td>
+                            <td>2022-12-14 21:09:29</td>
+                            <td>1</td>
+                            <td>탈퇴</td>
+                        </tr>
+
+                        
+                    </table>
+                </div>
+
+                <!-- todo: 페이지네이션 반복문 -->
+                <div class="admin-pagination-area">
+                    <ul class="admin-pagination">
+                        <!-- <li><a href="">&lt;&lt;</a></li>
+                        <li><a href="">&lt;</a></li> -->
+                        <li><a href="">1</a></li>
+                        <li><a href="">2</a></li>
+                        <li><a href="">3</a></li>
+                        <li><a href="">4</a></li>
+                        <li><a href="">5</a></li>
+                        <li><a href="">6</a></li>
+                        <li><a href="">7</a></li>
+                        <li><a href="">8</a></li>
+                        <li><a href="">9</a></li>
+                        <li><a href="">10</a></li>
+                        <!-- <li><a href="">&gt;</a></li>
+                        <li><a href="">&gt;&gt;</a></li> -->
+                    </ul>
+                </div>
+            </div>
+
+        </section>
+    </main>
+</body>
+</html>
