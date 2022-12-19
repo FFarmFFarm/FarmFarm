@@ -25,11 +25,10 @@
     box-shadow: 2px 2px 10px 0px #bcbcbc;
 
     width: 300px;
-    max-height: 240px;
+    max-height: 257px;
 
     display: none;
     border-radius: 10px;
-    padding-top: 30px;
 
     position: absolute;
     top: 35px;
@@ -37,6 +36,15 @@
 
     overflow-y: scroll;
 }
+
+.dropdown-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* 채팅 위젯 헤더 */
+
 
 /* 채팅 위젯에 들어갈 채팅 박스 */
 .chattingWidget-box{
@@ -171,24 +179,20 @@
 }
 
 /* 채팅위젯박스 */
-#goChattingRoom{
-    color: white;
+#goChattingRoomBtn{
+    width: 70px;
+    height: 25px;
     background-color: var(--point-color);
-    height: 30px;
-    width: 280px;
     font-size: var(--small-font-size);
-
+    color: white;
+    
     border-radius: 5px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    position: fixed;
-
-    top: 85px;
-
+    
     cursor: pointer;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #goChattingRoom:hover{

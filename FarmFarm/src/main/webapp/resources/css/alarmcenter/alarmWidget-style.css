@@ -1,15 +1,25 @@
+/* 드롭다운 메뉴 타이틀 */
+.dropdown-title{
+    font-size: var(--medium-font-size);
+    color: var(--main-font-color);
+    font-weight: 600;
+}
+
+
 /* 알림 드롭다운 */
 .dropdown-message{
     width: 360px;
-    max-height: 209px;
+    max-height: 244px;
     overflow-y: scroll;
 }
 
-.dropdown-message > .notice{
+.dropdown-header{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0px 15px 10px 15px;
+    padding: 10px 15px 10px 15px;
+
+    border-bottom: 1px solid var(--line-color);
 }
 
 /* goAlarmcenterBtn */
@@ -17,7 +27,7 @@
     width: 70px;
     height: 25px;
     background-color: var(--point-color);
-    font-size: var(--main-font-size);
+    font-size: var(--small-font-size);
     color: white;
     
     border-radius: 5px;
@@ -39,7 +49,7 @@
 
 /* 알림 하나 */
 .alarmWidget-box{
-    min-height: 55px;
+    min-height: 65px;
     width: 100%;
 
     display: flex;
