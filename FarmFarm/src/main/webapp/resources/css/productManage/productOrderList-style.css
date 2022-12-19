@@ -117,7 +117,7 @@ main{
 }
 
 /* todo: 카테고리 선택 부분 _카테고리별로 다르게 표시! */
-#dashboard{
+.admin-nav-sub:nth-of-type(3){
     height: 30px;
     padding-top: 5px;
     background-color: #eef4ed;;
@@ -198,10 +198,11 @@ main{
 /* 검색창 */
 .list-search{
     display: flex;
+    margin-right: 2px;
 }
 
-.list-search>*:nth-child(1){width: 8%;}
-.list-search>*:nth-child(2){width: 54%;}
+.list-search>*:nth-child(1){padding-right: 10px;}
+.list-search>*:nth-child(2){width: 55%;}
 
 #productSearch{
     text-align: center;
@@ -254,15 +255,19 @@ main{
     padding-top: 3px;
 }
 
-.order-list-table{
-    width: 100%;
-    margin: 10px auto;
+table{
     background-color: #fff;
-
+    
     border: 1px solid #ddd;
     border-collapse: collapse;
 
     font-size: var(--small-font-size);
+}
+
+.order-list-table{
+    width: 100%;
+    margin: 10px auto;
+
     text-align: center;
 }
 
