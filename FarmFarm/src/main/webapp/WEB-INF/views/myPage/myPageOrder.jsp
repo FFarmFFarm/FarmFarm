@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,254 +9,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>마이페이지 - 주문 내역</title>
-    <link rel="stylesheet" href="../../css/header.css" />
-    <link rel="stylesheet" href="../../css/myPage/myPage-style.css" />
-    <link rel="stylesheet" href="../../css/myPage/myPageOrder-style.css" />
-    <link rel="stylesheet" href="../../css/modal/review-form-style.css" />
+    <link rel="stylesheet" href="/resources/css/header.css" />
+    <link rel="stylesheet" href="/resources/css/myPage/myPage-style.css" />
+    <link rel="stylesheet" href="/resources/css/myPage/myPageOrder-style.css" />
+    <link rel="stylesheet" href="/resources/css/modal/reviewForm-style.css" />
     <script
       src="https://kit.fontawesome.com/591746f9e8.js"
       crossorigin="anonymous"
     ></script>
   </head>
 
-  <main>
-    <div class="header-container">
-      <header>
-        <div class="home-logo">
-          <a href="/">
-            <img src="../../images/mainLogo.png" />
-          </a>
-        </div>
-
-        <div class="header-widget-area">
-          <!-- 로그인O 상태 -->
-          <ul class="widget-list">
-            <li class="widget-item">
-              <div class="dropdown">
-                <button type="button" class="dropbtn1">
-                  <i class="fa-solid fa-bell header-icon"></i>
-                </button>
-
-                <div id="myDropdown1" class="dropdown-message">
-                  <div class="notice"><p>알림</p></div>
-                  <ul>
-                    <li>
-                      <div class="message-box">
-                        <a href="">배송이 시작되었습니다.</a>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="message-box">
-                        <a href="">신팜팜님이 신고했습니다..</a>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="message-box">
-                        <a href="">정팜팜님이 신고를 거부하셨습니다.</a>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </li>
-            <li class="widget-item">
-              <a href="#">
-                <i class="fa-solid fa-comment-dots"></i>
-              </a>
-              <!-- <div class="chat-count">21</div> -->
-            </li>
-            <li class="widget-item">
-              <div class="dropdown">
-                <button type="button" class="dropbtn">
-                  <span>
-                    <i
-                      class="fa-solid fa-user header-icon"
-                      id="profilePhoto"
-                    ></i>
-                  </span>
-                  <!-- <span>
-                                  <img src="../images/member/farmer.png" class="login-profile-img">
-                              </span> -->
-                  <i
-                    class="fa-solid fa-caret-down caret-icon"
-                    id="triangleIcon"
-                  ></i>
-                </button>
-
-                <div id="myDropdown" class="dropdown-content">
-                  <a href="#">내프로필</a>
-                  <a href="#">로그아웃</a>
-                </div>
-              </div>
-            </li>
-          </ul>
-
-          <!-- 로그인X 상태 -->
-          <!-- <ul class="login-list">
-                  <li class="login-item"><a href="#">로그인</a></li>
-                  <li class="login-item"><a href="#">회원가입</a></li>
-              </ul> -->
-        </div>
-      </header>
-
-      <nav>
-        <div class="nav-head">
-          <div class="nav-body">
-            <div class="nav-list"><a href="#">팜팜마켓</a></div>
-            <div class="nav-list"><a href="#">사고팔고</a></div>
-            <div class="nav-list"><a href="#">커뮤니티</a></div>
-            <div class="nav-list"><a href="#">문의게시판</a></div>
-          </div>
-        </div>
-      </nav>
-    </div>
-    <script>
-      // 프로필 드롭다운
-      const dropbtn = document.querySelector(".dropbtn");
-      dropbtn.addEventListener("click", () => {
-        const icon = document.querySelector(".caret-icon");
-        const myDropdown = document.querySelector(".dropdown-content");
-
-        if (
-          myDropdown.style.display == "none" ||
-          myDropdown.style.display == ""
-        ) {
-          icon.style.transform = "perspective(500px) rotateX(180deg)";
-          myDropdown.style.display = "block";
-        } else {
-          icon.style.transform = "perspective(500px) rotateX(360deg)";
-          myDropdown.style.display = "none";
-        }
-      });
-
-      dropbtn.addEventListener("blur", () => {
-        const icon = document.querySelector(".caret-icon");
-        const myDropdown = document.querySelector(".dropdown-content");
-
-        myDropdown.style.display = "";
-        icon.style.transform = "perspective(500px) rotateX(360deg)";
-      });
-
-      // 알림 드롭다운
-      const dropbtn1 = document.querySelector(".dropbtn1");
-      dropbtn1.addEventListener("click", () => {
-        const myDropdown1 = document.querySelector(".dropdown-message");
-
-        if (
-          myDropdown1.style.display == "none" ||
-          myDropdown1.style.display == ""
-        ) {
-          myDropdown1.style.display = "block";
-        } else {
-          myDropdown1.style.display = "none";
-        }
-      });
-
-      dropbtn1.addEventListener("blur", () => {
-        const myDropdown1 = document.querySelector(".dropdown-message");
-
-        myDropdown1.style.display = "";
-      });
-      // const myDropdown1 = document.getElementById("myDropdown1");
-
-      // function dropDown1(){
-      //     myDropdown1.classList.toggle("show1");
-      // };
-
-      // window.onclick=function(e){
-      //     if(!e.target.matches(".dropbtn, .dropbtn *")){
-
-      //         if(myDropdown1.classList.contains("show1")){
-      //             myDropdown1.classList.remove("show1");
-      //         }
-      //     }
-      // };
-    </script>
+  <body>
+    <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
     <main>
-      <section class="profile-container">
-        <div class="profile-background">
-          <img
-            src="../../images/myPage/background/bgImg2.jpg"
-            alt=""
-            class="member-bg-img"
-          />
-          <span class="bg-change-btn fa-solid fa-image"></span>
-        </div>
+      <jsp:include page="/WEB-INF/views/myPage/myPage.jsp"/>
+      
 
-        <div class="profile-info">
-          <div class="profile-img-container">
-            <div class="member-profile">
-              <img
-                src="../../images/myPage/profile/profile.png"
-                alt=""
-                class="member-profile-img"
-              />
-            </div>
-            <span class="member-nickname">닉네임</span>
-          </div>
-          <!-- 
-          <button
-            type="button"
-            class="profile-setting-btn fa-solid fa-gear"
-          ></button> -->
+  
+    <section class="list-container">
+       
+    <jsp:include page="/WEB-INF/views/myPage/myPageNav.jsp"/>
 
-          <div class="member-info-container">
-            <div class="member-info member-signup-date">
-              <span class="info-title basic-title">가입일</span>
-              <span class="info-content">2022.10.13</span>
-            </div>
-
-            <div class="member-info member-address">
-              <span class="info-title basic-title">기본 주소지</span>
-              <span class="info-content"
-                >서울시 도봉구 도봉로 169나길 110 아트빌청 502호</span
-              >
-            </div>
-
-            <div class="member-info member-count">
-              <div class="board-count">
-                <span class="info-title count-title">게시글</span>
-                <span class="info-content">12</span>
-              </div>
-
-              <div class="comment-count">
-                <span class="info-title count-title">댓글</span>
-                <span class="info-content">53</span>
-              </div>
-
-              <div class="order-count">
-                <span class="info-title count-title">주문</span>
-                <span class="info-content">2</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- <div class="order-list-header"></div> -->
-      <section class="list-container">
-        <section class="mypage-nav">
-          <span class="mypage-nav-title">마이팜팜</span>
-          <a href="myPageOrder.html" class="ordered">
-            <span>주문 내역</span><i class="fa-solid fa-chevron-right"></i
-          ></a>
-          <a href="myPageReview.html" class="review-wrote">
-            <span>작성 후기</span><i class="fa-solid fa-chevron-right"></i
-          ></a>
-          <a href="myPageBoard.html" class="board-wrote">
-            <span> 작성 게시글</span><i class="fa-solid fa-chevron-right"></i
-          ></a>
-          <a href="myPageComment.html" class="comment-wrote">
-            <span>작성 댓글</span><i class="fa-solid fa-chevron-right"></i
-          ></a>
-          <a href="myPageWish.html" class="wish">
-            <span>찜 목록</span><i class="fa-solid fa-chevron-right"></i
-          ></a>
-          <a href="" class="setting">
-            <span>개인 정보 수정</span><i class="fa-solid fa-chevron-right"></i
-          ></a>
-        </section>
 
         <div class="order-list">
           <span class="order-list-title">주문 내역</span>
@@ -260,7 +38,7 @@
             <input type="hidden" value="order-no" />
             <div class="order-thumbnail">
               <img
-                src="../../images/board/thumbnail.png"
+                src="/resources/images/board/thumbnail.png"
                 alt=""
                 class="order-thumbnail-img"
               />
@@ -290,7 +68,7 @@
             <input type="hidden" value="order-no" />
             <div class="order-thumbnail">
               <img
-                src="../../images/board/thumbnail.png"
+                src="/resources/images/board/thumbnail.png"
                 alt=""
                 class="order-thumbnail-img"
               />
@@ -320,7 +98,7 @@
             <input type="hidden" value="order-no" />
             <div class="order-thumbnail">
               <img
-                src="../../images/board/thumbnail.png"
+                src="/resources/images/board/thumbnail.png"
                 alt=""
                 class="order-thumbnail-img"
               />
@@ -350,7 +128,7 @@
             <input type="hidden" value="order-no" />
             <div class="order-thumbnail">
               <img
-                src="../../images/board/thumbnail.png"
+                src="/resources/images/board/thumbnail.png"
                 alt=""
                 class="order-thumbnail-img"
               />
@@ -380,7 +158,7 @@
             <input type="hidden" value="order-no" />
             <div class="order-thumbnail">
               <img
-                src="../../images/board/thumbnail.png"
+                src="/resources/images/board/thumbnail.png"
                 alt=""
                 class="order-thumbnail-img"
               />
@@ -448,7 +226,9 @@
           </div>
         </div>
       </section>
-    </main>
+
+  </main>
+
     <div class="review-form-container">
       <form action="" method="post" class="review-form">
         <div class="review-head">
@@ -461,7 +241,7 @@
         <div class="review-product-preview">
           <div class="product-thumbnail">
             <img
-              src="../../images/product/thumbnail/productThumbnail.png"
+              src="/resources/images/product/thumbnail/productThumbnail.png"
               alt=""
             />
           </div>

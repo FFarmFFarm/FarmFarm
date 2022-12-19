@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,176 +11,25 @@
 
     <link
       rel="stylesheet"
-      href="../../css/productDetail/productDetail-style.css"
+      href="/resources/css/productDetail/productDetail-style.css"
     />
-    <link rel="stylesheet" href="../../css/header.css" />
+    <link rel="stylesheet" href="/resources/css/header.css" />
     <script
       src="https://kit.fontawesome.com/591746f9e8.js"
       crossorigin="anonymous"
     ></script>
-    <link rel="stylesheet" href="../../css/modal/reviewImg-style.css" />
-    <link rel="stylesheet" href="../../css/modal/reviewDetail-style.css" />
+    <link rel="stylesheet" href="/resources/css/modal/reviewImg-style.css" />
+    <link rel="stylesheet" href="/resources/css/modal/reviewDetail-style.css" />
   </head>
   <body>
-    <div class="header-container">
-      <header>
-        <div class="home-logo">
-          <a href="/">
-            <img src="../../images/mainLogo.png" />
-          </a>
-        </div>
-
-        <div class="header-widget-area">
-          <!-- 로그인O 상태 -->
-          <ul class="widget-list">
-            <li class="widget-item">
-              <div class="dropdown">
-                <button type="button" class="dropbtn1">
-                  <i class="fa-solid fa-bell header-icon"></i>
-                </button>
-
-                <div id="myDropdown1" class="dropdown-message">
-                  <div class="notice"><p>알림</p></div>
-                  <ul>
-                    <li>
-                      <div class="message-box">
-                        <a href="">배송이 시작되었습니다.</a>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="message-box">
-                        <a href="">신팜팜님이 신고했습니다..</a>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="message-box">
-                        <a href="">정팜팜님이 신고를 거부하셨습니다.</a>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </li>
-            <li class="widget-item">
-              <a href="#">
-                <i class="fa-solid fa-comment-dots"></i>
-              </a>
-              <!-- <div class="chat-count">21</div> -->
-            </li>
-            <li class="widget-item">
-              <div class="dropdown">
-                <button type="button" class="dropbtn">
-                  <span>
-                    <i
-                      class="fa-solid fa-user header-icon"
-                      id="profilePhoto"
-                    ></i>
-                  </span>
-                  <!-- <span>
-                                  <img src="../images/member/farmer.png" class="login-profile-img">
-                              </span> -->
-                  <i
-                    class="fa-solid fa-caret-down caret-icon"
-                    id="triangleIcon"
-                  ></i>
-                </button>
-
-                <div id="myDropdown" class="dropdown-content">
-                  <a href="#">내프로필</a>
-                  <a href="#">로그아웃</a>
-                </div>
-              </div>
-            </li>
-          </ul>
-
-          <!-- 로그인X 상태 -->
-          <!-- <ul class="login-list">
-                  <li class="login-item"><a href="#">로그인</a></li>
-                  <li class="login-item"><a href="#">회원가입</a></li>
-              </ul> -->
-        </div>
-      </header>
-
-      <nav>
-        <div class="nav-head">
-          <div class="nav-body">
-            <!-- <div class="nav-list"><a href="#">홈</a></div> -->
-            <div class="nav-list"><a href="#">팜팜마켓</a></div>
-            <div class="nav-list"><a href="#">사고팔고</a></div>
-            <div class="nav-list"><a href="#">커뮤니티</a></div>
-            <div class="nav-list"><a href="#">문의게시판</a></div>
-          </div>
-        </div>
-      </nav>
-    </div>
-    <script>
-      // 프로필 드롭다운
-      const dropbtn = document.querySelector(".dropbtn");
-      dropbtn.addEventListener("click", () => {
-        const icon = document.querySelector(".caret-icon");
-        const myDropdown = document.querySelector(".dropdown-content");
-
-        if (
-          myDropdown.style.display == "none" ||
-          myDropdown.style.display == ""
-        ) {
-          icon.style.transform = "perspective(500px) rotateX(180deg)";
-          myDropdown.style.display = "block";
-        } else {
-          icon.style.transform = "perspective(500px) rotateX(360deg)";
-          myDropdown.style.display = "none";
-        }
-      });
-
-      dropbtn.addEventListener("blur", () => {
-        const icon = document.querySelector(".caret-icon");
-        const myDropdown = document.querySelector(".dropdown-content");
-
-        myDropdown.style.display = "";
-        icon.style.transform = "perspective(500px) rotateX(360deg)";
-      });
-
-      // 알림 드롭다운
-      const dropbtn1 = document.querySelector(".dropbtn1");
-      dropbtn1.addEventListener("click", () => {
-        const myDropdown1 = document.querySelector(".dropdown-message");
-
-        if (
-          myDropdown1.style.display == "none" ||
-          myDropdown1.style.display == ""
-        ) {
-          myDropdown1.style.display = "block";
-        } else {
-          myDropdown1.style.display = "none";
-        }
-      });
-
-      dropbtn1.addEventListener("blur", () => {
-        const myDropdown1 = document.querySelector(".dropdown-message");
-
-        myDropdown1.style.display = "";
-      });
-      // const myDropdown1 = document.getElementById("myDropdown1");
-
-      // function dropDown1(){
-      //     myDropdown1.classList.toggle("show1");
-      // };
-
-      // window.onclick=function(e){
-      //     if(!e.target.matches(".dropbtn, .dropbtn *")){
-
-      //         if(myDropdown1.classList.contains("show1")){
-      //             myDropdown1.classList.remove("show1");
-      //         }
-      //     }
-      // };
-    </script>
+    <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
     <main>
+      
       <section class="product-summary">
         <div class="thumbnail-area">
           <img
-            src="../../images/product/thumbnail/productThumbnail.png"
+            src="/resources/images/product/thumbnail/productThumbnail.png"
             alt=""
           />
         </div>
@@ -237,36 +89,36 @@
         <a href="#productReview">후기(<span>120</span>)</a>
       </section>
       <section class="product-detail" id="productDetail">
-        <img src="../../images/product/detail/1.jpg" alt="" />
-        <img src="../../images/product/detail/2.jpg" alt="" />
-        <img src="../../images/product/detail/3.jpg" alt="" />
-        <img src="../../images/product/detail/4.jpg" alt="" />
+        <img src="/resources/images/product/detail/1.jpg" alt="" />
+        <img src="/resources/images/product/detail/2.jpg" alt="" />
+        <img src="/resources/images/product/detail/3.jpg" alt="" />
+        <img src="/resources/images/product/detail/4.jpg" alt="" />
       </section>
       <section class="product-review" id="productReview">
         <span>상품 후기</span>
         <ul class="review-img-list">
           <li>
-            <img src="../../images/product/review/reviewImg.png" alt="" />
+            <img src="/resources/images/product/review/reviewImg.png" alt="" />
           </li>
           <li>
-            <img src="../../images/product/review/reviewImg.png" alt="" />
+            <img src="/resources/images/product/review/reviewImg.png" alt="" />
           </li>
           <li>
-            <img src="../../images/product/review/reviewImg.png" alt="" />
+            <img src="/resources/images/product/review/reviewImg.png" alt="" />
           </li>
           <li>
-            <img src="../../images/product/review/reviewImg.png" alt="" />
+            <img src="/resources/images/product/review/reviewImg.png" alt="" />
           </li>
           <li>
-            <img src="../../images/product/review/reviewImg.png" alt="" />
+            <img src="/resources/images/product/review/reviewImg.png" alt="" />
           </li>
           <li>
-            <img src="../../images/product/review/reviewImg.png" alt="" />
+            <img src="/resources/images/product/review/reviewImg.png" alt="" />
           </li>
 
           <!-- 8개 이상일 때 -->
           <li class="last-review-img">
-            <img src="../../images/product/review/reviewImg.png" alt="" />
+            <img src="/resources/images/product/review/reviewImg.png" alt="" />
             <div class="more-review-img-btn">+더보기</div>
           </li>
         </ul>
@@ -282,7 +134,7 @@
           <li class="review">
             <div class="review-writer">
               <img
-                src="../../images/member/farmer.png"
+                src="/resources/images/member/farmer.png"
                 alt=""
                 class="writer-profile-img"
               />
@@ -298,8 +150,8 @@
                 토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요<br />
               </p>
               <div class="review-img">
-                <img src="../../images/product/review/reviewImg.png" alt="" />
-                <img src="../../images/product/review/reviewImg.png" alt="" />
+                <img src="/resources/images/product/review/reviewImg.png" alt="" />
+                <img src="/resources/images/product/review/reviewImg.png" alt="" />
               </div>
               <div class="review-create-date">
                 <span>2022.12.16</span>
@@ -310,7 +162,7 @@
           <li class="review">
             <div class="review-writer">
               <img
-                src="../../images/member/farmer.png"
+                src="/resources/images/member/farmer.png"
                 alt=""
                 class="writer-profile-img"
               />
@@ -326,8 +178,8 @@
                 토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요<br />
               </p>
               <div class="review-img">
-                <img src="../../images/product/review/reviewImg.png" alt="" />
-                <img src="../../images/product/review/reviewImg.png" alt="" />
+                <img src="/resources/images/product/review/reviewImg.png" alt="" />
+                <img src="/resources/images/product/review/reviewImg.png" alt="" />
               </div>
               <div class="review-create-date">
                 <span>2022.12.16</span>
@@ -338,7 +190,7 @@
           <li class="review">
             <div class="review-writer">
               <img
-                src="../../images/member/farmer.png"
+                src="/resources/images/member/farmer.png"
                 alt=""
                 class="writer-profile-img"
               />
@@ -354,8 +206,8 @@
                 토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요<br />
               </p>
               <div class="review-img">
-                <img src="../../images/product/review/reviewImg.png" alt="" />
-                <img src="../../images/product/review/reviewImg.png" alt="" />
+                <img src="/resources/images/product/review/reviewImg.png" alt="" />
+                <img src="/resources/images/product/review/reviewImg.png" alt="" />
               </div>
               <div class="review-create-date">
                 <span>2022.12.16</span>
@@ -366,7 +218,7 @@
           <li class="review">
             <div class="review-writer">
               <img
-                src="../../images/member/farmer.png"
+                src="/resources/images/member/farmer.png"
                 alt=""
                 class="writer-profile-img"
               />
@@ -382,8 +234,8 @@
                 토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요<br />
               </p>
               <div class="review-img">
-                <img src="../../images/product/review/reviewImg.png" alt="" />
-                <img src="../../images/product/review/reviewImg.png" alt="" />
+                <img src="/resources/images/product/review/reviewImg.png" alt="" />
+                <img src="/resources/images/product/review/reviewImg.png" alt="" />
               </div>
               <div class="review-create-date">
                 <span>2022.12.16</span>
@@ -394,7 +246,7 @@
           <li class="review">
             <div class="review-writer">
               <img
-                src="../../images/member/farmer.png"
+                src="/resources/images/member/farmer.png"
                 alt=""
                 class="writer-profile-img"
               />
@@ -410,8 +262,8 @@
                 토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요<br />
               </p>
               <div class="review-img">
-                <img src="../../images/product/review/reviewImg.png" alt="" />
-                <img src="../../images/product/review/reviewImg.png" alt="" />
+                <img src="/resources/images/product/review/reviewImg.png" alt="" />
+                <img src="/resources/images/product/review/reviewImg.png" alt="" />
               </div>
               <div class="review-create-date">
                 <span>2022.12.16</span>
@@ -422,7 +274,7 @@
           <li class="review">
             <div class="review-writer">
               <img
-                src="../../images/member/farmer.png"
+                src="/resources/images/member/farmer.png"
                 alt=""
                 class="writer-profile-img"
               />
@@ -438,8 +290,8 @@
                 토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요<br />
               </p>
               <div class="review-img">
-                <img src="../../images/product/review/reviewImg.png" alt="" />
-                <img src="../../images/product/review/reviewImg.png" alt="" />
+                <img src="/resources/images/product/review/reviewImg.png" alt="" />
+                <img src="/resources/images/product/review/reviewImg.png" alt="" />
               </div>
               <div class="review-create-date">
                 <span>2022.12.16</span>
@@ -450,7 +302,7 @@
           <li class="review">
             <div class="review-writer">
               <img
-                src="../../images/member/farmer.png"
+                src="/resources/images/member/farmer.png"
                 alt=""
                 class="writer-profile-img"
               />
@@ -466,8 +318,8 @@
                 토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요<br />
               </p>
               <div class="review-img">
-                <img src="../../images/product/review/reviewImg.png" alt="" />
-                <img src="../../images/product/review/reviewImg.png" alt="" />
+                <img src="/resources/images/product/review/reviewImg.png" alt="" />
+                <img src="/resources/images/product/review/reviewImg.png" alt="" />
               </div>
               <div class="review-create-date">
                 <span>2022.12.16</span>
@@ -478,7 +330,7 @@
           <li class="review">
             <div class="review-writer">
               <img
-                src="../../images/member/farmer.png"
+                src="/resources/images/member/farmer.png"
                 alt=""
                 class="writer-profile-img"
               />
@@ -494,8 +346,8 @@
                 토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요<br />
               </p>
               <div class="review-img">
-                <img src="../../images/product/review/reviewImg.png" alt="" />
-                <img src="../../images/product/review/reviewImg.png" alt="" />
+                <img src="/resources/images/product/review/reviewImg.png" alt="" />
+                <img src="/resources/images/product/review/reviewImg.png" alt="" />
               </div>
               <div class="review-create-date">
                 <span>2022.12.16</span>
@@ -506,7 +358,7 @@
           <li class="review">
             <div class="review-writer">
               <img
-                src="../../images/member/farmer.png"
+                src="/resources/images/member/farmer.png"
                 alt=""
                 class="writer-profile-img"
               />
@@ -522,8 +374,8 @@
                 토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요<br />
               </p>
               <div class="review-img">
-                <img src="../../images/product/review/reviewImg.png" alt="" />
-                <img src="../../images/product/review/reviewImg.png" alt="" />
+                <img src="/resources/images/product/review/reviewImg.png" alt="" />
+                <img src="/resources/images/product/review/reviewImg.png" alt="" />
               </div>
               <div class="review-create-date">
                 <span>2022.12.16</span>
@@ -534,7 +386,7 @@
           <li class="review">
             <div class="review-writer">
               <img
-                src="../../images/member/farmer.png"
+                src="/resources/images/member/farmer.png"
                 alt=""
                 class="writer-profile-img"
               />
@@ -550,8 +402,8 @@
                 토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요<br />
               </p>
               <div class="review-img">
-                <img src="../../images/product/review/reviewImg.png" alt="" />
-                <img src="../../images/product/review/reviewImg.png" alt="" />
+                <img src="/resources/images/product/review/reviewImg.png" alt="" />
+                <img src="/resources/images/product/review/reviewImg.png" alt="" />
               </div>
               <div class="review-create-date">
                 <span>2022.12.16</span>
@@ -578,121 +430,121 @@
         <div class="review-img-area">
           <div class="review-list-img">
             <img
-              src="../../images/product/thumbnail/productThumbnail.png"
+              src="/resources/images/product/thumbnail/productThumbnail.png"
               alt=""
             />
           </div>
           <div class="review-list-img">
             <img
-              src="../../images/product/thumbnail/productThumbnail.png"
+              src="/resources/images/product/thumbnail/productThumbnail.png"
               alt=""
             />
           </div>
           <div class="review-list-img">
             <img
-              src="../../images/product/thumbnail/productThumbnail.png"
+              src="/resources/images/product/thumbnail/productThumbnail.png"
               alt=""
             />
           </div>
           <div class="review-list-img">
             <img
-              src="../../images/product/thumbnail/productThumbnail.png"
+              src="/resources/images/product/thumbnail/productThumbnail.png"
               alt=""
             />
           </div>
           <div class="review-list-img">
             <img
-              src="../../images/product/thumbnail/productThumbnail.png"
+              src="/resources/images/product/thumbnail/productThumbnail.png"
               alt=""
             />
           </div>
           <div class="review-list-img">
             <img
-              src="../../images/product/thumbnail/productThumbnail.png"
+              src="/resources/images/product/thumbnail/productThumbnail.png"
               alt=""
             />
           </div>
           <div class="review-list-img">
             <img
-              src="../../images/product/thumbnail/productThumbnail.png"
+              src="/resources/images/product/thumbnail/productThumbnail.png"
               alt=""
             />
           </div>
           <div class="review-list-img">
             <img
-              src="../../images/product/thumbnail/productThumbnail.png"
+              src="/resources/images/product/thumbnail/productThumbnail.png"
               alt=""
             />
           </div>
           <div class="review-list-img">
             <img
-              src="../../images/product/thumbnail/productThumbnail.png"
+              src="/resources/images/product/thumbnail/productThumbnail.png"
               alt=""
             />
           </div>
           <div class="review-list-img">
             <img
-              src="../../images/product/thumbnail/productThumbnail.png"
+              src="/resources/images/product/thumbnail/productThumbnail.png"
               alt=""
             />
           </div>
           <div class="review-list-img">
             <img
-              src="../../images/product/thumbnail/productThumbnail.png"
+              src="/resources/images/product/thumbnail/productThumbnail.png"
               alt=""
             />
           </div>
           <div class="review-list-img">
             <img
-              src="../../images/product/thumbnail/productThumbnail.png"
+              src="/resources/images/product/thumbnail/productThumbnail.png"
               alt=""
             />
           </div>
           <div class="review-list-img">
             <img
-              src="../../images/product/thumbnail/productThumbnail.png"
+              src="/resources/images/product/thumbnail/productThumbnail.png"
               alt=""
             />
           </div>
           <div class="review-list-img">
             <img
-              src="../../images/product/thumbnail/productThumbnail.png"
+              src="/resources/images/product/thumbnail/productThumbnail.png"
               alt=""
             />
           </div>
           <!-- <div class="review-list-img">
             <img
-              src="../../images/product/thumbnail/productThumbnail.png"
+              src="/resources/images/product/thumbnail/productThumbnail.png"
               alt=""
             />
           </div> -->
           <!-- <div class="review-list-img">
             <img
-              src="../../images/product/thumbnail/productThumbnail.png"
+              src="/resources/images/product/thumbnail/productThumbnail.png"
               alt=""
             />
           </div>
           <div class="review-list-img">
             <img
-              src="../../images/product/thumbnail/productThumbnail.png"
+              src="/resources/images/product/thumbnail/productThumbnail.png"
               alt=""
             />
           </div>
           <div class="review-list-img">
             <img
-              src="../../images/product/thumbnail/productThumbnail.png"
+              src="/resources/images/product/thumbnail/productThumbnail.png"
               alt=""
             />
           </div>
           <div class="review-list-img">
             <img
-              src="../../images/product/thumbnail/productThumbnail.png"
+              src="/resources/images/product/thumbnail/productThumbnail.png"
               alt=""
             />
           </div>
           <div class="review-list-img">
             <img
-              src="../../images/product/thumbnail/productThumbnail.png"
+              src="/resources/images/product/thumbnail/productThumbnail.png"
               alt=""
             />
           </div> -->
@@ -716,7 +568,7 @@
         <div class="review-product-preview">
           <div class="product-thumbnail">
             <img
-              src="../../images/product/thumbnail/productThumbnail.png"
+              src="/resources/images/product/thumbnail/productThumbnail.png"
               alt=""
             />
           </div>
@@ -751,25 +603,25 @@
           <div class="review-uploaded-img">
             <div class="uploaded-img">
               <img
-                src="../../images/post/postDetail/detail/20180802_1_15415.jpg"
+                src="/resources/images/post/postDetail/detail/20180802_1_15415.jpg"
                 alt=""
               />
             </div>
             <div class="uploaded-img">
               <img
-                src="../../images/post/postDetail/detail/20220825000809_0.jpg"
+                src="/resources/images/post/postDetail/detail/20220825000809_0.jpg"
                 alt=""
               />
             </div>
             <div class="uploaded-img">
               <img
-                src="../../images/post/postDetail/detail/img_products_detail_01.jpg"
+                src="/resources/images/post/postDetail/detail/img_products_detail_01.jpg"
                 alt=""
               />
             </div>
             <div class="uploaded-img">
               <img
-                src="../../images/post/postDetail/detail/20180802_1_15415.jpg"
+                src="/resources/images/post/postDetail/detail/20180802_1_15415.jpg"
                 alt=""
               />
             </div>
