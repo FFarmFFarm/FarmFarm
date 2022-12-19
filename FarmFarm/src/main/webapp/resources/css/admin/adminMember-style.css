@@ -287,6 +287,12 @@ main{
 }
 
 
+.caret-icon{
+    padding-left: 3px;
+    margin: 0;
+    color: var(--point-color);
+}
+
 
 .member-select-table{
     width: 900px;
