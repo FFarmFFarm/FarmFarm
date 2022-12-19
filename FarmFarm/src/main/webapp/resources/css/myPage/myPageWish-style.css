@@ -102,7 +102,6 @@ input#selectWish:checked + label.checkbox {
   width: 120px;
   height: 120px;
   margin-right: 20px;
-  margin-left: 30px;
 }
 
 .wish-thumbnail-img {

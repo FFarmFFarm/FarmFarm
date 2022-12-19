@@ -57,12 +57,77 @@ a.review-wrote > i {
   margin-left: 50px;
 }
 
+.review-detail {
+  margin: 20px 0;
+}
+
 .review-content {
   cursor: pointer;
 }
 
+/* 리뷰 하나 */
 .review-detail {
-  margin: 20px 0;
+  width: 80%;
+
+  display: flex;
+  font-size: var(--main-font-size);
+  margin: 30px 0;
+
+  border-bottom: 1px solid hsl(0, 0%, 93%);
+}
+
+.review-detail-content {
+  padding-top: 10px;
+  width: 100%;
+}
+
+.review-detail-content > span {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: var(--sub-font-color);
+}
+
+.review-img {
+  margin-top: 30px;
+  border-radius: 5px;
+  overflow: hidden;
+  width: fit-content;
+  cursor: pointer;
+}
+
+.review-img > img {
+  width: 100px;
+  height: 100px;
+}
+
+.review-create-date {
+  height: 50px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  color: var(--sub-font-color);
+}
+
+.review-create-date > button {
+  width: 100px;
+  height: 30px;
+
+  border-radius: 15px;
+
+  border: 1px solid var(--line-color);
+  color: var(--sub-font-color);
+}
+
+.review-create-date > button:hover {
+  color: var(--point-color);
+}
+
+.review-helped {
+  font-size: var(--main-font-size);
+  font-weight: bold;
+  color: var(--point-color);
 }
 
 .pagination {

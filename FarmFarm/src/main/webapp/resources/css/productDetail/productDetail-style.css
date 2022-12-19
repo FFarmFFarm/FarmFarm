@@ -1,4 +1,4 @@
-@import "../root-style.css";
+@import '../root-style.css';
 
 body {
   width: 100vw;
@@ -15,11 +15,6 @@ main {
 button {
   border: none;
   background-color: white;
-}
-
-button:hover,
-a:hover {
-  opacity: 0.9;
 }
 
 button:active {
