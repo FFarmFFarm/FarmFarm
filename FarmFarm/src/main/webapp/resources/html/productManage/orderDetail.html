@@ -6,10 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>주문 상세 조회</title>
     <link rel="stylesheet" href="../../css/productManage/orderDetail.css">
+    <script src="https://kit.fontawesome.com/d4fbceca97.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <section class="order-detail-section">
-        <p class="detail-top">주문 상세 정보</p>
+        <div class="detail-top">
+            <button type="button" class="back-btn">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            주문 상세 정보
+        </div>
         <div class="order">
             <div class="order-detail">
                 <p class="detail-title">주문정보</p>
@@ -26,7 +32,7 @@
                 </div>
                 <form action="" method="get" id="productSearch" onsubmit="return true">
                     <table class="order-detail-table">
-                        <tr class="order-table-row">
+                        <tr class="order-table-head">
                             <th>주문상품</th>
                             <th>판매가</th>
                             <th>수량</th>
@@ -36,7 +42,12 @@
                             <th>송장번호</th>
                         </tr>
                         <tr class="order-table-row">
-                            <td>킹갓모종삽</td>
+                            <td class="order-product">
+                                <div class="product-img">
+                                    <img src="../../images/product/review/reviewImg.png" alt="">
+                                </div>
+                                <span>제너럴킹갓모종삽</span>
+                            </td>
                             <td>8,000원</td>
                             <td>3</td>
                             <td>3,000</td>
@@ -51,11 +62,13 @@
                             </td>
                             <td>
                                 <input type="text"
-                                name="invoiceNo"
-                                placeholder="송장번호">
+                                name="invoiceNo" maxlength="15"
+                                placeholder="송장번호 입력">
                             </td>
                         </tr>
                     </table>
+                    <button type="submit" class="change-status">
+                        제품상태 수정</button>
                 </form>
             </div>
     
