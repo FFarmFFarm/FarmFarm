@@ -117,22 +117,27 @@ main{
     align-items: center;
     color: var(--sub-font-color);
     padding: 0 160px;
-    /* justify-content: center; */
 }
-.board-like-report>div{
+.board-like-report>button{
     width: 40%;
     display: flex;
     justify-content: center;
     padding: 0 60px;
     cursor: pointer;
     margin: 0 50px;
+    border: none;
+    background-color: white;
+    font-size: var(--medium-font-size);
 }
-.board-like-report>div:hover{
+.board-like-report>button:hover{
     color: var(--point-color);
     font-weight: 600;
 }
 .board-like{
     align-items: center;
+}
+.checkLike{
+    color: red;
 }
 
 /* 댓글부분 */
