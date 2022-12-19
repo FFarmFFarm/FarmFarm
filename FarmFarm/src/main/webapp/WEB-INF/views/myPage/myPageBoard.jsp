@@ -24,9 +24,9 @@
     <main>
       <jsp:include page="/WEB-INF/views/myPage/myPage.jsp"/>
       
-
+      <section class="list-container">
+        <jsp:include page="/WEB-INF/views/myPage/myPageNav.jsp"/>
         <div class="board-list">
-      <jsp:include page="/WEB-INF/views/myPage/myPageNav.jsp"/>
           <span class="board-list-title">작성 게시글</span>
           <div class="board-list-header">
             <select name="SortBoard" id="SortBoard">

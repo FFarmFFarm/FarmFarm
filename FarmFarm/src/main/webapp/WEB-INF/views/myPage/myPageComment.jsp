@@ -25,9 +25,9 @@
       <jsp:include page="/WEB-INF/views/myPage/myPage.jsp"/>
 
 
-
-        <div class="comment-list">
+      <section class="list-container">
         <jsp:include page="/WEB-INF/views/myPage/myPageNav.jsp"/>
+        <div class="comment-list">
           <span class="comment-list-title">작성 댓글</span>
           <div class="list-category">
             <span class="comment-category">댓글</span>
