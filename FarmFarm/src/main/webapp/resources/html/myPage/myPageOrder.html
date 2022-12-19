@@ -451,35 +451,46 @@
     </main>
     <div class="review-form-container">
       <form action="" method="post" class="review-form">
-        <div>
-          <button type="button"></button>
-          <span>후기 작성</span>
-          <span></span>
+        <div class="review-head">
+          <button type="button" class="back-btn">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <span class="review-head-title">후기 작성</span>
+          <span class="empty"></span>
         </div>
-        <div class="review-product">
-          <div><img src="" alt="" /></div>
-          <div><span></span></div>
-        </div>
-        <div>
-          <div>
-            <span>자세한 후기를 들려주세요</span>
-            <span>작성 시 유의사항</span>
+        <div class="review-product-preview">
+          <div class="product-thumbnail">
+            <img
+              src="../../images/product/thumbnail/productThumbnail.png"
+              alt=""
+            />
           </div>
-          <div>
+          <div class="product-name">
+            <span>[이연복의 목란] 짬뽕 2인분</span>
+          </div>
+        </div>
+        <div class="review-write-area">
+          <div class="review-write-head">
+            <span>자세한 후기를 들려주세요</span>
+            <span
+              >작성 시 유의사항 <i class="fa-regular fa-circle-question"></i
+            ></span>
+          </div>
+          <div class="review-write-content">
             <textarea name="" id="" cols="30" rows="10"></textarea>
           </div>
-          <div>
-            <div>
-              <label for=""></label>
-              <input type="file" />
+          <div class="review-img-upload">
+            <div class="review-one-img">
+              <label for="reviewImg"><i class="fa-solid fa-plus"></i></label>
+              <input type="file" id="reviewImg" />
             </div>
           </div>
-          <div>
+          <div class="review-notice">
             <p>
               사진은 최대 5장까지, 30MB 이하의 이미지만 업로드가 가능합니다.
             </p>
           </div>
-          <div><button>등록하기</button></div>
+          <div class="review-submit"><button>등록하기</button></div>
         </div>
       </form>
     </div>
