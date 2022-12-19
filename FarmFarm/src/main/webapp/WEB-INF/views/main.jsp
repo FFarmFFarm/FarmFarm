@@ -1,12 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>νν</title>
 </head>
 <body>
-ΈήΐΞ ΖδΐΜΑφ
+    λ©”μΈνμ΄μ§€
+    
+    <a href="/member/myPage">λ§μ΄νμ΄μ§€</a>
+    <a href="/product/detail">μƒν’ μƒμ„Έ νμ΄μ§€</a>
 </body>
 </html>
