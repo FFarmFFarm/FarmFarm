@@ -14,7 +14,9 @@
         </div>
         
         <div class="set-period">
-            <p class="part-title">기간설정</p>
+            <div class="part-title">
+                <p>기간설정</p>
+            </div>
             <div class="input-period">
                 <input type="date" name="orderDate" id="startDate"
                 placeholder="시작일">
@@ -31,9 +33,22 @@
         </div>
 
         <div class="order-list">
-            <p class="part-title">주문목록</p>
-            <div class="count-list">총
-                <span>2</span>건
+            <div class="part-title list-search">
+                <p>주문목록</p>
+                <div class="count-list">총
+                    <span>2</span>건
+                </div>
+                <form action="" method="get" id="productSearch" onsubmit="return true">
+
+                    <select name="key" id="searchKey">
+                        <option value="p">상품명</option>
+                        <option value="m">회원ID</option>
+                    </select>
+    
+                    <input type="text" name="query"  id="searchQuery" placeholder="검색어 입력">
+    
+                    <button>검색</button>
+                </form>
             </div>
 
             <table class="order-list-table">
