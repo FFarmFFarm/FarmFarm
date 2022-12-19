@@ -1,0 +1,94 @@
+@import "../root-style.css";
+
+.report-detail-container{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--modal-background-color);
+
+    z-index: 100;
+    
+    /* todo */
+    display: flex;
+}
+
+.report-detail-modal{
+    background-color: white;
+    width: 800px;
+    height: 700px;
+    padding: 40px 60px;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.report-modal-title{
+    font-weight: bold;
+    height: 40px;
+}
+
+
+
+.detail-bold{
+    color: var(--point-color);
+    font-weight: bold;
+    font-size: var(--main-font-size);
+}
+
+
+.report-modal-table{
+    height: 500px;
+    display: flex;
+    align-items: flex-start;
+}
+
+
+.report-modal-table tr td{
+    height: 30px;
+    font-size: var(--main-font-size);
+}
+
+
+.button-div{
+    display: flex;
+    justify-content: flex-end;
+}
+
+#stopAccountBtn{
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    background-color: var(--point-color);
+    margin-right: 10px;
+}
+
+#secessionAccountBtn{
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    background-color: #C43819;
+    margin-right: 10px;
+}
+
+#passAccountBtn{
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    background-color: var(--icon-button-color);
+}
+
