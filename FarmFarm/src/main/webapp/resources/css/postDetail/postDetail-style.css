@@ -1,0 +1,258 @@
+@import "../root-style.css";
+
+body {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main {
+  width: 1000px;
+  margin-top: 50px;
+  font-size: var(--main-font-size);
+}
+
+button {
+  border: none;
+  background-color: white;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+/* 상품 요약 */
+.product-summary {
+  display: flex;
+  position: relative;
+}
+
+/* 공유, 찜 버튼 */
+.wish-btn,
+.share-btn {
+  width: 40px;
+  height: 40px;
+
+  position: absolute;
+  right: 10px;
+  top: 10px;
+
+  border: none;
+  background-color: var(--background-color);
+  border-radius: 50%;
+
+  color: var(--main-font-color);
+  font-size: var(--title-font-size);
+}
+
+.wish-btn {
+  color: hsl(330, 88%, 53%);
+}
+
+.share-btn {
+  width: 30px;
+  height: 30px;
+  right: 60px;
+}
+
+.share-btn:hover {
+  color: var(--point-color);
+}
+
+/* 대표 이미지 */
+.thumbnail-area {
+  width: 430px;
+  height: 430px;
+  overflow: hidden;
+}
+
+.thumbnail-area > li > img {
+  width: 100%;
+  height: 100%;
+}
+
+/* 상품 요약 설명 */
+.summary-area {
+  width: 570px;
+  padding: 10px 20px 10px 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 상품 대분류 */
+.product-category {
+  font-size: var(--main-font-size);
+  color: var(--sub-font-color);
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* 상품 이름(제목) */
+.product-name {
+  font-size: var(--title-font-size);
+  margin: 10px 0;
+}
+
+/* 상품 가격 */
+.product-price {
+  font-size: var(--headline-font-size);
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+/* 로그인x일 때 메세지 */
+.login-meassage {
+  color: var(--point-color);
+  font-size: var(--main-font-size);
+  margin-bottom: 30px;
+}
+
+/* 상품 정보 */
+.summary {
+  display: flex;
+  font-size: var(--main-font-size);
+  margin-bottom: 30px;
+}
+
+.summary-subject,
+.summary-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.summary-subject {
+  width: 100px;
+  color: var(--sub-font-color);
+  margin-bottom: 10px;
+}
+
+.open-date,
+.seller,
+.origin {
+  margin-bottom: 20px;
+}
+
+/* 문의, 장바구니 담기, 주문하기 버튼 */
+.product-btn-area {
+  width: 100%;
+  height: 50px;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.product-btn-area > * {
+  border: none;
+  height: 45px;
+  border-radius: 4px;
+  color: white;
+
+  margin-left: 10px;
+}
+
+.chatting-btn {
+  width: 400px;
+  background-color: var(--point-color);
+  font-size: var(--large-font-size);
+}
+
+.product-menu {
+  margin-top: 100px;
+  width: 100%;
+  height: 60px;
+
+  display: flex;
+  align-items: center;
+
+  border-top: 1px solid var(--line-color);
+  border-bottom: 1px solid var(--line-color);
+}
+
+.product-menu > * {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+}
+
+/* 상품 상세 설명 */
+.product-detail {
+  width: 100%;
+  min-height: 400px;
+  padding: 50px 20px;
+
+  display: flex;
+  flex-direction: column;
+  font-size: var(--medium-font-size);
+}
+
+.product-detail > * {
+  margin-bottom: 150px;
+}
+
+/* 주의사항 */
+.product-notice {
+  min-height: 150px;
+  border-top: 1px solid var(--line-color);
+  border-bottom: 1px solid var(--line-color);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  margin: 20px 0;
+}
+
+.notice-title {
+  font-size: var(--large-font-size);
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+.product-notice > span {
+  font-size: var(--main-font-size);
+}
+.swiper {
+  width: 430px;
+  height: 430px;
+}
+
+.swiper-slide {
+  width: 430px;
+  height: 430px;
+
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.swiper {
+  margin-left: auto;
+  margin-right: auto;
+}
