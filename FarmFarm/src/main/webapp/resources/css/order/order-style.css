@@ -1,0 +1,242 @@
+@import "../root-style.css";
+
+body {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main {
+  width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--main-font-color);
+}
+
+section {
+  width: 100%;
+  min-height: 200px;
+}
+
+section > * {
+  padding: 10px 0;
+}
+
+section > * > * {
+  padding: 8px 0;
+}
+
+section > * > * > * {
+  padding: 8px 0;
+}
+
+.order-title {
+  font-size: var(--headline-font-size);
+  height: 150px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "NotoSansKR-Medium";
+}
+
+.order-headline {
+  font-size: var(--title-font-size);
+  width: 100%;
+
+  border-bottom: 1px solid var(--main-font-color);
+  font-family: "NotoSansKR-Medium";
+  margin-top: 60px;
+}
+
+.order-product-list {
+  display: flex;
+  justify-content: space-between;
+}
+
+.order-product-list i {
+  font-size: var(--large-font-size);
+  cursor: pointer;
+}
+
+.order-content {
+  display: flex;
+  justify-content: center;
+  padding: 28px 0;
+}
+
+.order-count {
+  margin: 0 4px;
+  color: var(--point-color);
+}
+
+.product-container li {
+  display: flex;
+  height: 78px;
+  margin: 25px 0;
+  align-items: center;
+}
+
+.order-thumbnail {
+  width: 60px;
+  height: 78px;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.order-thumbnail-img {
+  min-height: 100%;
+  width: 100%;
+}
+
+.order-product-name {
+  width: 720px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.order-amount {
+  width: 100px;
+  text-align: center;
+}
+
+.order-price-info {
+  font-weight: bold;
+  width: 120px;
+  text-align: end;
+}
+
+.member-info-container > div:nth-child(2) {
+  display: flex;
+}
+
+.info-subject {
+  display: inline-block;
+  width: 160px;
+  margin-right: 30px;
+  line-height: 44px;
+  letter-spacing: -0.32px;
+  vertical-align: top;
+}
+
+.info-content {
+  display: inline-block;
+  line-height: 44px;
+  letter-spacing: -0.32px;
+  vertical-align: top;
+}
+
+.order-container {
+  display: flex;
+}
+
+.payment-container {
+  width: 742px;
+}
+
+.payment-container > div:nth-child(2) {
+  display: flex;
+}
+
+.select-payment {
+  display: inline-block;
+  width: 160px;
+  margin-right: 30px;
+  font-weight: 500;
+  line-height: 44px;
+  letter-spacing: -0.32px;
+  vertical-align: top;
+}
+
+.payment-list {
+  padding: 20px 0;
+  width: 414px;
+}
+
+.kakaopay-btn {
+  width: 100%;
+  height: 48px;
+  border: 1px solid rgb(246, 229, 0);
+  background: rgb(246, 229, 0);
+  font-weight: 500;
+  border-radius: 3px;
+  cursor: pointer;
+
+  font-size: var(--large-font-size);
+  font-weight: bold;
+}
+
+.notice {
+  font-size: var(--small-font-size);
+  color: var(--sub-font-color);
+  border: none;
+}
+
+.price-container {
+  width: 258px;
+  padding: 0 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+
+.total-price {
+  border: none;
+}
+
+.price-one-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.result-price {
+  font-size: var(--title-font-size);
+  font-weight: bold;
+}
+
+.agree-all {
+  font-size: var(--large-font-size);
+  font-weight: bold;
+}
+
+.agreement-container input {
+  margin-right: 10px;
+}
+
+.submit-container {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 80px;
+}
+
+.submit-container > button {
+  width: 240px;
+  height: 56px;
+  background-color: var(--point-color);
+  border: none;
+  color: white;
+  font-size: var(--medium-font-size);
+  border-radius: 3px;
+}
+
+.notice-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.notice-p {
+  text-align: center;
+}
