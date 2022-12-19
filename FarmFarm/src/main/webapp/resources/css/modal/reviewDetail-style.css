@@ -1,0 +1,169 @@
+.review-detail-container {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: var(--modal-background-color);
+
+  display: none;
+}
+
+.review-detail-modal {
+  background-color: white;
+  width: 700px;
+  min-height: 400px;
+
+  border-radius: 5px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+
+  font-size: var(--main-font-size);
+}
+
+.review-detail-modal > * {
+  margin: 10px 0;
+}
+
+.review-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  font-size: var(--large-font-size);
+}
+
+.back-btn,
+.empty {
+  width: 80px;
+}
+
+.back-btn {
+  text-align: left;
+  padding: 0 10px;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+}
+
+.review-head-title {
+  width: 500px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.review-product-preview {
+  width: 100%;
+  height: 88px;
+  display: flex;
+  align-items: center;
+
+  padding: 0 10px;
+
+  /* border-top: 10px solid var(--line-color); */
+  /* border-bottom: 10px solid var(--line-color); */
+}
+
+.product-thumbnail {
+  width: 60px;
+  height: 78px;
+  margin-right: 50px;
+  overflow: hidden;
+}
+
+.product-thumbnail > img {
+  width: 100%;
+  height: 100%;
+}
+
+.product-name {
+  display: flex;
+  align-items: center;
+  font-size: var(--main-font-size);
+}
+
+.review-content-area {
+  width: 100%;
+  padding: 20px 10px;
+}
+
+.review-content {
+  max-height: 300px;
+  overflow: auto;
+  margin-bottom: 10px;
+}
+
+.review-content-head {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5px;
+}
+
+.review-content-head > span:first-child {
+  font-weight: bold;
+}
+
+.review-uploaded-img {
+  width: 100%;
+  height: 110px;
+  padding: 10px 10px;
+  margin-bottom: 10px;
+
+  display: flex;
+}
+
+.uploaded-img {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 5px;
+}
+
+.uploaded-img > img {
+  width: 100%;
+  height: 100%;
+}
+
+.review-notice {
+  width: 100%;
+  height: 50px;
+
+  padding: 10px 5px;
+
+  font-size: var(--small-font-size);
+  color: var(--sub-font-color);
+}
+
+.review-submit {
+  width: 100%;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.review-submit > button {
+  width: 200px;
+  height: 40px;
+
+  border: none;
+  background-color: var(--point-color);
+  border-radius: 3px;
+  color: white;
+}
