@@ -122,6 +122,8 @@ input[name='alarmCategory']:checked + label > .category-name{
     margin-bottom: 5px;
 
     cursor: pointer;
+
+    transition-duration: 0.2s;
 }
 
 /* 알림 아이콘 */
@@ -133,6 +135,7 @@ input[name='alarmCategory']:checked + label > .category-name{
     text-align: center;
     padding: 10px;
     margin-right: 20px;
+    margin-left: 20px;
 }
 
 /* 알림 내용, 알림 종류 설명 */
@@ -179,5 +182,5 @@ input[name='alarmCategory']:checked + label > .category-name{
 .alarm-box:hover{
     transform: translateY(-2px);
     background-color: rgb(0,0,0,0.05);
-    opacity: 0.7;
+    opacity: 0.9;
 }
