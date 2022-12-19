@@ -1,0 +1,186 @@
+.review-form-container {
+  width: 600px;
+  height: 800px;
+
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: var(--modal-background-color);
+
+  display: none;
+}
+
+.review-form {
+  background-color: white;
+  width: 700px;
+  height: 700px;
+
+  border-radius: 5px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+
+  font-size: var(--main-font-size);
+}
+
+.review-form > * {
+  margin: 10px 0;
+}
+
+.review-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  font-size: var(--large-font-size);
+}
+
+.back-btn,
+.empty {
+  width: 80px;
+}
+
+.back-btn {
+  text-align: left;
+  padding: 0 10px;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+}
+
+.review-head-title {
+  width: 500px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.review-product-preview {
+  width: 100%;
+  height: 88px;
+  display: flex;
+  align-items: center;
+
+  /* border-top: 10px solid var(--line-color); */
+  /* border-bottom: 10px solid var(--line-color); */
+}
+
+.product-thumbnail {
+  width: 60px;
+  height: 78px;
+  margin-right: 50px;
+  overflow: hidden;
+}
+
+.product-thumbnail > img {
+  width: 100%;
+  height: 100%;
+}
+
+.product-name {
+  display: flex;
+  align-items: center;
+}
+
+.review-write-area {
+  height: 480px;
+  width: 100%;
+  padding: 20px 0;
+}
+.review-write-head {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5px;
+}
+
+.review-write-head > span:first-child {
+  font-weight: bold;
+}
+
+.review-write-head > span:last-child {
+  color: var(--sub-font-color);
+  font-size: var(--small-font-size);
+}
+
+.review-write-content {
+  width: 100%;
+  height: 250px;
+  padding: 10px 10px;
+}
+.review-write-content > textarea {
+  resize: none;
+  width: 100%;
+  height: 100%;
+}
+
+.review-write-content > textarea:focus {
+  outline: none;
+}
+
+.review-img-upload {
+  width: 100%;
+  height: 100px;
+  padding: 10px 10px;
+}
+
+.review-one-img {
+  width: 60px;
+  height: 60px;
+
+  border: 1px solid var(--sub-font-color);
+
+  color: var(--sub-font-color);
+  border-radius: 3px;
+}
+
+.review-one-img > label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+.review-one-img > input {
+  display: none;
+}
+
+.review-notice {
+  width: 100%;
+  height: 50px;
+
+  padding: 0 10px;
+
+  font-size: var(--small-font-size);
+  color: var(--sub-font-color);
+}
+
+.review-submit {
+  width: 100%;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.review-submit > button {
+  width: 200px;
+  height: 40px;
+
+  border: none;
+  background-color: var(--point-color);
+  border-radius: 3px;
+  color: white;
+}
