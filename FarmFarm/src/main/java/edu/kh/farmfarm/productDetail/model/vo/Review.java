@@ -1,17 +1,18 @@
 package edu.kh.farmfarm.productDetail.model.vo;
 
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
+import lombok.Setter;
 
 @Getter
 @Setter
 @ToString
-public class ProductImg {
-	private int productImgNo;
-	private String productImgAddress;
+public class Review {
+	private int reviewNo;
+	private String reviewContent;
+	private String reviewDelFl;
+	private int memberNo;
 	private int productNo;
-	private int productImgOrder;
 	
 
 }
