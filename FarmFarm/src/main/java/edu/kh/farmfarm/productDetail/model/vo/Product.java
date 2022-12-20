@@ -13,14 +13,13 @@ public class Product {
 	
 	private int productNo;
 	private String productName;
-	private String productContent;
 	private String productMessage;
 	private String regDate;
 	private int productPrice;
 	private String productDelFl;
-	private int memberNo;
 	private int categoryNo;
 	private int stock;
+	private int productAmount;
 	
 	private List<ProductImg> imgList;
 	
