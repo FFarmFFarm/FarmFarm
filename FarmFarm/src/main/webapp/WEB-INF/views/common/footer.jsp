@@ -19,7 +19,7 @@
 
     
     
-    <div "footer-btn">
+    <div class="footer-btn">
         <button type="button" class="btn-chat">
             <i class="fa-solid fa-comment-dots go-to-top-icon"></i>
         </button>
