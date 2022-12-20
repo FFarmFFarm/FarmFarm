@@ -7,9 +7,9 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>header</title>
+    <title>FarmFarm</title>
 
-    <link rel="stylesheet" href="/resources/css/common/main.css" />
+    <link rel="stylesheet" href="/resources/css/common/main-style.css" />
     <script
       src="https://kit.fontawesome.com/1ce4f19a7a.js"
       crossorigin="anonymous"
@@ -54,7 +54,7 @@
                     </li>
                     <li>
                       <div class="message-box">
-                        <a href="">신팜팜님이 신고했습니다..</a>
+                        <a href="">辛팜팜님이 신고했습니다..</a>
                       </div>
                     </li>
                     <li>
@@ -68,9 +68,8 @@
             </li>
             <li class="widget-item">
               <a href="#">
-                <i class="fa-solid fa-comment-dots"></i>
+                <i class="fa-solid fa-cart-shopping"></i>
               </a>
-              <!-- <div class="chat-count">21</div> -->
             </li>
             <li class="widget-item">
               <div class="dropdown">
@@ -91,7 +90,7 @@
                 </button>
 
                 <div id="myDropdown" class="dropdown-content">
-                  <a href="#">내프로필</a>
+                  <a href="#">마이페이지</a>
                   <a href="#">로그아웃</a>
                 </div>
               </div>
@@ -106,9 +105,25 @@
         </div>
       </header>
 
+      <main>
+        <div class="main-background">
+          <img src="resources/images/main/bg2.jpg">
+        </div>
+        <div>
+          <div class="middle-product">
+            <img src="">
+            <div>
+              <p>아오리 사과 1kg</p>
+              <p>5000원</p>
+            </div>
+            <div></div>
+          </div>
+
+        </div>
+      </main>
     </div>
 
-    
+    <jsp:include page="/WEB-INF/views/common/footer.jsp"/> 
     <script>
       // 프로필 드롭다운
       const dropbtn = document.querySelector('.dropbtn');

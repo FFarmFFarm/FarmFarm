@@ -28,19 +28,22 @@
             <div class="select">
                 <div class="select-user">
                     <button class="select-btn">
-                        <img src="/resources/images/member/user.png" class="select-img">
-                        <div class="select-p">
-                            <p>구매자</p>
-                        </div>
-                        
+                        <a href="/signUp">
+                            <img src="/resources/images/member/user.png" class="select-img">
+                            <div class="select-p">
+                                <p>구매자</p>
+                            </div>
+                        </a>
                     </button>
                 </div>
                 <div class="select-farmer">
                     <button class="select-btn">
-                        <img src="/resources/images/member/farmer.png" class="select-img">
-                        <div class="select-p">
-                            <p>판매자</p>
-                        </div>
+                        <a href="/signUp">
+                            <img src="/resources/images/member/farmer.png" class="select-img">
+                            <div class="select-p">
+                                <p>판매자</p>
+                            </div>
+                        </a>
                     </button>
                 </div>
             </div>

@@ -1,13 +1,15 @@
-@import "../css/root-style.css";
+@import "../root-style.css";
 
 .header-container {
   height: 180px;
   width: 100vw;
-  background-color: var(--background-color);
+  /* background-color: var(--background-color); */
 }
 
 /* Header */
 header {
+  position: relative;
+  z-index: 100;
   height: 120px;
   margin: auto;
   display: flex;
@@ -16,6 +18,8 @@ header {
 
 .home-logo {
   width: 20%;
+  display: flex;
+  justify-content: end;
 }
 
 .home-logo img {
@@ -35,10 +39,10 @@ header {
 }
 
 .widget-item {
-  width: 25px;
-  font-size: 22px;
+  width: 42px;
+  font-size: 20px;
   line-height: 1;
-  margin-left: 25px;
+  margin-left: 10px;
 }
 
 .widget-item a {
@@ -48,20 +52,6 @@ header {
 .widget-item a:hover {
   color: var(--point-color);
 }
-
-/* .chat-count{
-    width: 15px;
-    height: 15px;
-    background-color: red;
-    border-radius: 50%;
-    font-size: 10px;
-    color: white;
-    text-align: center;
-    position: fixed;
-    z-index: 1000;
-    top: 39px;
-    right: 210px;
-} */
 
 .header-icon {
   color: var(--icon-button-color);
@@ -111,12 +101,13 @@ header {
   display: flex;
   border: none;
   cursor: pointer;
-  background-color: var(--background-color);
+  background-color: rgba(0 , 0, 0, 0);
 }
 
 #profilePhoto {
   font-size: 1.4em;
   margin-top: 5.3px;
+  color: var(--background-color);
 }
 
 .caret-icon {
@@ -247,3 +238,22 @@ nav {
   color: black;
   font-weight: 700;
 }
+
+main{
+  height: 10000px;
+}
+
+.main-background{
+  width: 100vw;
+  height: 660px;
+  position: absolute;
+  top: 0px;
+  overflow: hidden;
+}
+
+.main-background img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+

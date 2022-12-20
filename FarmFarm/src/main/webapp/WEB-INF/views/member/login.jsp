@@ -17,7 +17,9 @@
         <div class="back-img"><img src="/resources/images/member/backImg.png"></div>
         <div class="login-page">
             <div class="login-page-img">
-                <img src="/resources/images/mainLogo.png">
+                <a href="/">
+                    <img src="/resources/images/mainLogo.png">
+                </a>
             </div>
 
             <div class="form-wrap">
@@ -33,6 +35,7 @@
                     <div class="login-btn">
                         <button class="inputbox input-button">로그인</button>
                     </div>
+                </form>
 
                     <section class="saveid-area">
                     <!-- 쿠키에 svaeId 있을 때 -->
@@ -48,15 +51,12 @@
                                     </i>
                                 </div>아이디 저장
                             </label> 
-                        </section>
-                    </form>
-
-                    <div class="find-area">
-                        <div class="find"><a href="#">아이디 찾기</a></div>
-                        <div class="find">|</div>
-                        <div class="find"><a href="#">비밀번호 찾기</a></div>
-                    </div>
-                </div>
+                            <div class="find-area">
+                                <div class="find"><a href="#">아이디 찾기</a></div>
+                                <div class="find">|</div>
+                                <div class="find"><a href="#">비밀번호 찾기</a></div>
+                            </div>
+                        </div>
 
                         <div class="line-area"></div>
 
@@ -67,9 +67,10 @@
                         <div class="signup-btn">
                             <button class="inputbox input-button"><a href="/signUpStart">회원가입</a></button>
                         </div>
+                    </section>
+
             </div>
         </div>
     </main>
-
 </body>
 </html>
