@@ -135,7 +135,7 @@ main{
 /** 오른쪽 내용 부분 */
 .admin-content-section{
     width: 1000px;
-    min-height: 900px;
+    min-height: 1100px;
     height: auto;
     padding-bottom: 20px;
     background-color: #eef4ed;
@@ -147,17 +147,15 @@ main{
 
 
 /* 오른쪽 상단 */
-/* 모든 타이틀(회원 상세 정보, 활동 내역, 회원 조회 span) */
-.member-title{
-    color: var(--icon-button-color);
-    font-weight: bold;
-    margin-bottom: 8px;
-}
-
-
-
 
 /* 회원 조회 */
+/* 회원 조회 타이틀 */
+.member-select-title{
+    color: var(--icon-button-color);
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
 .upper-board{
     width: 900px;
     height: auto;
@@ -281,7 +279,6 @@ main{
     
     border-radius: 5px;
 
-
     background-color: #e2e2e2;
 }
 
@@ -301,49 +298,92 @@ main{
 
 /* 회원 상세 정보 middle board */
 /* 계정 변경 내역 lower board */
-.middle-board{
-    height: 350px;
-    display: flex;
-}
 
 
-.lower-board{
-    min-height: 320px;
-    display: flex;
-    justify-content: center;
-}
 
-.middle-detail{
-    width: 900px;
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    margin-top: 50px;
-    margin-right: 10px;
-}
-
-.lower-history{
-    width: 900px;
-    height: 300px;
-    display: flex;
-    flex-direction: column;
+/* 회원 상세 정보 타이틀 */
+.member-detail-title{
+    width: 100%;
+    height: 30px;
+    color: var(--icon-button-color);
+    font-weight: bold;
     margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: center;    
+    padding: 0 350px;
+}
+
+/* 계정 상태 타이틀 */
+.member-history-title{
+    width: 100%;
+    height: 30px;
+    color: var(--icon-button-color);
+    font-weight: bold;
+    margin-top: 70px;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 0 350px;
 }
 
 
+/* .line {
+	display: flex;
+	align-items: center;
+	font-size: 14px;
+}
 
-/* 회원 상세 정보 */
-.member-detail{
-    width: 900px;
-    padding-top: 20px;
-    border-radius: 10px;
-    background-color: white;
+.line::before{
+	content:"";
+	flex-grow:1;
+	margin: 0 15% 0 0;
+	background: lightgray;
+	height:1px;
+	font-size:0px;
+	line-height: 0px;
 
+}
+.line::after {
+    content: "";
+    flex-grow: 1;
+    margin: 0 0 0 15%;
+    background: lightgray;
+    height: 1px;
+    font-size: 0px;
+    line-height: 0px;
+} */
+
+
+
+
+
+.middle-board{
+    min-height: 800px;
     display: flex;
     justify-content: center;
     align-items: center;
-    align-content: center;
+    align-content: space-between;    
+
 }
+
+/* //optimize 회원 상세 정보 */
+.middle-detail{
+    width: 900px;
+    height: 800px;
+
+    margin-top: 50px;
+    margin-right: 10px;
+
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+
+    background-color: white;
+}
+
+
 
 /* 프로필 이미지 */
 .detail-profileImg{
@@ -385,7 +425,7 @@ main{
 
 
 
-/*  계정 상태 내역 */
+/* //optimize 계정 상태 */
 .member-history{
     width: 900px;
     height: 240px;
@@ -396,10 +436,18 @@ main{
     align-items: flex-start;
 }
 
+.member-history-div{
+    width: 900px;
+    height: 240px;
+    border: 1px solid black;
+}
+
+
+
 .member-history-table{
-    width: 800px;
+    width: 600px;
     padding: 20px 0;
-    margin-top: 15px;
+    margin-top: 30px;
     border-collapse: collapse;
 }
 
@@ -418,9 +466,24 @@ main{
 }
 
 
+/* 강제 탈퇴 버튼 */
+#secessionBtn{
+    width: 150px;
+    height: 30px;
+    border-radius: 5px;  
+    margin-top: 20px;
+    background-color: #C43819;
+    color: white;
+    border: none;
+}
 
 
 
 
+#sellerAuth{
+    cursor: pointer;
+}
 
-
+#memberStatus{
+    cursor: pointer;
+}
