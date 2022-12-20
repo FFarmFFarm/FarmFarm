@@ -278,5 +278,17 @@ td, tr{
     margin: 0 auto;
     width: 50px;
     display: block;
-    
+    border: none;
+    outline: none;
+    border: 1px solid #ddd;
+}
+
+.change-btn{
+    border: none;
+    background-color: var(--point-color);
+    color: #fff;
+    padding: 2px 8px;
+    margin-top: 5px;
+    font-size: var(--small-font-size);
+    border-radius: 3px;
 }
