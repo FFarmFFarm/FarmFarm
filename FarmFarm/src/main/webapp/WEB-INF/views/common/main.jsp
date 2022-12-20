@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>header</title>
 
-    <link rel="stylesheet" href="resources/common/css/main.css" />
+    <link rel="stylesheet" href="/resources/css/common/main.css" />
     <script
       src="https://kit.fontawesome.com/1ce4f19a7a.js"
       crossorigin="anonymous"
@@ -19,8 +19,8 @@
     <div class="header-container">
       <header>
         <div class="home-logo">
-          <a href="/">
-            <img src="../images/mainLogo.png" />
+          <a href="/login">
+            <img src="/resources/images/mainLogo.png" />
           </a>
         </div>
 

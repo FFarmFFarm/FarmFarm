@@ -26,20 +26,20 @@ public class MemberController {
 	}
 	
 	// 로그인 하기
-	@PostMapping("/login")
-	public String login(Member inputMember,
-						Model model,
-						RedirectAttributes ra,
-						@RequestHeader(value="referer") String referer,
-						@RequestParam(value="saveId", required = false) String saveId,
-						HttpServletResponse resp) {
-//		Member loginMember = service.login(inputMember);
-		
-		String path = null;
-		
-		
-		
-		return null;
-	}
+//	@PostMapping("/login")
+//	public String login(Member inputMember,
+//						Model model,
+//						RedirectAttributes ra,
+//						@RequestHeader(value="referer") String referer,
+//						@RequestParam(value="saveId", required = false) String saveId,
+//						HttpServletResponse resp) {
+////		Member loginMember = service.login(inputMember);
+//		
+//		String path = null;
+//		
+//		
+//		
+//		return null;
+//	}
 
 }

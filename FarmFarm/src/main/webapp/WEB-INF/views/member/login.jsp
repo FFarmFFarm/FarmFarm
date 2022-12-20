@@ -48,13 +48,15 @@
                                     </i>
                                 </div>아이디 저장
                             </label> 
+                        </section>
+                    </form>
 
-                            <div class="find-area">
-                                <div class="find"><a href="#">아이디 찾기</a></div>
-                                <div class="find">|</div>
-                                <div class="find"><a href="#">비밀번호 찾기</a></div>
-                            </div>
-                        </div>
+                    <div class="find-area">
+                        <div class="find"><a href="#">아이디 찾기</a></div>
+                        <div class="find">|</div>
+                        <div class="find"><a href="#">비밀번호 찾기</a></div>
+                    </div>
+                </div>
 
                         <div class="line-area"></div>
 
@@ -63,10 +65,8 @@
                         </div>
 
                         <div class="signup-btn">
-                            <button class="inputbox input-button">회원가입</button>
+                            <button class="inputbox input-button"><a href="/signUpStart">회원가입</a></button>
                         </div>
-                    </section>
-                </form>
             </div>
         </div>
     </main>
