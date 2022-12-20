@@ -1,0 +1,133 @@
+@import "../root-style.css";
+
+.product-detail-section{
+  width: 800px;
+}
+
+.back-btn{
+  border: none;
+  background-color: var(--point-color);
+  color: white;
+  margin-right: 10px;
+}
+
+.detail-top{
+  font-weight: bold;
+  background-color: var(--point-color);
+  color: #fff;
+  height: 35px;
+  padding: 5px 0 0 15px;
+  width: 100%;
+}
+
+.product{
+  padding: 20px;  
+  border: 1px solid #ddd;
+}
+
+.product-detail {
+  font-size: var(--small-font-size);
+  margin-bottom: 50px;
+}
+
+.detail-title{
+  border-bottom: 1px solid #ddd;
+  font-weight: bolder;
+  height: 30px;
+  font-size: var(--main-font-size);
+}
+
+.product-detail-top{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px 0 3px;
+}
+
+.product-detail-top>div{
+  margin-right: 20px;
+}
+
+.small-title{
+  color: var(--point-color);
+  font-weight: 800;
+  margin-right: 3px;
+}
+
+
+table{
+  background-color: #fff;
+  
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+
+  font-size: var(--small-font-size);
+}
+
+td, tr{
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+}
+
+.product-detail-table{
+  width: 100%;
+  margin: 5px auto;
+}
+
+.product-table-head{
+  height: 30px;
+  background-color: #eee;
+}
+
+.product-table-row>td{
+  padding: 0 8px;
+}
+
+.product-product{
+  display: flex;
+  border: none;
+  margin: 10px 0;
+  align-items: center;
+  font-weight: bolder;
+}
+
+.product-img{
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.product-img>img{
+  width: 100%;
+  height: 100%;
+}
+
+#productStatus{
+  font-size: var(--small-font-size);
+  border: none;
+}
+
+[name=invoiceNo]{
+  font-size: var(--small-font-size);
+  border: none;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+.change-status{
+  background-color: #eee;
+  border: none;
+  padding: 5px 35px;
+  border-radius: 3px;
+  float: right;
+  margin-top: 3px;
+}
+
+/* .product-table-row>*:nth-child(1){width: 35%; } */
+.product-table-row>*:nth-child(2){width: 10%; text-align: right;}
+.product-table-row>*:nth-child(3){width: 5%; text-align: center;}
+.product-table-row>*:nth-child(4){width: 7%; text-align: right;}
+.product-table-row>*:nth-child(5){width: 10%; text-align: right;}
+.product-table-row>*:nth-child(6){width: 10%; text-align: center;}
+.product-table-row>*:nth-child(7){width: 13%; text-align: center;}
