@@ -19,47 +19,72 @@
 
 .report-modal{
     background-color: white;
-    width: 600px;
-    height: 600px;
+    width: 400px;
+    height: 460px;
     border-radius: 10px;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    align-content: center;
+
 }
 
 
 .report-modal i{
-    font-size: 80px;
-    margin-top: 150px;
+    font-size: 18px;
+    margin-right: 3px;
 }
 
 
 .report-title{
+    width: 100%;
     font-weight: bold;
-    margin-top: 10px;
-    /* margin-right: 250px; */
-    width: 100px;
     text-align: center;
-    background-color: #eef4ed;
+    margin-bottom: 10px;
 }
 
 .report-form-div{
+    height: 320px;
     margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .report-form{
-    height: 500px;
     font-size: var(--main-font-size);
+    display: inline;
 }
 
 .report-form input{
     margin-bottom: 10px;
-    /* margin-left: 50px; */
+    margin-right: 20px;
 }
 
 .report-form textarea{
-    margin-left: 70px;
+    width: 180px;
+    margin-left: 10px;
+    resize: none;
+    border:none;
+    border-bottom: 1px solid lightgray;
+}
+
+.report-form textarea:focus{
+    border: none;
+}
+
+
+
+#reportBtn{
+    width: 150px;
+    height: 30px;
+    background-color: #fa2601;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
 }
 
