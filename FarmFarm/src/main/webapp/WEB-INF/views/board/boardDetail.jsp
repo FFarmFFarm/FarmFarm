@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>와글와글 게시글 보기</title>
     <link rel="stylesheet" href="/css/board/boardDetail.css">
-    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/common/header-style.css">
     <script src="https://kit.fontawesome.com/345198b845.js" crossorigin="anonymous"></script>
 </head>
 <body>
