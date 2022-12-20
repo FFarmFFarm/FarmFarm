@@ -14,7 +14,7 @@ public class BoardDetailController {
 	
 	@GetMapping("/board")
 	public String boardPage() {
-		return "/board/boardList";
+		return "board/boardDetail";
 	}
 	
 }
