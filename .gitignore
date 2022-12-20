@@ -133,10 +133,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/java,eclipse,windows
+
 FarmFarm/src/main/resources/log4j.xml
-*.policy
-Servers2/FarmFarm Server-config/catalina.properties
-Servers2/FarmFarm Server-config/context.xml
-Servers2/FarmFarm Server-config/server.xml
-Servers2/FarmFarm Server-config/tomcat-users.xml
-Servers2/FarmFarm Server-config/web.xml
+
