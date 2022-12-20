@@ -19,7 +19,7 @@
     <div class="header-container">
       <header>
         <div class="home-logo">
-          <a href="/login">
+          <a href="/">
             <img src="/resources/images/mainLogo.png" />
           </a>
         </div>
@@ -37,7 +37,7 @@
 
         <div class="header-widget-area">
           <!-- 로그인O 상태 -->
-          <ul class="widget-list">
+          <%-- <ul class="widget-list">
             <li class="widget-item">
               <div class="dropdown">
                 <button type="button" class="dropbtn1">
@@ -95,13 +95,15 @@
                 </div>
               </div>
             </li>
-          </ul>
+          </ul> --%>
 
           <!-- 로그인X 상태 -->
-          <!-- <ul class="login-list">
-                    <li class="login-item"><a href="#">로그인</a></li>
-                    <li class="login-item"><a href="#">회원가입</a></li>
-                </ul> -->
+          <div class="login-list">
+            <div class="login-item"><a href="/login">로그인</a></div>
+            <span>|</span>
+            <div class="login-item"><a href="/signUpStart">회원가입</a></div>
+          </div>
+
         </div>
       </header>
 
@@ -122,8 +124,9 @@
         </div>
       </main>
     </div>
-
+    
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/> 
+
     <script>
       // 프로필 드롭다운
       const dropbtn = document.querySelector('.dropbtn');

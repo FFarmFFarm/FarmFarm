@@ -64,7 +64,8 @@ header {
 
 .login-list {
   display: flex;
-  margin-right: 20px;
+  margin-right: 15px;
+  align-items: center;
 }
 
 .login-item {
@@ -72,8 +73,9 @@ header {
   text-align: center;
 }
 
-.login-item a {
+.login-item a, .login-list span {
   color: var(--main-font-color);
+  font-size: var(--small-font-size);
 }
 
 .login-item a:hover {
@@ -240,14 +242,16 @@ nav {
 }
 
 main{
-  height: 10000px;
+  min-height: 100%;
+  position: relative;
+  padding-bottom: 130px;
 }
 
 .main-background{
   width: 100vw;
   height: 660px;
   position: absolute;
-  top: 0px;
+  top: -130px;
   overflow: hidden;
 }
 
