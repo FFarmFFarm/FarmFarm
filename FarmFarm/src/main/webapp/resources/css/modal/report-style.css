@@ -39,7 +39,10 @@
 .report-title{
     font-weight: bold;
     margin-top: 10px;
-    margin-right: 250px;
+    /* margin-right: 250px; */
+    width: 100px;
+    text-align: center;
+    background-color: #eef4ed;
 }
 
 .report-form-div{
@@ -53,12 +56,10 @@
 
 .report-form input{
     margin-bottom: 10px;
-    margin-left: 50px;
+    /* margin-left: 50px; */
 }
 
 .report-form textarea{
-    width: 300px;
     margin-left: 70px;
 }
- 
 
