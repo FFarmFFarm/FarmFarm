@@ -1,0 +1,273 @@
+@import "../root-style.css";
+
+.header-container{
+    z-index: 50;
+}
+
+body{
+    width: 100vw;
+    height:auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main{
+    width: 1200px;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+/** 왼쪽 nav메뉴 */
+.admin-nav-section{
+    width: 200px;
+    /* height: 100vh; */
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    /* position: sticky; */
+}
+
+
+
+/* 팜팜관리자 */
+.admin-nav-section > div:first-child {
+    width: 210px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+
+.admin-profile{
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    font-size: var(--main-font-size);
+    /* color: rgb(10, 21, 15); */
+    color: var(--point-color);
+    font-weight: bold;
+}
+
+.admin-nav-section > div:first-child > img{
+    margin-bottom: 20px;
+}
+
+
+
+/* nav 메뉴 (팜팜보드~)*/
+.admin-nav-section > div:nth-child(2){
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+
+
+.admin-nav-menu{
+    display: inline-block;
+    font-size: var(--main-font-size);
+    color: white;
+    color: black;
+    font-family: "NotoSansKR-Medium";
+    font-weight: 100;  
+}
+
+
+.admin-nav-sub{
+    width: 200px;
+    margin-top: 8px;
+    padding-left: 60px;
+    font-size: var(--main-font-size);
+    color: rgb(87, 87, 87, 0.9);
+    font-family: "NotoSansKR-Medium";
+}
+
+
+.with-icon-div{
+    padding: 5px 0;
+    margin-top: 20px;
+    color: black;
+}
+
+.with-icon-div i{
+    padding: 0 5px 5px 40px;
+}
+
+
+.nav-lower a{
+    width: 200px;
+}
+
+.nav-lower a:hover{
+    color: var(--point-color);
+    font-weight: 700;
+    transition-duration: 0.1s;
+    cursor: pointer;
+    border-left: 5px solid var(--point-color);
+}
+
+/* todo: 카테고리 선택 부분 _카테고리별로 다르게 표시! */
+.admin-nav-sub:nth-of-type(6){
+    height: 30px;
+    padding-top: 5px;
+    background-color: #eef4ed;;
+    font-weight: bold;
+}
+
+
+/** -------------------------------------- */
+
+
+/** 오른쪽 내용 부분 */
+.admin-content-section{
+    width: 1000px;
+    min-height: 900px;
+    height: auto;
+    padding-bottom: 20px;
+    background-color: #eef4ed;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.title-div{
+    width: 100%;
+    height: 30px;
+    margin-top: 40px;
+    margin-bottom: 7px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.report-title{
+    font-weight: bold;
+}
+
+
+.caret-icon{
+    padding-left: 2px;
+    margin: 0;
+    color: var(--point-color);
+}
+
+.report-list-type span{
+    padding-left: 10px;
+}
+
+
+
+.report-select{
+    width: 920px;
+    height: 800px;
+    border-radius: 10px;
+    background-color: white;
+    overflow: auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.report-list-table{
+    width: 860px;
+    height: auto;
+    padding: 10px;
+    margin: 10px 20px;
+    font-size: var(--small-font-size);
+    text-align: center;
+    border-collapse: collapse;
+}
+
+.report-list-table th{
+    color: var(--point-color);
+    padding: 10px 0;
+    /* background-color: #eef4ed; */
+    /* border-bottom: 1px solid #bdf0b4; */
+}
+
+.report-list-table td{
+    padding: 10px 0;
+}
+
+.report-list-row:hover{
+    background-color: #e1fadd;
+    transition-duration: 0.1s;
+    cursor: pointer;
+}
+
+
+/* 페이지네이션 */
+.admin-pagination{
+    list-style: none;
+    width: 920px;
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+
+    font-size: var(--small-font-size);
+}
+
+.admin-pagination li{
+    width: 20px;
+    margin: 0 5px;
+    text-align: center;
+}
+
+.admin-pagination a{
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: lightgray;
+}
+
+/* todo:현재 페이지색은 point-color로 */
+
+
+/* 회원 조회 - 검색 */
+.report-search{
+    width: 200px;
+    height: auto;
+    padding: 1px 15px;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+
+    margin-right: 5px;
+    border-radius: 5px;
+
+    background-color: #e2e2e2;
+}
+
+#reportSearchInput{
+    width: 160px;
+    border: none;
+    background-color: #e2e2e2;
+}
+
+#reportSearchBtn{
+    background-color: #e2e2e2;
+    border: none;
+    cursor: pointer;
+}
+
+
+/* 신고 상세 조회 -클릭하면 모달로 */
+/* //todo: 클릭하면 모달로 */
+
+.report-detail-modal{
+
+}

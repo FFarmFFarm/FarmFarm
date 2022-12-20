@@ -1,26 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>header</title>
 
-    <link rel="stylesheet" href="resources/common/css/header.css" />
-    <script
-      src="https://kit.fontawesome.com/1ce4f19a7a.js"
-      crossorigin="anonymous"
-    ></script>
-  </head>
-  <body>
     <div class="header-container">
       <header>
         <div class="home-logo">
           <a href="/">
-            <img src="../images/mainLogo.png" />
+            <img src="/resources/images/mainLogo.png" />
           </a>
         </div>
 
@@ -43,7 +29,7 @@
                     </li>
                     <li>
                       <div class="message-box">
-                        <a href="">신팜팜님이 신고했습니다..</a>
+                        <a href="">신팜팜님이 신고했습니다/resources</a>
                       </div>
                     </li>
                     <li>
@@ -71,7 +57,7 @@
                     ></i>
                   </span>
                   <!-- <span>
-                                    <img src="../images/member/farmer.png" class="login-profile-img">
+                                    <img src="/resources/images/member/farmer.png" class="login-profile-img">
                                 </span> -->
                   <i
                     class="fa-solid fa-caret-down caret-icon"
@@ -153,7 +139,19 @@
 
         myDropdown1.style.display = '';
       });
+      // const myDropdown1 = document.getElementById("myDropdown1");
 
+      // function dropDown1(){
+      //     myDropdown1.classList.toggle("show1");
+      // };
+
+      // window.onclick=function(e){
+      //     if(!e.target.matches(".dropbtn, .dropbtn *")){
+
+      //         if(myDropdown1.classList.contains("show1")){
+      //             myDropdown1.classList.remove("show1");
+      //         }
+      //     }
+      // };
     </script>
-  </body>
-</html>
+

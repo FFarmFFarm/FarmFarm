@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Product Detail</title>
+
     <link
       rel="stylesheet"
       href="../../css/productDetail/productDetail-style.css"
@@ -14,6 +15,8 @@
       src="https://kit.fontawesome.com/591746f9e8.js"
       crossorigin="anonymous"
     ></script>
+    <link rel="stylesheet" href="../../css/modal/reviewImg-style.css" />
+    <link rel="stylesheet" href="../../css/modal/reviewDetail-style.css" />
   </head>
   <body>
     <div class="header-container">
@@ -109,50 +112,50 @@
     </div>
     <script>
       // 프로필 드롭다운
-      const dropbtn = document.querySelector('.dropbtn');
-      dropbtn.addEventListener('click', () => {
-        const icon = document.querySelector('.caret-icon');
-        const myDropdown = document.querySelector('.dropdown-content');
+      const dropbtn = document.querySelector(".dropbtn");
+      dropbtn.addEventListener("click", () => {
+        const icon = document.querySelector(".caret-icon");
+        const myDropdown = document.querySelector(".dropdown-content");
 
         if (
-          myDropdown.style.display == 'none' ||
-          myDropdown.style.display == ''
+          myDropdown.style.display == "none" ||
+          myDropdown.style.display == ""
         ) {
-          icon.style.transform = 'perspective(500px) rotateX(180deg)';
-          myDropdown.style.display = 'block';
+          icon.style.transform = "perspective(500px) rotateX(180deg)";
+          myDropdown.style.display = "block";
         } else {
-          icon.style.transform = 'perspective(500px) rotateX(360deg)';
-          myDropdown.style.display = 'none';
+          icon.style.transform = "perspective(500px) rotateX(360deg)";
+          myDropdown.style.display = "none";
         }
       });
 
-      dropbtn.addEventListener('blur', () => {
-        const icon = document.querySelector('.caret-icon');
-        const myDropdown = document.querySelector('.dropdown-content');
+      dropbtn.addEventListener("blur", () => {
+        const icon = document.querySelector(".caret-icon");
+        const myDropdown = document.querySelector(".dropdown-content");
 
-        myDropdown.style.display = '';
-        icon.style.transform = 'perspective(500px) rotateX(360deg)';
+        myDropdown.style.display = "";
+        icon.style.transform = "perspective(500px) rotateX(360deg)";
       });
 
       // 알림 드롭다운
-      const dropbtn1 = document.querySelector('.dropbtn1');
-      dropbtn1.addEventListener('click', () => {
-        const myDropdown1 = document.querySelector('.dropdown-message');
+      const dropbtn1 = document.querySelector(".dropbtn1");
+      dropbtn1.addEventListener("click", () => {
+        const myDropdown1 = document.querySelector(".dropdown-message");
 
         if (
-          myDropdown1.style.display == 'none' ||
-          myDropdown1.style.display == ''
+          myDropdown1.style.display == "none" ||
+          myDropdown1.style.display == ""
         ) {
-          myDropdown1.style.display = 'block';
+          myDropdown1.style.display = "block";
         } else {
-          myDropdown1.style.display = 'none';
+          myDropdown1.style.display = "none";
         }
       });
 
-      dropbtn1.addEventListener('blur', () => {
-        const myDropdown1 = document.querySelector('.dropdown-message');
+      dropbtn1.addEventListener("blur", () => {
+        const myDropdown1 = document.querySelector(".dropdown-message");
 
-        myDropdown1.style.display = '';
+        myDropdown1.style.display = "";
       });
       // const myDropdown1 = document.getElementById("myDropdown1");
 
@@ -558,10 +561,225 @@
           </li>
         </ul>
         <div class="pagenation">
-          <button>앞</button>
-          <button>뒤</button>
+          <button><i class="fa-solid fa-chevron-left"></i></button>
+          <button><i class="fa-solid fa-chevron-right"></i></button>
         </div>
       </section>
     </main>
+    <div class="review-img-container">
+      <div class="review-img-list-modal">
+        <div class="review-img-head">
+          <button type="button" class="back-btn">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <span class="review-img-head-title">후기 목록</span>
+          <span class="empty"></span>
+        </div>
+        <div class="review-img-area">
+          <div class="review-list-img">
+            <img
+              src="../../images/product/thumbnail/productThumbnail.png"
+              alt=""
+            />
+          </div>
+          <div class="review-list-img">
+            <img
+              src="../../images/product/thumbnail/productThumbnail.png"
+              alt=""
+            />
+          </div>
+          <div class="review-list-img">
+            <img
+              src="../../images/product/thumbnail/productThumbnail.png"
+              alt=""
+            />
+          </div>
+          <div class="review-list-img">
+            <img
+              src="../../images/product/thumbnail/productThumbnail.png"
+              alt=""
+            />
+          </div>
+          <div class="review-list-img">
+            <img
+              src="../../images/product/thumbnail/productThumbnail.png"
+              alt=""
+            />
+          </div>
+          <div class="review-list-img">
+            <img
+              src="../../images/product/thumbnail/productThumbnail.png"
+              alt=""
+            />
+          </div>
+          <div class="review-list-img">
+            <img
+              src="../../images/product/thumbnail/productThumbnail.png"
+              alt=""
+            />
+          </div>
+          <div class="review-list-img">
+            <img
+              src="../../images/product/thumbnail/productThumbnail.png"
+              alt=""
+            />
+          </div>
+          <div class="review-list-img">
+            <img
+              src="../../images/product/thumbnail/productThumbnail.png"
+              alt=""
+            />
+          </div>
+          <div class="review-list-img">
+            <img
+              src="../../images/product/thumbnail/productThumbnail.png"
+              alt=""
+            />
+          </div>
+          <div class="review-list-img">
+            <img
+              src="../../images/product/thumbnail/productThumbnail.png"
+              alt=""
+            />
+          </div>
+          <div class="review-list-img">
+            <img
+              src="../../images/product/thumbnail/productThumbnail.png"
+              alt=""
+            />
+          </div>
+          <div class="review-list-img">
+            <img
+              src="../../images/product/thumbnail/productThumbnail.png"
+              alt=""
+            />
+          </div>
+          <div class="review-list-img">
+            <img
+              src="../../images/product/thumbnail/productThumbnail.png"
+              alt=""
+            />
+          </div>
+          <!-- <div class="review-list-img">
+            <img
+              src="../../images/product/thumbnail/productThumbnail.png"
+              alt=""
+            />
+          </div> -->
+          <!-- <div class="review-list-img">
+            <img
+              src="../../images/product/thumbnail/productThumbnail.png"
+              alt=""
+            />
+          </div>
+          <div class="review-list-img">
+            <img
+              src="../../images/product/thumbnail/productThumbnail.png"
+              alt=""
+            />
+          </div>
+          <div class="review-list-img">
+            <img
+              src="../../images/product/thumbnail/productThumbnail.png"
+              alt=""
+            />
+          </div>
+          <div class="review-list-img">
+            <img
+              src="../../images/product/thumbnail/productThumbnail.png"
+              alt=""
+            />
+          </div>
+          <div class="review-list-img">
+            <img
+              src="../../images/product/thumbnail/productThumbnail.png"
+              alt=""
+            />
+          </div> -->
+        </div>
+        <div class="pagenation-area">
+          <button><i class="fa-solid fa-chevron-left"></i></button>
+          <button><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-detail-container">
+      <div class="review-detail-modal">
+        <div class="review-head">
+          <button type="button" class="back-btn">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <span class="review-head-title">후기 상세</span>
+          <span class="empty"></span>
+        </div>
+        <div class="review-product-preview">
+          <div class="product-thumbnail">
+            <img
+              src="../../images/product/thumbnail/productThumbnail.png"
+              alt=""
+            />
+          </div>
+          <div class="product-name">
+            <span>[이연복의 목란] 짬뽕 2인분</span>
+          </div>
+        </div>
+        <div class="review-content-area">
+          <div class="review-content">
+            너무 맛있어요 <br />
+            토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요 <br />
+            너무 맛있어요 <br />
+            토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요 <br />
+            너무 맛있어요 <br />
+            토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요 <br />
+            너무 맛있어요 <br />
+            토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요 <br />
+            너무 맛있어요 <br />
+            토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요 <br />
+            너무 맛있어요 <br />
+            토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요 <br />
+            토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요 <br />
+            너무 맛있어요 <br />
+            토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요 <br />
+            토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요 <br />
+            너무 맛있어요 <br />
+            토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요 <br />
+          </div>
+          <div class="review-notice">
+            <p>개인의 경험일 뿐 사실과 다를 수 있습니다.</p>
+          </div>
+          <div class="review-uploaded-img">
+            <div class="uploaded-img">
+              <img
+                src="../../images/post/postDetail/detail/20180802_1_15415.jpg"
+                alt=""
+              />
+            </div>
+            <div class="uploaded-img">
+              <img
+                src="../../images/post/postDetail/detail/20220825000809_0.jpg"
+                alt=""
+              />
+            </div>
+            <div class="uploaded-img">
+              <img
+                src="../../images/post/postDetail/detail/img_products_detail_01.jpg"
+                alt=""
+              />
+            </div>
+            <div class="uploaded-img">
+              <img
+                src="../../images/post/postDetail/detail/20180802_1_15415.jpg"
+                alt=""
+              />
+            </div>
+          </div>
+          <div class="review-create-date">
+            <span>2022.12.16</span>
+            <button><i class="fa-regular fa-thumbs-up"></i>도움돼요</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

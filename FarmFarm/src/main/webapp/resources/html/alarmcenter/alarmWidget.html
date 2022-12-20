@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>알림 드롭다운 위젯</title>
+
+    <link rel="stylesheet" href="/src/main/webapp/resources/css/header.css">
+    <link rel="stylesheet" href="/src/main/webapp/resources/css/chatting/chattingWidget-style.css">
+    <link rel="stylesheet" href="/src/main/webapp/resources/css/alarmcenter/alarmWidget-style.css">
+
+    <script src="https://kit.fontawesome.com/d449774bd8.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <div class="header-container">
+        <header>
+          <div class="home-logo">
+            <a href="/">
+              <img src="../images/mainLogo.png" />
+            </a>
+          </div>
+  
+          <div class="header-widget-area">
+            <!-- 로그인O 상태 -->
+            <ul class="widget-list">
+              <li class="widget-item">
+                <div class="dropdown">
+                  <button type="button" class="dropbtn1">
+                    <i class="fa-solid fa-bell header-icon"></i>
+                  </button>
+  
+                  <div id="myDropdown1" class="dropdown-message">
+                    <div class="dropdown-header">
+                      <div class="dropdown-title">
+                        알림
+                      </div>
+                      <div id="goAlarmcenterBtn">
+                        더보기
+                        &nbsp;
+                        <i class="fa-solid fa-chevron-right"></i>
+                      </div>
+                    </div>
+                    
+                    <ul>
+                      <li>
+                        <div class="alarmWidget-box">
+                          <div class="alarmWidget-type-icon">
+                            <i class="fa-solid fa-box"></i>
+                          </div>
+                          <div class="alarmWidget-label">
+                            <div class="alarmWidget-content">
+                              고구마맛 감자채볶음
+                            </div>
+                            <div class="alarmWidget-detail-mention">
+                              상품을 받으셨나요? 구매 확정 버튼을 눌러주시면 판매자에게 도움이 됩니다!
+                            </div>
+                          </div>
+                          <div class="alarmWidget-date">
+                            2022-11-11
+                          </div>
+                        </div>
+                      </li>
+
+                      <li>
+                        <div class="alarmWidget-box">
+                          <div class="alarmWidget-type-icon">
+                            <i class="fa-solid fa-envelope-open-text"></i>
+                          </div>
+                          <div class="alarmWidget-label">
+                            <div class="alarmWidget-content">
+                              당도가 높고 신선하며 효능이 많고 집에서 직접 키워 믿을 수 있고
+                              달고 맛있고 달고 맛있고 달고 맛있고 정말정말 맛이 좋아서 아무나 못 사먹는 
+                              귀하디 귀한 사과
+                            </div>
+                            <div class="alarmWidget-detail-mention">
+                              주문이 완료되었습니다.
+                            </div>
+                          </div>
+                          <div class="alarmWidget-date">
+                            1시간 전
+                          </div>
+                        </div>
+                      </li>
+
+                      <li>
+                        <div class="alarmWidget-box">
+                          <div class="alarmWidget-type-icon">
+                            <i class="fa-solid fa-pen"></i>
+                          </div>
+                          <div class="alarmWidget-label">
+                            <div class="alarmWidget-content">
+                              팀장 몰래 먹는 블루베리
+                            </div>
+                            <div class="alarmWidget-detail-mention">
+                              후기를 작성해주시면<br>다른 이용자에게 도움이 됩니다!
+                            </div>
+                          </div>
+                          <div class="alarmWidget-date">
+                            오전 01:32
+                          </div>
+                        </div>
+                      </li>
+
+                      <li>
+                        <div class="alarmWidget-box">
+                          <div class="alarmWidget-type-icon">
+                            <i class="fa-solid fa-comment"></i>
+                          </div>
+                          <div class="alarmWidget-label">
+                            <div class="alarmWidget-content">
+                              아침 메뉴로 밥 vs 빵
+                            </div>
+                            <div class="alarmWidget-detail-mention">
+                              내가 작성한 게시글에 댓글이 달렸습니다.
+                            </div>
+                          </div>
+                          <div class="alarmWidget-date">
+                            오전 05:32
+                          </div>
+                        </div>
+                      </li>
+
+                      <li>
+                        <div class="alarmWidget-box">
+                          <div class="alarmWidget-type-icon">
+                            <i class="fa-solid fa-comments"></i>
+                          </div>
+                          <div class="alarmWidget-label">
+                            <div class="alarmWidget-content">
+                              아침 메뉴로 밥 vs 빵
+                            </div>
+                            <div class="alarmWidget-detail-mention">
+                              내가 작성한 댓글에 대댓글이 달렸습니다.
+                            </div>
+                          </div>
+                          <div class="alarmWidget-date">
+                            오전 05:32
+                          </div>
+                        </div>
+                      </li>
+
+                      <li>
+                        <div class="alarmWidget-box">
+                          <div class="alarmWidget-type-icon">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                          </div>
+                          <div class="alarmWidget-label">
+                            <div class="alarmWidget-content">
+                              신고를 남발하는 유저 조치 문의
+                            </div>
+                            <div class="alarmWidget-detail-mention">
+                              문의에 답변이 등록되었습니다.
+                            </div>
+                          </div>
+                          <div class="alarmWidget-date">
+                            오전 05:32
+                          </div>
+                        </div>
+                      </li>
+
+                      <li>
+                        <div class="alarmWidget-box">
+                          <div class="alarmWidget-type-icon">
+                            <i class="fa-solid fa-message"></i>
+                          </div>
+                          <div class="alarmWidget-label">
+                            <div class="alarmWidget-content">
+                              확인하지 않은 채팅이 32건 있습니다.
+                            </div>
+                            <div class="alarmWidget-detail-mention">
+                              지금 바로 확인해보세요.
+                            </div>
+                          </div>
+                          <div class="alarmWidget-date">
+                            오전 05:32
+                          </div>
+                        </div>
+                      </li>
+
+                    </ul>
+                  </div>
+                </div>
+              </li>
+              <li class="widget-item">
+                <div class="dropdown chattingIcon">
+                  <button type="button" class="dropbtn2">
+                      <i class="fa-solid fa-comment-dots"></i>
+                  </button>
+
+                  <!-- 채팅 드롭다운 영역 -->
+                  <div id="chattingWidget" class="dropdown-chatting">
+                    <div class="dropdown-header">
+                      <div class="dropdown-title">
+                        채팅
+                      </div>
+                      <div id="goChattingRoomBtn">
+                        더보기
+                        &nbsp;
+                        <i class="fa-solid fa-chevron-right"></i>
+                      </div>
+                    </div>
+                    
+                    <!-- 채팅 드롭다운에 표시될 메뉴(최대 6개) -->
+                    <div class="chattingWidget-box">
+              
+                      <div class="chattingWidget-profile-img">
+                        <img src="/src/main/webapp/resources/images/chatting/farmer.png">
+                      </div>
+                      
+                      <div class="chattingWidget-enter-icon">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                      </div>
+        
+                      <div class="chattingWidget-box-label">
+                        <div class="chattingWidget-member-nickname">
+                          착한 판매자1
+                        </div>
+                      
+                        <div class="chattingWidget-last-message-time">
+                          2022-12-18
+                        </div>
+                      
+                      </div>
+                      
+                      <div class="chattingWidget-last-message-content">
+                        메세지가 아무리 길어도 1줄 이상은 출력되지 않게 만들려고 합니다. 메세지가 긴 경우는 이렇게 됩니다.
+                      </div>
+                    
+                    </div> <!-- end box -->
+
+                    <!-- 채팅 드롭다운에 표시될 메뉴(최대 6개) -->
+                    <div class="chattingWidget-box">
+              
+                      <div class="chattingWidget-profile-img">
+                        <img src="/src/main/webapp/resources/images/chatting/farmer2.png">
+                      </div>
+                      
+                      <div class="chattingWidget-enter-icon">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                      </div>
+        
+                      <div class="chattingWidget-box-label">
+                        <div class="chattingWidget-member-nickname">
+                          착한 판매자2
+                        </div>
+                      
+                        <div class="chattingWidget-last-message-time">
+                          2022-12-18
+                        </div>
+                      
+                      </div>
+                      
+                      <div class="chattingWidget-last-message-content">
+                        메세지가 아무리 길어도 1줄 이상은 출력되지 않게 만들려고 합니다. 메세지가 긴 경우는 이렇게 됩니다.
+                      </div>
+                    
+                    </div> <!-- end box -->
+
+                    <!-- 채팅 드롭다운에 표시될 메뉴(최대 6개) -->
+                    <div class="chattingWidget-box">
+              
+                      <div class="chattingWidget-profile-img">
+                        <img src="/src/main/webapp/resources/images/chatting/farmer3.png">
+                      </div>
+                      
+                      <div class="chattingWidget-enter-icon">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                      </div>
+        
+                      <div class="chattingWidget-box-label">
+                        <div class="chattingWidget-member-nickname">
+                          착한 판매자3
+                        </div>
+                      
+                        <div class="chattingWidget-last-message-time">
+                          2022-12-18
+                        </div>
+                      
+                      </div>
+                      
+                      <div class="chattingWidget-last-message-content">
+                        메세지가 아무리 길어도 1줄 이상은 출력되지 않게 만들려고 합니다. 메세지가 긴 경우는 이렇게 됩니다.
+                      </div>
+                    
+                    </div> <!-- end box -->
+
+                    <!-- 채팅 드롭다운에 표시될 메뉴(최대 6개) -->
+                    <div class="chattingWidget-box">
+              
+                      <div class="chattingWidget-profile-img">
+                        <img src="/src/main/webapp/resources/images/chatting/farmer.png">
+                      </div>
+                      
+                      <div class="chattingWidget-enter-icon">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                      </div>
+        
+                      <div class="chattingWidget-box-label">
+                        <div class="chattingWidget-member-nickname">
+                          착한 판매자4
+                        </div>
+                      
+                        <div class="chattingWidget-last-message-time">
+                          2022-12-18
+                        </div>
+                      
+                      </div>
+                      
+                      <div class="chattingWidget-last-message-content">
+                        메세지가 아무리 길어도 1줄 이상은 출력되지 않게 만들려고 합니다. 메세지가 긴 경우는 이렇게 됩니다.
+                      </div>
+                    
+                    </div> <!-- end box -->
+
+                    <!-- 채팅 드롭다운에 표시될 메뉴(최대 6개) -->
+                    <div class="chattingWidget-box">
+              
+                      <div class="chattingWidget-profile-img">
+                        <img src="/src/main/webapp/resources/images/chatting/farmer2.png">
+                      </div>
+                      
+                      <div class="chattingWidget-enter-icon">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                      </div>
+        
+                      <div class="chattingWidget-box-label">
+                        <div class="chattingWidget-member-nickname">
+                          착한 판매자5
+                        </div>
+                      
+                        <div class="chattingWidget-last-message-time">
+                          2022-12-18
+                        </div>
+                      
+                      </div>
+                      
+                      <div class="chattingWidget-last-message-content">
+                        메세지가 아무리 길어도 1줄 이상은 출력되지 않게 만들려고 합니다. 메세지가 긴 경우는 이렇게 됩니다.
+                      </div>
+                    
+                    </div> <!-- end box -->
+                    
+                    <!-- 채팅 드롭다운에 표시될 메뉴(최대 6개) -->
+                    <div class="chattingWidget-box">
+              
+                      <div class="chattingWidget-profile-img">
+                        <img src="/src/main/webapp/resources/images/chatting/farmer3.png">
+                      </div>
+                      
+                      <div class="chattingWidget-enter-icon">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                      </div>
+        
+                      <div class="chattingWidget-box-label">
+                        <div class="chattingWidget-member-nickname">
+                          착한 판매자6
+                        </div>
+                      
+                        <div class="chattingWidget-last-message-time">
+                          2022-12-18
+                        </div>
+                      
+                      </div>
+                      
+                      <div class="chattingWidget-last-message-content">
+                        메세지가 아무리 길어도 1줄 이상은 출력되지 않게 만들려고 합니다. 메세지가 긴 경우는 이렇게 됩니다.
+                      </div>
+                    
+                    </div> <!-- end box -->  
+                    
+                  </div>  
+
+                </div>
+                <!-- <div class="chat-count">21</div> -->
+              </li>
+              <li class="widget-item">
+                <div class="dropdown">
+                  <button type="button" class="dropbtn">
+                    <span>
+                      <i
+                        class="fa-solid fa-user header-icon"
+                        id="profilePhoto"
+                      ></i>
+                    </span>
+                    <!-- <span>
+                                      <img src="../images/member/farmer.png" class="login-profile-img">
+                                  </span> -->
+                    <i
+                      class="fa-solid fa-caret-down caret-icon"
+                      id="triangleIcon"
+                    ></i>
+                  </button>
+  
+                  <div id="myDropdown" class="dropdown-content">
+                    <a href="#">내프로필</a>
+                    <a href="#">로그아웃</a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+  
+            <!-- 로그인X 상태 -->
+            <!-- <ul class="login-list">
+                      <li class="login-item"><a href="#">로그인</a></li>
+                      <li class="login-item"><a href="#">회원가입</a></li>
+                  </ul> -->
+          </div>
+        </header>
+  
+        <nav>
+          <div class="nav-head">
+            <div class="nav-body">
+              <div class="nav-list"><a href="#">팜팜마켓</a></div>
+              <div class="nav-list"><a href="#">사고팔고</a></div>
+              <div class="nav-list"><a href="#">커뮤니티</a></div>
+              <div class="nav-list"><a href="#">문의게시판</a></div>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <script>
+        // 프로필 드롭다운
+        const dropbtn = document.querySelector('.dropbtn');
+        dropbtn.addEventListener('click', () => {
+          const icon = document.querySelector('.caret-icon');
+          const myDropdown = document.querySelector('.dropdown-content');
+  
+          if (
+            myDropdown.style.display == 'none' ||
+            myDropdown.style.display == ''
+          ) {
+            icon.style.transform = 'perspective(500px) rotateX(180deg)';
+            myDropdown.style.display = 'block';
+          } else {
+            icon.style.transform = 'perspective(500px) rotateX(360deg)';
+            myDropdown.style.display = 'none';
+          }
+        });
+  
+        dropbtn.addEventListener('blur', () => {
+          const icon = document.querySelector('.caret-icon');
+          const myDropdown = document.querySelector('.dropdown-content');
+  
+          myDropdown.style.display = '';
+          icon.style.transform = 'perspective(500px) rotateX(360deg)';
+        });
+  
+        // 알림 드롭다운
+        const dropbtn1 = document.querySelector('.dropbtn1');
+        dropbtn1.addEventListener('click', () => {
+          const myDropdown1 = document.querySelector('.dropdown-message');
+  
+          if (
+            myDropdown1.style.display == 'none' ||
+            myDropdown1.style.display == ''
+          ) {
+            myDropdown1.style.display = 'block';
+          } else {
+            myDropdown1.style.display = 'none';
+          }
+        });
+  
+        dropbtn1.addEventListener('blur', () => {
+          const myDropdown1 = document.querySelector('.dropdown-message');
+  
+          myDropdown1.style.display = '';
+        });
+
+        // 채팅 드롭다운
+        const dropbtn2 = document.querySelector('.dropbtn2');
+        dropbtn2.addEventListener('click', () => {
+          const chattingWidget = document.querySelector('.dropdown-chatting');
+  
+          if (
+            chattingWidget.style.display == 'none' ||
+            chattingWidget.style.display == ''
+          ) {
+            chattingWidget.style.display = 'block';
+          } else {
+            chattingWidget.style.display = 'none';
+          }
+        });
+  
+        dropbtn2.addEventListener('blur', () => {
+          const chattingWidget = document.querySelector('.dropdown-chatting');
+  
+          chattingWidget.style.display = '';
+        });
+
+        // const myDropdown1 = document.getElementById("myDropdown1");
+  
+        // function dropDown1(){
+        //     myDropdown1.classList.toggle("show1");
+        // };
+  
+        // window.onclick=function(e){
+        //     if(!e.target.matches(".dropbtn, .dropbtn *")){
+  
+        //         if(myDropdown1.classList.contains("show1")){
+        //             myDropdown1.classList.remove("show1");
+        //         }
+        //     }
+        // };
+      </script>
+    </div>
+
+    <script src="/src/main/webapp/resources/js/alarmCenter/alarmWidget.js"></script>
+</body>
+</html>

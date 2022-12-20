@@ -1,0 +1,315 @@
+@import "../root-style.css";
+
+
+body{
+    width: 100vw;
+    height:auto;
+    /* background-color: #eef4ed; */
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main{
+    width: 1200px;
+    height: auto;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+/** 왼쪽 nav메뉴 */
+.admin-nav-section{
+    width: 200px;
+    /* height: 100vh; */
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    /* position: sticky; */
+}
+
+
+
+/* 팜팜관리자 */
+.admin-nav-section > div:first-child {
+    width: 210px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+
+.admin-profile{
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    font-size: var(--main-font-size);
+    /* color: rgb(10, 21, 15); */
+    color: var(--point-color);
+    font-weight: bold;
+}
+
+.admin-nav-section > div:first-child > img{
+    margin-bottom: 20px;
+}
+
+
+
+/* nav 메뉴 (팜팜보드~)*/
+.admin-nav-section > div:nth-child(2){
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+
+
+.admin-nav-menu{
+    display: inline-block;
+    font-size: var(--main-font-size);
+    color: white;
+    color: black;
+    font-family: "NotoSansKR-Medium";
+    font-weight: 100;  
+}
+
+
+.admin-nav-sub{
+    width: 200px;
+    margin-top: 8px;
+    padding-left: 60px;
+    font-size: var(--main-font-size);
+    color: rgb(87, 87, 87, 0.9);
+    font-family: "NotoSansKR-Medium";
+}
+
+
+.with-icon-div{
+    padding: 5px 0;
+    margin-top: 20px;
+    color: black;
+}
+
+.with-icon-div i{
+    padding: 0 5px 5px 40px;
+}
+
+
+.nav-lower a{
+    width: 200px;
+}
+
+.nav-lower a:hover{
+    color: var(--point-color);
+    font-weight: 700;
+    transition-duration: 0.1s;
+    cursor: pointer;
+    border-left: 5px solid var(--point-color);
+}
+
+/* todo: 카테고리 선택 부분 _카테고리별로 다르게 표시! */
+.admin-nav-sub:nth-of-type(2){
+    height: 30px;
+    padding-top: 5px;
+    background-color: #eef4ed;;
+}
+
+
+/** -------------------------------------- */
+
+
+/** 오른쪽 내용 부분 */
+.admin-content-section{
+    width: 1000px;
+    min-height: 900px;
+    height: auto;
+    padding: 20px;
+    background-color: #eef4ed;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+}
+
+
+.board-content{
+    width: 880px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: flex-start;
+}
+
+
+
+.board-title{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 8px;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+/* 인증 신청 목록 */
+.seller-auth{
+    width: 880px;
+    height: 300px;
+    background-color: white;
+    border-radius: 10px;
+    
+    display: flex;
+    align-items: flex-start;
+}
+
+
+.auth-list-table{
+    width: 880px;
+    padding: 10px;
+    margin: 15px 20px;
+    font-size: var(--small-font-size);
+    text-align: center;
+    border-collapse: collapse;
+}
+
+
+.auth-list-table th{
+    color: var(--point-color);
+    padding-bottom: 10px;
+}
+
+.auth-list-table td{
+    padding-bottom: 7px;
+}
+
+.auth-list-row:hover{
+    background-color: #eef4ed;
+    transition-duration: 0.1s;
+}
+
+
+/* 페이지네이션 */
+.admin-pagination{
+    list-style: none;
+    width: 920px;
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+
+    font-size: var(--small-font-size);
+}
+
+.admin-pagination li{
+    width: 20px;
+    margin: 0 5px;
+    text-align: center;
+}
+
+.admin-pagination a{
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: lightgray;
+}
+
+/* todo:현재 페이지색은 point-color로 */
+
+
+
+/* 인증 신청서 조회 */
+.select-auth-paper{
+    width: 880px;
+    height: 500px;
+    background-color: white;
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: center;
+
+    padding: 20px 30px;
+}
+
+/* 증빙 사진 */
+.seller-auth-image{
+    width: 440px;
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-image-title{
+    font-size: var(--small-font-size);
+    color: var(--point-color);
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.auth-image{
+    width: 350px;
+    height: 450px;
+}
+
+/* 신청서 */
+.seller-auth-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+
+.seller-auth-table{
+    width: 440px;
+    height: 400px;
+    margin: 30px;
+    font-size: var(--small-font-size);
+    margin-left: 30px;
+
+    display: flex;
+    align-content: flex-start;
+
+}
+
+.seller-auth-table tr{
+    height: 35px;
+}
+
+.detail-bold{
+    color: var(--point-color);
+    font-weight: bold;
+}
+
+/* 버튼 */
+.auth-button-div{
+    width: 100%;
+    height: 50px;
+    padding-right: 30px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#authApproveBtn{
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    background-color: var(--point-color);
+    margin-right: 20px;
+}
+
+#authDenyBtn{
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;    
+    color: white;
+    border: none;
+    background-color: #C43819;
+}

@@ -171,12 +171,15 @@
             </div>
         </section>
         <section class="board-search">
-            <div class="board-search-area">
-                <input type="text" placeholder="검색어를 입력해주세요">
-                <button class="board-search-btn">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-            </div>
+            <!-- <form action=""> -->
+                <form class="board-search-area">
+                    <input type="text" placeholder="검색어를 입력해주세요">
+                    <button class="board-search-btn">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
+
+            <!-- </form> -->
             <select class="board-select" id="boardSelect">
                 <option value="new">최신순</option>
                 <option value="view">조회수</option>
@@ -192,6 +195,7 @@
                     <span class="board-date">작성일</span>
                     <span class="board-view">조회수</span>
                 </div>
+
                 <ul class="board-list-area">
                     <li>
                         <span class="board-no">10</span>
@@ -257,7 +261,10 @@
                         <span class="board-view">4</span>
                     </li>
                 </ul>
+            </div>
+            <div class="board-write-bottom">
                 <div class="board-list-number"> << < 1  2  3  4  5  6  7  8  9  10 > >> </div>
+                <button class="board-write">글쓰기</button>
             </div>
         </section>
     </main>

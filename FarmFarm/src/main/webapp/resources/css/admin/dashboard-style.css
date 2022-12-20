@@ -1,54 +1,54 @@
 @import "../root-style.css";
 
 
+.header-container{
+    z-index: 50;
+}
+
+
 
 body{
     width: 100vw;
     height:auto;
-    background-color: rgb(237,241,244);
 
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-header{
-    height: 155px;
-    width: 1000px;
-    border: 1px solid black;
-}
-
 main{
-    width: 1400px;
-    border-radius: 10px;
-    margin: auto;
-    background-color: white;
+    width: 1200px;
+    height: auto;
 
     display: flex;
     justify-content: space-between;
+
 }
 
 
 
-/* 왼쪽 nav메뉴 */
+
+/** 왼쪽 nav메뉴 */
 .admin-nav-section{
     width: 200px;
+    height: 100vh;
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
-    padding: 40px 0;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
-    position: sticky;
+    /* position: sticky; */
 }
 
 
 
 /* 팜팜관리자 */
 .admin-nav-section > div:first-child {
-    width: 240px;
+    width: 210px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
     margin-bottom: 10px;
 }
 
@@ -57,23 +57,30 @@ main{
     width: 100px;
     display: flex;
     justify-content: center;
-    color: rgb(10, 21, 15); ;
+    font-size: var(--main-font-size);
+    /* color: rgb(10, 21, 15); */
+    color: var(--point-color);
     font-weight: bold;
 }
+
+.admin-nav-section > div:first-child > img{
+    margin-bottom: 20px;
+}
+
 
 
 /* nav 메뉴 (팜팜보드~)*/
 .admin-nav-section > div:nth-child(2){
     display: flex;
     flex-direction: column;
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
 
 
 .admin-nav-menu{
     display: inline-block;
-    font-size: var(--large-font-size);
+    font-size: var(--main-font-size);
     color: white;
     color: black;
     font-family: "NotoSansKR-Medium";
@@ -82,10 +89,10 @@ main{
 
 
 .admin-nav-sub{
-    width: 250px;
-    margin-top: 5px;
-    padding-left: 80px;
-    font-size: var(--medium-font-size);
+    width: 200px;
+    margin-top: 8px;
+    padding-left: 60px;
+    font-size: var(--main-font-size);
     color: rgb(87, 87, 87, 0.9);
     font-family: "NotoSansKR-Medium";
 }
@@ -98,15 +105,15 @@ main{
 }
 
 .with-icon-div i{
-    padding: 0 5px 5px 60px;
+    padding: 0 5px 5px 40px;
 }
 
 
-a {
-    width: 250px;
+.nav-lower a {
+    width: 200px;
 }
 
-a:hover{
+.nav-lower a:hover{
     color: var(--point-color);
     font-weight: 700;
     transition-duration: 0.1s;
@@ -114,15 +121,31 @@ a:hover{
     border-left: 5px solid var(--point-color);
 }
 
+/* todo: 카테고리 선택 부분 _카테고리별로 다르게 표시! */
+#dashboard{
+    height: 30px;
+    padding-top: 5px;
+    background-color: #eef4ed;;
+}
 
-/* 오른쪽 내용 부분 */
+
+
+
+
+/** 오른쪽 내용 부분 */
 .admin-content-section{
-    width: 1150px;
-    height: 780px;
-    margin: 10px;
-    background-color: rgb(237,241,244);
-    border-radius: 10px;
+    width: 1000px;
+    min-height: 900px;
+    height: auto;
+    padding-bottom: 10px;
+    /* background-color: rgb(237,241,244); */
+    background-color: #eef4ed;;
+    /* border-radius: 10px; */
     position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 
@@ -134,7 +157,7 @@ a:hover{
     color: black;
     font-weight: bold;
     font-family: "NotoSansKR-Medium";
-    font-size: var(--large-font-size);
+    font-size: var(--medium-font-size);
 
     position: absolute;
     top: 15px;
@@ -146,14 +169,54 @@ a:hover{
 
 
 .board-stat{
+    width: 900px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     margin-top: 80px;
 }
 
 .board-stat span{
-    width: 250px;
-    height: 200px;
+    width: 200px;
+    height: 150px;
     border-radius: 10px;
     background-color: white;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: space-evenly; */
 }
+
+.span-text{
+    padding-top: 33px;
+    font-size: var(--large-font-size); 
+    font-weight: bold;
+}
+
+.span-number{
+    padding-top: 20px;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.s-green{
+    color: var(--point-color);
+}
+
+.s-red{
+    color: red;
+}
+
+.s-blue{
+    color: rgb(48, 77, 241);
+}
+
+
+.board-graph{
+    background-color: white;
+    width: 900px;
+    height: 300px;
+    border-radius: 10px;
+    margin-top: 30px;
+}
+

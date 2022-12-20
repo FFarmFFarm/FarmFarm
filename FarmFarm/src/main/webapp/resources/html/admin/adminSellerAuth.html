@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>판매자 인증 관리</title>
+
+    <link rel="stylesheet" href="../../css/admin/adminSellerAuth-style.css" />
+    <link rel="stylesheet" href="../../css/header.css">
+
+    <script src="https://kit.fontawesome.com/d4fbceca97.js" crossorigin="anonymous"></script>
+</head>
+    <div class="header-container">
+        <header>
+            <div class="home-logo">
+            <a href="/">
+                <img src="../../images/mainLogo.png" />
+            </a>
+            </div>
+
+            <div class="header-widget-area">
+            <!-- 로그인O 상태 -->
+            <ul class="widget-list">
+                <li class="widget-item">
+                <div class="dropdown">
+                    <button type="button" class="dropbtn1">
+                    <i class="fa-solid fa-bell header-icon"></i>
+                    </button>
+
+                    <div id="myDropdown1" class="dropdown-message">
+                    <div class="notice"><p>알림</p></div>
+                    <ul>
+                        <li>
+                        <div class="message-box">
+                            <a href="">배송이 시작되었습니다.</a>
+                        </div>
+                        </li>
+                        <li>
+                        <div class="message-box">
+                            <a href="">신팜팜님이 신고했습니다..</a>
+                        </div>
+                        </li>
+                        <li>
+                        <div class="message-box">
+                            <a href="">정팜팜님이 신고를 거부하셨습니다.</a>
+                        </div>
+                        </li>
+                    </ul>
+                    </div>
+                </div>
+                </li>
+                <li class="widget-item">
+                <a href="#">
+                    <i class="fa-solid fa-comment-dots"></i>
+                </a>
+                <!-- <div class="chat-count">21</div> -->
+                </li>
+                <li class="widget-item">
+                <div class="dropdown">
+                    <button type="button" class="dropbtn">
+                    <span>
+                        <i
+                        class="fa-solid fa-user header-icon"
+                        id="profilePhoto"
+                        ></i>
+                    </span>
+                    <!-- <span>
+                                        <img src="../images/member/farmer.png" class="login-profile-img">
+                                    </span> -->
+                    <i
+                        class="fa-solid fa-caret-down caret-icon"
+                        id="triangleIcon"
+                    ></i>
+                    </button>
+
+                    <div id="myDropdown" class="dropdown-content">
+                    <a href="#">내프로필</a>
+                    <a href="#">로그아웃</a>
+                    </div>
+                </div>
+                </li>
+            </ul>
+
+            <!-- 로그인X 상태 -->
+            <!-- <ul class="login-list">
+                        <li class="login-item"><a href="#">로그인</a></li>
+                        <li class="login-item"><a href="#">회원가입</a></li>
+                    </ul> -->
+            </div>
+        </header>
+
+        <nav>
+            <div class="nav-head">
+            <div class="nav-body">
+                <div class="nav-list"><a href="#">팜팜마켓</a></div>
+                <div class="nav-list"><a href="#">사고팔고</a></div>
+                <div class="nav-list"><a href="#">커뮤니티</a></div>
+                <div class="nav-list"><a href="#">문의게시판</a></div>
+            </div>
+            </div>
+        </nav>
+    </div>
+    <script>
+    // 프로필 드롭다운
+    const dropbtn = document.querySelector('.dropbtn');
+    dropbtn.addEventListener('click', () => {
+        const icon = document.querySelector('.caret-icon');
+        const myDropdown = document.querySelector('.dropdown-content');
+
+        if (
+        myDropdown.style.display == 'none' ||
+        myDropdown.style.display == ''
+        ) {
+        icon.style.transform = 'perspective(500px) rotateX(180deg)';
+        myDropdown.style.display = 'block';
+        } else {
+        icon.style.transform = 'perspective(500px) rotateX(360deg)';
+        myDropdown.style.display = 'none';
+        }
+    });
+
+    dropbtn.addEventListener('blur', () => {
+        const icon = document.querySelector('.caret-icon');
+        const myDropdown = document.querySelector('.dropdown-content');
+
+        myDropdown.style.display = '';
+        icon.style.transform = 'perspective(500px) rotateX(360deg)';
+    });
+
+    // 알림 드롭다운
+    const dropbtn1 = document.querySelector('.dropbtn1');
+    dropbtn1.addEventListener('click', () => {
+        const myDropdown1 = document.querySelector('.dropdown-message');
+
+        if (
+        myDropdown1.style.display == 'none' ||
+        myDropdown1.style.display == ''
+        ) {
+        myDropdown1.style.display = 'block';
+        } else {
+        myDropdown1.style.display = 'none';
+        }
+    });
+
+    dropbtn1.addEventListener('blur', () => {
+        const myDropdown1 = document.querySelector('.dropdown-message');
+
+        myDropdown1.style.display = '';
+    });
+    // const myDropdown1 = document.getElementById("myDropdown1");
+
+    // function dropDown1(){
+    //     myDropdown1.classList.toggle("show1");
+    // };
+
+    // window.onclick=function(e){
+    //     if(!e.target.matches(".dropbtn, .dropbtn *")){
+
+    //         if(myDropdown1.classList.contains("show1")){
+    //             myDropdown1.classList.remove("show1");
+    //         }
+    //     }
+    // };
+    </script>
+
+    <main>
+        <!-- 왼쪽 nav -->
+        <nav class="admin-nav-section">
+            <div>
+                <img class="admin-profile" src="../../images/admin/farmer.png" alt="">
+                <span class="admin-profile">팜팜 관리자</span>
+            </div>
+
+            <div class="nav-lower">
+                <div class="with-icon-div">
+                    <a href="../admin/dashboard.html" class="admin-nav-menu" id="dashboard">
+                        <i class="fa-solid fa-table-columns"></i>
+                        팜팜보드
+                    </a>
+                </div>
+
+                <div class="with-icon-div">
+                    <i class="fa-solid fa-bars-progress"></i>
+                    <span class="admin-nav-menu">팜팜 관리</span>
+                </div>
+                <a href="../admin/adminMember.html" class="admin-nav-sub">회원 관리</a>
+                <a href="../admin/adminSellerAuth.html" class="admin-nav-sub">판매자 인증 관리</a>
+                
+                <div class="with-icon-div">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span class="admin-nav-menu">판매 관리</span>
+                </div>
+
+                <a href="" class="admin-nav-sub">주문 내역 관리</a>
+                <a href="" class="admin-nav-sub">재고 관리</a>
+                <a href="" class="admin-nav-sub">반품 관리</a>
+        
+                <div class="with-icon-div">
+                    <span class="admin-nav-menu">
+                        <i class="fa-solid fa-circle-exclamation"></i>                            
+                        신고 관리
+                    </span>
+                </div>
+                <a href="../admin/adminReportTotal.html" class="admin-nav-sub">전체 신고 관리</a>
+                <a href="" class="admin-nav-sub">신고 접수 내역</a>
+            </div>
+        </nav>
+        
+
+        <!-- 오른쪽 -->
+        <section class="admin-content-section">
+            <div class="board-content">
+                <span class="board-title">인증 신청 목록</span>
+
+                <div class="seller-auth">
+                    <table class="auth-list-table">
+                        <tr>
+                            <th>NO</th>
+                            <th>회원번호</th>
+                            <th>아이디</th>
+                            <th>사용자 이름</th>
+                            <th>성명</th>
+                            <th>신청일자</th>
+                            <th>판매자 인증</th>
+                        </tr>
+
+                        <!-- todo: ajax로 해서 신청 완료 되면 바로바로 목록에서 없어지도록! -->
+                        <!-- 한 행 반복 -->
+                        <tr class="auth-list-row">
+                            <td>1</td>
+                            <td>12345</td>
+                            <td width="170px">longideneti12</td>
+                            <td>유저일</td>
+                            <td>이은지</td>
+                            <td>2022-12-14</td>
+                            <td>접수</td>
+                        </tr>
+
+                        <tr class="auth-list-row">
+                            <td>2</td>
+                            <td>12345</td>
+                            <td>longideneti12</td>
+                            <td>유저일</td>
+                            <td>이은지</td>
+                            <td>2022-12-14</td>
+                            <td>접수</td>
+                        </tr>
+                        <tr class="auth-list-row">
+                            <td>3</td>
+                            <td>12345</td>
+                            <td>longideneti12</td>
+                            <td>유저일</td>
+                            <td>이은지</td>
+                            <td>2022-12-14</td>
+                            <td>접수</td>
+                        </tr>
+                        <tr class="auth-list-row">
+                            <td>4</td>
+                            <td>12345</td>
+                            <td>longideneti12</td>
+                            <td>유저일</td>
+                            <td>이은지</td>
+                            <td>2022-12-14</td>
+                            <td>접수</td>
+                        </tr>
+                        <tr class="auth-list-row">
+                            <td>5</td>
+                            <td>12345</td>
+                            <td>longideneti12</td>
+                            <td>유저일</td>
+                            <td>이은지</td>
+                            <td>2022-12-14</td>
+                            <td>접수</td>
+                        </tr>
+                        <tr class="auth-list-row">
+                            <td>6</td>
+                            <td>12345</td>
+                            <td>longideneti12</td>
+                            <td>유저일</td>
+                            <td>이은지</td>
+                            <td>2022-12-14</td>
+                            <td>접수</td>
+                        </tr>
+                        <tr class="auth-list-row">
+                            <td>7</td>
+                            <td>12345</td>
+                            <td>longideneti12</td>
+                            <td>유저일</td>
+                            <td>이은지</td>
+                            <td>2022-12-14</td>
+                            <td>접수</td>
+                        </tr>
+                        <!-- <tr class="auth-list-row">
+                            <td>8</td>
+                            <td>12345</td>
+                            <td>longideneti12</td>
+                            <td>유저일</td>
+                            <td>이은지</td>
+                            <td>2022-12-14</td>
+                            <td>접수</td>
+                        </tr>
+                        <tr class="auth-list-row">
+                            <td>9</td>
+                            <td>12345</td>
+                            <td>longideneti12</td>
+                            <td>유저일</td>
+                            <td>이은지</td>
+                            <td>2022-12-14</td>
+                            <td>접수</td>
+                        </tr>
+                        <tr class="auth-list-row">
+                            <td>10</td>
+                            <td>12345</td>
+                            <td>longideneti12</td>
+                            <td>유저일</td>
+                            <td>이은지</td>
+                            <td>2022-12-14</td>
+                            <td>접수</td>
+                        </tr> -->
+                    </table>
+                </div>
+
+                <!-- todo: 페이지네이션 반복문 -->
+                <div class="admin-pagination-area">
+                    <ul class="admin-pagination">
+                        <!-- <li><a href="">&lt;&lt;</a></li>
+                        <li><a href="">&lt;</a></li> -->
+                        <li><a href="">1</a></li>
+                        <li><a href="">2</a></li>
+                        <li><a href="">3</a></li>
+                        <li><a href="">4</a></li>
+                        <li><a href="">5</a></li>
+                        <li><a href="">6</a></li>
+                        <li><a href="">7</a></li>
+                        <li><a href="">8</a></li>
+                        <li><a href="">9</a></li>
+                        <li><a href="">10</a></li>
+                        <!-- <li><a href="">&gt;</a></li>
+                        <li><a href="">&gt;&gt;</a></li> -->
+                    </ul>
+                </div>
+            </div>
+
+            <div class="board-content">
+                <span class="board-title">인증 신청서 조회</span>
+
+                <div class="select-auth-paper">
+                    <!-- todo: el쓰는부분 ajax로 -->
+
+                    <div class="seller-auth-image">
+                        <span class="auth-image-title">증빙 자료 (인증 사진_확대 가능하게)</span>
+                            <img src="../../images/myPage/background/bgImg2.jpg" class="auth-image">
+                    </div>
+
+                    <div class="seller-auth-div">
+                        <table class="seller-auth-table">
+                            <tr>
+                                <td class="detail-bold" width="150px">회원번호</td>
+                                <td width="300px">12345</td>
+                            </tr>
+                            <tr>
+                                <td class="detail-bold">아이디</td>
+                                <td width="175px">USER01</td>
+                            </tr>
+                            <tr>
+                                <td class="detail-bold">닉네임</td>
+                                <td>유저일</td>
+                            </tr>
+                            <tr>
+                                <td class="detail-bold">성명</td>
+                                <td>홍길동</td>
+                            </tr>
+                            <tr>
+                                <td class="detail-bold">생년월일</td>
+                                <td>1980년 1월 1일</td>
+                            </tr>
+                            <tr>
+                                <td class="detail-bold">연락처</td>
+                                <td>010-1234-5678</td>
+                            </tr>
+                            <tr>
+                                <td class="detail-bold">주소</td>
+                                <td colspan="3">서울 중구 남대문로 120 무슨빌딩 2층 2000호 kh정보교육원 어쩌구저쩌구 주소 길게</td>
+                            </tr>
+                            <tr>
+                                <td class="detail-bold">가입일</td>
+                                <td>2022-12-10 14:27:20</td>
+                            </tr>
+                            <tr>
+                                <td class="detail-bold">판매자 인증 신청일자</td>
+                                <td>2022-12-10 18:27:20</td>
+                            </tr>
+
+                        </table>
+                    
+                        <div class="auth-button-div">
+                            <button id="authApproveBtn">승인</button>
+                            <button id="authDenyBtn">거부</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>
