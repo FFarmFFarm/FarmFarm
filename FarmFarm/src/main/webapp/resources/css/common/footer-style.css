@@ -1,7 +1,7 @@
 @import "../../css/root-style.css";
 
 /* 채팅, 탑버튼 */
-.btn-go-to-top{
+.btn-go-to-top {
   position: fixed;
   right: 40px;
   bottom: 150px;
@@ -15,9 +15,9 @@
   border: none;
   background-color: var(--background-color);
   cursor: pointer;
-}  
+}
 
-.btn-chat{
+.btn-chat {
   position: fixed;
   right: 40px;
   bottom: 205px;
@@ -33,29 +33,29 @@
   cursor: pointer;
 }
 
-.btn-chat:hover{
+.btn-chat:hover {
   background-color: var(--point-color);
 }
 
-.btn-go-to-top:hover{
+.btn-go-to-top:hover {
   background-color: var(--point-color);
 }
 
-.go-to-top-icon{
+.go-to-top-icon {
   font-size: 1.5em;
   color: #555;
 }
 
-.btn-chat:hover > .go-to-top-icon{
+.btn-chat:hover > .go-to-top-icon {
   color: var(--background-color);
 }
 
-.btn-go-to-top:hover > .go-to-top-icon{
+.btn-go-to-top:hover > .go-to-top-icon {
   color: var(--background-color);
 }
 
 /* footer */
-footer{
+footer {
   width: 100%;
   height: 130px;
   background-color: #f2f2f2;
@@ -66,23 +66,19 @@ footer{
   justify-content: center;
   align-items: center;
 
-  position: absolute;
-  bottom: 0;
-
-
+  /* position: absolute; */
+  /* bottom: 0; */
 }
 
-footer p{
+footer p {
   margin: 8px 0;
   font-size: var(--small-font-size);
 }
 
-footer>article>*{
+footer > article > * {
   font-size: var(--main-font-size);
 }
 
-footer span{
+footer span {
   padding: 0 10px;
 }
-
-
