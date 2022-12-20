@@ -95,10 +95,18 @@ label[for="saveId"]{
     height: 40px;
     display: block;
     margin: 10px 0;
-    color: var(--background-color);
     background-color: var(--point-color);
     cursor: pointer;
-    font-size: var(--medium-font-size);
     border-radius: 5px;
+
+    color: var(--background-color);
+    font-size: var(--medium-font-size);
     font-weight: 600;
+}
+
+.input-button a{
+    color: var(--background-color);
+    font-size: var(--medium-font-size);
+    font-weight: 600;
+
 }

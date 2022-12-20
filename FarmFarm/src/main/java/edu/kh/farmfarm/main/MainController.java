@@ -9,8 +9,8 @@ public class MainController {
 	
 	@GetMapping("/")
 	public String mainPage(){
-		return "main";
+		return "common/main";
 	}
-	
+
 
 }
