@@ -24,12 +24,11 @@
     background-color: white;
     box-shadow: 2px 2px 10px 0px #bcbcbc;
 
-    width: 260px;
-    max-height: 210px;
+    width: 300px;
+    max-height: 257px;
 
     display: none;
     border-radius: 10px;
-    padding-top: 20px;
 
     position: absolute;
     top: 35px;
@@ -38,15 +37,23 @@
     overflow-y: scroll;
 }
 
+.dropdown-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* 채팅 위젯 헤더 */
+
+
 /* 채팅 위젯에 들어갈 채팅 박스 */
 .chattingWidget-box{
     background-color: white;
     
     width: 100%;
-    height: 58px;
+    height: 70px;
 
     padding: 10px;
-    margin-top: 5px;
 
     display: flex;
     flex-direction: column;
@@ -61,8 +68,8 @@
 
 /* 프로필 이미지 */
 .chattingWidget-profile-img{
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     margin-right: 5px;
     
     display: flex;
@@ -70,8 +77,8 @@
 }
 
 .chattingWidget-profile-img > img{
-    width: 30px;
-    height: 30px;
+    width: 100%;
+    height: 100%;
     
     padding: 2px;
 
@@ -84,8 +91,7 @@
     border-bottom: 1px solid var(--line-color);
 
     width: 175px;
-    
-    padding-bottom: 5px;
+    padding-bottom: 10px;
     margin-bottom: 5px;
     display: flex;
     justify-content: space-between;
@@ -95,7 +101,8 @@
 /* 이름 */
 .chattingWidget-member-nickname{
     width: 115px;
-    font-size: 11px;
+    font-weight: 600;
+    font-size: var(--main-font-size);
     color: var(--main-font-color);
 
     text-overflow: ellipsis;
@@ -119,11 +126,12 @@
     justify-content: flex-end;
 }
 
-/* 채팅내용(2줄까지) */
+/* 채팅내용(1줄까지) */
 .chattingWidget-last-message-content{
     width: 160px;
-    height: 10px;
-    font-size: 10px;
+    height: 17px;
+    padding: 5px 0px;
+    font-size: var(--small-font-size);
     color: var(--main-font-color); 
 
     text-overflow: ellipsis;
@@ -171,24 +179,20 @@
 }
 
 /* 채팅위젯박스 */
-#goChattingRoom{
-    color: white;
+#goChattingRoomBtn{
+    width: 70px;
+    height: 25px;
     background-color: var(--point-color);
-    height: 20px;
-    width: 240px;
     font-size: var(--small-font-size);
-
+    color: white;
+    
     border-radius: 5px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    position: fixed;
-
-    top: 86px;
-
+    
     cursor: pointer;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #goChattingRoom:hover{

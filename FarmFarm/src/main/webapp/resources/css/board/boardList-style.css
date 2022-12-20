@@ -136,10 +136,28 @@ input[type="text"]:focus{
     padding-left: 10px;
 }
 
+
+.board-write-bottom{
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 /* 목록 페이지 번호 */
-.board-list-number{
+.board-pagination{
+    width: 740px;
     height: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-left: 100px;
+}
+
+/* 글쓰기 버튼 */
+.board-write{
+    width: 110px;
+    height: 40px;
+    background-color: var(--point-color);
+    border: none;
+    border-radius: 5px;
 }
