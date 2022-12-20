@@ -104,7 +104,7 @@
                             <li> <a href="/board/&{boardCode}?cp=${pagination.maxPage}${sURL}">&gt;&gt;</a></li>
                         </ul>
                     </div>
-                    <button class="board-write">글쓰기</button>
+                    <a href="/board/write" class="board-write">글쓰기</a>
                 </div>
             </div>
         </section>
