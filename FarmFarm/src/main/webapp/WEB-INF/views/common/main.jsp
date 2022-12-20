@@ -124,6 +124,12 @@
         </div>
       </main>
     </div>
+
+    <div class="mypage">
+      <a href="/member/myPage">마이페이지</a>
+      <a href="/product/detail">상품상세조회</a>
+      <a href="/post/detail">게시글상세조회</a>
+    </div>
     
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/> 
 
