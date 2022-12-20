@@ -16,7 +16,7 @@
     z-index: 100;
     
     /* todo */
-    display: flex;
+    display: none;
 }
 
 .report-detail-modal{
