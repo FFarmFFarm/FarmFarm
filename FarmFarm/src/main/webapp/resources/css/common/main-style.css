@@ -1,5 +1,9 @@
 @import "../root-style.css";
 
+.mypage{
+  position: absolute;
+}
+
 .header-container {
   height: 180px;
   width: 100vw;
