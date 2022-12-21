@@ -1,6 +1,6 @@
 @import "../root-style.css";
 
-.report-container{
+#reportContainer{
     width: 100vw;
     height: 100vh;
     position: fixed;
@@ -13,7 +13,10 @@
 
     background-color: var(--modal-background-color);
 
-    z-index: 100;
+    z-index: 2000;
+    
+    /* //todo */
+    display: none;
 }
 
 
@@ -57,7 +60,6 @@
 
 .report-form{
     font-size: var(--main-font-size);
-    display: inline;
 }
 
 .report-form input{
@@ -82,7 +84,7 @@ input[type=radio]{
 }
 
 
-#reportBtn{
+#reportSubmitBtn{
     width: 150px;
     height: 30px;
     background-color: #fa2601;
@@ -90,6 +92,8 @@ input[type=radio]{
     border: none;
     border-radius: 5px;
     margin-top: 20px;
+    margin-left: 30px;
+    
 }
 
 
@@ -100,8 +104,13 @@ input[type=radio]{
     }
 }
 
-#reportBtn:active{
+#reportSubmitBtn:active{
     animation: blink-effect 0.3s step-start;
     animation-timing-function: ease;
     scale: 0.99;
+}
+
+
+.scrollLock {
+    overflow: hidden;
 }

@@ -10,6 +10,7 @@
     <title>FarmFarm</title>
 
     <link rel="stylesheet" href="/resources/css/common/main-style.css" />
+    
     <script
       src="https://kit.fontawesome.com/1ce4f19a7a.js"
       crossorigin="anonymous"
@@ -126,12 +127,15 @@
           <a href="/member/myPage">마이페이지</a>
           <a href="/product/detail">상품상세조회</a>
           <a href="/post/detail">게시글상세조회</a>
+          <button id="reportBtn">님신고</button>  <!-- 밑에 js도 있습니다.(report-modal) -->
         </div>
       </main>
     </div>
 
     
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/> 
+    
+    <jsp:include page="/WEB-INF/views/report/report-modal.jsp"/> 
 
     <script>
       // 프로필 드롭다운

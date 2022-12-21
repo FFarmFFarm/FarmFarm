@@ -15,7 +15,7 @@
 
 </head>
 <body>
-    <div class="report-container" id="report">
+    <div class="report-container" id="reportContainer">
         <div class="report-modal">
 
             <span class="report-title"> 
@@ -24,7 +24,7 @@
             </span>
             
             <div class="report-form-div">
-                <form action="" class="report-form">
+                <form action="/report" class="report-form">
                     <input type="radio" name="report"> 광고 또는 스팸 <br>
                     <input type="radio" name="report"> 음란물 및 선정성 정보 <br>
                     <input type="radio" name="report"> 사기 또는 거짓 정보 <br>
@@ -35,12 +35,14 @@
                     <input type="radio" name="report"> 지식재산권 침해 <br>
                     <input type="radio" name="report"> 기타 <br>
                     <textarea name="reportOpinion" id="" cols="50" rows="3"></textarea><br>
+                    <button id="reportSubmitBtn">신고하기</button>
                 </form>
-                <button id="reportBtn">신고하기</button>
             </div>
         </div>
     </div>
+    
+    <script src="/resources/js/report/report-modal.js"></script>
+
 </body>
 
-<script src="/resources/js/report-modal.js"></script>
 </html>
