@@ -8,8 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FarmFarm</title>
-
     <link rel="stylesheet" href="/resources/css/common/main-style.css" />
+    <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
     <script src="https://kit.fontawesome.com/1ce4f19a7a.js" crossorigin="anonymous"></script>
   </head>
   <body>
@@ -112,98 +112,97 @@
         </div>
       </header>
 
-      <main>
-        <div class="main-wrap">
-          <div class="main-background">
-            <img src="resources/images/main/bg2.jpg">
-          </div>
-          <div class="main-title">
-            <!-- <p>내 손으로 키운 작물,<br>손쉽게 거래하세요.</p>
-            <p>믿을 수 있는 먹거리, 팜팜이 함께합니다</p> -->
-          </div>
-        </div>
-
-        <div class="middle-product">
-          <div class="middle-wrap">
-            <div class="middle-cover"><img src="resources/images/main/아오리사과.jpg"></div>
-            <a href="#">
-              <div class="middle-text-wrap">
-                <div class="middle-text">
-                  <p>아오리 사과 1kg</p>
-                  <p>15,900원</p>
-                </div>
-                <div class="middle-icon">
-                  <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                </div>
-              </div>  
-            </a>
-          </div>
-
-          <div class="middle-wrap">
-            <div class="middle-cover"><img src="resources/images/main/감자.jpg"></div>
-            <a href="#">
-              <div class="middle-text-wrap">
-                <div class="middle-text">
-                  <p>감자 1kg</p>
-                  <p>3,990원</p>
-                </div>
-                <div class="middle-icon">
-                  <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                </div>
-              </div>
-            </a>
-          </div>
-
-          <div class="middle-wrap">
-            <div class="middle-cover"><img src="resources/images/main/딸기.jpg"></div>
-            <a href="#">
-              <div class="middle-text-wrap">
-                <div class="middle-text">
-                  <p>딸기 500g</p>
-                  <p>10,900원</p>
-                </div>
-                <div class="middle-icon">
-                  <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                </div>
-              </div>
-            </a>
-          </div>
-
-          <div class="middle-wrap">
-            <div class="middle-cover"><img src="resources/images/main/토마토.jpg"></div>
-            <a href="#">
-              <div class="middle-text-wrap">
-                  <div class="middle-text">
-                    <p>방울토마토 500g</p>
-                    <p>3,950원</p>
-                  </div>
-                  <div class="middle-icon">
-                    <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                  </div>
-              </div>
-            </a>
-          </div>
-        </div>
-        
-        <!-- <div class="mypage">
-          <a href="/member/myPage">마이페이지</a>
-          <a href="/product/1">상품상세조회</a>
-          <a href="/post/detail">게시글상세조회</a>
-        </div> -->
-
-        <div class="cooking-part">
-          <div class="cooking-text">
-            <p>와글와글에서 더 건강하게 즐겨요!</p>
-            <p>팜팜에서 구매한 상품들을 자기만의 레시피로 요리하고 회원들과 공유해보세요.</p>
-          </div>
-          <div class="cooking-img">
-            <img src="resources/images/main/cooking.jpg">
-          </div>
-
-        </div>
-
-      </main>
     </div>
+    <main>
+      <div class="main-wrap">
+        <div class="main-background">
+          <img src="resources/images/main/bg2.jpg">
+        </div>
+        <div class="main-title">
+          <!-- <p>내 손으로 키운 작물,<br>손쉽게 거래하세요.</p>
+          <p>믿을 수 있는 먹거리, 팜팜이 함께합니다</p> -->
+        </div>
+      </div>
+
+      <div class="middle-product">
+        <div class="middle-wrap">
+          <div class="middle-cover"><img src="resources/images/main/아오리사과.jpg"></div>
+          <a href="#">
+            <div class="middle-text-wrap">
+              <div class="middle-text">
+                <p>아오리 사과 1kg</p>
+                <p>15,900원</p>
+              </div>
+              <div class="middle-icon">
+                <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
+              </div>
+            </div>  
+          </a>
+        </div>
+
+        <div class="middle-wrap">
+          <div class="middle-cover"><img src="resources/images/main/감자.jpg"></div>
+          <a href="#">
+            <div class="middle-text-wrap">
+              <div class="middle-text">
+                <p>감자 1kg</p>
+                <p>3,990원</p>
+              </div>
+              <div class="middle-icon">
+                <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="middle-wrap">
+          <div class="middle-cover"><img src="resources/images/main/딸기.jpg"></div>
+          <a href="#">
+            <div class="middle-text-wrap">
+              <div class="middle-text">
+                <p>딸기 500g</p>
+                <p>10,900원</p>
+              </div>
+              <div class="middle-icon">
+                <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="middle-wrap">
+          <div class="middle-cover"><img src="resources/images/main/토마토.jpg"></div>
+          <a href="#">
+            <div class="middle-text-wrap">
+                <div class="middle-text">
+                  <p>방울토마토 500g</p>
+                  <p>3,950원</p>
+                </div>
+                <div class="middle-icon">
+                  <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      
+      <!-- <div class="mypage">
+        <a href="/member/myPage">마이페이지</a>
+        <a href="/product/1">상품상세조회</a>
+        <a href="/post/detail">게시글상세조회</a>
+      </div> -->
+
+      <div class="cooking-part">
+        <div class="cooking-text">
+          <p>와글와글에서 더 건강하게 즐겨요!</p>
+          <p>팜팜에서 구매한 상품들을 자기만의 레시피로 요리하고 회원들과 공유해보세요.</p>
+        </div>
+        <div class="cooking-img">
+          <img src="resources/images/main/cooking.jpg">
+        </div>
+      </div>
+
+    </main>
     
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/> 
 
