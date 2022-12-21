@@ -85,7 +85,7 @@
   height: 100%;
 }
 
-.product-name {
+.review-product-name {
   display: flex;
   align-items: center;
   font-size: var(--main-font-size);
