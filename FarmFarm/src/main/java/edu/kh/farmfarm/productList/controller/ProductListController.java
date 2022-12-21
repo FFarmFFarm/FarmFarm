@@ -48,5 +48,4 @@ public class ProductListController {
 		return new Gson().toJson(productMap);
 		
 	}
-	
 }

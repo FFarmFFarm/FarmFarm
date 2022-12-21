@@ -41,9 +41,10 @@ const getAllProductList = () => {
                     const listAreaBody = document.querySelector('.list-area-body');
         
                     // 필요한 div 생성
-                    const productBox = document.createElement("div");
+                    const productBox = document.createElement("a");
                     productBox.classList.add("product-box");
-                    
+                    console.log(product.productNo);
+                    productBox.setAttribute("href", "/product/" + product.productNo)
                     // 이미지
                     const productContent = document.createElement("div");
                     productContent.classList.add("product-content");

@@ -67,7 +67,13 @@
             <div class="area-title">카테고리</div>
             <div class="types-area">
 
-                <div class="sur">${category.tops[6].categoryName}</div>
+                <div class="category-dropdown">
+                    <c:forEach items="${category.tops}" var="tops" end="5">
+                        <input type="checkbox" name="types" id="top${tops.categoryName}"
+                            value="${tops.categoryName}">
+                        <label for="top${tops.categoryName}">${tops.categoryName}</label>
+                    </c:forEach>
+                </div>
 
             </div>
 
