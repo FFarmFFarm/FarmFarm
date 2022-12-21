@@ -79,6 +79,7 @@ label[for="saveId"]{
     font-size: var(--medium-font-size);
     border-radius: 5px;
     border: 2px solid #ccc;
+    padding-left: 15px;
 }
 
 .inputbox input::placeholder{

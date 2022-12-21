@@ -82,7 +82,17 @@
                           <i class="fa-solid fa-caret-down caret-icon" id="triangleIcon"></i>
                         </button>
                         <div id="myDropdown" class="dropdown-content">
-                          <a href="/member/myPage">마이페이지</a>
+                          <c:choose>
+                            <c:when test="${loginMember.authority == 1}">
+                              <a href="/seller">판매자페이지</a>
+                            </c:when>
+                            <c:when test="${loginMember.authority == 2}">
+                              <a href="/admin">관리자</a>
+                            </c:when>
+                            <c:otherwise>
+                              <a href="/member/myPage">마이페이지</a>
+                            </c:otherwise>
+                          </c:choose>
                           <a href="/logout">로그아웃</a>
                         </div>
                   </div>
@@ -108,8 +118,8 @@
             <img src="resources/images/main/bg2.jpg">
           </div>
           <div class="main-title">
-            <p>내 손으로 키운 작물,<br>손쉽게 거래하세요.</p>
-            <p>믿을 수 있는 먹거리, 팜팜이 함께합니다</p>
+            <!-- <p>내 손으로 키운 작물,<br>손쉽게 거래하세요.</p>
+            <p>믿을 수 있는 먹거리, 팜팜이 함께합니다</p> -->
           </div>
         </div>
 
@@ -175,12 +185,23 @@
           </div>
         </div>
         
-        <div class="mypage">
+        <!-- <div class="mypage">
           <a href="/member/myPage">마이페이지</a>
           <a href="/product/1">상품상세조회</a>
           <a href="/post/detail">게시글상세조회</a>
-          <a href="/seller">판매자페이지</a>
+        </div> -->
+
+        <div class="cooking-part">
+          <div class="cooking-text">
+            <p>와글와글에서 더 건강하게 즐겨요!</p>
+            <p>팜팜에서 구매한 상품들을 자기만의 레시피로 요리하고 회원들과 공유해보세요.</p>
+          </div>
+          <div class="cooking-img">
+            <img src="resources/images/main/cooking.jpg">
+          </div>
+
         </div>
+
       </main>
     </div>
     
