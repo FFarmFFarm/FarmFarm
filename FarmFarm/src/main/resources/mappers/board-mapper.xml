@@ -29,6 +29,10 @@
   	SELECT * FROM "BOARD_TYPE" ORDER BY 1
   </select>
 
+	<insert id="boardWrite">
+		INSERT INTO "BOARD" VALUES(SEQ_BOARD_NO.NEXTVAL, #{boardTitle}, #{boardContent}, SYSDATE, NULL,
+   0, 'N', 12, #{boardTypeNo})
+	</insert>
 
 
 </mapper>

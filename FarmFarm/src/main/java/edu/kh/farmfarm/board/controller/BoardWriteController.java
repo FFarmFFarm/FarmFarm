@@ -46,7 +46,7 @@ public class BoardWriteController {
 		
 		String webPath = "resources/images/board/";
 		
-		int boardNo = service.boardWrite(board, imgList);
+		int boardNo = service.boardWrite(board, imgList, webPath);
 		
 		String path = null;
 		String message = null;
