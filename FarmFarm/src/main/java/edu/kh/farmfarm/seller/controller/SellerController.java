@@ -27,7 +27,7 @@ public class SellerController {
 		
 		model.addAttribute("memberInfo", memberInfo);
 		
-		Map<String, Object> map = service.selectPostList(cp);
+		Map<String, Object> map = service.selectPostList(cp, memberNo);
 		
 		model.addAttribute("map", map);
 		

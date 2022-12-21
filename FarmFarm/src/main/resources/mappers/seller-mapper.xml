@@ -22,6 +22,21 @@
       <result property="farmImg" column="FARM_IMG" />
       <result property="postCount" column="POST_COUNT" />
   </resultMap>
+  
+  <resultMap type="Post" id="post_rm">
+  	<id property="postNo" column="POST_NO"/>
+  	
+  	<result property="postTitle" column="POST_TITLE"/>
+  	<result property="postContent" column="POST_CONTENT"/>
+  	<result property="postView" column="POST_VIEW"/>
+  	<result property="postDate" column="POST_DATE"/>
+  	<result property="unitPrice" column="UNIT_PRICE"/>
+  	<result property="openDate" column="OPEN_DATE"/>
+  	<result property="postDelFl" column="POST_DEL_FL"/>
+  	<result property="memberNo" column="MEMBER_NO"/>
+  	<result property="categoryNo" column="CATEGORY_NO"/>
+  
+  </resultMap>
 
 
 	<select id="selectMemberInfo" resultMap="member_rm">

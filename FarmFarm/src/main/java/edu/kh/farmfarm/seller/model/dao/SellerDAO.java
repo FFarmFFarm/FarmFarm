@@ -13,8 +13,20 @@ public class SellerDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
+	/** 멤버 정보 조회
+	 * @param memberNo
+	 * @return memberInfo
+	 */
 	public Member selectMemberInfo(int memberNo) {
 		return sqlSession.selectOne("sellerMapper.selectMemberInfo", memberNo);
+	}
+
+	/** 판매글 수 조회
+	 * @param memberNo
+	 * @return listCount
+	 */
+	public int getListCount(int memberNo) {
+		return sqlSession.selectOne("sellerMapper.getListCount", memberNo);
 	}
 	
 }
