@@ -38,7 +38,7 @@ public class ProductListController {
 	}
 
 	// 상품 목록 가져오기
-	@GetMapping("/product/list")
+	@GetMapping("/product/list/all")
 	@ResponseBody
 	public String getproductList() {
 		
