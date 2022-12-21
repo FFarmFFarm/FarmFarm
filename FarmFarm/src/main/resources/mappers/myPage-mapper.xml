@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myPageMapper">
+
+
+ <resultMap type="Comment" id="comment_rm">
+        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+     <id property = "commentNo" column="COMMENT_NO"/>
+     <!-- 나머지 일반 컬럼 -->
+      <result property="commentContent" column="COMMENT_CONTENT" />
+      <result property="commentDate" column="COMMENT_DATE" />
+      <result property="boardNo" column="BOARD_NO" />
+      <result property="boardTitle" column="BOARD_TITLE" />
+      <result property="memberNo" column="MEMBER_NO" />
+      <result property="commentParent" column="COMMENT_PARENT" />
+  </resultMap>
+
+
+
+<select id="commentCount" resultType="_int">
+	SELECT COUNT(*) FROM "COMMENT"
+	WHERE MEMBER_NO = #{memberNo}
+</select>
+
+<select id="selectCommentList" resultMap="comment_rm">
+	SELECT COMMENT_NO, COMMENT_CONTENT , COMMENT_DATE , BOARD_NO , BOARD_TITLE 
+	FROM "COMMENT" c
+	JOIN BOARD b USING(BOARD_NO)
+	WHERE c.MEMBER_NO = #{memberNo}
+	ORDER BY COMMENT_DATE DESC
+</select>
+
+
+
+</mapper>

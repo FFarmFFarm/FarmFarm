@@ -9,7 +9,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>마이페이지 - 작성 후기</title>
-    <link rel="stylesheet" href="/resources/css/header.css" />
+    <link rel="stylesheet" href="/resources/css/common/header-style.css" />
+    <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
     <link rel="stylesheet" href="/resources/css/myPage/myPage-style.css" />
     <link rel="stylesheet" href="/resources/css/myPage/myPageReview-style.css" />
     <script
@@ -203,5 +204,6 @@
         </div>
       </section>
     </main>
+    <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
   </body>
 </html>
