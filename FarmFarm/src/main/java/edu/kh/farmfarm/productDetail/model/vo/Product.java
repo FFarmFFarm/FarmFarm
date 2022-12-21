@@ -22,11 +22,15 @@ public class Product {
 	private int stock;
 	private int productAmount;
 	private int memberNo;
+	private int wishCheck;
 	
 	private List<ProductImg> imgList;
 	
 	private List<ReviewImg> reviewImgAll;
 	
+	// 썸네일 이미지
+	private String thumbnailImg;
 	
-
+	
+	
 }
