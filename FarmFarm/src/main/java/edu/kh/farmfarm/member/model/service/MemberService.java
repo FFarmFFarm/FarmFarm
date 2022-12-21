@@ -9,7 +9,6 @@ public interface MemberService {
 	String checkReport(int memberNo);
 
 
-	Member login(Member inputMember);
 
 	
 }

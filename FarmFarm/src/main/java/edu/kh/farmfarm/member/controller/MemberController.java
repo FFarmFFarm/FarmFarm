@@ -52,21 +52,6 @@ public class MemberController {
 		Member loginMember = service.login(inputMember);
 		
 		String path = null;
-<<<<<<< Updated upstream
-		
-		if(loginMember != null) {
-			path="/common/main";
-			model.addAttribute("loginMember", loginMember);
-		} else {
-			path=referer;
-			ra.addAttribute("message", "아이디, 비밀번호를 확인해주세요.");
-		}
-		
-		
-		return "redirect:" + path;
-	}
-=======
-//		model.addAttribute("loginMember", loginMember);
 		
 		if(loginMember != null) {
 			if(loginMember.getAuthority() == 2) { // 관리자 
@@ -116,6 +101,5 @@ public class MemberController {
 		
 		return "redirect:/";
 	}
->>>>>>> Stashed changes
 
 }
