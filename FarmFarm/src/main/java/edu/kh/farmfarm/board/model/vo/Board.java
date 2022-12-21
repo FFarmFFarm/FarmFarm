@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class BoardVO {
+public class Board {
 	
 	private int boardNo; // 게시글 번호
 	private String boardTitle; // 게시글 제목
