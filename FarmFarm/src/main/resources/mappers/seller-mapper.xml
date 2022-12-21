@@ -20,6 +20,7 @@
       <result property="profileImg" column="PROFILE_IMG" />
       <result property="mypageImg" column="MYPAGE_IMG" />
       <result property="farmImg" column="FARM_IMG" />
+      <result property="postCount" column="POST_COUNT" />
   </resultMap>
 
 
@@ -29,7 +30,7 @@
 			(SELECT COUNT(*) FROM POST P 
 			WHERE P.MEMBER_NO = M.MEMBER_NO) POST_COUNT
 		FROM MEMBER M
-		WHERE M.MEMBER_NO=#{memberNo};
+		WHERE M.MEMBER_NO=#{memberNo}
 	
 	</select>
 

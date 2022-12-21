@@ -39,6 +39,7 @@
 		<mapper resource="/mappers/member-mapper.xml"/>
 
 		<mapper resource="/mappers/board-mapper.xml"/>
+		<mapper resource="/mappers/seller-mapper.xml"/>
   	</mappers>
 	
 	

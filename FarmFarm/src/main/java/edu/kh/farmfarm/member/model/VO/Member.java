@@ -24,4 +24,5 @@ public class Member {
 	private String profileImg;
 	private String mypageImg;
 	private String farmImg;
+	private int postCount;
 }

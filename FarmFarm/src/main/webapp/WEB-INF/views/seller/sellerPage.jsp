@@ -37,11 +37,22 @@
             <!-- 판매자 정보 -->
             <div class="profile-info">
                 <div class="profile-img-container">
-                    <img
-                    src="/resources/images/myPage/profile/profileImg.png"
-                    alt=""
-                    class="member-profile-img"
-                    />
+                    <c:choose>
+                        <c:when test="${! empty memberInfo.profileImg}">
+                            <img
+                            src="${memberInfo.profileImg}"
+                            alt=""
+                            class="member-profile-img"
+                            />
+                        </c:when>
+                        <c:otherwise>
+                            <img
+                            src="/resources/images/myPage/profile/profile.png"
+                            alt=""
+                            class="member-profile-img"
+                            />
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 
                 <button
@@ -49,21 +60,21 @@
                 class="profile-setting-btn fa-solid fa-gear"
                 ></button>
                 
-                <span class="member-nickname">현재네 농장</span>
+                <span class="member-nickname">${memberInfo.memberNickname}</span>
                 <div class="member-info-container">
                     <div class="member-info">
                         <span class="info-title member-name">판매자</span>
-                        <span class="info-content">김길자</span>
+                        <span class="info-content">${memberInfo.memberName}</span>
                     </div>
                     
                     <div class="member-info">
                         <span class="info-title count-title">판매글 수</span>
-                        <span class="info-content">12</span>
+                        <span class="info-content">${memberInfo.postCount}</span>
                     </div>
 
                     <div class="member-info">
                         <span class="info-title member-signup-date">가입일</span>
-                        <span class="info-content">2022.10.13</span>
+                        <span class="info-content">${memberInfo.signUpDate}</span>
                     </div>
                 </div>
             </div>

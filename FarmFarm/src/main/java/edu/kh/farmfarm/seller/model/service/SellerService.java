@@ -2,8 +2,10 @@ package edu.kh.farmfarm.seller.model.service;
 
 import java.util.Map;
 
+import edu.kh.farmfarm.member.model.VO.Member;
+
 public interface SellerService {
 
-	Map<String, Object> selectMemberInfo(int memberNo);
+	Member selectMemberInfo(int memberNo);
 
 }
