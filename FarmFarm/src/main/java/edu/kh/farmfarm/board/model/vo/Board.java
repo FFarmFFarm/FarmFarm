@@ -19,9 +19,9 @@ public class Board {
 	private int memberNo; // 회원번호
 	private int boardTypeNo; // 게시판 번호
 	
-	private String memberNickname; // 회원 닉네임
-	
 	private String boardName; // 게시판 이름 (1:물물교환 2:팁 3:질문)
+	
+	private String memberNickname; // 회원 닉네임
 	
 	private int boardNo2; // 게시글 좋아요 번호
 	private int memberNo2; // 게시글 좋아요 누른 회원 번호
