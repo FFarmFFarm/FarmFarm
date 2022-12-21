@@ -8,7 +8,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>관리자 대시보드</title>
+
         <link rel="stylesheet" href="/resources/css/common/header-style.css">
+        <link rel="stylesheet" href="/resources/css/common/footer-style.css">
         <link rel="stylesheet" href="/resources/css/admin/adminNav-style.css">
         <link rel="stylesheet" href="/resources/css/admin/dashboard-style.css" />
 
@@ -16,6 +18,8 @@
     </head>
     <body>
       <jsp:include page="/WEB-INF/views/common/adminHeader.jsp"/> 
+      
+      <jsp:include page="/WEB-INF/views/report/report-modal.jsp"/> 
 
         <main>
         <!--nav-->
@@ -57,14 +61,16 @@
                 <div class="board-graph">
                     그래프
                 </div>
-
             </section>
 
+            
         </main>
 
 
-      <jsp:include page="/WEB-INF/views/common/footer.jsp"/> 
 
+        <button id="reportBtn">님 신고</button>
+
+      <!-- <jsp:include page="/WEB-INF/views/common/footer.jsp"/>  -->
         
     </body>
 </html>

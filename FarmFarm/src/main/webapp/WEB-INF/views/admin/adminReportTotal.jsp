@@ -10,6 +10,7 @@
     <title>전체 신고 내역</title>
 
     <link rel="stylesheet" href="/resources/css/common/header-style.css">
+    <link rel="stylesheet" href="/resources/css/common/footer-style.css">
     <link rel="stylesheet" href="/resources/css/admin/adminNav-style.css">
     <link rel="stylesheet" href="/resources/css/admin/adminReportTotal-style.css" />
     <link rel="stylesheet" href="/resources/css/modal/adminReportDetail-modal-style.css" />
@@ -321,7 +322,7 @@
         </section>
     </main>
 
-    <jsp:include page="/WEB-INF/views/common/footer.jsp"/> 
+    <!-- <jsp:include page="/WEB-INF/views/common/footer.jsp"/>  -->
 
     <!-- 신고 상세페이지 모달 -->
     <div class="report-detail-container">
