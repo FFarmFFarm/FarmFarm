@@ -2,12 +2,13 @@ package edu.kh.farmfarm.member.model.VO;
 
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
+@NoArgsConstructor
 public class Member {
 	private int memberNo;
 	private String memberId;
