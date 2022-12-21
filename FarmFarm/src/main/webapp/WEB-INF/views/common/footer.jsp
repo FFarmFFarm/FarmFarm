@@ -17,12 +17,16 @@
     
     
     <div class="footer-btn">
-        <button type="button" class="btn-chat">
-            <i class="fa-solid fa-comment-dots go-to-top-icon"></i>
-        </button>
-        <button type="button" class="btn-go-to-top">
-            <i class="fa-solid fa-arrow-up go-to-top-icon"></i>
-        </button>
+        <a href="">
+            <button type="button" class="btn-chat">
+                <i class="fa-solid fa-comment-dots go-to-top-icon"></i>
+            </button>
+        </a>
+        <a href="#">
+            <button type="button" class="btn-go-to-top">
+                <i class="fa-solid fa-arrow-up go-to-top-icon"></i>
+            </button>
+        </a>
     </div>
 
     <footer>
