@@ -23,5 +23,5 @@ public class Member {
 	private int authority;
 	private String profileImg;
 	private String mypageImg;
-	
+	private String farmImg;
 }
