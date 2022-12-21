@@ -1,6 +1,7 @@
 package edu.kh.farmfarm.productList.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,15 +12,13 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.google.gson.Gson;
 
-import edu.kh.farmfarm.category.model.vo.Category;
 import edu.kh.farmfarm.productDetail.model.vo.Product;
 import edu.kh.farmfarm.productList.model.service.ProductListService;
 
 @Controller
-@SessionAttributes("categoryList")
+@SessionAttributes("category")
 public class ProductListController {
-	
-	
+
 	@Autowired
 	private ProductListService service;
 	
@@ -28,10 +27,10 @@ public class ProductListController {
 	public String goProductListPage(Model model) {
 		
 		// 1. 모든 product 카테고리 리스트를 조회
-		List<Category> categoryList = service.getCategoryList();
+		Map<String, Object> category = service.getCategoryList();
 		
 		// 2. 가져온 카테고리 리스트를 세션에 올린다.
-		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("category", category);
 		
 		// 3. 페이지로 이동한다.
 		return "productList/productList";
@@ -43,11 +42,10 @@ public class ProductListController {
 	public String getproductList() {
 		
 		// 모든 상품 목록 가져오기
-		List<Product> productList = service.getProductListAll();
+		List<Product> productMap = service.getProductListAll();
 		
 		// 반환하기
-		return new Gson().toJson(productList);
+		return new Gson().toJson(productMap);
 		
 	}
-	
 }

@@ -27,6 +27,9 @@ public class Product {
 	
 	private List<ReviewImg> reviewImgAll;
 	
+	// 썸네일 이미지
+	private String thumbnailImg;
 	
-
+	
+	
 }

@@ -67,65 +67,34 @@
             <div class="area-title">카테고리</div>
             <div class="types-area">
                 
-                <div class="sur">과일</div>
-                <div class="category-dropdown">
-
-                    <input type="checkbox" name="types" id="fruit1" value="apple,pear">
-                    <label for="fruit1">사과/배</label>
-
-                    <input type="checkbox" name="types" id="fruit2" value="tomato">
-                    <label for="fruit2">토마토/방울토마토</label>
-
-                    <input type="checkbox" name="types" id="fruit3" value="strawberry,blueberry">
-                    <label for="fruit3">딸기/블루베리</label>
-
-                    <input type="checkbox" name="types" id="fruit4" value="persimmon,mandarin">
-                    <label for="fruit4">감/귤</label>
-
-                    <input type="checkbox" name="types" id="fruit5" value="grape,peach">
-                    <label for="fruit5">포도/복숭아</label>
-
-                    <input type="checkbox" name="types" id="fruit6" value="watermelon,melon">
-                    <label for="fruit6">수박/참외</label>
-
-
-
-                </div>
-
-                <div class="sur">채소</div>
+                <div class="sur">${category.tops[6].categoryName}</div>
                 
                 <div class="category-dropdown">
-                    <input type="checkbox" name="types" id="vegetable1" value="lettuce">
-                    <label for="vegetable1">상추/깻잎/양상추</label>
-
-                    <input type="checkbox" name="types" id="vegetable2" value="pepper,pimento">
-                    <label for="vegetable2">고추/피망</label>
-
-                    <input type="checkbox" name="types" id="vegetable3" value="cabbage">
-                    <label for="vegetable3">배추/양배추/무</label>
-
-                    <input type="checkbox" name="types" id="vegetable4" value="spinach">
-                    <label for="vegetable4">갓/시금치/치커리</label>
-
-                    <input type="checkbox" name="types" id="vegetable5" value="cucumber">
-                    <label for="vegetable5">오이/가지/옥수수</label>
-
-                    <input type="checkbox" name="types" id="vegetable6" value="potato">
-                    <label for="vegetable6">감자/고구마/당근</label>
-                    
-                    <input type="checkbox" name="types" id="vegetable7" value="mushroom">
-                    <label for="vegetable7">버섯류</label>
-
-                    <input type="checkbox" name="types" id="vegetable8" value="bean">
-                    <label for="vegetable8">콩</label>
-
+                    <c:forEach items="${category.fruits}" var="fruits">
+                        <input type="checkbox" name="types" id="fruit${fruits.categorySubNo}" value="${fruits.categorySubNo}">
+                        <label for="${fruits.categorySubNo}">${fruits.categorySubName}</label>
+                    </c:forEach>
                 </div>
-
-                <div class="sur">기타</div>
+                
+                <div class="sur">${category.tops[7].categoryName}</div>
+                
                 <div class="category-dropdown">
-                  <input type="checkbox" name="types" id="ect1" value="ect">
-                  <label for="vegetable8">기타</label>
+                    <c:forEach items="${category.vegetables}" var="vegetables">
+                        <input type="checkbox" name="types" id="vegetables${vegetables.categorySubNo}"
+                            value="${vegetables.categorySubNo}">
+                        <label for="${vegetables.categorySubNo}">${vegetables.categorySubName}</label>
+                    </c:forEach>
                 </div>
+                
+                <div class="sur">${category.tops[8].categoryName}</div>
+                
+                <div class="category-dropdown">
+                    <c:forEach items="${category.ects}" var="ects">
+                        <input type="checkbox" name="types" id="ects${ects.categorySubNo}" value="${ects.categorySubNo}">
+                        <label for="${ects.categorySubNo}">${ects.categorySubName}</label>
+                    </c:forEach>
+                </div>
+                
             </div>
 
             <a href="/post/enroll" id="goPostEnrollBtn">
