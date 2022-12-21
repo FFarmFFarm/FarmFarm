@@ -1,5 +1,11 @@
 @import "../root-style.css";
 
+.main {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+}
+
 .mypage{
   position: absolute;
 }
@@ -7,12 +13,12 @@
 .header-container {
   height: 180px;
   width: 100vw;
+  z-index: 10;
   /* background-color: var(--background-color); */
 }
 
 /* Header */
 header {
-  position: relative;
   z-index: 100;
   height: 120px;
   margin: auto;
@@ -254,7 +260,7 @@ main{
 .main-wrap{
   position: absolute;
   /* overflow-x: hidden; */
-  top: -550px;
+  top: -180px;
 
 }
 
@@ -293,7 +299,7 @@ main{
   display: flex;
   justify-content: center;
 
-  margin-top: 430px;
+  margin-top: 375px;
 }
 
 .middle-wrap{
@@ -371,6 +377,6 @@ main{
 
 .cooking-img img{
   width: 100%;
-  height: 100px;
+  height: 100%;
   object-fit: cover;
 }

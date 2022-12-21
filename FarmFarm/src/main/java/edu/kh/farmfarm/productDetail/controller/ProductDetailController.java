@@ -21,7 +21,7 @@ public class ProductDetailController {
 	
 	@GetMapping("/product/{productNo}")
 	public String myPageReview(
-			@SessionAttribute("loginMember") Member loginMember,
+			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			@PathVariable("productNo") int productNo,
 			Model model) {
 		
@@ -29,7 +29,11 @@ public class ProductDetailController {
 		Product param = new Product();
 		
 		param.setProductNo(productNo);
-		param.setMemberNo(loginMember.getMemberNo());
+		if(loginMember == null) {
+			param.setMemberNo(0);
+		} else {
+			param.setMemberNo(loginMember.getMemberNo());
+		}
 		
 //		상품, 상품 상세 이미지, 리뷰 목록, 리뷰 이미지 조회
 		Map<String, Object> map = service.selectProduct(param);
