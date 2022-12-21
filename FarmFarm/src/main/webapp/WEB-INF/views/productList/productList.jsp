@@ -151,180 +151,7 @@
             <!-- 상품 하나하나가 들어갈 영역(DOM 이용) -->
             <article class="list-area-body">
 
-                <!-- 샘플 아이템 -->
-                <div class="product-box">
-                    <div class="product-content">
-                        <img src="/src/main/webapp/resources/images/productList/carrot.jpg">
-                    </div>
-                    <div class="product-detail">
-                        <div class="product-name">
-                            토마토는 거꾸로해도 토마토
-                        </div>
-                        <div class="product-price">
-                            3,000원
-                        </div>
-                        <div class="product-message">
-                            토마토는 맛있어요
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-box">
-                    <div class="product-content">
-                        <img src="/src/main/webapp/resources/images/productList/carrot.jpg">
-                    </div>
-                    <div class="product-detail">
-                        <div class="product-name">
-                            토마토는 거꾸로해도 토마토
-                        </div>
-                        <div class="product-price">
-                            3,000원
-                        </div>
-                        <div class="product-message">
-                            토마토는 맛있어요
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-box">
-                    <div class="product-content">
-                        <img src="/src/main/webapp/resources/images/productList/carrot.jpg">
-                    </div>
-                    <div class="product-detail">
-                        <div class="product-name">
-                            제목이 길어지면 어떻게 될까요? 이 정도로 길게 입력할 일은 없겠지만 혹시나 해서 확인해봅니다. 
-                            매우매우매우매우 긴 제목입니다. 2줄 이상은 출력 안되게 만들거에요.
-                        </div>
-                        <div class="product-price">
-                            3,000원
-                        </div>
-                        <div class="product-message">
-                            제품 소개가 길어지면 어떻게 될까요? 이 정도로 길게 입력할 일은 없겠지만 혹시나 해서 확인해봅니다. 
-                            매우매우매우매우 긴 제품 소개입니다. 3줄 이상은 출력 안되게 만들거에요.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-box">
-                    <div class="product-content">
-                        <img src="/src/main/webapp/resources/images/productList/carrot.jpg">
-                    </div>
-                    <div class="product-detail">
-                        <div class="product-name">
-                            토마토는 거꾸로해도 토마토
-                        </div>
-                        <div class="product-price">
-                            3,000 원
-                        </div>
-                        <div class="product-message">
-                            토마토는 맛있어요
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-box">
-                    <div class="product-content">
-                        <img src="/src/main/webapp/resources/images/productList/carrot.jpg">
-                    </div>
-                    <div class="product-detail">
-                        <div class="product-name">
-                            토마토는 거꾸로해도 토마토
-                        </div>
-                        <div class="product-price">
-                            3,000 원
-                        </div>
-                        <div class="product-message">
-                            토마토는 맛있어요
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-box">
-                    <div class="product-content">
-                        <img src="/src/main/webapp/resources/images/productList/carrot.jpg">
-                    </div>
-                    <div class="product-detail">
-                        <div class="product-name">
-                            토마토는 거꾸로해도 토마토
-                        </div>
-                        <div class="product-price">
-                            3,000 원
-                        </div>
-                        <div class="product-message">
-                            토마토는 맛있어요
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-box">
-                    <div class="product-content">
-                        <img src="/src/main/webapp/resources/images/productList/carrot.jpg">
-                    </div>
-                    <div class="product-detail">
-                        <div class="product-name">
-                            토마토는 거꾸로해도 토마토
-                        </div>
-                        <div class="product-price">
-                            3,000 원
-                        </div>
-                        <div class="product-message">
-                            토마토는 맛있어요
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-box">
-                    <div class="product-content">
-                        <img src="/src/main/webapp/resources/images/productList/carrot.jpg">
-                    </div>
-                    <div class="product-detail">
-                        <div class="product-name">
-                            토마토는 거꾸로해도 토마토
-                        </div>
-                        <div class="product-price">
-                            3,000 원
-                        </div>
-                        <div class="product-message">
-                            토마토는 맛있어요
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-box">
-                    <div class="product-content">
-                        <img src="/src/main/webapp/resources/images/productList/carrot.jpg">
-                    </div>
-                    <div class="product-detail">
-                        <div class="product-name">
-                            토마토는 거꾸로해도 토마토
-                        </div>
-                        <div class="product-price">
-                            3,000 원
-                        </div>
-                        <div class="product-message">
-                            토마토는 맛있어요
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product-box">
-                    <div class="product-content">
-                        <img src="/src/main/webapp/resources/images/productList/carrot.jpg">
-                    </div>
-                    <div class="product-detail">
-                        <div class="product-name">
-                            토마토는 거꾸로해도 토마토
-                        </div>
-                        <div class="product-price">
-                            3,000 원
-                        </div>
-                        <div class="product-message">
-                            토마토는 맛있어요
-                        </div>
-                    </div>
-                </div>
-
-
+                <!-- product-box 자리 -->
                 
             </article>
 
@@ -380,12 +207,16 @@
 
 
     <!-- footer -->
-    <!-- <jsp:include page='/WEB-INF/views/common/footer.jsp'/>> -->
+    <jsp:include page='/WEB-INF/views/common/footer.jsp'/>
+
+    <!-- ajax -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
     <!-- swiper-js -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <script src="/resources/js/productList/listSwiper.js"> </script>
 
     <script src="/resources/js/productList/productList.js"> </script>
+
 </body>
 </html>

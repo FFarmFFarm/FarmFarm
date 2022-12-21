@@ -1,56 +1,18 @@
-/* body */
-const body = document.getElementsByName("body");
-
-/* top 버튼 */
-const topBtn = document.getElementById("topBtn");
-
-/* nav 부착 검색창 추가하기 */
-const navSearchBar = document.getElementById("navSearchBar");
-
-/* top 버튼 및 검색창 보이기 */
-window.addEventListener("scroll", ()=> {
-
-    if(navSearchBar.classList.contains('view-hidden')) {
-        if(window.scrollY >= 720) {
-            navSearchBar.classList.remove('view-hidden');
-            navSearchBar.classList.add('view-flex');
-            console.log("실행되고있나요2");
-            return;
-        }
-    }
-
-    if(navSearchBar.classList.contains('view-flex')) {
-        if(window.scrollY < 720) {
-            navSearchBar.classList.add('view-hidden');
-            navSearchBar.classList.remove('view-flex');
-            console.log("실행되고있나요2");
-            return;
-        }
-    }
-
-    if(topBtn.classList.contains('opacity-zero')) {
-        if(window.scrollY >= 1000) {
-            topBtn.classList.remove('opacity-zero');
-            topBtn.classList.add('opacity-one');
-            console.log("실행되고있나요");
-            return;
-        }
-    }
-    if(topBtn.classList.contains('opacity-one')) {
-        if(window.scrollY < 1000) {
-            topBtn.classList.add('opacity-zero');
-            topBtn.classList.remove('opacity-one');
-            console.log("실행되고있나요");
-            return;
-        }
-    }
-})
-
-/* top 버튼 클릭 시 맨 위로 */
-topBtn.addEventListener("click", ()=>{
-    if(topBtn.classList.contains('opacity-one')) {
-        topBtn.classList.add('opacity-zero');
-        topBtn.classList.remove('opacity-one');
-        scrollTo(0,0);
-    }
-})
+{/* <div class="post-box">
+    <div class="post-img">
+        <img src="/src/main/webapp/resources/images/productList/carrot.jpg">
+    </div>
+    <div class="post-detail">
+        <div class="post-title">
+            제목이 길어지면 어떻게 될까요? 이 정도로 길게 입력할 일은 없겠지만 혹시나 해서 확인해봅니다.
+            매우매우매우매우 긴 제목입니다. 2줄 이상은 출력 안되게 만들거에요.
+        </div>
+        <div class="unit-price">
+            3,000원
+        </div>
+        <div class="post-message">
+            제품 소개가 길어지면 어떻게 될까요? 이 정도로 길게 입력할 일은 없겠지만 혹시나 해서 확인해봅니다.
+            매우매우매우매우 긴 제품 소개입니다. 3줄 이상은 출력 안되게 만들거에요.
+        </div>
+    </div>
+</div> */}

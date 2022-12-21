@@ -160,27 +160,7 @@
             <!-- 상품 하나하나가 들어갈 영역(DOM 이용) -->
             <article class="list-area-body">
 
-                <!-- 샘플 아이템 -->
-                <div class="post-box">
-                    <div class="post-img">
-                        <img src="/src/main/webapp/resources/images/productList/carrot.jpg">
-                    </div>
-                    <div class="post-detail">
-                        <div class="post-title">
-                            제목이 길어지면 어떻게 될까요? 이 정도로 길게 입력할 일은 없겠지만 혹시나 해서 확인해봅니다. 
-                            매우매우매우매우 긴 제목입니다. 2줄 이상은 출력 안되게 만들거에요.
-                        </div>
-                        <div class="unit-price">
-                            3,000원
-                        </div>
-                        <div class="post-message">
-                            제품 소개가 길어지면 어떻게 될까요? 이 정도로 길게 입력할 일은 없겠지만 혹시나 해서 확인해봅니다. 
-                            매우매우매우매우 긴 제품 소개입니다. 3줄 이상은 출력 안되게 만들거에요.
-                        </div>
-                    </div>
-                </div>
-
-                
+                <!-- post-box 자리 -->
                 
             </article>
 
@@ -235,6 +215,11 @@
     </div> -->
 
 
+    <!-- footer -->
+    <jsp:include page='/WEB-INF/views/common/footer.jsp' />
+
+    <!-- ajax -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     
     <!-- swiper-js -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
@@ -244,5 +229,4 @@
     
 </body>
 
-<!-- <jsp:include page='/WEB-INF/views/common/footer.jsp' /> -->
 </html>
