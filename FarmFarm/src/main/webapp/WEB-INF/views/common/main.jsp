@@ -200,6 +200,9 @@
         <div class="cooking-img">
           <img src="resources/images/main/cooking.jpg">
         </div>
+        <div>
+          <a href="/board">레시피 보러가기 <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
       </div>
 
     </main>
