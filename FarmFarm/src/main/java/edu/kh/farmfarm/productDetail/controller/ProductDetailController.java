@@ -21,18 +21,15 @@ public class ProductDetailController {
 	
 	@GetMapping("/product/{productNo}")
 	public String myPageReview(
-//			@SessionAttribute("loginMember") Member loginMember,
+			@SessionAttribute("loginMember") Member loginMember,
 			@PathVariable("productNo") int productNo,
 			Model model) {
-		
-		// 임시 회원 번호 할당
-		int memberNo = 2;
 		
 //		파라미터 담을 객체 생성
 		Product param = new Product();
 		
 		param.setProductNo(productNo);
-		param.setMemberNo(memberNo);
+		param.setMemberNo(loginMember.getMemberNo());
 		
 //		상품, 상품 상세 이미지, 리뷰 목록, 리뷰 이미지 조회
 		Map<String, Object> map = service.selectProduct(param);
