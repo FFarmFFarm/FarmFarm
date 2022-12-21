@@ -1,5 +1,7 @@
 package edu.kh.farmfarm.productDetail.model.vo;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.ToString;
 import lombok.Setter;
@@ -11,8 +13,15 @@ public class Review {
 	private int reviewNo;
 	private String reviewContent;
 	private String reviewDelFl;
-	private int memberNo;
 	private int productNo;
+	private String createDate;
 	
-
+	private int likeCheck;
+	private int likeCount;
+	
+	private String memberNickname;
+	private String profileImg;
+	private int memberNo;
+	
+	private List<ReviewImg> imgList;
 }

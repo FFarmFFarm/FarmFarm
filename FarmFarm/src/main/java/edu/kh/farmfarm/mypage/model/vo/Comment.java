@@ -15,6 +15,7 @@ public class Comment {
 	private String commentDelFl;
 	private int memberNo;
 	private int boardNo;
+	private int commentCount;
 	private String boardTitle;
 	private String commentContent;
 

@@ -23,7 +23,9 @@
 		<typeAlias type="edu.kh.farmfarm.mypage.model.vo.Order" alias="Order"/>
 		<typeAlias type="edu.kh.farmfarm.mypage.model.vo.Wish" alias="Wish"/>
 		<typeAlias type="edu.kh.farmfarm.productDetail.model.vo.Product" alias="Product"/>
+		<typeAlias type="edu.kh.farmfarm.productDetail.model.vo.ProductImg" alias="ProductImg"/>
 		<typeAlias type="edu.kh.farmfarm.productDetail.model.vo.Review" alias="Review"/>
+		<typeAlias type="edu.kh.farmfarm.productDetail.model.vo.ReviewImg" alias="ReviewImg"/>
 		<typeAlias type="edu.kh.farmfarm.postDetail.model.vo.Post" alias="Post"/>
 	</typeAliases>
 	
