@@ -199,6 +199,7 @@
           <div class="cooking-img">
             <img src="resources/images/main/cooking.jpg">
           </div>
+
         </div>
 
       </main>
