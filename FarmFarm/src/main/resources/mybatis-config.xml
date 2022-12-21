@@ -30,6 +30,7 @@
 		<typeAlias type="edu.kh.farmfarm.category.model.vo.Category" alias="Category"/>
 		<typeAlias type="edu.kh.farmfarm.category.model.vo.CategorySub" alias="CategorySub"/>
 		<typeAlias type="edu.kh.farmfarm.board.model.vo.Board" alias="Board"/>
+		<typeAlias type="edu.kh.farmfarm.report.model.vo.Report" alias="Report"/>
 	</typeAliases>
 	
 	<!-- mapper 파일(SQL 작성되는파일) 위치 등록 부분 -->
@@ -42,6 +43,7 @@
 		<mapper resource="/mappers/member-mapper.xml"/>
 		<mapper resource="/mappers/board-mapper.xml"/>
 		<mapper resource="/mappers/seller-mapper.xml"/>
+		<mapper resource="/mappers/report-mapper.xml"/>
   	</mappers>
 	
 </configuration>
