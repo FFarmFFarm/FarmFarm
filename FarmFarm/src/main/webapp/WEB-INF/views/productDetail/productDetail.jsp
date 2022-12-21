@@ -13,13 +13,14 @@
       rel="stylesheet"
       href="/resources/css/productDetail/productDetail-style.css"
     />
-    <link rel="stylesheet" href="/resources/css/header.css" />
+    <link rel="stylesheet" href="/resources/css/common/header-style.css" />
+    <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
+    <link rel="stylesheet" href="/resources/css/modal/reviewImg-style.css" />
+    <link rel="stylesheet" href="/resources/css/modal/reviewDetail-style.css" />
     <script
       src="https://kit.fontawesome.com/591746f9e8.js"
       crossorigin="anonymous"
     ></script>
-    <link rel="stylesheet" href="/resources/css/modal/reviewImg-style.css" />
-    <link rel="stylesheet" href="/resources/css/modal/reviewDetail-style.css" />
   </head>
   <body>
     <jsp:include page="/WEB-INF/views/common/header.jsp"/>
@@ -633,5 +634,6 @@
         </div>
       </div>
     </div>
+    <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
   </body>
 </html>

@@ -37,7 +37,7 @@
             <div class="member-info member-address">
               <span class="info-title basic-title">기본 주소지</span>
               <span class="info-content"
-                >서울시 도봉구 도봉로 169나길 110 아트빌청 502호</span
+                >서울시 중구 남대문로 120 그레이트 청계 2층</span
               >
             </div>
 

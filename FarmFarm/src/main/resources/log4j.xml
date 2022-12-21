@@ -19,20 +19,20 @@
    </appender>
    
    <!-- //날짜별 로그 파일 생성 하기 -->
-   <appender name="dailyRollingFile" class="org.apache.log4j.DailyRollingFileAppender">
-<!--<param name="File" value="/workspace/FarmFarm/FarmFarm/logs/runtime.log" /> -->
+<!--    <appender name="dailyRollingFile" class="org.apache.log4j.DailyRollingFileAppender">
+       <param name="File" value="/workspace/FarmFarm/FarmFarm/logs/runtime.log" />
        <param name="Append" value="true" />
        <param name="encoding" value="UTF-8" />
        <param name="DatePattern" value="'.'yyyy-MM-dd" />
        <layout class="org.apache.log4j.PatternLayout">
          <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} [%p] %m%n" />
       </layout>
-   </appender>
+   </appender> -->
    
    <!-- Application Loggers -->
    <logger name="edu.kh.farmfarm">
       <level value="debug" />
-      <appender-ref ref="dailyRollingFile" />
+      <!-- <appender-ref ref="dailyRollingFile" /> -->
    </logger>
    
    <!-- 3rdparty Loggers -->

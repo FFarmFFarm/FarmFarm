@@ -175,7 +175,7 @@ body{
 
     display: flex;
     flex-direction: column;
-    padding: 10px 20px 10px 0;
+    padding: 10px 40px 10px 0;
 
     /* 카테고리 영역 고정시키기 */
     position: sticky;
@@ -240,7 +240,6 @@ body{
     color: var(--point-color);
 }
 
-/* list-area */
 /* list-area */
 .list-area{
     display: flex;
@@ -325,7 +324,7 @@ body{
 }
 
 .product-detail{
-    padding: 10px;
+    padding-top: 10px;
 }
 
 .product-name{
