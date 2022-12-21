@@ -544,7 +544,7 @@ INSERT INTO REVIEW VALUES(SEQ_REVIEW_NO.NEXTVAL, '
 
 씨앗은 양도 많고 엄청 상태가 좋아요!!<br/><br/>
 포장도 깔끔하고 배송도 빨랐습니다ㅎㅎ<br/>
-', DEFAULT, 3, 4);
+', DEFAULT, 3, 4 , DEFAULT);
 
 --REVIEW_IMG 샘플 데이터 삽입
 -- REVIEW_IMG_NO, REVIEW_NO, REVIEW_IMG_PATH, REVIEW_IMG_ORDER
