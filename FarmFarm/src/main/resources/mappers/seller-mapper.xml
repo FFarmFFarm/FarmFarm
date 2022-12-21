@@ -35,10 +35,23 @@
   	<result property="postDelFl" column="POST_DEL_FL"/>
   	<result property="memberNo" column="MEMBER_NO"/>
   	<result property="categoryNo" column="CATEGORY_NO"/>
+  	<result property="postImgAddress" column="POST_IMG_ADDRESS"/>
+   	<collection property="postImgList" 
+      			  javaType="java.util.ArrayList" ofType="PostImg"
+      			  select="selectPostImgList"
+      			  column = "POST_NO"/>
+  </resultMap>
+  
+  <resultMap type="PostImg" id="postImg_rm">
+  	<id property="postImgNo" column="POST_IMG_NO"/>
+  	
+  	<result property="postImgAddress" column="POST_IMG_ADDRESS"/>
+  	<result property="postNo" column="POST_NO"/>
+  	<result property="postImgOrder" column="POST_IMG_ORDER"/>
   
   </resultMap>
 
-
+	<!-- 멤버 기본 정보 조회 -->
 	<select id="selectMemberInfo" resultMap="member_rm">
 		SELECT MEMBER_NAME, MEMBER_NICKNAME, PROFILE_IMG,
 			TO_CHAR(SIGNUP_DATE, 'YYYY-MM-DD') SIGNUP_DATE,
@@ -46,7 +59,26 @@
 			WHERE P.MEMBER_NO = M.MEMBER_NO) POST_COUNT
 		FROM MEMBER M
 		WHERE M.MEMBER_NO=#{memberNo}
-	
 	</select>
+	
+	<!-- 판매글 수 조회 -->
+	<select id="getListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM POST
+		WHERE MEMBER_NO=#{memberNo}
+		AND POST_DEL_FL='N'
+	</select>
+	
+	<!-- 판매글 리스트 조회 -->
+	<select id="selectPostList" resultMap="post_rm">
+		SELECT POST_TITLE, UNIT_PRICE, POST_VIEW, POST_IMG_ADDRESS,
+			TO_CHAR(POST_DATE, 'YYYY-MM-DD') POST_DATE
+		FROM POST
+		JOIN POST_IMG USING(POST_NO)
+		WHERE MEMBER_NO=#{memberNo}
+		AND POST_IMG_ORDER=0
+	</select>
+	
+	
 
 </mapper>

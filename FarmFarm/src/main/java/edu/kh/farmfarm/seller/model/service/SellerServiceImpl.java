@@ -1,13 +1,17 @@
 package edu.kh.farmfarm.seller.model.service;
 
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.kh.farmfarm.member.model.VO.Member;
+import edu.kh.farmfarm.postDetail.model.vo.Post;
 import edu.kh.farmfarm.seller.model.dao.SellerDAO;
+import edu.kh.farmfarm.seller.model.vo.SellerPagination;
 
 @Service
 public class SellerServiceImpl implements SellerService{
@@ -28,7 +32,15 @@ public class SellerServiceImpl implements SellerService{
 		
 		int listCount = dao.getListCount(memberNo);
 		
-		return null;
+		SellerPagination pagination = new SellerPagination(listCount, cp);
+		
+		List<Post> postList = dao.selectPostList(pagination, memberNo);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("pagination", pagination);
+		map.put("postList", postList);
+		
+		return map;
 	}
 	
 }

@@ -19,5 +19,6 @@ public class Post {
 	private String postDelFl;
 	private int memberNo;
 	private int categoryNo;
+	private String postImgAddress;
 
 }
