@@ -129,15 +129,15 @@
             </c:forEach>
           </c:if>
 
-          <!-- reviewImgAll의 길이가 8보다 클 때 -->
-          <c:if test="${fn:length(reviewImgAll) gt 8}">
-            <c:forEach var="reviewImg" items="${reviewImgAll}" begin="0" end="7">
+          <!-- reviewImgAll의 길이가 7보다 클 때 -->
+          <c:if test="${fn:length(reviewImgAll) gt 7}">
+            <c:forEach var="reviewImg" items="${reviewImgAll}" begin="0" end="6">
               <li id="${reviewImg.reviewNo}">
                 <img src="${reviewImg.reviewImgPath}" alt="" />
               </li>
             </c:forEach>
 
-            <c:forEach var="reviewImg" items="${reviewList}" begin="8" end="8">
+            <c:forEach var="reviewImg" items="${reviewImgAll}" begin="7" end="7">
                 <!-- 8개 이상일 때 -->
                 <li class="last-review-img" id="${reviewImg.reviewNo}">
                   <img src="${reviewImg.reviewImgPath}" alt="" />
@@ -206,24 +206,31 @@
                 <div class="review-create-date">
                   <span>${review.createDate}</span>
                   <c:if test="${review.likeCheck > 0}">
-                    <button><i class="fa-regular fa-thumbs-up clicked"></i>도움돼요</button>
+                    <button class="clicked"><i class="fa-regular fa-thumbs-up "></i>도움돼요</button>
                   </c:if>
                   <c:if test="${review.likeCheck == 0}">
-                    <button><i class="fa-regular fa-thumbs-up unclicked"></i>도움돼요</button>
+                    <button class="unclicked"><i class="fa-regular fa-thumbs-up "></i>도움돼요</button>
                   </c:if>
                 </div>
               </div>
             </li>
           </c:forEach>
-          </c:if>
-         
+          </c:if> 
         </ul>
-        <div class="pagenation">
-          <button><i class="fa-solid fa-chevron-left"></i></button>
-          <button><i class="fa-solid fa-chevron-right"></i></button>
-        </div>
+
+        <div class="pagination">
+          <c:if test="${1 lt pagination.currentPage}">
+            <button><i class="fa-solid fa-chevron-left"></i></button>
+          </c:if>
+          <c:if test="${pagination.maxPage > pagination.currentPage}">
+            <button><i class="fa-solid fa-chevron-right"></i></button>
+          </c:if>
+          </div>
       </section>
     </main>
+
+
+    <!-- 리뷰 이미지 목록 모달창 -->
     <div class="review-img-container">
       <div class="review-img-list-modal">
         <div class="review-img-head">
@@ -240,120 +247,6 @@
               alt=""
             />
           </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <!-- <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div> -->
-          <!-- <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div> -->
         </div>
         <div class="pagenation-area">
           <button><i class="fa-solid fa-chevron-left"></i></button>
@@ -362,6 +255,8 @@
       </div>
     </div>
 
+
+    <!-- 리뷰 상세조회 모달창 -->
     <div class="review-detail-container">
       <div class="review-detail-modal">
         <div class="review-head">
@@ -407,24 +302,6 @@
             <p>개인의 경험일 뿐 사실과 다를 수 있습니다.</p>
           </div>
           <div class="review-uploaded-img">
-            <div class="uploaded-img">
-              <img
-                src="/resources/images/post/postDetail/detail/20180802_1_15415.jpg"
-                alt=""
-              />
-            </div>
-            <div class="uploaded-img">
-              <img
-                src="/resources/images/post/postDetail/detail/20220825000809_0.jpg"
-                alt=""
-              />
-            </div>
-            <div class="uploaded-img">
-              <img
-                src="/resources/images/post/postDetail/detail/img_products_detail_01.jpg"
-                alt=""
-              />
-            </div>
             <div class="uploaded-img">
               <img
                 src="/resources/images/post/postDetail/detail/20180802_1_15415.jpg"
