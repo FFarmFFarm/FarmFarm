@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,213 +9,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>전체 신고 내역</title>
 
-    <link rel="stylesheet" href="../../css/common/header-style.css">
-    <link rel="stylesheet" href="../../css/common/footer-style.css">
-    <link rel="stylesheet" href="../../css/admin/adminReportTotal-style.css" />
-    <link rel="stylesheet" href="../../css/modal/adminReportDetail-modal-style.css" />
+    <link rel="stylesheet" href="/resources/css/common/header-style.css">
+    <link rel="stylesheet" href="/resources/css/admin/adminNav-style.css">
+    <link rel="stylesheet" href="/resources/css/admin/adminReportTotal-style.css" />
+    <link rel="stylesheet" href="/resources/css/modal/adminReportDetail-modal-style.css" />
 
     <script src="https://kit.fontawesome.com/d4fbceca97.js" crossorigin="anonymous"></script>
 
 </head>
 <body>
-    <div class="header-container">
-        <header>
-          <div class="home-logo">
-            <a href="/">
-              <img src="../../images/mainLogo.png" />
-            </a>
-          </div>
-  
-          <div class="header-widget-area">
-            <!-- 로그인O 상태 -->
-            <ul class="widget-list">
-              <li class="widget-item">
-                <div class="dropdown">
-                  <button type="button" class="dropbtn1">
-                    <i class="fa-solid fa-bell header-icon"></i>
-                  </button>
-  
-                  <div id="myDropdown1" class="dropdown-message">
-                    <div class="notice"><p>알림</p></div>
-                    <ul>
-                      <li>
-                        <div class="message-box">
-                          <a href="">배송이 시작되었습니다.</a>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="message-box">
-                          <a href="">신팜팜님이 신고했습니다..</a>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="message-box">
-                          <a href="">정팜팜님이 신고를 거부하셨습니다.</a>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </li>
-              <li class="widget-item">
-                <a href="#">
-                  <i class="fa-solid fa-comment-dots"></i>
-                </a>
-                <!-- <div class="chat-count">21</div> -->
-              </li>
-              <li class="widget-item">
-                <div class="dropdown">
-                  <button type="button" class="dropbtn">
-                    <span>
-                      <i
-                        class="fa-solid fa-user header-icon"
-                        id="profilePhoto"
-                      ></i>
-                    </span>
-                    <!-- <span>
-                                      <img src="../images/member/farmer.png" class="login-profile-img">
-                                  </span> -->
-                    <i
-                      class="fa-solid fa-caret-down caret-icon"
-                      id="triangleIcon"
-                    ></i>
-                  </button>
-  
-                  <div id="myDropdown" class="dropdown-content">
-                    <a href="#">내프로필</a>
-                    <a href="#">로그아웃</a>
-                  </div>
-                </div>
-              </li>
-            </ul>
-  
-            <!-- 로그인X 상태 -->
-            <!-- <ul class="login-list">
-                      <li class="login-item"><a href="#">로그인</a></li>
-                      <li class="login-item"><a href="#">회원가입</a></li>
-                  </ul> -->
-          </div>
-        </header>
-  
-        <nav>
-          <div class="nav-head">
-            <div class="nav-body">
-              <div class="nav-list"><a href="#">팜팜마켓</a></div>
-              <div class="nav-list"><a href="#">사고팔고</a></div>
-              <div class="nav-list"><a href="#">커뮤니티</a></div>
-              <div class="nav-list"><a href="#">문의게시판</a></div>
-            </div>
-          </div>
-        </nav>
-      </div>
-      <script>
-        // 프로필 드롭다운
-        const dropbtn = document.querySelector('.dropbtn');
-        dropbtn.addEventListener('click', () => {
-          const icon = document.querySelector('.caret-icon');
-          const myDropdown = document.querySelector('.dropdown-content');
-  
-          if (
-            myDropdown.style.display == 'none' ||
-            myDropdown.style.display == ''
-          ) {
-            icon.style.transform = 'perspective(500px) rotateX(180deg)';
-            myDropdown.style.display = 'block';
-          } else {
-            icon.style.transform = 'perspective(500px) rotateX(360deg)';
-            myDropdown.style.display = 'none';
-          }
-        });
-  
-        dropbtn.addEventListener('blur', () => {
-          const icon = document.querySelector('.caret-icon');
-          const myDropdown = document.querySelector('.dropdown-content');
-  
-          myDropdown.style.display = '';
-          icon.style.transform = 'perspective(500px) rotateX(360deg)';
-        });
-  
-        // 알림 드롭다운
-        const dropbtn1 = document.querySelector('.dropbtn1');
-        dropbtn1.addEventListener('click', () => {
-          const myDropdown1 = document.querySelector('.dropdown-message');
-  
-          if (
-            myDropdown1.style.display == 'none' ||
-            myDropdown1.style.display == ''
-          ) {
-            myDropdown1.style.display = 'block';
-          } else {
-            myDropdown1.style.display = 'none';
-          }
-        });
-  
-        dropbtn1.addEventListener('blur', () => {
-          const myDropdown1 = document.querySelector('.dropdown-message');
-  
-          myDropdown1.style.display = '';
-        });
-        // const myDropdown1 = document.getElementById("myDropdown1");
-  
-        // function dropDown1(){
-        //     myDropdown1.classList.toggle("show1");
-        // };
-  
-        // window.onclick=function(e){
-        //     if(!e.target.matches(".dropbtn, .dropbtn *")){
-  
-        //         if(myDropdown1.classList.contains("show1")){
-        //             myDropdown1.classList.remove("show1");
-        //         }
-        //     }
-        // };
-      </script>
-
-
-
+    <jsp:include page="/WEB-INF/views/common/adminHeader.jsp"/> 
 
     <main>
-        <!-- 왼쪽 nav -->
-        <nav class="admin-nav-section">
-            <div>
-                <img class="admin-profile" src="../../images/admin/farmer.png" alt="">
-                <span class="admin-profile">팜팜 관리자</span>
-            </div>
-
-            <div class="nav-lower">
-                <div class="with-icon-div">
-                    <a href="../admin/dashboard.html" class="admin-nav-menu" id="dashboard">
-                        <i class="fa-solid fa-table-columns"></i>
-                        팜팜보드
-                    </a>
-                </div>
-
-                <div class="with-icon-div">
-                    <i class="fa-solid fa-bars-progress"></i>
-                    <span class="admin-nav-menu">팜팜 관리</span>
-                </div>
-                <a href="../admin/adminMember.html" class="admin-nav-sub">회원 관리</a>
-                <a href="../admin/adminSellerAuth.html" class="admin-nav-sub">판매자 인증 관리</a>
-                
-                <div class="with-icon-div">
-                    <i class="fa-solid fa-chart-line"></i>
-                    <span class="admin-nav-menu">판매 관리</span>
-                </div>
-
-                <a href="" class="admin-nav-sub">주문 내역 관리</a>
-                <a href="" class="admin-nav-sub">재고 관리</a>
-                <a href="" class="admin-nav-sub">반품 관리</a>
-        
-                <div class="with-icon-div">
-                    <span class="admin-nav-menu">
-                      <i class="fa-solid fa-triangle-exclamation"></i>                        
-                        신고 관리
-                    </span>
-                </div>
-                <a href="../admin/adminReportTotal.html" class="admin-nav-sub">전체 신고 관리</a>
-                <a href="" class="admin-nav-sub">신고 접수 내역</a>
-            </div>
-        </nav>
+      <!--nav-->
+      <jsp:include page="/WEB-INF/views/admin/adminNav.jsp"/> 
         
 
         <!-- 오른쪽 -->
@@ -511,6 +321,8 @@
         </section>
     </main>
 
+    <jsp:include page="/WEB-INF/views/common/footer.jsp"/> 
+
     <!-- 신고 상세페이지 모달 -->
     <div class="report-detail-container">
       <div class="report-detail-modal">
@@ -564,41 +376,5 @@
       </div>
     </div>  
 
-
-      <div class="footer-btn">
-        <button type="button" class="btn-chat">
-            <i class="fa-solid fa-comment-dots go-to-top-icon"></i>
-        </button>
-        <button type="button" class="btn-go-to-top">
-            <i class="fa-solid fa-arrow-up go-to-top-icon"></i>
-        </button>
-    </div>
-
-    <div class="footer-btn">
-      <button type="button" class="btn-chat">
-          <i class="fa-solid fa-comment-dots go-to-top-icon"></i>
-      </button>
-      <button type="button" class="btn-go-to-top">
-          <i class="fa-solid fa-arrow-up go-to-top-icon"></i>
-      </button>
-  </div>
-
-  <footer>
-    <article class="footer-top">
-        <a href="#">이용약관</a>
-        <span>|</span>
-        <a href="#">개인정보취급방침</a>
-        <span>|</span>
-        <a href="#">이용안내</a>
-        <span>|</span>
-        <a href="#">고객센터</a>
-    </article>
-    <p class="footer-middle">
-        팜팜은 통신판매중개자일 뿐 통신판매의 당사자가 아니며 상품 판매정보 배송 환불 및 거래에 대하여 책임을 지지 않습니다.
-    </p>
-    <p class="footer-bottom">
-        Copyright &copy; FarmFarm 2022 SSSLLJ
-    </p>
-  </footer>
 </body>
 </html>
