@@ -2,6 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
+<c:set var="postList" value="${map.postList}"/>
+<c:set var="pagination" value="${map.pagination}"/>
+
 <!DOCTYPE html>
 <html lang="kr">
 <head>
@@ -88,38 +91,51 @@
 
         <section class="my-post-container">
             <div class="post-list-container">
-                <div class="post-list">
-                    <div class="post">
-                        <div class="post-thumbnail">
-                            <img
-                            src="/resources/images/board/thumbnail.png"
-                            alt=""
-                            class="post-thumbnail-img"
-                            />
-                        </div>
-                        <div class="post-total">
-                            <div class="post-head">
-                                <a href="" class="post-title">게시글 제목 샘플</a>
-                                <span class="post-status">판매중</span>
-                                <span class="post-status sold-out">판매완료</span>
+                <c:forEach var="post" items="${postList}">
+                    <div class="post-list">
+                        <div class="post">
+                            <div class="post-thumbnail">
+                                <c:choose>
+                                    <c:when test="${! empty post.postImgAddress}">
+                                        <img
+                                        src="${post.postImgAddress}"
+                                        alt=""
+                                        class="post-thumbnail-img"
+                                        />
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img
+                                        src="/resources/images/board/thumbnail.png"
+                                        alt=""
+                                        class="post-thumbnail-img"
+                                        />
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
-                            <div class="post-price">
-                                가격 <span>15,000</span>
-                            </div>
-                            <div class="post-detail">
-                                <div class="post-reg-date">
-                                    작성일<span>2022.12.15</span>
+                            <div class="post-total">
+                                <div class="post-head">
+                                    <a href="" class="post-title">${post.postTitle}</a>
+                                    <span class="post-status">판매중</span>
+                                    <span class="post-status sold-out">판매완료</span>
                                 </div>
-                                <div class="post-view-count">
-                                    조회수<span>20</span>
+                                <div class="post-price">
+                                    가격 <span>${post.unitPrice}</span>
+                                </div>
+                                <div class="post-detail">
+                                    <div class="post-reg-date">
+                                        작성일<span>${post.postDate}</span>
+                                    </div>
+                                    <div class="post-view-count">
+                                        조회수<span>${post.postView}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="button-area">
-                            <button type="button">게시물 수정</button>
+                            <div class="button-area">
+                                <button type="button">게시물 수정</button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </c:forEach>
                 
             <div class="pagination-area">
                 <!-- ajax로 만들어 보십시다 -->
