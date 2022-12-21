@@ -32,6 +32,7 @@
 		<mapper resource="/mappers/myPage-mapper.xml"/>
 		<mapper resource="/mappers/productDetail-mapper.xml"/>
 		<mapper resource="/mappers/postDetail-mapper.xml"/>
+		<mapper resource="/mappers/member-mapper.xml"/>
 	</mappers>
 	
 	

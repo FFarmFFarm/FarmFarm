@@ -17,8 +17,9 @@ public class Member {
 	private String memberNickname;
 	private String memberTel;
 	private String memberAddress;
-	private String signupDate;
+	private String signUpDate;
 	private String memberDelFl;
+	private String memberBirth;
 	private int authority;
 	private String profileImg;
 	private String mypageImg;

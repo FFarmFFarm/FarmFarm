@@ -16,5 +16,12 @@ public class MemberDAO {
 	public Member login(String memberId) {
 		return sqlSession.selectOne("memberMapper.login", memberId);
 	}
+<<<<<<< Updated upstream
+=======
+
+	public String checkReport(int memberNo) {
+		return sqlSession.selectOne("memberMapper.checkReport", memberNo);
+	}
+>>>>>>> Stashed changes
 	
 }
