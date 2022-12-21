@@ -45,8 +45,12 @@ button:active {
   font-size: var(--title-font-size);
 }
 
-.wish-btn {
+.wish-clicked {
   color: hsl(330, 88%, 53%);
+}
+
+.wish-unclicked {
+  color: var(--main-font-color);
 }
 
 .share-btn {
