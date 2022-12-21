@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class CommentVO {
+public class Comment {
 	
 	private int commentNo; // 댓글 번호
 	private String commentContent; // 댓글 내용

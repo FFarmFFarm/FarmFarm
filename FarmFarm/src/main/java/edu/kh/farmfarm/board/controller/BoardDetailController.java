@@ -11,10 +11,6 @@ public class BoardDetailController {
 	
 	@Autowired
 	private BoardDetailService serivce;
-	
-	@GetMapping("/board")
-	public String boardPage() {
-		return "board/boardDetail";
-	}
+
 	
 }

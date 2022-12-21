@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardMapper">
+
+
+ <resultMap type="Board" id="board_rm">
+        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+     <id property = "boardNo" column="BOARD_NO"/>
+     <!-- 나머지 일반 컬럼 -->
+      <result property="boardTitle" column="BOARD_TITLE" />
+      <result property="boardContent" column="BOARD_CONTENT" />
+      <result property="boardDate" column="BOARD_DATE" />
+      <result property="boardUpdateDate" column="BOARD_UPDATE_DATE" />
+      <result property="boardView" column="BOARD_VIEW" />
+      <result property="boardDelFlag" column="BOARD_DEL_FL" />
+      
+      <result property="memberNo" column="MEMBER_NO" />
+      <result property="boardTypeNo" column="BOARD_TYPE_NO" />
+      <result property="memberNickname" column="MEMBER_NICKNAME" />
+      <result property="boardName" column="BOARD_NAME" />
+      <result property="boardNo2" column="BOARD_NO2" />
+      <result property="memberNo2" column="MEMBER_NO2" />
+      <result property="boardImgNo" column="BOARD_IMG_NO" />
+      <result property="boardImgAddress" column="BOARD_IMG_ADDRESS" />
+      <result property="boardImgOrder" column="BOARD_IMG_ORDER" />
+  </resultMap>
+  
+  <select id="boardTypeList" resultType="map">
+  	SELECT * FROM "BOARD_TYPE" ORDER BY 1
+  </select>
+
+
+
+</mapper>

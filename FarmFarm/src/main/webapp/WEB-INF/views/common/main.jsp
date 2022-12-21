@@ -30,7 +30,7 @@
               <div class="nav-body">
                 <div class="nav-list"><a href="#">팜팜마켓</a></div>
                 <div class="nav-list"><a href="#">사고팔고</a></div>
-                <div class="nav-list"><a href="#">커뮤니티</a></div>
+                <div class="nav-list"><a href="/board">커뮤니티</a></div>
                 <div class="nav-list"><a href="#">문의게시판</a></div>
               </div>
             </div>
@@ -125,7 +125,7 @@
         </div>
         <div class="mypage">
           <a href="/member/myPage">마이페이지</a>
-          <a href="/product/detail">상품상세조회</a>
+          <a href="/product/1">상품상세조회</a>
           <a href="/post/detail">게시글상세조회</a>
           <button id="reportBtn">님신고</button>  <!-- 밑에 js도 있습니다.(report-modal) -->
         </div>
