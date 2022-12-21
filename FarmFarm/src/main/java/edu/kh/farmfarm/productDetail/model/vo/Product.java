@@ -22,6 +22,7 @@ public class Product {
 	private int stock;
 	private int productAmount;
 	private int memberNo;
+	private int wishCheck;
 	
 	private List<ProductImg> imgList;
 	
