@@ -126,6 +126,7 @@
           <a href="/member/myPage">마이페이지</a>
           <a href="/product/detail">상품상세조회</a>
           <a href="/post/detail">게시글상세조회</a>
+          <a href="/seller">관리자페이지</a>
         </div>
       </main>
     </div>
