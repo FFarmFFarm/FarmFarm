@@ -1,5 +1,11 @@
 @import "../root-style.css";
 
+.main {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+}
+
 .mypage{
   position: absolute;
 }
@@ -7,12 +13,12 @@
 .header-container {
   height: 180px;
   width: 100vw;
+  z-index: 10;
   /* background-color: var(--background-color); */
 }
 
 /* Header */
 header {
-  position: relative;
   z-index: 100;
   height: 120px;
   margin: auto;
@@ -141,7 +147,7 @@ header {
   display: none;
   position: absolute;
   z-index: 1000;
-  width: 95px;
+  min-width: 100px;
   height: 77px;
   border: 1px solid #ccc;
   background-color: white;
@@ -253,8 +259,8 @@ main{
 
 .main-wrap{
   position: absolute;
-  overflow-x: hidden;
-  top: -550px;
+  /* overflow-x: hidden; */
+  top: -180px;
 
 }
 
@@ -293,7 +299,7 @@ main{
   display: flex;
   justify-content: center;
 
-  margin-top: 430px;
+  margin-top: 375px;
 }
 
 .middle-wrap{
@@ -336,6 +342,40 @@ main{
 }
 
 .middle-cover img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cooking-part{
+  margin: 100px 0;
+}
+
+.cooking-text{
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.cooking-text p:nth-child(1){
+  font-weight: 800;
+  font-size: var(--title-font-size);
+  color: var(--main-font-color);
+  padding-bottom: 8px;
+}
+
+.cooking-text p:nth-child(2){
+  font-weight: 500;
+  font-size: var(--medium-font-size);
+  color: var(--main-font-color);
+}
+
+.cooking-img{
+  width: 100vw;
+  height: 500px;
+  overflow: hidden;
+}
+
+.cooking-img img{
   width: 100%;
   height: 100%;
   object-fit: cover;
