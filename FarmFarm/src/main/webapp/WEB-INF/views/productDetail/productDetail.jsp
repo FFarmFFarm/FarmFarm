@@ -55,7 +55,9 @@
 
           <span class="product-price">${product.productPrice}원</span>
           <!-- 로그인 x 일 때 -->
-          <span class="login-meassage">로그인 후 구매 가능합니다</span>
+          <c:if test="${empty loginMember}">
+            <span class="login-meassage">로그인 후 구매 가능합니다</span>
+          </c:if>
 
           <div class="summary">
             <div class="summary-subject">
@@ -87,9 +89,11 @@
             </div>
           </div>
           <div class="product-btn-area">
-            <button type="button" class="chatting-btn">
-              <i class="fa-regular fa-comment-dots"></i>
-            </button>
+            <c:if test="${! empty loginMember}">
+              <button type="button" class="chatting-btn">
+                <i class="fa-regular fa-comment-dots"></i>
+              </button>
+            </c:if>
             <button type="button" class="cart-btn">장바구니 담기</button>
             <button type="button" class="order-btn">주문하기</button>
           </div>
@@ -97,16 +101,18 @@
         <button type="button" class="share-btn">
           <i class="fa-solid fa-share"></i>
         </button>
-        <c:if test="${product.wishCheck == 0}">
-          <button class="wish-btn fa-brands fa-gratipay wish-unclicked"></button>
-        </c:if>
-        <c:if test="${product.wishCheck == 1}">
-          <button class="wish-btn fa-brands fa-gratipay wish-clicked"></button>
+        <c:if test="${! empty loginMember}">
+          <c:if test="${product.wishCheck == 0}">
+            <button class="wish-btn fa-brands fa-gratipay wish-unclicked"></button>
+          </c:if>
+          <c:if test="${product.wishCheck == 1}">
+            <button class="wish-btn fa-brands fa-gratipay wish-clicked"></button>
+          </c:if>
         </c:if>
       </section>
       <section class="product-menu">
         <a href="#productDetail">상세 설명</a>
-        <a href="#productReview">후기(<span>120</span>)</a>
+        <a href="#productReview">후기(<span>${reviewCount}</span>)</a>
       </section>
       <section class="product-detail" id="productDetail">
         <c:forEach var="productImg" items="${productImgList}">
@@ -210,11 +216,13 @@
                 </div>
                 <div class="review-create-date">
                   <span>${review.createDate}</span>
+                  <c:if test="${! empty loginMember}">
                   <c:if test="${review.likeCheck > 0}">
                     <button class="clicked"><i class="fa-regular fa-thumbs-up "></i>도움돼요</button>
                   </c:if>
                   <c:if test="${review.likeCheck == 0}">
                     <button class="unclicked"><i class="fa-regular fa-thumbs-up "></i>도움돼요</button>
+                  </c:if>
                   </c:if>
                 </div>
               </div>
@@ -316,7 +324,9 @@
           </div>
           <div class="review-create-date">
             <span>2022.12.16</span>
-            <button><i class="fa-regular fa-thumbs-up"></i>도움돼요</button>
+            <c:if test="${! empty loginMember}">
+              <button><i class="fa-regular fa-thumbs-up"></i>도움돼요</button>
+            </c:if>
           </div>
         </div>
       </div>
