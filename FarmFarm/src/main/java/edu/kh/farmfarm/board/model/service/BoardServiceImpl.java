@@ -6,17 +6,17 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import edu.kh.farmfarm.board.model.dao.BoardListDAO;
+import edu.kh.farmfarm.board.model.dao.BoardDAO;
 
 @Service
-public class BoardListServiceImpl implements  BoardListService{
+public class BoardServiceImpl implements BoardService {
 	
 	@Autowired
-	private BoardListDAO dao;
+	private BoardDAO dao;
 
 	@Override
 	public List<Map<String, Object>> boardTypeList() {
-		return dao.boardTypeList();
+		return  dao.boardTypeList();
 	}
 
 }
