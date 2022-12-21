@@ -20,26 +20,23 @@ public class BoardController {
 	@Autowired
 	private BoardService service;
 	
-	@GetMapping("/board")
-	private String boardListPage(Model model) {
-		
-		List<Map<String, Object>> boardTypeList = service.boardTypeList();
-		model.addAttribute("boardTypeList", boardTypeList);
-		
-		return "/board/boardList";
-	}
-	
-	@GetMapping("/board/write")
-	private String boardWritePage(Model model) {
-		return "board/boardWrite";
-	}
-	
-	@PostMapping("/board/write")
-	private String boardWrite(
-			Board board,
-			@RequestParam(value="imgs", required = false) List<MultipartFile> imgList) {
-		
-		return "redirect:board";
-	}
+//	@GetMapping("/board")
+//	private String boardListPage(Model model) {
+//		
+//		return "/board/boardList";
+//	}
+//	
+//	@GetMapping("/board/write")
+//	private String boardWritePage(Model model) {
+//		return "board/boardWrite";
+//	}
+//	
+//	@PostMapping("/board/write")
+//	private String boardWrite(
+//			Board board,
+//			@RequestParam(value="imgs", required = false) List<MultipartFile> imgList) {
+//		
+//		return "redirect:board";
+//	}
 
 }

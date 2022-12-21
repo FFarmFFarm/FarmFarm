@@ -17,14 +17,14 @@ public class BoardListController {
 	@Autowired
 	private BoardListService service;
 	
-//	@GetMapping("/board")
-//	private String boardListPage(Model model) {
-//		
-//		List<Map<String, Object>> boardTypeList = service.boardTypeList();
-//		model.addAttribute("boardTypeList", boardTypeList);
-//		
-//		return "/board/boardList";
-//	}
+	
+	// 와글와글 게시판으로 이동 - 물물교환 페이지
+	@GetMapping("/board")
+	private String boardListPage() {
+		return "/board/boardList";
+	}
+	
+	
 	
 
 }

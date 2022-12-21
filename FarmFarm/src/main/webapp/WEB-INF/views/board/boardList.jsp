@@ -19,19 +19,19 @@
 
     <main>
         <section class="board-top">
-            <div class="board-top-title">와글와글 ${board.boardName}</div>
+            <div class="board-top-title">와글와글 ${boardName}</div>
         </section>
         <section class="board-nav">
-            <div class="board-nav-area">
-                <span>물물교환</span>
-                <span>팁</span>
-                <span>질문</span>
-            </div>
             <%-- <div class="board-nav-area">
+                <a href="/board/${1}">물물교환</a>
+                <a href="/board/${2}">팁</a>
+                <a href="/board/${3}">질문</a>
+            </div> --%>
+            <div class="board-nav-area">
                 <c:forEach var="boardType" items="${boardTypeList}">
                     <a href="/board/${boardType.BOARD_TYPE_NO}">${boardType.BOARD_NAME}</a>
                 </c:forEach>
-            </div> --%>
+            </div>
         </section>
         <section class="board-search">
             <form action="" class="board-search-area">
