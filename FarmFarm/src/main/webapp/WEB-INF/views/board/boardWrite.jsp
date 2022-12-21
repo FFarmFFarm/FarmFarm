@@ -35,11 +35,6 @@
                     <input type="radio" name="boardTypeNo" id="question" value="3">
                     <label for="question">질문</label>
 
-                    <%-- <c:forEach var="boardType" items="${boardTypeList}">
-                        <input type="radio" name="boardTypeNo" id="${boardType.BOARD_TYPE_NO}">
-                        <label for="${boardType.BOARD_TYPE_NO}">${boardType.BOARD_NAME}</label>
-                    </c:forEach> --%>
-
                 </div>
                 <button class="board-submit">게시하기</button>
             </section>
@@ -94,5 +89,7 @@
         </form>
     </main>
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+    
+     <script src="/resources/js/board/boardWrite.js"> </script>
 </body>
 </html>

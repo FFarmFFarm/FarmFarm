@@ -25,9 +25,5 @@ public class Board {
 	
 	private int boardNo2; // 게시글 좋아요 번호
 	private int memberNo2; // 게시글 좋아요 누른 회원 번호
-	
-	private String boardImgNo; // 게시글 이미지 번호
-	private String boardImgAddress; // 이미지 경로
-	private String boardImgOrder; // 이미지 순서
 
 }

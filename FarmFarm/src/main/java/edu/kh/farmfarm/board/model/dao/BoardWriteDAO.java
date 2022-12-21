@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.farmfarm.board.model.vo.Board;
+import edu.kh.farmfarm.board.model.vo.BoardImg;
 
 @Repository
 public class BoardWriteDAO {
@@ -27,6 +28,11 @@ public class BoardWriteDAO {
 		if(result>0) result = board.getBoardNo();
 		
 		return result;
+	}
+
+	// 게시글의 이미지 삽입
+	public int insertBoardImgList(List<BoardImg> boardImgList) {
+		return sqlSession.insert("boardMapper.insertBoardImgList", boardImgList);
 	}
 
 }

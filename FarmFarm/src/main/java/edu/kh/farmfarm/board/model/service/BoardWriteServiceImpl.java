@@ -46,6 +46,21 @@ public class BoardWriteServiceImpl implements BoardWriteService {
 			for(int i=0; i<imgList.size(); i++) {
 				if(imgList.get(i).getSize() > 0) {
 					BoardImg img = new BoardImg();
+					String originalFileName = imgList.get(i).getOriginalFilename();
+					img.setBoardImgAddress(webPath + originalFileName);
+					img.setBoardNo(boardNo);
+					img.setBoardImgOrder(i);
+					
+					boardImgList.add(img);
+				}
+			}
+			
+			// 업로드 된 이미지 있을 경우
+			if(!boardImgList.isEmpty()) {
+				
+				int result = dao.insertBoardImgList(boardImgList);
+				
+				for(int i=0; i<result; i++) {
 					
 				}
 			}

@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.farmfarm.board.model.service.BoardWriteService;
 import edu.kh.farmfarm.board.model.vo.Board;
+import edu.kh.farmfarm.member.model.VO.Member;
 
 
 @Controller
@@ -40,9 +42,11 @@ public class BoardWriteController {
 			@RequestParam(value="boardTypeNo", required=false) int boardTypeNo,
 			@RequestHeader("referer") String referer,
 			HttpSession session,
-			RedirectAttributes ra) {
+			RedirectAttributes ra,
+			@SessionAttribute("loginMember") Member loginMember) {
 		
 		board.setBoardTypeNo(boardTypeNo);
+		board.setMemberNo(loginMember.getMemberNo());
 		
 		String webPath = "resources/images/board/";
 		
