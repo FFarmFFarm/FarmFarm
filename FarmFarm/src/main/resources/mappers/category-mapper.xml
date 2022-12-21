@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="categoryMapper">
+
+
+	 <resultMap type="Category" id="category_top_rm">
+	 
+	    <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+	    <id property = "categoryNo" column="CATEGORY_NO"/>
+	    
+	    <!-- 나머지 일반 컬럼 -->
+		<result property="categoryName" column="CATEGORY_NAME" />
+	      
+	</resultMap>
+	
+	<resultMap type="CategorySub" id="category_sub_rm">
+	 
+	    <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+	    <id property = "categorySubNo" column="CATEGORY_SUB_NO"/>
+	    
+	    <!-- 나머지 일반 컬럼 -->
+	   	<result property="categorySubName" column="CATEGORY_SUB_NAME" />
+	      
+	</resultMap>
+
+	<!-- 모든 상위 카테고리를 가져오는 SQL -->
+	<select id="getCategoryList_top" resultMap="category_top_rm">
+		SELECT CATEGORY_NO, CATEGORY_NAME
+		FROM CATEGORY
+	</select>
+
+	<!-- 모든 과일 카테고리를 가져오는 SQL -->
+	<select id="getCategoryList_fruit" resultMap="category_sub_rm">
+		SELECT CATEGORY_SUB_NO, CATEGORY_SUB_NAME
+		FROM CATEGORY_SUB
+		JOIN CATEGORY USING(CATEGORY_NO)
+		WHERE CATEGORY_NO = 7
+	</select>
+	
+	<!-- 모든 채소 카테고리를 가져오는 SQL -->
+	<select id="getCategoryList_vegetable" resultMap="category_sub_rm">
+		SELECT CATEGORY_SUB_NO, CATEGORY_SUB_NAME
+		FROM CATEGORY_SUB
+		JOIN CATEGORY USING(CATEGORY_NO)
+		WHERE CATEGORY_NO = 8
+	</select>
+	
+	<!-- 모든 기타 카테고리를 가져오는 SQL -->
+	<select id="getCategoryList_ect" resultMap="category_sub_rm">
+		SELECT CATEGORY_SUB_NO, CATEGORY_SUB_NAME
+		FROM CATEGORY_SUB
+		JOIN CATEGORY USING(CATEGORY_NO)
+		WHERE CATEGORY_NO = 9
+	</select>
+
+</mapper>

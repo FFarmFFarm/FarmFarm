@@ -9,10 +9,9 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
-public class Category {
+public class CategorySub {
 
-	// 상위 카테고리 : CATEGORY
-	private int categoryNo;
-	private String categoryName;
-	
+	// 하위 카테고리 : CATEGORY_SUB
+	private int categorySubNo;
+	private String categorySubName;
 }
