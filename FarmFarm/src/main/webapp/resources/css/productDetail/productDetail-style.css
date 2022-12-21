@@ -293,8 +293,8 @@ button:active {
 }
 
 .review-img-list li {
-  width: 150px;
-  height: 150px;
+  width: 130px;
+  height: 130px;
   margin-right: 5px;
   overflow: hidden;
 
@@ -313,8 +313,8 @@ button:active {
 .more-review-img-btn {
   position: absolute;
 
-  width: 150px;
-  height: 150px;
+  width: 130px;
+  height: 130px;
   top: 0;
   left: 0;
 
@@ -438,10 +438,23 @@ button:active {
 
   border-radius: 15px;
 
-  border: 1px solid var(--line-color);
+}
+
+.clicked {
+  border: 1px solid var(--point-color);
+  color: var(--point-color);
+}
+
+.clicked:hover {
   color: var(--sub-font-color);
 }
 
-.review-create-date > button:hover {
+.unclicked {
+  border: 1px solid var(--line-color);
+  color: var(--sub-font-color);
+  
+}
+
+.unclicked:hover {
   color: var(--point-color);
 }

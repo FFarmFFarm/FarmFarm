@@ -8,6 +8,7 @@
      <id property = "commentNo" column="COMMENT_NO"/>
      <!-- 나머지 일반 컬럼 -->
       <result property="commentContent" column="COMMENT_CONTENT" />
+      <result property="commentCount" column="COMMENT_COUNT" />
       <result property="commentDate" column="COMMENT_DATE" />
       <result property="boardNo" column="BOARD_NO" />
       <result property="boardTitle" column="BOARD_TITLE" />
@@ -20,14 +21,16 @@
 <select id="commentCount" resultType="_int">
 	SELECT COUNT(*) FROM "COMMENT"
 	WHERE MEMBER_NO = #{memberNo}
+	AND COMMENT_DEL_FL = 'N'
 </select>
 
 <select id="selectCommentList" resultMap="comment_rm">
-	SELECT COMMENT_NO, COMMENT_CONTENT , COMMENT_DATE , BOARD_NO , BOARD_TITLE 
+	SELECT c.COMMENT_NO, c.COMMENT_CONTENT , c.COMMENT_DATE , c.BOARD_NO , b.BOARD_TITLE ,
+	(SELECT COUNT(*) FROM "COMMENT" c2 WHERE c2.BOARD_NO = b.BOARD_NO) COMMENT_COUNT 
 	FROM "COMMENT" c
-	JOIN BOARD b USING(BOARD_NO)
-	WHERE c.MEMBER_NO = #{memberNo}
-	ORDER BY COMMENT_DATE DESC
+	JOIN BOARD b ON (c.BOARD_NO = b.BOARD_NO)
+	WHERE c.MEMBER_NO = #{memberNo} AND COMMENT_DEL_FL = 'N'
+	ORDER BY c.COMMENT_DATE DESC
 </select>
 
 
