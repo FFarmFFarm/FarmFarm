@@ -17,13 +17,19 @@ public class Product {
 	private String regDate;
 	private int productPrice;
 	private String productDelFl;
+	private String categoryName;
 	private int categoryNo;
 	private int stock;
 	private int productAmount;
+	private int memberNo;
 	
 	private List<ProductImg> imgList;
 	
+	private List<ReviewImg> reviewImgAll;
+	
 	// 썸네일 이미지
 	private String thumbnailImg;
+	
+	
 	
 }

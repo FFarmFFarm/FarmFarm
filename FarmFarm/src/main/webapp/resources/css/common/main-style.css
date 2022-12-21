@@ -251,11 +251,16 @@ main{
   padding-bottom: 130px;
 }
 
-.main-background{
-  width: 100vw;
-  height: 660px;
+.main-wrap{
   position: absolute;
-  top: -130px;
+  overflow-x: hidden;
+  top: -550px;
+
+}
+
+.main-background{
+  height: 660px;
+  width: 100vw;
   overflow: hidden;
 }
 
@@ -265,3 +270,73 @@ main{
   object-fit: cover;
 }
 
+.main-title{
+  position: relative;
+  top: 330px;
+  left: 400px;
+}
+
+.main-title p:nth-child(1){
+  font-size: 20px;
+  color: var(--background-color);
+  font-weight: 600;
+}
+
+.main-title p:nth-child(2){
+  font-size: var(--main-font-size);
+  color: var(--background-color);
+  font-weight: 500;
+}
+
+.middle-product{
+  position: relative;
+  display: flex;
+  justify-content: center;
+
+  margin-top: 430px;
+}
+
+.middle-wrap{
+  margin: 0 20px;
+}
+
+.middle-text-wrap{
+  display: flex;  
+  cursor: pointer;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.middle-text p:first-child{
+  font-size: var(--medium-font-size);
+  font-weight: 600;
+}
+.middle-text p:nth-child(2){
+  font-size: var(--main-font-size);
+}
+
+.middle-icon{
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--line-color);
+  border-radius: 10px;
+}
+
+.arrow{
+  text-align: center;
+  color: var(--sub-font-color);
+  font-size: var(--title-font-size);
+}
+
+.middle-cover{
+  width: 200px;
+  height: 200px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.middle-cover img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

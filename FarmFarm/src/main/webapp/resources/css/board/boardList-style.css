@@ -1,4 +1,4 @@
-@import "../root-style.css";
+@import '../root-style.css';
 
 
 main{
@@ -135,7 +135,12 @@ input[type="text"]:focus{
 .board-list li > .board-title {
     padding-left: 10px;
 }
-
+.empty-list{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 30px;
+}
 
 .board-write-bottom{
     height: 80px;
@@ -151,6 +156,9 @@ input[type="text"]:focus{
     justify-content: center;
     align-items: center;
     padding-left: 100px;
+}
+.pagination{
+    display: flex;
 }
 
 /* 글쓰기 버튼 */
