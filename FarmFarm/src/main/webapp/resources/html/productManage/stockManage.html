@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>재고관리</title>
     <link rel="stylesheet" href="../../css/productManage/stockManage-style.css" />
-    <link rel="stylesheet" href="../../css/header.css">
+    <link rel="stylesheet" href="../../css/common/header-style.css">
+    <link rel="stylesheet" href="../../css/common/footer-style.css">
+
 
     <script src="https://kit.fontawesome.com/d4fbceca97.js" crossorigin="anonymous"></script>
 </head>
@@ -224,10 +226,15 @@
                         <th>재고량</th>
                         <th>출고예정</th>
                         <th>가재고</th>
+                        <th>입고</th>
+                        <th>출고</th>
                         <th>판매상태</th>
                     </tr>
                     <tr class="table-row">
-                        <td>20220101230</td>
+                        <td class="product-code">
+                          <span>20220101230</span>
+                          <span>(2022-01-30)</span>
+                        </td>
                         <td class="product-title">
                           <div class="product-img">
                             <img src="../../images/product/review/reviewImg.png" alt="">
@@ -237,28 +244,73 @@
                         <td>100</td>
                         <td>7</td>
                         <td>93</td>
+                        <td>
+                          <input type="number" max="999"  class="stock-input income" placeholder="0">
+                          <button class="change-btn">수정</button>
+                        </td>
+                        <td>
+                          <input type="number" max="999" class="stock-input release" placeholder="0">
+                          <button class="change-btn">수정</button>
+                        </td>
                         <td>판매중</td>
                     </tr>
                     <tr class="table-row">
-                        <td>20220101230</td>
-                        <td class="product-title">
-                          <div class="product-img">
-                            <img src="../../images/product/review/reviewImg.png" alt="">
-                          </div>
-                          <span>제너럴킹갓모종삽</span>
-                        </td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>판매완료</td>
-                    </tr>
-
-
+                      <td class="product-code">
+                        <span>20220101230</span>
+                        <span>(2022-01-30)</span>
+                      </td>
+                      <td class="product-title">
+                        <div class="product-img">
+                          <img src="../../images/product/review/reviewImg.png" alt="">
+                        </div>
+                        <span>제너럴킹갓모종삽</span>
+                      </td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>
+                        <input type="number" max="999"  class="stock-input income" placeholder="0">
+                        <button class="change-btn">수정</button>
+                      </td>
+                      <td>
+                        <input type="number" max="999" class="stock-input release" placeholder="0">
+                        <button class="change-btn">수정</button>
+                      </td>
+                      <td>판매완료</td>
+                  </tr>
+                    
                 </table>
             </div>
             
 
         </section>
     </main>
+
+    <div class="footer-btn">
+      <button type="button" class="btn-chat">
+          <i class="fa-solid fa-comment-dots go-to-top-icon"></i>
+      </button>
+      <button type="button" class="btn-go-to-top">
+          <i class="fa-solid fa-arrow-up go-to-top-icon"></i>
+      </button>
+  </div>
+
+  <footer>
+    <article class="footer-top">
+        <a href="#">이용약관</a>
+        <span>|</span>
+        <a href="#">개인정보취급방침</a>
+        <span>|</span>
+        <a href="#">이용안내</a>
+        <span>|</span>
+        <a href="#">고객센터</a>
+    </article>
+    <p class="footer-middle">
+        팜팜은 통신판매중개자일 뿐 통신판매의 당사자가 아니며 상품 판매정보 배송 환불 및 거래에 대하여 책임을 지지 않습니다.
+    </p>
+    <p class="footer-bottom">
+        Copyright &copy; FarmFarm 2022 SSSLLJ
+    </p>
+  </footer>
 </body>
 </html>

@@ -43,9 +43,8 @@
             </li>
             <li class="widget-item">
               <a href="#">
-                <i class="fa-solid fa-comment-dots"></i>
+                <i class="fa-solid fa-cart-shopping"></i>
               </a>
-              <!-- <div class="chat-count">21</div> -->
             </li>
             <li class="widget-item">
               <div class="dropdown">
@@ -66,7 +65,7 @@
                 </button>
 
                 <div id="myDropdown" class="dropdown-content">
-                  <a href="#">내프로필</a>
+                  <a href="#">마이페이지</a>
                   <a href="#">로그아웃</a>
                 </div>
               </div>
@@ -86,7 +85,7 @@
           <div class="nav-body">
             <div class="nav-list"><a href="#">팜팜마켓</a></div>
             <div class="nav-list"><a href="#">사고팔고</a></div>
-            <div class="nav-list"><a href="#">커뮤니티</a></div>
+            <div class="nav-list"><a href="/board">커뮤니티</a></div>
             <div class="nav-list"><a href="#">문의게시판</a></div>
           </div>
         </div>

@@ -25,4 +25,5 @@ public class BoardDetailController {
 		return "/board/boardDetail";
 	}
 
+	
 }

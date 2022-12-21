@@ -1,56 +1,37 @@
-/* body */
-const body = document.getElementsByName("body");
+/* 팜팜마켓 상품 js */
 
-/* top 버튼 */
-const topBtn = document.getElementById("topBtn");
+/* <div class="product-box">
+    <div class="product-content">
+        <img src="/src/main/webapp/resources/images/productList/carrot.jpg">
+    </div>
+    <div class="product-detail">
+        <div class="product-name">
+            토마토는 거꾸로해도 토마토
+        </div>
+        <div class="product-price">
+            3,000 원
+        </div>
+        <div class="product-message">
+            토마토는 맛있어요
+        </div>
+    </div>
+</div> */
 
-/* nav 부착 검색창 추가하기 */
-const navSearchBar = document.getElementById("navSearchBar");
+/* ajax */
+/* 카테고리는 페이지 이동 때 session에 올려서 가져올 예정 */
 
-/* top 버튼 및 검색창 보이기 */
-window.addEventListener("scroll", ()=> {
-
-    if(navSearchBar.classList.contains('view-hidden')) {
-        if(window.scrollY >= 720) {
-            navSearchBar.classList.remove('view-hidden');
-            navSearchBar.classList.add('view-flex');
-            console.log("실행되고있나요2");
-            return;
+/* 모든 상품 목록을 가져오는 ajax 함수 */
+const getAllProductList = () => {
+    $.ajax({
+        url: '/product/list/all',
+        method: 'GET',
+        dataType: 'JSON',
+        success : (productMap) => {
+            console.log(productMap);
+            /* productMap : productList, pagination */
+        },
+        error : (message) => {
+            alert('message');
         }
-    }
-
-    if(navSearchBar.classList.contains('view-flex')) {
-        if(window.scrollY < 720) {
-            navSearchBar.classList.add('view-hidden');
-            navSearchBar.classList.remove('view-flex');
-            console.log("실행되고있나요2");
-            return;
-        }
-    }
-
-    if(topBtn.classList.contains('opacity-zero')) {
-        if(window.scrollY >= 1000) {
-            topBtn.classList.remove('opacity-zero');
-            topBtn.classList.add('opacity-one');
-            console.log("실행되고있나요");
-            return;
-        }
-    }
-    if(topBtn.classList.contains('opacity-one')) {
-        if(window.scrollY < 1000) {
-            topBtn.classList.add('opacity-zero');
-            topBtn.classList.remove('opacity-one');
-            console.log("실행되고있나요");
-            return;
-        }
-    }
-})
-
-/* top 버튼 클릭 시 맨 위로 */
-topBtn.addEventListener("click", ()=>{
-    if(topBtn.classList.contains('opacity-one')) {
-        topBtn.classList.add('opacity-zero');
-        topBtn.classList.remove('opacity-one');
-        scrollTo(0,0);
-    }
-})
+    })
+}

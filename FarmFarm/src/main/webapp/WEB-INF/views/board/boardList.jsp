@@ -10,21 +10,27 @@
     <title>와글와글 커뮤니티</title>
     <script src="https://kit.fontawesome.com/345198b845.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/resources/css/board/boardList-style.css">
-    <link rel="stylesheet" href="/resources/css/header.css">
+    <link rel="stylesheet" href="/resources/css/common/header-style.css" />
+    <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
 </head>
 <body>
-
+    
     <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
     <main>
         <section class="board-top">
-            <div class="board-top-title">와글와글 ${board.boardName}</div>
+            <div class="board-top-title">와글와글 ${boardName}</div>
         </section>
         <section class="board-nav">
+            <%-- <div class="board-nav-area">
+                <a href="/board/${1}">물물교환</a>
+                <a href="/board/${2}">팁</a>
+                <a href="/board/${3}">질문</a>
+            </div> --%>
             <div class="board-nav-area">
-                <span>물물교환</span>
-                <span>팁</span>
-                <span>질문</span>
+                <c:forEach var="boardType" items="${boardTypeList}">
+                    <a href="/board/${boardType.BOARD_TYPE_NO}">${boardType.BOARD_NAME}</a>
+                </c:forEach>
             </div>
         </section>
         <section class="board-search">
@@ -52,8 +58,10 @@
                 <ul class="board-list-area">
                     <c:choose>
                         <c:when test="${empty boardList}">
+                        <div class="empty-list">
                             등록된 게시글이 없습니다.
                             첫 게시물의 주인공이 되어보세요!
+                        </div>
                         </c:when>
                         <c:otherwise>
                             <c:forEach var="board" items="$boardList}">
@@ -70,7 +78,49 @@
                     </c:choose>
                 </ul>
                 <div class="board-write-bottom">
-                    <%-- <div class="board-pagination">
+                    <div class="board-pagination">
+                                <div class="pagination-area">
+                <%-- <!-- ajax로 만들어 보십시다 -->
+                <div class="page-box">
+                  <i class="fa-solid fa-angles-left"></i>
+                </div>
+                <div class="page-box">
+                  <i class="fa-solid fa-angle-left"></i>
+                </div>
+                <div class="page-box">
+                    1
+                </div>
+                <div class="page-box">
+                    2
+                </div>
+                <div class="page-box">
+                    3
+                </div>
+                <div class="page-box">
+                    4
+                </div>
+                <div class="page-box">
+                    5
+                </div>
+                <div class="page-box">
+                    6
+                </div>
+                <div class="page-box">
+                    7
+                </div>
+                <div class="page-box">
+                    8
+                </div>
+                <div class="page-box">
+                    9
+                </div>
+                <div class="page-box">
+                  <i class="fa-solid fa-angle-right"></i>
+                </div>
+                <div class="page-box">
+                  <i class="fa-solid fa-angles-right"></i>
+                </div>
+            </div> --%>
                         <ul class="pagination">
 
                             <%-- 첫 페이지 이동 --%>
@@ -100,12 +150,12 @@
                             <%-- 끝 페이지로 이동 --%>
                             <li> <a href="/board/&{boardCode}?cp=${pagination.maxPage}${sURL}">&gt;&gt;</a></li>
                         </ul>
-                    </div> --%>
-                    <button class="board-write">글쓰기</button>
+                    </div>
+                    <a href="/board/write" class="board-write">글쓰기</a>
                 </div>
             </div>
         </section>
     </main>
-    
+    <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>

@@ -170,13 +170,34 @@ body{
 
     display: flex;
     flex-direction: column;
-    padding: 10px 20px 10px 0;
+    padding: 10px 40px 10px 0;
 
     /* 카테고리 영역 고정시키기 */
     position: sticky;
     top: 50px;
 }
 
+#goPostEnrollBtn{
+    background-color: var(--point-color);
+    color: white;
+
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+    
+    font-size: var(--medium-font-size);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    margin-top: 20px;
+
+    cursor: pointer;
+}
+
+#goPostEnrollBtn:hover{
+    opacity: 0.9;
+}
 
 .area-title{
     font-size: var(--medium-font-size);
@@ -320,7 +341,7 @@ body{
 }
 
 .post-detail{
-    padding: 10px;
+    padding-top: 10px;
 }
 
 .post-title{

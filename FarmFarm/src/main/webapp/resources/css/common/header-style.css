@@ -1,0 +1,253 @@
+@import "../root-style.css";
+
+.header-container {
+  height: 180px;
+  width: 100vw;
+  background-color: var(--background-color);
+  box-shadow: rgb(0 0 0 / 7%) 0px 3px;
+}
+
+/* Header */
+header {
+  width: 1000px;
+  height: 120px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+}
+
+.home-logo {
+  width: 80%;
+  margin-left: 500px;
+}
+
+.home-logo img {
+  width: 110px;
+  padding-top: 4px;
+}
+
+/* Widget */
+.header-widget-area {
+  width: 20%;
+}
+
+.widget-list {
+  list-style: none;
+  display: flex;
+  margin-right: 20px;
+  align-items: center;
+}
+
+.widget-item {
+  font-size: 22px;
+  line-height: 1;
+  margin-left: 25px;
+}
+
+.widget-item a {
+  color: var(--icon-button-color);
+}
+
+.widget-item a:hover {
+  color: var(--point-color);
+}
+
+/* .chat-count{
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    border-radius: 50%;
+    font-size: 10px;
+    color: white;
+    text-align: center;
+    position: fixed;
+    z-index: 1000;
+    top: 39px;
+    right: 210px;
+} */
+
+.header-icon {
+  color: var(--icon-button-color);
+  font-size: 22px;
+}
+
+.header-icon:hover {
+  color: var(--point-color);
+}
+
+.login-list {
+  display: flex;
+  margin-right: 20px;
+}
+
+.login-item {
+  width: 65px;
+  text-align: center;
+}
+
+.login-item a {
+  color: var(--main-font-color);
+}
+
+.login-item a:hover {
+  color: #5e5d5d;
+}
+
+/* Dropdown */
+.dropdown {
+  position: relative;
+}
+
+.dropdown span {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 1.5px solid var(--icon-button-color);
+  background-color: var(--icon-button-color);
+  overflow: hidden;
+}
+
+.dropbtn,
+.dropbtn1 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  border: none;
+  cursor: pointer;
+  background-color: var(--background-color);
+}
+
+#profilePhoto {
+  font-size: 1.4em;
+  margin-top: 5.3px;
+  color: white;
+}
+
+.caret-icon {
+  margin-top: 7px;
+  padding-left: 7px;
+  color: var(--icon-button-color);
+}
+
+.dropdown:hover span{
+  border: 1.5px solid var(--point-color);
+  background-color: var(--point-color);
+}
+
+.dropdown:hover #triangleIcon{
+  color: var(--point-color);
+}
+
+.login-profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  z-index: 1000;
+  width: 95px;
+  height: 77px;
+  border: 1px solid #ccc;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  top: 34px;
+  right: -5px;
+  box-shadow: 2px 2px 10px 0px #bcbcbc;
+}
+
+.dropdown-message {
+  display: none;
+  position: absolute;
+  z-index: 1000;
+  width: 250px;
+  min-height: 45px;
+  border: 1px solid #ccc;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  top: 34px;
+  right: -5px;
+  box-shadow: 2px 2px 10px 0px #bcbcbc;
+}
+
+.notice {
+  margin-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.notice p {
+  margin-left: 13px;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.dropdown-content a,
+.dropdown-message a {
+  display: flex;
+  height: 50%;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: var(--main-font-color);
+  font-size: 13px;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.message-box {
+  margin: 12px auto;
+  width: 200px;
+  min-height: 100%;
+  align-items: center;
+}
+
+.message-box a {
+  justify-content: flex-start;
+}
+
+.dropdown-content a:first-child {
+  border-bottom: 0.75px solid #bcbcbc;
+}
+
+.show {
+  display: block;
+}
+
+.rotate {
+  transform: perspective(500px) rotateX(180deg);
+}
+
+/* Nav */
+nav {
+  margin: auto;
+  width: 1000px;
+}
+
+.nav-body {
+  display: flex;
+  justify-content: center;
+}
+
+.nav-list {
+  width: 200px;
+  height: 45px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.nav-list:hover {
+  color: #5e5d5d;
+}
+
+.nav-list a {
+  vertical-align: -webkit-baseline-middle;
+  text-decoration: none;
+  color: var(--main-font-color);
+  font-weight: 700;
+}

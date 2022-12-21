@@ -294,6 +294,12 @@
                     <mainClass>org.test.int1.Main</mainClass>
                 </configuration>
             </plugin>
+       		<!-- Could not initialize class org.apache.maven.plugin.war.util.WebappStructureSerializer -->
+					<!-- 메이븐 구성 문제로 인한 pom.xml 오류 발생 시 해결 -->
+						<plugin>
+							<artifactId>maven-war-plugin</artifactId>
+							<version>3.2.2</version>
+					</plugin>
         </plugins>
     </build>
 </project>

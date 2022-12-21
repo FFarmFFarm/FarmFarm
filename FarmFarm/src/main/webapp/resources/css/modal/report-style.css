@@ -1,0 +1,65 @@
+@import "../root-style.css";
+
+.report-container{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--modal-background-color);
+
+    z-index: 100;
+}
+
+
+.report-modal{
+    background-color: white;
+    width: 600px;
+    height: 600px;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.report-modal i{
+    font-size: 80px;
+    margin-top: 150px;
+}
+
+
+.report-title{
+    font-weight: bold;
+    margin-top: 10px;
+    /* margin-right: 250px; */
+    width: 100px;
+    text-align: center;
+    background-color: #eef4ed;
+}
+
+.report-form-div{
+    margin-top: 10px;
+}
+
+.report-form{
+    height: 500px;
+    font-size: var(--main-font-size);
+}
+
+.report-form input{
+    margin-bottom: 10px;
+    /* margin-left: 50px; */
+}
+
+.report-form textarea{
+    margin-left: 70px;
+}
+
