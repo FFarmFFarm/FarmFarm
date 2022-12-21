@@ -97,7 +97,12 @@
         <button type="button" class="share-btn">
           <i class="fa-solid fa-share"></i>
         </button>
-        <button class="wish-btn fa-brands fa-gratipay"></button>
+        <c:if test="${product.wishCheck == 0}">
+          <button class="wish-btn fa-brands fa-gratipay wish-unclicked"></button>
+        </c:if>
+        <c:if test="${product.wishCheck == 1}">
+          <button class="wish-btn fa-brands fa-gratipay wish-clicked"></button>
+        </c:if>
       </section>
       <section class="product-menu">
         <a href="#productDetail">상세 설명</a>
@@ -278,7 +283,7 @@
           </div>
         </div>
         <div class="review-content-area">
-          <div class="review-content">
+          <div class="review-detail-content">
             너무 맛있어요 <br />
             토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요 <br />
             너무 맛있어요 <br />
