@@ -26,13 +26,13 @@
                 <div class="board-category-area">
                     <span class="category">카테고리 선택</span>
 
-                    <input type="radio" name="boardTypeNo" id="share" value="1">
+                    <input type="radio" name="boardTypeNo" class="boardTypeNo" id="share" value="1">
                     <label for="share">물물교환</label>
 
-                    <input type="radio" name="boardTypeNo" id="tip" value="2">
+                    <input type="radio" name="boardTypeNo"  class="boardTypeNo" id="tip" value="2">
                     <label for="tip">팁</label>
 
-                    <input type="radio" name="boardTypeNo" id="question" value="3">
+                    <input type="radio" name="boardTypeNo"  class="boardTypeNo" id="question" value="3">
                     <label for="question">질문</label>
 
                 </div>
@@ -89,7 +89,16 @@
         </form>
     </main>
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+
+    <c:if test="${!empty message}">
+        <script>
+            alert("${message}")
+        </script>
+
+        <%-- message 1회 출력 후 모든 scope에서 삭제 --%>
+        <c:remove var="message"/>
+    </c:if>
     
-     <script src="/resources/js/board/boardWrite.js"> </script>
+    <script src="/resources/js/board/boardWrite.js"> </script>
 </body>
 </html>

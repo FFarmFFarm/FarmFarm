@@ -36,13 +36,26 @@
   	SELECT * FROM "BOARD_TYPE" ORDER BY 1
   </select>
 
-	<insert id="boardWrite">
-		INSERT INTO "BOARD" VALUES(SEQ_BOARD_NO.NEXTVAL, #{boardTitle}, #{boardContent}, 
-			SYSDATE, NULL, 0, 'N', #{memberNo}, #{boardTypeNo})
+<!-- 게시글 삽입 -->
+<!-- 마이바티스 동적 SQL -->
+	<insert id="boardWrite" parameterType="Board" useGeneratedKeys="true">
+		<selectKey keyProperty="boardNo" resultType="_int" order="BEFORE">
+			SELECT SEQ_BOARD_NO.NEXTVAL FROM DUAL	
+		</selectKey>
+		INSERT INTO "BOARD" 
+		VALUES(#{boardNo}, #{boardTitle}, #{boardContent}, 
+			DEFAULT, NULL, DEFAULT, DEFAULT, #{memberNo}, #{boardTypeNo})
 	</insert>
 	
 	<insert id="insertBoardImgList">
-		INSERT INTO "BOARD_IMG" VALUES(SEQ_BOARD_IMG_NO.NEXTVAL, #{boardNo}, #{boardImgAddress}, #{boardImgOrder})
+		INSERT INTO "BOARD_IMG" 
+		SELECT SEQ_BOARD_IMG_NO.NEXTVAL BOARD_IMG_NO, A.* FROM
+		<foreach collection="list" item="img" open="(" close=") A" separator="UNION_ALL">
+			SELECT #{img.boardNo} BOARD_NO, 
+						#{img.boardImgAddress} BOARD_IMG_ADDRESS,
+						#{img.boardImgOrder} BOARD_IMG_ORDER
+			FROM DUAL
+		</foreach>
 	</insert>
 
 

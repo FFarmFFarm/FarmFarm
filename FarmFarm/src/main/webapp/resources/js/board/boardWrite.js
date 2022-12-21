@@ -28,10 +28,30 @@ for(let i=0; i<inputImg.length; i++){
 
 const inputTitle = document.querySelector(".input-write-title");
 const inputContent = document.querySelector(".write-content");
+const categorys = document.getElementsByClassName("boardTypeNo")
 
-if(inputTitle.value.trim().length == 0){
-    alert("제목을 입력해주세요");
-}
-if(inputContent.value.trim().length == 0){
-    alert("내용을 입력해주세요");
-}
+const writeBtn = document.querySelector(".board-submit");
+writeBtn.addEventListener("click", e=>{
+    
+    let check = 0;
+    for(const category of categorys){
+        if(!category.checked){
+            console.log("카테고리를 선택해주세요.");
+            check = check+1;
+        }
+    }
+    if(check>2){
+        alert("카테고리를 선택해주세요.");
+        e.preventDefault();
+    }
+    
+    if(inputTitle.value.trim().length == 0){
+        alert("제목을 입력해주세요");
+        e.preventDefault();
+    }
+    if(inputContent.value.trim().length == 0){
+        alert("내용을 입력해주세요");
+        e.preventDefault();
+    }
+
+})

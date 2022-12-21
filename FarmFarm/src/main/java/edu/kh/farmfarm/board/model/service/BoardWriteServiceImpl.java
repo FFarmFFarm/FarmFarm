@@ -1,6 +1,7 @@
 package edu.kh.farmfarm.board.model.service;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,7 @@ public class BoardWriteServiceImpl implements BoardWriteService {
 	// 와글와글 글쓰기
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int boardWrite(Board board, List<MultipartFile> imgList, String webPath) {
+	public int boardWrite(Board board, List<MultipartFile> imgList, String webPath, String folderPath) throws IOException {
 		
 		// 개행문자 처리
 		board.setBoardTitle(Util.XSSHandling(board.getBoardTitle()));
@@ -65,15 +66,14 @@ public class BoardWriteServiceImpl implements BoardWriteService {
 					for(int i=0; i<result; i++) {
 						int index = boardImgList.get(i).getBoardImgOrder();
 						
-//						imgList.get(index).transferTo(new File(webPath));
-//						집에서 위에 코드 넣자!
+						imgList.get(index).transferTo(new File(folderPath));
 					}
 				}
 			}
 			
-		}
+		}else boardNo = 0;
 		
-		return 0;
+		return boardNo;
 	}
 	
 	
