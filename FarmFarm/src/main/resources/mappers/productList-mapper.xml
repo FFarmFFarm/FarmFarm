@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="productListMapper">
+
+
+	 <resultMap type="Product" id="productList_rm">
+	        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+	     <id property = "productNo" column="PRODUCT_NO"/>
+	     <!-- 나머지 일반 컬럼 -->
+	      <result property="productName" column="PRODUCT_NAME" />
+	      <result property="productPrice" column="PRODUCT_PRICE" />
+	      <result property="categoryNo" column="CATEGORY_NO" />
+	      <result property="productMessage" column="PRODUCT_MESSAGE" />
+	      <result property="thumbnailImg" column="THUMBNAIL_IMG" />
+	 </resultMap>
+
+
+
+	<!-- 모든 상품 목록을 불러오는 SQL -->
+	<select id="getProductList_all" resultMap="productList_rm">
+		SELECT PRODUCT_NO, PRODUCT_NAME, PRODUCT_PRICE, CATEGORY_NO, PRODUCT_MESSAGE,
+			   (SELECT PRODUCT_IMG_ADDRESS
+			   	FROM PRODUCT_IMG PIMG
+			   	WHERE PIMG.PRODUCT_NO = P.PRODUCT_NO
+			   	AND PRODUCT_IMG_ORDER = 0) AS THUMBNAIL_IMG
+		FROM PRODUCT P
+	</select>
+
+
+</mapper>

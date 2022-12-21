@@ -23,6 +23,7 @@ public class Product {
 	
 	private List<ProductImg> imgList;
 	
+	// 썸네일 이미지
+	private String thumbnailImg;
 	
-
 }
