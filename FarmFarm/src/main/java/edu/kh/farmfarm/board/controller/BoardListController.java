@@ -1,6 +1,7 @@
 package edu.kh.farmfarm.board.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,13 +17,14 @@ public class BoardListController {
 	@Autowired
 	private BoardListService service;
 	
-	@GetMapping("/board")
-	private String boardListPage(Model model) {
-		
-//		List<Board> boardTypeList = service.boardTypeList();
-		
-		return "/board/boardList";
-	}
+//	@GetMapping("/board")
+//	private String boardListPage(Model model) {
+//		
+//		List<Map<String, Object>> boardTypeList = service.boardTypeList();
+//		model.addAttribute("boardTypeList", boardTypeList);
+//		
+//		return "/board/boardList";
+//	}
 	
 
 }

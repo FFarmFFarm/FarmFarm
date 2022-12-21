@@ -25,8 +25,8 @@
       <result property="boardImgOrder" column="BOARD_IMG_ORDER" />
   </resultMap>
   
-  <select id="boardTypeList" resultMap="board_rm">
-  	SELECT * FROM "BOARD_TYPE"
+  <select id="boardTypeList" resultType="map">
+  	SELECT * FROM "BOARD_TYPE" ORDER BY 1
   </select>
 
 
