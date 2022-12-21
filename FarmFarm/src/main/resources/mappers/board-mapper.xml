@@ -37,8 +37,8 @@
   </select>
 
 	<insert id="boardWrite">
-		INSERT INTO "BOARD" VALUES(SEQ_BOARD_NO.NEXTVAL, #{boardTitle}, #{boardContent}, SYSDATE, NULL,
-   0, 'N', #{memberNo}, #{boardTypeNo})
+		INSERT INTO "BOARD" VALUES(SEQ_BOARD_NO.NEXTVAL, #{boardTitle}, #{boardContent}, 
+			SYSDATE, NULL, 0, 'N', #{memberNo}, #{boardTypeNo})
 	</insert>
 	
 	<insert id="insertBoardImgList">

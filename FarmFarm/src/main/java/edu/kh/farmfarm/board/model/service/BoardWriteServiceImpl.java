@@ -1,5 +1,6 @@
 package edu.kh.farmfarm.board.model.service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -60,8 +61,13 @@ public class BoardWriteServiceImpl implements BoardWriteService {
 				
 				int result = dao.insertBoardImgList(boardImgList);
 				
-				for(int i=0; i<result; i++) {
-					
+				if(result == boardImgList.size()) {
+					for(int i=0; i<result; i++) {
+						int index = boardImgList.get(i).getBoardImgOrder();
+						
+//						imgList.get(index).transferTo(new File(webPath));
+//						집에서 위에 코드 넣자!
+					}
 				}
 			}
 			
