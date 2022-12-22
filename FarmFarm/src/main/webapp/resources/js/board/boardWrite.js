@@ -26,6 +26,11 @@ for(let i=0; i<inputImg.length; i++){
     });
 }
 
+// const categoryIntput = document.querySelectorAll('input[type="radio"]');
+// categoryIntput.addEventListener("click", ()=>{
+//     categoryIntput.classList.add("categoryInput");
+// })
+
 const inputTitle = document.querySelector(".input-write-title");
 const inputContent = document.querySelector(".write-content");
 const categorys = document.getElementsByClassName("boardTypeNo")
