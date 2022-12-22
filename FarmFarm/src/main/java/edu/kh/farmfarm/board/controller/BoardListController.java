@@ -40,6 +40,8 @@ public class BoardListController {
 		
 		Map<String, Object> boardMap = service.selectBoardList(boardTypeNo, cp);
 		
+		model.addAttribute("boardMap", boardMap);
+		
 		return null;
 	}
 	
