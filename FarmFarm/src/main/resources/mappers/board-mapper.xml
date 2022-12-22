@@ -20,7 +20,14 @@
       <result property="boardName" column="BOARD_NAME" />
       <result property="boardNo2" column="BOARD_NO2" />
       <result property="memberNo2" column="MEMBER_NO2" />
-      <result property="boardImgNo" column="BOARD_IMG_NO" />
+  </resultMap>
+  
+  
+ <resultMap type="BoardImg" id="boardImg_rm">
+        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+     <id property = "boardImgNo" column="BOARD_IMG_NO"/>
+     <!-- 나머지 일반 컬럼 -->
+      <result property="boardNo" column="BOARD_NO" />
       <result property="boardImgAddress" column="BOARD_IMG_ADDRESS" />
       <result property="boardImgOrder" column="BOARD_IMG_ORDER" />
   </resultMap>
@@ -29,6 +36,27 @@
   	SELECT * FROM "BOARD_TYPE" ORDER BY 1
   </select>
 
+<!-- 게시글 삽입 -->
+<!-- 마이바티스 동적 SQL -->
+	<insert id="boardWrite" parameterType="Board" useGeneratedKeys="true">
+		<selectKey keyProperty="boardNo" resultType="_int" order="BEFORE">
+			SELECT SEQ_BOARD_NO.NEXTVAL FROM DUAL	
+		</selectKey>
+		INSERT INTO "BOARD" 
+		VALUES(#{boardNo}, #{boardTitle}, #{boardContent}, 
+			DEFAULT, NULL, DEFAULT, DEFAULT, #{memberNo}, #{boardTypeNo})
+	</insert>
+	
+	<insert id="insertBoardImgList">
+		INSERT INTO "BOARD_IMG" 
+			SELECT SEQ_BOARD_IMG_NO.NEXTVAL BOARD_IMG_NO, A.* FROM
+			<foreach collection="list" item="img" open="(" close=") A" separator="UNION ALL">
+				SELECT #{img.boardNo} BOARD_NO, 
+							#{img.boardImgAddress} BOARD_IMG_ADDRESS,
+							#{img.boardImgOrder} BOARD_IMG_ORDER
+				FROM DUAL
+			</foreach>
+	</insert>
 
 
 </mapper>
