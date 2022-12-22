@@ -6,8 +6,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -21,12 +19,17 @@ public class ReportController {
 	
 	@Autowired
 	private ReportService service;
-	
+
+	// 임시 신고하기 위한 테스트 페이지
+	@GetMapping("/testPage/4")
+	public String testPage() {
+		return "report/testPage";
+	}
 	
 	// 신고하기
 	@GetMapping("/report")
 	@ResponseBody
-	public int insertReport(Report report, @SessionAttribute("loginMember") Member loginMember,
+	public int insertReport(@SessionAttribute(value = "loginMember") Member loginMember,
 							String reportType, int reportTargetNo, String reportReason, String reportContent,
 							@RequestHeader(value="referer") String referer) {
 
@@ -53,6 +56,11 @@ public class ReportController {
 		
 		return result;
 	}
+	
+	
+	
+	
+	
 	
 
 }

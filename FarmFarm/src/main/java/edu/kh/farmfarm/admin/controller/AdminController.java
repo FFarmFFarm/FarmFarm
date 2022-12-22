@@ -38,5 +38,6 @@ public class AdminController {
 	public String adminReportPage() {
 		return "admin/adminReportTotal";
 	}
+	
 
 }
