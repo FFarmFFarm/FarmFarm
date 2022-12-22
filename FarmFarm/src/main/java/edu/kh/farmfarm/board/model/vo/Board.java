@@ -1,5 +1,7 @@
 package edu.kh.farmfarm.board.model.vo;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -25,5 +27,8 @@ public class Board {
 	
 	private int boardNo2; // 게시글 좋아요 번호
 	private int memberNo2; // 게시글 좋아요 누른 회원 번호
+	
+	// 이미지 목록을 나타내는 리스트
+	private List<BoardImg> imgList;
 
 }

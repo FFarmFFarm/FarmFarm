@@ -42,14 +42,22 @@ public class BoardWriteServiceImpl implements BoardWriteService {
 		int boardNo = dao.boardWrtie(board);
 		
 		if(boardNo>0) {
-
+			
+			// imgList : 실제 파일 담김
+			// boardImgList : DB 삽입할 이미지 정보 담겨있는 리스트
+			
 			List<BoardImg> boardImgList = new ArrayList<BoardImg>();
+			List<String> renameList = new ArrayList<String>();
 			
 			for(int i=0; i<imgList.size(); i++) {
 				if(imgList.get(i).getSize() > 0) {
 					BoardImg img = new BoardImg();
-					String originalFileName = imgList.get(i).getOriginalFilename();
-					img.setBoardImgAddress(webPath + originalFileName);
+					
+					// 파일명 리네임
+					String reName = Util.fileRename(imgList.get(i).getOriginalFilename());
+					renameList.add(reName);
+					
+					img.setBoardImgAddress(webPath + reName);
 					img.setBoardNo(boardNo);
 					img.setBoardImgOrder(i);
 					
@@ -65,13 +73,13 @@ public class BoardWriteServiceImpl implements BoardWriteService {
 				if(result == boardImgList.size()) {
 					for(int i=0; i<result; i++) {
 						int index = boardImgList.get(i).getBoardImgOrder();
-						
-						imgList.get(index).transferTo(new File(folderPath));
+						imgList.get(index).transferTo(new File(folderPath+renameList.get(i)));
 					}
 				}
+				
 			}
 			
-		}else boardNo = 0;
+		}     
 		
 		return boardNo;
 	}

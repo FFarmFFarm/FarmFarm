@@ -48,13 +48,14 @@ public class BoardWriteController {
 			@SessionAttribute("loginMember") Member loginMember) throws IOException {
 		
 		int boardTypeNo = board.getBoardTypeNo();
-//		board.setBoardTypeNo(boardTypeNo);
 		
 		int memberNo = loginMember.getMemberNo();
 		board.setMemberNo(memberNo);
 		
-		String webPath = "resources/images/board/";
+		String webPath = "/resources/images/board/";
 		String folderPath = session.getServletContext().getRealPath(webPath);
+		
+		System.out.println(imgList);
 		
 		int boardNo = service.boardWrite(board, imgList, webPath, folderPath);
 		
@@ -63,7 +64,7 @@ public class BoardWriteController {
 		
 		if(boardNo > 0) {
 			message="게시글이 등록되었습니다.";
-			path = "/board/" + boardTypeNo + "/" + boardNo;
+			path = "/board";
 		}else {
 			message = "게시글 등록 실패";
 			path = referer;
