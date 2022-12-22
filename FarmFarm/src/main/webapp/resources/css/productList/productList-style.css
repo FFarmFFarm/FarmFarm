@@ -4,6 +4,8 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    position: relative;
 }
 
 .header-container{
@@ -140,6 +142,9 @@ body{
     border-radius: 5px;
 }
 
+#searchBar:focus-within{
+    border: 3px solid var(--point-color);
+}
 #keyword{
     color: var(--main-font-color);
     border: none;
@@ -246,7 +251,6 @@ body{
     flex-direction: column;
     width: 820px;
     min-height: 600px;
-
 }
 
 .list-area-header{
@@ -290,9 +294,11 @@ body{
 /* 상품 하나하나가 들어갈 영역 */
 .list-area-body{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: wrap;
     min-height: 1000px;
+
+    position: relative;
 }
 
 
@@ -301,6 +307,7 @@ body{
     width: 32%;
     height: 400px;
     margin-bottom: 18px;
+    margin: 5px;
 
     cursor: pointer;
 }
@@ -441,4 +448,77 @@ body{
     color: var(--main-font-color);
     font-weight: 600;
     transition-duration: 0.1s;
+}
+
+/* 현재 페이지 */
+.current-page-box{
+    font-weight: 600;
+    color: white;
+    background-color: var(--point-color);
+    border: 1px solid var(--line-color);
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font: var(--sub-font-color);
+}
+
+/* 검색 결과가 없는 경우 사용할 페이지 박스 */
+#resultIsEmpty{
+    margin-top: 200px;
+
+    width: 100%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#resultIsEmpty > i{
+    font-size: 50px;
+    color: var(--point-color);
+
+    margin-bottom: 20px;
+}
+
+#resultIsEmpty > span{
+    font-size: 30px;
+    color: var(--main-font-color);
+}
+
+/* 화면 로딩 효과 */
+#spinnerBackground{
+    background-color: rgb(0,0,0,0);
+    
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* position: absolute;
+    top: 300px;
+    left: 59%; */
+
+    position: absolute;
+    top: 300px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    z-index: 1;
+}
+
+#spinner{
+    color: #BFBFBF;
+    font-size: var(--large-font-size);
+    display: none;
+}
+
+#spinner > i{
+    font-size: 50px;
 }

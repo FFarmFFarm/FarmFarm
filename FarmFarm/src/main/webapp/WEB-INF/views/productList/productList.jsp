@@ -27,6 +27,7 @@
     <section class="banner">
         <div class="swiper">
             <div class="swiper-wrapper">
+                <!-- 필요 시 이미지 추가 -->
                 <div class="swiper-slide">
                     <img src="/resources/images/productList/banner-sample.jpg">
                 </div>
@@ -36,7 +37,6 @@
                 <div class="swiper-slide">
                     <img src="/resources/images/productList/banner-sample3.jpg">
                 </div>
-                <!-- 필요 시 이미지 추가 -->
             </div>
             <div>
                 <div class="swiper-pagination"></div>
@@ -44,7 +44,6 @@
                 <div class="swiper-button-next"></div>
             </div>
         </div>
-
         
         <div class="search-area">
             <span id="title">팜팜마켓</span>
@@ -59,7 +58,7 @@
 
     <!-- 본문이 들어갈 자리입니다. -->
     <div class="container" role="main">
-        
+
 
         <!-- 좌측 카테고리 영역 -->
         <section class="category-area">
@@ -68,10 +67,12 @@
             <div class="types-area">
 
                 <div class="category-dropdown">
-                    <c:forEach items="${category.tops}" var="tops" end="5">
-                        <input type="checkbox" name="types" id="top${tops.categoryName}"
-                            value="${tops.categoryName}">
-                        <label for="top${tops.categoryName}">${tops.categoryName}</label>
+                    <input type="radio" name="types" id="all" value="0" checked>
+                    <label for="all">전체</label>
+
+                    <c:forEach items="${categoryList.tops}" var="tops" end="5">
+                        <input type="radio" name="types" id="top${tops.categoryNo}" value="${tops.categoryNo}">
+                        <label for="top${tops.categoryNo}">${tops.categoryName}</label>
                     </c:forEach>
                 </div>
 
@@ -100,61 +101,88 @@
 
             <!-- 상품 하나하나가 들어갈 영역(DOM 이용) -->
             <article class="list-area-body">
-
                 <!-- product-box 자리 -->
+                <!-- ajax를 사용하지 않으면? -->
+
+                <!-- 최초 이동 시 결과가 없으면.. -->
+                <c:if test="${empty productMap}">
+                    <div id="resultIsEmpty">
+                        <i class="fa-solid fa-basket-shopping"></i>
+                        <span>검색 결과가 없습니다.</span>
+                    </div>
+                </c:if>
+
+                <!-- 최초 이동 시 결과가 있으면 -->
+                <c:if test="${! empty productMap}">
+
+                    <c:forEach items="${productMap.productList}" var="map" >
+    
+                        <a href="/product/${map.productNo}" class="product-box">
+                            <div class="product-content">
+                                <img src="${map.thumbnailImg}">
+                            </div>
+                            <div class="product-detail">
+                                <div class="product-name">
+                                    ${map.productName}
+                                </div>
+                                <div class="product-price">
+                                    ${map.productPrice}원
+                                </div>
+                                <div class="product-message">
+                                    ${map.productMessage}
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </c:forEach>
+
+                </c:if>
+
+                <div id="spinnerBackground">
+                    <div id="spinner" class="spinning">
+                        <i class="fa-solid fa-spinner"></i>
+                    </div>
+                </div>
                 
             </article>
-
-
+            
             <div class="pagination-area">
                 <!-- ajax로 만들어 보십시다 -->
-                <div class="page-box">
-                    <<
+                <div id="1" class="page-box">
+                    <i class="fa-solid fa-angles-left"></i>
                 </div>
-                <div class="page-box">
-                    <
+                <div id="${productMap.pagination.prevPage}" class="page-box">
+                    <i class="fa-solid fa-angle-left"></i>
                 </div>
-                <div class="page-box">
-                    1
+                <c:forEach var="i" 
+                           begin="${productMap.pagination.startPage}" 
+                           end="${productMap.pagination.endPage}"
+                           step="1">
+                    <c:choose>
+                        <c:when test="${i == productMap.pagination.currentPage}">
+                            <div class="current-page-box">
+                                ${i}
+                            </div>
+                        </c:when>
+                    
+                        <c:otherwise>
+                            <div id="${i}" class="page-box">
+                                ${i}
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+
+                <div id="${productMap.pagination.nextPage}" class="page-box">
+                    <i class="fa-solid fa-angle-right"></i>
                 </div>
-                <div class="page-box">
-                    2
-                </div>
-                <div class="page-box">
-                    3
-                </div>
-                <div class="page-box">
-                    4
-                </div>
-                <div class="page-box">
-                    5
-                </div>
-                <div class="page-box">
-                    6
-                </div>
-                <div class="page-box">
-                    7
-                </div>
-                <div class="page-box">
-                    8
-                </div>
-                <div class="page-box">
-                    9
-                </div>
-                <div class="page-box">
-                    >
-                </div>
-                <div class="page-box">
-                    >>
+                <div id="${productMap.pagination.endPage}" class="page-box">
+                    <i class="fa-solid fa-angles-right"></i>
                 </div>
             </div>
+
         </section>
     </div>
-<!-- 
-    <div id="topBtn" class="opacity-zero">
-        <i class="fa-sharp fa-solid fa-arrow-up"></i>
-    </div> -->
-
 
     <!-- footer -->
     <jsp:include page='/WEB-INF/views/common/footer.jsp'/>

@@ -1,13 +1,17 @@
 package edu.kh.farmfarm.productList.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.farmfarm.category.model.vo.Category;
 import edu.kh.farmfarm.category.model.vo.CategorySub;
+import edu.kh.farmfarm.common.Pagination;
+import edu.kh.farmfarm.common.SearchItem;
 import edu.kh.farmfarm.productDetail.model.vo.Product;
 
 @Repository
@@ -47,9 +51,53 @@ public class ProductListDAO {
 	/** 모든 상품 목록 가져오기
 	 * @return
 	 */
-	public List<Product> getProductListAll() {
-		return sqlSession.selectList("productListMapper.getProductList_all");
+	public List<Product> getProductListAll(Pagination pagination, String keyword) {
+		
+		int offset = ( pagination.getCurrentPage() - 1 ) * pagination.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		// 검색어 객체 생성
+		SearchItem searchItem = new SearchItem();
+		searchItem.setKeyword(keyword);
+		
+		return sqlSession.selectList("productListMapper.getProductList_all", searchItem, rowBounds);
 	}
+	
+	/** 모든 상품 목록의 개수를 가져오기
+	 * @return
+	 */
+	public int getCountAll() {
+		return sqlSession.selectOne("productListMapper.getCount_all");
+	}
+
+	/** 선택된 카테고리의 상품 목록 가져오기
+	 * @param category
+	 * @return
+	 */
+	public List<Product> getProductListChecked(Pagination pagination, String keyword, int category) {
+		
+		int offset = ( pagination.getCurrentPage() - 1 ) * pagination.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		// 검색어 객체 생성
+		SearchItem searchItem = new SearchItem();
+		searchItem.setKeyword(keyword);
+		searchItem.setCategory(category);
+		
+		return sqlSession.selectList("productListMapper.getProductList_checked", searchItem, rowBounds);
+		
+	}
+	
+	/** 선택된 상품 목록의 개수를 가져오기
+	 * @return
+	 */
+	public int getCountChecked(int category) {
+		return sqlSession.selectOne("productListMapper.getCount_checked", category);
+	}
+
+
 	
 	
 	

@@ -1,5 +1,6 @@
 package edu.kh.farmfarm.board.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -13,13 +14,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.farmfarm.board.model.service.BoardWriteService;
 import edu.kh.farmfarm.board.model.vo.Board;
+import edu.kh.farmfarm.member.model.VO.Member;
 
 
+@SessionAttributes("loginMember")
 @Controller
 public class BoardWriteController {
 	
@@ -37,19 +42,35 @@ public class BoardWriteController {
 	private String boardWrite(
 			Board board,
 			@RequestParam(value="imgs", required = false) List<MultipartFile> imgList,
-			@RequestParam(value="boardTypeNo", required=false) int boardTypeNo,
 			@RequestHeader("referer") String referer,
 			HttpSession session,
-			RedirectAttributes ra) {
+			RedirectAttributes ra,
+			@SessionAttribute("loginMember") Member loginMember) throws IOException {
 		
-		board.setBoardTypeNo(boardTypeNo);
+		int boardTypeNo = board.getBoardTypeNo();
 		
-		String webPath = "resources/images/board/";
+		int memberNo = loginMember.getMemberNo();
+		board.setMemberNo(memberNo);
 		
-		int boardNo = service.boardWrite(board, imgList);
+		String webPath = "/resources/images/board/";
+		String folderPath = session.getServletContext().getRealPath(webPath);
+		
+		System.out.println(imgList);
+		
+		int boardNo = service.boardWrite(board, imgList, webPath, folderPath);
 		
 		String path = null;
 		String message = null;
+		
+		if(boardNo > 0) {
+			message="게시글이 등록되었습니다.";
+			path = "/board";
+		}else {
+			message = "게시글 등록 실패";
+			path = referer;
+		}
+		
+		ra.addFlashAttribute("message", message);
 		
 		return "redirect:" + path;
 	}

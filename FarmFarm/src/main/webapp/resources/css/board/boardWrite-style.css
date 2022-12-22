@@ -53,8 +53,9 @@ main{
 input[type="radio"]{
     appearance: none;
     margin: 0;
+    cursor: pointer;
 }
-input[type="radio"]:focus + label{
+input[type="radio"]:checked + label{
     border-bottom: 3px solid var(--point-color);
 }
 .board-submit{
@@ -141,4 +142,8 @@ input[type="radio"]:focus + label{
 }
 .board-img-delete:hover{
     color: red;
+}
+.board-preview{
+    width: 100%;
+    height: 100%;
 }
