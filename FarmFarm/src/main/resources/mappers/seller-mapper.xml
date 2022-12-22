@@ -37,6 +37,7 @@
   	<result property="memberNo" column="MEMBER_NO"/>
   	<result property="categoryNo" column="CATEGORY_NO"/>
   	<result property="postImgAddress" column="POST_IMG_ADDRESS"/>
+  	
    	<collection property="postImgList" 
       			  javaType="java.util.ArrayList" ofType="PostImg"
       			  select="selectPostImgList"
