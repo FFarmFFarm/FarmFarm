@@ -291,7 +291,7 @@ body{
 /* 상품 하나하나가 들어갈 영역 */
 .list-area-body{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: wrap;
     min-height: 1000px;
 
@@ -304,6 +304,7 @@ body{
     width: 32%;
     height: 400px;
     margin-bottom: 18px;
+    margin: 5px;
 
     cursor: pointer;
 }
@@ -449,8 +450,8 @@ body{
 /* 현재 페이지 */
 .current-page-box{
     font-weight: 600;
-    color: var(--main-font-color);
-    background-color: rgb(0,0,0,0.2);
+    color: white;
+    background-color: var(--point-color);
     border: 1px solid var(--line-color);
     width: 30px;
     height: 30px;
