@@ -12,31 +12,57 @@
       <result property="memberName" column="MEMBER_NAME" />
       <result property="memberNickname" column="MEMBER_NICKNAME" />
       <result property="memberTel" column="MEMBER_TEL" />
-      <result property="memberAddress" column="MEMBER_ADDRESS" />
       <result property="signUpDate" column="SIGNUP_DATE" />
       <result property="memberDelFl" column="MEMBER_DEL_FL" />
       <result property="memberBirth" column="MEMBER_BIRTH" />
       <result property="authority" column="AUTHORITY" />
       <result property="profileImg" column="PROFILE_IMG" />
       <result property="mypageImg" column="MYPAGE_IMG" />
+      <result property="memberAddress" column="MEMBER_ADDRESS" />
+   
+      
   </resultMap>
 
+ <resultMap type="MemberAddress" id="memberAddress_rm">
+        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+     <id property = "addressNo" column="ADDRESS_NO"/>
+     <!-- 나머지 일반 컬럼 -->
+      <result property="memberAddress" column="MEMBER_ADDRESS" />
+      <result property="defaultFl" column="DEFAULT_FL" />
+      <result property="memberNo" column="MEMBER_NO" />
+  </resultMap>
 
-<select id="login" parameterType="String" resultMap="member_rm">
-	SELECT MEMBER_NO, MEMBER_ID, MEMBER_PW, MEMBER_NAME, 
-	MEMBER_NICKNAME, MEMBER_TEL ,MEMBER_DEL_FL ,SIGNUP_DATE,AUTHORITY,PROFILE_IMG ,MYPAGE_IMG ,MEMBER_BIRTH
-	FROM MEMBER
-	WHERE MEMBER_DEL_FL = 'N'
-	AND MEMBER_ID = #{memberId}
-</select>
-
-<select id="checkReport" parameterType="_int" resultType="string">
-	SELECT TO_CHAR(REPORT_DATE, 'YYYY-MM-DD HH24:MI:SS') REPORT_DATE
-	FROM REPORT
-	WHERE REPORT_TARGET_NO = #{memberNo}
-	AND REPORT_PENALTY = 'Y'
-	ORDER BY REPORT_DATE DESC
-</select>
+	<!-- 로그인 -->
+	<select id="login" parameterType="String" resultMap="member_rm">
+		SELECT MEMBER_NO, MEMBER_ID, MEMBER_PW, MEMBER_NAME, 
+		MEMBER_NICKNAME, MEMBER_TEL ,MEMBER_DEL_FL ,SIGNUP_DATE,AUTHORITY,PROFILE_IMG ,MYPAGE_IMG ,MEMBER_BIRTH
+		FROM MEMBER
+		WHERE MEMBER_DEL_FL = 'N'
+		AND MEMBER_ID = #{memberId}
+	</select>
+	
+	<!-- 신고 여부 조회 -->
+	<select id="checkReport" parameterType="_int" resultType="string">
+		SELECT TO_CHAR(REPORT_DATE, 'YYYY-MM-DD HH24:MI:SS') REPORT_DATE
+		FROM REPORT
+		WHERE REPORT_TARGET_NO = #{memberNo}
+		AND REPORT_PENALTY = 'Y'
+		ORDER BY REPORT_DATE DESC
+	</select>
+	
+	<!-- 회원 가입 -->
+	<insert id="signUp" parameterType="Member" useGeneratedKeys="true">
+		<selectKey keyProperty="memberNo" resultType="_int" order="BEFORE">
+			SELECT SEQ_MEMBER_NO.NEXTVAL FROM DUAL
+		</selectKey>
+	
+		INSERT INTO MEMBER VALUES(#{memberNo}, #{memberId}, #{memberPw}, #{memberName},
+	   #{memberNickname}, #{memberTel}, DEFAULT, DEFAULT, DEFAULT, NULL, NULL, #{memberBirth})
+	</insert>
+	
+	<insert id="insertMemberAddressList">
+		INSERT INTO ADDRESS VALUES(SEQ_ADDRESS_NO.NEXTVAL, #{memberAddress},'Y', #{memberNo})
+	</insert>
 
 
 </mapper>
