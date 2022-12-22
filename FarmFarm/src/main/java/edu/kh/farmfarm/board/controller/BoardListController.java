@@ -43,7 +43,7 @@ public class BoardListController {
 		
 		model.addAttribute("boardMap", boardMap);
 		
-		return null;
+		return "board/boardList";
 	}
 	
 	

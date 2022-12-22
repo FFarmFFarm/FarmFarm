@@ -30,5 +30,10 @@ public class Board {
 	
 	// 이미지 목록을 나타내는 리스트
 	private List<BoardImg> imgList;
+	
+	private int commentCount;
+	private int likeCount;
+	
+	private String thumbnail;
 
 }

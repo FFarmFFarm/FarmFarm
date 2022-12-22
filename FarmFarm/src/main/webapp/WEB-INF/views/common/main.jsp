@@ -26,7 +26,7 @@
               <div class="nav-body">
                 <div class="nav-list"><a href="/product/list">팜팜마켓</a></div>
                 <div class="nav-list"><a href="#">사고팔고</a></div>
-                <div class="nav-list"><a href="/board">커뮤니티</a></div>
+                <div class="nav-list"><a href="/board/${1}">커뮤니티</a></div>
                 <div class="nav-list"><a href="#">문의게시판</a></div>
               </div>
             </div>

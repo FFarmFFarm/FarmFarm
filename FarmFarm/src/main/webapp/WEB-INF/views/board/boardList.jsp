@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<c:set var="boardList" value="${boardMap.boardList}"/>
+<c:set var="pagination" value="${boardMap.pagination}"/>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -59,18 +62,18 @@
                 <ul class="board-list-area">
                     <c:choose>
                         <c:when test="${empty boardList}">
-                        <div class="empty-list">
-                            등록된 게시글이 없습니다.
-                            첫 게시물의 주인공이 되어보세요!
-                        </div>
+                            <div class="empty-list">
+                                등록된 게시글이 없습니다.
+                                첫 게시물의 주인공이 되어보세요!
+                            </div>
                         </c:when>
                         <c:otherwise>
-                            <c:forEach var="board" items="$boardList}">
+                            <c:forEach var="board" items="${boardList}">
                                 <li>
                                     <span class="board-no">${board.boardNo}</span>
-                                    <span class="board-img">${board.boardImg}</span>
+                                    <span class="board-img"><img src="${board.thumbnail}" class="thumbImg"></span>
                                     <span class="board-title">${board.boardTitle}</span>
-                                    <span class="board-date">5분전</span>
+                                    <span class="board-date">${board.boardDate}</span>
                                     <span class="board-view">${board.boardView}</span>
                                 </li>
 
@@ -84,10 +87,10 @@
                         <ul class="pagination">
 
                             <%-- 첫 페이지 이동 --%>
-                            <li> <a href="/board/${boardCode}?cp=1${sURL}">&1t;&1t;</a> </li>
+                            <li> <a href="/board/${boardTypeNo}?cp=1${sURL}">&1t;&1t;</a> </li>
 
                             <%-- 이전 목록 마지막 번호로 이동 --%>
-                            <li> <a href="/board/${boardCode}?cp=${pagination.prevPage}${sURL}">&1t;</a> </li>
+                            <li> <a href="/board/${boardTypeNo}?cp=${pagination.prevPage}${sURL}">&1t;</a> </li>
 
                             <%-- 페이지 번호 --%>
                             <c:forEach var="i" begin="${pagination.startPage}" end="${pagination.endPage}" step="1">
@@ -99,16 +102,16 @@
 
                                     <c:otherwise>
                                         <%-- 현재 페이지 제외 페이지 --%>
-                                        <li><a href="/board/&{boardCode}?cp=${i}${sURL}">${i}</a></li>
+                                        <li><a href="/board/${boardTypeNo}?cp=${i}${sURL}">${i}</a></li>
                                     </c:otherwise>
                                 </c:choose>
                             </c:forEach>
 
                             <%-- 다음 목록 시작 페이지 이동 --%>
-                            <li> <a href="/board/${boardCode}?cp=${pagination.nextPage}${sURL}">&gt;</a> </li>
+                            <li> <a href="/board/${boardTypeNo}?cp=${pagination.nextPage}${sURL}">&gt;</a> </li>
 
                             <%-- 끝 페이지로 이동 --%>
-                            <li> <a href="/board/&{boardCode}?cp=${pagination.maxPage}${sURL}">&gt;&gt;</a></li>
+                            <li> <a href="/board/&{boardTypeNo}?cp=${pagination.maxPage}${sURL}">&gt;&gt;</a></li>
                         </ul>
                     </div>
                     <a href="/board/write" class="board-write">글쓰기</a>
