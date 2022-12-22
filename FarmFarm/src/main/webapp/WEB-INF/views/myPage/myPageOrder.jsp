@@ -50,7 +50,7 @@
           <div class="order-info-container">
             <div class="order-info">
               <input type="hidden" value="${order.orderNo}" />
-              <a href="" class="order-title">주문번호 <span>${order.orderNo}</span></a>
+              <a href="" class="order-no">주문번호 <span>${order.orderNo}</span></a>
               <span class="order-reg-date">2022.12.15</span>
             </div>
           </div>

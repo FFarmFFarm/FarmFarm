@@ -19,6 +19,10 @@ main {
   min-height: 100vh;
 }
 
+button {
+  border: none;
+}
+
 /* 회원 정보 */
 .profile-container {
   height: 350px;
