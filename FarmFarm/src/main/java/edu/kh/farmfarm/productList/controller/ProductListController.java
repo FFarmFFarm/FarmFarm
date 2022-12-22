@@ -7,14 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.google.gson.Gson;
 
-import edu.kh.farmfarm.productDetail.model.vo.Product;
 import edu.kh.farmfarm.productList.model.service.ProductListService;
 
 @Controller
@@ -49,7 +47,8 @@ public class ProductListController {
 	@GetMapping("/product/list")
 	public String goProductListPage(
 			Model model,
-			@RequestParam(value = "category", required = false, defaultValue = "0") int category
+			@RequestParam(value = "category", required = false, defaultValue = "0") int category,
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp // 현재 페이지
 			) {
 		// 1. 모든 product 카테고리 리스트를 조회
 		Map<String, Object> categoryList = service.getCategoryList();
@@ -58,13 +57,13 @@ public class ProductListController {
 		model.addAttribute("categoryList", categoryList);
 		
 		// 3. 모든 product 리스트를 조회
-		List<Product> productMap;
+		Map<String, Object> productMap;
 		
 		// 입력받은 카테고리가 있으면 해당 카테고리만 가져오고, 없으면 전부 다 불러오기
 		if(category == 0) {
-			productMap = service.getProductListAll();
+			productMap = service.getProductListAll(cp);
 		} else {
-			productMap = service.getProductListChecked(category);
+			productMap = service.getProductListChecked(cp, category);
 		}
 		
 		// 4. 상품 리스트도 세션에 올린다.
@@ -91,17 +90,20 @@ public class ProductListController {
 	@GetMapping("/product/list/items")
 	@ResponseBody
 	public String getProductListChecked(
-					@RequestParam(value = "checkedCategory", required = false, defaultValue = "0") int category
+					@RequestParam(value = "category", required = false, defaultValue = "0") int category,
+					@RequestParam(value = "cp", required = false, defaultValue = "1") int cp // 현재 페이지
 			) {
 		
-		// 상품 목록을 담을 배열 생성
-		List<Product> productMap;
+		System.out.println("cp : " + cp);
 		
+		// 상품 목록을 담을 배열 생성
+		Map<String, Object> productMap;
+			
 		// 입력받은 카테고리가 있으면 해당 카테고리만 가져오고, 없으면 전부 다 불러오기
 		if(category == 0) {
-			productMap = service.getProductListAll();
+			productMap = service.getProductListAll(cp);
 		} else {
-			productMap = service.getProductListChecked(category);
+			productMap = service.getProductListChecked(cp, category);
 		}
 		
 		// 해당 상품 목록 가져오기
