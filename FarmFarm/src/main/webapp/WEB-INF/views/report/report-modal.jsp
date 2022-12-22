@@ -24,9 +24,9 @@
             </span>
             
             <div class="report-form-div">
-                <input type="hidden" name="reportTargetNo" id="reportTargetNo">
                 <input type="hidden" name="reportType" id="reportType">
-                <form action="/report" method="GET" class="report-form" name="reportReason">
+                <input type="hidden" name="reportTargetNo" id="reportTargetNo">
+                <form action="/report" method="GET" class="report-form">
                     <input type="radio" name="report"> 광고 또는 스팸 <br>
                     <input type="radio" name="report"> 음란물 및 선정성 정보 <br>
                     <input type="radio" name="report"> 사기 또는 거짓 정보 <br>
@@ -36,14 +36,15 @@
                     <input type="radio" name="report"> 폭력 또는 위험한 단체 <br>
                     <input type="radio" name="report"> 지식재산권 침해 <br>
                     <input type="radio" name="report" id="reportEtc"> 기타 <br>
-                    <textarea name="reportContent" id="" cols="50" rows="3"></textarea><br>
+                    <textarea name="reportContent" id="reportContent" cols="50" rows="3"></textarea><br>
+                    <input type="hidden" id="reportReason">
                     <button id="reportSubmitBtn">신고하기</button>
                 </form>
             </div>
         </div>
     </div>
     
-    <%-- <script src="/resources/js/report/report-modal.js"></script> --%>
+    <script src="/resources/js/report/report-modal.js"></script>
 
 </body>
 

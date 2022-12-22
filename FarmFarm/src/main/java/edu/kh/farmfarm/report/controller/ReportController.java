@@ -1,8 +1,14 @@
 package edu.kh.farmfarm.report.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import edu.kh.farmfarm.member.model.VO.Member;
@@ -17,17 +23,26 @@ public class ReportController {
 	
 	
 	// 신고하기
-	@GetMapping("")
-	public int insertReport(Report report, @SessionAttribute("loginMember") Member loginMember) {
+	@PostMapping("/report")
+	public int insertReport(Report report, @SessionAttribute("loginMember") Member loginMember,
+							String reportType, int reportTargetNo, String reportReason, String reportContent,
+							@RequestHeader(value="referer") String referer) {
 
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("reportType", reportType);
+		map.put("reportTargetNo", reportTargetNo);
+		map.put("reportReason", reportReason);
+		map.put("reportContent", reportContent);
+		map.put("memberNo", loginMember.getMemberNo());
+		
+		String path = null;
 		int result = 0;
 		
 		if(loginMember != null) {
 
-			result = service.insertReport(report);
-
+			result = service.insertReport(map);
 		}
-		
 		
 		return result;
 	}

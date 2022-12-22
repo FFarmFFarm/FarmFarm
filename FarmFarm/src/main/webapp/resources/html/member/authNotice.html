@@ -17,7 +17,7 @@
     </div>
 
     <div class="notice-text">
-        판매자 인증 중입니다..
+        판매자 인증중..
     </div>
     <div class="notice-text2">
         인증 완료까지 수일이 소요될 수 있습니다.

@@ -1,5 +1,7 @@
 package edu.kh.farmfarm.report.model.dao;
 
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -12,12 +14,13 @@ public class ReportDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
+	
 	/** 신고하기
-	 * @param report
+	 * @param map
 	 * @return result
 	 */
-	public int insertReport(Report report) {
-		return sqlSession.insert("reportMapper.insertReport", report);
+	public int insertReport(Map<String, Object> map) {
+		return sqlSession.selectOne("reportMapper.insertReport", map);
 	}
 	
 
