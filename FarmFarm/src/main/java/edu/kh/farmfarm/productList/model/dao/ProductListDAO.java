@@ -50,6 +50,10 @@ public class ProductListDAO {
 	public List<Product> getProductListAll() {
 		return sqlSession.selectList("productListMapper.getProductList_all");
 	}
+
+	public List<Product> getProductListChecked(int category) {
+		return sqlSession.selectList("productListMapper.getProductList_checked", category);
+	}
 	
 	
 	

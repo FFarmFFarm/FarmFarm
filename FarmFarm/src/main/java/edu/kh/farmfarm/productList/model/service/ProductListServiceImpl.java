@@ -58,4 +58,13 @@ public class ProductListServiceImpl implements ProductListService {
 	public List<Product> getProductListAll() {
 		return dao.getProductListAll();
 	}
+
+
+	/**
+	 *  선택된 상품 목록 불러오기
+	 */
+	@Override
+	public List<Product> getProductListChecked(int category) {
+		return dao.getProductListChecked(category);
+	}
 }

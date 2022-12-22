@@ -16,6 +16,13 @@ public interface ProductListService {
 	 * @return
 	 */
 	List<Product> getProductListAll();
+
+	
+	/** 선택된 상품 목록 불러오기
+	 * @param category 
+	 * @return
+	 */
+	List<Product> getProductListChecked(int category);
 	
 	
 }

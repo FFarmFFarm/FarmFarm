@@ -25,6 +25,17 @@
 			   	AND PRODUCT_IMG_ORDER = 0) AS THUMBNAIL_IMG
 		FROM PRODUCT P
 	</select>
+	
+	<!-- 선택한 상품의 카테고리 목록을 불러오는 SQL -->
+	<select id="getProductList_checked" parameterType="_int" resultMap="productList_rm">
+		SELECT PRODUCT_NO, PRODUCT_NAME, PRODUCT_PRICE, CATEGORY_NO, PRODUCT_MESSAGE,
+			   (SELECT PRODUCT_IMG_ADDRESS
+			   	FROM PRODUCT_IMG PIMG
+			   	WHERE PIMG.PRODUCT_NO = P.PRODUCT_NO
+			   	AND PRODUCT_IMG_ORDER = 0) AS THUMBNAIL_IMG
+		FROM PRODUCT P
+		WHERE CATEGORY_NO = #{category}
+	</select>
 
 
 </mapper>

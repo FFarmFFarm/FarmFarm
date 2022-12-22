@@ -27,6 +27,7 @@
     <section class="banner">
         <div class="swiper">
             <div class="swiper-wrapper">
+                <!-- 필요 시 이미지 추가 -->
                 <div class="swiper-slide">
                     <img src="/resources/images/productList/banner-sample.jpg">
                 </div>
@@ -36,7 +37,6 @@
                 <div class="swiper-slide">
                     <img src="/resources/images/productList/banner-sample3.jpg">
                 </div>
-                <!-- 필요 시 이미지 추가 -->
             </div>
             <div>
                 <div class="swiper-pagination"></div>
@@ -44,7 +44,6 @@
                 <div class="swiper-button-next"></div>
             </div>
         </div>
-
         
         <div class="search-area">
             <span id="title">팜팜마켓</span>
@@ -59,7 +58,7 @@
 
     <!-- 본문이 들어갈 자리입니다. -->
     <div class="container" role="main">
-        
+
 
         <!-- 좌측 카테고리 영역 -->
         <section class="category-area">
@@ -68,10 +67,12 @@
             <div class="types-area">
 
                 <div class="category-dropdown">
-                    <c:forEach items="${category.tops}" var="tops" end="5">
-                        <input type="checkbox" name="types" id="top${tops.categoryName}"
-                            value="${tops.categoryName}">
-                        <label for="top${tops.categoryName}">${tops.categoryName}</label>
+                    <input type="radio" name="types" id="all" value="0" checked>
+                    <label for="all">전체</label>
+
+                    <c:forEach items="${categoryList.tops}" var="tops" end="5">
+                        <input type="radio" name="types" id="top${tops.categoryNo}" value="${tops.categoryNo}">
+                        <label for="top${tops.categoryNo}">${tops.categoryName}</label>
                     </c:forEach>
                 </div>
 
@@ -100,10 +101,37 @@
 
             <!-- 상품 하나하나가 들어갈 영역(DOM 이용) -->
             <article class="list-area-body">
-
                 <!-- product-box 자리 -->
+                <!-- ajax를 사용하지 않으면? -->
+                <c:forEach items="${productMap}" var="map" >
+                    <div class="product-box">
+                        <div class="product-content">
+                            <img src="${map.thumbnailImg}">
+                        </div>
+                        <div class="product-detail">
+                            <div class="product-name">
+                                ${map.productName}
+                            </div>
+                            <div class="product-price">
+                                ${map.productPrice}
+                            </div>
+                            <div class="product-message">
+                                ${map.productMessage}
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            
                 
             </article>
+            
+            <!-- 로딩 효과 주기 -->
+            <div id="spinnerBackground">
+                <div id="spinner" class="spinning">
+                    <i class="fa-solid fa-spinner"></i>
+                </div>
+            </div>
+            
 
 
             <div class="pagination-area">
@@ -148,14 +176,12 @@
                     >>
                 </div>
             </div>
+
         </section>
     </div>
-<!-- 
-    <div id="topBtn" class="opacity-zero">
-        <i class="fa-sharp fa-solid fa-arrow-up"></i>
-    </div> -->
 
 
+    
     <!-- footer -->
     <jsp:include page='/WEB-INF/views/common/footer.jsp'/>
 
