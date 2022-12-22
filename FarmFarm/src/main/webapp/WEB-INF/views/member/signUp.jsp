@@ -17,7 +17,7 @@
 <body>
     <div class="signup-page">
         <div class="signup-page-img">
-            <img src="/resources/images/mainLogo.png">
+            <a href="/"><img src="/resources/images/mainLogo.png"></a>
         </div>
         <main>
             <div class="form-wrap">

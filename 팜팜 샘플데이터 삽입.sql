@@ -544,19 +544,36 @@ INSERT INTO REVIEW VALUES(SEQ_REVIEW_NO.NEXTVAL, '
 
 씨앗은 양도 많고 엄청 상태가 좋아요!!<br/><br/>
 포장도 깔끔하고 배송도 빨랐습니다ㅎㅎ<br/>
-', DEFAULT, 3, 4 , DEFAULT);
+', DEFAULT, 16, 4 , DEFAULT);
 
 --REVIEW_IMG 샘플 데이터 삽입
 -- REVIEW_IMG_NO, REVIEW_NO, REVIEW_IMG_PATH, REVIEW_IMG_ORDER
-INSERT INTO REVIEW_IMG VALUES(SEQ_REVIEW_IMG_NO.NEXTVAL, 17, '/resources/images/product/review/토마토0.jpg', 0);
-INSERT INTO REVIEW_IMG VALUES(SEQ_REVIEW_IMG_NO.NEXTVAL, 17, '/resources/images/product/review/토마토1.jpg', 1);
-INSERT INTO REVIEW_IMG VALUES(SEQ_REVIEW_IMG_NO.NEXTVAL, 17, '/resources/images/product/review/토마토2.jpg', 2);
-INSERT INTO REVIEW_IMG VALUES(SEQ_REVIEW_IMG_NO.NEXTVAL, 17, '/resources/images/product/review/토마토3.jpg', 3);
-INSERT INTO REVIEW_IMG VALUES(SEQ_REVIEW_IMG_NO.NEXTVAL, 17, '/resources/images/product/review/토마토4.jpg', 4);
+INSERT INTO REVIEW_IMG VALUES(SEQ_REVIEW_IMG_NO.NEXTVAL, 35, '/resources/images/product/review/토마토0.jpg', 0);
+INSERT INTO REVIEW_IMG VALUES(SEQ_REVIEW_IMG_NO.NEXTVAL, 35, '/resources/images/product/review/토마토1.jpg', 1);
+INSERT INTO REVIEW_IMG VALUES(SEQ_REVIEW_IMG_NO.NEXTVAL, 35, '/resources/images/product/review/토마토2.jpg', 2);
+INSERT INTO REVIEW_IMG VALUES(SEQ_REVIEW_IMG_NO.NEXTVAL, 35, '/resources/images/product/review/토마토3.jpg', 3);
+INSERT INTO REVIEW_IMG VALUES(SEQ_REVIEW_IMG_NO.NEXTVAL, 35, '/resources/images/product/review/토마토4.jpg', 4);
 
 
 
 
+
+
+-- 주문 샘플 데이터 삽입
+--ORDER_NO
+--ORDER_DATE
+--MEMBER_NO
+--ORDER_STATUS
+--INVOICE_NO
+-- 주문
+INSERT INTO "ORDER" 
+VALUES(SEQ_ORDER_NO.NEXTVAL, DEFAULT, 16, 0, NULL);
+-- 주문 상품
+--ORDER_NO
+--PRODUCT_NO
+--PRODUCT_AMOUNT
+INSERT INTO "ORDER_PRODUCT" 
+VALUES(SEQ_ORDER_NO.CURRVAL, 1, 1);
 
 
 

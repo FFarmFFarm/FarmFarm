@@ -48,8 +48,12 @@ window.addEventListener("DOMContentLoaded", () => {
 window.addEventListener("load", ()=>{
     // 주소창을 이용해 넘어온 경우 카테고리를 업데이트함   
     updateCheckedCategory();
+
     // 페이지 이벤트 생성
     makePageBoxEvent();
+
+    // 목록 출력
+    // getAllProductList();
 })
 
 /* product-box를 생성하는 함수 */
@@ -58,7 +62,6 @@ const createProductBox = (productMap) => {
     // map에서 productList와 productMap을 꺼내기
     const productList = productMap.productList;
     const pagination = productMap.pagination;
-    console.log(pagination);
 
     // 전체 영역
     const listAreaBody = document.querySelector('.list-area-body');
@@ -194,7 +197,7 @@ const createProductBox = (productMap) => {
 /* 모든 상품 목록을 가져오는 ajax 함수 */
 const getAllProductList = () => {
     $.ajax({
-        url: '/product/list/all',
+        url: '/product/list/items',
         method: 'GET',
         dataType: 'JSON',
         success: (productMap) => {
@@ -219,18 +222,15 @@ const updateCheckedCategory = () => {
     let url = location.search;
     // 예시 ?category=1&cp=1
 
-    // 첫 번째 = 의 위치
-    let firstEqualSign = url.indexOf('=', 1);
+    // category=의 위치
+    let categoryEqualSign = url.indexOf('category=', 1);
 
-    // 첫 번째 & 의 위치
-    let firstAndSign = url.indexOf('&', 1);
+    // category 다음 & 의 위치
+    let nextAndSign = url.indexOf('&', categoryEqualSign);
 
-    if(firstAndSign === -1) {
-        firstAndSign = url.length;
-    }
+    let beforeCategoryNo = url.substring(categoryEqualSign + 9, nextAndSign);
 
-    let beforeCategoryNo = url.substring(firstEqualSign + 1, firstAndSign);
-
+    console.log(beforeCategoryNo);
     // 카테고리 체크하기
     const categoryList = document.getElementsByName("types");
 
@@ -277,7 +277,22 @@ const getCustomList = (category, cp) => {
         dataType: 'JSON',
         success: (productMap) => {
             createProductBox(productMap);
-            console.log(productMap.pagination);
+        },
+        error: (message) => {
+            alert('message');
+        }
+    })
+};
+
+/* keywprd와 category, cp 정보를 전달받아 처리하는 ajax */
+const getCustomList2 = (keyword, category, cp) => {
+    $.ajax({
+        url: '/product/list/items',
+        method: 'GET',
+        data: { 'keyword':keyword, 'category': category, 'cp': cp },
+        dataType: 'JSON',
+        success: (productMap) => {
+            createProductBox(productMap);
         },
         error: (message) => {
             alert('message');
@@ -294,18 +309,30 @@ for(let category of categoryList) {
         // 카테고리 선택
         let category = getCheckedCategory();
 
-        // // 페이지 초기화
+        // 페이지 초기화
         let cp = 1;
 
+        // 키워드 가져오기
+        let keyword =  document.getElementById('keyword').value.trim();
+
         // 선택한 정보로 페이지를 생성
-        getCustomList(category, cp);
+        if(keyword.length == 0) {
+            getCustomList(category, cp);
+            const state = { 'category': category };
+            const title = '';
+            const url = '/product/list?' + 'category=' + category + '&cp=' + cp;
 
-        // history에 저장
-        const state = {'category':category};
-        const title = '';
-        const url = '/product/list?' + 'category=' + category + '&cp=' + cp;
+            history.pushState(state, title, url)
+        } else {
+            getCustomList2(keyword, category, cp);
+            const state = { 'keyword': keyword };
+            const title = '';
+            const url = '/product/list?' + 'keyword=' + keyword + '&category=' + category + '&cp=' + cp;
 
-        history.pushState(state, title, url)
+            history.pushState(state, title, url)
+        }
+
+
     })
 };
 
@@ -341,28 +368,79 @@ window.addEventListener("popstate", (event) => {
     const url = location.search;
     // 예시 ?category=1&cp=1
 
-    // 첫 번째 = 의 위치
-    const firstEqualSign = url.indexOf('=', 1);
+    // 키워드가 있는지 확인하기
+    const isKeyword = url.indexOf('?keyword', 0);
 
-    // 첫 번째 & 의 위치
-    const firstAndSign = url.indexOf('&', 1);
+    if(isKeyword == -1) {
+        // 첫 번째 = 의 위치
+        const firstEqualSign = url.indexOf('=', 1);
+    
+        // 첫 번째 & 의 위치
+        const firstAndSign = url.indexOf('&', 1);
+    
+        // 두 번째 = 의 위치
+        const secondEqualSign = url.indexOf('=', firstAndSign);
+    
+        // 끝
+        const urlLength = url.length;
+    
+        // 주소창에 기록된, 이전 카테고리 번호
+        let beforeCategoryNo = url.substring(firstEqualSign + 1, firstAndSign);
+    
+        // 주소창에 기록된,, 이전 페이지 번호
+        let beforePageNo = url.substring(secondEqualSign + 1, urlLength);
+    
+        // 정보를 다시 전달해 페이지를 만듦
+        getCustomList(beforeCategoryNo, beforePageNo);
 
-    // 두 번째 = 의 위치
-    const secondEqualSign = url.indexOf('=', firstAndSign);
+    } else { // 검색어가 있는 경우
 
-    // 끝
-    const urlLength = url.length;
+        // 첫 번째 = 의 위치
+        const firstEqualSign = url.indexOf('=', 1);
 
-    // 주소창에 기록된, 이전 카테고리 번호
-    let beforeCategoryNo = url.substring(firstEqualSign + 1, firstAndSign);
+        // 첫 번째 & 의 위치
+        const firstAndSign = url.indexOf('&', 1);
 
-    // 주소창에 기록된,, 이전 페이지 번호
-    let beforePageNo = url.substring(secondEqualSign + 1, urlLength);
+        // 두 번째 = 의 위치
+        const secondEqualSign = url.indexOf('=', firstAndSign);
 
-    // 정보를 다시 전달해 페이지를 만듦
-    getCustomList(beforeCategoryNo, beforePageNo);
+        // 두 번째 & 의 위치
+        const secondAndSign = url.indexOf('&', secondEqualSign);
 
+        // 세 번째 = 의 위치
+        const thirdEqualSign = url.indexOf('=', secondAndSign);
+
+        // 끝
+        const urlLength = url.length;
+
+        let beforeKeywordEncoded = url.substring(firstEqualSign + 1, firstAndSign)
+        let beforeKeyword = decodeURIComponent(beforeKeywordEncoded);
+
+        // 주소창에 기록된, 이전 카테고리 번호
+        let beforeCategoryNo = url.substring(secondEqualSign + 1, secondAndSign);
+
+        // 주소창에 기록된,, 이전 페이지 번호
+        let beforePageNo = url.substring(thirdEqualSign + 1, urlLength);
+
+        // 정보를 다시 전달해 페이지를 만듦
+        getCustomList2(beforeKeyword, beforeCategoryNo, beforePageNo);
+
+    }
     // 카테고리 업데이트
     updateCheckedCategory();
 });
 
+
+/* 검색어 사용 */
+const searchBtn = document.getElementById('searchBtn');
+
+searchBtn.addEventListener('click', () => {
+    const keyword = document.getElementById('keyword').value;
+
+    if(keyword.trim().length != 0) {
+        getCustomList2(keyword, 0, 1);
+    } else {
+        alert('검색어를 입력해주세요!')
+        keyword.focus();
+    }
+})
