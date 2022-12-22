@@ -49,13 +49,13 @@
 	
 	<insert id="insertBoardImgList">
 		INSERT INTO "BOARD_IMG" 
-		SELECT SEQ_BOARD_IMG_NO.NEXTVAL BOARD_IMG_NO, A.* FROM
-		<foreach collection="list" item="img" open="(" close=") A" separator="UNION_ALL">
-			SELECT #{img.boardNo} BOARD_NO, 
-						#{img.boardImgAddress} BOARD_IMG_ADDRESS,
-						#{img.boardImgOrder} BOARD_IMG_ORDER
-			FROM DUAL
-		</foreach>
+			SELECT SEQ_BOARD_IMG_NO.NEXTVAL BOARD_IMG_NO, A.* FROM
+			<foreach collection="list" item="img" open="(" close=") A" separator="UNION ALL">
+				SELECT #{img.boardNo} BOARD_NO, 
+							#{img.boardImgAddress} BOARD_IMG_ADDRESS,
+							#{img.boardImgOrder} BOARD_IMG_ORDER
+				FROM DUAL
+			</foreach>
 	</insert>
 
 

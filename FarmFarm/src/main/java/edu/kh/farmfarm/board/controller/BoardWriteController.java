@@ -42,14 +42,14 @@ public class BoardWriteController {
 	private String boardWrite(
 			Board board,
 			@RequestParam(value="imgs", required = false) List<MultipartFile> imgList,
-//			@RequestParam(value="boardTypeNo", required=false) int boardTypeNo,
 			@RequestHeader("referer") String referer,
 			HttpSession session,
 			RedirectAttributes ra,
 			@SessionAttribute("loginMember") Member loginMember) throws IOException {
 		
 		int boardTypeNo = board.getBoardTypeNo();
-		board.setBoardTypeNo(boardTypeNo);
+//		board.setBoardTypeNo(boardTypeNo);
+		
 		int memberNo = loginMember.getMemberNo();
 		board.setMemberNo(memberNo);
 		
