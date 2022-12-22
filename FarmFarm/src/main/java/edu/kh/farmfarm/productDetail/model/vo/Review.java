@@ -15,6 +15,7 @@ public class Review {
 	private String reviewDelFl;
 	private int productNo;
 	private String createDate;
+	private String productName;
 	
 	private int likeCheck;
 	private int likeCount;

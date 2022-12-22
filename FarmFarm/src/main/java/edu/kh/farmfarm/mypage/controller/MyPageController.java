@@ -44,22 +44,47 @@ public class MyPageController {
 	
 	
 
-
 	/** 마이페이지 작성 후기
 	 * @return
 	 */
 	@GetMapping("/myPage/review")
-	public String myPageReview() {
+	public String myPageReview(
+			@SessionAttribute("loginMember")Member loginMember,
+			Model model,
+			@RequestParam(value="cp", required=false, defaultValue = "1") int cp
+			) {
+		
+		
+		Map<String, Object> map = service.selectReviewList(loginMember, cp);
+		
+		model.addAttribute("map", map);
+		
 		return "myPage/myPageReview";
 	}
+	
+	
 	
 	
 	/** 마이패이지 작성 게시글
 	 * @return
 	 */
 	@GetMapping("/myPage/board")
-	public String myPageBoard() {
-		return "myPage/myPageBoard";
+	public String myPageBoard(
+		@SessionAttribute("loginMember")Member loginMember, 
+		Model model,
+		@RequestParam(value="cp", required=false, defaultValue = "1") int cp) {
+	
+
+	int memberNo = loginMember.getMemberNo();
+	          
+	Map<String, Object> map = service.selectBoardList(memberNo, cp);
+	
+	
+
+	model.addAttribute("map", map);
+
+	
+	return "myPage/myPageBoard";
 	}
 	
 	
@@ -95,7 +120,22 @@ public class MyPageController {
 	 * @return
 	 */
 	@GetMapping("/myPage/wishList")
-	public String myPageWishList() {
+	public String myPageWishList(
+			@SessionAttribute("loginMember")Member loginMember, 
+			Model model,
+			@RequestParam(value="cp", required=false, defaultValue = "1") int cp) {
+		
+
+		int memberNo = loginMember.getMemberNo();
+		          
+		Map<String, Object> map = service.selectWishList(memberNo, cp);
+		
+		
+		
+
+		model.addAttribute("map", map);
+
+		
 		return "myPage/myPageWish";
 	}
 	

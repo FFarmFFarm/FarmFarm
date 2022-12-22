@@ -17,12 +17,40 @@ public interface MyPageService {
 	Map<String, Object> selectOrderList(Member loginMember, int cp);
 	
 	
+	/** 작성 후기 조회
+	 * @param loginMember
+	 * @param cp
+	 * @return
+	 */
+	Map<String, Object> selectReviewList(Member loginMember, int cp);
+	
+	
+	/** 작성 게시글 목록 조회
+	 * @param memberNo
+	 * @param cp
+	 * @return
+	 */
+	Map<String, Object> selectBoardList(int memberNo, int cp);
+	
+	
+	
 	/** 작성 댓글 목록 조회
 	 * @param memberNo
 	 * @param cp
 	 * @return
 	 */
 	Map<String, Object> selectCommentList(int memberNo, int cp);
+
+
+	/** 찜 목록 조회
+	 * @param memberNo
+	 * @param cp
+	 * @return
+	 */
+	Map<String, Object> selectWishList(int memberNo, int cp);
+
+
+
 
 
 

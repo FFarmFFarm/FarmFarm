@@ -54,6 +54,16 @@ a.ordered > i {
   font-size: var(--medium-font-size);
 }
 
+.order-no {
+  font-size: var(--main-font-size);
+  font-weight: bold;
+}
+
+.order-no > span {
+  color: var(--sub-font-color);
+  font-weight: normal;
+}
+
 .order-info-container {
   width: 100%;
   display: flex;
