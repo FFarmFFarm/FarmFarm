@@ -14,6 +14,7 @@ import edu.kh.farmfarm.mypage.model.vo.Comment;
 import edu.kh.farmfarm.mypage.model.vo.CommentPagination;
 import edu.kh.farmfarm.mypage.model.vo.Order;
 import edu.kh.farmfarm.mypage.model.vo.OrderPagination;
+import edu.kh.farmfarm.mypage.model.vo.Wish;
 import edu.kh.farmfarm.productDetail.model.vo.Review;
 
 @Service
@@ -108,6 +109,26 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		map.put("pagination", pagination);
 		map.put("commentList", commentList);
+		
+		return map;
+	}
+	
+	
+	
+	@Override
+	public Map<String, Object> selectWishList(int memberNo, int cp) {
+		
+		int wishCount = dao.wishCount(memberNo);
+		
+		OrderPagination pagination = new OrderPagination(wishCount, cp);
+		
+		List<Wish> wishList = dao.selectWishList(memberNo, pagination);
+		 
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("pagination", pagination);
+		map.put("wishList", wishList);
+		map.put("wishCount", wishCount);
 		
 		return map;
 	}

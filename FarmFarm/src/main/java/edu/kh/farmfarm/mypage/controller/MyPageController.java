@@ -120,7 +120,22 @@ public class MyPageController {
 	 * @return
 	 */
 	@GetMapping("/myPage/wishList")
-	public String myPageWishList() {
+	public String myPageWishList(
+			@SessionAttribute("loginMember")Member loginMember, 
+			Model model,
+			@RequestParam(value="cp", required=false, defaultValue = "1") int cp) {
+		
+
+		int memberNo = loginMember.getMemberNo();
+		          
+		Map<String, Object> map = service.selectWishList(memberNo, cp);
+		
+		
+		
+
+		model.addAttribute("map", map);
+
+		
 		return "myPage/myPageWish";
 	}
 	

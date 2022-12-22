@@ -13,6 +13,7 @@ import edu.kh.farmfarm.mypage.model.vo.Comment;
 import edu.kh.farmfarm.mypage.model.vo.CommentPagination;
 import edu.kh.farmfarm.mypage.model.vo.Order;
 import edu.kh.farmfarm.mypage.model.vo.OrderPagination;
+import edu.kh.farmfarm.mypage.model.vo.Wish;
 import edu.kh.farmfarm.productDetail.model.vo.Review;
 
 @Repository
@@ -121,6 +122,30 @@ public class MyPageDAO {
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 
 		return sqlSession.selectList("myPageMapper.selectBoardList", memberNo, rowBounds);
+	}
+
+
+	/** 찜 개수 조회
+	 * @param memberNo
+	 * @return
+	 */
+	public int wishCount(int memberNo) {
+		return sqlSession.selectOne("myPageMapper.wishCount", memberNo);
+	}
+
+
+	/** 찜 목록 조회
+	 * @param memberNo
+	 * @param pagination
+	 * @return
+	 */
+	public List<Wish> selectWishList(int memberNo, OrderPagination pagination) {
+		
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		return sqlSession.selectList("myPageMapper.selectWishList", memberNo, rowBounds);
 	}
 
 

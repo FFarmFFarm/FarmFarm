@@ -42,6 +42,14 @@ public interface MyPageService {
 	Map<String, Object> selectCommentList(int memberNo, int cp);
 
 
+	/** 찜 목록 조회
+	 * @param memberNo
+	 * @param cp
+	 * @return
+	 */
+	Map<String, Object> selectWishList(int memberNo, int cp);
+
+
 
 
 
