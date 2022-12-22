@@ -51,7 +51,7 @@
           <div class="comment">
             <div class="comment-container">
               <span class="comment-content">${comment.commentContent}</span>
-              <a href="" class="comment-title">${comment.boardTitle}(${comment.commentCount})</a>
+              <a href="" class="comment-title">${comment.boardTitle}[${comment.commentCount}]</a>
             </div>
             <span class="comment-reg-date">${comment.commentDate}</span>
           </div>

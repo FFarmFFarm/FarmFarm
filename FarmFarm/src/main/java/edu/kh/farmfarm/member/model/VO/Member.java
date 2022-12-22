@@ -25,4 +25,7 @@ public class Member {
 	private String farmImg;
 	private int postCount;
 	private String memberAddress;
+	private int boardCount;
+	private int commentCount;
+	private int orderCount;
 }
