@@ -16,7 +16,6 @@ public class Member {
 	private String memberName;
 	private String memberNickname;
 	private String memberTel;
-	private String memberAddress;
 	private String signUpDate;
 	private String memberDelFl;
 	private String memberBirth;
@@ -25,4 +24,5 @@ public class Member {
 	private String mypageImg;
 	private String farmImg;
 	private int postCount;
+	private String memberAddress;
 }

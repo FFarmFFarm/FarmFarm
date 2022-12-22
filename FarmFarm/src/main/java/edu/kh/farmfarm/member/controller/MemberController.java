@@ -1,12 +1,16 @@
 package edu.kh.farmfarm.member.controller;
 
+import java.util.List;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.farmfarm.member.model.VO.Member;
+import edu.kh.farmfarm.member.model.VO.MemberAddress;
 import edu.kh.farmfarm.member.model.service.MemberService;
 
 @SessionAttributes({"loginMember", "message"})
@@ -100,6 +105,41 @@ public class MemberController {
 		status.setComplete();
 		
 		return "redirect:/";
+	}
+	
+	// 회원가입 하기
+	@PostMapping("/signUp")
+	public String signUp(Member inputMember, 
+							RedirectAttributes ra,
+							String[] memberAddress,
+							@RequestHeader("referer") String referer
+							){
+		
+		int result = service.signUp(inputMember, memberAddress);
+		
+		String path = null;
+		String message = null;
+		
+		if(result > 0) { // 회원가입 성공 시 
+			path = "/signUpSuccess";
+		} else { // 실패 시 
+			path = referer;
+			message = "회원가입 실패";
+			
+			// 이전 페이지로 돌아갔을 때 입력했던 값을 같이 전달 
+			inputMember.setMemberPw(null); // 비밀번호 삭제 
+			ra.addFlashAttribute("tempMember", inputMember);
+		}
+		
+		ra.addFlashAttribute("message", message);
+			
+		return "redirect:" + path;						
+	}
+	
+	// 회원가입 후 페이지 이동 
+	@GetMapping("/signUpSuccess")
+	public String signUpSuccessPage() {
+		return "/member/signUpSuccess";
 	}
 
 }
