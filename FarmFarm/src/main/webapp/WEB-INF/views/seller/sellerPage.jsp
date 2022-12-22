@@ -63,7 +63,11 @@
                 class="profile-setting-btn fa-solid fa-gear"
                 ></button>
                 
-                <span class="member-nickname">${memberInfo.memberNickname}</span>
+                <span class="member-nickname">
+                    <i class="fa-solid fa-carrot"></i>
+                    ${memberInfo.memberNickname}
+                </span>
+                    
                 <div class="member-info-container">
                     <div class="member-info">
                         <span class="info-title member-name">판매자</span>
@@ -80,6 +84,7 @@
                         <span class="info-content">${memberInfo.signUpDate}</span>
                     </div>
                 </div>
+                <button id="enroll-post">판매상품등록</button>
             </div>
         </section>
         <section class="mypage-nav">
@@ -115,8 +120,12 @@
                             <div class="post-total">
                                 <div class="post-head">
                                     <a href="" class="post-title">${post.postTitle}</a>
-                                    <span class="post-status">판매중</span>
-                                    <span class="post-status sold-out">판매완료</span>
+                                    <c:if test="${post.postSoldoutFl == 0}">
+                                        <span class="post-status">판매중</span>
+                                    </c:if>
+                                    <c:if test="${post.postSoldoutFl == 1}">
+                                        <span class="post-status sold-out">판매완료</span>
+                                    </c:if>
                                 </div>
                                 <div class="post-price">
                                     가격 <span>${post.unitPrice}</span>
@@ -131,7 +140,11 @@
                                 </div>
                             </div>
                             <div class="button-area">
+                                <c:if test="${post.postSoldoutFl == 0}">
+                                    <button type="button">판매완료</button>
+                                </c:if>
                                 <button type="button">게시물 수정</button>
+                                <button type="button">게시물 삭제</button>
                             </div>
                         </div>
                     </div>
@@ -182,16 +195,15 @@
             </div>
         </section>
     </main>
-    
-        </section>
-    </div>
-    
+
     <!-- <div id="topBtn" class="view-hidden">
         <i class="fa-sharp fa-solid fa-arrow-up"></i>
     </div> -->
 
     <!-- footer -->
     <jsp:include page='/WEB-INF/views/common/footer.jsp' />
+
+    <script src="/resources/js/seller/sellerPage.js"></script>
 
     <!-- ajax -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>

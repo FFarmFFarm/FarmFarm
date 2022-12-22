@@ -1,6 +1,5 @@
 package edu.kh.farmfarm.productList.model.service;
 
-import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,7 +55,7 @@ public class ProductListServiceImpl implements ProductListService {
 	 *  모든 상품 목록 가져오기
 	 */
 	@Override
-	public Map<String, Object> getProductListAll(int cp) {
+	public Map<String, Object> getProductListAll(int cp, String keyword) {
 		
 		// 1. 전체 개수를 가져옴
 		int listCount = dao.getCountAll();
@@ -65,7 +64,7 @@ public class ProductListServiceImpl implements ProductListService {
 		Pagination pagination = new Pagination(listCount, cp, 12);
 		
 		// 3. 페이지 네이션 객체를 생성해 목록 불러오기
-		List<Product> productList = dao.getProductListAll(pagination);
+		List<Product> productList = dao.getProductListAll(pagination, keyword);
 		
 		// 4. 맵 만들기
 		Map<String, Object> productMap = new HashMap<String, Object>();
@@ -82,7 +81,7 @@ public class ProductListServiceImpl implements ProductListService {
 	 *  선택된 상품 목록 불러오기
 	 */
 	@Override
-	public Map<String, Object> getProductListChecked(int cp, int category) {
+	public Map<String, Object> getProductListChecked(int cp, String keyword, int category) {
 		
 		// 1. 전체 개수를 가져옴
 		int listCount = dao.getCountChecked(category);
@@ -90,13 +89,13 @@ public class ProductListServiceImpl implements ProductListService {
 		// 2. 가져온 개수와, 현재 페이지(cp)를 이용해서 페이지네이션 객체를 생성
 		Pagination pagination = new Pagination(listCount, cp, 12);
 		
-		// 3. 페이지 네이션 객체를 생성해 목록 불러오기
-		List<Product> productList = dao.getProductListChecked(pagination, category);
+		// 4. 페이지 네이션 객체를 생성해 목록 불러오기
+		List<Product> productList = dao.getProductListChecked(pagination, keyword, category);
 		
-		// 4. 맵 만들기
+		// 5. 맵 만들기
 		Map<String, Object> productMap = new HashMap<String, Object>();
 		
-		// 5. 맵에 값 담기
+		// 6. 맵에 값 담기
 		productMap.put("productList", productList);
 		productMap.put("pagination", pagination);
 		

@@ -17,13 +17,16 @@
 
 
 	<!-- 모든 상품 목록을 불러오는 SQL -->
-	<select id="getProductList_all" parameterType="string" resultMap="productList_rm">
+	<select id="getProductList_all" parameterType="SearchItem" resultMap="productList_rm">
 		SELECT PRODUCT_NO, PRODUCT_NAME, PRODUCT_PRICE, CATEGORY_NO, PRODUCT_MESSAGE,
 			   (SELECT PRODUCT_IMG_ADDRESS
 			   	FROM PRODUCT_IMG PIMG
 			   	WHERE PIMG.PRODUCT_NO = P.PRODUCT_NO
 			   	AND PRODUCT_IMG_ORDER = 0) AS THUMBNAIL_IMG
 		FROM PRODUCT P
+		<if test=' #{keyword} != null '>
+			WHERE PRODUCT_NAME LIKE '%${keyword}%'
+		</if>
 	</select>
 	
 	<!-- 모든 상품 목록의 개수를 가져오는 SQL -->
@@ -40,7 +43,10 @@
 			   	WHERE PIMG.PRODUCT_NO = P.PRODUCT_NO
 			   	AND PRODUCT_IMG_ORDER = 0) AS THUMBNAIL_IMG
 		FROM PRODUCT P
-		WHERE CATEGORY_NO = #{category}
+		WHERE CATEGORY_NO = #{category} 
+		<if test=' #{keyword} != null '>
+			AND PRODUCT_NAME LIKE '%${keyword}%'
+		</if>
 	</select>
 	
 	<!-- 모든 상품 목록의 개수를 가져오는 SQL -->
