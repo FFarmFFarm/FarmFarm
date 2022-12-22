@@ -1,5 +1,6 @@
 package edu.kh.farmfarm.board.model.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,6 @@ public interface BoardWriteService {
 	List<Map<String, Object>> boardTypeList();
 
 	// 와글와글 쓰기
-	int boardWrite(Board board, List<MultipartFile> imgList);
+	int boardWrite(Board board, List<MultipartFile> imgList, String webPath, String folderPath) throws IOException;
 
 }
