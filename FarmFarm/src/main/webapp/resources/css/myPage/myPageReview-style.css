@@ -28,13 +28,19 @@ a.review-wrote > i {
 
 .review {
   display: flex;
+  flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 50px;
-  height: 90px;
   border-bottom: 1px solid var(--line-color);
 
   font-size: var(--main-font-size);
+}
+
+.review > div:first-child {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 90px;
 }
 
 .review-container {
@@ -57,12 +63,16 @@ a.review-wrote > i {
   margin-left: 50px;
 }
 
-.review-detail {
-  margin: 20px 0;
-}
-
 .review-content {
   cursor: pointer;
+}
+
+.review-content:hover > * {
+  color: var(--point-color);
+}
+
+.review-detail {
+  margin: 20px 0;
 }
 
 /* 리뷰 하나 */
@@ -74,6 +84,7 @@ a.review-wrote > i {
   margin: 30px 0;
 
   border-bottom: 1px solid hsl(0, 0%, 93%);
+  display: none;
 }
 
 .review-detail-content {

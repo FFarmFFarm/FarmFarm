@@ -43,15 +43,68 @@
       <result property="productImg" column="PRODUCT_IMG" />       			  
   </resultMap>
   
+  
+ <resultMap type="Board" id="board_rm">
+        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+     <id property = "boardNo" column="BOARD_NO"/>
+     <!-- 나머지 일반 컬럼 -->
+      <result property="boardTitle" column="BOARD_TITLE" />
+      <result property="boardDate" column="BOARD_DATE" />
+      <result property="boardView" column="BOARD_VIEW" />
+      <result property="memberNo" column="MEMBER_NO" />
+      <result property="boardTypeNo" column="BOARD_TYPE_NO" />
+      <result property="commentCount" column="COMMENT_COUNT" />
+      <result property="thumbnail" column="BOARD_THUMBNAIL" />
+      
+  </resultMap>
+  
+  
+   <!-- 팜팜 상품 리뷰 resultMap --> 
+ <resultMap type="Review" id="review_rm">
+        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+     <id property = "reviewNo" column="REVIEW_NO"/>
 
+     <!-- 나머지 일반 컬럼 -->
+      <result property="reviewContent" column="REVIEW_CONTENT" />
+      <result property="memberNo" column="MEMBER_NO" />
+      <result property="productNo" column="PRODUCT_NO" />
+      <result property="productName" column="PRODUCT_NAME" />
+      <result property="createDate" column="CREATE_DATE" />
+      <result property="likeCheck" column="LIKE_CHECK" />
+      <result property="likeCount" column="LIKE_COUNT" />
+      
+      
+      <result property="memberNickname" column="MEMBER_NICKNAME" />
+      <result property="profileImg" column="PROFILE_IMG" />
+      
+      
+      
+      <collection property="imgList" 
+      			  javaType="java.util.ArrayList" ofType="ReviewImg"
+      			  select="selectReviewImgList"
+      			  column = "REVIEW_NO"/>
+  </resultMap>
 
+ <!-- 팜팜 상품 리뷰 이미지 resultMap -->
+ <resultMap type="ReviewImg" id="reviewImg_rm">
+        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+     <id property = "reviewImgNo" column="REVIEW_IMG_NO"/>
 
+     <!-- 나머지 일반 컬럼 -->
+      <result property="reviewImgPath" column="REVIEW_IMG_PATH" />
+      <result property="reviewImgOrder" column="REVIEW_IMG_ORDER" />
+      <result property="reviewNo" column="REVIEW_NO" />
+  </resultMap>
+  
+
+<!-- 작성 댓글 수 조회 -->
 <select id="commentCount" resultType="_int">
 	SELECT COUNT(*) FROM "COMMENT"
 	WHERE MEMBER_NO = #{memberNo}
 	AND COMMENT_DEL_FL = 'N'
 </select>
 
+<!-- 작성 댓글 목록 조회 -->
 <select id="selectCommentList" resultMap="comment_rm">
 	SELECT c.COMMENT_NO, c.COMMENT_CONTENT , c.COMMENT_DATE , c.BOARD_NO , b.BOARD_TITLE ,
 	(SELECT COUNT(*) FROM "COMMENT" c2 WHERE c2.BOARD_NO = b.BOARD_NO) COMMENT_COUNT 
@@ -61,10 +114,13 @@
 	ORDER BY c.COMMENT_DATE DESC
 </select>
 
+
+<!-- 주문 수 조회 -->
 <select id="orderCount" resultType="_int">
 	SELECT COUNT(*) FROM "ORDER" WHERE MEMBER_NO = #{memberNo}
 </select>
 
+<!-- 주문 목록 조회 -->
 <select id="selectOrderList" resultMap="order_rm">
 	SELECT DISTINCT ORDER_NO , ORDER_DATE , ORDER_STATUS , MEMBER_NO , INVOICE_NO, TO_CHAR(ORDER_PRICE, '999,999,999,999') ORDER_PRICE
 	FROM "ORDER"
@@ -73,6 +129,7 @@
 	ORDER BY ORDER_NO DESC
 </select>
 
+<!-- 주문한 상품 목록 조회 -->
 <select id="selectProductList" resultMap="product_rm">
 	SELECT op.PRODUCT_NO , op.PRODUCT_AMOUNT, PRODUCT_NAME, PRODUCT_PRICE,
 		(SELECT PRODUCT_IMG_ADDRESS 
@@ -84,6 +141,39 @@
 	WHERE ORDER_NO = #{orderNo}
 </select>
 
+<!-- 작성 게시글 수 조회 -->
+<select id="boardCount" resultType="_int">
+	SELECT COUNT(*) FROM BOARD WHERE MEMBER_NO = #{memberNo} AND BOARD_DEL_FL = 'N'
+</select>
+
+<!-- 작성 게시글 목록 조회 -->
+<select id="selectBoardList" resultMap="board_rm">
+	SELECT BOARD_NO , SUBSTRB(BOARD_TITLE,1,75) BOARD_TITLE , 
+	TO_CHAR(BOARD_DATE, 'yyyy.MM.DD') BOARD_DATE, BOARD_VIEW, BOARD_TYPE_NO,
+	(SELECT COUNT(*) FROM "COMMENT" c WHERE c.BOARD_NO = b.BOARD_NO) COMMENT_COUNT,
+	(SELECT BOARD_IMG_ADDRESS FROM BOARD_IMG bi WHERE bi.BOARD_NO = b.BOARD_NO AND BOARD_IMG_ORDER = 0) BOARD_THUMBNAIL
+	FROM BOARD b WHERE MEMBER_NO = #{memberNo} AND BOARD_DEL_FL ='N'
+</select>
+
+<!-- 작성 후기 수 조회 -->
+<select id="reviewCount" resultType="_int">
+	SELECT COUNT(*) FROM REVIEW WHERE MEMBER_NO = #{memberNo} AND REVIEW_DEL_FL = 'N'
+</select>
+
+<!-- 작성 후기 목록 조회 -->
+<select id="selectReviewList" resultMap="review_rm">
+	SELECT REVIEW_NO, REVIEW_CONTENT, PRODUCT_NO, PRODUCT_NAME, TO_CHAR(CREATE_DATE, 'yyyy.MM.DD') CREATE_DATE,
+	(SELECT COUNT(*) FROM REVIEW_LIKE rl WHERE rl.REVIEW_NO = r.REVIEW_NO) LIKE_COUNT
+	FROM REVIEW r
+	JOIN PRODUCT p USING(PRODUCT_NO)
+	WHERE r.MEMBER_NO = #{memberNo}
+</select>
+
+<!-- 상품 리뷰 이미지 목록 조회 -->
+<select id="selectReviewImgList" resultMap="reviewImg_rm">
+	SELECT * FROM REVIEW_IMG ri
+	WHERE REVIEW_NO = #{reviewNo}
+</select>
 
 
 

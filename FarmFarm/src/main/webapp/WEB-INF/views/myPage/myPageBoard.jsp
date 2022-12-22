@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<c:set var="pagination" value="${map.pagination}" />
+<c:set var="boardList" value="${map.boardList}" />
+<c:set var="boardCount" value="${map.boardCount}" />
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -42,153 +48,45 @@
             <span class="board-reg-date">작성일</span>
             <span class="board-read-count">조회수</span>
           </div>
+
+          
+          <c:if test="${empty boardList}">
+          <div>작성 게시글이 없습니다.</div>
+          </c:if>
+
+          <c:if test="${! empty boardList}">
+          <c:forEach var="board" items="${boardList}">
+
+
           <div class="board">
-            <span class="board-no">12</span>
+            <span class="board-no">${board.boardNo}</span>
             <div class="board-thumbnail">
+            <c:if test="${! empty board.thumbnail}"> 
               <img
-                src="/resources/images/board/thumbnail.png"
+                src="${board.thumbnail}"
                 alt=""
                 class="board-thumbnail-img"
               />
+            </c:if>
             </div>
-            <a href="" class="board-title">게시글 제목 샘플</a>
-            <span class="board-reg-date">2022.12.15</span>
-            <span class="board-read-count">5</span>
+            <a href="/board/${board.boardTypeNo}/${board.boardNo}" class="board-title title-line">
+              <c:if test="${fn:length(board.boardTitle) >= 27}">
+              <div>${board.boardTitle}...</div>
+              </c:if>
+              <c:if test="${fn:length(board.boardTitle) < 27}">
+              <div>${board.boardTitle}</div>
+              </c:if>
+              <span>[${board.commentCount}]</span>
+            </a>
+
+            <span class="board-reg-date">${board.boardDate}</span>
+            <span class="board-read-count">${board.boardView}</span>
           </div>
 
-          <div class="board">
-            <span class="board-no">12</span>
-            <div class="board-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="board-thumbnail-img"
-              />
-            </div>
-            <a href="" class="board-title">게시글 제목 샘플</a>
-            <span class="board-reg-date">2022.12.15</span>
-            <span class="board-read-count">5</span>
-          </div>
+          </c:forEach>
+          </c:if>
 
-          <div class="board">
-            <span class="board-no">12</span>
-            <div class="board-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="board-thumbnail-img"
-              />
-            </div>
-            <a href="" class="board-title">게시글 제목 샘플</a>
-            <span class="board-reg-date">2022.12.15</span>
-            <span class="board-read-count">5</span>
-          </div>
 
-          <div class="board">
-            <span class="board-no">12</span>
-            <div class="board-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="board-thumbnail-img"
-              />
-            </div>
-            <a href="" class="board-title">게시글 제목 샘플</a>
-            <span class="board-reg-date">2022.12.15</span>
-            <span class="board-read-count">5</span>
-          </div>
-
-          <div class="board">
-            <span class="board-no">12</span>
-            <div class="board-thumbnail"></div>
-            <a href="" class="board-title">게시글 제목 샘플</a>
-            <span class="board-reg-date">2022.12.15</span>
-            <span class="board-read-count">5</span>
-          </div>
-
-          <div class="board">
-            <span class="board-no">12</span>
-            <div class="board-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="board-thumbnail-img"
-              />
-            </div>
-            <a href="" class="board-title">게시글 제목 샘플</a>
-            <span class="board-reg-date">2022.12.15</span>
-            <span class="board-read-count">5</span>
-          </div>
-
-          <div class="board">
-            <span class="board-no">12</span>
-            <div class="board-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="board-thumbnail-img"
-              />
-            </div>
-            <a href="" class="board-title">게시글 제목 샘플</a>
-            <span class="board-reg-date">2022.12.15</span>
-            <span class="board-read-count">5</span>
-          </div>
-
-          <div class="board">
-            <span class="board-no">12</span>
-            <div class="board-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="board-thumbnail-img"
-              />
-            </div>
-            <a href="" class="board-title">게시글 제목 샘플</a>
-            <span class="board-reg-date">2022.12.15</span>
-            <span class="board-read-count">5</span>
-          </div>
-
-          <div class="board">
-            <span class="board-no">12</span>
-            <div class="board-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="board-thumbnail-img"
-              />
-            </div>
-            <a href="" class="board-title">게시글 제목 샘플</a>
-            <span class="board-reg-date">2022.12.15</span>
-            <span class="board-read-count">5</span>
-          </div>
-
-          <div class="board">
-            <span class="board-no">12</span>
-            <div class="board-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="board-thumbnail-img"
-              />
-            </div>
-            <a href="" class="board-title">게시글 제목 샘플</a>
-            <span class="board-reg-date">2022.12.15</span>
-            <span class="board-read-count">5</span>
-          </div>
-
-          <div class="board">
-            <span class="board-no">12</span>
-            <div class="board-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="board-thumbnail-img"
-              />
-            </div>
-            <a href="" class="board-title">게시글 제목 샘플</a>
-            <span class="board-reg-date">2022.12.15</span>
-            <span class="board-read-count">5</span>
-          </div>
           <div class="pagination-area">
             <ul class="pagination">
               <!-- 첫 페이지로 이동 -->
