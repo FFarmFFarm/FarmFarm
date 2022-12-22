@@ -85,7 +85,7 @@
   height: 100%;
 }
 
-.product-name {
+.review-product-name {
   display: flex;
   align-items: center;
   font-size: var(--main-font-size);
@@ -96,7 +96,7 @@
   padding: 20px 10px;
 }
 
-.review-content {
+.review-detail-content {
   max-height: 300px;
   overflow: auto;
   margin-bottom: 10px;

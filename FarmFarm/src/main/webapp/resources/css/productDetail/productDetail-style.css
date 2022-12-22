@@ -45,8 +45,12 @@ button:active {
   font-size: var(--title-font-size);
 }
 
-.wish-btn {
+.wish-clicked {
   color: hsl(330, 88%, 53%);
+}
+
+.wish-unclicked {
+  color: var(--main-font-color);
 }
 
 .share-btn {
@@ -293,8 +297,8 @@ button:active {
 }
 
 .review-img-list li {
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 120px;
   margin-right: 5px;
   overflow: hidden;
 
@@ -313,8 +317,8 @@ button:active {
 .more-review-img-btn {
   position: absolute;
 
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 120px;
   top: 0;
   left: 0;
 
@@ -438,10 +442,40 @@ button:active {
 
   border-radius: 15px;
 
-  border: 1px solid var(--line-color);
+}
+
+.clicked {
+  border: 1px solid var(--point-color);
+  color: var(--point-color);
+}
+
+.clicked:hover {
   color: var(--sub-font-color);
 }
 
-.review-create-date > button:hover {
+.unclicked {
+  border: 1px solid var(--line-color);
+  color: var(--sub-font-color);
+  
+}
+
+.unclicked:hover {
   color: var(--point-color);
+}
+
+.pagination {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.pagination > button {
+  font-size: var(--title-font-size);
+  color: #b4b4b4;
+  width: 50px;
+  height: 50px;
+  border: 1px solid #ddd;
 }

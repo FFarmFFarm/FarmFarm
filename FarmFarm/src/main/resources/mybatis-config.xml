@@ -23,9 +23,15 @@
 		<typeAlias type="edu.kh.farmfarm.mypage.model.vo.Order" alias="Order"/>
 		<typeAlias type="edu.kh.farmfarm.mypage.model.vo.Wish" alias="Wish"/>
 		<typeAlias type="edu.kh.farmfarm.productDetail.model.vo.Product" alias="Product"/>
+		<typeAlias type="edu.kh.farmfarm.productDetail.model.vo.ProductImg" alias="ProductImg"/>
 		<typeAlias type="edu.kh.farmfarm.productDetail.model.vo.Review" alias="Review"/>
+		<typeAlias type="edu.kh.farmfarm.productDetail.model.vo.ReviewImg" alias="ReviewImg"/>
 		<typeAlias type="edu.kh.farmfarm.postDetail.model.vo.Post" alias="Post"/>
+		<typeAlias type="edu.kh.farmfarm.postDetail.model.vo.PostImg" alias="PostImg"/>		
+		<typeAlias type="edu.kh.farmfarm.category.model.vo.Category" alias="Category"/>
+		<typeAlias type="edu.kh.farmfarm.category.model.vo.CategorySub" alias="CategorySub"/>
 		<typeAlias type="edu.kh.farmfarm.board.model.vo.Board" alias="Board"/>
+		<typeAlias type="edu.kh.farmfarm.report.model.vo.Report" alias="Report"/>
 	</typeAliases>
 	
 	<!-- mapper 파일(SQL 작성되는파일) 위치 등록 부분 -->
@@ -33,8 +39,12 @@
 		<mapper resource="/mappers/myPage-mapper.xml"/>
 		<mapper resource="/mappers/productDetail-mapper.xml"/>
 		<mapper resource="/mappers/postDetail-mapper.xml"/>
+		<mapper resource="/mappers/category-mapper.xml"/>
+		<mapper resource="/mappers/productList-mapper.xml"/>
+		<mapper resource="/mappers/member-mapper.xml"/>
 		<mapper resource="/mappers/board-mapper.xml"/>
-	</mappers>
-	
+		<mapper resource="/mappers/seller-mapper.xml"/>
+		<mapper resource="/mappers/report-mapper.xml"/>
+  	</mappers>
 	
 </configuration>

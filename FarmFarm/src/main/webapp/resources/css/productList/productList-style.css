@@ -209,7 +209,7 @@ body{
 
 /* 세부 카테고리 */
 .category-dropdown{
-    font-size: var(--small-font-size);
+    font-size: var(--medium-font-size);
     color: var(--sub-font-color);
     display: flex;
     flex-wrap: wrap;

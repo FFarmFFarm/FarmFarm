@@ -4,7 +4,7 @@
 .btn-go-to-top {
   position: fixed;
   right: 40px;
-  bottom: 150px;
+  bottom: 70px;
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -20,7 +20,7 @@
 .btn-chat {
   position: fixed;
   right: 40px;
-  bottom: 205px;
+  bottom: 130px;
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -65,9 +65,6 @@ footer {
 
   justify-content: center;
   align-items: center;
-
-  /* position: absolute; */
-  /* bottom: 0; */
 }
 
 footer p {

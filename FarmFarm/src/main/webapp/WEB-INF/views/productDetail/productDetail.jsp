@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<c:set var="product" value="${map.product}" />
+<c:set var="productImgList" value="${product.imgList}" />
+<c:set var="reviewImgAll" value="${product.reviewImgAll}" />
+<c:set var="pagination" value="${map.pagination}" />
+<c:set var="reviewCount" value="${map.reviewCount}" />
+<c:set var="reviewList" value="${map.reviewList}" />
+<c:set var="reviewImgList" value="${review.imgList}" />
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,19 +39,25 @@
       
       <section class="product-summary">
         <div class="thumbnail-area">
-          <img
-            src="/resources/images/product/thumbnail/productThumbnail.png"
+          <c:forEach var="productImg" items="${productImgList}">
+            <c:if test="${productImg.productImgOrder == 0}">  
+            <img
+            src="${productImg.productImgAddress}"
             alt=""
-          />
+            />
+          </c:if>
+          </c:forEach>
         </div>
         <div class="summary-area">
-          <span class="product-category">채소</span>
-          <span class="product-name">토마토는 거꾸로해도 토마토</span>
-          <span class="product-message">토마토는 맛있어요</span>
+          <span class="product-category">${product.categoryName}</span>
+          <span class="product-name">${product.productName}</span>
+          <span class="product-message">${product.productMessage}</span>
 
-          <span class="product-price">1,500원</span>
+          <span class="product-price">${product.productPrice}원</span>
           <!-- 로그인 x 일 때 -->
-          <span class="login-meassage">로그인 후 구매 가능합니다</span>
+          <c:if test="${empty loginMember}">
+            <span class="login-meassage">로그인 후 구매 가능합니다</span>
+          </c:if>
 
           <div class="summary">
             <div class="summary-subject">
@@ -61,7 +77,7 @@
             </div>
           </div>
           <div class="product-option">
-            <span>토마토는 거꾸로 해도 토마토</span>
+            <span>${product.productName}</span>
             <div class="amount-area">
               <button type="button">-</button>
               <span>1</span>
@@ -69,13 +85,15 @@
             </div>
             <div class="total-price">
               <span>총 금액:</span>
-              <span> 1,500원 </span>
+              <span> ${product.productPrice}원 </span>
             </div>
           </div>
           <div class="product-btn-area">
-            <button type="button" class="chatting-btn">
-              <i class="fa-regular fa-comment-dots"></i>
-            </button>
+            <c:if test="${! empty loginMember}">
+              <button type="button" class="chatting-btn">
+                <i class="fa-regular fa-comment-dots"></i>
+              </button>
+            </c:if>
             <button type="button" class="cart-btn">장바구니 담기</button>
             <button type="button" class="order-btn">주문하기</button>
           </div>
@@ -83,48 +101,68 @@
         <button type="button" class="share-btn">
           <i class="fa-solid fa-share"></i>
         </button>
-        <button class="wish-btn fa-brands fa-gratipay"></button>
+        <c:if test="${! empty loginMember}">
+          <c:if test="${product.wishCheck == 0}">
+            <button class="wish-btn fa-brands fa-gratipay wish-unclicked"></button>
+          </c:if>
+          <c:if test="${product.wishCheck == 1}">
+            <button class="wish-btn fa-brands fa-gratipay wish-clicked"></button>
+          </c:if>
+        </c:if>
       </section>
       <section class="product-menu">
         <a href="#productDetail">상세 설명</a>
-        <a href="#productReview">후기(<span>120</span>)</a>
+        <a href="#productReview">후기(<span>${reviewCount}</span>)</a>
       </section>
       <section class="product-detail" id="productDetail">
-        <img src="/resources/images/product/detail/1.jpg" alt="" />
-        <img src="/resources/images/product/detail/2.jpg" alt="" />
-        <img src="/resources/images/product/detail/3.jpg" alt="" />
-        <img src="/resources/images/product/detail/4.jpg" alt="" />
+        <c:forEach var="productImg" items="${productImgList}">
+          <c:if test="${productImg.productImgOrder != 0}">  
+            <img
+            src="${productImg.productImgAddress}"
+            alt=""
+            />
+          </c:if>
+        </c:forEach>
       </section>
       <section class="product-review" id="productReview">
         <span>상품 후기</span>
-        <ul class="review-img-list">
-          <li>
-            <img src="/resources/images/product/review/reviewImg.png" alt="" />
-          </li>
-          <li>
-            <img src="/resources/images/product/review/reviewImg.png" alt="" />
-          </li>
-          <li>
-            <img src="/resources/images/product/review/reviewImg.png" alt="" />
-          </li>
-          <li>
-            <img src="/resources/images/product/review/reviewImg.png" alt="" />
-          </li>
-          <li>
-            <img src="/resources/images/product/review/reviewImg.png" alt="" />
-          </li>
-          <li>
-            <img src="/resources/images/product/review/reviewImg.png" alt="" />
-          </li>
 
-          <!-- 8개 이상일 때 -->
-          <li class="last-review-img">
-            <img src="/resources/images/product/review/reviewImg.png" alt="" />
-            <div class="more-review-img-btn">+더보기</div>
-          </li>
+        <!-- reviewImgAll이 비어있지 않을 때 -->
+        <c:if test="${! empty reviewImgAll}">
+          <ul class="review-img-list">
+
+          <!-- reviewImgAll의 길이가 8보다 작을 때 -->
+          <c:if test="${fn:length(reviewImgAll) lt 8}">
+            <c:forEach var="reviewImg" items="${reviewImgAll}">
+                  <li id="${reviewImg.reviewNo}">
+                    <img src="${reviewImg.reviewImgPath}" alt="" />
+                  </li>
+            </c:forEach>
+          </c:if>
+
+          <!-- reviewImgAll의 길이가 7보다 클 때 -->
+          <c:if test="${fn:length(reviewImgAll) gt 7}">
+            <c:forEach var="reviewImg" items="${reviewImgAll}" begin="0" end="6">
+              <li id="${reviewImg.reviewNo}">
+                <img src="${reviewImg.reviewImgPath}" alt="" />
+              </li>
+            </c:forEach>
+
+            <c:forEach var="reviewImg" items="${reviewImgAll}" begin="7" end="7">
+                <!-- 8개 이상일 때 -->
+                <li class="last-review-img" id="${reviewImg.reviewNo}">
+                  <img src="${reviewImg.reviewImgPath}" alt="" />
+                  <div class="more-review-img-btn">+더보기</div>
+                </li>
+            </c:forEach>
+          </c:if>
         </ul>
+      </c:if>
+
+
+
         <div class="review-header">
-          <span>총 <span>33</span>개</span>
+          <span>총 <span>${reviewCount}</span>개</span>
           <div>
             <button class="popular">추천순</button>
             <span>|</span>
@@ -132,293 +170,80 @@
           </div>
         </div>
         <ul class="review-list">
-          <li class="review">
-            <div class="review-writer">
-              <img
-                src="/resources/images/member/farmer.png"
-                alt=""
-                class="writer-profile-img"
-              />
+
+          <c:if test="${reviewCount == 0}">
+            <li class="no-review">
+              리뷰가 없습니다. 상품을 구입하고 첫 후기를 남겨주세요.
+            </li>
+          </c:if>
+
+          <c:if test="${reviewCount > 0}">
+          <c:forEach var="review" items="${reviewList}">
+            <li class="review">
+                <div class="review-writer">
+                 <c:if test="${empty review.profileImg}">
+                    <img
+                    src="/resources/images/member/profile/profile.png"
+                    alt=""
+                    class="writer-profile-img"
+                    />
+                  </c:if>
+                  <c:if test="${! empty review.profileImg}">
+                    <img
+                    src="${review.profileImg}"
+                    alt=""
+                    class="writer-profile-img"
+                    />
+                  </c:if>
               <div class="nickname-area">
-                <span class="writer-nickname">최소채소마니아</span>
-                <span class="best-review">베스트</span>
+                <span class="writer-nickname">${review.memberNickname}</span>
+                <c:if test="${review.likeCount > 10}">
+                  <span class="best-review">베스트</span>
+                </c:if>
               </div>
-            </div>
-            <div class="review-content">
-              <span>상품명</span>
-              <p>
-                너무 맛있어요 <br />
-                토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요<br />
-              </p>
-              <div class="review-img">
-                <img src="/resources/images/product/review/reviewImg.png" alt="" />
-                <img src="/resources/images/product/review/reviewImg.png" alt="" />
               </div>
-              <div class="review-create-date">
-                <span>2022.12.16</span>
-                <button><i class="fa-regular fa-thumbs-up"></i>도움돼요</button>
+              <div class="review-content">
+                <span>${product.productName}</span>
+                <p>
+                  ${review.reviewContent}
+                </p>
+                <div class="review-img">
+                  <c:if test="${! empty review.imgList}">
+                    <c:forEach var="img" items="${review.imgList}">
+                      <img src="${img.reviewImgPath}" alt="" />
+                    </c:forEach>
+                  </c:if>
+                </div>
+                <div class="review-create-date">
+                  <span>${review.createDate}</span>
+                  <c:if test="${! empty loginMember}">
+                  <c:if test="${review.likeCheck > 0}">
+                    <button class="clicked"><i class="fa-regular fa-thumbs-up "></i>도움돼요</button>
+                  </c:if>
+                  <c:if test="${review.likeCheck == 0}">
+                    <button class="unclicked"><i class="fa-regular fa-thumbs-up "></i>도움돼요</button>
+                  </c:if>
+                  </c:if>
+                </div>
               </div>
-            </div>
-          </li>
-          <li class="review">
-            <div class="review-writer">
-              <img
-                src="/resources/images/member/farmer.png"
-                alt=""
-                class="writer-profile-img"
-              />
-              <div class="nickname-area">
-                <span class="writer-nickname">최소채소마니아</span>
-                <span class="best-review">베스트</span>
-              </div>
-            </div>
-            <div class="review-content">
-              <span>상품명</span>
-              <p>
-                너무 맛있어요 <br />
-                토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요<br />
-              </p>
-              <div class="review-img">
-                <img src="/resources/images/product/review/reviewImg.png" alt="" />
-                <img src="/resources/images/product/review/reviewImg.png" alt="" />
-              </div>
-              <div class="review-create-date">
-                <span>2022.12.16</span>
-                <button><i class="fa-regular fa-thumbs-up"></i>도움돼요</button>
-              </div>
-            </div>
-          </li>
-          <li class="review">
-            <div class="review-writer">
-              <img
-                src="/resources/images/member/farmer.png"
-                alt=""
-                class="writer-profile-img"
-              />
-              <div class="nickname-area">
-                <span class="writer-nickname">최소채소마니아</span>
-                <span class="best-review">베스트</span>
-              </div>
-            </div>
-            <div class="review-content">
-              <span>상품명</span>
-              <p>
-                너무 맛있어요 <br />
-                토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요<br />
-              </p>
-              <div class="review-img">
-                <img src="/resources/images/product/review/reviewImg.png" alt="" />
-                <img src="/resources/images/product/review/reviewImg.png" alt="" />
-              </div>
-              <div class="review-create-date">
-                <span>2022.12.16</span>
-                <button><i class="fa-regular fa-thumbs-up"></i>도움돼요</button>
-              </div>
-            </div>
-          </li>
-          <li class="review">
-            <div class="review-writer">
-              <img
-                src="/resources/images/member/farmer.png"
-                alt=""
-                class="writer-profile-img"
-              />
-              <div class="nickname-area">
-                <span class="writer-nickname">최소채소마니아</span>
-                <span class="best-review">베스트</span>
-              </div>
-            </div>
-            <div class="review-content">
-              <span>상품명</span>
-              <p>
-                너무 맛있어요 <br />
-                토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요<br />
-              </p>
-              <div class="review-img">
-                <img src="/resources/images/product/review/reviewImg.png" alt="" />
-                <img src="/resources/images/product/review/reviewImg.png" alt="" />
-              </div>
-              <div class="review-create-date">
-                <span>2022.12.16</span>
-                <button><i class="fa-regular fa-thumbs-up"></i>도움돼요</button>
-              </div>
-            </div>
-          </li>
-          <li class="review">
-            <div class="review-writer">
-              <img
-                src="/resources/images/member/farmer.png"
-                alt=""
-                class="writer-profile-img"
-              />
-              <div class="nickname-area">
-                <span class="writer-nickname">최소채소마니아</span>
-                <span class="best-review">베스트</span>
-              </div>
-            </div>
-            <div class="review-content">
-              <span>상품명</span>
-              <p>
-                너무 맛있어요 <br />
-                토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요<br />
-              </p>
-              <div class="review-img">
-                <img src="/resources/images/product/review/reviewImg.png" alt="" />
-                <img src="/resources/images/product/review/reviewImg.png" alt="" />
-              </div>
-              <div class="review-create-date">
-                <span>2022.12.16</span>
-                <button><i class="fa-regular fa-thumbs-up"></i>도움돼요</button>
-              </div>
-            </div>
-          </li>
-          <li class="review">
-            <div class="review-writer">
-              <img
-                src="/resources/images/member/farmer.png"
-                alt=""
-                class="writer-profile-img"
-              />
-              <div class="nickname-area">
-                <span class="writer-nickname">최소채소마니아</span>
-                <span class="best-review">베스트</span>
-              </div>
-            </div>
-            <div class="review-content">
-              <span>상품명</span>
-              <p>
-                너무 맛있어요 <br />
-                토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요<br />
-              </p>
-              <div class="review-img">
-                <img src="/resources/images/product/review/reviewImg.png" alt="" />
-                <img src="/resources/images/product/review/reviewImg.png" alt="" />
-              </div>
-              <div class="review-create-date">
-                <span>2022.12.16</span>
-                <button><i class="fa-regular fa-thumbs-up"></i>도움돼요</button>
-              </div>
-            </div>
-          </li>
-          <li class="review">
-            <div class="review-writer">
-              <img
-                src="/resources/images/member/farmer.png"
-                alt=""
-                class="writer-profile-img"
-              />
-              <div class="nickname-area">
-                <span class="writer-nickname">최소채소마니아</span>
-                <span class="best-review">베스트</span>
-              </div>
-            </div>
-            <div class="review-content">
-              <span>상품명</span>
-              <p>
-                너무 맛있어요 <br />
-                토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요<br />
-              </p>
-              <div class="review-img">
-                <img src="/resources/images/product/review/reviewImg.png" alt="" />
-                <img src="/resources/images/product/review/reviewImg.png" alt="" />
-              </div>
-              <div class="review-create-date">
-                <span>2022.12.16</span>
-                <button><i class="fa-regular fa-thumbs-up"></i>도움돼요</button>
-              </div>
-            </div>
-          </li>
-          <li class="review">
-            <div class="review-writer">
-              <img
-                src="/resources/images/member/farmer.png"
-                alt=""
-                class="writer-profile-img"
-              />
-              <div class="nickname-area">
-                <span class="writer-nickname">최소채소마니아</span>
-                <span class="best-review">베스트</span>
-              </div>
-            </div>
-            <div class="review-content">
-              <span>상품명</span>
-              <p>
-                너무 맛있어요 <br />
-                토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요<br />
-              </p>
-              <div class="review-img">
-                <img src="/resources/images/product/review/reviewImg.png" alt="" />
-                <img src="/resources/images/product/review/reviewImg.png" alt="" />
-              </div>
-              <div class="review-create-date">
-                <span>2022.12.16</span>
-                <button><i class="fa-regular fa-thumbs-up"></i>도움돼요</button>
-              </div>
-            </div>
-          </li>
-          <li class="review">
-            <div class="review-writer">
-              <img
-                src="/resources/images/member/farmer.png"
-                alt=""
-                class="writer-profile-img"
-              />
-              <div class="nickname-area">
-                <span class="writer-nickname">최소채소마니아</span>
-                <span class="best-review">베스트</span>
-              </div>
-            </div>
-            <div class="review-content">
-              <span>상품명</span>
-              <p>
-                너무 맛있어요 <br />
-                토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요<br />
-              </p>
-              <div class="review-img">
-                <img src="/resources/images/product/review/reviewImg.png" alt="" />
-                <img src="/resources/images/product/review/reviewImg.png" alt="" />
-              </div>
-              <div class="review-create-date">
-                <span>2022.12.16</span>
-                <button><i class="fa-regular fa-thumbs-up"></i>도움돼요</button>
-              </div>
-            </div>
-          </li>
-          <li class="review">
-            <div class="review-writer">
-              <img
-                src="/resources/images/member/farmer.png"
-                alt=""
-                class="writer-profile-img"
-              />
-              <div class="nickname-area">
-                <span class="writer-nickname">최소채소마니아</span>
-                <span class="best-review">베스트</span>
-              </div>
-            </div>
-            <div class="review-content">
-              <span>상품명</span>
-              <p>
-                너무 맛있어요 <br />
-                토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요<br />
-              </p>
-              <div class="review-img">
-                <img src="/resources/images/product/review/reviewImg.png" alt="" />
-                <img src="/resources/images/product/review/reviewImg.png" alt="" />
-              </div>
-              <div class="review-create-date">
-                <span>2022.12.16</span>
-                <button><i class="fa-regular fa-thumbs-up"></i>도움돼요</button>
-              </div>
-            </div>
-          </li>
+            </li>
+          </c:forEach>
+          </c:if> 
         </ul>
-        <div class="pagenation">
-          <button><i class="fa-solid fa-chevron-left"></i></button>
-          <button><i class="fa-solid fa-chevron-right"></i></button>
-        </div>
+
+        <div class="pagination">
+          <c:if test="${1 lt pagination.currentPage}">
+            <button><i class="fa-solid fa-chevron-left"></i></button>
+          </c:if>
+          <c:if test="${pagination.maxPage > pagination.currentPage}">
+            <button><i class="fa-solid fa-chevron-right"></i></button>
+          </c:if>
+          </div>
       </section>
     </main>
+
+
+    <!-- 리뷰 이미지 목록 모달창 -->
     <div class="review-img-container">
       <div class="review-img-list-modal">
         <div class="review-img-head">
@@ -435,120 +260,6 @@
               alt=""
             />
           </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <!-- <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div> -->
-          <!-- <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div> -->
         </div>
         <div class="pagenation-area">
           <button><i class="fa-solid fa-chevron-left"></i></button>
@@ -557,6 +268,8 @@
       </div>
     </div>
 
+
+    <!-- 리뷰 상세조회 모달창 -->
     <div class="review-detail-container">
       <div class="review-detail-modal">
         <div class="review-head">
@@ -573,12 +286,12 @@
               alt=""
             />
           </div>
-          <div class="product-name">
+          <div class="review-product-name">
             <span>[이연복의 목란] 짬뽕 2인분</span>
           </div>
         </div>
         <div class="review-content-area">
-          <div class="review-content">
+          <div class="review-detail-content">
             너무 맛있어요 <br />
             토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요 <br />
             너무 맛있어요 <br />
@@ -608,28 +321,12 @@
                 alt=""
               />
             </div>
-            <div class="uploaded-img">
-              <img
-                src="/resources/images/post/postDetail/detail/20220825000809_0.jpg"
-                alt=""
-              />
-            </div>
-            <div class="uploaded-img">
-              <img
-                src="/resources/images/post/postDetail/detail/img_products_detail_01.jpg"
-                alt=""
-              />
-            </div>
-            <div class="uploaded-img">
-              <img
-                src="/resources/images/post/postDetail/detail/20180802_1_15415.jpg"
-                alt=""
-              />
-            </div>
           </div>
           <div class="review-create-date">
             <span>2022.12.16</span>
-            <button><i class="fa-regular fa-thumbs-up"></i>도움돼요</button>
+            <c:if test="${! empty loginMember}">
+              <button><i class="fa-regular fa-thumbs-up"></i>도움돼요</button>
+            </c:if>
           </div>
         </div>
       </div>
