@@ -47,8 +47,8 @@ window.addEventListener('click', (e) => {
 
 
 const pathname = location.pathname.substring(1, location.pathname.lastIndexOf("/"));
-const reportType = document.getElementById("reportType");
-const reportTargetNo = document.getElementById("reportTargetNo");
+const reportType = document.getElementById("reportType").value;
+const reportTargetNo = document.getElementById("reportTargetNo").value;
 
 const reportReasonList = document.getElementsByName("report");
 const reportReason = document.getElementById("reportReason");
@@ -65,50 +65,50 @@ reportSubmitBtn.addEventListener("click", () => {
     || pathname == "myPage"
     || pathname == "seller") {
 
-    reportType.value = "M";
-    reportTargetNo.value = memberNo;
+    reportType = "M";
+    reportTargetNo = memberNo;
     }
 
 
     // 채팅방 회원 신고
     if(pathname == "chat") {
-    reportType.value = "M";
-    reportTargetNo.value = memberNo2;
+    reportType = "M";
+    reportTargetNo = memberNo2;
     }
 
 
     // 후기 신고
     if((pathname == "review" || pathname == "post") && reviewNo.contains("r")){
-    reportType.value = "R";
-    reportTargetNo.value = reviewNo;
+    reportType = "R";
+    reportTargetNo = reviewNo;
     }
 
 
     // 판매 게시글 신고
     if(pathname == "post" && !reviewNo.contains("r")){
-        reportType.value = "B";
-        reportTargetNo.value = postNo;
+        reportType = "B";
+        reportTargetNo = postNo;
     }
 
 
     // 와글와글 게시글 신고
     if(pathname == "board" && !commentNo.contains("c")){
-        reportType.value = "B";
-        reportTargetNo.value = boardNo;
+        reportType = "B";
+        reportTargetNo = boardNo;
     }
 
     // 댓글 신고
     if(pathname == "board" && commentNo.contains("c")){
-        reportType.value = "C";
-        reportTargetNo.value = commentNo;
+        reportType = "C";
+        reportTargetNo = commentNo;
     }
 
 
 
     // 연습 product
     if(pathname == "product" && !reviewNo.contains("r")){
-        reportType.value = "B";
-        reportTargetNo.value = productNo;
+        reportType = "B";
+        reportTargetNo = productNo;
     }
 
 
