@@ -30,29 +30,57 @@
                 <p>상품 등록</p>
             </div>
 
-            <div class="product-items">
+            <div class="product-items category-item">
                 <p class="item-title">카테고리 설정</p>
-                <div class="category-list">
-                    <div class="category">
-                        <div class="category-title">
-                            <p>대분류</p>
+                <div class="select-category">
+                    <div class="category-headline">
+                        <button id="category-btn">
+                            <p>카테고리 선택</p>
                             <i class="fa-solid fa-caret-down"></i>
-                        </div>
+                        </button>
                         <div class="category-selected">
-                            <p>채소</p>
+                            <p>토마토 / 방울토마토</p>
                             <p>&times</p>
                         </div>
                     </div>
-                    <div class="category">
-                        <div class="category-title">
-                            <p>소분류</p>
-                            <i class="fa-solid fa-caret-down"></i>
-                        </div>
-                        <div class="category-selected">
-                            <p>감자 • 고구마</p>
-                            <p>&times</p>
-                        </div>
-                    </div>
+                    <ul class="category-list">
+                        <li><input type="radio" name="category" value="701" id="701">
+                        <label for="701">사과/배</label></li>
+                        <li><input type="radio" name="category" value="702" id="702">
+                        <label for="702">토마토/방울토마토</label></li>
+                        <li><input type="radio" name="category" value="703" id='703'>
+                        <label for="703">딸기/블루베리</label></li>
+                        <li><input type="radio" name="category" value="704" id="704">
+                        <label for="704">감/귤</label></li>
+                        <li><input type="radio" name="category" value="705" id='705'>
+                        <label for="705">포도/복숭아</label></li>
+                        <li><input type="radio" name="category" value="706" id="706">
+                        <label for="706">수박/참외</label></li>
+                        <li><input type="radio" name="category" value="707" id="707">
+                        <label for="707">키위/참다래</label></li>
+                        <li><input type="radio" name="category" value="708" id="708">
+                        <label for="708">매실</label></li>
+                        <li><input type="radio" name="category" value="801" id="801">
+                        <label for="801">상추/깻잎/양상추</label></li>
+                        <li><input type="radio" name="category" value="802" id="802">
+                        <label for="802">고추/피망</label></li>
+                        <li><input type="radio" name="category" value="803" id="803">
+                        <label for="803">배추/양배추/무</label></li>
+                        <li><input type="radio" name="category" value="804" id="804">
+                        <label for="804">갓/시금치/치커리</label></li>
+                        <li><input type="radio" name="category" value="805" id="805">
+                        <label for="805">오이/가지/옥수수</label></li>
+                        <li><input type="radio" name="category" value="806" id="806">
+                        <label for="806">감자/고구마/당근</label></li>
+                        <li><input type="radio" name="category" value="807" id="807">
+                        <label for="807">버섯류</label></li>
+                        <li><input type="radio" name="category" value="808" id="808">
+                        <label for="808">콩</label></li>
+                        <li><input type="radio" name="category" value="809" id="809">
+                        <label for="809">양파/마늘/생강/파</label></li>
+                        <li><input type="radio" name="category" value="901" id="901">
+                        <label for="901">기타</label></li>
+                    </ul>
                 </div>
             </div>
 
@@ -130,7 +158,7 @@
             </div>
             <div class="product-items">
                 <p class="item-title">상품 상세 설명</p>
-                <textarea rows="15" cols="106" class="post-content" name="postContent"
+                <textarea rows="15" cols="111" class="post-content" name="postContent"
                     placeholder="상품에 대한 상세 정보를 작성해주세요."
                     style="resize: none"></textarea>
             </div>
