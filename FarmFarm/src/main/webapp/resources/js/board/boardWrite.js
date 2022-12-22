@@ -26,6 +26,7 @@ for(let i=0; i<inputImg.length; i++){
     });
 }
 
+
 const inputTitle = document.querySelector(".input-write-title");
 const inputContent = document.querySelector(".write-content");
 const categorys = document.getElementsByClassName("boardTypeNo")
