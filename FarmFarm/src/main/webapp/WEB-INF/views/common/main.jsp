@@ -90,7 +90,7 @@
                               <a href="/admin">관리자</a>
                             </c:when>
                             <c:otherwise>
-                              <a href="/member/myPage">마이페이지</a>
+                              <a href="/myPage">마이페이지</a>
                             </c:otherwise>
                           </c:choose>
                           <a href="/logout">로그아웃</a>

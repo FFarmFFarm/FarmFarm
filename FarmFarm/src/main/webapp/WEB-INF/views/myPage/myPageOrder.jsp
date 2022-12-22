@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<c:set var="orderList" value="${map.orderList}"/>
+<c:set var="orderCount" value="${map.orderCount}"/>
+<c:set var="pagination" value="${map.pagination}"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,200 +36,123 @@
     <jsp:include page="/WEB-INF/views/myPage/myPageNav.jsp"/>
 
 
-        <div class="order-list">
-          <span class="order-list-title">주문 내역</span>
-          <div class="order">
-            <input type="hidden" value="order-no" />
-            <div class="order-thumbnail">
+      <div class="order-list">
+        <span class="order-list-title">주문 내역</span>
+        <c:if test="${empty orderList}">
+          <div>주문 내역이 없습니다.</div>
+        </c:if>
+
+
+        <c:if test="${! empty orderList}">
+        <c:forEach var="order" items="${orderList}">
+
+        <div class="order">
+          <div class="order-info-container">
+            <div class="order-info">
+              <input type="hidden" value="${order.orderNo}" />
+              <a href="" class="order-title">주문번호 <span>${order.orderNo}</span></a>
+              <span class="order-reg-date">2022.12.15</span>
+            </div>
+          </div>
+
+          <c:forEach var="product" items="${order.productList}">
+          <div class="order-one">
+            <a href="/product/${product.productNo}" class="order-thumbnail">
               <img
-                src="/resources/images/board/thumbnail.png"
+                src="${product.productImg}"
                 alt=""
                 class="order-thumbnail-img"
               />
-            </div>
+            </a>
             <div class="order-total">
-              <a href="" class="order-title">게시글 제목 샘플</a>
+                <a href="/product/${product.productNo}" class="product-title">${product.productName}</span></a>
               <div class="order-detail">
-                <div class="order-price">결제 금액 <span>15,000</span></div>
-                <span class="order-reg-date">2022.12.15</span>
+                <div class="order-price"><span>${product.productPrice}</span>원</div>
+                <span class="or">|</span>
+                <div class="order-amount"><span> ${product.productAmount}</span>개</div>
               </div>
               <div class="order-status">
-                <a class="order-shipping">배송중</a>
+                <c:if test="${order.orderStatus == 0}">
                 <span>결제완료</span>
+                </c:if>
+                <c:if test="${order.orderStatus == 1}">
+                <a class="order-shipping">배송중</a>
+                </c:if>
+                <c:if test="${order.orderStatus == 2}">
+                <span>취소완료</span>
+                </c:if>
+                <c:if test="${order.orderStatus == 3}">
                 <span>구매확정</span>
+                </c:if>
               </div>
-              <span>주문하신 상품이 현재 배송중입니다</span>
             </div>
             <div class="button-area">
-              <button type="button">주문취소</button>
+              <c:if test="${order.orderStatus == 0}">
               <button type="button">구매확정</button>
-              <!--                 <button type="button">반품요청</button>
-                <button type="button">리뷰작성</button> -->
-            </div>
-          </div>
-
-          <div class="order">
-            <input type="hidden" value="order-no" />
-            <div class="order-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="order-thumbnail-img"
-              />
-            </div>
-            <div class="order-total">
-              <a href="" class="order-title">게시글 제목 샘플</a>
-              <div class="order-detail">
-                <div class="order-price">가격 <span>15,000</span></div>
-                <span class="order-reg-date">2022.12.15</span>
-              </div>
-              <div class="order-status">
-                <a class="order-shipping">배송중</a>
-                <span>결제완료</span>
-                <span>구매확정</span>
-              </div>
-              <span>주문하신 상품이 현재 배송중입니다</span>
-            </div>
-            <div class="button-area">
               <button type="button">주문취소</button>
+              </c:if>
+              <c:if test="${order.orderStatus == 1}">
               <button type="button">구매확정</button>
-              <!--                 <button type="button">반품요청</button>
-                <button type="button">리뷰작성</button> -->
+              <button type="button">반품요청</button>
+              </c:if>
+              <c:if test="${order.orderStatus == 2}">
+              </c:if>
+              <c:if test="${order.orderStatus == 3}">
+              <button type="button">리뷰작성</button>
+              </c:if>
             </div>
           </div>
-
-          <div class="order">
-            <input type="hidden" value="order-no" />
-            <div class="order-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="order-thumbnail-img"
-              />
-            </div>
-            <div class="order-total">
-              <a href="" class="order-title">게시글 제목 샘플</a>
-              <div class="order-detail">
-                <div class="order-price">가격 <span>15,000</span></div>
-                <span class="order-reg-date">2022.12.15</span>
-              </div>
-              <div class="order-status">
-                <a class="order-shipping">배송중</a>
-                <span>결제완료</span>
-                <span>구매확정</span>
-              </div>
-              <span>주문하신 상품이 현재 배송중입니다</span>
-            </div>
-            <div class="button-area">
-              <button type="button">주문취소</button>
-              <button type="button">구매확정</button>
-              <!--                 <button type="button">반품요청</button>
-                <button type="button">리뷰작성</button> -->
-            </div>
-          </div>
-
-          <div class="order">
-            <input type="hidden" value="order-no" />
-            <div class="order-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="order-thumbnail-img"
-              />
-            </div>
-            <div class="order-total">
-              <a href="" class="order-title">게시글 제목 샘플</a>
-              <div class="order-detail">
-                <div class="order-price">가격 <span>15,000</span></div>
-                <span class="order-reg-date">2022.12.15</span>
-              </div>
-              <div class="order-status">
-                <a class="order-shipping">배송중</a>
-                <span>결제완료</span>
-                <span>구매확정</span>
-              </div>
-              <span>주문하신 상품이 현재 배송중입니다</span>
-            </div>
-            <div class="button-area">
-              <button type="button">주문취소</button>
-              <button type="button">구매확정</button>
-              <!--                 <button type="button">반품요청</button>
-                <button type="button">리뷰작성</button> -->
-            </div>
-          </div>
-
-          <div class="order">
-            <input type="hidden" value="order-no" />
-            <div class="order-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="order-thumbnail-img"
-              />
-            </div>
-            <div class="order-total">
-              <a href="" class="order-title">게시글 제목 샘플</a>
-              <div class="order-detail">
-                <div class="order-price">가격 <span>15,000</span></div>
-                <span class="order-reg-date">2022.12.15</span>
-              </div>
-              <div class="order-status">
-                <a class="order-shipping">배송중</a>
-                <span>결제완료</span>
-                <span>구매확정</span>
-              </div>
-              <span>주문하신 상품이 현재 배송중입니다</span>
-            </div>
-            <div class="button-area">
-              <button type="button">주문취소</button>
-              <button type="button">구매확정</button>
-              <!--                 <button type="button">반품요청</button>
-                <button type="button">리뷰작성</button> -->
-            </div>
-          </div>
-          <div class="pagination-area">
-            <ul class="pagination">
-              <!-- 첫 페이지로 이동 -->
-              <li><a href="/board/${boardCode}">&lt;&lt;</a></li>
-
-              <!-- 이전 목록 마지막 번호로 이동 -->
-              <li>
-                <a href="/board/${boardCode}?cp=${pagination.prevPage}">&lt;</a>
-              </li>
-
-              <!-- <c:forEach
-                  var="i"
-                  begin="${pagination.startPage}"
-                  end="${pagination.endPage}"
-                  step="1"
-                >
-                  <c:choose>
-                    <c:when test="${i == pagination.currentPage}">
-                     현재 보고있는 페이지
-                      <li><a class="current">${i}</a></li>
-                    </c:when>
-    
-                    <c:otherwise>
-                      <li><a href="/board/${boardCode}?cp=${i}">${i}</a></li>
-                    </c:otherwise>
-                  </c:choose>
-                </c:forEach> -->
-
-              <!-- 다음 목록 시작 번호로 이동 -->
-              <li>
-                <a href="/board/${boardCode}?cp=${pagination.nextPage}">&gt;</a>
-              </li>
-
-              <!-- 끝 페이지로 이동 -->
-              <li>
-                <a href="/board/${boardCode}?cp=${pagination.maxPage}"
-                  >&gt;&gt;</a
-                >
-              </li>
-            </ul>
-          </div>
+          </c:forEach>
+          <div class="total-price">총 <span>${order.orderPrice}</span>원</div>
         </div>
-      </section>
+
+        </c:forEach>
+        </c:if>
+
+      
+        <div class="pagination-area">
+          <ul class="pagination">
+            <!-- 첫 페이지로 이동 -->
+            <li><a href="/board/${boardCode}">&lt;&lt;</a></li>
+
+            <!-- 이전 목록 마지막 번호로 이동 -->
+            <li>
+              <a href="/board/${boardCode}?cp=${pagination.prevPage}">&lt;</a>
+            </li>
+
+            <!-- <c:forEach
+                var="i"
+                begin="${pagination.startPage}"
+                end="${pagination.endPage}"
+                step="1"
+              >
+                <c:choose>
+                  <c:when test="${i == pagination.currentPage}">
+                    현재 보고있는 페이지
+                    <li><a class="current">${i}</a></li>
+                  </c:when>
+  
+                  <c:otherwise>
+                    <li><a href="/board/${boardCode}?cp=${i}">${i}</a></li>
+                  </c:otherwise>
+                </c:choose>
+              </c:forEach> -->
+
+            <!-- 다음 목록 시작 번호로 이동 -->
+            <li>
+              <a href="/board/${boardCode}?cp=${pagination.nextPage}">&gt;</a>
+            </li>
+
+            <!-- 끝 페이지로 이동 -->
+            <li>
+              <a href="/board/${boardCode}?cp=${pagination.maxPage}"
+                >&gt;&gt;</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
   </main>
 
