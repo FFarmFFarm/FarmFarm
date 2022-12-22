@@ -104,7 +104,7 @@ footer {
 }
 .part2{
   font-size: var( --small-font-size);
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
 .part2 p:last-child{
@@ -121,7 +121,7 @@ footer {
 }
 
 .part3 img{
-  width: 50px;
+  width: 90px;
   margin-right: 7px;
   cursor: pointer;
 }
