@@ -43,7 +43,7 @@
         </div>
     </div>
     
-    <script src="/resources/js/report/report-modal.js"></script>
+    <%-- <script src="/resources/js/report/report-modal.js"></script> --%>
 
 </body>
 

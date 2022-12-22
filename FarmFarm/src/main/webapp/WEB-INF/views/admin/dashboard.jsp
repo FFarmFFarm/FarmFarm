@@ -13,27 +13,22 @@
         <link rel="stylesheet" href="/resources/css/common/footer-style.css">
         <link rel="stylesheet" href="/resources/css/admin/adminNav-style.css">
         <link rel="stylesheet" href="/resources/css/admin/dashboard-style.css" />
+        <link rel="stylesheet" href="/resources/css/modal/report-style.css" />
 
         <script src="https://kit.fontawesome.com/d4fbceca97.js" crossorigin="anonymous"></script>
     </head>
     <body>
-      <jsp:include page="/WEB-INF/views/common/adminHeader.jsp"/> 
-      
-      <jsp:include page="/WEB-INF/views/report/report-modal.jsp"/> 
+        <jsp:include page="/WEB-INF/views/common/adminHeader.jsp"/> 
 
         <main>
         <!--nav-->
-          <jsp:include page="/WEB-INF/views/admin/adminNav.jsp"/> 
+            <jsp:include page="/WEB-INF/views/admin/adminNav.jsp"/> 
 
             <!-- 오른쪽 -->
             <section class="admin-content-section">
-<%-- 
-                <span class="todayDate">
-                    2022-12-16 금
-                </span> --%>
 
                 <span class="dashboard-title">
-                  DASHBOARD
+                    DASHBOARD
                 </span>
                 <div class="board-stat">
                     <span>
@@ -66,11 +61,12 @@
             
         </main>
 
-
-
         <button id="reportBtn">님 신고</button>
 
-      <!-- <jsp:include page="/WEB-INF/views/common/footer.jsp"/>  -->
+    <!-- <jsp:include page="/WEB-INF/views/common/footer.jsp"/>  -->
         
+        <jsp:include page="/WEB-INF/views/report/report-modal.jsp"/> 
+        <script src="/resources/js/report/report-modal.js"></script>
     </body>
+
 </html>
