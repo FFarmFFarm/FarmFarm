@@ -57,6 +57,11 @@
 				FROM DUAL
 			</foreach>
 	</insert>
+	
+	<!-- 와글와글 게시판 수 조회 -->
+	<select id="getListCount" resultType="_int">
+		SELECT 
+	</select>
 
 
 </mapper>

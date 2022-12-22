@@ -38,6 +38,7 @@ public class BoardListController {
 			Model model,
 			@RequestParam(value="cp", required = false, defaultValue = "1") int cp) {
 		
+		// 검색을 안한 경우
 		Map<String, Object> boardMap = service.selectBoardList(boardTypeNo, cp);
 		
 		model.addAttribute("boardMap", boardMap);

@@ -20,5 +20,9 @@ public class BoardListDAO {
 		return sqlSession.selectList("boardMapper.boardTypeList");
 	}
 
-	// 와글와글 게시판 목록 조회
+	// 와글와글 게시판 수 조회
+	public int getListCount(int boardTypeNo) {
+		return sqlSession.selectOne("boardMapper.getListCount", boardTypeNo);
+	}
+
 }

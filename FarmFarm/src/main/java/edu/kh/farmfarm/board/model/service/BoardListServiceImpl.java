@@ -21,10 +21,16 @@ public class BoardListServiceImpl implements  BoardListService{
 		return dao.boardTypeList();
 	}
 
+	
 	// 와글와글 게시판 목록
 	@Override
 	public Map<String, Object> selectBoardList(int boardTypeNo, int cp) {
-		// TODO Auto-generated method stub
+		
+		// 와글와글 게시판 수 조회
+		int listCount = dao.getListCount(boardTypeNo);
+		
+		
+		
 		return null;
 	}
 
