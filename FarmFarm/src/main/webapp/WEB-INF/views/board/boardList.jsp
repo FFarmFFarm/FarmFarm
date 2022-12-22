@@ -31,6 +31,7 @@
                 <c:forEach var="boardType" items="${boardTypeList}">
                     <a href="/board/${boardType.BOARD_TYPE_NO}">${boardType.BOARD_NAME}</a>
                 </c:forEach>
+                
             </div>
         </section>
         <section class="board-search">
@@ -80,47 +81,6 @@
                 <div class="board-write-bottom">
                     <div class="board-pagination">
                                 <div class="pagination-area">
-                <%-- <!-- ajax로 만들어 보십시다 -->
-                <div class="page-box">
-                  <i class="fa-solid fa-angles-left"></i>
-                </div>
-                <div class="page-box">
-                  <i class="fa-solid fa-angle-left"></i>
-                </div>
-                <div class="page-box">
-                    1
-                </div>
-                <div class="page-box">
-                    2
-                </div>
-                <div class="page-box">
-                    3
-                </div>
-                <div class="page-box">
-                    4
-                </div>
-                <div class="page-box">
-                    5
-                </div>
-                <div class="page-box">
-                    6
-                </div>
-                <div class="page-box">
-                    7
-                </div>
-                <div class="page-box">
-                    8
-                </div>
-                <div class="page-box">
-                    9
-                </div>
-                <div class="page-box">
-                  <i class="fa-solid fa-angle-right"></i>
-                </div>
-                <div class="page-box">
-                  <i class="fa-solid fa-angles-right"></i>
-                </div>
-            </div> --%>
                         <ul class="pagination">
 
                             <%-- 첫 페이지 이동 --%>

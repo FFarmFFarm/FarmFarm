@@ -7,7 +7,11 @@ import edu.kh.farmfarm.board.model.vo.Board;
 
 public interface BoardListService {
 	
-	// 와글와글 게시판 목록 조회
+	// 와글와글 게시판 네브 조회
 	List<Map<String, Object>> boardTypeList();
+
+
+	// 와글와글 게시판 목록 조회
+	Map<String, Object> selectBoardList(int boardTypeNo, int cp);
 
 }

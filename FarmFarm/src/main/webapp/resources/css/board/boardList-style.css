@@ -126,7 +126,7 @@ input[type="text"]:focus{
 }
 
 /* 게시판 목록 */
-.board-list li{
+.board-list-area li{
     height: 60px;
     display: flex;
     align-items: center;
@@ -168,4 +168,9 @@ input[type="text"]:focus{
     background-color: var(--point-color);
     border: none;
     border-radius: 5px;
+    text-align: center;
+    color: white;
+    /* font-weight: bold; */
+    letter-spacing: 2px;
+    padding-top: 8px;
 }
