@@ -57,7 +57,83 @@
 /* footer */
 footer {
   width: 100%;
-  height: 130px;
+  height: 300px;
+  background-color: var(--background-color);
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  color: var(--main-font-color);
+  border-top: 1px solid #ccc;
+}
+
+.footer{
+  display: flex;
+}
+
+.footer-wrap1, .footer-wrap2{
+  margin: 0 110px;
+}
+
+.day{
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.footer-wrap1 p:nth-child(1){
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.footer-wrap1 p:nth-child(2){
+  margin-left: 15px;
+}
+
+.footer-wrap1 p:nth-child(3){
+  color: var(--sub-font-color);
+  font-size: var(--medium-font-size);
+}
+
+.part1{
+  font-size: var(--main-font-size);
+  margin-bottom: 15px;
+}
+.part2{
+  font-size: var( --small-font-size);
+  margin-bottom: 30px;
+}
+
+.part2 p:last-child{
+  color: var(--sub-font-color);
+}
+
+.part3{
+  display: flex;
+  align-items: center;
+}
+
+.part3 > a{
+  margin: 0 5px;
+}
+
+.part3 img{
+  width: 50px;
+  margin-right: 7px;
+  cursor: pointer;
+}
+
+
+
+
+
+
+/* footer {
+  width: 100%;
+  height: 150px;
   background-color: #f2f2f2;
 
   display: flex;
@@ -68,7 +144,6 @@ footer {
 }
 
 footer p {
-  margin: 8px 0;
   font-size: var(--small-font-size);
 }
 
@@ -79,3 +154,19 @@ footer > article > * {
 footer span {
   padding: 0 10px;
 }
+
+.middle{
+  display: flex;
+}
+
+.footer-top, .footer-middle{
+  margin-bottom: 10px;
+}
+
+.footer-middle2{
+  margin-bottom: 3px;
+}
+
+.middle > p{
+  margin: 0 10px;
+} */
