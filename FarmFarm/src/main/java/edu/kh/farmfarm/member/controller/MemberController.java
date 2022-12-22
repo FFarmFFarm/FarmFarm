@@ -40,10 +40,16 @@ public class MemberController {
 		return "member/signUpStart";
 	}
 	
-	// 회원가입 화면 (구매자/판매자 구분)
-	@GetMapping("/signUp")
-	public String signUp() {
-		return "member/signUp";
+	// 회원가입 화면 (구매자)
+	@GetMapping("/signUp0")
+	public String signUp0() {
+		return "member/signUp0";
+	}
+	
+	// 회원가입 화면 (판매자)
+	@GetMapping("/signUp1")
+	public String signUp1() {
+		return "member/signUp1";
 	}
 	
 	// 로그인 하기

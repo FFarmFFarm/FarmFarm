@@ -22,7 +22,6 @@
         <main>
             <div class="form-wrap">
                 <div class="signup-title">회원가입</div>
-                <!-- <div class="signup-subtitle">-구매자-</div> -->
                 <div class="signup-subtitle">-판매자-</div>
                 <form action="#" method="post" id="signUpFrm">
                     <section class="signup">
@@ -103,13 +102,13 @@
                         <i class="fa-solid fa-check check-icon">
                             <input type="checkbox" name="agree"> 
                         </i>
-                        <div class="agree-text">이용약관 동의(필수)</div>
+                        <a href="#"><div class="agree-text">이용약관 동의(필수)</div></a>
                     </section>
                     <section class="agree-wrap">
                         <i class="fa-solid fa-check check-icon">
                             <input type="checkbox" name="agree"> 
                         </i>
-                        <div class="agree-text">개인 정보 수집 및 이용동의(필수)</div>
+                        <a href="#"><div class="agree-text">개인 정보 수집 및 이용동의(필수)</div></a>
                     </section>
                     <button class="signup-btn">회원가입</button>
                 </form>
@@ -117,6 +116,7 @@
         </main>
         </div>
 
+        <script src="/resources/js/member/signUp.js"></script> 
         <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
     function sample6_execDaumPostcode() {
