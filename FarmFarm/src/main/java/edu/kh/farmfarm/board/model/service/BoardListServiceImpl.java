@@ -22,5 +22,11 @@ public class BoardListServiceImpl implements  BoardListService{
 	}
 
 	// 와글와글 게시판 목록
+	@Override
+	public Map<String, Object> selectBoardList(int boardTypeNo, int cp) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }
