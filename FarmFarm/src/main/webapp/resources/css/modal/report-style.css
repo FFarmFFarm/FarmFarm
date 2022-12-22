@@ -81,6 +81,11 @@
 
 input[type=radio]{
     accent-color: #fa2601;
+    cursor: pointer;
+}
+
+[name=report], label {
+    cursor: pointer;
 }
 
 

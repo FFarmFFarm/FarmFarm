@@ -1,5 +1,4 @@
 
-
 const report = document.getElementById("reportContainer");
 const reportBtn = document.getElementById("reportBtn");
 
@@ -31,7 +30,6 @@ window.addEventListener('click', (e) => {
 
 
 //todo : 신고하기
-
 /*
     1) 주소창 주소에 따라서 reportType을 다르게.  -> pathname
 
@@ -52,58 +50,9 @@ const pathname = location.pathname.substring(1, location.pathname.lastIndexOf("/
 const reportType = document.getElementById("reportType");
 const reportTargetNo = document.getElementById("reportTargetNo");
 
-// 회원 신고
-if(pathname == "member" 
-    || pathname == "myPage"
-    || pathname == "seller") {
-
-    reportType.value = "M";
-    reportTargetNo.value = memberNo;
-}
-
-
-// 채팅방 회원 신고
-if(pathname == "chat") {
-    reportType.value = "M";
-    reportTargetNo.value = memberNo2;
-}
-
-
-// 후기 신고
-if((pathname == "review" || pathname == "post") && reviewNo.contains("r")){
-    reportType.value = "R";
-    reportTargetNo.value = reviewNo;
-}
-
-
-// 게시글 신고
-if((pathname == "post" || pathname == "board") 
-    && !reviewNo.contains("r") && !commentNo.contains("c")){
-    reportType.value = "B";
-    reportTargetNo.value = boardNo;
-}
-
-// 댓글 신고
-if(pathname == "board" && commentNo.contains("c")){
-    reportType.value = "C";
-    reportTargetNo.value = commentNo;
-}
-
-
-// 선택한 신고 사유 가져오기
-const reportReasonList = document.getElementsByName('report');
+const reportReasonList = document.getElementsByName("report");
 const reportReason = document.getElementById("reportReason");
 const reportContent = document.getElementById("reportContent");
-
-reportReasonList.forEach((reason) => {
-
-    if(reason.checked) {
-        reportReason = reason.value;
-    }
-})
-
-
-
 
 
 // 신고하기 ajax
@@ -111,13 +60,76 @@ const reportSubmitBtn = document.getElementById("reportSubmitBtn");
 
 reportSubmitBtn.addEventListener("click", () => {
 
+    // 회원 신고
+    if(pathname == "member" 
+    || pathname == "myPage"
+    || pathname == "seller") {
+
+    reportType.value = "M";
+    reportTargetNo.value = memberNo;
+    }
+
+
+    // 채팅방 회원 신고
+    if(pathname == "chat") {
+    reportType.value = "M";
+    reportTargetNo.value = memberNo2;
+    }
+
+
+    // 후기 신고
+    if((pathname == "review" || pathname == "post") && reviewNo.contains("r")){
+    reportType.value = "R";
+    reportTargetNo.value = reviewNo;
+    }
+
+
+    // 판매 게시글 신고
+    if(pathname == "post" && !reviewNo.contains("r")){
+        reportType.value = "B";
+        reportTargetNo.value = postNo;
+    }
+
+
+    // 와글와글 게시글 신고
+    if(pathname == "board" && !commentNo.contains("c")){
+        reportType.value = "B";
+        reportTargetNo.value = boardNo;
+    }
+
+    // 댓글 신고
+    if(pathname == "board" && commentNo.contains("c")){
+        reportType.value = "C";
+        reportTargetNo.value = commentNo;
+    }
+
+
+
+    // 연습 product
+    if(pathname == "product" && !reviewNo.contains("r")){
+        reportType.value = "B";
+        reportTargetNo.value = productNo;
+    }
+
+
+
+    // 선택한 신고 사유 가져오기
+    reportReasonList.forEach((reason) => {
+
+        if(reason.checked) {
+            reportReason = reason.value;
+        }
+    })
+    
+
     $.ajax({
         url: "/report",
         data: { "reportType" :reportType.value, 
                 "reportTargetNo" : reportTargetNo.value,
                 "reportReason" : reportReason,
                 "reportContent": reportContent.innerHTML},
-        type: "POST",
+        type: "GET",
+        dataType: "JSON",
         success: (result) => {
             if(result > 0){
                 alert("신고가 접수되었습니다.");

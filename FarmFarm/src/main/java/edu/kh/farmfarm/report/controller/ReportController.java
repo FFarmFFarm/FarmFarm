@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import edu.kh.farmfarm.member.model.VO.Member;
@@ -23,11 +24,15 @@ public class ReportController {
 	
 	
 	// 신고하기
-	@PostMapping("/report")
+	@GetMapping("/report")
+	@ResponseBody
 	public int insertReport(Report report, @SessionAttribute("loginMember") Member loginMember,
 							String reportType, int reportTargetNo, String reportReason, String reportContent,
 							@RequestHeader(value="referer") String referer) {
 
+		System.out.println(reportType + reportTargetNo + reportReason + reportContent);
+		
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("reportType", reportType);
@@ -42,6 +47,8 @@ public class ReportController {
 		if(loginMember != null) {
 
 			result = service.insertReport(map);
+			
+			System.out.println(result);
 		}
 		
 		return result;

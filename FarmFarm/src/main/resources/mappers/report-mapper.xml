@@ -18,7 +18,7 @@
 
 
 <insert id="insertReport">
-	INSERT INTO VALUES(SEQ_REPORT_NO.NEXTVAL, #{reportType}, #{memberNo}, #{reportTargetNo}, #{reportReason},
+	INSERT INTO VALUES(SEQ_REPORT_NO.NEXTVAL, #{reportType}, #{memberNo}, SUM(#{reportTargetNo}), #{reportReason},
 		DEFAULT, DEFAULT, NULL, #{reportContent})
 </insert>
 

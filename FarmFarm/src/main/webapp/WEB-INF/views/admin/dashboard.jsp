@@ -65,8 +65,13 @@
 
     <!-- <jsp:include page="/WEB-INF/views/common/footer.jsp"/>  -->
         
+        
         <jsp:include page="/WEB-INF/views/report/report-modal.jsp"/> 
         <script src="/resources/js/report/report-modal.js"></script>
+        
+        
+
+
     </body>
 
 </html>
