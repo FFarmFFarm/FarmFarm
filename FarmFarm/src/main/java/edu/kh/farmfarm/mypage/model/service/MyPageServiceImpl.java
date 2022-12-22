@@ -11,6 +11,7 @@ import edu.kh.farmfarm.member.model.VO.Member;
 import edu.kh.farmfarm.mypage.model.dao.MyPageDAO;
 import edu.kh.farmfarm.mypage.model.vo.Comment;
 import edu.kh.farmfarm.mypage.model.vo.CommentPagination;
+import edu.kh.farmfarm.mypage.model.vo.Order;
 import edu.kh.farmfarm.mypage.model.vo.OrderPagination;
 
 @Service
@@ -28,16 +29,17 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		int orderCount = dao.orderCount(loginMember);
 		
-		OrderPagination pagination = new OrderPagination(commentCount, cp);
+		OrderPagination pagination = new OrderPagination(orderCount, cp);
 		
-		List<Comment> commentList = dao.selectCommentList(loginMember, pagination);
+		List<Order> orderList = dao.selectOrderList(loginMember, pagination);
 		 
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("pagination", pagination);
-		map.put("commentList", commentList);
+		map.put("orderList", orderList);
+		map.put("orderCount", orderCount);
 		
-		return null;
+		return map;
 	}
 
 	

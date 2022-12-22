@@ -26,12 +26,13 @@ public class MyPageController {
 	/** 마이페이지 이동(주문목록)
 	 * @return
 	 */
-	@GetMapping("/member/myPage")
+	@GetMapping("/myPage")
 	public String myPage(
 			@SessionAttribute("loginMember")Member loginMember,
 			Model model,
 			@RequestParam(value="cp", required=false, defaultValue = "1") int cp
 			) {
+		
 		
 		Map<String, Object> map = service.selectOrderList(loginMember, cp);
 		
@@ -42,9 +43,6 @@ public class MyPageController {
 	
 	
 	
-
-
-
 
 
 	/** 마이페이지 작성 후기

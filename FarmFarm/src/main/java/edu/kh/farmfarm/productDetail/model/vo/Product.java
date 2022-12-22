@@ -16,6 +16,7 @@ public class Product {
 	private String productMessage;
 	private String regDate;
 	private String productPrice;
+	private String productImg;
 	private String productDelFl;
 	private String categoryName;
 	private int categoryNo;

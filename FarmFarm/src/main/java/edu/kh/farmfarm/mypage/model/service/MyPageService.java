@@ -14,7 +14,7 @@ public interface MyPageService {
 	 * @param loginMember
 	 * @return
 	 */
-	Map<String, Object> selectOrderList(Member loginMember);
+	Map<String, Object> selectOrderList(Member loginMember, int cp);
 	
 	
 	/** 작성 댓글 목록 조회
@@ -22,7 +22,7 @@ public interface MyPageService {
 	 * @param cp
 	 * @return
 	 */
-	Map<String, Object> selectOrderList(Member loginMember, int cp);
+	Map<String, Object> selectCommentList(int memberNo, int cp);
 
 
 

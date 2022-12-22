@@ -38,10 +38,10 @@
   	<result property="categoryNo" column="CATEGORY_NO"/>
   	<result property="postImgAddress" column="POST_IMG_ADDRESS"/>
   	
-   	<collection property="postImgList" 
+<!--    	<collection property="postImgList" 
       			  javaType="java.util.ArrayList" ofType="PostImg"
       			  select="selectPostImgList"
-      			  column = "POST_NO"/>
+      			  column = "POST_NO"/> -->
   </resultMap>
   
   <resultMap type="PostImg" id="postImg_rm">

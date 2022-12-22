@@ -19,6 +19,9 @@
       <result property="profileImg" column="PROFILE_IMG" />
       <result property="mypageImg" column="MYPAGE_IMG" />
       <result property="memberAddress" column="MEMBER_ADDRESS" />
+      <result property="boardCount" column="BOARD_COUNT" />
+      <result property="commentCount" column="COMMENT_COUNT" />
+      <result property="orderCount" column="ORDER_COUNT" />
    
       
   </resultMap>
@@ -35,8 +38,11 @@
 	<!-- 로그인 -->
 	<select id="login" parameterType="String" resultMap="member_rm">
 		SELECT MEMBER_NO, MEMBER_ID, MEMBER_PW, MEMBER_NAME, 
-		MEMBER_NICKNAME, MEMBER_TEL ,MEMBER_DEL_FL ,SIGNUP_DATE,AUTHORITY,PROFILE_IMG ,MYPAGE_IMG ,MEMBER_BIRTH
-		FROM MEMBER
+			MEMBER_NICKNAME, MEMBER_TEL ,MEMBER_DEL_FL ,SIGNUP_DATE,AUTHORITY,PROFILE_IMG ,MYPAGE_IMG ,MEMBER_BIRTH,
+			(SELECT COUNT(*) FROM BOARD b WHERE b.MEMBER_NO = m.MEMBER_NO) BOARD_COUNT,
+			(SELECT COUNT(*) FROM "COMMENT" c WHERE c.MEMBER_NO = m.MEMBER_NO) COMMENT_COUNT,
+			(SELECT COUNT(*) FROM "ORDER" o WHERE o.MEMBER_NO = m.MEMBER_NO) ORDER_COUNT
+		FROM MEMBER m
 		WHERE MEMBER_DEL_FL = 'N'
 		AND MEMBER_ID = #{memberId}
 	</select>

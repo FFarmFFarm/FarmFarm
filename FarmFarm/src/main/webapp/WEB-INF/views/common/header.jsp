@@ -65,7 +65,7 @@
                 </button>
 
                 <div id="myDropdown" class="dropdown-content">
-                  <a href="#">마이페이지</a>
+                  <a href="/myPage">마이페이지</a>
                   <a href="#">로그아웃</a>
                 </div>
               </div>
