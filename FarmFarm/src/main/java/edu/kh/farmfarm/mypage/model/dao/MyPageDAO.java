@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import edu.kh.farmfarm.member.model.VO.Member;
 import edu.kh.farmfarm.mypage.model.vo.Comment;
 import edu.kh.farmfarm.mypage.model.vo.CommentPagination;
 
@@ -30,6 +31,15 @@ public class MyPageDAO {
 		
 		
 		return sqlSession.selectList("myPageMapper.selectCommentList", memberNo, rowBounds);
+	}
+
+
+	/** 주문 목록 개수
+	 * @param loginMember
+	 * @return
+	 */
+	public int orderCount(Member loginMember) {
+		return sqlSession.select;
 	}
 
 
