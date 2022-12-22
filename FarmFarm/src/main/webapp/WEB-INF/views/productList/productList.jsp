@@ -117,7 +117,7 @@
 
                     <c:forEach items="${productMap.productList}" var="map" >
     
-                        <div class="product-box">
+                        <a href="/product/${map.productNo}" class="product-box">
                             <div class="product-content">
                                 <img src="${map.thumbnailImg}">
                             </div>

@@ -1,9 +1,6 @@
 package edu.kh.farmfarm.productList.model.service;
 
-import java.util.List;
 import java.util.Map;
-
-import edu.kh.farmfarm.productDetail.model.vo.Product;
 
 public interface ProductListService {
 
@@ -15,14 +12,14 @@ public interface ProductListService {
 	/** 모든 상품 목록 불러오기
 	 * @return
 	 */
-	Map<String, Object> getProductListAll(int cp);
+	Map<String, Object> getProductListAll(int cp, String keyword);
 
 	
 	/** 선택된 상품 목록 불러오기
 	 * @param category 
 	 * @return
 	 */
-	Map<String, Object> getProductListChecked(int cp, int category);
+	Map<String, Object> getProductListChecked(int cp, String keyword, int category);
 	
 	
 }

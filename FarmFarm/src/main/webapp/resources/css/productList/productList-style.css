@@ -142,6 +142,9 @@ body{
     border-radius: 5px;
 }
 
+#searchBar:focus-within{
+    border: 3px solid var(--point-color);
+}
 #keyword{
     color: var(--main-font-color);
     border: none;
