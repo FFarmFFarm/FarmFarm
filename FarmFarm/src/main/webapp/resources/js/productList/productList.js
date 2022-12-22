@@ -285,6 +285,23 @@ const getCustomList = (category, cp) => {
     })
 };
 
+/* keywprd와 category, cp 정보를 전달받아 처리하는 ajax */
+const getCustomList2 = (keyword, category, cp) => {
+    $.ajax({
+        url: '/product/list/items',
+        method: 'GET',
+        data: { 'keyword':keyword, 'category': category, 'cp': cp },
+        dataType: 'JSON',
+        success: (productMap) => {
+            createProductBox(productMap);
+            console.log(productMap.pagination);
+        },
+        error: (message) => {
+            alert('message');
+        }
+    })
+};
+
 /* 카테고리 선택 이벤트 */
 const categoryList = document.getElementsByName('types');
 
@@ -294,16 +311,26 @@ for(let category of categoryList) {
         // 카테고리 선택
         let category = getCheckedCategory();
 
-        // // 페이지 초기화
+        // 페이지 초기화
         let cp = 1;
 
-        // 선택한 정보로 페이지를 생성
-        getCustomList(category, cp);
+        // 키워드 가져오기
+        let keyword =  document.getElementById('keyword').value.trim();
 
-        // history에 저장
-        const state = {'category':category};
-        const title = '';
-        const url = '/product/list?' + 'category=' + category + '&cp=' + cp;
+        // 선택한 정보로 페이지를 생성
+        if(keyword.length == 0) {
+            getCustomList(category, cp);
+            const state = { 'category': category };
+            const title = '';
+            const url = '/product/list?' + 'category=' + category + '&cp=' + cp;
+        } else {
+            getCustomList2(keyword, category, cp);
+            const state = { 'keyword': keyword };
+            const title = '';
+            const url = '/product/list?' + 'keyword=' + keyword + '&category=' + category + '&cp=' + cp;
+        }
+
+
 
         history.pushState(state, title, url)
     })
@@ -341,6 +368,8 @@ window.addEventListener("popstate", (event) => {
     const url = location.search;
     // 예시 ?category=1&cp=1
 
+    // 키워드가 있는지 확인하기
+    
     // 첫 번째 = 의 위치
     const firstEqualSign = url.indexOf('=', 1);
 
@@ -366,3 +395,18 @@ window.addEventListener("popstate", (event) => {
     updateCheckedCategory();
 });
 
+
+/* 검색어 사용 */
+const searchBtn = document.getElementById('searchBtn');
+
+searchBtn.addEventListener('click', () => {
+    const keyword = document.getElementById('keyword');
+
+    if(keyword.value.trim().length != 0) {
+        // location.href = '요청된 주소'
+        location.href = '/product/list?keyword=' + keyword.value; 
+    } else {
+        alert('검색어를 입력해주세요!')
+        keyword.focus();
+    }
+})
