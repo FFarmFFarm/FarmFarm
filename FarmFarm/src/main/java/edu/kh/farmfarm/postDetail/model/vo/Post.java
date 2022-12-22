@@ -16,6 +16,7 @@ public class Post {
 	private String postDate;
 	private int unitPrice;
 	private String openDate;
+	private int postSoldoutFl;
 	private String postDelFl;
 	private int memberNo;
 	private int categoryNo;

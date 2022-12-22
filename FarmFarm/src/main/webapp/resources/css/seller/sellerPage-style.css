@@ -12,6 +12,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* background-color: #eef4ed; */
 }
 
 button:hover,
@@ -34,7 +35,7 @@ a:hover {
 
 .profile-background {
     width: 1000px;
-    height: 60%;
+    height: 45%;
     overflow: hidden;
 
     display: flex;
@@ -52,7 +53,7 @@ a:hover {
     display: flex;
     flex-direction: column;
     width: 1000px;
-    height: 40%;
+    height: 55%;
 
     padding-left: 360px;
     padding-top: 23px;
@@ -84,6 +85,7 @@ a:hover {
     border-radius: 50%;
     overflow: hidden;
     border: 10px solid var(--background-color);
+    background-color: var(--background-color);
 
     position: absolute;
     left: 80px;
@@ -97,15 +99,15 @@ a:hover {
 
 
 /* 판매자 정보 */
-.member-info-container {
-    width: 500px;
-    display: flex;
-    justify-content: space-between;
-}
 
 .member-nickname{
-    margin: 10px 0;
     font-size: var(--title-font-size);
+    margin-bottom: 17px;
+}
+
+.member-nickname>i{
+    /* color: #e78111; */
+    color: #eb8717;
 }
 
 .info-title{
@@ -113,7 +115,26 @@ a:hover {
     font-weight: bold;
 }
 
+.member-info-container {
+    width: 500px;
+    display: flex;
+    justify-content: space-between;
+    
+    margin-bottom: 20px;
+}
 
+#enroll-post{
+    background-color: var(--point-color);
+    border: none;
+    border-radius: 7px;
+
+    color: #ffffff;
+    font-family:"NotoSansKR-Medium";
+    font-size: var(--medium-font-size);
+
+    width: 78%;
+    height: 40px;
+}
 
 /* 마이페이지 메뉴바 */
 .mypage-nav {
@@ -155,6 +176,8 @@ width: 1000px;
 display: flex;
 flex-direction: column;
 align-items: center;
+
+margin-bottom: 50px;
 }
 
 .post-list-header > select {
@@ -307,6 +330,7 @@ margin-top: 10px;
 .pagination-area{
     display: flex;
     justify-content: center;
+    margin-top: 50px;
 }
 
 /* 페이지 박스 */
