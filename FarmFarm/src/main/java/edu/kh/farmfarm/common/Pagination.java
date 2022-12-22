@@ -1,6 +1,6 @@
 package edu.kh.farmfarm.common;
 
-// 페이지네이션 시작
+// 페이지네이션 VO
 public class Pagination {
 	// 페이징 처리에 필요한 값?
 	

@@ -63,6 +63,10 @@ a.comment-wrote > i {
   text-align: center;
 }
 
+.comment-title {
+  color: var(--sub-font-color);
+}
+
 .comment-reg-date {
   width: 20%;
   text-align: center;

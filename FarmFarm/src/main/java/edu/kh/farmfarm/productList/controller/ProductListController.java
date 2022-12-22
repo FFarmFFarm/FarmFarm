@@ -1,6 +1,5 @@
 package edu.kh.farmfarm.productList.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,30 +22,10 @@ public class ProductListController {
 	private ProductListService service;
 	
 	// 팜팜마켓 페이지로 이동하기
-//	@GetMapping("/product/list")
-//	public String goProductListPage(
-//			Model model
-//			) {
-//		// 1. 모든 product 카테고리 리스트를 조회
-//		Map<String, Object> categoryList = service.getCategoryList();
-//		
-//		// 2. 가져온 카테고리 리스트를 세션에 올린다.
-//		model.addAttribute("categoryList", categoryList);
-//		
-//		// 3. 모든 product 리스트를 조회
-//		List<Product> productMap = service.getProductListAll();
-//		
-//		// 4. 상품 리스트도 세션에 올린다.
-//		model.addAttribute("productMap", productMap);
-//		
-//		// 3. 페이지로 이동한다.
-//		return "productList/productList";
-//	}
-	
-	// 팜팜마켓 페이지로 이동하기
 	@GetMapping("/product/list")
 	public String goProductListPage(
 			Model model,
+			@RequestParam(value = "keyword", required = false) String keyword, // 검색어
 			@RequestParam(value = "category", required = false, defaultValue = "0") int category,
 			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp // 현재 페이지
 			) {
@@ -59,11 +38,13 @@ public class ProductListController {
 		// 3. 모든 product 리스트를 조회
 		Map<String, Object> productMap;
 		
+		System.out.println("keyword : " + keyword);
+		
 		// 입력받은 카테고리가 있으면 해당 카테고리만 가져오고, 없으면 전부 다 불러오기
 		if(category == 0) {
-			productMap = service.getProductListAll(cp);
+			productMap = service.getProductListAll(cp, keyword);
 		} else {
-			productMap = service.getProductListChecked(cp, category);
+			productMap = service.getProductListChecked(cp, keyword, category);
 		}
 		
 		// 4. 상품 리스트도 세션에 올린다.
@@ -73,23 +54,12 @@ public class ProductListController {
 		return "productList/productList";
 	}
 
-	// 상품 목록 가져오기
-//	@GetMapping("/product/list/all")
-//	@ResponseBody
-//	public String getproductList() {
-//		
-//		// 모든 상품 목록 가져오기
-//		List<Product> productMap = service.getProductListAll();
-//		
-//		// 반환하기
-//		return new Gson().toJson(productMap);
-//		
-//	}
 	
 	// 선택된 카테고리의 목록만 가져오기
 	@GetMapping("/product/list/items")
 	@ResponseBody
 	public String getProductListChecked(
+					@RequestParam(value = "keyword", required = false) String keyword, // 검색어
 					@RequestParam(value = "category", required = false, defaultValue = "0") int category,
 					@RequestParam(value = "cp", required = false, defaultValue = "1") int cp // 현재 페이지
 			) {
@@ -101,13 +71,10 @@ public class ProductListController {
 			
 		// 입력받은 카테고리가 있으면 해당 카테고리만 가져오고, 없으면 전부 다 불러오기
 		if(category == 0) {
-			productMap = service.getProductListAll(cp);
+			productMap = service.getProductListAll(cp, keyword);
 		} else {
-			productMap = service.getProductListChecked(cp, category);
+			productMap = service.getProductListChecked(cp, keyword, category);
 		}
-		
-		// 해당 상품 목록 가져오기
-		// List<Product> productMap = service.getProductListChecked(category);
 		
 		// 반환하기
 		return new Gson().toJson(productMap);
