@@ -36,14 +36,13 @@
                     <div class="category-headline">
                         <button id="category-btn">
                             <p>카테고리 선택</p>
-                            <i class="fa-solid fa-caret-down"></i>
+                            <i class="fa-solid fa-caret-down select-icon"></i>
                         </button>
                         <div class="category-selected">
-                            <p>토마토 / 방울토마토</p>
-                            <p>&times</p>
+                            <p id="category-name"></p>
                         </div>
                     </div>
-                    <ul class="category-list">
+                    <ul id="category-list">
                         <li><input type="radio" name="category" value="701" id="701">
                         <label for="701">사과/배</label></li>
                         <li><input type="radio" name="category" value="702" id="702">
@@ -177,6 +176,8 @@
 
     <!-- footer -->
     <jsp:include page='/WEB-INF/views/common/footer.jsp' />
+
+    <script src="/resources/js/seller/enrollPost.js"></script>
 
     <!-- ajax -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>

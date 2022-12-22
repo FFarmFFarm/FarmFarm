@@ -56,7 +56,7 @@
 #category-btn{
     width: 18%;
     font-size: var(--main-font-size);
-    margin-left: 20px;
+    margin-left: 15px;
     cursor: pointer;
 
     border: none;
@@ -78,25 +78,31 @@
     cursor: pointer;
 }
 
-.category-selected>p:first-child{
-    padding-right: 5px;
+#category-name{
+    padding-right: 15px;
     color: var(--point-color);
+    font-size: var(--main-font-size);
 }
 
 /* 카테고리 리스트 */
-.category-list{
+#category-list{
     border: 1px solid #C7C7C7;
     padding: 20px 10px 20px 30px;
+    display: none;
 }
 
-.category-list>li{
+#category-list>li{
     width: 210px;
     display: inline-block;
     font-size: var(--main-font-size);
     padding-bottom: 5px;
 }
 
+.show-category{
+    display: block !important;
+}
 
+.rotate {transform: perspective(500px) rotateX(180deg);}
 
 [name="category"]{
     accent-color: var(--point-color);
