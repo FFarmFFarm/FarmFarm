@@ -21,24 +21,19 @@
         <section class="board-top">
             <div class="board-top-title">와글와글 글쓰기</div>
         </section>
-        <form action="/board/write" method="post">
+        <form action="/board/write" method="post" encType="multipart/form-data">
             <section class="board-category">
                 <div class="board-category-area">
                     <span class="category">카테고리 선택</span>
 
-                    <input type="radio" name="boardTypeNo" id="share" value="1">
-                    <label for="share">물물교환</label>
+                    <input type="radio" name="boardTypeNo" class="boardTypeNo" id="share" value="1">
+                    <label class="categoryLabel" for="share">물물교환</label>
 
-                    <input type="radio" name="boardTypeNo" id="tip" value="2">
-                    <label for="tip">팁</label>
+                    <input type="radio" name="boardTypeNo"  class="boardTypeNo" id="tip" value="2">
+                    <label class="categoryLabel" for="tip">팁</label>
 
-                    <input type="radio" name="boardTypeNo" id="question" value="3">
-                    <label for="question">질문</label>
-
-                    <%-- <c:forEach var="boardType" items="${boardTypeList}">
-                        <input type="radio" name="boardTypeNo" id="${boardType.BOARD_TYPE_NO}">
-                        <label for="${boardType.BOARD_TYPE_NO}">${boardType.BOARD_NAME}</label>
-                    </c:forEach> --%>
+                    <input type="radio" name="boardTypeNo"  class="boardTypeNo" id="question" value="3">
+                    <label class="categoryLabel" for="question">질문</label>
 
                 </div>
                 <button class="board-submit">게시하기</button>
@@ -94,5 +89,16 @@
         </form>
     </main>
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+
+    <c:if test="${!empty message}">
+        <script>
+            alert("${message}")
+        </script>
+
+        <%-- message 1회 출력 후 모든 scope에서 삭제 --%>
+        <c:remove var="message"/>
+    </c:if>
+    
+    <script src="/resources/js/board/boardWrite.js"> </script>
 </body>
 </html>

@@ -32,6 +32,7 @@
 		<typeAlias type="edu.kh.farmfarm.category.model.vo.Category" alias="Category"/>
 		<typeAlias type="edu.kh.farmfarm.category.model.vo.CategorySub" alias="CategorySub"/>
 		<typeAlias type="edu.kh.farmfarm.board.model.vo.Board" alias="Board"/>
+		<typeAlias type="edu.kh.farmfarm.board.model.vo.BoardImg" alias="BoardImg"/>
 		<typeAlias type="edu.kh.farmfarm.report.model.vo.Report" alias="Report"/>
 	</typeAliases>
 	
