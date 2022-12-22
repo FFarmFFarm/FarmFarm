@@ -72,29 +72,29 @@
                 </li>
                 <li class="widget-item">
                   <div class="dropdown">
-                        <button type="button" class="dropbtn">
-                          <span>
-                            <i class="fa-solid fa-user header-icon" id="profilePhoto"></i>
-                          </span>
-                          <!-- <span>
-                            <img src="/resources/images/member/farmer.png" class="login-profile-img">
-                          </span> -->
-                          <i class="fa-solid fa-caret-down caret-icon" id="triangleIcon"></i>
-                        </button>
-                        <div id="myDropdown" class="dropdown-content">
-                          <c:choose>
-                            <c:when test="${loginMember.authority == 1}">
-                              <a href="/seller">판매자페이지</a>
-                            </c:when>
-                            <c:when test="${loginMember.authority == 2}">
-                              <a href="/admin">관리자</a>
-                            </c:when>
-                            <c:otherwise>
-                              <a href="/member/myPage">마이페이지</a>
-                            </c:otherwise>
-                          </c:choose>
-                          <a href="/logout">로그아웃</a>
-                        </div>
+                    <button type="button" class="dropbtn">
+                      <span>
+                        <i class="fa-solid fa-user header-icon" id="profilePhoto"></i>
+                      </span>
+                      <!-- <span>
+                        <img src="/resources/images/member/farmer.png" class="login-profile-img">
+                      </span> -->
+                      <i class="fa-solid fa-caret-down caret-icon" id="triangleIcon"></i>
+                    </button>
+                    <div id="myDropdown" class="dropdown-content">
+                      <c:choose>
+                        <c:when test="${loginMember.authority == 1}">
+                          <a href="/seller">판매자페이지</a>
+                        </c:when>
+                        <c:when test="${loginMember.authority == 2}">
+                          <a href="/admin">관리자</a>
+                        </c:when>
+                        <c:otherwise>
+                          <a href="/myPage">마이페이지</a>
+                        </c:otherwise>
+                      </c:choose>
+                      <a href="/logout">로그아웃</a>
+                    </div>
                   </div>
                 </li>
               </ul>

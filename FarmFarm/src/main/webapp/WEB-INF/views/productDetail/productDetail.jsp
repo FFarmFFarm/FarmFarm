@@ -53,7 +53,7 @@
           <span class="product-name">${product.productName}</span>
           <span class="product-message">${product.productMessage}</span>
 
-          <span class="product-price">${product.productPrice}원</span>
+          <span class="product-price">${product.productPrice}<span>원</span></span>
           <!-- 로그인 x 일 때 -->
           <c:if test="${empty loginMember}">
             <span class="login-meassage">로그인 후 구매 가능합니다</span>
@@ -85,7 +85,7 @@
             </div>
             <div class="total-price">
               <span>총 금액:</span>
-              <span> ${product.productPrice}원 </span>
+              <span> ${product.productPrice}<span>원</span></span>
             </div>
           </div>
           <div class="product-btn-area">
