@@ -19,6 +19,7 @@ public class Product {
 	private String productImg;
 	private String productDelFl;
 	private String categoryName;
+	private String wishDate;
 	private int categoryNo;
 	private int stock;
 	private int productAmount;
