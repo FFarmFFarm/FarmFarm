@@ -132,7 +132,7 @@
                                     ${map.productMessage}
                                 </div>
                             </div>
-                        </div>
+                        </a>
                         
                     </c:forEach>
 
