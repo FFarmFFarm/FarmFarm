@@ -21,6 +21,14 @@ button:active {
   transform: scale(0.95);
 }
 
+button:disabled {
+ cursor: default;
+}
+
+button:disabled:active {
+  transform: none;
+}
+
 /* 상품 요약 */
 .product-summary {
   display: flex;
@@ -181,7 +189,6 @@ button:active {
   justify-content: center;
   background-color: white;
   border: none;
-  cursor: pointer;
 }
 
 .amount-area > span {
@@ -194,6 +201,11 @@ button:active {
 
   border-left: 1px solid var(--line-color);
   border-right: 1px solid var(--line-color);
+}
+
+.stock {
+  color: red;
+  font-size: var(--small-font-size);
 }
 
 .total-price {
@@ -248,6 +260,17 @@ button:active {
   width: 200px;
   background-color: var(--point-color);
   font-size: var(--large-font-size);
+}
+
+.cart-btn:disabled,
+.order-btn:disabled {
+  background-color: var(--line-color);
+  cursor: default;
+}
+
+.cart-btn:disabled:active,
+.order-btn:disabled:active {
+  transform: none;
 }
 
 .product-menu {
@@ -478,4 +501,8 @@ button:active {
   width: 50px;
   height: 50px;
   border: 1px solid #ddd;
+}
+
+.hide {
+  display: none;
 }

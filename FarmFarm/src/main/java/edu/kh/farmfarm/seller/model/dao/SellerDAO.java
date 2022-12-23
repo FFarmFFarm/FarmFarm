@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import edu.kh.farmfarm.member.model.VO.Member;
 import edu.kh.farmfarm.postDetail.model.vo.Post;
+import edu.kh.farmfarm.postDetail.model.vo.PostImg;
 import edu.kh.farmfarm.seller.model.vo.SellerPagination;
 
 @Repository
@@ -47,5 +48,35 @@ public class SellerDAO {
 		
 		return sqlSession.selectList("sellerMapper.selectPostList", memberNo, rowBounds);
 	}
+	
+
+	/** 게시글 등록
+	 * @param post
+	 * @return postNo
+	 */
+	public int enrollPost(Post post) {
+		int result = sqlSession.insert("sellerMapper.enrollPost", post);
+		
+		if(result>0) {
+			result = post.getPostNo();
+		}
+		return result;
+	}
+
+	/** 이미지 삽입
+	 * @param imgList
+	 * @return result
+	 */
+	public int insertPostImgList(List<PostImg> imgList) {
+		return sqlSession.insert("sellerMapper.insertPostImgList", imgList);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

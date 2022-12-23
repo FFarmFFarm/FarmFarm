@@ -11,6 +11,19 @@ public class BoardDetailController {
 	
 	@Autowired
 	private BoardDetailService serivce;
+	
+//	@GetMapping("/board/list")
+//	public String boardListPage() {
+//		return "/board/boardList";
+//	}
+//	@GetMapping("board/write")
+//	public String boardWritePage() {
+//		return "/board/boardWrite";
+//	}
+//	@GetMapping("/board/detail")
+//	public String boardDetailPage() {
+//		return "/board/boardDetail";
+//	}
 
 	
 }
