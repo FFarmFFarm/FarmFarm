@@ -19,14 +19,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Product Detail</title>
 
-    <link
-      rel="stylesheet"
-      href="/resources/css/productDetail/productDetail-style.css"
-    />
     <link rel="stylesheet" href="/resources/css/common/header-style.css" />
     <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
     <link rel="stylesheet" href="/resources/css/modal/reviewImg-style.css" />
     <link rel="stylesheet" href="/resources/css/modal/reviewDetail-style.css" />
+    <link
+      rel="stylesheet"
+      href="/resources/css/productDetail/productDetail-style.css"
+    />
     <script
       src="https://kit.fontawesome.com/591746f9e8.js"
       crossorigin="anonymous"
@@ -76,17 +76,25 @@
               <span class="origin">국산</span>
             </div>
           </div>
-          <div class="product-option">
+          <div class="product-option" id="productOption">
             <span>${product.productName}</span>
-            <div class="amount-area">
-              <button type="button">-</button>
-              <span>1</span>
-              <button type="button">+</button>
+            <div class="amount-area" >
+              <c:if test="${product.soldoutFl eq 'Y'|| product.stock == 0}">
+                <button type="button" id="removeBtn" disabled>-</button>
+                <span id="productAmount">1</span>
+                <button type="button" id="addBtn" disabled>+</button>
+              </c:if>
+              <c:if test="${product.soldoutFl ne 'Y'}">
+                <button type="button" id="removeBtn">-</button>
+                <span id="productAmount">1</span>
+                <button type="button" id="addBtn">+</button>
+              </c:if>
             </div>
             <div class="total-price">
               <span>총 금액:</span>
-              <span> ${product.productPrice}<span>원</span></span>
+              <span ><span id="totalPrice">${product.productPrice}</span><span>원</span></span>
             </div>
+            <span class="stock" id="stock"></span>
           </div>
           <div class="product-btn-area">
             <c:if test="${! empty loginMember}">
@@ -94,19 +102,25 @@
                 <i class="fa-regular fa-comment-dots"></i>
               </button>
             </c:if>
-            <button type="button" class="cart-btn">장바구니 담기</button>
-            <button type="button" class="order-btn">주문하기</button>
+            <c:if test="${product.soldoutFl eq 'Y'|| product.stock == 0}">
+              <button type="button" class="cart-btn" disabled>장바구니 담기</button>
+              <button type="button" class="order-btn" disabled>주문하기</button>
+            </c:if>
+            <c:if test="${product.soldoutFl ne 'Y'}">
+              <button type="button" class="cart-btn">장바구니 담기</button>
+              <button type="button" class="order-btn">주문하기</button>
+            </c:if>
           </div>
         </div>
-        <button type="button" class="share-btn">
+        <button type="button" class="share-btn" id="shareBtn">
           <i class="fa-solid fa-share"></i>
         </button>
         <c:if test="${! empty loginMember}">
           <c:if test="${product.wishCheck == 0}">
-            <button class="wish-btn fa-brands fa-gratipay wish-unclicked"></button>
+            <button class="wish-btn fa-brands fa-gratipay wish-unclicked" id="wishBtn"></button>
           </c:if>
           <c:if test="${product.wishCheck == 1}">
-            <button class="wish-btn fa-brands fa-gratipay wish-clicked"></button>
+            <button class="wish-btn fa-brands fa-gratipay wish-clicked" id="wishBtn"></button>
           </c:if>
         </c:if>
       </section>
@@ -134,7 +148,7 @@
           <!-- reviewImgAll의 길이가 8보다 작을 때 -->
           <c:if test="${fn:length(reviewImgAll) lt 8}">
             <c:forEach var="reviewImg" items="${reviewImgAll}">
-                  <li id="${reviewImg.reviewNo}">
+                  <li id="${reviewImg.reviewNo}" class="review-one-img">
                     <img src="${reviewImg.reviewImgPath}" alt="" />
                   </li>
             </c:forEach>
@@ -143,7 +157,7 @@
           <!-- reviewImgAll의 길이가 7보다 클 때 -->
           <c:if test="${fn:length(reviewImgAll) gt 7}">
             <c:forEach var="reviewImg" items="${reviewImgAll}" begin="0" end="6">
-              <li id="${reviewImg.reviewNo}">
+              <li id="${reviewImg.reviewNo}" class="review-one-img">
                 <img src="${reviewImg.reviewImgPath}" alt="" />
               </li>
             </c:forEach>
@@ -210,7 +224,7 @@
                 <div class="review-img">
                   <c:if test="${! empty review.imgList}">
                     <c:forEach var="img" items="${review.imgList}">
-                      <img src="${img.reviewImgPath}" alt="" />
+                      <img src="${img.reviewImgPath}" alt="" class="review-one-img" id="${review.reviewNo}"/>
                     </c:forEach>
                   </c:if>
                 </div>
@@ -244,7 +258,7 @@
 
 
     <!-- 리뷰 이미지 목록 모달창 -->
-    <div class="review-img-container">
+    <div class="review-img-container hide">
       <div class="review-img-list-modal">
         <div class="review-img-head">
           <button type="button" class="back-btn">
@@ -270,10 +284,10 @@
 
 
     <!-- 리뷰 상세조회 모달창 -->
-    <div class="review-detail-container">
+    <div class="review-detail-container hide" id="reviewDetail">
       <div class="review-detail-modal">
         <div class="review-head">
-          <button type="button" class="back-btn">
+          <button type="button" class="back-btn" id="backBtn">
             <i class="fa-solid fa-chevron-left"></i>
           </button>
           <span class="review-head-title">후기 상세</span>
@@ -331,6 +345,24 @@
         </div>
       </div>
     </div>
+
+
+    <!-- footer -->
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+
+
   </body>
+
+   <script>
+
+    memberNo = "${loginMember.memberNo}";
+    stock = "${product.stock}";
+
+   </script>
+
+   <!-- jquery -->
+   <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+    <script src="/resources/js/common/common.js"></script>
+    <script src="/resources/js/productDetail/productDetail.js"></script>
 </html>
