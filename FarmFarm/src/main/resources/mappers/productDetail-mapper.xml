@@ -16,6 +16,7 @@
       <result property="productMessage" column="PRODUCT_MESSAGE" />
       <result property="categoryName" column="CATEGORY_NAME" />
       <result property="wishCheck" column="WISH_CHECK" />
+      <result property="soldoutFl" column="SOLDOUT_FL" />
       
       <collection property="imgList" 
       			  javaType="java.util.ArrayList" ofType="ProductImg"
@@ -81,17 +82,19 @@
   
   
 
-
 <!-- 팜팜 상품 조회 -->
 <select id="selectProduct" resultMap="product_rm">
-	SELECT PRODUCT_NO, PRODUCT_NAME, REG_DATE,
-		TO_CHAR(PRODUCT_PRICE, 'FM999,999,999,999') PRODUCT_PRICE,
-		STOCK, PRODUCT_MESSAGE, CATEGORY_NAME, #{memberNo} MEMBER_NO,
+	SELECT PRODUCT_NO, PRODUCT_NAME, REG_DATE, SOLDOUT_FL,
+		TO_CHAR(PRODUCT_PRICE, 'FM999,999,999,999') PRODUCT_PRICE, 
+		(STOCK - (SELECT SUM(PRODUCT_AMOUNT) 
+		FROM "ORDER" 
+		JOIN ORDER_PRODUCT op USING(ORDER_NO) 
+		WHERE op.PRODUCT_NO = p.PRODUCT_NO)) STOCK, 
+		PRODUCT_MESSAGE, CATEGORY_NAME, #{memberNo} MEMBER_NO,
 		(SELECT COUNT(*) FROM WISH w WHERE MEMBER_NO = #{memberNo} AND w.PRODUCT_NO = p.PRODUCT_NO) WISH_CHECK
 	FROM PRODUCT p
 	JOIN CATEGORY c USING(CATEGORY_NO)
 	WHERE PRODUCT_NO = #{productNo}
-	AND PRODUCT_DEL_FL = 'N'
 </select>
 
 
@@ -139,6 +142,18 @@
 	SELECT * FROM REVIEW_IMG ri
 	WHERE REVIEW_NO = #{reviewNo}
 </select>
+
+
+<insert id="addWish">
+	INSERT INTO WISH
+	VALUES(#{memberNo}, #{productNo}, DEFAULT)
+</insert>
+
+<insert id="removeWish">
+	DELETE FROM WISH
+	WHERE MEMBER_NO = #{memberNo} AND PRODUCT_NO = #{productNo}
+</insert>
+
 
 
 
