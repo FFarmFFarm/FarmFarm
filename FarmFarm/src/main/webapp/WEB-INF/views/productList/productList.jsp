@@ -12,16 +12,16 @@
     <!-- swiper-style -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
 
-    <link rel="stylesheet" href="/resources/css/productList/productList-style.css">
     <link rel="stylesheet" href="/resources/css/common/header-style.css">
     <link rel="stylesheet" href="/resources/css/common/footer-style.css">
+    <link rel="stylesheet" href="/resources/css/productList/productList-style.css">
 
 
     <script src="https://kit.fontawesome.com/d449774bd8.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <!-- header --> 
-    <jsp:include page='/WEB-INF/views/common/header.jsp' />
+    <jsp:include page='/WEB-INF/views/common/listHeader.jsp' />
 
     <!-- 배너와 검색창이 들어갈 자리입니다 -->
     <section class="banner">
@@ -48,17 +48,24 @@
         <div class="search-area">
             <span id="title">팜팜마켓</span>
             <div id="searchBar">
-                <input id="keyword" placeholder="검색어를 입력하세요">
-                <button id="searchBtn">
+                <input id="searchInput" class="keyword" placeholder="검색어를 입력하세요">
+                <div id='cleanBtn' class='reset-search'>
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </div>
+                <button class="search-btn">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </div>
+            <!-- <div id="searchHistoryArea">
+                <div id="searchHistory">
+
+                </div>
+            </div> -->
         </div>
     </section>
 
     <!-- 본문이 들어갈 자리입니다. -->
     <div class="container" role="main">
-
 
         <!-- 좌측 카테고리 영역 -->
         <section class="category-area">
@@ -77,6 +84,9 @@
                 </div>
 
             </div>
+            <div class="reset-category">
+                <span><i class="fa-solid fa-circle-xmark"></i>&nbsp;검색 초기화</span>
+            </div>
 
         </section>
 
@@ -85,17 +95,23 @@
 
             <!-- 상품 목록 정렬 옵션 -->
             <div class="list-area-header">
-                <div id="listCount">
-                    총 123개
+                <div class="list-count-area">
+                    <span>검색결과&nbsp;</span>
+                    <span id="listCount">${productMap.pagination.listCount}</span>
+                    <span>개</span>
                 </div>
                 <div class="view-option">
-                    <span class="opt">판매량순</span>
+                    <input type='radio' name='sorting' id='rates' value='rates' checked>
+                    <label for='rates' class="opt" >판매량순</label>
                     <span>|</span>
-                    <span class="opt">신상품순</span>
+                    <input type='radio' name='sorting' id='new' value='newest'>
+                    <label for='new' class="opt" >신상품순</label>
                     <span>|</span>
-                    <span class="opt">낮은가격순</span>
+                    <input type='radio' name='sorting' id='asc' value='priceLowToHigh'>
+                    <label for='asc' class="opt" >낮은가격순</label>
                     <span>|</span>
-                    <span class="opt">높은가격순</span>
+                    <input type='radio' name='sorting' id='desc' value='priceHighToLow'>
+                    <label for='desc' class="opt" >높은가격순</label>
                 </div>
             </div>
 

@@ -51,7 +51,7 @@ public class ProductListDAO {
 	/** 모든 상품 목록 가져오기
 	 * @return
 	 */
-	public List<Product> getProductListAll(Pagination pagination, String keyword) {
+	public List<Product> getProductListAll(Pagination pagination, String keyword, String sort) {
 		
 		int offset = ( pagination.getCurrentPage() - 1 ) * pagination.getLimit();
 		
@@ -60,6 +60,9 @@ public class ProductListDAO {
 		// 검색어 객체 생성
 		SearchItem searchItem = new SearchItem();
 		searchItem.setKeyword(keyword);
+		searchItem.setSort(sort);
+		System.out.println("sort : " + searchItem.getSort());
+		
 		
 		return sqlSession.selectList("productListMapper.getProductList_all", searchItem, rowBounds);
 	}
@@ -75,7 +78,7 @@ public class ProductListDAO {
 	 * @param category
 	 * @return
 	 */
-	public List<Product> getProductListChecked(Pagination pagination, String keyword, int category) {
+	public List<Product> getProductListChecked(Pagination pagination, String keyword, int category, String sort) {
 		
 		int offset = ( pagination.getCurrentPage() - 1 ) * pagination.getLimit();
 		
@@ -85,6 +88,8 @@ public class ProductListDAO {
 		SearchItem searchItem = new SearchItem();
 		searchItem.setKeyword(keyword);
 		searchItem.setCategory(category);
+		searchItem.setSort(sort);
+		System.out.println("sort : " + searchItem.getSort());
 		
 		return sqlSession.selectList("productListMapper.getProductList_checked", searchItem, rowBounds);
 		
