@@ -10,6 +10,7 @@
     <title>판매자 인증 관리</title>
 
     <link rel="stylesheet" href="/resources/css/common/header-style.css">
+    <link rel="stylesheet" href="/resources/css/common/footer-style.css">
     <link rel="stylesheet" href="/resources/css/admin/adminNav-style.css">
     <link rel="stylesheet" href="/resources/css/admin/adminSellerAuth-style.css" />
 
@@ -221,7 +222,7 @@
         </section>
     </main>
 
-    <jsp:include page="/WEB-INF/views/common/footer.jsp"/> 
+    <!-- <jsp:include page="/WEB-INF/views/common/footer.jsp"/>  -->
 
 </body>
 </html>

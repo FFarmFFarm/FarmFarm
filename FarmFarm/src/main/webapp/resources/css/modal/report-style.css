@@ -60,6 +60,9 @@
 
 .report-form{
     font-size: var(--main-font-size);
+
+    display: flex;
+    flex-direction: column;
 }
 
 .report-form input{
@@ -81,6 +84,11 @@
 
 input[type=radio]{
     accent-color: #fa2601;
+    cursor: pointer;
+}
+
+[name=report], label {
+    cursor: pointer;
 }
 
 
@@ -91,7 +99,6 @@ input[type=radio]{
     color: white;
     border: none;
     border-radius: 5px;
-    margin-top: 20px;
     margin-left: 30px;
     
 }

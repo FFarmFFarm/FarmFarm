@@ -1,14 +1,17 @@
 package edu.kh.farmfarm.report.model.service;
 
-import edu.kh.farmfarm.report.model.vo.Report;
+import java.util.Map;
 
 public interface ReportService {
 
-	
 	/** 신고하기
-	 * @param report
+	 * @param map
 	 * @return result
 	 */
-	int insertReport(Report report);
+	int insertReport(Map<String, Object> map);
+
+	
+
+	
 
 }
