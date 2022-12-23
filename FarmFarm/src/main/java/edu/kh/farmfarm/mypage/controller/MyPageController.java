@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
@@ -17,6 +18,7 @@ import edu.kh.farmfarm.mypage.model.service.MyPageService;
 import edu.kh.farmfarm.mypage.model.vo.Comment;
 
 @Controller
+@RequestMapping("/myPage")
 public class MyPageController {
 	
 	@Autowired
@@ -26,7 +28,7 @@ public class MyPageController {
 	/** 마이페이지 이동(주문목록)
 	 * @return
 	 */
-	@GetMapping("/myPage")
+	@GetMapping("//")
 	public String myPage(
 			@SessionAttribute("loginMember")Member loginMember,
 			Model model,
@@ -47,7 +49,7 @@ public class MyPageController {
 	/** 마이페이지 작성 후기
 	 * @return
 	 */
-	@GetMapping("/myPage/review")
+	@GetMapping("/review")
 	public String myPageReview(
 			@SessionAttribute("loginMember")Member loginMember,
 			Model model,
@@ -68,7 +70,7 @@ public class MyPageController {
 	/** 마이패이지 작성 게시글
 	 * @return
 	 */
-	@GetMapping("/myPage/board")
+	@GetMapping("/board")
 	public String myPageBoard(
 		@SessionAttribute("loginMember")Member loginMember, 
 		Model model,
@@ -94,7 +96,7 @@ public class MyPageController {
 	 * @param cp
 	 * @return
 	 */
-	@GetMapping("/myPage/comment")
+	@GetMapping("/comment")
 	public String myPageComment(
 			@SessionAttribute("loginMember")Member loginMember, 
 			Model model,
@@ -119,7 +121,7 @@ public class MyPageController {
 	/** 마이페이지 찜목록
 	 * @return
 	 */
-	@GetMapping("/myPage/wishList")
+	@GetMapping("/wishList")
 	public String myPageWishList(
 			@SessionAttribute("loginMember")Member loginMember, 
 			Model model,

@@ -16,12 +16,14 @@ public class Post {
 	private String postContent;
 	private int postView;
 	private String postDate;
-	private int unitPrice;
+	private String unitPrice;
 	private String openDate;
 	private int postSoldoutFl;
 	private String postDelFl;
 	private int memberNo;
+	private String memberNickname;
 	private int categoryNo;
+	private String categoryName;
 	private String postImgAddress;
 	
 	private List<PostImg> imgList;
