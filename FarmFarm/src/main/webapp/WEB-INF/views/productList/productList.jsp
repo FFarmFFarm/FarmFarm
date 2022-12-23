@@ -49,6 +49,9 @@
             <span id="title">팜팜마켓</span>
             <div id="searchBar">
                 <input id="searchInput" class="keyword" placeholder="검색어를 입력하세요">
+                <div class='reset-search'>
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </div>
                 <button class="searchBtn">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>

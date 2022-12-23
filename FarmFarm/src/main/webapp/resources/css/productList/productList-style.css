@@ -140,6 +140,10 @@ body{
     margin-top: 10px;
 
     border-radius: 5px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #searchBar:focus-within{
@@ -148,7 +152,7 @@ body{
 .keyword{
     color: var(--main-font-color);
     border: none;
-    width: 95%;
+    width: 75%;
 
     outline: none;
 }

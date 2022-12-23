@@ -184,7 +184,7 @@ const createProductBox = (productMap) => {
         for(let i=pagination.startPage; i<=pagination.endPage; i++) {
             const numPage = document.createElement('div');
             if(i == pagination.currentPage) {
-                makePageBox(numPage, i, i, 'currnet-page-box');
+                makePageBox(numPage, i, i, 'current-page-box');
             } else {
                 makePageBox(numPage, i, i, 'page-box');
             }
@@ -264,7 +264,7 @@ const getCustomList2 = (keyword, category, cp) => {
 
 // ----------------------------- utils -------------------------------------- //
 
-/* 상품 목록이 비어있는 경우 페이지를 만드는 함수 */
+/* 페이지를 만드는 함수 */
 const initialList = () => {
     const url = location.search;
     // 예시 ?keyword=감자&category=1&cp=1
@@ -421,7 +421,16 @@ const resetBtnShow = (category) => {
     }
 }
 
+// 검색 초기화 버튼 보이기/가리기 함수
+const resetSearchShow = (category) => {
+    const resetSearch = document.querySelector('.reset-search');
 
+    if(category != 0) {
+        resetSearch.style.display='flex';
+    } else {
+        resetSearch.style.display='none';
+    }
+}
 
 // history를 만드는 함수1
 const makeHistory1 = (category, cp) => {
@@ -630,6 +639,5 @@ const sortings = document.querySelectorAll('input[name="sorting"]');
 
 for(let sorting of sortings) {
     sorting.addEventListener('click', () => {
-        
     })
 }
