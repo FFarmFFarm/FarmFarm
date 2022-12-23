@@ -9,6 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>회원 관리</title>
         <link rel="stylesheet" href="/resources/css/common/header-style.css">
+        <link rel="stylesheet" href="/resources/css/common/footer-style.css">
         <link rel="stylesheet" href="/resources/css/admin/adminNav-style.css">
         <link rel="stylesheet" href="/resources/css/admin/adminMember-style.css" />
 
@@ -383,7 +384,7 @@
             </section>
         </main>
 
-      <jsp:include page="/WEB-INF/views/common/footer.jsp"/> 
+      <!-- <jsp:include page="/WEB-INF/views/common/footer.jsp"/>  -->
 
     </body>
 </html>

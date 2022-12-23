@@ -1,0 +1,48 @@
+@import "../root-style.css";
+
+body{
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.home-logo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+
+.notice-text{
+    margin-top: 40px;
+    font-family: "S-CoreDream-4Legular";
+    font-size: 40px;
+    color: var(--point-color);
+    font-weight: bolder;
+}
+
+.notice-text2{
+    margin-top: 40px;
+    font-family: "S-CoreDream-4Legular";
+    font-size: var(--medium-font-size);
+    color: var(--point-color);
+    font-weight: bolder;
+}
+
+.go-home{
+    margin-top: 30px;
+    text-decoration: none;
+    background-color: var(--point-color);
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.go-home a{
+    font-family: NotoSansKR-Light;
+    color:white;
+}
