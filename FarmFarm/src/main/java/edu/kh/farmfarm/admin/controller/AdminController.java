@@ -1,5 +1,6 @@
 package edu.kh.farmfarm.admin.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,9 +72,24 @@ public class AdminController {
 	
 	// 전체 회원 조회
 	@GetMapping("/admin/member")
-	public String selectMemberAll(Member member, @SessionAttribute(value="loginMember") Member loginMember, int memberNo) {
+	public String selectMemberAll(Member member, @SessionAttribute(value="loginMember") Member loginMember, 
+								int memberNo, Model model) {
 		
-		List<Member> memberAllList = service.selectMemberAll(memberNo);
+		List<Member> memberAllList = new ArrayList<Member>();
+		
+		// 관리자인지 확인
+		int result = service.checkAdmin();
+		
+		if(result == 1 && loginMember != null) {
+			
+			memberAllList = service.selectMemberAll(memberNo);
+		}
+
+		
+		model.addAttribute("memberAllList", memberAllList);
+		
+		
+		return null;
 		
 		
 	}
