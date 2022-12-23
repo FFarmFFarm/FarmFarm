@@ -37,11 +37,6 @@
   	<result property="memberNo" column="MEMBER_NO"/>
   	<result property="categoryNo" column="CATEGORY_NO"/>
   	<result property="postImgAddress" column="POST_IMG_ADDRESS"/>
-  	
-<!--    	<collection property="postImgList" 
-      			  javaType="java.util.ArrayList" ofType="PostImg"
-      			  select="selectPostImgList"
-      			  column = "POST_NO"/> -->
   </resultMap>
   
   <resultMap type="PostImg" id="postImg_rm">
@@ -85,5 +80,28 @@
 	<insert id="insertFarmImgList">
 		INSERT INTO SELLER VALUES(#{memberNo}, #{farmImg})
 	</insert>
+	<!-- 판매글 삽입 -->
+	<insert id="enrollPost" parameterType="Post" useGeneratedKeys="true">
+		<selectKey keyProperty="postNo" resultType="_int" order="BEFORE">
+			SELECT SEQ_POST_NO.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO POST VALUES
+		(#{postNo}, #{postTitle}, #{postContent}, DEFAULT, DEFAULT, 
+		#{unitPrice}, DEFAULT, DEFAULT, #{memberNo}, #{categoryNo}, DEFAULT)
+	</insert>
+	
+	<!-- 판매이미지 삽입 -->
+	<insert id="insertPostImgList" parameterType="list">
+		INSERT INTO POST_IMG
+		SELECT SEQ_POST_IMG_NO.NEXTVAL POST_IMG_NO, A.* FROM
+		<foreach collection="list" item="img" open="(" close=") A" separator="UNION ALL">
+			SELECT
+				#{img.postImgAddress} POST_IMG_ADDRESS,
+				#{img.postNo} POST_NO,
+				#{img.postImgOrder} POST_IMG_ORDER
+			FROM DUAL
+		</foreach>
+	</insert>
+	
 
 </mapper>

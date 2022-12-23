@@ -2,31 +2,63 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="postDetailMapper">
 
-
- <resultMap type="Comment" id="comment_rm">
-        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
-     <id property = "commentNo" column="COMMENT_NO"/>
+<!--판매자 상품  -->
+<resultMap type="Post" id="post_rm">
+     <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+     <id property = "postNo" column="POST_NO"/>
      <!-- 나머지 일반 컬럼 -->
-      <result property="commentContent" column="COMMENT_CONTENT" />
-      <result property="commentDate" column="COMMENT_DATE" />
-      <result property="boardNo" column="BOARD_NO" />
-      <result property="boardTitle" column="BOARD_TITLE" />
-      <result property="memberNo" column="MEMBER_NO" />
-      <result property="commentParent" column="COMMENT_PARENT" />
+     <result property="postTitle" column="POST_TITLE" />
+     <result property="postContent" column="POST_CONTENT" />
+     <result property="postView" column="POST_VIEW" />
+     <result property="unitPrice" column="UNIT_PRICE" />
+     <result property="openDate" column="OPEN_DATE" />
+     <result property="postSoldoutFl" column="POST_SOLDOUT_FL" />
+     <result property="memberNo" column="MEMBER_NO" />
+     <result property="categoryNo" column="CATEGORY_NO" />
+     <result property="categoryName" column="CATEGORY_NAME" />
+     <result property="memberNickname" column="MEMBER_NICKNAME" />
+     
+           <collection property="imgList" 
+     			  javaType="java.util.ArrayList" ofType="PostImg"
+     			  select="selectImgList"
+     			  column = "POST_NO"/>
+</resultMap>
+
+
+
+
+ <!-- 판매자 상품 이미지 resultMap --> 
+ <resultMap type="PostImg" id="postImg_rm">
+        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+     <id property = "postImgNo" column="POST_IMG_NO"/>
+
+     <!-- 나머지 일반 컬럼 -->
+      <result property="postImgAddress" column="POST_IMG_ADDRESS" />
+      <result property="postNo" column="POST_NO" />
+      <result property="postImgOrder" column="POST_IMG_ORDER" />
   </resultMap>
 
 
 
-<select id="commentCount" resultType="_int">
-	SELECT COUNT(*) FROM "COMMENT"
-	WHERE MEMBER_NO = #{memberNo}
+
+<!-- 판매자 상품 조회 -->
+<select id="selectPost" resultMap="post_rm">
+	SELECT POST_NO , POST_TITLE , POST_CONTENT, POST_VIEW ,
+		TO_CHAR(UNIT_PRICE, '999,999,999,999') UNIT_PRICE,
+		TO_CHAR(POST_DATE, 'yyyy.MM.DD') POST_DATE, 
+		TO_CHAR(OPEN_DATE, 'yyyy"년 "MM"월 "DD"일"') OPEN_DATE,
+		POST_SOLDOUT_FL, MEMBER_NO , MEMBER_NICKNAME, CATEGORY_SUB_NAME CATEGORY_NAME
+	FROM POST p
+	JOIN "MEMBER" m USING(MEMBER_NO)
+	JOIN CATEGORY_SUB cs ON (p.CATEGORY_NO = cs.CATEGORY_SUB_NO)
+	WHERE POST_NO = #{postNo}
 </select>
 
-<select id="selectCommentList" resultMap="comment_rm">
-	SELECT COMMENT_NO, COMMENT_CONTENT , COMMENT_DATE , BOARD_NO , BOARD_TITLE 
-	FROM "COMMENT" c
-	JOIN BOARD b USING(BOARD_NO)
-	WHERE c.MEMBER_NO = #{memberNo}
+
+
+<!-- 판매자 상품 이미지 목록 조회 -->
+<select id="selectImgList" resultMap="postImg_rm">
+	SELECT * FROM POST_IMG WHERE POST_NO = #{postNo}
 </select>
 
 
