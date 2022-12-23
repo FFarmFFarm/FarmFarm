@@ -6,6 +6,8 @@ report.style.display = 'none';
 
 reportBtn.addEventListener('click', () => {
     report.style.display = 'flex';
+    console.log(targetNo);
+    console.log(pathname);
 })
 
 
@@ -34,9 +36,9 @@ window.addEventListener('click', (e) => {
     1) 주소창 주소에 따라서 reportType을 다르게.  -> pathname
 
     회원 신고 : /member /chat /myPage /seller
-    후기 신고 : /review  /post
-    게시글 신고 : /board  /post
-    댓글 신고 : /board
+    후기 신고 : /review/{reviewNo}  /post/{postNo}
+    게시글 신고 : /board/{boardCode}/{boardNo}  /post/{postNo}
+    댓글 신고 : /board/{boardCode}/{boardNo}
 
 
     2) 각 타입별로 reportType 정해주고, reportTargetNo 다르게 가져오기
@@ -45,14 +47,18 @@ window.addEventListener('click', (e) => {
 
 */
 
-
+// * pathname: 각 기능 메인 주소
 const pathname = location.pathname.substring(1, location.pathname.lastIndexOf("/"));
 const reportType = document.getElementById("reportType").value;
 const reportTargetNo = document.getElementById("reportTargetNo").value;
 
-const reportReasonList = document.getElementsByName("report");
-const reportReason = document.getElementById("reportReason");
+const reportReasonList = document.querySelector("label");
+const reportReason = document.getElementById("reportReason").value;
 const reportContent = document.getElementById("reportContent");
+
+//boardNo, postNo, reviewNo의 번호
+//location.pathname.substring(location.pathname.lastIndexOf("/")+1)
+const targetNo = location.pathname.substring(location.pathname.lastIndexOf("/")+1);
 
 
 // 신고하기 ajax
@@ -72,32 +78,33 @@ reportSubmitBtn.addEventListener("click", () => {
 
     // 채팅방 회원 신고
     if(pathname == "chat") {
-    reportType = "M";
-    reportTargetNo = memberNo2;
+        reportType = "M";
+        reportTargetNo = memberNo2;
     }
 
 
     // 후기 신고
-    if((pathname == "review" || pathname == "post") && reviewNo.contains("r")){
-    reportType = "R";
-    reportTargetNo = reviewNo;
+    if(pathname == "review" && reviewNo.contains("r"){
+        reportType = "R";
+        reportTargetNo = reviewNo;
     }
 
 
     // 판매 게시글 신고
     if(pathname == "post" && !reviewNo.contains("r")){
         reportType = "B";
-        reportTargetNo = postNo;
+        reportTargetNo = targetNo;  //postNo
     }
 
 
     // 와글와글 게시글 신고
     if(pathname == "board" && !commentNo.contains("c")){
         reportType = "B";
-        reportTargetNo = boardNo;
+        reportTargetNo = targetNo;  //boardNo
     }
 
-    // 댓글 신고
+
+    // 댓글 신고 - 
     if(pathname == "board" && commentNo.contains("c")){
         reportType = "C";
         reportTargetNo = commentNo;
@@ -105,27 +112,26 @@ reportSubmitBtn.addEventListener("click", () => {
 
 
 
-    // 연습 product
-    if(pathname == "product" && !reviewNo.contains("r")){
-        reportType = "B";
-        reportTargetNo = productNo;
+    // 연습 test
+    if(pathname == "test"){
+        reportType = "T";
+        reportTargetNo = targetNo; //4
     }
 
 
 
     // 선택한 신고 사유 가져오기
-    reportReasonList.forEach((reason) => {
-
-        if(reason.checked) {
-            reportReason = reason.value;
+    for(item of reportReasonList){
+        if(item.checked){
+            reportReason = reportReasonList[item].value;
         }
-    })
+    }
     
 
     $.ajax({
         url: "/report",
-        data: { "reportType" :reportType.value, 
-                "reportTargetNo" : reportTargetNo.value,
+        data: { "reportType" :reportType, 
+                "reportTargetNo" : reportTargetNo,
                 "reportReason" : reportReason,
                 "reportContent": reportContent.innerHTML},
         type: "GET",
