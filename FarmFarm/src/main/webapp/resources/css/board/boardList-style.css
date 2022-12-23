@@ -33,9 +33,19 @@ main{
     margin: 0 160px;
     align-items: center;
 }
-.board-nav-area >span:hover{
+.board-nav-area > a{
+    height: 100%;
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.board-nav-area >a:hover{
     color: var(--point-color);
     cursor: pointer;
+}
+.nowType{
+    border-bottom: 3px solid var(--point-color);
 }
 
 /* 커뮤니티 검색 */

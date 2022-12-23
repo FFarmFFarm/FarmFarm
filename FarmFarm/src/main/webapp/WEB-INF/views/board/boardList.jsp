@@ -26,12 +26,12 @@
         </section>
         <section class="board-nav">
             <div class="board-nav-area">
-                <a href="/board/${1}">물물교환</a>
-                <a href="/board/${2}">팁</a>
-                <a href="/board/${3}">질문</a>
+                <a id="type1" href="/board/${1}">물물교환</a>
+                <a id="type2" href="/board/${2}">팁</a>
+                <a id="type3" href="/board/${3}">질문</a>
             </div>
         </section>
-        <%-- <form action="" class="board-search">
+        <form action="/board/${boardTypeNo}" class="board-search">
             <section class="board-search-area">
                 <input type="text" name="query" placeholder="검색어를 입력해주세요">
                 <button class="board-search-btn">
@@ -39,12 +39,12 @@
                 </button>
             </section>
             <select class="board-select" name="boardSelectNVL" id="boardSelect">
-                <option value="new"> <a href="#">최신순</a> </option>
-                <option value="view"> <button>조회수</button> </option>
-                <option value="like"> <button>좋아요</button> </option>
+                <option value="new">최신순</option>
+                <option value="view">조회수</option>
+                <option value="like">좋아요</option>
             </select>
-        </form> --%>
-        <section class="board-search">
+        </form>
+        <%-- <section class="board-search">
             <form action="/board/${boardTypeNo}" class="board-search-area">
                 <input type="text" id="query" name="query" placeholder="검색어를 입력해주세요">
                 <button class="board-search-btn">
@@ -56,7 +56,7 @@
                 <option value="view">조회수</option>
                 <option value="like">좋아요</option>
             </select>
-        </section>
+        </section> --%>
         <section class="board-list">
             <div class="board-list-top">
                 <div class="board-List-title">
@@ -78,7 +78,12 @@
                             <c:forEach var="board" items="${boardList}">
                                 <li>
                                     <span class="board-no">${board.boardNo}</span>
-                                    <span class="board-img"><img src="${board.thumbnail}" class="thumbImg"></span>
+                                    <c:if test="${!empty board.thumbnail}">
+                                        <span class="board-img"><img src="${board.thumbnail}" class="thumbImg"></span>
+                                    </c:if>
+                                    <c:if test="${empty board.thumbnail}">
+                                        <span class="board-img"></span>
+                                    </c:if>
                                     <span class="board-title"><a href="">${board.boardTitle}</a></span>
                                     <span class="board-date">${board.boardDate}</span>
                                     <span class="board-view">${board.boardView}</span>
@@ -121,7 +126,9 @@
                             <li> <a href="/board/&{boardTypeNo}?cp=${pagination.maxPage}${sURL}">&gt;&gt;</a></li>
                         </ul>
                     </div>
-                    <a href="/board/write" class="board-write">글쓰기</a>
+                    <c:if test="${!empty loginMember}">
+                        <a href="/board/write" class="board-write">글쓰기</a>
+                    </c:if>
                 </div>
             </div>
         </section>
