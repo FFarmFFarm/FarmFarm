@@ -1,6 +1,7 @@
 package edu.kh.farmfarm.member.model.service;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -86,7 +87,7 @@ public class MemberServiceImpl implements MemberService {
 	// 회원가입 (판매자) 
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int signUp1(Member inputMember, String[] memberAddress, String webPath, String folderPath, MultipartFile image) {
+	public int signUp1(Member inputMember, String[] memberAddress, String webPath, String folderPath, MultipartFile image) throws IOException {
 		String encPw = bcrypt.encode(inputMember.getMemberPw());
 		inputMember.setMemberPw(encPw);
 		
@@ -95,13 +96,12 @@ public class MemberServiceImpl implements MemberService {
 		
 		// 이미지 삽입 
 		Seller farmImage = new Seller();
-		List<String> reNameList = new ArrayList<String>();
+		String reName = null;
 		
 			if(image.getSize() > 0) {
 				
 				// 파일명 리네임 
-				String reName = Util.fileRename(image.getOriginalFilename());
-				reNameList.add(reName);
+				reName = Util.fileRename(image.getOriginalFilename());
 				
 				farmImage.setFarmImg(webPath + reName);
 				farmImage.setMemberNo(memberNo);
@@ -110,8 +110,8 @@ public class MemberServiceImpl implements MemberService {
 			
 		// 업로드 된 이미지가 있을 경우 
 		if(farmImage != null) {
-			int imgList = dao.insertFarmImgList(farmImage);
-
+			int img = dao.insertFarmImgList(farmImage);
+			image.transferTo(new File(folderPath + reName));
 		}
 		
 		int result = 0;

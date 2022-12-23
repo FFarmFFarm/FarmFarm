@@ -1,5 +1,6 @@
 package edu.kh.farmfarm.member.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -158,7 +159,7 @@ public class MemberController {
 			@RequestHeader("referer") String referer,
 			@RequestParam(value="images", required=false) MultipartFile image,
 			HttpSession session
-			){
+			) throws IOException{
 		
 	   String webPath = "/resources/images/seller/";
 	   

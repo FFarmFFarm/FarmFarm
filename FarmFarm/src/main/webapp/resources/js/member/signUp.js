@@ -445,7 +445,7 @@ memberBirth.addEventListener("input", ()=>{
 
 
 // 이미지 미리보기
-const inputImage = document.getElementsByClassName("inputImage");
+const inputImage = document.getElementsByClassName("input-image");
 const preview = document.getElementsByClassName("preview");
 const deleteImage = document.getElementsByClassName("delete-image");
 

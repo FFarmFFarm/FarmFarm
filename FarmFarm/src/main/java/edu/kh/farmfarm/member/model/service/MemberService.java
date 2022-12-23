@@ -1,5 +1,6 @@
 package edu.kh.farmfarm.member.model.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -17,7 +18,7 @@ public interface MemberService {
 
 	int signUp0(Member inputMember, String[] memberAddress);
 
-	int signUp1(Member inputMember, String[] memberAddress, String webPath, String folderPath, MultipartFile image);
+	int signUp1(Member inputMember, String[] memberAddress, String webPath, String folderPath, MultipartFile image) throws IOException;
 
 
 

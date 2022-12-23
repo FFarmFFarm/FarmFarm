@@ -12,7 +12,7 @@
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>FarmFarm | 회원가입 </title>
 
-                    <link rel="stylesheet" href="/resources/css/member/signUp-style.css">
+                    <link rel="stylesheet" href="/resources/css/member/signup-style.css">
 
                 </head>
 
@@ -25,7 +25,7 @@
                             <div class="form-wrap">
                                 <div class="signup-title">회원가입</div>
                                 <div class="signup-subtitle">-판매자-</div>
-                                <form action="/signUp" method="post" id="signUpFrm">
+                                <form action="/signUp1" method="post" id="signUpFrm">
                                     <section class="signup">
                                         <input type="text" name="memberId" id="memberId" placeholder="아이디"
                                             autocomplete="off" maxlegnth="50" value="${tempMember.memberId}">
@@ -96,7 +96,7 @@
                                                     <div class="farm-img">
                                                         <div class="farm-img-upload">
                                                             <label for="farmerImg"><img class="preview" src=""></label>
-                                                            <input type="file" name="farmerImg" id="farmerImg"
+                                                            <input type="file" name="farmerImg" id="farmerImg" class="input-image"
                                                                 accept=".jpg,.jpeg,.png">
                                                             <span class="delete-image">&times;</span>
                                                         </div>
