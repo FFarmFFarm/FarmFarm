@@ -60,6 +60,9 @@
 
 .report-form{
     font-size: var(--main-font-size);
+
+    display: flex;
+    flex-direction: column;
 }
 
 .report-form input{
@@ -96,7 +99,6 @@ input[type=radio]{
     color: white;
     border: none;
     border-radius: 5px;
-    margin-top: 20px;
     margin-left: 30px;
     
 }

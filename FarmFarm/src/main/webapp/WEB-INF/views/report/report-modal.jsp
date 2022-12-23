@@ -24,25 +24,23 @@
             </span>
             
             <div class="report-form-div">
-                <!-- <form action="/report" method="GET" class="report-form"> -->
                 <div class="report-form">
-                    <input type="hidden" name="reportType" id="reportType">
-                    <input type="hidden" name="reportTargetNo" id="reportTargetNo">
+                    <input type="hidden" id="reportType">
+                    <input type="hidden" id="reportTargetNo">
 
-                    <input type="radio" name="reportRadio" id="0"> <label for="0">광고 또는 스팸</label> <br>
-                    <input type="radio" name="reportRadio" id="1"> <label for="1">음란물 및 선정성 정보</label> <br>
-                    <input type="radio" name="reportRadio" id="2"> <label for="2">사기 또는 거짓 정보</label> <br>
-                    <input type="radio" name="reportRadio" id="3"> <label for="3">불법 또는 규제 상품 판매</label> <br>
-                    <input type="radio" name="reportRadio" id="4"> <label for="4">혐오 발언 또는 상징</label> <br>
-                    <input type="radio" name="reportRadio" id="5"> <label for="5">따돌림 도는 괴롭힘</label> <br>
-                    <input type="radio" name="reportRadio" id="6"> <label for="6">폭력 또는 위험한 단체</label> <br>
-                    <input type="radio" name="reportRadio" id="7"> <label for="7">지식재산권 침해</label> <br>
-                    <input type="radio" name="reportRadio" id="reportEtc"> <label for="reportEtc">기타</label> <br>
-                    <textarea name="reportContent" id="reportContent" cols="50" rows="3"></textarea><br>
-                    <input type="hidden" name="reportReason" id="reportReason">
+                    <label for="0"><input type="radio" name="reportRadio" id="0">광고 또는 스팸 </label>
+                    <label for="1"><input type="radio" name="reportRadio" id="1">음란물 및 선정성 정보</label>
+                    <label for="2"><input type="radio" name="reportRadio" id="2">사기 또는 거짓 정보</label>
+                    <label for="3"><input type="radio" name="reportRadio" id="3">불법 또는 규제 상품 판매</label>
+                    <label for="4"><input type="radio" name="reportRadio" id="4">혐오 발언 또는 상징 </label>
+                    <label for="5"><input type="radio" name="reportRadio" id="5">따돌림 또는 괴롭힘</label>
+                    <label for="6"><input type="radio" name="reportRadio" id="6">폭력 또는 위험한 단체</label> 
+                    <label for="7"><input type="radio" name="reportRadio" id="7">지식재산권 침해 </label>
+                    <label for="8"><input type="radio" name="reportRadio" id="8">기타</label>
+
+                    <textarea id="reportContent" cols="50" rows="3"></textarea><br>
                     <button id="reportSubmitBtn">신고하기</button>
                 </div>
-                <!-- </form> -->
             </div>
         </div>
     </div>

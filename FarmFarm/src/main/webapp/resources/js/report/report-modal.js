@@ -6,8 +6,8 @@ report.style.display = 'none';
 
 reportBtn.addEventListener('click', () => {
     report.style.display = 'flex';
-    console.log(targetNo);
-    console.log(pathname);
+    // console.log(targetNo);
+    // console.log(pathname);
 })
 
 
@@ -36,29 +36,26 @@ window.addEventListener('click', (e) => {
     1) 주소창 주소에 따라서 reportType을 다르게.  -> pathname
 
     회원 신고 : /member /chat /myPage /seller
-    후기 신고 : /review/{reviewNo}  /post/{postNo}
     게시글 신고 : /board/{boardCode}/{boardNo}  /post/{postNo}
     댓글 신고 : /board/{boardCode}/{boardNo}
 
 
     2) 각 타입별로 reportType 정해주고, reportTargetNo 다르게 가져오기
 
-    3) 후기, 댓글은 번호 앞에 r, c 붙이는 방향으로..
+    3) 댓글은 번호 앞에 c 붙이는 방향으로..
 
 */
 
 // * pathname: 각 기능 메인 주소
 const pathname = location.pathname.substring(1, location.pathname.lastIndexOf("/"));
-const reportType = document.getElementById("reportType").value;
-const reportTargetNo = document.getElementById("reportTargetNo").value;
-
-const reportReasonList = document.querySelector("label");
-const reportReason = document.getElementById("reportReason").value;
-const reportContent = document.getElementById("reportContent");
 
 //boardNo, postNo, reviewNo의 번호
 //location.pathname.substring(location.pathname.lastIndexOf("/")+1)
 const targetNo = location.pathname.substring(location.pathname.lastIndexOf("/")+1);
+
+const reportType = document.getElementById("reportType");
+const reportTargetNo = document.getElementById("reportTargetNo");
+
 
 
 // 신고하기 ajax
@@ -67,78 +64,76 @@ const reportSubmitBtn = document.getElementById("reportSubmitBtn");
 reportSubmitBtn.addEventListener("click", () => {
 
     // 회원 신고
-    if(pathname == "member" 
-    || pathname == "myPage"
-    || pathname == "seller") {
-
-    reportType = "M";
-    reportTargetNo = memberNo;
+    if(pathname == "seller") {
+        reportType.value = "M";
+        reportTargetNo.value = memberNo;
     }
 
 
     // 채팅방 회원 신고
     if(pathname == "chat") {
-        reportType = "M";
-        reportTargetNo = memberNo2;
-    }
-
-
-    // 후기 신고
-    if(pathname == "review" && reviewNo.contains("r"){
-        reportType = "R";
-        reportTargetNo = reviewNo;
+        reportType.value = "M";
+        reportTargetNo.value = memberNo2;
     }
 
 
     // 판매 게시글 신고
-    if(pathname == "post" && !reviewNo.contains("r")){
-        reportType = "B";
-        reportTargetNo = targetNo;  //postNo
+    if(pathname == "post"){
+        reportType.value = "B";
+        reportTargetNo.value = targetNo;  //postNo
     }
 
 
     // 와글와글 게시글 신고
     if(pathname == "board" && !commentNo.contains("c")){
-        reportType = "B";
-        reportTargetNo = targetNo;  //boardNo
+        reportType.value = "B";
+        reportTargetNo.value = targetNo;  //boardNo
     }
 
 
     // 댓글 신고 - 
     if(pathname == "board" && commentNo.contains("c")){
-        reportType = "C";
-        reportTargetNo = commentNo;
+        reportType.value = "C";
+        reportTargetNo.value = commentNo;
     }
 
 
 
-    // 연습 test
-    if(pathname == "test"){
-        reportType = "T";
-        reportTargetNo = targetNo; //4
+        // 연습 test
+    if(pathname == 'testPage'){
+        reportType.value = 'T';
+        reportTargetNo.value = targetNo; //4
     }
-
 
 
     // 선택한 신고 사유 가져오기
-    for(item of reportReasonList){
-        if(item.checked){
-            reportReason = reportReasonList[item].value;
+    const reportReasonList = document.getElementsByName('reportRadio');
+    var radioResult;
+    
+    const reportLabel = document.getElementsByTagName("label");
+    const reportContent = document.getElementById("reportContent").value;
+    
+    for(var i=0; i<reportReasonList.length; i++){
+        
+        if(reportReasonList[i].checked){
+            radioResult = reportLabel[i].innerText;
+            console.log(radioResult);
         }
     }
-    
+
 
     $.ajax({
         url: "/report",
-        data: { "reportType" :reportType, 
-                "reportTargetNo" : reportTargetNo,
-                "reportReason" : reportReason,
-                "reportContent": reportContent.innerHTML},
-        type: "GET",
-        dataType: "JSON",
+        data: { "reportType" :reportType.value, 
+                "reportTargetNo" : reportTargetNo.value,
+                "reportReason" : radioResult,
+                "reportContent": reportContent},
+        type: "POST",
         success: (result) => {
             if(result > 0){
-                alert("신고가 접수되었습니다.");
+                console.log("신고 접수");
+                report.style.display = 'none';
+                alert("신고가 접수되었습니다.")
             
             } else {
                 console.log("신고 실패");
@@ -148,9 +143,6 @@ reportSubmitBtn.addEventListener("click", () => {
             console.log("신고 오류");
         }
     });
+
 })
-
-
-
-
 

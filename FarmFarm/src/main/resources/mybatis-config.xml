@@ -48,6 +48,7 @@
 		<mapper resource="/mappers/board-mapper.xml"/>
 		<mapper resource="/mappers/seller-mapper.xml"/>
 		<mapper resource="/mappers/report-mapper.xml"/>
+		<mapper resource="/mappers/admin-mapper.xml"/>
   	</mappers>
 	
 </configuration>

@@ -20,7 +20,7 @@ public class ReportDAO {
 	 * @return result
 	 */
 	public int insertReport(Map<String, Object> map) {
-		return sqlSession.selectOne("reportMapper.insertReport", map);
+		return sqlSession.insert("reportMapper.insertReport", map);
 	}
 	
 

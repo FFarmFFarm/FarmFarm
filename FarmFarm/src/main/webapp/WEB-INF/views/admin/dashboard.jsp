@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<c:set var="newOrderStat" value="${statMap.newOrderStat}" />
+<c:set var="askReportStat" value="${statMap.askReportStat}" />
+<c:set var="authSellerStat" value="${statMap.authSellerStat}" />
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -33,19 +37,19 @@
                 <div class="board-stat">
                     <span>
                         <a class="span-text">신규 주문</a>
-                        <a class="span-number s-green">36</a>
+                        <a class="span-number s-green">${newOrderStat}</a>
                     </span>
                     <span>
                         <a class="span-text">반품 요청</a>
-                        <a class="span-number s-green">36</a>
+                        <a class="span-number s-green">-</a>
                     </span>
                     <span>
                         <a class="span-text">미처리 신고</a>
-                        <a class="span-number s-red">36</a>
+                        <a class="span-number s-red">${askReportStat}</a>
                     </span>
                     <span>
                         <a class="span-text">판매자 인증 신청</a>
-                        <a class="span-number s-blue">36</a>
+                        <a class="span-number s-blue">${authSellerStat}</a>
                     </span>
                 </div>
 
