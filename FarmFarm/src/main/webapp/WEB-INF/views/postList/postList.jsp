@@ -22,20 +22,20 @@
 </head>
 <body>
     <!-- header --> 
-    <jsp:include page='/WEB-INF/views/common/header.jsp' />
+    <jsp:include page='/WEB-INF/views/common/listHeader.jsp' />
 
     <!-- 배너와 검색창이 들어갈 자리입니다 -->
     <section class="banner">
         <div class="swiper">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                    <img src="/resources/images/productList/banner-sample.jpg">
+                    <img src="/resources/images/postList/banner-sample.jpg">
                 </div>
                 <div class="swiper-slide">
-                    <img src="/resources/images/productList/banner-sample2.jpg">
+                    <img src="/resources/images/postList/banner-sample2.jpg">
                 </div>
                 <div class="swiper-slide">
-                    <img src="/resources/images/productList/banner-sample3.jpg">
+                    <img src="/resources/images/postList/banner-sample3.jpg">
                 </div>
                 <!-- 필요 시 이미지 추가 -->
             </div>
@@ -49,8 +49,11 @@
         <div class="search-area">
             <span id="title">사고팔고</span>
             <div id="searchBar">
-                <input id="keyword" placeholder="검색어를 입력하세요">
-                <button id="searchBtn">
+                <input id="searchInput" class="keyword" placeholder="검색어를 입력하세요">
+                <div id='cleanBtn' class='reset-search'>
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </div>
+                <button class="search-btn">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </div>
@@ -66,35 +69,28 @@
 
             <div class="area-title">카테고리</div>
             <div class="types-area">
-                
-                <div class="sur">${category.tops[6].categoryName}</div>
-                
+            
                 <div class="category-dropdown">
-                    <c:forEach items="${category.fruits}" var="fruits">
-                        <input type="checkbox" name="types" id="fruit${fruits.categorySubNo}" value="${fruits.categorySubNo}">
-                        <label for="${fruits.categorySubNo}">${fruits.categorySubName}</label>
+                    <input type="radio" name="types" id="all" value="0" checked>
+                    <label for="all">전체</label>
+            
+                    <c:forEach items="${categoryList.fruits}" var="fruit">
+                        <input type="radio" name="types" id="fruit${fruit.categorySubNo}" value="${fruit.categorySubNo}">
+                        <label for="fruit${fruit.categorySubNo}">${fruit.categorySubName}</label>
+                    </c:forEach>
+                    <c:forEach items="${categoryList.vegetables}" var="vegetable">
+                        <input type="radio" name="types" id="vegetable${vegetable.categorySubNo}" value="${vegetable.categorySubNo}">
+                        <label for="vegetable${vegetable.categorySubNo}">${vegetable.categorySubName}</label>
+                    </c:forEach>
+                    <c:forEach items="${categoryList.ects}" var="ect">
+                        <input type="radio" name="types" id="ect${ect.categorySubNo}" value="${ect.categorySubNo}">
+                        <label for="ect${ect.categorySubNo}">${ect.categorySubName}</label>
                     </c:forEach>
                 </div>
-                
-                <div class="sur">${category.tops[7].categoryName}</div>
-                
-                <div class="category-dropdown">
-                    <c:forEach items="${category.vegetables}" var="vegetables">
-                        <input type="checkbox" name="types" id="vegetables${vegetables.categorySubNo}"
-                            value="${vegetables.categorySubNo}">
-                        <label for="${vegetables.categorySubNo}">${vegetables.categorySubName}</label>
-                    </c:forEach>
-                </div>
-                
-                <div class="sur">${category.tops[8].categoryName}</div>
-                
-                <div class="category-dropdown">
-                    <c:forEach items="${category.ects}" var="ects">
-                        <input type="checkbox" name="types" id="ects${ects.categorySubNo}" value="${ects.categorySubNo}">
-                        <label for="${ects.categorySubNo}">${ects.categorySubName}</label>
-                    </c:forEach>
-                </div>
-                
+            
+            </div>
+            <div class="reset-category">
+                <span><i class="fa-solid fa-circle-xmark"></i>&nbsp;검색 초기화</span>
             </div>
 
             <a href="/post/enroll" id="goPostEnrollBtn">
@@ -112,78 +108,109 @@
 
             <!-- 상품 목록 정렬 옵션 -->
             <div class="list-area-header">
-                <div id="listCount">
-                    총 123개
+                <div class="list-count-area">
+                    <span>검색결과&nbsp;</span>
+                    <span id="listCount">${postMap.pagination.listCount}</span>
+                    <span>개</span>
                 </div>
                 <div class="view-option">
-                    <span class="opt">판매량순</span>
+                    <input type='radio' name='sorting' id='rates' value='views' checked>
+                    <label for='rates' class="opt">조회순</label>
                     <span>|</span>
-                    <span class="opt">신상품순</span>
+                    <input type='radio' name='sorting' id='new' value='newest'>
+                    <label for='new' class="opt">신상품순</label>
                     <span>|</span>
-                    <span class="opt">낮은가격순</span>
+                    <input type='radio' name='sorting' id='asc' value='priceLowToHigh'>
+                    <label for='asc' class="opt">낮은가격순</label>
                     <span>|</span>
-                    <span class="opt">높은가격순</span>
+                    <input type='radio' name='sorting' id='desc' value='priceHighToLow'>
+                    <label for='desc' class="opt">높은가격순</label>
                 </div>
             </div>
 
-            <!-- 상품 하나하나가 들어갈 영역(DOM 이용) -->
             <article class="list-area-body">
+                
+                <!-- 최초 이동 시 결과가 없으면.. -->
+                <c:if test="${empty postMap}">
+                    <div id="resultIsEmpty">
+                        <i class="fa-solid fa-basket-shopping"></i>
+                        <span>검색 결과가 없습니다.</span>
+                    </div>
+                </c:if>
+                
+                <!-- 최초 이동 시 결과가 있으면 -->
+                <c:if test="${! empty postMap}">
+                
+                    <c:forEach items="${postMap.postList}" var="map">
+                
+                        <a href="/post/${map.postNo}" class="post-box">
+                            <div class="post-thumbnail">
+                                <img src="${map.thumbnailImg}">
+                            </div>
+                            <div class="post-detail">
+                                <div class="post-title">
+                                    ${map.postTitle}
+                                </div>
+                                <div class="unit-price">
+                                    ${map.unitPrice}원
+                                </div>
+                                <div class="post-content">
+                                    ${map.postContent}
+                                </div>
+                            </div>
+                        </a>
+                
+                    </c:forEach>
+                
+                </c:if>
 
                 <!-- post-box 자리 -->
+
+
+
+                <div id="spinnerBackground">
+                    <div id="spinner" class="spinning">
+                        <i class="fa-solid fa-spinner"></i>
+                    </div>
+                </div>
                 
             </article>
 
-
             <div class="pagination-area">
                 <!-- ajax로 만들어 보십시다 -->
-                <div class="page-box">
-                    <<
+                <div id="1" class="page-box">
+                    <i class="fa-solid fa-angles-left"></i>
                 </div>
-                <div class="page-box">
-                    <
+                <div id="${postMap.pagination.prevPage}" class="page-box">
+                    <i class="fa-solid fa-angle-left"></i>
                 </div>
-                <div class="page-box">
-                    1
+                <c:forEach var="i" begin="${postMap.pagination.startPage}" end="${postMap.pagination.endPage}" step="1">
+                    <c:choose>
+                        <c:when test="${i == postMap.pagination.currentPage}">
+                            <div class="current-page-box">
+                                ${i}
+                            </div>
+                        </c:when>
+            
+                        <c:otherwise>
+                            <div id="${i}" class="page-box">
+                                ${i}
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            
+                <div id="${postMap.pagination.nextPage}" class="page-box">
+                    <i class="fa-solid fa-angle-right"></i>
                 </div>
-                <div class="page-box">
-                    2
-                </div>
-                <div class="page-box">
-                    3
-                </div>
-                <div class="page-box">
-                    4
-                </div>
-                <div class="page-box">
-                    5
-                </div>
-                <div class="page-box">
-                    6
-                </div>
-                <div class="page-box">
-                    7
-                </div>
-                <div class="page-box">
-                    8
-                </div>
-                <div class="page-box">
-                    9
-                </div>
-                <div class="page-box">
-                    >
-                </div>
-                <div class="page-box">
-                    >>
+                <div id="${postMap.pagination.endPage}" class="page-box">
+                    <i class="fa-solid fa-angles-right"></i>
                 </div>
             </div>
+
         </section>
     </div>
     
-    <!-- <div id="topBtn" class="view-hidden">
-        <i class="fa-sharp fa-solid fa-arrow-up"></i>
-    </div> -->
-
-
     <!-- footer -->
     <jsp:include page='/WEB-INF/views/common/footer.jsp' />
 
