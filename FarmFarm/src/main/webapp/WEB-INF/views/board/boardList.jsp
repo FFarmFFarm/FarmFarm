@@ -46,7 +46,7 @@
         </form> --%>
         <section class="board-search">
             <form action="/board/${boardTypeNo}" class="board-search-area">
-                <input type="text" name="query" placeholder="검색어를 입력해주세요">
+                <input type="text" id="query" name="query" placeholder="검색어를 입력해주세요">
                 <button class="board-search-btn">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
