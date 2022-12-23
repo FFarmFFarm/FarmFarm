@@ -12,6 +12,7 @@
 	      <result property="categoryNo" column="CATEGORY_NO" />
 	      <result property="productMessage" column="PRODUCT_MESSAGE" />
 	      <result property="thumbnailImg" column="THUMBNAIL_IMG" />
+	      <result property="rates" column="RATES" />
 	 </resultMap>
 
 
@@ -22,11 +23,28 @@
 			   (SELECT PRODUCT_IMG_ADDRESS
 			   	FROM PRODUCT_IMG PIMG
 			   	WHERE PIMG.PRODUCT_NO = P.PRODUCT_NO
-			   	AND PRODUCT_IMG_ORDER = 0) AS THUMBNAIL_IMG
+			   	AND PRODUCT_IMG_ORDER = 0) AS THUMBNAIL_IMG,
+			   (SELECT COUNT(*) 
+			   	FROM "ORDER_PRODUCT" O
+			   	WHERE  P.PRODUCT_NO = O.PRODUCT_NO) RATES
 		FROM PRODUCT P
 		<if test=' #{keyword} != null '>
-			WHERE PRODUCT_NAME LIKE '%${keyword}%'
+			WHERE PRODUCT_NAME LIKE '%${keyword}%' 
 		</if>
+		<choose>
+			<when test=' #{sort} != null and #{sort}.equals("rates")'>
+				ORDER BY RATES DESC
+			</when>
+			<when test=' #{sort} != null and #{sort}.equals("newest")'>
+				ORDER BY PRODUCT_NO DESC
+			</when>
+			<when test=' #{sort} != null and #{sort}.equals("priceLowToHigh")'>
+				ORDER BY PRODUCT_PRICE
+			</when>
+			<when test=' #{sort} != null and #{sort}.equals("priceHighToLow")'>
+				ORDER BY PRODUCT_PRICE DESC
+			</when>
+		</choose>
 	</select>
 	
 	<!-- 모든 상품 목록의 개수를 가져오는 SQL -->
@@ -41,12 +59,29 @@
 			   (SELECT PRODUCT_IMG_ADDRESS
 			   	FROM PRODUCT_IMG PIMG
 			   	WHERE PIMG.PRODUCT_NO = P.PRODUCT_NO
-			   	AND PRODUCT_IMG_ORDER = 0) AS THUMBNAIL_IMG
+			   	AND PRODUCT_IMG_ORDER = 0) AS THUMBNAIL_IMG,
+			   (SELECT COUNT(*) 
+			   	FROM "ORDER_PRODUCT" O
+			   	WHERE  P.PRODUCT_NO = O.PRODUCT_NO) RATES
 		FROM PRODUCT P
 		WHERE CATEGORY_NO = #{category} 
 		<if test=' #{keyword} != null '>
-			AND PRODUCT_NAME LIKE '%${keyword}%'
+			AND PRODUCT_NAME LIKE '%${keyword}%' 
 		</if>
+		<choose>
+			<when test=' #{sort} != null and #{sort}.equals("rates")'>
+				ORDER BY RATES DESC
+			</when>
+			<when test=' #{sort} != null and #{sort}.equals("newest")'>
+				ORDER BY PRODUCT_NO DESC
+			</when>
+			<when test=' #{sort} != null and #{sort}.equals("priceLowToHigh")'>
+				ORDER BY PRODUCT_PRICE
+			</when>
+			<when test=' #{sort} != null and #{sort}.equals("priceHighToLow")'>
+				ORDER BY PRODUCT_PRICE DESC
+			</when>
+		</choose>
 	</select>
 	
 	<!-- 모든 상품 목록의 개수를 가져오는 SQL -->

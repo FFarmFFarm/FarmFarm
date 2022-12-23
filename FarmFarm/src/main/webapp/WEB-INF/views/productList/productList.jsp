@@ -91,13 +91,17 @@
                     총 123개
                 </div>
                 <div class="view-option">
-                    <span class="opt">판매량순</span>
+                    <input type='radio' name='sorting' id='rates' value='rates' checked>
+                    <label for='rates' class="opt" >판매량순</label>
                     <span>|</span>
-                    <span class="opt">신상품순</span>
+                    <input type='radio' name='sorting' id='new' value='newest'>
+                    <label for='new' class="opt" >신상품순</label>
                     <span>|</span>
-                    <span class="opt">낮은가격순</span>
+                    <input type='radio' name='sorting' id='asc' value='priceLowToHigh'>
+                    <label for='asc' class="opt" >낮은가격순</label>
                     <span>|</span>
-                    <span class="opt">높은가격순</span>
+                    <input type='radio' name='sorting' id='desc' value='priceHighToLow'>
+                    <label for='desc' class="opt" >높은가격순</label>
                 </div>
             </div>
 

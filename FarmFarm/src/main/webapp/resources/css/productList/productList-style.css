@@ -298,6 +298,17 @@ body{
     margin: 0px 5px;
 }
 
+
+/* view-options */
+input[name='sorting'] {
+    display: none;
+}
+
+input[name='sorting']:checked + label {
+    color: var(--main-font-color);
+    font-weight: 600;
+}
+
 .opt{
     cursor: pointer;
 }
@@ -305,6 +316,7 @@ body{
 .opt:hover{
     color: var(--main-font-color);
 }
+
 
 /* list-area-body */
 /* 상품 하나하나가 들어갈 영역 */

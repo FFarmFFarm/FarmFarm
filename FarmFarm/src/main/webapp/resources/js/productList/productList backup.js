@@ -37,6 +37,7 @@ const loadingStop = (loading) => {
     }, 300);
 }
 
+
 /* 로딩 시작 */
 window.addEventListener("DOMContentLoaded", () => {
     // 애니메이션 멈추기
