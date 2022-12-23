@@ -211,6 +211,10 @@ const createProductBox = (productMap) => {
 
         // 페이지 이벤트 생성
         makePageBoxEvent();
+
+        // 개수 업데이트
+        const listCount = document.getElementById('listCount');
+        listCount.innerText = pagination.listCount;
         
     }
     // 로딩 애니메이션 종료
@@ -346,6 +350,7 @@ const initialList = () => {
     }
     // 카테고리 업데이트
     updateCheckedCategory();
+    
 }
 
 /* 페이지 박스를 만드는 함수 */
@@ -667,27 +672,6 @@ window.addEventListener("scroll", ()=> {
 
     searchInputMove();
 
-    // let targetHeight = 720;  // 스크롤 위치 지정
-    // const searchInput = document.getElementById('searchInput');
-    // const navSearchInput = document.getElementById('navSearchInput');
-    
-    // if(navSearchBar.classList.contains('view-hidden')) {
-    //     if(window.scrollY >= targetHeight) {
-    //         navSearchBar.classList.remove('view-hidden');
-    //         navSearchBar.classList.add('view-flex');
-    //         navSearchInput.value = searchInput.value;
-    //         return;
-    //     }
-    // }
-
-    // if(navSearchBar.classList.contains('view-flex')) {
-    //     if(window.scrollY < targetHeight) {
-    //         navSearchBar.classList.add('view-hidden');
-    //         navSearchBar.classList.remove('view-flex');
-    //         searchInput.value = navSearchInput.value;
-    //         return;
-    //     }
-    // }
 })
 
 /* 정렬 옵션 선택 시 값을 불러오는 이벤트 */
@@ -722,3 +706,7 @@ navSearchInput.addEventListener('keyup', () => {
 })
 
 
+// /* 검색 기록 남기기 */
+// const setSearchHistory = (keyword) => {
+//     localStorage.setItem('keyword', keyword);
+// }

@@ -299,7 +299,7 @@ body{
 }
 
 #listCount{
-    color: var(--main-font-color);
+    color: var(--point-color);
     font-weight: 600;
 }
 

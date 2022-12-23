@@ -56,6 +56,11 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </div>
+            <!-- <div id="searchHistoryArea">
+                <div id="searchHistory">
+
+                </div>
+            </div> -->
         </div>
     </section>
 
@@ -90,8 +95,10 @@
 
             <!-- 상품 목록 정렬 옵션 -->
             <div class="list-area-header">
-                <div id="listCount">
-                    총 123개
+                <div class="list-count-area">
+                    <span>검색결과&nbsp;</span>
+                    <span id="listCount">${productMap.pagination.listCount}</span>
+                    <span>개</span>
                 </div>
                 <div class="view-option">
                     <input type='radio' name='sorting' id='rates' value='rates' checked>
