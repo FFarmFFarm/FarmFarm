@@ -4,7 +4,7 @@
 
         <section class="mypage-nav">
           <span class="mypage-nav-title">마이팜팜</span>
-          <a href="/myPage/order" class="ordered">
+          <a href="/myPage" class="ordered">
             <span>주문 내역</span><i class="fa-solid fa-chevron-right"></i
           ></a>
           <a href="/myPage/review" class="review-wrote">

@@ -16,7 +16,8 @@ public class Order {
 	private int memberNo;
 	private String orderDate;
 	private int orderStatus;
-	private int invoiceNo;
+	private String invoiceNo;
+	private String orderPrice;
 	
 	private List<Product> productList;
 	
