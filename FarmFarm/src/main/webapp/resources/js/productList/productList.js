@@ -78,6 +78,9 @@ window.addEventListener("DOMContentLoaded", () => {
     // 검색창 초기화버튼을 표시
     resetSearchShow();
     navResetSearchShow();
+
+    // 검색창 이동
+    searchInputMove();
 })
 
 // --------------------------------- window.load ------------------------------------- //
@@ -85,9 +88,12 @@ window.addEventListener("DOMContentLoaded", () => {
 /* 화면 로딩이 완료되면 시작되는 이벤트 */
 window.addEventListener("load", ()=>{
     // 리스트가 비어있으면, 주소창의 값을 받아 출력
-    const productBox = document.querySelector('product-box');
-    if(productBox == null) {
+    const listAreaBody = document.querySelector('.list-area-body');
+    const productBox = document.querySelector('.product-box');
+    // const productBox = document.querySelector('product-box');
+    if(!listAreaBody.contains(productBox)) {
         initialList();
+        console.log('비어있네?')
     }
 
     // 페이지 이벤트 생성
@@ -240,6 +246,7 @@ const getCustomList = (category, cp) => {
         dataType: 'JSON',
         success: (productMap) => {
             createProductBox(productMap);
+            window.scrollTo(0, 570);
         },
         error: () => {
             alert('error-c1');
@@ -259,6 +266,7 @@ const getCustomList2 = (keyword, category, cp) => {
         dataType: 'JSON',
         success: (productMap) => {
             createProductBox(productMap);
+            window.scrollTo(0, 570);
         },
         error: () => {
             alert('error-c2');
@@ -277,7 +285,6 @@ const initialList = () => {
     const isKeyword = url.indexOf('?keyword=', 0);
 
     if(isKeyword == -1) {
-        console.log('isKeyword : ' + isKeyword + ", url : " + url);
         // 첫 번째 = 의 위치
         const firstEqualSign = url.indexOf('=', 1);
     
@@ -455,8 +462,6 @@ const getSortOption = () => {
             sort = sortings[i].value;
         }
     }
-    console.log('sort : ' + sort)
-    
     return sort;
 }
 
@@ -485,6 +490,31 @@ const resetSearchShow = () => {
     }
 }
 
+/* 검색창 위치 이동 함수 */
+const searchInputMove = () => {
+
+    let targetHeight = 700;  // 스크롤 위치 지정
+    const searchInput = document.getElementById('searchInput');
+    const navSearchInput = document.getElementById('navSearchInput');
+
+    if (navSearchBar.classList.contains('view-hidden')) {
+        if (window.scrollY >= targetHeight) {
+            navSearchBar.classList.remove('view-hidden');
+            navSearchBar.classList.add('view-flex');
+            navSearchInput.value = searchInput.value;
+            return;
+        }
+    }
+
+    if (navSearchBar.classList.contains('view-flex')) {
+        if (window.scrollY < targetHeight) {
+            navSearchBar.classList.add('view-hidden');
+            navSearchBar.classList.remove('view-flex');
+            searchInput.value = navSearchInput.value;
+            return;
+        }
+    }
+}
 
 // ------------------------------- addEvent ----------------------------------------- //
 
@@ -635,27 +665,29 @@ for(let searchBtn of searchBtns) {
 /* 스크롤 시 검색창을 보이게 하는 이벤트 */
 window.addEventListener("scroll", ()=> {
 
-    let targetHeight = 720;  // 스크롤 위치 지정
-    const searchInput = document.getElementById('searchInput');
-    const navSearchInput = document.getElementById('navSearchInput');
-    
-    if(navSearchBar.classList.contains('view-hidden')) {
-        if(window.scrollY >= targetHeight) {
-            navSearchBar.classList.remove('view-hidden');
-            navSearchBar.classList.add('view-flex');
-            navSearchInput.value = searchInput.value;
-            return;
-        }
-    }
+    searchInputMove();
 
-    if(navSearchBar.classList.contains('view-flex')) {
-        if(window.scrollY < targetHeight) {
-            navSearchBar.classList.add('view-hidden');
-            navSearchBar.classList.remove('view-flex');
-            searchInput.value = navSearchInput.value;
-            return;
-        }
-    }
+    // let targetHeight = 720;  // 스크롤 위치 지정
+    // const searchInput = document.getElementById('searchInput');
+    // const navSearchInput = document.getElementById('navSearchInput');
+    
+    // if(navSearchBar.classList.contains('view-hidden')) {
+    //     if(window.scrollY >= targetHeight) {
+    //         navSearchBar.classList.remove('view-hidden');
+    //         navSearchBar.classList.add('view-flex');
+    //         navSearchInput.value = searchInput.value;
+    //         return;
+    //     }
+    // }
+
+    // if(navSearchBar.classList.contains('view-flex')) {
+    //     if(window.scrollY < targetHeight) {
+    //         navSearchBar.classList.add('view-hidden');
+    //         navSearchBar.classList.remove('view-flex');
+    //         searchInput.value = navSearchInput.value;
+    //         return;
+    //     }
+    // }
 })
 
 /* 정렬 옵션 선택 시 값을 불러오는 이벤트 */
@@ -668,31 +700,25 @@ for(let sorting of sortings) {
 }
 
 /* 검색어를 초기화하는 이벤트 */
-const resetSearches = document.getElementsByClassName('reset-search');
-
-for(let resetSearch of resetSearches) {
-    const navSearchBar = document.getElementById('navSearchBar');
-    const searchBar = document.getElementById('searchBar');
-    
-    resetSearch.addEventListener('click', ()=>{
-        if (navSearchBar.classList.contains('view-hidden')) {
-            searchBar.value = '';
-        }
-
-        if (navSearchBar.classList.contains('view-flex')) {
-            navSearchBar.value = '';
-        }
-    })
-}
+document.getElementById('cleanBtn').addEventListener('click', ()=>{
+    const searchInput = document.getElementById('searchInput');
+    searchInput.value = '';
+    resetSearchShow();
+})
+document.getElementById('navCleanBtn').addEventListener('click', ()=>{
+    const navSearchInput = document.getElementById('navSearchInput');
+    navSearchInput.value = '';
+    navResetSearchShow();
+})
 
 /* 검색어가 입력되면, 검색 초기화 버튼이 나타나는 이벤트 */
+const searchInput = document.getElementById('searchInput');
+searchInput.addEventListener('keyup', ()=>{
+    resetSearchShow();
+})
 const navSearchInput = document.getElementById('navSearchInput');
 navSearchInput.addEventListener('keyup', () => {
     navResetSearchShow();
 })
 
-const searchInput = document.getElementById('searchInput');
-searchInput.addEventListener('keyup', ()=>{
-    resetSearchShow();
-})
 
