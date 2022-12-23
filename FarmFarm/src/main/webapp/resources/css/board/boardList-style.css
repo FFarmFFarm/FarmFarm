@@ -39,6 +39,9 @@ main{
 }
 
 /* 커뮤니티 검색 */
+.board-search-area{
+    /* width: 100%; */
+}
 .board-search{
     height: 70px;
     border-bottom: 1px solid var(--line-color);
@@ -60,6 +63,7 @@ main{
     padding-left: 10px;
     font-size: var(--main-font-size);
     border: none;
+    overflow: hidden;
 }
 .board-search-area > input:focus{
     outline: none;
@@ -76,6 +80,7 @@ input[type="text"]:focus{
 }
 .board-search-area:focus-within{
     border: 1px solid var(--point-color);
+    overflow: hidden;
 }
 
 /* 커뮤니티 최신순, 조회수, 좋아요 */

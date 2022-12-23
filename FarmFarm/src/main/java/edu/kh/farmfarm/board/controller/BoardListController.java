@@ -1,5 +1,6 @@
 package edu.kh.farmfarm.board.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,20 +32,41 @@ public class BoardListController {
 		return "/board/boardList";
 	}
 	
-	// 와글와글 게시판의 목록
+	// 와글와글 게시판의 목록 불러오기
 	@GetMapping("/board/{boardTypeNo}")
 	public String boardList (
 			@PathVariable("boardTypeNo") int boardTypeNo,
 			Model model,
-			@RequestParam(value="cp", required = false, defaultValue = "1") int cp) {
+			@RequestParam(value="cp", required = false, defaultValue = "1") int cp,
+			@RequestParam(value="boardSelectNVL", required = false) String boardSelectNVL,
+			@RequestParam(value="query", required = false) String query) {
 		
-		// 검색을 안한 경우
-		Map<String, Object> boardMap = service.selectBoardList(boardTypeNo, cp);
+		// 검색을 한 경우
+		if(query != null) {
+			
+			Map<String, Object> searchMap = new HashMap<String, Object>();
+			searchMap.put("query", query);
+			searchMap.put("boardTypeNo", boardTypeNo);
+			
+			Map<String, Object> boardMap = service.selectBoardList(searchMap, cp);
+			model.addAttribute("boardMap", boardMap);
+			
+		}else {
+			
+			// 검색을 안한 경우
+			Map<String, Object> boardMap = service.selectBoardList(boardTypeNo, cp);
+			model.addAttribute("boardMap", boardMap);
+			
+		}
 		
-		model.addAttribute("boardMap", boardMap);
+		
+//		// 와글와글 게시판 최신순, 조회수, 좋아요 선택 조회
+//		System.out.println(boardSelectNVL);
+		
 		
 		return "board/boardList";
 	}
+	
 	
 	
 	

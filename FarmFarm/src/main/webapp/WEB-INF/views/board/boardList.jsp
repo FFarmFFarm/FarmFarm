@@ -22,7 +22,7 @@
 
     <main>
         <section class="board-top">
-            <div class="board-top-title">와글와글 ${boardName}</div>
+            <div class="board-top-title">와글와글 물물교환</div>
         </section>
         <section class="board-nav">
             <div class="board-nav-area">
@@ -31,14 +31,27 @@
                 <a href="/board/${3}">질문</a>
             </div>
         </section>
+        <%-- <form action="" class="board-search">
+            <section class="board-search-area">
+                <input type="text" name="query" placeholder="검색어를 입력해주세요">
+                <button class="board-search-btn">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </section>
+            <select class="board-select" name="boardSelectNVL" id="boardSelect">
+                <option value="new"> <a href="#">최신순</a> </option>
+                <option value="view"> <button>조회수</button> </option>
+                <option value="like"> <button>좋아요</button> </option>
+            </select>
+        </form> --%>
         <section class="board-search">
-            <form action="" class="board-search-area">
+            <form action="/board/${boardTypeNo}" class="board-search-area">
                 <input type="text" name="query" placeholder="검색어를 입력해주세요">
                 <button class="board-search-btn">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </form>
-            <select class="board-select" name="boardSelect" id="boardSelect">
+            <select class="board-select" name="boardSelectNVL" id="boardSelect">
                 <option value="new">최신순</option>
                 <option value="view">조회수</option>
                 <option value="like">좋아요</option>
@@ -113,6 +126,7 @@
             </div>
         </section>
     </main>
+     <script src="/resources/js/board/boardList.js"> </script>
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>

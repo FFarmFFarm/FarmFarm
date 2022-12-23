@@ -14,4 +14,7 @@ public interface BoardListService {
 	// 와글와글 게시판 목록 조회
 	Map<String, Object> selectBoardList(int boardTypeNo, int cp);
 
+	// 와글와글 게시판 검색 + 목록 조회
+	Map<String, Object> selectBoardList(Map<String, Object> searchMap, int cp);
+
 }

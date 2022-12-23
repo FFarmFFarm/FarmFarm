@@ -21,11 +21,13 @@ public class BoardListDAO {
 	public List<Map<String, Object>> boardTypeList() {
 		return sqlSession.selectList("boardMapper.boardTypeList");
 	}
+	
 
 	// 와글와글 게시판 수 조회
 	public int getListCount(int boardTypeNo) {
 		return sqlSession.selectOne("boardMapper.getListCount", boardTypeNo);
 	}
+	
 
 	// 와글와글 게시판 목록 불러오기
 	public List<Board> seleteBoardList(Pagination pagination, int boardTypeNo) {
@@ -35,6 +37,22 @@ public class BoardListDAO {
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 		
 		return sqlSession.selectList("boardMapper.selecBoardtList", boardTypeNo, rowBounds);
+	}
+	
+
+	// 검색조건에 맞는 게시판 수 조회
+	public int getListCount(Map<String, Object> searchMap) {
+		return sqlSession.selectOne("boardMapper.getListCountSearch", searchMap);
+	}
+	
+
+	// 검색조건에 맞는 게시판 리스트 불러오기
+	public List<Board> seleteBoardList(Pagination pagination, Map<String, Object> searchMap) {
+		
+		int offset = (pagination.getCurrentPage()-1)*pagination.getLimit();
+		RowBounds rowbounds = new RowBounds(offset, pagination.getLimit());
+		
+		return sqlSession.selectList("boardMapper.selecBoardtListSearch", searchMap, rowbounds);
 	}
 
 }
