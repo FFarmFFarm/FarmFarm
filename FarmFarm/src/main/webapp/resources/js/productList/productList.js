@@ -74,6 +74,10 @@ window.addEventListener("DOMContentLoaded", () => {
     // 카테고리를 초기화
     let category = getCheckedCategory();
     resetBtnShow(category);
+
+    // 검색창 초기화버튼을 표시
+    resetSearchShow();
+    navResetSearchShow();
 })
 
 // --------------------------------- window.load ------------------------------------- //
@@ -421,16 +425,6 @@ const resetBtnShow = (category) => {
     }
 }
 
-// 검색 초기화 버튼 보이기/가리기 함수
-const resetSearchShow = (category) => {
-    const resetSearch = document.querySelector('.reset-search');
-
-    if(category != 0) {
-        resetSearch.style.display='flex';
-    } else {
-        resetSearch.style.display='none';
-    }
-}
 
 // history를 만드는 함수1
 const makeHistory1 = (category, cp) => {
@@ -464,6 +458,31 @@ const getSortOption = () => {
     console.log('sort : ' + sort)
     
     return sort;
+}
+
+/* 검색 초기화 버튼을 숨기고 드러내는 함수 */
+const navResetSearchShow = () => {
+    const navSearchInput = document.getElementById('navSearchInput');
+    const navCleanBtn = document.getElementById('navCleanBtn');
+
+    if (navSearchInput.value.trim().length == 0) {
+        navSearchInput.value = '';
+        navCleanBtn.style.display = 'none';
+    } else {
+        navCleanBtn.style.display = 'inline-block';
+    }
+}
+
+const resetSearchShow = () => {
+    const searchInput = document.getElementById('searchInput');
+    const cleanBtn = document.getElementById('cleanBtn');
+
+    if (searchInput.value.trim().length == 0) {
+        searchInput.value = '';
+        cleanBtn.style.display = 'none';
+    } else {
+        cleanBtn.style.display = 'inline-block';
+    }
 }
 
 
@@ -563,14 +582,19 @@ const makePageBoxEvent = () => {
 
 /* popstate 이벤트 */
 window.addEventListener("popstate", (event) => {
+    // 화면 출력
     initialList();
 
     let category = getCheckedCategory();
     resetBtnShow(category);
+
+    // 검색창 초기화버튼을 표시
+    resetSearchShow();
+    navResetSearchShow();
 });
 
 /* 검색 이벤트 */
-const searchBtns = document.getElementsByClassName('searchBtn');
+const searchBtns = document.getElementsByClassName('search-btn');
 
 for(let searchBtn of searchBtns) {
     searchBtn.addEventListener('click', () => {
@@ -639,5 +663,36 @@ const sortings = document.querySelectorAll('input[name="sorting"]');
 
 for(let sorting of sortings) {
     sorting.addEventListener('click', () => {
+        initialList();
     })
 }
+
+/* 검색어를 초기화하는 이벤트 */
+const resetSearches = document.getElementsByClassName('reset-search');
+
+for(let resetSearch of resetSearches) {
+    const navSearchBar = document.getElementById('navSearchBar');
+    const searchBar = document.getElementById('searchBar');
+    
+    resetSearch.addEventListener('click', ()=>{
+        if (navSearchBar.classList.contains('view-hidden')) {
+            searchBar.value = '';
+        }
+
+        if (navSearchBar.classList.contains('view-flex')) {
+            navSearchBar.value = '';
+        }
+    })
+}
+
+/* 검색어가 입력되면, 검색 초기화 버튼이 나타나는 이벤트 */
+const navSearchInput = document.getElementById('navSearchInput');
+navSearchInput.addEventListener('keyup', () => {
+    navResetSearchShow();
+})
+
+const searchInput = document.getElementById('searchInput');
+searchInput.addEventListener('keyup', ()=>{
+    resetSearchShow();
+})
+

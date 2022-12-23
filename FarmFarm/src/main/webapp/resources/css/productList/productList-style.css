@@ -24,6 +24,7 @@ body{
     padding: 10px;
     
     align-items: center;
+    justify-content: center;
 }
 
 .view-hidden{
@@ -142,27 +143,40 @@ body{
     border-radius: 5px;
 
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 }
 
 #searchBar:focus-within{
     border: 3px solid var(--point-color);
 }
+
 .keyword{
     color: var(--main-font-color);
     border: none;
-    width: 75%;
+    flex-basis: 90%;
 
     outline: none;
+    width: 100%;
 }
 
-.searchBtn{
+.reset-search{
+    flex-basis: 5%;
+    margin-right: 5px;
+    display: none;
+}
+
+.search-btn{
     height: 100%;
     background-color: white;
     border: none;
-
+    flex-basis: 5%;
 }
+
+.reset-search{
+    cursor: pointer;
+}
+
 
 /* container */
 .container{
