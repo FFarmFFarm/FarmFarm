@@ -51,5 +51,16 @@ public class ProductDetailServiceImpl implements ProductDetailService{
 		
 		return map;
 	}
+	
+	
+	@Override
+	public int addWish(Product product) {
+		return dao.addWish(product);
+	}
+	
+	@Override
+	public int removeWish(Product product) {
+		return dao.removeWish(product);
+	}
 
 }

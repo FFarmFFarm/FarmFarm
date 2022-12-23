@@ -1,5 +1,6 @@
 package edu.kh.farmfarm.productDetail.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,9 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import edu.kh.farmfarm.member.model.VO.Member;
+import edu.kh.farmfarm.postDetail.model.vo.Post;
 import edu.kh.farmfarm.productDetail.model.service.ProductDetailService;
 import edu.kh.farmfarm.productDetail.model.vo.Product;
 
@@ -44,5 +47,27 @@ public class ProductDetailController {
 		return "productDetail/productDetail";
 	}
 	
+	
+	@GetMapping("/wish/add")
+	@ResponseBody
+	public int addWish(int productNo, int memberNo) {
+		
+		Product product = new Product();
+		product.setProductNo(productNo);
+		product.setMemberNo(memberNo);
+		
+		return service.addWish(product);
+	}
+	
+	@GetMapping("/wish/remove")
+	@ResponseBody
+	public int removeWish(int productNo, int memberNo) {
+		
+		Product product = new Product();
+		product.setProductNo(productNo);
+		product.setMemberNo(memberNo);
+		
+		return service.removeWish(product);
+	}
 
 }
