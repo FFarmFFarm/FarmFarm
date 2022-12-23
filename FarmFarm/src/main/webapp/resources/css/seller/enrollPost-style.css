@@ -104,7 +104,7 @@
 
 .rotate {transform: perspective(500px) rotateX(180deg);}
 
-[name="category"]{
+[name="categoryNo"]{
     accent-color: var(--point-color);
 }
 
@@ -169,6 +169,11 @@
     display: flex;
     justify-content: space-between;
     width: 72%;
+}
+
+.preview{
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .thumbnail{

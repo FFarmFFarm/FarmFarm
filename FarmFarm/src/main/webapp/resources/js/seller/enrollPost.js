@@ -36,9 +36,12 @@ for(let i=0; i<inputImg.length; i++){
 
       reader.onload = e =>{
         preview[i].setAttribute("src", e.target.result);
+        // preview.display="block";
+        preview[i].nextElementSibling.style.display='none';
       }
     }else{
       preview[i].removeAttribute("src");
+      
     }
   });
 
@@ -46,41 +49,71 @@ for(let i=0; i<inputImg.length; i++){
     if(preview[i].getAttribute("src")!=""){
       preview[i].removeAttribute("src");
       inputImg[i].value="";
+      preview[i].nextElementSibling.style.display='block';
     }
   });
 }
 
 
 // 게시글 유효성 검사
-const enrollValidate = ()=>{
-  const postTitle = document.querySelector("[name='postTitle']");
-  const unitPrice = document.querySelector("[name='unitPrice']");
-  const openDate = document.querySelector("[name='openDate']");
-  const postContent = document.querySelector("[name='postContent']");
+const enrollPostForm = document.getElementById("enrollPostForm");
 
+enrollPostForm.addEventListener("submit", (event)=>{
+
+  const categoryNo = document.querySelectorAll("[name='categoryNo']");
+  
+  let countC = 0;
+  for(let i=0; i<categoryNo.length; i++){
+    if(categoryNo[i].checked){
+      countC += 1;
+    }
+  }
+  
+  if(countC==0){
+    alert("판매상품의 카테고리를 설정해주세요.");
+    event.preventDefault();
+    return;
+  }
+
+  const postTitle = document.querySelector("[name='postTitle']");
   if(postTitle.value.trim().length==0){
     alert("제목을 입력해주세요.");
     postTitle.value="";
     postTitle.focus();
-    return false;
+    event.preventDefault();
+    return;
   }
+  
+  const unitPrice = document.querySelector("[name='unitPrice']");
   if(unitPrice.value.trim().length==0){
     alert("판매가격을 입력해주세요.");
     unitPrice.value="";
     unitPrice.focus();
-    return false;
+    event.preventDefault();
+    return;
   }
+
+  const openDate = document.querySelector("[name='openDate']");
   if(openDate.value.trim().length==0){
     alert("생산일을 입력해주세요.");
     openDate.value="";
     openDate.focus();
-    return false;
+    event.preventDefault();
+    return;
   }
+
+  // const thumbnail = document.getElementById("img0");
+  // if(img0.value.)
+
+
+
+  const postContent = document.querySelector("[name='postContent']");
   if(postContent.value.trim().length==0){
     alert("내용을 입력해주세요.");
     postContent.value="";
     postContent.focus();
-    return false;
+    event.preventDefault();
+    return;
   }
+});
 
-};
