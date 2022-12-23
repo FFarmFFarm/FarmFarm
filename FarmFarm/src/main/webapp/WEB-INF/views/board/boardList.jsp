@@ -25,16 +25,10 @@
             <div class="board-top-title">와글와글 ${boardName}</div>
         </section>
         <section class="board-nav">
-            <%-- <div class="board-nav-area">
+            <div class="board-nav-area">
                 <a href="/board/${1}">물물교환</a>
                 <a href="/board/${2}">팁</a>
                 <a href="/board/${3}">질문</a>
-            </div> --%>
-            <div class="board-nav-area">
-                <c:forEach var="boardType" items="${boardTypeList}">
-                    <a href="/board/${boardType.BOARD_TYPE_NO}">${boardType.BOARD_NAME}</a>
-                </c:forEach>
-                
             </div>
         </section>
         <section class="board-search">
@@ -44,7 +38,7 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </form>
-            <select class="board-select" id="boardSelect">
+            <select class="board-select" name="boardSelect" id="boardSelect">
                 <option value="new">최신순</option>
                 <option value="view">조회수</option>
                 <option value="like">좋아요</option>
@@ -72,7 +66,7 @@
                                 <li>
                                     <span class="board-no">${board.boardNo}</span>
                                     <span class="board-img"><img src="${board.thumbnail}" class="thumbImg"></span>
-                                    <span class="board-title">${board.boardTitle}</span>
+                                    <span class="board-title"><a href="">${board.boardTitle}</a></span>
                                     <span class="board-date">${board.boardDate}</span>
                                     <span class="board-view">${board.boardView}</span>
                                 </li>
