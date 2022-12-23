@@ -17,5 +17,6 @@ public class Report {
 	private String reportDate;
 	private String reportPenalty;
 	private String processDate;
+	private String reportConent;
 
 }
