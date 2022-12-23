@@ -74,7 +74,7 @@
 		JOIN POST_IMG USING(POST_NO)
 		WHERE MEMBER_NO=#{memberNo}
 		AND POST_IMG_ORDER=0
-		ORDER BY POST_DATE
+		ORDER BY POST_DATE DESC
 	</select>
 	
 	<!-- 판매글 삽입 -->
