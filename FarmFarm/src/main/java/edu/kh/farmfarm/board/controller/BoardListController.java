@@ -44,9 +44,22 @@ public class BoardListController {
 		// 검색을 한 경우
 		if(query != null) {
 			
+//			// 최신순, 조회수, 좋아요를 선택한 경우
+//			if(boardSelectNVL != null) {
+//				Map<String, Object> NVLMap = new HashMap<String, Object>();
+//				NVLMap.put("query", query);
+//				NVLMap.put("boardTypeNo", boardTypeNo);
+//				NVLMap.put("boardSelectNVL", boardSelectNVL);
+//				
+//			}
+			
 			Map<String, Object> searchMap = new HashMap<String, Object>();
 			searchMap.put("query", query);
 			searchMap.put("boardTypeNo", boardTypeNo);
+			
+			if(boardSelectNVL != null) {
+				searchMap.put("boardSelectNVL", boardSelectNVL);
+			}
 			
 			Map<String, Object> boardMap = service.selectBoardList(searchMap, cp);
 			model.addAttribute("boardMap", boardMap);

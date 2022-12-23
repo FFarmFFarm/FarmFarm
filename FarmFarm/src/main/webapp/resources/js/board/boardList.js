@@ -32,21 +32,28 @@ if(boardAdd == '/board/3'){
     if(boardSearch != null){
         const params = new URL(location.href).searchParams
         
-        const input = document.getElementById("query");
+        const inputQuery = document.getElementById("inputQuery");
         const query = params.get("query");
 
-        input.value = query;
+        inputQuery.value = query;
     }
 })();
 
 
 // 이건.... value값 확인해본건데 spring으로 넘어가려나....
-const test = document.getElementById("boardSelect");
-test.addEventListener("change",()=>{
-    const value = test.options[test.selectedIndex].value;
+const boardSelect = document.getElementById("boardSelect");
+(()=>{boardSelect.addEventListener("change",()=>{
+    const value = boardSelect.options[boardSelect.selectedIndex].value;
     console.log(value);
-    test.setAttribute("value", value);
-});
+    boardSelect.setAttribute("value", value);
+    // location.href = "/board/"+boardTypeNo;
+    // boardSelect.setAttribute("value", value);
+});})()
+
+
+
+
+
 
 // 글쓰기를 누르면 그 보드타입넘버가 저장되서 글쓰기에 있었으면 좋겠는데 그게 되려나...?
 // (()=>{
@@ -58,3 +65,4 @@ test.addEventListener("change",()=>{
 //         })
 //     }
 // })
+

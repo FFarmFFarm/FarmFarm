@@ -33,7 +33,7 @@
         </section>
         <form action="/board/${boardTypeNo}" class="board-search">
             <section class="board-search-area">
-                <input type="text" name="query" placeholder="검색어를 입력해주세요">
+                <input type="text" name="query" id="inputQuery" placeholder="검색어를 입력해주세요">
                 <button class="board-search-btn">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
@@ -43,6 +43,11 @@
                 <option value="view">조회수</option>
                 <option value="like">좋아요</option>
             </select>
+            <%-- <div class="board-select" name="boardSelectNVL" id="boardSelect">
+                <button value="new">최신순 <i class="fa-solid fa-angle-down"></i></button>
+                <button value="view">조회수 <i class="fa-solid fa-angle-down"></i></button>
+                <button value="like">좋아요 <i class="fa-solid fa-angle-down"></i></button>
+            </div> --%>
         </form>
         <%-- <section class="board-search">
             <form action="/board/${boardTypeNo}" class="board-search-area">
@@ -133,7 +138,10 @@
             </div>
         </section>
     </main>
-     <script src="/resources/js/board/boardList.js"> </script>
+    <script>
+        let boardTypeNo = ${boardTypeNo};
+    </script>
+    <script src="/resources/js/board/boardList.js"> </script>
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>
