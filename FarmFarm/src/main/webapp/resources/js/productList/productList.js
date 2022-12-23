@@ -624,3 +624,12 @@ window.addEventListener("scroll", ()=> {
         }
     }
 })
+
+/* 정렬 옵션 선택 시 값을 불러오는 이벤트 */
+const sortings = document.querySelectorAll('input[name="sorting"]');
+
+for(let sorting of sortings) {
+    sorting.addEventListener('click', () => {
+        
+    })
+}

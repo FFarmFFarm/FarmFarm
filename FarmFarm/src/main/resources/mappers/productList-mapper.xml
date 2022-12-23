@@ -31,20 +31,23 @@
 		<if test=' #{keyword} != null '>
 			WHERE PRODUCT_NAME LIKE '%${keyword}%' 
 		</if>
-		<choose>
-			<when test=' #{sort} != null and #{sort}.equals("rates")'>
-				ORDER BY RATES DESC
-			</when>
-			<when test=' #{sort} != null and #{sort}.equals("newest")'>
-				ORDER BY PRODUCT_NO DESC
-			</when>
-			<when test=' #{sort} != null and #{sort}.equals("priceLowToHigh")'>
-				ORDER BY PRODUCT_PRICE
-			</when>
-			<when test=' #{sort} != null and #{sort}.equals("priceHighToLow")'>
-				ORDER BY PRODUCT_PRICE DESC
-			</when>
-		</choose>
+		<if test=' sort != null'>
+			<choose>
+				<when test=' sort == "rates" '>
+					ORDER BY RATES DESC
+				</when>
+				<when test=' sort == "newest" '>
+					ORDER BY PRODUCT_NO DESC
+				</when>
+				<when test=' sort == "priceLowToHigh" '>
+					ORDER BY PRODUCT_PRICE
+				</when>
+				<when test=' sort == "priceHighToLow" '>
+					ORDER BY PRODUCT_PRICE DESC
+				</when>
+			</choose>
+		</if>
+
 	</select>
 	
 	<!-- 모든 상품 목록의 개수를 가져오는 SQL -->
@@ -68,20 +71,23 @@
 		<if test=' #{keyword} != null '>
 			AND PRODUCT_NAME LIKE '%${keyword}%' 
 		</if>
-		<choose>
-			<when test=' #{sort} != null and #{sort}.equals("rates")'>
-				ORDER BY RATES DESC
-			</when>
-			<when test=' #{sort} != null and #{sort}.equals("newest")'>
-				ORDER BY PRODUCT_NO DESC
-			</when>
-			<when test=' #{sort} != null and #{sort}.equals("priceLowToHigh")'>
-				ORDER BY PRODUCT_PRICE
-			</when>
-			<when test=' #{sort} != null and #{sort}.equals("priceHighToLow")'>
-				ORDER BY PRODUCT_PRICE DESC
-			</when>
-		</choose>
+		<if test=' sort != null'>
+			<choose>
+				<when test=' sort == "rates" '>
+					ORDER BY RATES DESC
+				</when>
+				<when test=' sort == "newest" '>
+					ORDER BY PRODUCT_NO DESC
+				</when>
+				<when test=' sort == "priceLowToHigh" '>
+					ORDER BY PRODUCT_PRICE
+				</when>
+				<when test=' sort == "priceHighToLow" '>
+					ORDER BY PRODUCT_PRICE DESC
+				</when>
+			</choose>
+		</if>
+
 	</select>
 	
 	<!-- 모든 상품 목록의 개수를 가져오는 SQL -->
