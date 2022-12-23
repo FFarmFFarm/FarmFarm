@@ -97,6 +97,17 @@
             <div class="nav-list"><a href="#">사고팔고</a></div>
             <div class="nav-list"><a href="/board">커뮤니티</a></div>
             <div class="nav-list"><a href="#">문의게시판</a></div>
+
+            <!-- nav custom -->
+            <div class="nav-list view-hidden" id="navSearchBar">
+
+              <input id="navSearchInput" class="keyword" placeholder="검색어를 입력하세요">
+              <button class="searchBtn">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
+
+            </div>
+
           </div>
         </div>
       </nav>

@@ -12,16 +12,16 @@
     <!-- swiper-style -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
 
-    <link rel="stylesheet" href="/resources/css/productList/productList-style.css">
     <link rel="stylesheet" href="/resources/css/common/header-style.css">
     <link rel="stylesheet" href="/resources/css/common/footer-style.css">
+    <link rel="stylesheet" href="/resources/css/productList/productList-style.css">
 
 
     <script src="https://kit.fontawesome.com/d449774bd8.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <!-- header --> 
-    <jsp:include page='/WEB-INF/views/common/header.jsp' />
+    <jsp:include page='/WEB-INF/views/common/listHeader.jsp' />
 
     <!-- 배너와 검색창이 들어갈 자리입니다 -->
     <section class="banner">
@@ -48,8 +48,8 @@
         <div class="search-area">
             <span id="title">팜팜마켓</span>
             <div id="searchBar">
-                <input id="keyword" placeholder="검색어를 입력하세요">
-                <button id="searchBtn">
+                <input id="searchInput" class="keyword" placeholder="검색어를 입력하세요">
+                <button class="searchBtn">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </div>
@@ -58,7 +58,6 @@
 
     <!-- 본문이 들어갈 자리입니다. -->
     <div class="container" role="main">
-
 
         <!-- 좌측 카테고리 영역 -->
         <section class="category-area">
@@ -76,6 +75,9 @@
                     </c:forEach>
                 </div>
 
+            </div>
+            <div class="reset-category">
+                <span><i class="fa-solid fa-circle-xmark"></i>&nbsp;검색 초기화</span>
             </div>
 
         </section>

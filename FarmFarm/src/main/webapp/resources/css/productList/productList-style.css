@@ -145,7 +145,7 @@ body{
 #searchBar:focus-within{
     border: 3px solid var(--point-color);
 }
-#keyword{
+.keyword{
     color: var(--main-font-color);
     border: none;
     width: 95%;
@@ -153,7 +153,7 @@ body{
     outline: none;
 }
 
-#searchBtn{
+.searchBtn{
     height: 100%;
     background-color: white;
     border: none;
@@ -244,6 +244,22 @@ body{
     font-weight: 900;
     color: var(--point-color);
 }
+
+/* 카테고리 - 초기화 버튼 */
+.reset-category{
+    display: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    padding-left: 10px;
+}
+
+.reset-category > * {
+    font-size: var(--small-font-size);
+    color: var(--main-font-color);
+}
+
 
 /* list-area */
 .list-area{

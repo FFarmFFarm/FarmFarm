@@ -15,7 +15,7 @@
 //     loading.cancel();
 // })
 
-// 로딩 애니메이션 시작하기
+// 애니메이션 시작하기
 const loadingStart = (loading) => {
     loading.play();
     const spinnerBackground = document.getElementById("spinnerBackground");
@@ -24,7 +24,7 @@ const loadingStart = (loading) => {
     spinner.style.display = "block";
 }
 
-// 로딩 애니메이션 멈추기
+// 애니메이션 멈추기
 const loadingStop = (loading) => {
     setTimeout(function () {
         const spinnerBackground = document.getElementById("spinnerBackground");
@@ -37,8 +37,7 @@ const loadingStop = (loading) => {
     }, 300);
 }
 
-
-/* DOMContentLoaded */
+/* 로딩 시작 */
 window.addEventListener("DOMContentLoaded", () => {
     // 애니메이션 멈추기
     loadingStop();
@@ -52,37 +51,37 @@ window.addEventListener("load", ()=>{
     // 페이지 이벤트 생성
     makePageBoxEvent();
 
-    // 리스트가 비어있으면, 주소창의 값을 받아 출력
-    getAllProductList();
+    // 리스트가 비어있으면 출력
+    // getAllProductList();
 })
 
-/* 스크롤 시 검색창을 보이게 하는 이벤트 */
+// 검색창 변형 이벤트
+/* top 버튼 및 검색창 보이기 */
 window.addEventListener("scroll", ()=> {
-
-    let targetHeight = 720;  // 스크롤 위치 지정
-    const searchInput = document.getElementById('searchInput');
-    const navSearchInput = document.getElementById('navSearchInput');
-    
     if(navSearchBar.classList.contains('view-hidden')) {
-        if(window.scrollY >= targetHeight) {
+        if(window.scrollY >= 720) {
             navSearchBar.classList.remove('view-hidden');
             navSearchBar.classList.add('view-flex');
+            const searchInput = document.getElementById('searchInput');
+            const navSearchInput = document.getElementById('navSearchInput');
             navSearchInput.value = searchInput.value;
             return;
         }
     }
 
     if(navSearchBar.classList.contains('view-flex')) {
-        if(window.scrollY < targetHeight) {
+        if(window.scrollY < 720) {
             navSearchBar.classList.add('view-hidden');
             navSearchBar.classList.remove('view-flex');
+            const searchInput = document.getElementById('searchInput');
+            const navSearchInput = document.getElementById('navSearchInput');
             searchInput.value = navSearchInput.value;
             return;
         }
     }
 })
 
-/* 상품 목록 하나(product-box)와 페이지 묶음을 생성하는 함수 */
+/* product-box를 생성하는 함수 */
 const createProductBox = (productMap) => {
 
     // map에서 productList와 productMap을 꺼내기
@@ -99,7 +98,7 @@ const createProductBox = (productMap) => {
     listAreaBody.innerHTML = "";
     paginationArea.innerHTML = "";
 
-    // 로딩 애니메이션 시작하기
+    // 로딩 애니메이션 시작...
     const spinner = document.createElement("div");
     spinner.id = "spinner";
     spinner.innerHTML = '<i class="fa-solid fa-spinner"></i>';
