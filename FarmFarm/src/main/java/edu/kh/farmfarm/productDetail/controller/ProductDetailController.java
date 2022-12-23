@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.google.gson.Gson;
+
 import edu.kh.farmfarm.member.model.VO.Member;
 import edu.kh.farmfarm.postDetail.model.vo.Post;
 import edu.kh.farmfarm.productDetail.model.service.ProductDetailService;
 import edu.kh.farmfarm.productDetail.model.vo.Product;
+import edu.kh.farmfarm.productDetail.model.vo.Review;
 
 @Controller
 public class ProductDetailController {
@@ -68,6 +71,21 @@ public class ProductDetailController {
 		product.setMemberNo(memberNo);
 		
 		return service.removeWish(product);
+	}
+	
+	@GetMapping("/review/{reviewNo}")
+	@ResponseBody
+	public String reviewDetail(int memberNo, 
+			@PathVariable("reviewNo")int reviewNo) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("memberNo", memberNo);
+		map.put("reviewNo", reviewNo);
+		
+		Review review = service.selectReview(map);
+		
+		return new Gson().toJson(review);
 	}
 
 }

@@ -74,4 +74,10 @@ public class ProductDetailDAO {
 
 
 
+	public Review selectReview(Map<String, Object> map) {
+		return sqlSession.selectOne("productDetailMapper.selectReview", map);
+	}
+
+
+
 }

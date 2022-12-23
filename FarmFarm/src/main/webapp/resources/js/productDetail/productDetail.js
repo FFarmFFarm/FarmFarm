@@ -26,11 +26,10 @@ if(document.getElementById('wishBtn') != null) {
     } else {
       addWish(productNo, wishBtn);
     }
-
-
-    
   })
 }
+
+
 
 /* 찜하기 */
 const addWish = (productNo, wishBtn)=>{
@@ -105,15 +104,108 @@ removeBtn.addEventListener('click', () => {
 
 /* 리뷰 이미지 클릭 시 리뷰 상세 조회 창 출력 */
 const reviewImg = document.getElementsByClassName("review-one-img");
+const reviewDetail = document.getElementById('reviewDetail');
 
 for(let img of reviewImg) {
   img.addEventListener('click', () => {
-    const reviewDetail = document.getElementById('reviewDetail');
 
-    reviewDetail.style.display = 'flex';
+    const reviewNo = img.id;
+
+    selectReview(reviewNo, memberNo);
+
+    setTimeout(()=>{
+      displayflex(reviewDetail);
+    }, "200")
   })
 }
 
 /* 리뷰 상세 조회창 뒤로가기 클릭 시 꺼짐 */
 const backBtn = document.getElementById('backBtn');
 
+backBtn.addEventListener('click', ()=>{
+  displayNone(reviewDetail);
+})
+
+
+/* 리뷰 상세 조회 */
+const selectReview = (reviewNo, memberNo)=> {
+
+  if(memberNo == '') {
+    memberNo = 0;
+  }
+
+  $.ajax({
+    url: "/review/" + reviewNo,
+    data: {"memberNo": memberNo},
+    dataType: "json",
+    success: (review)=>{
+      console.log("리뷰 상세 조회 성공")
+
+      /* 리뷰 모달창 내용 넣기 */
+      newReview(review);
+    },
+    error: ()=>{
+      console.log("리뷰 상세 조회 중 에러")
+    }
+  })
+
+}
+
+const newReview = (review)=>{
+  const imgContainer = document.getElementById("imgContainer");
+  const productThumbnail = document.getElementById("productThumbnail");
+  const productName = document.getElementById("productName");
+  const reviewContent = document.getElementById("reviewContent");
+  const createDate = document.getElementById("createDate");
+  const helpBtn = document.getElementById("helpBtn");
+
+  imgContainer.innerHTML = '';
+
+  console.log(review.imgList);
+
+  /* 리뷰 이미지 슬라이드 만들기 */
+  for(let image of review.imgList) {
+    const div = document.createElement("div");
+    div.classList.add('swiper-slide');
+
+    const img = document.createElement("img");
+    img.src = image.reviewImgPath;
+
+    div.append(img);
+
+    imgContainer.append(div);
+  }
+
+  var swiper = new Swiper(".mySwiper", {
+    spaceBetween: 30,
+    hashNavigation: {
+      watchState: true,
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+  });
+
+
+  /* 리뷰 상품 미리보기 */
+  productThumbnail.src = review.productThumbnail;
+  productName.innerText = review.productName;
+
+  reviewContent.innerHTML = review.reviewContent;
+
+  createDate.innerText = review.createDate;
+
+  if(review.likeCheck == 1) {
+    helpBtn.classList.add('clicked');
+    helpBtn.classList.remove('unclicked');
+  } else {
+    helpBtn.classList.remove('clicked');
+    helpBtn.classList.add('unclicked');
+  }
+
+};

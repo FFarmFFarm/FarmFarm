@@ -3,6 +3,7 @@ package edu.kh.farmfarm.productDetail.model.service;
 import java.util.Map;
 
 import edu.kh.farmfarm.productDetail.model.vo.Product;
+import edu.kh.farmfarm.productDetail.model.vo.Review;
 
 public interface ProductDetailService {
 
@@ -24,5 +25,11 @@ public interface ProductDetailService {
 	 * @return
 	 */
 	int removeWish(Product product);
+
+	/** 리뷰 상세 조회
+	 * @param map
+	 * @return
+	 */
+	Review selectReview(Map<String, Object> map);
 
 }

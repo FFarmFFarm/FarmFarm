@@ -62,5 +62,10 @@ public class ProductDetailServiceImpl implements ProductDetailService{
 	public int removeWish(Product product) {
 		return dao.removeWish(product);
 	}
+	
+	@Override
+	public Review selectReview(Map<String, Object> map) {
+		return dao.selectReview(map);
+	}
 
 }

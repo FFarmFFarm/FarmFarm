@@ -58,14 +58,16 @@
       
       <result property="memberNickname" column="MEMBER_NICKNAME" />
       <result property="profileImg" column="PROFILE_IMG" />
-      
+      <result property="productThumbnail" column="PRODUCT_THUMBNAIL" />
+      <result property="productName" column="PRODUCT_NAME" />
+      <result property="createDate" column="CREATE_DATE" />
       
       
       <collection property="imgList" 
       			  javaType="java.util.ArrayList" ofType="ReviewImg"
       			  select="selectReviewImgList"
       			  column = "REVIEW_NO"/>
-  </resultMap>
+</resultMap>
   
   
   
@@ -155,7 +157,17 @@
 </insert>
 
 
-
+<select id="selectReview" resultMap="review_rm">
+	SELECT REVIEW_NO, REVIEW_CONTENT, MEMBER_NO , r.PRODUCT_NO, MEMBER_NICKNAME, PROFILE_IMG, PRODUCT_NAME,
+		TO_CHAR(CREATE_DATE, 'yyyy.MM.DD') CREATE_DATE,
+		(SELECT COUNT(*) FROM REVIEW_LIKE rl WHERE rl.MEMBER_NO = #{memberNo} AND rl.REVIEW_NO = r.REVIEW_NO) LIKE_CHECK,
+		(SELECT COUNT(*) FROM REVIEW_LIKE rl2 WHERE rl2.REVIEW_NO = r.REVIEW_NO) LIKE_COUNT,
+		(SELECT PRODUCT_IMG_ADDRESS FROM PRODUCT_IMG pi2 WHERE pi2.PRODUCT_NO = r.PRODUCT_NO AND PRODUCT_IMG_ORDER = 0) PRODUCT_THUMBNAIL
+	FROM REVIEW r 
+	JOIN "MEMBER" m USING(MEMBER_NO)
+	JOIN PRODUCT p ON (r.PRODUCT_NO = p.PRODUCT_NO)
+	WHERE REVIEW_NO = #{reviewNo} AND REVIEW_DEL_FL = 'N'
+</select>
 
 
 </mapper>

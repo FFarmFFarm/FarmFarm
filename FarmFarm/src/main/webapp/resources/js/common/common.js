@@ -1,7 +1,9 @@
+/* 모달창 끄기 */
 const displayNone = (element) => {
   element.classList.add('hide');
 }
 
+/* 모달창 켜기 */
 const displayflex = (element) => {
   element.classList.remove('hide');
 }
