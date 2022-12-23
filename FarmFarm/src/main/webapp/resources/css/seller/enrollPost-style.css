@@ -104,7 +104,7 @@
 
 .rotate {transform: perspective(500px) rotateX(180deg);}
 
-[name="category"]{
+[name="categoryNo"]{
     accent-color: var(--point-color);
 }
 
@@ -112,12 +112,13 @@
 /* 상품정보 */
 .post-info{
     border: 1px solid #C7C7C7;
-    padding: 20px 60px;
+    padding: 30px 60px;
 }
 
 .info-list{
     display: flex;
-    margin: 40px 30px;
+    padding: 20px;
+    align-items: center;
 }
 
 .info-list>p{
@@ -128,10 +129,11 @@
     width: 20%;
 }
 
-input{
+.info-list>input{
     border: none;
     border-bottom: 1px solid #C7C7C7;
     font-size: var(--main-font-size);
+    line-height: 30px;
 }
 
 [name=openDate]{
@@ -167,6 +169,11 @@ input{
     display: flex;
     justify-content: space-between;
     width: 72%;
+}
+
+.preview{
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .thumbnail{
