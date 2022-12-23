@@ -55,7 +55,7 @@ public class ProductListServiceImpl implements ProductListService {
 	 *  모든 상품 목록 가져오기
 	 */
 	@Override
-	public Map<String, Object> getProductListAll(int cp, String keyword) {
+	public Map<String, Object> getProductListAll(int cp, String keyword, String sort) {
 		
 		// 1. 전체 개수를 가져옴
 		int listCount = dao.getCountAll();
@@ -64,7 +64,7 @@ public class ProductListServiceImpl implements ProductListService {
 		Pagination pagination = new Pagination(listCount, cp, 12);
 		
 		// 3. 페이지 네이션 객체를 생성해 목록 불러오기
-		List<Product> productList = dao.getProductListAll(pagination, keyword);
+		List<Product> productList = dao.getProductListAll(pagination, keyword, sort);
 		
 		// 4. 맵 만들기
 		Map<String, Object> productMap = new HashMap<String, Object>();
@@ -81,7 +81,7 @@ public class ProductListServiceImpl implements ProductListService {
 	 *  선택된 상품 목록 불러오기
 	 */
 	@Override
-	public Map<String, Object> getProductListChecked(int cp, String keyword, int category) {
+	public Map<String, Object> getProductListChecked(int cp, String keyword, int category, String sort) {
 		
 		// 1. 전체 개수를 가져옴
 		int listCount = dao.getCountChecked(category);
@@ -90,7 +90,7 @@ public class ProductListServiceImpl implements ProductListService {
 		Pagination pagination = new Pagination(listCount, cp, 12);
 		
 		// 4. 페이지 네이션 객체를 생성해 목록 불러오기
-		List<Product> productList = dao.getProductListChecked(pagination, keyword, category);
+		List<Product> productList = dao.getProductListChecked(pagination, keyword, category, sort);
 		
 		// 5. 맵 만들기
 		Map<String, Object> productMap = new HashMap<String, Object>();
