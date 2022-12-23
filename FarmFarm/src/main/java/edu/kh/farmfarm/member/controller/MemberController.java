@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.farmfarm.member.model.VO.Member;
@@ -50,6 +52,12 @@ public class MemberController {
 	@GetMapping("/signUp1")
 	public String signUp1() {
 		return "member/signUp1";
+	}
+	
+	// 회원가입 화면 (동의)
+	@GetMapping("/signUpAgree")
+	public String signUpAgreePage() {
+		return "member/signUpAgree";
 	}
 	
 	// 로그인 하기
@@ -113,15 +121,15 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-	// 회원가입 하기
-	@PostMapping("/signUp")
-	public String signUp(Member inputMember, 
+	// 회원가입 하기(구매자)
+	@PostMapping("/signUp0")
+	public String signUp0(Member inputMember, 
 							RedirectAttributes ra,
 							String[] memberAddress,
 							@RequestHeader("referer") String referer
 							){
 		
-		int result = service.signUp(inputMember, memberAddress);
+		int result = service.signUp0(inputMember, memberAddress);
 		
 		String path = null;
 		String message = null;
@@ -139,6 +147,42 @@ public class MemberController {
 		
 		ra.addFlashAttribute("message", message);
 			
+		return "redirect:" + path;						
+	}
+	
+	// 회원가입 하기(판매자)
+	@PostMapping("/signUp1")
+	public String signUp1(Member inputMember, 
+			RedirectAttributes ra,
+			String[] memberAddress,
+			@RequestHeader("referer") String referer,
+			@RequestParam(value="images", required=false) MultipartFile image,
+			HttpSession session
+			){
+		
+	   String webPath = "/resources/images/seller/";
+	   
+	   String folderPath = session.getServletContext().getRealPath(webPath);
+	   // -> /resources/images/seller/ 까지의 실제 컴퓨터 저장 경로 반환
+		
+		int result = service.signUp1(inputMember, memberAddress, webPath, folderPath, image);
+		
+		String path = null;
+		String message = null;
+		
+		if(result > 0) { // 회원가입 성공 시 
+			path = "/signUpSuccess";
+		} else { // 실패 시 
+			path = referer;
+			message = "회원가입 실패";
+			
+			// 이전 페이지로 돌아갔을 때 입력했던 값을 같이 전달 
+			inputMember.setMemberPw(null); // 비밀번호 삭제 
+			ra.addFlashAttribute("tempMember", inputMember);
+		}
+		
+		ra.addFlashAttribute("message", message);
+		
 		return "redirect:" + path;						
 	}
 	

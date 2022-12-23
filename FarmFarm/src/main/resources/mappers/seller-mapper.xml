@@ -82,6 +82,8 @@
 		ORDER BY POST_DATE
 	</select>
 	
-	
+	<insert id="insertFarmImgList">
+		INSERT INTO SELLER VALUES(#{memberNo}, #{farmImg})
+	</insert>
 
 </mapper>

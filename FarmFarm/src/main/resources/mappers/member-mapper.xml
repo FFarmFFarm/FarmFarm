@@ -65,7 +65,7 @@
 		</selectKey>
 	
 		INSERT INTO MEMBER VALUES(#{memberNo}, #{memberId}, #{memberPw}, #{memberName},
-	   #{memberNickname}, #{memberTel}, DEFAULT, DEFAULT, DEFAULT, NULL, NULL, #{memberBirth})
+	   #{memberNickname}, #{memberTel}, DEFAULT, DEFAULT, 0, NULL, NULL, #{memberBirth})
 	</insert>
 	
 	<insert id="insertMemberAddressList">

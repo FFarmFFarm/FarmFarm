@@ -1,5 +1,6 @@
 package edu.kh.farmfarm.member.model.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.farmfarm.member.model.VO.Member;
+import edu.kh.farmfarm.seller.model.vo.Seller;
 
 @Repository
 public class MemberDAO {
@@ -23,7 +25,7 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.checkReport", memberNo);
 	}
 
-	public int signUp(Member inputMember) {
+	public int signUp0(Member inputMember) {
 		int memberNo = sqlSession.insert("memberMapper.signUp", inputMember);
 		
 		// 메인 쿼리(INSERT) 성공 시 
@@ -32,17 +34,13 @@ public class MemberDAO {
 		return memberNo; // 0 또는 삽입된 멤버번호 
 	}
 
-//	public int insertMemberAddressList(String[] memberAddress) {
-//		return sqlSession.insert("memberMapper.insertMemberAddressList",memberAddress);
-//	}
-
-//	public int insertMemberAddressList(String add) {
-//		return sqlSession.insert("memberMapper.insertMemberAddressList",add);
-//	}
-
 	public int insertMemberAddressList(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return sqlSession.insert("memberMapper.insertMemberAddressList", map);
+	}
+
+	public int insertFarmImgList(Seller farmImage) {
+		return sqlSession.insert("sellerMapper.insertFarmImgList", farmImage);
 	}
 
 }

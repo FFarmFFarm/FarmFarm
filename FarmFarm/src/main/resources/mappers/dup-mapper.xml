@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dupMapper">
+
+
+ <resultMap type="Member" id="member_rm">
+        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+     <id property = "memberNo" column="MEMBER_NO"/>
+     <!-- 나머지 일반 컬럼 -->
+      <result property="memberId" column="MEMBER_ID" />
+      <result property="memberPw" column="MEMBER_PW" />
+      <result property="memberName" column="MEMBER_NAME" />
+      <result property="memberNickname" column="MEMBER_NICKNAME" />
+      <result property="memberTel" column="MEMBER_TEL" />
+      <result property="signUpDate" column="SIGNUP_DATE" />
+      <result property="memberDelFl" column="MEMBER_DEL_FL" />
+      <result property="memberBirth" column="MEMBER_BIRTH" />
+      <result property="authority" column="AUTHORITY" />
+      <result property="profileImg" column="PROFILE_IMG" />
+      <result property="mypageImg" column="MYPAGE_IMG" />
+      <result property="memberAddress" column="MEMBER_ADDRESS" />
+      <result property="boardCount" column="BOARD_COUNT" />
+      <result property="commentCount" column="COMMENT_COUNT" />
+      <result property="orderCount" column="ORDER_COUNT" />
+   
+      
+  </resultMap>
+
+	<!-- 회원가입 아이디 중복 검사 -->
+	<select id="idDupCheck" parameterType="String" resultType="_int">
+		SELECT COUNT(*) FROM "MEMBER"
+		WHERE MEMBER_ID = #{memberId}
+		AND MEMBER_DEL_FL = 'N'
+	</select>
+	
+	<!-- 회원가입 이름 중복 검사 -->
+	<select id="nameDupCheck" parameterType="String" resultType="_int">
+		SELECT COUNT(*) FROM "MEMBER"
+		WHERE MEMBER_NAME = #{memberName}
+		AND MEMBER_DEL_FL = 'N'
+	</select>
+	
+	<!-- 회원가입 닉네임 중복 검사 -->
+	<select id="nicknameDupCheck" parameterType="String" resultType="_int">
+		SELECT COUNT(*) FROM "MEMBER"
+		WHERE MEMBER_NICKNAME = #{memberNickname}
+		AND MEMBER_DEL_FL = 'N'
+	</select>
+	
+
+
+
+</mapper>
