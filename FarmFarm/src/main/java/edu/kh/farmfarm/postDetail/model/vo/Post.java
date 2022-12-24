@@ -1,5 +1,7 @@
 package edu.kh.farmfarm.postDetail.model.vo;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,10 +16,17 @@ public class Post {
 	private String postContent;
 	private int postView;
 	private String postDate;
-	private int unitPrice;
+	private String unitPrice;
 	private String openDate;
+	private int postSoldoutFl;
 	private String postDelFl;
 	private int memberNo;
+	private String memberNickname;
 	private int categoryNo;
-
+	private String categoryName;
+	private String postImgAddress;
+	
+	private List<PostImg> imgList;
+	
+	private String thumbnailImg;
 }

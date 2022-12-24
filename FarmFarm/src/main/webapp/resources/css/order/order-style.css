@@ -1,4 +1,4 @@
-@import "../root-style.css";
+@import '../root-style.css';
 
 body {
   width: 100vw;
@@ -39,7 +39,7 @@ section > * > * > * {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "NotoSansKR-Medium";
+  font-family: 'NotoSansKR-Medium';
 }
 
 .order-headline {
@@ -47,7 +47,7 @@ section > * > * > * {
   width: 100%;
 
   border-bottom: 1px solid var(--main-font-color);
-  font-family: "NotoSansKR-Medium";
+  font-family: 'NotoSansKR-Medium';
   margin-top: 60px;
 }
 

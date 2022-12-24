@@ -33,12 +33,25 @@ main{
     margin: 0 160px;
     align-items: center;
 }
-.board-nav-area >span:hover{
+.board-nav-area > a{
+    height: 100%;
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.board-nav-area >a:hover{
     color: var(--point-color);
     cursor: pointer;
 }
+.nowType{
+    border-bottom: 3px solid var(--point-color);
+}
 
 /* 커뮤니티 검색 */
+.board-search-area{
+    /* width: 100%; */
+}
 .board-search{
     height: 70px;
     border-bottom: 1px solid var(--line-color);
@@ -60,6 +73,7 @@ main{
     padding-left: 10px;
     font-size: var(--main-font-size);
     border: none;
+    overflow: hidden;
 }
 .board-search-area > input:focus{
     outline: none;
@@ -76,6 +90,7 @@ input[type="text"]:focus{
 }
 .board-search-area:focus-within{
     border: 1px solid var(--point-color);
+    overflow: hidden;
 }
 
 /* 커뮤니티 최신순, 조회수, 좋아요 */
@@ -126,7 +141,7 @@ input[type="text"]:focus{
 }
 
 /* 게시판 목록 */
-.board-list li{
+.board-list-area li{
     height: 60px;
     display: flex;
     align-items: center;
@@ -148,6 +163,10 @@ input[type="text"]:focus{
     align-items: center;
     justify-content: center;
 }
+.thumbImg{
+    width: 100%;
+    height: 100%;
+}
 /* 목록 페이지 번호 */
 .board-pagination{
     width: 740px;
@@ -160,6 +179,9 @@ input[type="text"]:focus{
 .pagination{
     display: flex;
 }
+.current{
+    color: var(--point-color);
+}
 
 /* 글쓰기 버튼 */
 .board-write{
@@ -168,4 +190,9 @@ input[type="text"]:focus{
     background-color: var(--point-color);
     border: none;
     border-radius: 5px;
+    text-align: center;
+    color: white;
+    /* font-weight: bold; */
+    letter-spacing: 2px;
+    padding-top: 8px;
 }

@@ -8,12 +8,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FarmFarm</title>
-
     <link rel="stylesheet" href="/resources/css/common/main-style.css" />
-    <script
-      src="https://kit.fontawesome.com/1ce4f19a7a.js"
-      crossorigin="anonymous"
-    ></script>
+    <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
+    <script src="https://kit.fontawesome.com/1ce4f19a7a.js" crossorigin="anonymous"></script>
   </head>
   <body>
     <div class="header-container">
@@ -27,111 +24,195 @@
         <nav>
             <div class="nav-head">
               <div class="nav-body">
-                <div class="nav-list"><a href="#">팜팜마켓</a></div>
-                <div class="nav-list"><a href="#">사고팔고</a></div>
-                <div class="nav-list"><a href="/board">커뮤니티</a></div>
-                <div class="nav-list"><a href="#">문의게시판</a></div>
+                <div class="nav-list"><a href="/product/list">팜팜마켓</a></div>
+                <div class="nav-list"><a href="/post/list">사고팔고</a></div>
+                <div class="nav-list"><a href="/board/${1}">커뮤니티</a></div>
+                <div class="nav-list"><a href="/testPage/4">문의게시판</a></div>
               </div>
             </div>
         </nav>
 
         <div class="header-widget-area">
           <!-- 로그인O 상태 -->
-          <%-- <ul class="widget-list">
-            <li class="widget-item">
-              <div class="dropdown">
-                <button type="button" class="dropbtn1">
-                  <i class="fa-solid fa-bell header-icon"></i>
-                </button>
-
-                <div id="myDropdown1" class="dropdown-message">
-                  <div class="notice"><p>알림</p></div>
-                  <ul>
-                    <li>
-                      <div class="message-box">
-                        <a href="">배송이 시작되었습니다.</a>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="message-box">
-                        <a href="">辛팜팜님이 신고했습니다..</a>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="message-box">
-                        <a href="">정팜팜님이 신고를 거부하셨습니다.</a>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
+          <c:choose>
+            <c:when test="${not empty sessionScope.loginMember}">
+              <ul class="widget-list">
+                <li class="widget-item">
+                  <div class="dropdown">
+                    <button type="button" class="dropbtn1">
+                      <i class="fa-solid fa-bell header-icon"></i>
+                    </button>
+    
+                    <div id="myDropdown1" class="dropdown-message">
+                      <div class="notice"><p>알림</p></div>
+                      <ul>
+                        <li>
+                          <div class="message-box">
+                            <a href="">배송이 시작되었습니다.</a>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="message-box">
+                            <a href="">辛팜팜님이 신고했습니다..</a>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="message-box">
+                            <a href="">정팜팜님이 신고를 거부하셨습니다.</a>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </li>
+                <li class="widget-item">
+                  <a href="#">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                  </a>
+                </li>
+                <li class="widget-item">
+                  <div class="dropdown">
+                    <button type="button" class="dropbtn">
+                      <span>
+                        <i class="fa-solid fa-user header-icon" id="profilePhoto"></i>
+                      </span>
+                      <!-- <span>
+                        <img src="/resources/images/member/farmer.png" class="login-profile-img">
+                      </span> -->
+                      <i class="fa-solid fa-caret-down caret-icon" id="triangleIcon"></i>
+                    </button>
+                    <div id="myDropdown" class="dropdown-content">
+                      <c:choose>
+                        <c:when test="${loginMember.authority == 1}">
+                          <a href="/seller/${loginMember.memberNo}">판매자페이지</a>
+                        </c:when>
+                        <c:when test="${loginMember.authority == 2}">
+                          <a href="/admin">관리자</a>
+                        </c:when>
+                        <c:otherwise>
+                          <a href="/myPage">마이페이지</a>
+                        </c:otherwise>
+                      </c:choose>
+                      <a href="/logout">로그아웃</a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </c:when>
+          
+            <%-- 로그인X 상태 --%>
+            <c:otherwise>
+              <div class="login-list">
+                <div class="login-item"><a href="/login">로그인</a></div>
+                <span>|</span>
+                <div class="login-item"><a href="/signUpStart">회원가입</a></div>
               </div>
-            </li>
-            <li class="widget-item">
-              <a href="#">
-                <i class="fa-solid fa-cart-shopping"></i>
-              </a>
-            </li>
-            <li class="widget-item">
-              <div class="dropdown">
-                <button type="button" class="dropbtn">
-                  <span>
-                    <i
-                      class="fa-solid fa-user header-icon"
-                      id="profilePhoto"
-                    ></i>
-                  </span>
-                  <!-- <span>
-                                    <img src="../images/member/farmer.png" class="login-profile-img">
-                                </span> -->
-                  <i
-                    class="fa-solid fa-caret-down caret-icon"
-                    id="triangleIcon"
-                  ></i>
-                </button>
-
-                <div id="myDropdown" class="dropdown-content">
-                  <a href="#">마이페이지</a>
-                  <a href="#">로그아웃</a>
-                </div>
-              </div>
-            </li>
-          </ul> --%>
-
-          <!-- 로그인X 상태 -->
-          <div class="login-list">
-            <div class="login-item"><a href="/login">로그인</a></div>
-            <span>|</span>
-            <div class="login-item"><a href="/signUpStart">회원가입</a></div>
-          </div>
-
+            </c:otherwise>
+        </c:choose>
         </div>
       </header>
 
-      <main>
+    </div>
+    <main>
+      <div class="main-wrap">
         <div class="main-background">
           <img src="resources/images/main/bg2.jpg">
         </div>
-        <div>
-          <div class="middle-product">
-            <img src="">
-            <div>
-              <p>아오리 사과 1kg</p>
-              <p>5000원</p>
+        <div class="main-title">
+          <!-- <p>내 손으로 키운 작물,<br>손쉽게 거래하세요.</p>
+          <p>믿을 수 있는 먹거리, 팜팜이 함께합니다</p> -->
+        </div>
+      </div>
+
+      <div class="middle-product">
+        <div class="middle-wrap">
+          <div class="middle-cover"><img src="resources/images/main/아오리사과.jpg"></div>
+          <a href="#">
+            <div class="middle-text-wrap">
+              <div class="middle-text">
+                <p>아오리 사과 1kg</p>
+                <p>15,900원</p>
+              </div>
+              <div class="middle-icon">
+                <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
+              </div>
+            </div>  
+          </a>
+        </div>
+
+        <div class="middle-wrap">
+          <div class="middle-cover"><img src="resources/images/main/감자.jpg"></div>
+          <a href="#">
+            <div class="middle-text-wrap">
+              <div class="middle-text">
+                <p>감자 1kg</p>
+                <p>3,990원</p>
+              </div>
+              <div class="middle-icon">
+                <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
+              </div>
             </div>
-            <div></div>
-          </div>
-
+          </a>
         </div>
-        <div class="mypage">
-          <a href="/member/myPage">마이페이지</a>
-          <a href="/product/detail">상품상세조회</a>
-          <a href="/post/detail">게시글상세조회</a>
-        </div>
-      </main>
-    </div>
 
+        <div class="middle-wrap">
+          <div class="middle-cover"><img src="resources/images/main/딸기.jpg"></div>
+          <a href="#">
+            <div class="middle-text-wrap">
+              <div class="middle-text">
+                <p>딸기 500g</p>
+                <p>10,900원</p>
+              </div>
+              <div class="middle-icon">
+                <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="middle-wrap">
+          <div class="middle-cover"><img src="resources/images/main/토마토.jpg"></div>
+          <a href="#">
+            <div class="middle-text-wrap">
+                <div class="middle-text">
+                  <p>방울토마토 500g</p>
+                  <p>3,950원</p>
+                </div>
+                <div class="middle-icon">
+                  <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      
+      <!-- <div class="mypage">
+        <a href="/member/myPage">마이페이지</a>
+        <a href="/product/1">상품상세조회</a>
+        <a href="/post/detail">게시글상세조회</a>
+      </div> -->
+
+      <div class="cooking-part">
+        <div class="cooking-text">
+          <p>와글와글에서 더 건강하게 즐겨요!</p>
+          <p>팜팜에서 구매한 상품들을 자기만의 레시피로 요리하고 회원들과 공유해보세요.</p>
+        </div>
+        <div class="cooking-img">
+          <img src="resources/images/main/cooking.jpg">
+        </div>
+        <div class="cooking-a">
+          <a href="/board"></a>
+            <p>레시피 보러가기 </p>
+            <i class="fa-solid fa-arrow-right cooking-arrow"></i>
+          </a>
+        </div>
+      </div>
+
+    </main>
     
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/> 
+    
+    <jsp:include page="/WEB-INF/views/report/report-modal.jsp"/> 
 
     <script>
       // 프로필 드롭다운
@@ -152,12 +233,21 @@
         }
       });
 
-      dropbtn.addEventListener('blur', () => {
-        const icon = document.querySelector('.caret-icon');
+      //const dd = document.querySelectorAll(".dropdown, #myDropdown, #myDropdown *");
+
+      window.addEventListener('click', e => {
+        console.log(e.target);
         const myDropdown = document.querySelector('.dropdown-content');
 
-        myDropdown.style.display = '';
-        icon.style.transform = 'perspective(500px) rotateX(360deg)';
+        if(myDropdown.style.display == 'block' &&
+          !e.target.matches(".dropdown, .dropdown *, #myDropdown, #myDropdown *")){
+          
+          const icon = document.querySelector('.caret-icon');
+          const myDropdown = document.querySelector('.dropdown-content');
+          
+          myDropdown.style.display = '';
+          icon.style.transform = 'perspective(500px) rotateX(360deg)';
+        }
       });
 
       // 알림 드롭다운

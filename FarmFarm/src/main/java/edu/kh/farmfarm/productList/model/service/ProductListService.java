@@ -1,15 +1,25 @@
 package edu.kh.farmfarm.productList.model.service;
 
-import java.util.List;
-
-import edu.kh.farmfarm.category.model.vo.Category;
-import edu.kh.farmfarm.productDetail.model.vo.Product;
+import java.util.Map;
 
 public interface ProductListService {
 
-	List<Category> getCategoryList();
+	/** 카테고리 목록 가져오기
+	 * @return
+	 */
+	Map<String, Object> getCategoryList();
 
-	List<Product> getProductListAll();
+	/** 모든 상품 목록 불러오기
+	 * @return
+	 */
+	Map<String, Object> getProductListAll(int cp, String keyword, String sort);
+
+	
+	/** 선택된 상품 목록 불러오기
+	 * @param category 
+	 * @return
+	 */
+	Map<String, Object> getProductListChecked(int cp, String keyword, int category, String sort);
 	
 	
 }

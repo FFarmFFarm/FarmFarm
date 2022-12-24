@@ -88,6 +88,11 @@ a.board-wrote > i {
   text-align: center;
 }
 
+.title-line {
+  display: flex;
+  justify-content: center;
+}
+
 .board-reg-date {
   display: inline-block;
   width: 15%;

@@ -1,5 +1,11 @@
 @import "../root-style.css";
 
+.main {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+}
+
 .mypage{
   position: absolute;
 }
@@ -7,12 +13,12 @@
 .header-container {
   height: 180px;
   width: 100vw;
+  z-index: 10;
   /* background-color: var(--background-color); */
 }
 
 /* Header */
 header {
-  position: relative;
   z-index: 100;
   height: 120px;
   margin: auto;
@@ -141,7 +147,7 @@ header {
   display: none;
   position: absolute;
   z-index: 1000;
-  width: 95px;
+  min-width: 100px;
   height: 77px;
   border: 1px solid #ccc;
   background-color: white;
@@ -251,11 +257,16 @@ main{
   padding-bottom: 130px;
 }
 
-.main-background{
-  width: 100vw;
-  height: 660px;
+.main-wrap{
   position: absolute;
-  top: -130px;
+  /* overflow-x: hidden; */
+  top: -180px;
+
+}
+
+.main-background{
+  height: 660px;
+  width: 100vw;
   overflow: hidden;
 }
 
@@ -265,3 +276,137 @@ main{
   object-fit: cover;
 }
 
+.main-title{
+  position: relative;
+  top: 330px;
+  left: 400px;
+}
+
+.main-title p:nth-child(1){
+  font-size: 20px;
+  color: var(--background-color);
+  font-weight: 600;
+}
+
+.main-title p:nth-child(2){
+  font-size: var(--main-font-size);
+  color: var(--background-color);
+  font-weight: 500;
+}
+
+.middle-product{
+  position: relative;
+  display: flex;
+  justify-content: center;
+
+  margin-top: 375px;
+}
+
+.middle-wrap{
+  margin: 0 20px;
+}
+
+.middle-text-wrap{
+  display: flex;  
+  cursor: pointer;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.middle-text p:first-child{
+  font-size: var(--medium-font-size);
+  font-weight: 600;
+}
+.middle-text p:nth-child(2){
+  font-size: var(--main-font-size);
+}
+
+.middle-icon{
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--line-color);
+  border-radius: 10px;
+}
+
+.arrow{
+  text-align: center;
+  color: var(--sub-font-color);
+  font-size: var(--title-font-size);
+}
+
+.middle-cover{
+  width: 200px;
+  height: 200px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.middle-cover img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cooking-part{
+  margin: 100px 0;
+}
+
+.cooking-text{
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.cooking-text p:nth-child(1){
+  font-weight: 800;
+  font-size: var(--title-font-size);
+  color: var(--main-font-color);
+  padding-bottom: 8px;
+}
+
+.cooking-text p:nth-child(2){
+  font-weight: 500;
+  font-size: var(--medium-font-size);
+  color: var(--main-font-color);
+}
+
+.cooking-img{
+  width: 100vw;
+  height: 450px;
+  overflow: hidden;
+}
+
+.cooking-img img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cooking-a{
+  width: 400px;
+  height: 60px;
+  border-radius: 30px;
+  background-color: var(--point-color);
+  /* background-color: rgba(43, 140, 68, 0.8); */
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  margin: 50px auto;
+}
+
+.cooking-a p{
+  text-align: center;
+  font-size: var(--title-font-size);
+  color: var(--background-color);
+  font-weight: 600;
+  margin-bottom: 2px;
+  z-index: 10;
+}
+
+.cooking-arrow{
+  font-size: 28px;
+  padding-left: 10px;
+  color: var(--background-color);
+}

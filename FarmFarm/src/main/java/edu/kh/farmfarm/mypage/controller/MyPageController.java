@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
@@ -17,41 +18,93 @@ import edu.kh.farmfarm.mypage.model.service.MyPageService;
 import edu.kh.farmfarm.mypage.model.vo.Comment;
 
 @Controller
+@RequestMapping("/myPage")
 public class MyPageController {
 	
 	@Autowired
 	private MyPageService service;
 	
-	@GetMapping("/member/myPage")
-	public String myPage() {
+	
+	/** 마이페이지 이동(주문목록)
+	 * @return
+	 */
+	@GetMapping("/")
+	public String myPage(
+			@SessionAttribute("loginMember")Member loginMember,
+			Model model,
+			@RequestParam(value="cp", required=false, defaultValue = "1") int cp
+			) {
+		
+		
+		Map<String, Object> map = service.selectOrderList(loginMember, cp);
+		
+		model.addAttribute("map", map);
+		
 		return "myPage/myPageOrder";
 	}
 	
-	@GetMapping("/myPage/order")
-	public String myPageOrder() {
-		return "myPage/myPageOrder";
-	}
 	
-	@GetMapping("/myPage/review")
-	public String myPageReview() {
+	
+
+	/** 마이페이지 작성 후기
+	 * @return
+	 */
+	@GetMapping("/review")
+	public String myPageReview(
+			@SessionAttribute("loginMember")Member loginMember,
+			Model model,
+			@RequestParam(value="cp", required=false, defaultValue = "1") int cp
+			) {
+		
+		
+		Map<String, Object> map = service.selectReviewList(loginMember, cp);
+		
+		model.addAttribute("map", map);
+		
 		return "myPage/myPageReview";
 	}
 	
-	@GetMapping("/myPage/board")
-	public String myPageBoard() {
-		return "myPage/myPageBoard";
+	
+	
+	
+	/** 마이패이지 작성 게시글
+	 * @return
+	 */
+	@GetMapping("/board")
+	public String myPageBoard(
+		@SessionAttribute("loginMember")Member loginMember, 
+		Model model,
+		@RequestParam(value="cp", required=false, defaultValue = "1") int cp) {
+	
+
+	int memberNo = loginMember.getMemberNo();
+	          
+	Map<String, Object> map = service.selectBoardList(memberNo, cp);
+	
+	
+
+	model.addAttribute("map", map);
+
+	
+	return "myPage/myPageBoard";
 	}
 	
-	@GetMapping("/myPage/comment")
+	
+	
+	/** 마이페이지 작성 댓글
+	 * @param model
+	 * @param cp
+	 * @return
+	 */
+	@GetMapping("/comment")
 	public String myPageComment(
-//			@SessionAttribute("loginMember")Member loginMember, 
+			@SessionAttribute("loginMember")Member loginMember, 
 			Model model,
 			@RequestParam(value="cp", required=false, defaultValue = "1") int cp) {
 		
 
-//		임시 변수 할당
-		int memberNo = 16;
-		
+		int memberNo = loginMember.getMemberNo();
+		          
 		Map<String, Object> map = service.selectCommentList(memberNo, cp);
 		
 		
@@ -65,8 +118,26 @@ public class MyPageController {
 	
 	
 	
-	@GetMapping("/myPage/wishList")
-	public String myPageWishList() {
+	/** 마이페이지 찜목록
+	 * @return
+	 */
+	@GetMapping("/wishList")
+	public String myPageWishList(
+			@SessionAttribute("loginMember")Member loginMember, 
+			Model model,
+			@RequestParam(value="cp", required=false, defaultValue = "1") int cp) {
+		
+
+		int memberNo = loginMember.getMemberNo();
+		          
+		Map<String, Object> map = service.selectWishList(memberNo, cp);
+		
+		
+		
+
+		model.addAttribute("map", map);
+
+		
 		return "myPage/myPageWish";
 	}
 	

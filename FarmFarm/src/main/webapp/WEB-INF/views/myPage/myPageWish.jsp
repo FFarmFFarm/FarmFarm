@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<c:set var="wishList" value="${map.wishList}"/>
+<c:set var="wishCount" value="${map.wishCount}"/>
+<c:set var="pagination" value="${map.pagination}"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,346 +35,36 @@
 
         <form action="" method="post" class="wish-list">
           <span class="wish-list-title">찜 목록</span>
+
+          <c:if test="${empty wishList}">
+          <div>찜 목록이 비었습니다</div>
+          </c:if>
+          <c:if test="${!empty wishList}">
+          <c:forEach var="wish" items="${wishList}">
+          
           <div class="wish">
             <div class="wish-thumbnail">
+            <c:if test="${! empty wish.productImg}">
               <img
-                src="/resources/images/board/thumbnail.png"
+                src="${wish.productImg}"
                 alt=""
                 class="wish-thumbnail-img"
               />
+            </c:if>
             </div>
             <div class="wish-info">
-              <span class="wish-reg-date">2022.12.17</span>
-              <a href="" class="wish-title">판매글 제목 샘플</a>
-              <a href="" class="wish-price"><span> 15,000</span>원</a>
+              <span class="wish-reg-date">${wish.wishDate}</span>
+              <a href="/product/${productNo}" class="wish-title">${wish.productName}</a>
+              <span class="wish-price"><span> ${wish.productPrice}</span>원</span>
             </div>
             <button type="button" class="delete-wish-btn">
               <i class="fa-solid fa-xmark"></i>
             </button>
           </div>
-          <div class="wish">
-            <div class="wish-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="wish-thumbnail-img"
-              />
-            </div>
-            <div class="wish-info">
-              <span class="wish-reg-date">2022.12.17</span>
-              <a href="" class="wish-title">판매글 제목 샘플</a>
-              <a href="" class="wish-price"><span> 15,000</span>원</a>
-            </div>
-            <button type="button" class="delete-wish-btn">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-          </div>
-          <div class="wish">
-            <div class="wish-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="wish-thumbnail-img"
-              />
-            </div>
-            <div class="wish-info">
-              <span class="wish-reg-date">2022.12.17</span>
-              <a href="" class="wish-title">판매글 제목 샘플</a>
-              <a href="" class="wish-price"><span> 15,000</span>원</a>
-            </div>
-            <button type="button" class="delete-wish-btn">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-          </div>
-          <div class="wish">
-            <div class="wish-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="wish-thumbnail-img"
-              />
-            </div>
-            <div class="wish-info">
-              <span class="wish-reg-date">2022.12.17</span>
-              <a href="" class="wish-title">판매글 제목 샘플</a>
-              <a href="" class="wish-price"><span> 15,000</span>원</a>
-            </div>
-            <button type="button" class="delete-wish-btn">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-          </div>
-          <div class="wish">
-            <div class="wish-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="wish-thumbnail-img"
-              />
-            </div>
-            <div class="wish-info">
-              <span class="wish-reg-date">2022.12.17</span>
-              <a href="" class="wish-title">판매글 제목 샘플</a>
-              <a href="" class="wish-price"><span> 15,000</span>원</a>
-            </div>
-            <button type="button" class="delete-wish-btn">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-          </div>
-          <div class="wish">
-            <div class="wish-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="wish-thumbnail-img"
-              />
-            </div>
-            <div class="wish-info">
-              <span class="wish-reg-date">2022.12.17</span>
-              <a href="" class="wish-title">판매글 제목 샘플</a>
-              <a href="" class="wish-price"><span> 15,000</span>원</a>
-            </div>
-            <button type="button" class="delete-wish-btn">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-          </div>
-          <div class="wish">
-            <div class="wish-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="wish-thumbnail-img"
-              />
-            </div>
-            <div class="wish-info">
-              <span class="wish-reg-date">2022.12.17</span>
-              <a href="" class="wish-title">판매글 제목 샘플</a>
-              <a href="" class="wish-price"><span> 15,000</span>원</a>
-            </div>
-            <button type="button" class="delete-wish-btn">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-          </div>
-          <div class="wish">
-            <div class="wish-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="wish-thumbnail-img"
-              />
-            </div>
-            <div class="wish-info">
-              <span class="wish-reg-date">2022.12.17</span>
-              <a href="" class="wish-title">판매글 제목 샘플</a>
-              <a href="" class="wish-price"><span> 15,000</span>원</a>
-            </div>
-            <button type="button" class="delete-wish-btn">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-          </div>
-          <div class="wish">
-            <div class="wish-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="wish-thumbnail-img"
-              />
-            </div>
-            <div class="wish-info">
-              <span class="wish-reg-date">2022.12.17</span>
-              <a href="" class="wish-title">판매글 제목 샘플</a>
-              <a href="" class="wish-price"><span> 15,000</span>원</a>
-            </div>
-            <button type="button" class="delete-wish-btn">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-          </div>
-          <div class="wish">
-            <div class="wish-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="wish-thumbnail-img"
-              />
-            </div>
-            <div class="wish-info">
-              <span class="wish-reg-date">2022.12.17</span>
-              <a href="" class="wish-title">판매글 제목 샘플</a>
-              <a href="" class="wish-price"><span> 15,000</span>원</a>
-            </div>
-            <button type="button" class="delete-wish-btn">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-          </div>
-          <div class="wish">
-            <div class="wish-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="wish-thumbnail-img"
-              />
-            </div>
-            <div class="wish-info">
-              <span class="wish-reg-date">2022.12.17</span>
-              <a href="" class="wish-title">판매글 제목 샘플</a>
-              <a href="" class="wish-price"><span> 15,000</span>원</a>
-            </div>
-            <button type="button" class="delete-wish-btn">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-          </div>
-          <div class="wish">
-            <div class="wish-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="wish-thumbnail-img"
-              />
-            </div>
-            <div class="wish-info">
-              <span class="wish-reg-date">2022.12.17</span>
-              <a href="" class="wish-title">판매글 제목 샘플</a>
-              <a href="" class="wish-price"><span> 15,000</span>원</a>
-            </div>
-            <button type="button" class="delete-wish-btn">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-          </div>
-          <div class="wish">
-            <div class="wish-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="wish-thumbnail-img"
-              />
-            </div>
-            <div class="wish-info">
-              <span class="wish-reg-date">2022.12.17</span>
-              <a href="" class="wish-title">판매글 제목 샘플</a>
-              <a href="" class="wish-price"><span> 15,000</span>원</a>
-            </div>
-            <button type="button" class="delete-wish-btn">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-          </div>
-          <div class="wish">
-            <div class="wish-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="wish-thumbnail-img"
-              />
-            </div>
-            <div class="wish-info">
-              <span class="wish-reg-date">2022.12.17</span>
-              <a href="" class="wish-title">판매글 제목 샘플</a>
-              <a href="" class="wish-price"><span> 15,000</span>원</a>
-            </div>
-            <button type="button" class="delete-wish-btn">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-          </div>
-          <div class="wish">
-            <div class="wish-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="wish-thumbnail-img"
-              />
-            </div>
-            <div class="wish-info">
-              <span class="wish-reg-date">2022.12.17</span>
-              <a href="" class="wish-title">판매글 제목 샘플</a>
-              <a href="" class="wish-price"><span> 15,000</span>원</a>
-            </div>
-            <button type="button" class="delete-wish-btn">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-          </div>
-          <div class="wish">
-            <div class="wish-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="wish-thumbnail-img"
-              />
-            </div>
-            <div class="wish-info">
-              <span class="wish-reg-date">2022.12.17</span>
-              <a href="" class="wish-title">판매글 제목 샘플</a>
-              <a href="" class="wish-price"><span> 15,000</span>원</a>
-            </div>
-            <button type="button" class="delete-wish-btn">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-          </div>
-          <div class="wish">
-            <div class="wish-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="wish-thumbnail-img"
-              />
-            </div>
-            <div class="wish-info">
-              <span class="wish-reg-date">2022.12.17</span>
-              <a href="" class="wish-title">판매글 제목 샘플</a>
-              <a href="" class="wish-price"><span> 15,000</span>원</a>
-            </div>
-            <button type="button" class="delete-wish-btn">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-          </div>
-          <div class="wish">
-            <div class="wish-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="wish-thumbnail-img"
-              />
-            </div>
-            <div class="wish-info">
-              <span class="wish-reg-date">2022.12.17</span>
-              <a href="" class="wish-title">판매글 제목 샘플</a>
-              <a href="" class="wish-price"><span> 15,000</span>원</a>
-            </div>
-            <button type="button" class="delete-wish-btn">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-          </div>
-          <div class="wish">
-            <div class="wish-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="wish-thumbnail-img"
-              />
-            </div>
-            <div class="wish-info">
-              <span class="wish-reg-date">2022.12.17</span>
-              <a href="" class="wish-title">판매글 제목 샘플</a>
-              <a href="" class="wish-price"><span> 15,000</span>원</a>
-            </div>
-            <button type="button" class="delete-wish-btn">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-          </div>
-          <div class="wish">
-            <div class="wish-thumbnail">
-              <img
-                src="/resources/images/board/thumbnail.png"
-                alt=""
-                class="wish-thumbnail-img"
-              />
-            </div>
-            <div class="wish-info">
-              <span class="wish-reg-date">2022.12.17</span>
-              <a href="" class="wish-title">판매글 제목 샘플</a>
-              <a href="" class="wish-price"><span> 15,000</span>원</a>
-            </div>
-            <button type="button" class="delete-wish-btn">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-          </div>
+
+          </c:forEach>
+          </c:if>
+
 
           <div class="pagination-area">
             <ul class="pagination">

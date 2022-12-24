@@ -96,8 +96,13 @@ main{
     border-radius: 20px;
 }
 
-.address-btn, .tel-btn1{
-    top: 60px;
+.address-btn{
+    top: 925px;
+    left: 1005px;
+}
+
+.tel-btn1{
+    top: 70px;
     left: 315px;
 }
 

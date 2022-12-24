@@ -2,30 +2,10 @@
 
 
 
-body{
-    width: 100vw;
-    height:auto;
-    /* background-color: #eef4ed; */
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-main{
-    width: 1200px;
-    height: auto;
-
-    display: flex;
-    justify-content: space-between;
-}
-
-
-
 /** 왼쪽 nav메뉴 */
 .admin-nav-section{
     width: 200px;
-    /* height: 100vh; */
+    height: 100vh;
     margin-top: 50px;
     display: flex;
     flex-direction: column;
@@ -103,7 +83,7 @@ main{
 }
 
 
-.nav-lower a{
+.nav-lower a {
     width: 200px;
 }
 
@@ -116,17 +96,25 @@ main{
 }
 
 
-/** -------------------------------------- */
 
+/* 오늘 날짜 */
+.todayDate{
+    width: 100%;
+    height: 100%;
 
-/** 오른쪽 내용 부분 */
-.admin-content-section{
-    width: 1000px;
-    min-height: 900px;
-    height: auto;
-    padding-bottom: 20px;
-    background-color: #eef4ed;
+    text-align: center;
+    color: rgb(37, 37, 37);
+    font-weight: bold;
+    /* font-family: "S-CoreDream-4Legular"; */
+    /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
+    font-family: "NotoSansKR-Bold";
+    font-size: 20px;
 
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    align-content: center;
+
+    margin-left: 53px;
+    margin-top: 7px;
+}

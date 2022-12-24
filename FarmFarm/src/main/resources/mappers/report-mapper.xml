@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reportMapper">
+
+
+	<resultMap type="Report" id="report_rm">
+	    <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+	    <id property = "reportNo" column="REPORT_NO"/>
+	    <!-- 나머지 일반 컬럼 -->
+	     <result property="reportType" column="REPORT_TYPE" />
+	     <result property="reportMemberNo" column="REPORT_MEMBER_NO" />
+	     <result property="reportTargetNo" column="REPORT_TARGET_NO" />
+	     <result property="reportReason" column="REPORT_REASON" />
+	     <result property="reportDate" column="REPORT_DATE" />
+	     <result property="reportPenalty" column="REPORT_PENALTY" />
+	     <result property="processDate" column="REPORT_DATE" />
+	</resultMap>
+
+
+	<insert id="insertReport">
+		INSERT INTO REPORT VALUES(SEQ_REPORT_NO.NEXTVAL, #{reportType}, #{memberNo}, #{reportTargetNo}, #{reportReason},
+			DEFAULT, DEFAULT, NULL, #{reportContent})
+	</insert>
+
+
+
+
+
+
+
+
+
+</mapper>

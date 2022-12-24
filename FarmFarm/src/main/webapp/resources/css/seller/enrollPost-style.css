@@ -14,6 +14,7 @@
     font-size: var(--headline-font-size);
     height: 115px;
     padding-top: 50px;
+    margin-bottom: 30px;
 }
 
 /* 항목별 공통설정 */
@@ -25,16 +26,22 @@
     padding: 13px 5px;
 }
 
-
 /* 카테고리 설정 */
-.category-list{
+.category-item{
     display: flex;
-    height: 45px;
 }
 
-.category{
-    width: 50%;
-    height: 100%;
+.category-item>p{
+    width: 15%;
+    padding-top: 0;
+}
+
+.select-category{
+    width: 85%;
+}
+
+.category-headline{
+    height: 45px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -42,15 +49,22 @@
     border: 1px solid #C7C7C7;
 }
 
-.category p{
+.category-headline p{
     display: inline-block;
 }
 
-.category-title{
-    width: 20%;
+#category-btn{
+    width: 18%;
     font-size: var(--main-font-size);
-    text-align: center;
+    margin-left: 15px;
     cursor: pointer;
+
+    border: none;
+    background-color: var(--background-color);
+}
+
+#category-btn>i{
+    padding-left: 10px;
 }
 
 .category-selected{
@@ -64,21 +78,47 @@
     cursor: pointer;
 }
 
-.category-selected>p:first-child{
-    padding-right: 5px;
+#category-name{
+    padding-right: 15px;
     color: var(--point-color);
+    font-size: var(--main-font-size);
+}
+
+/* 카테고리 리스트 */
+#category-list{
+    border: 1px solid #C7C7C7;
+    padding: 20px 10px 20px 30px;
+    display: none;
+}
+
+#category-list>li{
+    width: 210px;
+    display: inline-block;
+    font-size: var(--main-font-size);
+    padding-bottom: 5px;
+}
+
+.show-category{
+    display: block !important;
+}
+
+.rotate {transform: perspective(500px) rotateX(180deg);}
+
+[name="categoryNo"]{
+    accent-color: var(--point-color);
 }
 
 
 /* 상품정보 */
 .post-info{
     border: 1px solid #C7C7C7;
-    padding: 20px 60px;
+    padding: 30px 60px;
 }
 
 .info-list{
     display: flex;
-    margin: 40px 30px;
+    padding: 20px;
+    align-items: center;
 }
 
 .info-list>p{
@@ -89,10 +129,16 @@
     width: 20%;
 }
 
-input{
+.info-list>input{
     border: none;
     border-bottom: 1px solid #C7C7C7;
     font-size: var(--main-font-size);
+    line-height: 30px;
+}
+
+input[name="unitPrice"]{
+    text-align: right;
+    padding-right: 10px;
 }
 
 [name=openDate]{
@@ -130,6 +176,11 @@ input{
     width: 72%;
 }
 
+.preview{
+    max-width: 100%;
+    height: 100%;
+}
+
 .thumbnail{
     width: 150px;
     height: 150px;
@@ -153,6 +204,7 @@ input{
     border: 1px solid #C7C7C7;
     padding: 20px;
     line-height: 20px;
+    outline: none;
 }
 
 .button-area{

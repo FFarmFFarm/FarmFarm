@@ -20,7 +20,19 @@
       <result property="boardName" column="BOARD_NAME" />
       <result property="boardNo2" column="BOARD_NO2" />
       <result property="memberNo2" column="MEMBER_NO2" />
-      <result property="boardImgNo" column="BOARD_IMG_NO" />
+      
+      <result property="commentCount" column="COMMENT_COUNT" />
+      <result property="likeCount" column="LIKE_COUNT" />
+      
+      <result property="thumbnail" column="THUMBNAIL" />
+  </resultMap>
+  
+  
+ <resultMap type="BoardImg" id="boardImg_rm">
+        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+     <id property = "boardImgNo" column="BOARD_IMG_NO"/>
+     <!-- 나머지 일반 컬럼 -->
+      <result property="boardNo" column="BOARD_NO" />
       <result property="boardImgAddress" column="BOARD_IMG_ADDRESS" />
       <result property="boardImgOrder" column="BOARD_IMG_ORDER" />
   </resultMap>
@@ -29,6 +41,138 @@
   	SELECT * FROM "BOARD_TYPE" ORDER BY 1
   </select>
 
+<!-- 게시글 삽입 -->
+<!-- 마이바티스 동적 SQL -->
+	<insert id="boardWrite" parameterType="Board" useGeneratedKeys="true">
+		<selectKey keyProperty="boardNo" resultType="_int" order="BEFORE">
+			SELECT SEQ_BOARD_NO.NEXTVAL FROM DUAL	
+		</selectKey>
+		INSERT INTO "BOARD" 
+		VALUES(#{boardNo}, #{boardTitle}, #{boardContent}, 
+			DEFAULT, NULL, DEFAULT, DEFAULT, #{memberNo}, #{boardTypeNo})
+	</insert>
+	
+	<insert id="insertBoardImgList">
+		INSERT INTO "BOARD_IMG" 
+			SELECT SEQ_BOARD_IMG_NO.NEXTVAL BOARD_IMG_NO, A.* FROM
+			<foreach collection="list" item="img" open="(" close=") A" separator="UNION ALL">
+				SELECT #{img.boardNo} BOARD_NO, 
+							#{img.boardImgAddress} BOARD_IMG_ADDRESS,
+							#{img.boardImgOrder} BOARD_IMG_ORDER
+				FROM DUAL
+			</foreach>
+	</insert>
+	
+	<!-- 와글와글 게시판 수 조회 -->
+	<select id="getListCount" resultType="_int">
+		SELECT COUNT(*) FROM "BOARD"
+		WHERE BOARD_TYPE_NO = #{boardTypeNo}
+		AND BOARD_DEL_FL = 'N'
+	</select>
+	
+	<!-- 와글와글 게시판 리스트 조회 -->
+	<select id="selecBoardtList" resultMap="board_rm">
+		SELECT BOARD_TYPE_NO, BOARD_NO, BOARD_TITLE, MEMBER_NICKNAME, BOARD_VIEW,
+		<![CDATA[
+			CASE
+					WHEN SYSDATE - BOARD_DATE < 1/24/60
+					THEN FLOOR((SYSDATE - BOARD_DATE) *24*60*60) || '초 전'
+					WHEN SYSDATE - BOARD_DATE < 1/24
+					THEN FLOOR((SYSDATE - BOARD_DATE) *24*60) || '분 전'
+					WHEN SYSDATE - BOARD_DATE < 1
+					THEN FLOOR((SYSDATE - BOARD_DATE) *24) || '시간 전'
+					ELSE TO_CHAR(BOARD_DATE, 'YYYY-MM-DD')
+			END BOARD_DATE,
+		]]>
+		(SELECT COUNT(*) FROM "COMMENT" C 
+			WHERE C.BOARD_NO = B.BOARD_NO) COMMENT_COUNT,
+		(SELECT COUNT(*) FROM "BOARD_LIKE" L 
+			WHERE L.BOARD_NO2 = B.BOARD_NO) LIKE_COUNT,
+		(SELECT BOARD_IMG_ADDRESS FROM "BOARD_IMG" I 
+			WHERE BOARD_IMG_ORDER = 0 AND I.BOARD_NO = B.BOARD_NO) THUMBNAIL
+		FROM BOARD B
+		JOIN "MEMBER" USING (MEMBER_NO)
+		WHERE BOARD_TYPE_NO = #{boardTypeNo}
+		AND BOARD_DEL_FL = 'N'
+		ORDER BY BOARD_NO DESC
+	</select>
+	
+	<!-- 와글와글 게시판 검색 조건에 맞는 게시글 수 조회 -->
+	<select id="getListCountSearch" resultType="_int">
+		SELECT COUNT(*) FROM "BOARD"
+		WHERE BOARD_TYPE_NO = #{boardTypeNo}
+		OR BOARD_TITLE LIKE '%${query}%'
+		OR BOARD_CONTENT LIKE '%${query}%'
+	</select>
+	
+	<!-- 와글와글 게시판 검색 조건에 맞는 게시글 불러오기 -->
+	<select id="selecBoardtListSearch" resultMap="board_rm">
+			SELECT BOARD_TYPE_NO, BOARD_NO, BOARD_TITLE, MEMBER_NICKNAME, BOARD_VIEW,
+			<![CDATA[
+				CASE
+						WHEN SYSDATE - BOARD_DATE < 1/24/60
+						THEN FLOOR((SYSDATE - BOARD_DATE) *24*60*60) || '초 전'
+						WHEN SYSDATE - BOARD_DATE < 1/24
+						THEN FLOOR((SYSDATE - BOARD_DATE) *24*60) || '분 전'
+						WHEN SYSDATE - BOARD_DATE < 1
+						THEN FLOOR((SYSDATE - BOARD_DATE) *24) || '시간 전'
+						ELSE TO_CHAR(BOARD_DATE, 'YYYY-MM-DD')
+				END BOARD_DATE,
+			]]>
+			(SELECT COUNT(*) FROM "COMMENT" C 
+				WHERE C.BOARD_NO = B.BOARD_NO) COMMENT_COUNT,
+			(SELECT COUNT(*) FROM "BOARD_LIKE" L 
+				WHERE L.BOARD_NO2 = B.BOARD_NO) LIKE_COUNT,
+			(SELECT BOARD_IMG_ADDRESS FROM "BOARD_IMG" I 
+				WHERE BOARD_IMG_ORDER = 0 AND I.BOARD_NO = B.BOARD_NO) THUMBNAIL
+			FROM BOARD B
+			JOIN "MEMBER" USING (MEMBER_NO)
+			WHERE BOARD_TYPE_NO = #{boardTypeNo}
+			AND BOARD_DEL_FL = 'N'
+			<!-- 검색어 있는 경우 -->
+			<if test='query != null and query != ""'>
+				AND (BOARD_TITLE LIKE '%${query}%'
+				OR BOARD_CONTENT LIKE '%${query}%')
+			</if>
+			<!-- 최신순, 조회수, 좋아요 -->
+			<choose>
+				<when test='boardSelectNVL != null'>
+					<choose>
+						<when test='value == "view"'>
+							ORDER BY BOARD_VIEW DESC
+						</when>
+						<when test='value == "like"'>
+							ORDER BY LIKE_COUNT DESC
+						</when>
+						<when test='value == "new"'>
+							ORDER BY BOARD_DATE DESC
+						</when>
+						<otherwise>
+							ORDER BY BOARD_NO DESC
+						</otherwise>
+					</choose>
+				</when>
+				<otherwise>
+						ORDER BY BOARD_NO DESC
+					</otherwise>
+			</choose>
+			<!-- <if test='boardSelectNVL != null'>
+				<choose>
+					<when test='value == "view"'>
+						ORDER BY BOARD_VIEW DESC
+					</when>
+					<when test='value == "like"'>
+						ORDER BY LIKE_COUNT DESC
+					</when>
+					<when test='value == "new"'>
+						ORDER BY BOARD_DATE DESC
+					</when>
+					<otherwise>
+						ORDER BY BOARD_NO DESC
+					</otherwise>
+				</choose>
+			</if> -->
+	</select>
 
 
 </mapper>

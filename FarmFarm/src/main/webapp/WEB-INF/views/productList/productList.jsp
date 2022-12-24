@@ -12,21 +12,22 @@
     <!-- swiper-style -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
 
-    <link rel="stylesheet" href="/resources/css/productList/productList-style.css">
     <link rel="stylesheet" href="/resources/css/common/header-style.css">
     <link rel="stylesheet" href="/resources/css/common/footer-style.css">
+    <link rel="stylesheet" href="/resources/css/productList/productList-style.css">
 
 
     <script src="https://kit.fontawesome.com/d449774bd8.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <!-- header --> 
-    <jsp:include page='/WEB-INF/views/common/header.jsp' />
+    <jsp:include page='/WEB-INF/views/common/listHeader.jsp' />
 
     <!-- 배너와 검색창이 들어갈 자리입니다 -->
     <section class="banner">
         <div class="swiper">
             <div class="swiper-wrapper">
+                <!-- 필요 시 이미지 추가 -->
                 <div class="swiper-slide">
                     <img src="/resources/images/productList/banner-sample.jpg">
                 </div>
@@ -36,7 +37,6 @@
                 <div class="swiper-slide">
                     <img src="/resources/images/productList/banner-sample3.jpg">
                 </div>
-                <!-- 필요 시 이미지 추가 -->
             </div>
             <div>
                 <div class="swiper-pagination"></div>
@@ -44,87 +44,48 @@
                 <div class="swiper-button-next"></div>
             </div>
         </div>
-
         
         <div class="search-area">
             <span id="title">팜팜마켓</span>
             <div id="searchBar">
-                <input id="keyword" placeholder="검색어를 입력하세요">
-                <button id="searchBtn">
+                <input id="searchInput" class="keyword" placeholder="검색어를 입력하세요">
+                <div id='cleanBtn' class='reset-search'>
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </div>
+                <button class="search-btn">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </div>
+            <!-- <div id="searchHistoryArea">
+                <div id="searchHistory">
+
+                </div>
+            </div> -->
         </div>
     </section>
 
     <!-- 본문이 들어갈 자리입니다. -->
     <div class="container" role="main">
-        
 
         <!-- 좌측 카테고리 영역 -->
         <section class="category-area">
 
             <div class="area-title">카테고리</div>
             <div class="types-area">
-                
-                <div class="sur">과일</div>
+
                 <div class="category-dropdown">
+                    <input type="radio" name="types" id="all" value="0" checked>
+                    <label for="all">전체</label>
 
-                    <input type="checkbox" name="types" id="fruit1" value="apple,pear">
-                    <label for="fruit1">사과/배</label>
-
-                    <input type="checkbox" name="types" id="fruit2" value="tomato">
-                    <label for="fruit2">토마토/방울토마토</label>
-
-                    <input type="checkbox" name="types" id="fruit3" value="strawberry,blueberry">
-                    <label for="fruit3">딸기/블루베리</label>
-
-                    <input type="checkbox" name="types" id="fruit4" value="persimmon,mandarin">
-                    <label for="fruit4">감/귤</label>
-
-                    <input type="checkbox" name="types" id="fruit5" value="grape,peach">
-                    <label for="fruit5">포도/복숭아</label>
-
-                    <input type="checkbox" name="types" id="fruit6" value="watermelon,melon">
-                    <label for="fruit6">수박/참외</label>
-
-
-
+                    <c:forEach items="${categoryList.tops}" var="tops" end="5">
+                        <input type="radio" name="types" id="top${tops.categoryNo}" value="${tops.categoryNo}">
+                        <label for="top${tops.categoryNo}">${tops.categoryName}</label>
+                    </c:forEach>
                 </div>
 
-                <div class="sur">채소</div>
-                
-                <div class="category-dropdown">
-                    <input type="checkbox" name="types" id="vegetable1" value="lettuce">
-                    <label for="vegetable1">상추/깻잎/양상추</label>
-
-                    <input type="checkbox" name="types" id="vegetable2" value="pepper,pimento">
-                    <label for="vegetable2">고추/피망</label>
-
-                    <input type="checkbox" name="types" id="vegetable3" value="cabbage">
-                    <label for="vegetable3">배추/양배추/무</label>
-
-                    <input type="checkbox" name="types" id="vegetable4" value="spinach">
-                    <label for="vegetable4">갓/시금치/치커리</label>
-
-                    <input type="checkbox" name="types" id="vegetable5" value="cucumber">
-                    <label for="vegetable5">오이/가지/옥수수</label>
-
-                    <input type="checkbox" name="types" id="vegetable6" value="potato">
-                    <label for="vegetable6">감자/고구마/당근</label>
-                    
-                    <input type="checkbox" name="types" id="vegetable7" value="mushroom">
-                    <label for="vegetable7">버섯류</label>
-
-                    <input type="checkbox" name="types" id="vegetable8" value="bean">
-                    <label for="vegetable8">콩</label>
-
-                </div>
-
-                <div class="sur">기타</div>
-                <div class="category-dropdown">
-
-                </div>
+            </div>
+            <div class="reset-category">
+                <span><i class="fa-solid fa-circle-xmark"></i>&nbsp;검색 초기화</span>
             </div>
 
         </section>
@@ -134,77 +95,110 @@
 
             <!-- 상품 목록 정렬 옵션 -->
             <div class="list-area-header">
-                <div id="listCount">
-                    총 123개
+                <div class="list-count-area">
+                    <span>검색결과&nbsp;</span>
+                    <span id="listCount">${productMap.pagination.listCount}</span>
+                    <span>개</span>
                 </div>
                 <div class="view-option">
-                    <span class="opt">판매량순</span>
+                    <input type='radio' name='sorting' id='rates' value='rates' checked>
+                    <label for='rates' class="opt" >판매량순</label>
                     <span>|</span>
-                    <span class="opt">신상품순</span>
+                    <input type='radio' name='sorting' id='new' value='newest'>
+                    <label for='new' class="opt" >신상품순</label>
                     <span>|</span>
-                    <span class="opt">낮은가격순</span>
+                    <input type='radio' name='sorting' id='asc' value='priceLowToHigh'>
+                    <label for='asc' class="opt" >낮은가격순</label>
                     <span>|</span>
-                    <span class="opt">높은가격순</span>
+                    <input type='radio' name='sorting' id='desc' value='priceHighToLow'>
+                    <label for='desc' class="opt" >높은가격순</label>
                 </div>
             </div>
 
             <!-- 상품 하나하나가 들어갈 영역(DOM 이용) -->
             <article class="list-area-body">
-
                 <!-- product-box 자리 -->
+                <!-- ajax를 사용하지 않으면? -->
+
+                <!-- 최초 이동 시 결과가 없으면.. -->
+                <c:if test="${empty productMap}">
+                    <div id="resultIsEmpty">
+                        <i class="fa-solid fa-basket-shopping"></i>
+                        <span>검색 결과가 없습니다.</span>
+                    </div>
+                </c:if>
+
+                <!-- 최초 이동 시 결과가 있으면 -->
+                <c:if test="${! empty productMap}">
+
+                    <c:forEach items="${productMap.productList}" var="map" >
+    
+                        <a href="/product/${map.productNo}" class="product-box">
+                            <div class="product-content">
+                                <img src="${map.thumbnailImg}">
+                            </div>
+                            <div class="product-detail">
+                                <div class="product-name">
+                                    ${map.productName}
+                                </div>
+                                <div class="product-price">
+                                    ${map.productPrice}원
+                                </div>
+                                <div class="product-message">
+                                    ${map.productMessage}
+                                </div>
+                            </div>
+                        </a>
+                        
+                    </c:forEach>
+
+                </c:if>
+
+                <div id="spinnerBackground">
+                    <div id="spinner" class="spinning">
+                        <i class="fa-solid fa-spinner"></i>
+                    </div>
+                </div>
                 
             </article>
-
-
+            
             <div class="pagination-area">
                 <!-- ajax로 만들어 보십시다 -->
-                <div class="page-box">
-                    <<
+                <div id="1" class="page-box">
+                    <i class="fa-solid fa-angles-left"></i>
                 </div>
-                <div class="page-box">
-                    <
+                <div id="${productMap.pagination.prevPage}" class="page-box">
+                    <i class="fa-solid fa-angle-left"></i>
                 </div>
-                <div class="page-box">
-                    1
+                <c:forEach var="i" 
+                           begin="${productMap.pagination.startPage}" 
+                           end="${productMap.pagination.endPage}"
+                           step="1">
+                    <c:choose>
+                        <c:when test="${i == productMap.pagination.currentPage}">
+                            <div class="current-page-box">
+                                ${i}
+                            </div>
+                        </c:when>
+                    
+                        <c:otherwise>
+                            <div id="${i}" class="page-box">
+                                ${i}
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+
+                <div id="${productMap.pagination.nextPage}" class="page-box">
+                    <i class="fa-solid fa-angle-right"></i>
                 </div>
-                <div class="page-box">
-                    2
-                </div>
-                <div class="page-box">
-                    3
-                </div>
-                <div class="page-box">
-                    4
-                </div>
-                <div class="page-box">
-                    5
-                </div>
-                <div class="page-box">
-                    6
-                </div>
-                <div class="page-box">
-                    7
-                </div>
-                <div class="page-box">
-                    8
-                </div>
-                <div class="page-box">
-                    9
-                </div>
-                <div class="page-box">
-                    >
-                </div>
-                <div class="page-box">
-                    >>
+                <div id="${productMap.pagination.endPage}" class="page-box">
+                    <i class="fa-solid fa-angles-right"></i>
                 </div>
             </div>
+
         </section>
     </div>
-<!-- 
-    <div id="topBtn" class="opacity-zero">
-        <i class="fa-sharp fa-solid fa-arrow-up"></i>
-    </div> -->
-
 
     <!-- footer -->
     <jsp:include page='/WEB-INF/views/common/footer.jsp'/>

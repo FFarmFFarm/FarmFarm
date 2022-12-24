@@ -20,7 +20,6 @@ a.ordered > i {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-bottom: 1px solid #ddd;
 }
 
 .order-list {
@@ -30,6 +29,7 @@ a.ordered > i {
   align-items: center;
   align-content: space-between;
   justify-content: center;
+  padding-left: 30px;
 }
 
 .order-list-title {
@@ -46,11 +46,71 @@ a.ordered > i {
 
 .order {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 200px;
   padding: 15px 0;
+  margin-bottom: 20px;
   font-size: var(--medium-font-size);
+}
+
+.order-no {
+  font-size: var(--main-font-size);
+  font-weight: bold;
+}
+
+.order-no > span {
+  color: var(--sub-font-color);
+  font-weight: normal;
+}
+
+.order-info-container {
+  width: 100%;
+  display: flex;
+  flex-basis: 100%;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  margin: 8px 0;
+}
+
+.order-info-container::before {
+  content: '';
+  flex-grow: 1;
+  background: rgba(0, 0, 0, 0.2);
+  height: 1px;
+  font-size: 0px;
+  line-height: 0px;
+  margin-left: 20px;
+}
+
+.order-info-container::after {
+  content: '';
+  flex-grow: 1;
+  background: rgba(0, 0, 0, 0.2);
+  height: 1px;
+  font-size: 0px;
+  line-height: 0px;
+  margin-right: 20px;
+}
+.order-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  width: 250px;
+  height: 50px;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  margin: 10px 0;
+}
+
+.order-one {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 5px 20px;
+  margin: 20px 0;
 }
 
 .order-thumbnail {
@@ -75,6 +135,7 @@ a.ordered > i {
 
 .order-total > * {
   margin-left: 30px;
+  height: 30px;
 }
 
 .order-total > span:last-child {
@@ -92,12 +153,31 @@ a.ordered > i {
 .order-detail {
   display: flex;
   align-items: center;
+  height: 20px;
+  margin-bottom: 40px;
 }
 
-.order-price {
+.or {
+  font-size: 10px;
+  color: var(--sub-font-color);
   margin-right: 10px;
+}
+
+.order-price,
+.order-amount {
+  margin-right: 10px;
+  font-weight: normal;
+  font-size: var(--main-font-size);
+}
+
+.order-amount > span,
+.order-price > span {
   font-size: var(--main-font-size);
   font-weight: 600;
+}
+
+.order-amount > span {
+  color: var(--point-color);
 }
 
 .order-reg-date {
@@ -117,7 +197,7 @@ a.ordered > i {
 }
 
 .button-area {
-  width: 10%;
+  width: 20%;
 
   display: flex;
   flex-direction: column;
@@ -131,6 +211,17 @@ a.ordered > i {
   border: 1px solid var(--line-color);
   margin: 2px 0;
   cursor: pointer;
+}
+
+.total-price {
+  width: 100%;
+  text-align: end;
+  margin-bottom: 20px;
+  padding-right: 60px;
+}
+
+.total-price > span {
+  font-weight: bold;
 }
 
 .pagination {

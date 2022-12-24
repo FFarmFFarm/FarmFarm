@@ -21,6 +21,14 @@ button:active {
   transform: scale(0.95);
 }
 
+button:disabled {
+ cursor: default;
+}
+
+button:disabled:active {
+  transform: none;
+}
+
 /* 상품 요약 */
 .product-summary {
   display: flex;
@@ -45,8 +53,12 @@ button:active {
   font-size: var(--title-font-size);
 }
 
-.wish-btn {
+.wish-clicked {
   color: hsl(330, 88%, 53%);
+}
+
+.wish-unclicked {
+  color: var(--main-font-color);
 }
 
 .share-btn {
@@ -177,7 +189,6 @@ button:active {
   justify-content: center;
   background-color: white;
   border: none;
-  cursor: pointer;
 }
 
 .amount-area > span {
@@ -191,6 +202,13 @@ button:active {
   border-left: 1px solid var(--line-color);
   border-right: 1px solid var(--line-color);
 }
+
+.stock,
+.soldout {
+  color: red;
+  font-size: var(--small-font-size);
+}
+
 
 .total-price {
   width: 250px;
@@ -246,6 +264,17 @@ button:active {
   font-size: var(--large-font-size);
 }
 
+.cart-btn:disabled,
+.order-btn:disabled {
+  background-color: var(--line-color);
+  cursor: default;
+}
+
+.cart-btn:disabled:active,
+.order-btn:disabled:active {
+  transform: none;
+}
+
 .product-menu {
   margin-top: 100px;
   width: 100%;
@@ -293,8 +322,8 @@ button:active {
 }
 
 .review-img-list li {
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 120px;
   margin-right: 5px;
   overflow: hidden;
 
@@ -313,8 +342,8 @@ button:active {
 .more-review-img-btn {
   position: absolute;
 
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 120px;
   top: 0;
   left: 0;
 
@@ -364,6 +393,26 @@ button:active {
   margin-top: 20px;
   margin-left: 10px;
   position: relative;
+}
+
+.sort-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sort-area > * {
+  margin: 0 3px;
+}
+
+.sort-clicked {
+  color: var(--point-color);
+  font-weight: bold;
+}
+
+.or-bar {
+  font-size: var(--small-font-size);
+  color: var(--sub-font-color);
 }
 
 .latest {
@@ -438,10 +487,44 @@ button:active {
 
   border-radius: 15px;
 
-  border: 1px solid var(--line-color);
+}
+
+.clicked {
+  border: 1px solid var(--point-color);
+  color: var(--point-color);
+}
+
+.clicked:hover {
   color: var(--sub-font-color);
 }
 
-.review-create-date > button:hover {
+.unclicked {
+  border: 1px solid var(--line-color);
+  color: var(--sub-font-color);
+  
+}
+
+.unclicked:hover {
   color: var(--point-color);
+}
+
+.pagination {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.pagination > button {
+  font-size: var(--title-font-size);
+  color: #b4b4b4;
+  width: 50px;
+  height: 50px;
+  border: 1px solid #ddd;
+}
+
+.hide {
+  display: none;
 }
