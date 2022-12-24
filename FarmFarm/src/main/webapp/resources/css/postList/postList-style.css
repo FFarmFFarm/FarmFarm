@@ -232,9 +232,10 @@ body {
     border-bottom: 1px solid var(--line-color);
 }
 
+
 /* 세부 카테고리 */
 .category-dropdown {
-    font-size: var(--medium-font-size);
+    font-size: var(--small-font-size);
     color: var(--sub-font-color);
     display: flex;
     flex-wrap: wrap;
@@ -263,6 +264,33 @@ body {
 .category-dropdown>input:checked+label {
     font-weight: 900;
     color: var(--point-color);
+}
+
+/* 전체선택 버튼 */
+#all{
+    display: none;
+}
+
+#allCategory{
+    font-weight: 900;
+    font-size: var(--medium-font-size);
+    color: var(--main-font-color);
+    height: 30px;
+
+    margin: 10px 0px;
+    padding-bottom: 5px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+#allCategory:hover{
+    font-weight: 600;
+}
+
+#all:checked + #allCategory{
+    color: var(--point-color);
+    font-weight: 600;
 }
 
 /* 카테고리 - 초기화 버튼 */

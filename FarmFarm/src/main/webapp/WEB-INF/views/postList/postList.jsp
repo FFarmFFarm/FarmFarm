@@ -69,19 +69,28 @@
 
             <div class="area-title">카테고리</div>
             <div class="types-area">
-            
+                
+                <input type="radio" name="types" id="all" value="0" checked>
+                <label for="all" id="allCategory">전체</label>
+
+                <div class="sur">${categoryList.tops[6].categoryName}</div>
                 <div class="category-dropdown">
-                    <input type="radio" name="types" id="all" value="0" checked>
-                    <label for="all">전체</label>
             
                     <c:forEach items="${categoryList.fruits}" var="fruit">
                         <input type="radio" name="types" id="fruit${fruit.categorySubNo}" value="${fruit.categorySubNo}">
                         <label for="fruit${fruit.categorySubNo}">${fruit.categorySubName}</label>
                     </c:forEach>
+                </div>
+                <div class="sur">${categoryList.tops[7].categoryName}</div>
+                <div class="category-dropdown">
                     <c:forEach items="${categoryList.vegetables}" var="vegetable">
                         <input type="radio" name="types" id="vegetable${vegetable.categorySubNo}" value="${vegetable.categorySubNo}">
                         <label for="vegetable${vegetable.categorySubNo}">${vegetable.categorySubName}</label>
                     </c:forEach>
+                </div>
+
+                <div class="sur">${categoryList.tops[8].categoryName}</div>
+                <div class="category-dropdown">
                     <c:forEach items="${categoryList.ects}" var="ect">
                         <input type="radio" name="types" id="ect${ect.categorySubNo}" value="${ect.categorySubNo}">
                         <label for="ect${ect.categorySubNo}">${ect.categorySubName}</label>
@@ -145,7 +154,12 @@
                 
                         <a href="/post/${map.postNo}" class="post-box">
                             <div class="post-thumbnail">
-                                <img src="${map.thumbnailImg}">
+                                <c:if test="${! empty map.thumbnailImg}">
+                                    <img src="${map.thumbnailImg}">
+                                </c:if>
+                                <c:if test="${empty map.thumbnailImg}">
+                                    <img src="/resources/images/logo-square.png">
+                                </c:if>
                             </div>
                             <div class="post-detail">
                                 <div class="post-title">
