@@ -27,7 +27,8 @@ public class ProductListController {
 			Model model,
 			@RequestParam(value = "keyword", required = false) String keyword, // 검색어
 			@RequestParam(value = "category", required = false, defaultValue = "0") int category,
-			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp // 현재 페이지
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, // 현재 페이지
+			@RequestParam(value = "sort", required = false, defaultValue = "rates") String sort // 정렬 옵션
 			) {
 		// 1. 모든 product 카테고리 리스트를 조회
 		Map<String, Object> categoryList = service.getCategoryList();
@@ -42,9 +43,9 @@ public class ProductListController {
 		
 		// 입력받은 카테고리가 있으면 해당 카테고리만 가져오고, 없으면 전부 다 불러오기
 		if(category == 0) {
-			productMap = service.getProductListAll(cp, keyword);
+			productMap = service.getProductListAll(cp, keyword, sort);
 		} else {
-			productMap = service.getProductListChecked(cp, keyword, category);
+			productMap = service.getProductListChecked(cp, keyword, category, sort);
 		}
 		
 		// 4. 상품 리스트도 세션에 올린다.
@@ -61,7 +62,8 @@ public class ProductListController {
 	public String getProductListChecked(
 					@RequestParam(value = "keyword", required = false) String keyword, // 검색어
 					@RequestParam(value = "category", required = false, defaultValue = "0") int category,
-					@RequestParam(value = "cp", required = false, defaultValue = "1") int cp // 현재 페이지
+					@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, // 현재 페이지
+					@RequestParam(value = "sort", required = false, defaultValue = "rates") String sort // 정렬 옵션
 			) {
 		
 		System.out.println("cp : " + cp);
@@ -71,9 +73,9 @@ public class ProductListController {
 			
 		// 입력받은 카테고리가 있으면 해당 카테고리만 가져오고, 없으면 전부 다 불러오기
 		if(category == 0) {
-			productMap = service.getProductListAll(cp, keyword);
+			productMap = service.getProductListAll(cp, keyword, sort);
 		} else {
-			productMap = service.getProductListChecked(cp, keyword, category);
+			productMap = service.getProductListChecked(cp, keyword, category, sort);
 		}
 		
 		// 반환하기

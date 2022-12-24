@@ -24,6 +24,7 @@ body{
     padding: 10px;
     
     align-items: center;
+    justify-content: center;
 }
 
 .view-hidden{
@@ -140,25 +141,42 @@ body{
     margin-top: 10px;
 
     border-radius: 5px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 #searchBar:focus-within{
     border: 3px solid var(--point-color);
 }
-#keyword{
+
+.keyword{
     color: var(--main-font-color);
     border: none;
-    width: 95%;
+    flex-basis: 90%;
 
     outline: none;
+    width: 100%;
 }
 
-#searchBtn{
+.reset-search{
+    flex-basis: 5%;
+    margin-right: 5px;
+    display: none;
+}
+
+.search-btn{
     height: 100%;
     background-color: white;
     border: none;
-
+    flex-basis: 5%;
 }
+
+.reset-search{
+    cursor: pointer;
+}
+
 
 /* container */
 .container{
@@ -245,6 +263,22 @@ body{
     color: var(--point-color);
 }
 
+/* 카테고리 - 초기화 버튼 */
+.reset-category{
+    display: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    padding-left: 10px;
+}
+
+.reset-category > * {
+    font-size: var(--small-font-size);
+    color: var(--main-font-color);
+}
+
+
 /* list-area */
 .list-area{
     display: flex;
@@ -265,7 +299,7 @@ body{
 }
 
 #listCount{
-    color: var(--main-font-color);
+    color: var(--point-color);
     font-weight: 600;
 }
 
@@ -282,6 +316,17 @@ body{
     margin: 0px 5px;
 }
 
+
+/* view-options */
+input[name='sorting'] {
+    display: none;
+}
+
+input[name='sorting']:checked + label {
+    color: var(--main-font-color);
+    font-weight: 600;
+}
+
 .opt{
     cursor: pointer;
 }
@@ -289,6 +334,7 @@ body{
 .opt:hover{
     color: var(--main-font-color);
 }
+
 
 /* list-area-body */
 /* 상품 하나하나가 들어갈 영역 */
@@ -497,7 +543,7 @@ body{
     width: 100%;
     height: 100%;
 
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
 

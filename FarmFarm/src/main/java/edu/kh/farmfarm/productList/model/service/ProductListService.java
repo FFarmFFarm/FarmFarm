@@ -12,14 +12,14 @@ public interface ProductListService {
 	/** 모든 상품 목록 불러오기
 	 * @return
 	 */
-	Map<String, Object> getProductListAll(int cp, String keyword);
+	Map<String, Object> getProductListAll(int cp, String keyword, String sort);
 
 	
 	/** 선택된 상품 목록 불러오기
 	 * @param category 
 	 * @return
 	 */
-	Map<String, Object> getProductListChecked(int cp, String keyword, int category);
+	Map<String, Object> getProductListChecked(int cp, String keyword, int category, String sort);
 	
 	
 }
