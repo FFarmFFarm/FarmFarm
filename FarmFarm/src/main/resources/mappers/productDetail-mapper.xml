@@ -146,17 +146,19 @@
 </select>
 
 
+<!-- 상품 찜하기 -->
 <insert id="addWish">
 	INSERT INTO WISH
 	VALUES(#{memberNo}, #{productNo}, DEFAULT)
 </insert>
 
+<!-- 상품 찜 취소 -->
 <insert id="removeWish">
 	DELETE FROM WISH
 	WHERE MEMBER_NO = #{memberNo} AND PRODUCT_NO = #{productNo}
 </insert>
 
-
+<!-- 리뷰 상세 조회 -->
 <select id="selectReview" resultMap="review_rm">
 	SELECT REVIEW_NO, REVIEW_CONTENT, MEMBER_NO , r.PRODUCT_NO, MEMBER_NICKNAME, PROFILE_IMG, PRODUCT_NAME,
 		TO_CHAR(CREATE_DATE, 'yyyy.MM.DD') CREATE_DATE,
@@ -169,5 +171,25 @@
 	WHERE REVIEW_NO = #{reviewNo} AND REVIEW_DEL_FL = 'N'
 </select>
 
+<!-- 사진 리뷰 목록 조회 -->
+<select id="selectImgReview" resultMap="review_rm">
+	SELECT REVIEW_NO
+	FROM REVIEW r 
+	WHERE r.PRODUCT_NO = #{productNo}
+	AND (SELECT COUNT(*) FROM REVIEW_IMG ri WHERE r.REVIEW_NO = ri.REVIEW_NO) > 0
+	ORDER BY CREATE_DATE DESC
+</select>
 
+<!-- 리뷰 도움돼요 추가 -->
+<insert id="addHelp">
+	INSERT INTO REVIEW_LIKE
+	VALUES(#{reviewNo}, #{memberNo})
+</insert>
+
+<!-- 리뷰 도움돼요 취소 -->
+<insert id="removeHelp">
+	DELETE FROM REVIEW_LIKE
+	WHERE MEMBER_NO = #{memberNo} AND REVIEW_NO = #{reviewNo}
+</insert>
+	
 </mapper>

@@ -53,19 +53,52 @@ public class ProductDetailServiceImpl implements ProductDetailService{
 	}
 	
 	
+	/** 찜하기
+	 *
+	 */
 	@Override
 	public int addWish(Product product) {
 		return dao.addWish(product);
 	}
 	
+	/** 찜 취소
+	 *
+	 */
 	@Override
 	public int removeWish(Product product) {
 		return dao.removeWish(product);
 	}
 	
+	/** 리뷰 상세조회
+	 *
+	 */
 	@Override
 	public Review selectReview(Map<String, Object> map) {
 		return dao.selectReview(map);
 	}
+	
+	/** 사진 리뷰 목록 조회
+	 *
+	 */
+	@Override
+	public List<Review> selectImgReview(int productNo) {
+		return dao.selectImgReview(productNo);
+	}
 
+	/** 리뷰 도움돼요 추가
+	 *
+	 */
+	@Override
+	public int addHelp(Map<String, Object> map) {
+		return dao.addHelp(map);
+	}
+	
+	
+	/** 리뷰 도움돼요 취소
+	 *
+	 */
+	@Override
+	public int removeHelp(Map<String, Object> map) {
+		return dao.removeHelp(map);
+	}
 }

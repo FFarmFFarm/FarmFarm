@@ -1,6 +1,7 @@
 package edu.kh.farmfarm.productDetail.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,7 @@ public class ProductDetailController {
 		Product param = new Product();
 		
 		param.setProductNo(productNo);
+		
 		if(loginMember == null) {
 			param.setMemberNo(0);
 		} else {
@@ -73,7 +75,7 @@ public class ProductDetailController {
 		return service.removeWish(product);
 	}
 	
-	@GetMapping("/review/{reviewNo}")
+	@GetMapping("/review/select/{reviewNo}")
 	@ResponseBody
 	public String reviewDetail(int memberNo, 
 			@PathVariable("reviewNo")int reviewNo) {
@@ -86,6 +88,39 @@ public class ProductDetailController {
 		Review review = service.selectReview(map);
 		
 		return new Gson().toJson(review);
+	}
+	
+	@GetMapping("/review/imgList")
+	@ResponseBody
+	public String selectImgReview(int productNo) {
+		
+		List<Review> reviewList = service.selectImgReview(productNo);
+		
+		return new Gson().toJson(reviewList);
+	}
+	
+	@GetMapping("/help/add")
+	@ResponseBody
+	public int addHelp(@SessionAttribute("loginMember") Member loginMember, int reviewNo) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("memberNo", loginMember.getMemberNo());
+		map.put("reviewNo", reviewNo);
+		
+		return service.addHelp(map);
+	}
+	
+	@GetMapping("/help/remove")
+	@ResponseBody
+	public int removeHelp(@SessionAttribute("loginMember") Member loginMember, int reviewNo) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("memberNo", loginMember.getMemberNo());
+		map.put("reviewNo", reviewNo);
+		
+		return service.removeHelp(map);
 	}
 
 }

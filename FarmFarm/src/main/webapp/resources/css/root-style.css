@@ -84,3 +84,7 @@ html{
 .hide {
   display: none;
 }
+
+.scroll-lock {
+  overflow: hidden;
+}
