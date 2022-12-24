@@ -33,6 +33,8 @@ public class Product {
 	
 	// 썸네일 이미지
 	private String thumbnailImg;
+	// 판매량
+	private String rates;
 	
 	
 	

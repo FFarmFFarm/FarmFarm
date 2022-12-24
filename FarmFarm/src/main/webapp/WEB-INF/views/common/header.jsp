@@ -96,7 +96,8 @@
             <div class="nav-list"><a href="/product/list">팜팜마켓</a></div>
             <div class="nav-list"><a href="#">사고팔고</a></div>
             <div class="nav-list"><a href="/board/${1}">커뮤니티</a></div>
-            <div class="nav-list"><a href="#">문의게시판</a></div>
+            <div class="nav-list"><a href="/testPage/4">문의게시판</a></div>
+
           </div>
         </div>
       </nav>
@@ -105,58 +106,69 @@
     <script>
       // 프로필 드롭다운
       const dropbtn = document.querySelector('.dropbtn');
-      dropbtn.addEventListener('click', () => {
-        const icon = document.querySelector('.caret-icon');
-        const myDropdown = document.querySelector('.dropdown-content');
+      if(dropbtn != null) {
 
-        if (
-          myDropdown.style.display == 'none' ||
-          myDropdown.style.display == ''
-        ) {
-          icon.style.transform = 'perspective(500px) rotateX(180deg)';
-          myDropdown.style.display = 'block';
-        } else {
-          icon.style.transform = 'perspective(500px) rotateX(360deg)';
-          myDropdown.style.display = 'none';
-        }
-      });
+        dropbtn.addEventListener('click', () => {
+          const icon = document.querySelector('.caret-icon');
+          const myDropdown = document.querySelector('.dropdown-content');
+  
+          if (
+            myDropdown.style.display == 'none' ||
+            myDropdown.style.display == ''
+          ) {
+            icon.style.transform = 'perspective(500px) rotateX(180deg)';
+            myDropdown.style.display = 'block';
+          } else {
+            icon.style.transform = 'perspective(500px) rotateX(360deg)';
+            myDropdown.style.display = 'none';
+          }
+        });
+
+      }
+
 
       //const dd = document.querySelectorAll(".dropdown, #myDropdown, #myDropdown *");
 
       window.addEventListener('click', e => {
-        console.log(e.target);
+        // console.log(e.target);
         const myDropdown = document.querySelector('.dropdown-content');
+        if(myDropdown != null) {
 
-        if(myDropdown.style.display == 'block' &&
-          !e.target.matches(".dropdown, .dropdown *, #myDropdown, #myDropdown *")){
-          
-          const icon = document.querySelector('.caret-icon');
-          const myDropdown = document.querySelector('.dropdown-content');
-          
-          myDropdown.style.display = '';
-          icon.style.transform = 'perspective(500px) rotateX(360deg)';
+          if(myDropdown.style.display == 'block' &&
+            !e.target.matches(".dropdown, .dropdown *, #myDropdown, #myDropdown *")){
+            
+            const icon = document.querySelector('.caret-icon');
+            const myDropdown = document.querySelector('.dropdown-content');
+            
+            myDropdown.style.display = '';
+            icon.style.transform = 'perspective(500px) rotateX(360deg)';
+          }
+
         }
       });
 
       // 알림 드롭다운
       const dropbtn1 = document.querySelector('.dropbtn1');
-      dropbtn1.addEventListener('click', () => {
-        const myDropdown1 = document.querySelector('.dropdown-message');
+      if(dropbtn1 != null) {
 
-        if (
-          myDropdown1.style.display == 'none' ||
-          myDropdown1.style.display == ''
-        ) {
-          myDropdown1.style.display = 'block';
-        } else {
-          myDropdown1.style.display = 'none';
-        }
-      });
-
-      dropbtn1.addEventListener('blur', () => {
-        const myDropdown1 = document.querySelector('.dropdown-message');
-
-        myDropdown1.style.display = '';
-      });
+        dropbtn1.addEventListener('click', () => {
+          const myDropdown1 = document.querySelector('.dropdown-message');
+  
+          if (
+            myDropdown1.style.display == 'none' ||
+            myDropdown1.style.display == ''
+          ) {
+            myDropdown1.style.display = 'block';
+          } else {
+            myDropdown1.style.display = 'none';
+          }
+        });
+  
+        dropbtn1.addEventListener('blur', () => {
+          const myDropdown1 = document.querySelector('.dropdown-message');
+  
+          myDropdown1.style.display = '';
+        });
+      }
 
     </script>

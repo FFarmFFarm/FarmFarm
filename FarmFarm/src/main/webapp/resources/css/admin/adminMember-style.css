@@ -41,7 +41,7 @@ main{
 /** 오른쪽 내용 부분 */
 .admin-content-section{
     width: 1000px;
-    min-height: 1400px;
+    min-height: 1300px;
     height: auto;
     padding-bottom: 20px;
     background-color: #eef4ed;
