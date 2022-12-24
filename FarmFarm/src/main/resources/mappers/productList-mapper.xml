@@ -57,7 +57,7 @@
 		SELECT COUNT(*)
 		FROM PRODUCT
 		<if test=' #{keyword} != null '>
-			WHERE PRODUCT_NAME LIKE '%' || #{keyword} || '%' 
+			WHERE PRODUCT_NAME LIKE '%' || #{keyword} || '%'
 		</if>
 	</select>
 	
