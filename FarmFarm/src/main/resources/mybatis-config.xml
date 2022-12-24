@@ -19,13 +19,22 @@
 	<!-- VO클래스의 패키지명 + 클래스명 작성하는 것이 불편하기 때문에 짧은 별칭 부여 -->
 	<typeAliases>
 		<typeAlias type="edu.kh.farmfarm.member.model.VO.Member" alias="Member"/>
+		<typeAlias type="edu.kh.farmfarm.member.model.VO.MemberAddress" alias="MemberAddress"/>
 		<typeAlias type="edu.kh.farmfarm.mypage.model.vo.Comment" alias="Comment"/>
 		<typeAlias type="edu.kh.farmfarm.mypage.model.vo.Order" alias="Order"/>
 		<typeAlias type="edu.kh.farmfarm.mypage.model.vo.Wish" alias="Wish"/>
 		<typeAlias type="edu.kh.farmfarm.productDetail.model.vo.Product" alias="Product"/>
+		<typeAlias type="edu.kh.farmfarm.productDetail.model.vo.ProductImg" alias="ProductImg"/>
 		<typeAlias type="edu.kh.farmfarm.productDetail.model.vo.Review" alias="Review"/>
+		<typeAlias type="edu.kh.farmfarm.productDetail.model.vo.ReviewImg" alias="ReviewImg"/>
 		<typeAlias type="edu.kh.farmfarm.postDetail.model.vo.Post" alias="Post"/>
+		<typeAlias type="edu.kh.farmfarm.postDetail.model.vo.PostImg" alias="PostImg"/>		
+		<typeAlias type="edu.kh.farmfarm.category.model.vo.Category" alias="Category"/>
+		<typeAlias type="edu.kh.farmfarm.category.model.vo.CategorySub" alias="CategorySub"/>
 		<typeAlias type="edu.kh.farmfarm.board.model.vo.Board" alias="Board"/>
+		<typeAlias type="edu.kh.farmfarm.board.model.vo.BoardImg" alias="BoardImg"/>
+		<typeAlias type="edu.kh.farmfarm.report.model.vo.Report" alias="Report"/>
+		<typeAlias type="edu.kh.farmfarm.common.SearchItem" alias="SearchItem"/>
 	</typeAliases>
 	
 	<!-- mapper 파일(SQL 작성되는파일) 위치 등록 부분 -->
@@ -33,8 +42,14 @@
 		<mapper resource="/mappers/myPage-mapper.xml"/>
 		<mapper resource="/mappers/productDetail-mapper.xml"/>
 		<mapper resource="/mappers/postDetail-mapper.xml"/>
+		<mapper resource="/mappers/category-mapper.xml"/>
+		<mapper resource="/mappers/productList-mapper.xml"/>
+		<mapper resource="/mappers/member-mapper.xml"/>
 		<mapper resource="/mappers/board-mapper.xml"/>
-	</mappers>
-	
+		<mapper resource="/mappers/seller-mapper.xml"/>
+		<mapper resource="/mappers/report-mapper.xml"/>
+		<mapper resource="/mappers/admin-mapper.xml"/>
+		<mapper resource="/mappers/postList-mapper.xml"/>
+  	</mappers>
 	
 </configuration>
