@@ -136,6 +136,12 @@
 	FROM REVIEW r 
 	JOIN "MEMBER" m USING(MEMBER_NO)
 	WHERE PRODUCT_NO = #{productNo} AND REVIEW_DEL_FL = 'N'	
+	<if test='sortFl.equals("R")'>
+	ORDER BY LIKE_COUNT DESC, CREATE_DATE
+	</if>
+	<if test='sortFl.equals("N")'>
+	ORDER BY CREATE_DATE, LIKE_COUNT
+	</if>
 </select>
 
 
