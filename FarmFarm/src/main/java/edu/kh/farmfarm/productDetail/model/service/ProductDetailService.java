@@ -51,4 +51,10 @@ public interface ProductDetailService {
 	 */
 	int removeHelp(Map<String, Object> map);
 
+	/** 리뷰 목록 조회
+	 * @param paramMap
+	 * @return
+	 */
+	Map<String, Object> selectReviewList(Map<String, Object> paramMap);
+
 }

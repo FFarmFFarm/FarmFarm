@@ -5,8 +5,7 @@
 
 <!-- 리뷰 상세조회 모달창 -->
     <div class="review-detail-container hide " id="reviewDetail">
-      <div class="review-detail-modal">
-        
+      <div class="review-detail-modal" id="reviewDetailModal">
         
         <div class="review-head">
           <button type="button" class="back-btn" id="backBtn">
@@ -33,7 +32,6 @@
               <div class="product-thumbnail">
                 <img
                 src=""
-                  id="productThumbnail"
                   />
               </div>
 
@@ -42,7 +40,7 @@
               </div>
             </div>
             <div class="review-content-area">
-              <div class="review-detail-content" id="reviewContent">
+              <div class="review-detail-content">
 
               </div>
               <div class="review-notice">
@@ -50,7 +48,7 @@
               </div>
               <div class="review-create-date">
                 <span id="createDate">2022.12.16</span>
-                  <button id="helpBtn"><i class="fa-regular fa-thumbs-up"></i>도움돼요</button>
+                <button><i class="fa-regular fa-thumbs-up"></i>도움돼요</button>
               </div>
             </div>
           </div>

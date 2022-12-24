@@ -106,4 +106,21 @@ public class ProductDetailDAO {
 
 
 
+	public int reviewCount(Map<String, Object> paramMap) {
+		return sqlSession.selectOne("productDetailMapper.reviewCount", paramMap);
+	}
+
+
+
+	public List<Review> selectReviewList(Map<String, Object> paramMap, ReviewPagination pagination) {
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		
+		return sqlSession.selectList("productDetailMapper.selectReviewList", paramMap, rowBounds);
+	}
+
+
+
 }

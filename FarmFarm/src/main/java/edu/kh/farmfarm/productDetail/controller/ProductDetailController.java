@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
@@ -30,12 +31,14 @@ public class ProductDetailController {
 	public String myPageReview(
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			@PathVariable("productNo") int productNo,
-			Model model) {
+			Model model,
+			@RequestParam(name = "sortFl", required = false, defaultValue = "R") String sortFl) {
 		
 //		파라미터 담을 객체 생성
 		Product param = new Product();
 		
 		param.setProductNo(productNo);
+		param.setSortFl(sortFl);
 		
 		if(loginMember == null) {
 			param.setMemberNo(0);
@@ -74,53 +77,6 @@ public class ProductDetailController {
 		
 		return service.removeWish(product);
 	}
-	
-	@GetMapping("/review/select/{reviewNo}")
-	@ResponseBody
-	public String reviewDetail(int memberNo, 
-			@PathVariable("reviewNo")int reviewNo) {
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		map.put("memberNo", memberNo);
-		map.put("reviewNo", reviewNo);
-		
-		Review review = service.selectReview(map);
-		
-		return new Gson().toJson(review);
-	}
-	
-	@GetMapping("/review/imgList")
-	@ResponseBody
-	public String selectImgReview(int productNo) {
-		
-		List<Review> reviewList = service.selectImgReview(productNo);
-		
-		return new Gson().toJson(reviewList);
-	}
-	
-	@GetMapping("/help/add")
-	@ResponseBody
-	public int addHelp(@SessionAttribute("loginMember") Member loginMember, int reviewNo) {
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		map.put("memberNo", loginMember.getMemberNo());
-		map.put("reviewNo", reviewNo);
-		
-		return service.addHelp(map);
-	}
-	
-	@GetMapping("/help/remove")
-	@ResponseBody
-	public int removeHelp(@SessionAttribute("loginMember") Member loginMember, int reviewNo) {
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		map.put("memberNo", loginMember.getMemberNo());
-		map.put("reviewNo", reviewNo);
-		
-		return service.removeHelp(map);
-	}
+
 
 }
