@@ -87,36 +87,70 @@ public class MemberServiceImpl implements MemberService {
 	// 회원가입 (판매자) 
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int signUp1(Member inputMember, String[] memberAddress, String webPath, String folderPath, MultipartFile image) throws IOException {
+	public int signUp1(Member inputMember, String[] memberAddress, String webPath, String folderPath, MultipartFile image) throws Exception {
 		String encPw = bcrypt.encode(inputMember.getMemberPw());
 		inputMember.setMemberPw(encPw);
 		
 		// 1. 회원 정보 삽입 
-		int memberNo = dao.signUp0(inputMember);
+		int memberNo = dao.signUp1(inputMember);
 		
 		// 이미지 삽입 
-		Seller farmImage = new Seller();
-		String reName = null;
+//		if(memberNo > 0) {
+//			String rename = null;
+//			Seller farmImage = new Seller();
+//			
+//			if(image.getSize() != 0) {
+//				rename = Util.fileRename(image.getOriginalFilename());
+//				
+//				farmImage.setMemberNo(memberNo);
+//				farmImage.setFarmImg(webPath + rename);
+//			}
+//			if(farmImage != null) {
+//				int result1 = dao.insertFarmImage(farmImage);
+//				
+//				if(result1 > 0) {
+//					image.transferTo(new File(folderPath + rename));
+//				}
+//			}
+//		}
 		
-			if(image.getSize() > 0) {
-				
-				// 파일명 리네임 
-				reName = Util.fileRename(image.getOriginalFilename());
-				
-				farmImage.setFarmImg(webPath + reName);
-				farmImage.setMemberNo(memberNo);
-				
-			}
-			
-		// 업로드 된 이미지가 있을 경우 
-		if(farmImage != null) {
-			int img = dao.insertFarmImgList(farmImage);
-			image.transferTo(new File(folderPath + reName));
-		}
+//			if(image != null) {
+//				
+//				// 파일명 리네임 
+//				reName = Util.fileRename(image.getOriginalFilename());
+//				
+//				farmImage.setFarmImg(webPath + reName);
+//				farmImage.setMemberNo(memberNo);
+//				
+//			}
+//			
+//		// 업로드 된 이미지가 있을 경우 
+//		if(farmImage != null) {
+//			int img = dao.insertFarmImage(farmImage);
+//			image.transferTo(new File(folderPath + reName));
+//		}
 		
 		int result = 0;
 		
 		if(memberNo > 0) {
+			String rename = null;
+			Seller farmImage = new Seller();
+			
+			if(image.getSize() != 0) {
+				rename = Util.fileRename(image.getOriginalFilename());
+				
+				farmImage.setMemberNo(memberNo);
+				farmImage.setFarmImg(webPath + rename);
+			}
+			if(farmImage != null) {
+				int result1 = dao.insertFarmImage(farmImage);
+				
+				if(result1 > 0) {
+					image.transferTo(new File(folderPath + rename));
+				}
+			}
+			
+			
 			// 주소가 작성 경우
 			if(!memberAddress.equals(",,")) {
 				inputMember.setMemberAddress(String.join(",,", memberAddress));

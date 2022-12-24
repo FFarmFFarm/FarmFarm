@@ -25,7 +25,7 @@
                             <div class="form-wrap">
                                 <div class="signup-title">회원가입</div>
                                 <div class="signup-subtitle">-판매자-</div>
-                                <form action="/signUp1" method="post" id="signUpFrm">
+                                <form action="/signUp1" method="post" id="signUpFrm" encType="multipart/form-data">
                                     <section class="signup">
                                         <input type="text" name="memberId" id="memberId" placeholder="아이디"
                                             autocomplete="off" maxlegnth="50" value="${tempMember.memberId}">
@@ -95,9 +95,8 @@
                                                     <div class="title">농장 인증</div>
                                                     <div class="farm-img">
                                                         <div class="farm-img-upload">
-                                                            <label for="farmerImg"><img class="preview" src=""></label>
-                                                            <input type="file" name="farmerImg" id="farmerImg" class="input-image"
-                                                                accept=".jpg,.jpeg,.png">
+                                                            <label for="farmImg"><img class="preview" src=""></label>
+                                                            <input type="file" name="farmImg" id="farmImg" class="input-image" accept="image/*">
                                                             <span class="delete-image">&times;</span>
                                                         </div>
                                                         <div class="farm-img-upload1">

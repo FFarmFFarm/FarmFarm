@@ -77,9 +77,11 @@
 		ORDER BY POST_DATE
 	</select>
 	
-	<insert id="insertFarmImgList">
+	<!-- 농장 인증 사진 삽입 -->
+	<insert id="insertFarmImage">
 		INSERT INTO SELLER VALUES(#{memberNo}, #{farmImg})
 	</insert>
+	
 	<!-- 판매글 삽입 -->
 	<insert id="enrollPost" parameterType="Post" useGeneratedKeys="true">
 		<selectKey keyProperty="postNo" resultType="_int" order="BEFORE">

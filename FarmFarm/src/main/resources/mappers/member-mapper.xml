@@ -58,8 +58,8 @@
 		ORDER BY REPORT_DATE DESC
 	</select>
 	
-	<!-- 회원 가입 -->
-	<insert id="signUp" parameterType="Member" useGeneratedKeys="true">
+	<!-- 회원 가입(구매자) -->
+	<insert id="signUp0" parameterType="Member" useGeneratedKeys="true">
 		<selectKey keyProperty="memberNo" resultType="_int" order="BEFORE">
 			SELECT SEQ_MEMBER_NO.NEXTVAL FROM DUAL
 		</selectKey>
@@ -68,6 +68,17 @@
 	   #{memberNickname}, #{memberTel}, DEFAULT, DEFAULT, 0, NULL, NULL, #{memberBirth})
 	</insert>
 	
+	<!-- 회원 가입(판매자) -->
+	<insert id="signUp1" parameterType="Member" useGeneratedKeys="true">
+		<selectKey keyProperty="memberNo" resultType="_int" order="BEFORE">
+			SELECT SEQ_MEMBER_NO.NEXTVAL FROM DUAL
+		</selectKey>
+	
+		INSERT INTO MEMBER VALUES(#{memberNo}, #{memberId}, #{memberPw}, #{memberName},
+	   #{memberNickname}, #{memberTel}, DEFAULT, DEFAULT, 3, NULL, NULL, #{memberBirth})
+	</insert>
+	
+	<!-- 주소 삽입 -->
 	<insert id="insertMemberAddressList">
 		INSERT INTO ADDRESS VALUES(SEQ_ADDRESS_NO.NEXTVAL, #{memberAddress},'Y', #{memberNo})
 	</insert>

@@ -157,9 +157,9 @@ public class MemberController {
 			RedirectAttributes ra,
 			String[] memberAddress,
 			@RequestHeader("referer") String referer,
-			@RequestParam(value="images", required=false) MultipartFile image,
+			@RequestParam(value="farmImg", required=false) MultipartFile image,
 			HttpSession session
-			) throws IOException{
+			) throws Exception{
 		
 	   String webPath = "/resources/images/seller/";
 	   

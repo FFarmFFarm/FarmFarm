@@ -18,7 +18,7 @@ public interface MemberService {
 
 	int signUp0(Member inputMember, String[] memberAddress);
 
-	int signUp1(Member inputMember, String[] memberAddress, String webPath, String folderPath, MultipartFile image) throws IOException;
+	int signUp1(Member inputMember, String[] memberAddress, String webPath, String folderPath, MultipartFile image) throws IOException, Exception;
 
 
 
