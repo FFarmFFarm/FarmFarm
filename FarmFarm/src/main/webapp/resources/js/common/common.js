@@ -1,9 +1,23 @@
+/* 모달창 끄기 */
 const displayNone = (element) => {
-  element.classList.add('hide');
+
+  document.getElementsByTagName('body')[0].classList.toggle('scroll-lock');
+  element.classList.add('disappear');
+
+  setTimeout(function () {
+    element.classList.remove('appear');
+    element.classList.add('hide');
+  }
+  , 300);
 }
 
+/* 모달창 켜기 */
 const displayflex = (element) => {
+  element.classList.remove('disappear');
+  element.classList.add('appear');
   element.classList.remove('hide');
+
+  document.getElementsByTagName('body')[0].classList.toggle('scroll-lock');
 }
 
 
@@ -23,6 +37,46 @@ const copy = (text) => {
   document.execCommand('copy');
   document.body.removeChild($textarea);
 };
+
+/* 로그인이 필요한 서비스 실행 시 로그인 컨펌창 열기 */
+const loginConfirmOpen = () => { 
+  const loginConfirm = document.getElementById('loginConfirm');
+  displayflex(loginConfirm);
+
+}
+
+
+/* 로그인 컨펌창 취소 클릭 시 닫힘 */
+document.getElementById('loginCalcelBtn').addEventListener('click', function () { 
+  const loginConfirm = document.getElementById('loginConfirm');
+  displayNone(loginConfirm);
+})
+
+
+/* 로그인 컨펌창 확인 클릭 시 로그인 페이지로 이동 */
+document.getElementById('loginConfirmBtn').addEventListener('click', function () { 
+  location.href = "/login";
+})
+
+
+/* R1, C1 처럼 앞에 fl 붙은 번호 잘라내기 */
+const cutNumber = (number) => { 
+  return number.substr(0);
+}
+
+/* message 모달창에 메세지 넣어서 출력하기 */
+const messageModalOpen = (message) => { 
+  const messageModal = document.getElementById('messageModal');
+  const messageContent = document.getElementById('messageContent');
+  messageContent.innerText = "";
+  messageContent.innerText = message;
+
+  displayflex(messageModal);
+
+  setTimeout(() => {displayNone(messageModal) }, 1000);
+
+}
+
 
 /* 문자열에서 일부 특수문자 제거 */
 const replaceSpecialSymbols = (text) => {   
