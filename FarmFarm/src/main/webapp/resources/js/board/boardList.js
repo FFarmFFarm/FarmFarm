@@ -28,11 +28,11 @@ if(boardAdd == '/board/3'){
 // 검색 시 검색어 유지시키기
 (()=>{
     const boardSearch = document.querySelector(".board-search");
+    const inputQuery = document.getElementById("inputQuery");
     
     if(boardSearch != null){
         const params = new URL(location.href).searchParams
         
-        const inputQuery = document.getElementById("inputQuery");
         const query = params.get("query");
 
         inputQuery.value = query;
@@ -41,16 +41,41 @@ if(boardAdd == '/board/3'){
 
 
 // 이건.... value값 확인해본건데 spring으로 넘어가려나....
+// 최신순, 조회수, 좋아요
 const boardSelect = document.getElementById("boardSelect");
 (()=>{boardSelect.addEventListener("change",()=>{
     const value = boardSelect.options[boardSelect.selectedIndex].value;
     console.log(value);
     boardSelect.setAttribute("value", value);
-    // location.href = "/board/"+boardTypeNo;
-    // boardSelect.setAttribute("value", value);
 });})()
 
+// const boardSelect = document.getElementById("boardSelect");
+// boardSelect.addEventListener("change", ()=>{
+//     const value = boardSelect.options[boardSelect.selectedIndex].value;
+//     console.log(value);
+//     boardSelect.setAttribute("value", value);
 
+//     $.ajax({
+//         url: "board/${boardTypeNo}",
+//         data : {"query" : query, "NVL" : NVL, "query" : query},
+//         dataType : "JSON",
+//         success : ()=>{
+
+//             const boardListArea = document.querySelector(".board-list-area");
+//             boardListArea.innerHTML="";
+//             boardListArea.classList.add(".board-list-area");
+
+//             if(  )
+
+
+//         },
+//         error : ()=>{
+//             alert("리스트 불러오기 ajax 통신 오류");
+//             console.log("리스트 불러오기 ajax 통신 오류");
+//         }
+//     })
+
+// })
 
 
 
