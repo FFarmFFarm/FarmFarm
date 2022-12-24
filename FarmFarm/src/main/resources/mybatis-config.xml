@@ -49,6 +49,7 @@
 		<mapper resource="/mappers/seller-mapper.xml"/>
 		<mapper resource="/mappers/report-mapper.xml"/>
 		<mapper resource="/mappers/admin-mapper.xml"/>
+		<mapper resource="/mappers/postList-mapper.xml"/>
   	</mappers>
 	
 </configuration>

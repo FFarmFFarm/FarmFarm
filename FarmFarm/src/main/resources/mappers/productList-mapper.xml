@@ -30,7 +30,7 @@
 			   	FROM "ORDER_PRODUCT" O
 			   	WHERE  P.PRODUCT_NO = O.PRODUCT_NO) RATES
 		FROM PRODUCT P
-		<if test=' #{keyword} != null '>
+		<if test=' keyword != null '>
 			WHERE PRODUCT_NAME LIKE '%${keyword}%' 
 		</if>
 		<if test=' sort != null'>
@@ -53,13 +53,16 @@
 	</select>
 	
 	<!-- 모든 상품 목록의 개수를 가져오는 SQL -->
-	<select id="getCount_all" resultType="_int">
+	<select id="getCount_all" parameterType="SearchItem" resultType="_int">
 		SELECT COUNT(*)
 		FROM PRODUCT
+		<if test=' #{keyword} != null '>
+			WHERE PRODUCT_NAME LIKE '%' || #{keyword} || '%' 
+		</if>
 	</select>
 	
 	<!-- 선택한 상품의 카테고리 목록을 불러오는 SQL -->
-	<select id="getProductList_checked" parameterType="_int" resultMap="productList_rm">
+	<select id="getProductList_checked" parameterType="SearchItem" resultMap="productList_rm">
 		SELECT PRODUCT_NO, PRODUCT_NAME, 
 			   TO_CHAR(PRODUCT_PRICE, 'FM999,999,999,999') PRODUCT_PRICE, 
 			   CATEGORY_NO, PRODUCT_MESSAGE,
@@ -72,7 +75,7 @@
 			   	WHERE  P.PRODUCT_NO = O.PRODUCT_NO) RATES
 		FROM PRODUCT P
 		WHERE CATEGORY_NO = #{category} 
-		<if test=' #{keyword} != null '>
+		<if test=' keyword != null '>
 			AND PRODUCT_NAME LIKE '%${keyword}%' 
 		</if>
 		<if test=' sort != null'>
@@ -95,10 +98,13 @@
 	</select>
 	
 	<!-- 모든 상품 목록의 개수를 가져오는 SQL -->
-	<select id="getCount_checked" parameterType="_int" resultType="_int">
+	<select id="getCount_checked" parameterType="SearchItem" resultType="_int">
 		SELECT COUNT(*)
 		FROM PRODUCT
 		WHERE CATEGORY_NO = #{category}
+		<if test=' #{keyword} != null '>
+			AND PRODUCT_NAME LIKE '%' || #{keyword} || '%' 
+		</if>
 	</select>
 
 

@@ -93,7 +93,6 @@ window.addEventListener("load", ()=>{
     // const productBox = document.querySelector('product-box');
     if(!listAreaBody.contains(productBox)) {
         initialList();
-        console.log('비어있네?')
     }
 
     // 페이지 이벤트 생성
@@ -110,6 +109,10 @@ const createProductBox = (productMap) => {
     // map에서 productList와 productMap을 꺼내기
     const productList = productMap.productList;
     const pagination = productMap.pagination;
+
+    // 개수 업데이트
+    const listCount = document.getElementById('listCount');
+    listCount.innerText = pagination.listCount;
 
     // 전체 영역
     const listAreaBody = document.querySelector('.list-area-body');
@@ -212,11 +215,9 @@ const createProductBox = (productMap) => {
         // 페이지 이벤트 생성
         makePageBoxEvent();
 
-        // 개수 업데이트
-        const listCount = document.getElementById('listCount');
-        listCount.innerText = pagination.listCount;
         
     }
+    
     // 로딩 애니메이션 종료
     loadingStop(loading);
 }
@@ -311,7 +312,6 @@ const initialList = () => {
         getCustomList(beforeCategoryNo, beforePageNo);
 
     } else { // 검색어가 있는 경우
-        console.log('isKeyword : ' + isKeyword + ", url : " + url);
         // 첫 번째 = 의 위치
         const firstEqualSign = url.indexOf('=', 1);
 
@@ -331,18 +331,14 @@ const initialList = () => {
         const urlLength = url.length;
 
         let beforeKeywordEncoded = url.substring(firstEqualSign + 1, firstAndSign)
-        console.log(beforeKeywordEncoded);
 
         let beforeKeyword = decodeURIComponent(beforeKeywordEncoded);
-        console.log(beforeKeyword);
 
         // 주소창에 기록된, 이전 카테고리 번호
         let beforeCategoryNo = url.substring(secondEqualSign + 1, secondAndSign);
 
         // 주소창에 기록된,, 이전 페이지 번호
         let beforePageNo = url.substring(thirdEqualSign + 1, urlLength);
-
-        console.log(beforeKeyword);
 
         // 정보를 다시 전달해 페이지를 만듦
         getCustomList2(beforeKeyword, beforeCategoryNo, beforePageNo);
@@ -423,6 +419,8 @@ const getKeyword = () => {
     } else {
         keyword = navSearchInput.value;
     }
+    keyword = replaceSpecialSymbols(keyword);
+
     return keyword;
 }
 
@@ -518,6 +516,65 @@ const searchInputMove = () => {
             searchInput.value = navSearchInput.value;
             return;
         }
+    }
+}
+
+/* 문자열에서 일부 특수문자 제거 */
+const replaceSpecialSymbols = (text) => {
+    // 문자열을 파라미터로 받아서
+    // 웹해킹에 사용될 가능성이 있는 특수문자를 전부 제거하고 
+    // 결과를 반환
+
+    text = text.replace(/\=/gi, '');
+    text = text.replace(/\&/gi, '');
+    text = text.replace(/\?/gi, '');
+    text = text.replace(/\@/gi, '');
+    text = text.replace(/\#/gi, '');
+    text = text.replace(/\$/gi, '');
+    text = text.replace(/\%/gi, '');
+    text = text.replace(/\;/gi, '');
+    text = text.replace(/\|/gi, '');
+    text = text.replace(/\\/gi, '');
+
+    return text;
+}
+
+/* 검색 실행 함수 */
+const doSearch = () => {
+
+    // 키워드 가져오기
+    let keyword = getKeyword();
+
+    // 키워드에서 영어, 문자, 숫자만 남기기
+    // let regEx = /^[\w\dㄱ-힣]+$/;
+
+    // 특수문자 제거
+    keyword = replaceSpecialSymbols(keyword);
+
+    if (keyword.trim().length != 0) {
+        getCustomList2(keyword, 0, 1);
+
+        // 히스토리 업데이트
+        const state = { 'keyword': keyword };
+        const title = '';
+        const url = '/product/list?' + 'keyword=' + keyword + '&category=0&keyword=1';
+
+        history.pushState(state, title, url);
+
+        // 카테고리 업데이트
+        updateCheckedCategory();
+
+        // 카테고리 선택
+        let category = getCheckedCategory();
+
+        if (category != 0) {
+            resetCategory.style.display = 'block';
+        } else {
+            resetCategory.style.display = 'none';
+        }
+
+    } else {
+        alert('검색어를 입력해주세요!')
     }
 }
 
@@ -633,39 +690,28 @@ const searchBtns = document.getElementsByClassName('search-btn');
 
 for(let searchBtn of searchBtns) {
     searchBtn.addEventListener('click', () => {
-        
-        console.log(searchBtn);
-
-        // 키워드 가져오기
-        let keyword = getKeyword();
-        console.log('keyword:' +  keyword);
-        if(keyword.trim().length != 0) {
-            getCustomList2(keyword, 0, 1);
-    
-            // 히스토리 업데이트
-            const state = { 'keyword': keyword };
-            const title = '';
-            const url = '/product/list?' + 'keyword=' + keyword + '&category=0&keyword=1';
-            
-            history.pushState(state, title, url);
-            
-            // 카테고리 업데이트
-            updateCheckedCategory();
-    
-            // 카테고리 선택
-            let category = getCheckedCategory();
-    
-            if(category != 0) {
-                resetCategory.style.display='block';
-            } else {
-                resetCategory.style.display='none';
-            }
-    
-        } else {
-            alert('검색어를 입력해주세요!')
-        }
+        doSearch();        
     })
 }
+
+/* 검색 이벤트 (포커스 후 엔터) */
+document.getElementById('searchInput').addEventListener('focus', ()=>{
+    addEventListener('keyup', (e) => {
+        if(e.key === 'Enter') {
+            doSearch();
+        }
+    })
+})
+
+document.getElementById('navSearchInput').addEventListener('focus', ()=>{
+    addEventListener('keyup', (e) => {
+        if(e.key === 'Enter') {
+            doSearch();
+        }
+    })
+})
+
+
 
 /* 스크롤 시 검색창을 보이게 하는 이벤트 */
 window.addEventListener("scroll", ()=> {
