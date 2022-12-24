@@ -3,6 +3,11 @@
     position: relative;
 }
 
+#chatWidget:checked{
+    background-color: var(--point-color);
+    color: white;
+}
+
 
 /* 채팅 위젯 */
 .chatWidget-container{
