@@ -4,7 +4,7 @@
         <div class="footer-btn">
             <!-- <a id="chatWidget"> -->
                 <input type="checkbox" id="showChatWidget">
-                <label for="showchatWidget" class="btn-chat">
+                <label for="showChatWidget" class="btn-chat">
                     <i class="fa-solid fa-comment-dots go-to-top-icon"></i>
                 </label>
                 <jsp:include page="/WEB-INF/views/chat/chatWidget.jsp"/>

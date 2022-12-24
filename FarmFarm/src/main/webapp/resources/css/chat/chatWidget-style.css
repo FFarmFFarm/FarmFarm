@@ -1,17 +1,8 @@
 /* 상위 영역 */
-#chatWidget{
-    position: relative;
-}
-
-#chatWidget:checked{
-    background-color: var(--point-color);
-    color: white;
-}
-
 
 /* 채팅 위젯 */
 .chatWidget-container{
-    /* display: none; */
+    display: none;
     border: 1px solid var(--line-color);
     background-color: white;
     box-shadow: 2px 2px 10px 0px #bcbcbc;

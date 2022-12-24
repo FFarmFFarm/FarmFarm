@@ -18,7 +18,7 @@
       채팅
     </div>
     <!-- 채팅방 전체화면으로 이동하기 -->
-    <a href='#' id="goChatRoom" >
+    <a href='/chat' id="goChatRoom" >
       더보기&nbsp;<i class="fa-solid fa-chevron-right"></i>
     </a>
   </div>

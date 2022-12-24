@@ -1,9 +1,15 @@
 /* 채팅 위젯 표시 */
-const chatWidget = document.getElementById('chatWidget');
-const chatWidgetContainer = document.getElementById('chatWidget-container');
+// const btnChat = document.querySelector('.btn-chat');
 
-chatWidget.addEventListener('click', (e)=>{
-    if(e.checked) {
-        console.log('checked!')
+// btnChat.addEventListener('click', ()=>{
+//     let showChatWidget = document.getElementById('showChatWidget');
+//     console.log(showChatWidget.checked);
+// })
+
+document.getElementById('showChatWidget').addEventListener('change', (e)=>{
+    if(e.target.checked) {
+        document.querySelector('.chatWidget-container').style.display='block';
+    } else {
+        document.querySelector('.chatWidget-container').style.display='none';
     }
 })
