@@ -38,7 +38,7 @@ public class BoardListController {
 			@PathVariable("boardTypeNo") int boardTypeNo,
 			Model model,
 			@RequestParam(value="cp", required = false, defaultValue = "1") int cp,
-			@RequestParam(value="boardSelectNVL", required = false) String boardSelectNVL,
+			@RequestParam(value="boardSelectNVL", required = false) List<String> boardSelectNVL,
 			@RequestParam(value="query", required = false) String query) {
 		
 		// 검색을 한 경우
