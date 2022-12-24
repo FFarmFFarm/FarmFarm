@@ -26,6 +26,7 @@ public class Product {
 	private int memberNo;
 	private int wishCheck;
 	private String soldoutFl;
+	private String sortFl;
 	
 	private List<ProductImg> imgList;
 	

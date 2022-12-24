@@ -1,7 +1,7 @@
 /* 모달창 끄기 */
 const displayNone = (element) => {
 
-  document.getElementsByTagName('body')[0].classList.toggle('scroll-lock');
+  document.getElementsByTagName('body')[0].classList.remove('scroll-lock');
   element.classList.add('disappear');
 
   setTimeout(function () {
@@ -17,7 +17,7 @@ const displayflex = (element) => {
   element.classList.add('appear');
   element.classList.remove('hide');
 
-  document.getElementsByTagName('body')[0].classList.toggle('scroll-lock');
+  document.getElementsByTagName('body')[0].classList.add('scroll-lock');
 }
 
 
@@ -97,3 +97,9 @@ const replaceSpecialSymbols = (text) => {
 
   return text;
 }
+
+
+
+const scrollToTag = (tagName) => { 
+  tagName.scrollIntoView({ behavior: 'smooth' });
+};

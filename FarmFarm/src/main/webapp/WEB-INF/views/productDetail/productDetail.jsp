@@ -42,9 +42,6 @@
     href="/resources/css/productDetail/productDetail-style.css"
     />
 
-    <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-
 
     <!-- fontawesome -->
     <script
@@ -72,7 +69,7 @@
         </div>
         <div class="summary-area">
           <span class="product-category">${product.categoryName}</span>
-          <span class="product-name">${product.productName}</span>
+          <span class="product-name" id="productName">${product.productName}</span>
           <span class="product-message">${product.productMessage}</span>
 
           <span class="product-price">${product.productPrice}<span>원</span></span>
@@ -101,21 +98,36 @@
           <div class="product-option" id="productOption">
             <span>${product.productName}</span>
             <div class="amount-area" >
-              <c:if test="${product.soldoutFl eq 'Y'|| product.stock == 0}">
+              <c:if test="${product.soldoutFl eq 'Y'}">
                 <button type="button" id="removeBtn" disabled>-</button>
                 <span id="productAmount">1</span>
                 <button type="button" id="addBtn" disabled>+</button>
               </c:if>
               <c:if test="${product.soldoutFl ne 'Y'}">
+                <c:if test="${product.stock == 0}">
+                <button type="button" id="removeBtn" disabled>-</button>
+                <span id="productAmount">1</span>
+                <button type="button" id="addBtn" disabled>+</button>
+                </c:if>
+                <c:if test="${product.stock > 0}">
                 <button type="button" id="removeBtn">-</button>
                 <span id="productAmount">1</span>
                 <button type="button" id="addBtn">+</button>
+                </c:if>
               </c:if>
             </div>
             <div class="total-price">
               <span>총 금액:</span>
               <span ><span id="totalPrice">${product.productPrice}</span><span>원</span></span>
             </div>
+            <c:if test="${product.soldoutFl eq 'Y'}">
+              <span class="soldout">해당 상품은 현재 품절입니다. 구매하실 수 없습니다.</span>
+            </c:if>
+            <c:if test="${product.soldoutFl ne 'Y'}">
+              <c:if test="${product.stock == 0}">
+              <span class="soldout">해당 상품은 현재 품절입니다. 구매하실 수 없습니다.</span>
+              </c:if>
+            </c:if>
             <span class="stock" id="stock"></span>
           </div>
           <div class="product-btn-area">
@@ -205,15 +217,15 @@
 
 
 
-        <div class="review-header">
+        <div class="review-header" >
           <span>총 <span>${reviewCount}</span>개</span>
-          <div>
-            <button class="popular">추천순</button>
-            <span>|</span>
-            <button class="latest">최근 등록순</button>
+          <div class="sort-area">
+            <button class="popular sort-clicked" id="sortRecommend">추천순</button>
+            <span class="or-bar">|</span>
+            <button class="latest" id="sortNewest">최근 등록순</button>
           </div>
         </div>
-        <ul class="review-list">
+        <ul class="review-list" id="productReviewList">
 
           <c:if test="${reviewCount == 0}">
             <li class="no-review">
@@ -224,27 +236,27 @@
           <c:if test="${reviewCount > 0}">
           <c:forEach var="review" items="${reviewList}">
             <li class="review" id="${review.reviewNo}">
-                <div class="review-writer">
+              <div class="review-writer">
                  <c:if test="${empty review.profileImg}">
-                    <img
-                    src="/resources/images/member/profile/profile.png"
-                    alt=""
-                    class="writer-profile-img"
-                    />
-                  </c:if>
-                  <c:if test="${! empty review.profileImg}">
-                    <img
-                    src="${review.profileImg}"
-                    alt=""
-                    class="writer-profile-img"
-                    />
-                  </c:if>
-              <div class="nickname-area">
-                <span class="writer-nickname">${review.memberNickname}</span>
-                <c:if test="${review.likeCount > 10}">
-                  <span class="best-review">베스트</span>
+                <img
+                src="/resources/images/member/profile/profile.png"
+                alt=""
+                class="writer-profile-img"
+                />
                 </c:if>
-              </div>
+                <c:if test="${! empty review.profileImg}">
+                <img
+                src="${review.profileImg}"
+                alt=""
+                class="writer-profile-img"
+                />
+                </c:if>
+                <div class="nickname-area">
+                  <span class="writer-nickname">${review.memberNickname}</span>
+                  <c:if test="${review.likeCount > 10}">
+                  <span class="best-review">베스트</span>
+                  </c:if>
+                </div>
               </div>
               <div class="review-content">
                 <span>${product.productName}</span>
@@ -261,10 +273,16 @@
                 <div class="review-create-date">
                   <span>${review.createDate}</span>
                   <c:if test="${review.likeCheck > 0}">
-                  <button class="clicked helped-btn" id="R${review.reviewNo}"><i class="fa-regular fa-thumbs-up "></i>도움돼요</button>
+                  <button class="clicked helped-btn" id="R${review.reviewNo}">
+                    <i class="fa-regular fa-thumbs-up "></i>
+                    <span>도움돼요<span>
+                  </button>
                   </c:if>
                   <c:if test="${review.likeCheck == 0}">
-                  <button class="unclicked helped-btn" id="R${review.reviewNo}"><i class="fa-regular fa-thumbs-up "></i>도움돼요</button>
+                  <button class="unclicked helped-btn" id="R${review.reviewNo}">
+                    <i class="fa-regular fa-thumbs-up "></i>
+                    <span>도움돼요<span>
+                  </button>
                   </c:if>
                 </div>
               </div>
@@ -273,12 +291,12 @@
           </c:if> 
         </ul>
 
-        <div class="pagination">
+        <div class="pagination" id="pagination">
           <c:if test="${1 lt pagination.currentPage}">
-            <button><i class="fa-solid fa-chevron-left"></i></button>
+            <button id="reviewPre"><i class="fa-solid fa-chevron-left"></i></button>
           </c:if>
           <c:if test="${pagination.maxPage > pagination.currentPage}">
-            <button><i class="fa-solid fa-chevron-right"></i></button>
+            <button id="reviewNext"><i class="fa-solid fa-chevron-right"></i></button>
           </c:if>
           </div>
       </section>
@@ -306,13 +324,34 @@
     memberNo = "${loginMember.memberNo}";
     stock = "${product.stock}";
     loginMember = "${loginMember}";
-    
+    cp = "${pagination.currentPage}"
+    sortFl = 'R';
+
+
+    var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
 
   </script>
 
 
   <!-- jquery -->
   <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+  
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
 
   <!-- script -->
   <script src="/resources/js/common/common.js"></script>

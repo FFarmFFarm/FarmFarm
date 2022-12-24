@@ -101,4 +101,29 @@ public class ProductDetailServiceImpl implements ProductDetailService{
 	public int removeHelp(Map<String, Object> map) {
 		return dao.removeHelp(map);
 	}
+	
+	/** 리뷰 목록 조회
+	 *
+	 */
+	@Override
+	public Map<String, Object> selectReviewList(Map<String, Object> paramMap) {
+//		결과 담을 map 객체 생성
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+//		리뷰 수 조회하기
+		int reviewCount = dao.reviewCount(paramMap);
+		
+		ReviewPagination pagination = new ReviewPagination(reviewCount, (int) paramMap.get("cp"));
+		
+//		리뷰 목록, 리뷰 이미지 목록 조회
+		List<Review> reviewList = dao.selectReviewList(paramMap, pagination);
+		
+
+		
+		map.put("reviewList", reviewList);
+		map.put("pagination", pagination);
+		
+		
+		return map;
+	}
 }

@@ -52,6 +52,7 @@ a:hover {
 
     display: flex;
     flex-direction: column;
+    justify-content: center;
     width: 1000px;
     height: 55%;
 
@@ -68,6 +69,15 @@ a:hover {
     border: none;
     font-size: var(--large-font-size);
     cursor: pointer;
+}
+
+.seller-report-btn{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    border: none;
+    background-color: var(--background-color);
+    color: var(--icon-button-color);
 }
 
 .profile-setting-btn:active {
@@ -134,6 +144,8 @@ a:hover {
 
     width: 78%;
     height: 40px;
+
+    margin-bottom: 30px;
 }
 
 /* 마이페이지 메뉴바 */
@@ -147,20 +159,11 @@ a:hover {
     border-radius: 2px;
 
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.mypage-nav > a {
-    display: flex;
-    align-items: center;
     justify-content: center;
-    height: 100%;
-    width: 15%;
-    font-size: var(--large-font-size);
+    align-items: center;
 }
 
-.mypage-nav > a > span {
+.mypage-nav> span {
     margin-left: 5px;
 }
 
