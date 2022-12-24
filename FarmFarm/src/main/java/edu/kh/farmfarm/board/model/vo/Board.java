@@ -36,4 +36,5 @@ public class Board {
 	
 	private String thumbnail;
 
+	private String profileImg;
 }

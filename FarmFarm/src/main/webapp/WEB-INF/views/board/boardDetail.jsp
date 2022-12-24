@@ -23,9 +23,9 @@
         </section>
         <section class="board-nav">
             <div class="board-nav-area">
-                <span>물물교환</span>
-                <span>팁</span>
-                <span>질문</span>
+                <span id="type1">물물교환</span>
+                <span id="type2">팁</span>
+                <span id="type3">질문</span>
             </div>
         </section>
         <section class="board-title-content">
@@ -39,49 +39,39 @@
                     </c:if>
                 </div>
                 <div class="writer-ect">
-                    <div class="writer-name">${board.memberName}</div>
-                    <div class="writer-date-view">${board.date}  5분전  조회 ${board.view}</div>
+                    <div class="writer-name">${board.memberNickname}</div>
+                    <div class="writer-date-view">${board.boardDate}&nbsp; 조회&nbsp; ${board.boardView}</div>
                 </div>
                 <div class="board-title">
-                    ${board.barodTitle}
+                    ${board.boardTitle}
                 </div>
+                <div class="goList">목록으로</div>
             </div>
             <div class="board-content-area">
                 <div class="board-content">
                     <pre> 
 ${board.boardContent}
-채소교환 하고 싶어요
-저희 집 못난이 호박이랑 예쁜 자색 옷을 입고 있는 자색고구마랑 바꿔요
-너무 못생겨서 먹기 싫어요
                     </pre>
                 </div>
 
                 <div class="board-img-area">
+                    <c:if test="${!empty board.imgList}">
+                        <c:forEach var="imgs" items="${board.imgList}">
+                            <div class="board-img">
+                                <img src="${imgs.boardImgAddress}" class="board-preview">
+                            </div>
+                        </c:forEach>
 
-                    <div class="board-img">
-                        <img src="" class="board-preview">
-                    </div>
-                    
-                    <div class="board-img">
-                        <img src="" class="board-preview">
-                    </div>
-                    
-                    <div class="board-img">
-                        <img src="" class="board-preview">
-                    </div>
-                    
-                    <div class="board-img">
-                        <img src="" class="board-preview">
-                    </div>
+                    </c:if>
                 </div>
             </div>
         </section>
         <section class="board-like-report">
-            <c:if test="${loginMember.memberNo == board.memberNo}">
-                <button class="board-like"><i class="fa-solid fa-heart"></i>좋아요<span id="likeCount">2</span></button>
+            <c:if test="${loginMember.memberNo != board.memberNo}">
+                <button class="board-like"><i class="fa-solid fa-heart"></i>&nbsp; 좋아요&nbsp;<span id="likeCount">${board.likeCount}</span></button>
                 <button class="board-report">신고</button>
             </c:if>
-            <c:if test="${loginMember.memberNo != board.memberNo}">
+            <c:if test="${loginMember.memberNo == board.memberNo}">
                 <button>수정하기</button>
                 <button>삭제하기</button>
             </c:if>
@@ -92,7 +82,10 @@ ${board.boardContent}
 
 
     </main>
-    
+    <script>
+        const boardTypeNo = ${board.boardTypeNo};
+    </script>
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+    <script src="/resources/js/board/boardDetail.js"> </script>
 </body>
 </html>

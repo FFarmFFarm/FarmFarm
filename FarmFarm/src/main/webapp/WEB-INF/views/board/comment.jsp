@@ -24,7 +24,7 @@
                     </div>
                     <div class="comment-like-report">
                         <span class="comment-like"><i class="fa-solid fa-heart"></i> &nbsp;좋아요</span>
-                        <span class="comment-report">신고</span>
+                        <%-- <span class="comment-report">신고</span> --%>
                     </div>
                 </div>
                 <div class="comment-content">

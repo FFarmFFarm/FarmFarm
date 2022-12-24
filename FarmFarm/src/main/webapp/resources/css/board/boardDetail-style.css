@@ -40,12 +40,12 @@ main{
     align-items: center;
     justify-content: center;
 }
-.board-nav-area >span:hover{
+/* .board-nav-area >span:hover{
     color: var(--point-color);
     cursor: pointer;
     font-weight: bold;
-}
-.board-nav-area>span:first-child{
+} */
+.nowType{
     height: 100%;
     border-bottom: 3px solid var(--point-color);
 }
@@ -64,22 +64,40 @@ main{
     border-radius: 50%;
     border: 1px solid black;
     overflow: hidden;
-    margin-left: 20px;
+    /* margin-left: 20px; */
     display: flex;
     align-items: center;
 }
+.write-img > img{
+    width: 100%;
+    height: 100%;
+}
 .writer-ect{
-    width: 160px;
-    margin: auto 20px;
+    width: 130px;
+    margin: auto 15px;
     font-size: var(--main-font-size);
     color: var(--sub-font-color);
 }
 
 /* 게시판 제목 */
 .board-title{
-    width: 650px;
+    width: 600px;
     font-weight: bold;
-    margin-left: 20px;
+    margin-left: 15px;
+}
+.goList{
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: var(--point-color);
+    color: white;
+    border: none;
+    letter-spacing: 2px;
+    font-size: var(--medium-font-size);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
 /* 게시판 내용+이미지 섹션 */
@@ -106,6 +124,10 @@ main{
     border: 1px solid var(--line-color);
     margin: 10px 3px;
     position: relative;;
+}
+.board-img > img{
+    width: 100%;
+    height: 100%;
 }
 
 /* 좋아요 신고 부분 */

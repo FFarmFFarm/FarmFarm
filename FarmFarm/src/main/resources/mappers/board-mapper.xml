@@ -25,6 +25,12 @@
       <result property="likeCount" column="LIKE_COUNT" />
       
       <result property="thumbnail" column="THUMBNAIL" />
+      
+      <result property="profileImg" column="PROFILE_IMG" />
+      
+      <collection property="imgList" javaType="java.util.ArrayList"
+      	ofType="BoardImg" select="selectBoardImgList" column="BOARD_NO"/>
+      	
   </resultMap>
   
   
@@ -172,6 +178,37 @@
 					</otherwise>
 				</choose>
 			</if> -->
+	</select>
+	
+	
+	
+	<!-- 게시글 상세조회 -->
+	<select id="boardDetail" resultMap="board_rm">
+		SELECT BOARD_TYPE_NO, BOARD_TITLE, BOARD_CONTENT, MEMBER_NICKNAME, PROFILE_IMG, BOARD_VIEW,
+			TO_CHAR(BOARD_DATE, 'YYYY-MM-DD ') || 
+			<![CDATA[
+				CASE
+						WHEN SYSDATE - BOARD_DATE < 1/24/60
+						THEN FLOOR((SYSDATE - BOARD_DATE) *24*60*60) || '초 전'
+						WHEN SYSDATE - BOARD_DATE < 1/24
+						THEN FLOOR((SYSDATE - BOARD_DATE) *24*60) || '분 전'
+						WHEN SYSDATE - BOARD_DATE < 1
+						THEN FLOOR((SYSDATE - BOARD_DATE) *24) || '시간 전'
+				END BOARD_DATE,
+			]]>
+			(SELECT COUNT(*) FROM "COMMENT" C WHERE C.BOARD_NO = B.BOARD_NO) COMMENT_COUNT,
+			(SELECT COUNT(*) FROM "BOARD_LIKE" L WHERE L.BOARD_NO2 = B.BOARD_NO) LIKE_COUNT
+		FROM BOARD B
+		JOIN "MEMBER" USING (MEMBER_NO)
+		WHERE BOARD_NO = #{boardNo}
+		AND BOARD_DEL_FL = 'N'
+	</select>
+	
+	<!-- 게시글 상세조회 + 이미지 -->
+	<select id="selectBoardImgList" resultMap="boardImg_rm">
+		SELECT * FROM "BOARD_IMG"
+		WHERE BOARD_NO = #{boardNo}
+		ORDER BY BOARD_IMG_ORDER
 	</select>
 
 
