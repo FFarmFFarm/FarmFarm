@@ -11,6 +11,11 @@ public class MainController {
 	public String mainPage(){
 		return "common/main";
 	}
+	
+	@GetMapping("/error")
+	public String errorPage(){
+		return "common/error";
+	}
 
 
 }
