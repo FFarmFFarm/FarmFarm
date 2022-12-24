@@ -2,10 +2,11 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
         <div class="footer-btn">
-            <a href="#">
+            <a id="chatWidget">
                 <button type="button" class="btn-chat">
                     <i class="fa-solid fa-comment-dots go-to-top-icon"></i>
                 </button>
+                <jsp:include page="/WEB-INF/views/chat/chatWidget.jsp"/>
             </a>
             <a href="#">
                 <button type="button" class="btn-go-to-top" id="top_btn">
