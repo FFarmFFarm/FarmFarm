@@ -100,7 +100,8 @@
 	<!-- 와글와글 게시판 검색 조건에 맞는 게시글 수 조회 -->
 	<select id="getListCountSearch" resultType="_int">
 		SELECT COUNT(*) FROM "BOARD"
-		WHERE BOARD_TITLE LIKE '%${query}%'
+		WHERE BOARD_TYPE_NO = #{boardTypeNo}
+		OR BOARD_TITLE LIKE '%${query}%'
 		OR BOARD_CONTENT LIKE '%${query}%'
 	</select>
 	
@@ -130,10 +131,47 @@
 			AND BOARD_DEL_FL = 'N'
 			<!-- 검색어 있는 경우 -->
 			<if test='query != null and query != ""'>
-				AND BOARD_TITLE LIKE '%${query}%'
-				OR BOARD_CONTENT LIKE '%${query}%'
+				AND (BOARD_TITLE LIKE '%${query}%'
+				OR BOARD_CONTENT LIKE '%${query}%')
 			</if>
-			ORDER BY BOARD_NO DESC
+			<!-- 최신순, 조회수, 좋아요 -->
+			<choose>
+				<when test='boardSelectNVL != null'>
+					<choose>
+						<when test='value == "view"'>
+							ORDER BY BOARD_VIEW DESC
+						</when>
+						<when test='value == "like"'>
+							ORDER BY LIKE_COUNT DESC
+						</when>
+						<when test='value == "new"'>
+							ORDER BY BOARD_DATE DESC
+						</when>
+						<otherwise>
+							ORDER BY BOARD_NO DESC
+						</otherwise>
+					</choose>
+				</when>
+				<otherwise>
+						ORDER BY BOARD_NO DESC
+					</otherwise>
+			</choose>
+			<!-- <if test='boardSelectNVL != null'>
+				<choose>
+					<when test='value == "view"'>
+						ORDER BY BOARD_VIEW DESC
+					</when>
+					<when test='value == "like"'>
+						ORDER BY LIKE_COUNT DESC
+					</when>
+					<when test='value == "new"'>
+						ORDER BY BOARD_DATE DESC
+					</when>
+					<otherwise>
+						ORDER BY BOARD_NO DESC
+					</otherwise>
+				</choose>
+			</if> -->
 	</select>
 
 

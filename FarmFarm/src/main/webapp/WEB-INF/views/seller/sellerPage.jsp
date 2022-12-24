@@ -58,10 +58,21 @@
                     </c:choose>
                 </div>
                 
-                <button
-                type="button"
-                class="profile-setting-btn fa-solid fa-gear"
-                ></button>
+                <c:choose>
+                    <c:when test="${loginMember.memberNo == memberInfo.memberNo}">
+                        <button
+                        type="button"
+                        class="profile-setting-btn fa-solid fa-gear"
+                        ></button>
+                    </c:when>
+                    <c:otherwise>
+                        <button 
+                        type="button"
+                        class="seller-report-btn">
+                            <p>신고하기</p>
+                        </button>
+                    </c:otherwise>
+                </c:choose>
                 
                 <span class="member-nickname">
                     <i class="fa-solid fa-carrot"></i>
@@ -84,14 +95,14 @@
                         <span class="info-content">${memberInfo.signUpDate}</span>
                     </div>
                 </div>
-                <button id="enroll-post">판매상품등록</button>
+                <c:if test="${loginMember.memberNo == memberInfo.memberNo}">
+                    <button id="enroll-post">판매상품등록</button>
+                </c:if>
             </div>
         </section>
         <section class="mypage-nav">
-            <a href="" class="board-wrote">
-                <i class="fa-regular fa-clipboard"></i> 
-                <span> 판매글</span>
-            </a>
+            <i class="fa-regular fa-clipboard"></i> 
+            <span> 판매글</span>
         </section>
 
         <section class="my-post-container">
@@ -119,7 +130,7 @@
                             </div>
                             <div class="post-total">
                                 <div class="post-head">
-                                    <a href="" class="post-title">${post.postTitle}</a>
+                                    <a href="/post/${post.postNo}" class="post-title">${post.postTitle}</a>
                                     <c:if test="${post.postSoldoutFl == 0}">
                                         <span class="post-status">판매중</span>
                                     </c:if>
@@ -140,11 +151,13 @@
                                 </div>
                             </div>
                             <div class="button-area">
-                                <c:if test="${post.postSoldoutFl == 0}">
-                                    <button type="button">판매완료</button>
+                                <c:if test="${loginMember.memberNo == memberInfo.memberNo}">
+                                    <c:if test="${post.postSoldoutFl == 0}">
+                                        <button type="button" id="soldOutBtn">판매완료</button>
+                                    </c:if>
+                                    <button type="button">게시물 수정</button>
+                                    <button type="button">게시물 삭제</button>
                                 </c:if>
-                                <button type="button">게시물 수정</button>
-                                <button type="button">게시물 삭제</button>
                             </div>
                         </div>
                     </div>

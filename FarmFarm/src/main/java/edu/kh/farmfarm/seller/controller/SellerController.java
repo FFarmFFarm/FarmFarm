@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,14 +32,14 @@ public class SellerController {
 	
 	
 	// 판매자 정보 페이지로 이동
-	@GetMapping("/seller")
+	@GetMapping("/seller/{memberNo}")
 	public String sellerPage(Model model,
-			@SessionAttribute("loginMember") Member loginMember,
+			@PathVariable("memberNo") int memberNo,
 			@RequestParam(value="cp", required=false, defaultValue="1")int cp) {
 		
-		int memberNo = loginMember.getMemberNo();
-		
 		Member memberInfo = service.selectMemberInfo(memberNo);
+		
+		memberInfo.setMemberNo(memberNo);
 		
 		model.addAttribute("memberInfo", memberInfo);
 		
