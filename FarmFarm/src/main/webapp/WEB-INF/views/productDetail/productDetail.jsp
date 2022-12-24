@@ -19,18 +19,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Product Detail</title>
 
-    <link rel="stylesheet" href="/resources/css/common/header-style.css" />
-    <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
-    <link rel="stylesheet" href="/resources/css/modal/reviewImg-style.css" />
-    <link rel="stylesheet" href="/resources/css/modal/reviewDetail-style.css" />
+
+    <!-- Swiper JS css-->
     <link
       rel="stylesheet"
-      href="/resources/css/productDetail/productDetail-style.css"
+      href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"
     />
+
+    <!-- 헤더/푸터 -->
+    <link rel="stylesheet" href="/resources/css/common/header-style.css" />
+    <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
+
+
+    <!-- 모달창 스타일 -->
+    <link rel="stylesheet" href="/resources/css/modal/reviewImg-style.css" />
+    <link rel="stylesheet" href="/resources/css/modal/reviewDetail-style.css" />
+    <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
+
+
+    <link
+    rel="stylesheet"
+    href="/resources/css/productDetail/productDetail-style.css"
+    />
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
+
+    <!-- fontawesome -->
     <script
       src="https://kit.fontawesome.com/591746f9e8.js"
       crossorigin="anonymous"
     ></script>
+
+
   </head>
   <body>
     <jsp:include page="/WEB-INF/views/common/header.jsp"/>
@@ -102,14 +124,22 @@
                 <i class="fa-regular fa-comment-dots"></i>
               </button>
             </c:if>
-            <c:if test="${product.soldoutFl eq 'Y'|| product.stock == 0}">
-              <button type="button" class="cart-btn" disabled>장바구니 담기</button>
-              <button type="button" class="order-btn" disabled>주문하기</button>
+
+            <c:if test="${product.soldoutFl eq 'Y'}">
+                <button type="button" class="cart-btn" disabled>장바구니 담기</button>
+                <button type="button" class="order-btn" disabled >주문하기</button>
             </c:if>
             <c:if test="${product.soldoutFl ne 'Y'}">
-              <button type="button" class="cart-btn">장바구니 담기</button>
-              <button type="button" class="order-btn">주문하기</button>
+              <c:if test="${product.stock == 0}">
+                <button type="button" class="cart-btn" disabled>장바구니 담기</button>
+                <button type="button" class="order-btn" disabled>주문하기</button>
+              </c:if>
+              <c:if test="${product.stock > 0}">
+                <button type="button" class="cart-btn" id="cartBtn">장바구니 담기</button>
+                <button type="button" class="order-btn" id="orderBtn">주문하기</button>
+              </c:if>
             </c:if>
+
           </div>
         </div>
         <button type="button" class="share-btn" id="shareBtn">
@@ -193,7 +223,7 @@
 
           <c:if test="${reviewCount > 0}">
           <c:forEach var="review" items="${reviewList}">
-            <li class="review">
+            <li class="review" id="${review.reviewNo}">
                 <div class="review-writer">
                  <c:if test="${empty review.profileImg}">
                     <img
@@ -230,13 +260,11 @@
                 </div>
                 <div class="review-create-date">
                   <span>${review.createDate}</span>
-                  <c:if test="${! empty loginMember}">
                   <c:if test="${review.likeCheck > 0}">
-                    <button class="clicked"><i class="fa-regular fa-thumbs-up "></i>도움돼요</button>
+                  <button class="clicked helped-btn" id="R${review.reviewNo}"><i class="fa-regular fa-thumbs-up "></i>도움돼요</button>
                   </c:if>
                   <c:if test="${review.likeCheck == 0}">
-                    <button class="unclicked"><i class="fa-regular fa-thumbs-up "></i>도움돼요</button>
-                  </c:if>
+                  <button class="unclicked helped-btn" id="R${review.reviewNo}"><i class="fa-regular fa-thumbs-up "></i>도움돼요</button>
                   </c:if>
                 </div>
               </div>
@@ -257,94 +285,13 @@
     </main>
 
 
-    <!-- 리뷰 이미지 목록 모달창 -->
-    <div class="review-img-container hide">
-      <div class="review-img-list-modal">
-        <div class="review-img-head">
-          <button type="button" class="back-btn">
-            <i class="fa-solid fa-chevron-left"></i>
-          </button>
-          <span class="review-img-head-title">후기 목록</span>
-          <span class="empty"></span>
-        </div>
-        <div class="review-img-area">
-          <div class="review-list-img">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-        </div>
-        <div class="pagenation-area">
-          <button><i class="fa-solid fa-chevron-left"></i></button>
-          <button><i class="fa-solid fa-chevron-right"></i></button>
-        </div>
-      </div>
-    </div>
 
+    <!-- modal -->
+    <jsp:include page="/WEB-INF/views/productDetail/modal/reviewImgList.jsp"/>
+    <jsp:include page="/WEB-INF/views/productDetail/modal/reviewDetail.jsp"/>
+    <jsp:include page="/WEB-INF/views/common/modal/loginConfirm.jsp"/>
+    <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
 
-    <!-- 리뷰 상세조회 모달창 -->
-    <div class="review-detail-container hide" id="reviewDetail">
-      <div class="review-detail-modal">
-        <div class="review-head">
-          <button type="button" class="back-btn" id="backBtn">
-            <i class="fa-solid fa-chevron-left"></i>
-          </button>
-          <span class="review-head-title">후기 상세</span>
-          <span class="empty"></span>
-        </div>
-        <div class="review-product-preview">
-          <div class="product-thumbnail">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="review-product-name">
-            <span>[이연복의 목란] 짬뽕 2인분</span>
-          </div>
-        </div>
-        <div class="review-content-area">
-          <div class="review-detail-content">
-            너무 맛있어요 <br />
-            토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요 <br />
-            너무 맛있어요 <br />
-            토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요 <br />
-            너무 맛있어요 <br />
-            토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요 <br />
-            너무 맛있어요 <br />
-            토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요 <br />
-            너무 맛있어요 <br />
-            토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요 <br />
-            너무 맛있어요 <br />
-            토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요 <br />
-            토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요 <br />
-            너무 맛있어요 <br />
-            토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요 <br />
-            토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요 <br />
-            너무 맛있어요 <br />
-            토마토 주스 만들어 먹었는데 설탕 안넣어도 달아요 <br />
-          </div>
-          <div class="review-notice">
-            <p>개인의 경험일 뿐 사실과 다를 수 있습니다.</p>
-          </div>
-          <div class="review-uploaded-img">
-            <div class="uploaded-img">
-              <img
-                src="/resources/images/post/postDetail/detail/20180802_1_15415.jpg"
-                alt=""
-              />
-            </div>
-          </div>
-          <div class="review-create-date">
-            <span>2022.12.16</span>
-            <c:if test="${! empty loginMember}">
-              <button><i class="fa-regular fa-thumbs-up"></i>도움돼요</button>
-            </c:if>
-          </div>
-        </div>
-      </div>
-    </div>
 
 
     <!-- footer -->
@@ -353,16 +300,21 @@
 
   </body>
 
-   <script>
+
+  <script>
 
     memberNo = "${loginMember.memberNo}";
     stock = "${product.stock}";
+    loginMember = "${loginMember}";
+    
 
-   </script>
+  </script>
 
-   <!-- jquery -->
-   <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
-    <script src="/resources/js/common/common.js"></script>
-    <script src="/resources/js/productDetail/productDetail.js"></script>
+  <!-- jquery -->
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+  <!-- script -->
+  <script src="/resources/js/common/common.js"></script>
+  <script src="/resources/js/productDetail/productDetail.js"></script>
 </html>

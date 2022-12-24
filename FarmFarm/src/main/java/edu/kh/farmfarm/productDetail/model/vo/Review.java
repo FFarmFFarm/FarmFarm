@@ -16,6 +16,7 @@ public class Review {
 	private int productNo;
 	private String createDate;
 	private String productName;
+	private String productThumbnail;
 	
 	private int likeCheck;
 	private int likeCount;

@@ -1,4 +1,4 @@
-package edu.kh.farmfarm.productList.model.service;
+package edu.kh.farmfarm.postList.model.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -11,15 +11,16 @@ import edu.kh.farmfarm.category.model.vo.Category;
 import edu.kh.farmfarm.category.model.vo.CategorySub;
 import edu.kh.farmfarm.common.Pagination;
 import edu.kh.farmfarm.common.Util;
+import edu.kh.farmfarm.postList.model.dao.PostListDAO;
 import edu.kh.farmfarm.productDetail.model.vo.Product;
-import edu.kh.farmfarm.productList.model.dao.ProductListDAO;
+import edu.kh.farmfarm.postDetail.model.vo.Post;
 
 @Service
-public class ProductListServiceImpl implements ProductListService {
+public class PostListServiceImpl implements PostListService {
 	
 	@Autowired
-	private ProductListDAO dao;
-
+	private PostListDAO dao;
+	
 	/**
 	 * 카테고리 목록 가져오기
 	 */
@@ -56,7 +57,7 @@ public class ProductListServiceImpl implements ProductListService {
 	 *  모든 상품 목록 가져오기
 	 */
 	@Override
-	public Map<String, Object> getProductListAll(int cp, String keyword, String sort) {
+	public Map<String, Object> getPostListAll(int cp, String keyword, String sort) {
 		
 		// 1. 전체 개수를 가져옴
 		int listCount = dao.getCountAll(keyword);
@@ -65,22 +66,21 @@ public class ProductListServiceImpl implements ProductListService {
 		Pagination pagination = new Pagination(listCount, cp, 12);
 		
 		// 3. 페이지 네이션 객체를 생성해 목록 불러오기
-		List<Product> productList = dao.getProductListAll(pagination, keyword, sort);
+		List<Post> postList = dao.getPostListAll(pagination, keyword, sort);
 		
 		// 4. 개행문자 처리(util - newLineClear)
-		for(Product product : productList) {
-			product.setProductMessage(Util.newLineClear(product.getProductMessage()));
+		for(Post post : postList) {
+			post.setPostContent(Util.newLineClear(post.getPostContent()));
 		}
 		
 		// 5. 맵 만들기
-		Map<String, Object> productMap = new HashMap<String, Object>();
-		
+		Map<String, Object> postMap = new HashMap<String, Object>();
 		
 		// 6. 맵에 값 담기
-		productMap.put("productList", productList);
-		productMap.put("pagination", pagination);
+		postMap.put("postList", postList);
+		postMap.put("pagination", pagination);
 		
-		return productMap;
+		return postMap;
 	}
 
 
@@ -88,7 +88,7 @@ public class ProductListServiceImpl implements ProductListService {
 	 *  선택된 상품 목록 불러오기
 	 */
 	@Override
-	public Map<String, Object> getProductListChecked(int cp, String keyword, int category, String sort) {
+	public Map<String, Object> getPostListChecked(int cp, String keyword, int category, String sort) {
 		
 		// 1. 전체 개수를 가져옴
 		int listCount = dao.getCountChecked(keyword, category);
@@ -97,20 +97,20 @@ public class ProductListServiceImpl implements ProductListService {
 		Pagination pagination = new Pagination(listCount, cp, 12);
 		
 		// 3. 페이지 네이션 객체를 생성해 목록 불러오기
-		List<Product> productList = dao.getProductListChecked(pagination, keyword, category, sort);
+		List<Post> postList = dao.getPostListChecked(pagination, keyword, category, sort);
 		
 		// 4. 개행문자 처리(util - newLineClear)
-		for(Product product : productList) {
-			product.setProductMessage(Util.newLineClear(product.getProductMessage()));
+		for(Post post : postList) {
+			post.setPostContent(Util.newLineClear(post.getPostContent()));
 		}
 		
 		// 5. 맵 만들기
-		Map<String, Object> productMap = new HashMap<String, Object>();
+		Map<String, Object> postMap = new HashMap<String, Object>();
 		
 		// 6. 맵에 값 담기
-		productMap.put("productList", productList);
-		productMap.put("pagination", pagination);
+		postMap.put("postList", postList);
+		postMap.put("pagination", pagination);
 		
-		return productMap;
+		return postMap;
 	}
 }

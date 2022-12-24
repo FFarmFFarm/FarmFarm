@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="postListMapper">
+
+
+	 <resultMap type="Post" id="postList_rm">
+	        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+	     <id property = "postNo" column="POST_NO"/>
+	     <!-- 나머지 일반 컬럼 -->
+	      <result property="postTitle" column="POST_TITLE" />
+	      <result property="unitPrice" column="UNIT_PRICE" />
+	      <result property="categoryNo" column="CATEGORY_NO" />
+	      <result property="postContent" column="POST_CONTENT" />
+	      <result property="thumbnailImg" column="THUMBNAIL_IMG" />
+	      <result property="postView" column="POST_VIEW" />
+	 </resultMap>
+
+
+
+	<!-- 모든 상품 목록을 불러오는 SQL -->
+	<select id="getPostList_all" parameterType="SearchItem" resultMap="postList_rm">
+		SELECT POST_NO, POST_TITLE,
+			   TO_CHAR(UNIT_PRICE, 'FM999,999,999,999') UNIT_PRICE, 
+		       CATEGORY_NO, POST_CONTENT, POST_VIEW,
+				(SELECT POST_IMG_ADDRESS
+			   	FROM POST_IMG PIMG
+			   	WHERE PIMG.POST_NO = P.POST_NO
+			   	AND POST_IMG_ORDER = 0
+			   	AND ROWNUM = 1) AS THUMBNAIL_IMG
+		FROM POST P
+		<if test=' keyword != null '>
+			WHERE POST_TITLE LIKE '%${keyword}%' 
+		</if>
+		<if test=' sort != null'>
+			<choose>
+				<when test=' sort == "views" '>
+					ORDER BY POST_VIEW DESC
+				</when>
+				<when test=' sort == "newest" '>
+					ORDER BY POST_NO DESC
+				</when>
+				<when test=' sort == "priceLowToHigh" '>
+					ORDER BY UNIT_PRICE
+				</when>
+				<when test=' sort == "priceHighToLow" '>
+					ORDER BY UNIT_PRICE DESC
+				</when>
+			</choose>
+		</if>
+
+	</select>
+	
+	<!-- 모든 상품 목록의 개수를 가져오는 SQL -->
+	<select id="getCount_all" parameterType="SearchItem" resultType="_int">
+		SELECT COUNT(*)
+		FROM POST
+		<if test=' #{keyword} != null '>
+			WHERE POST_TITLE LIKE '%' || #{keyword} || '%' 
+		</if>
+	</select>
+	
+	<!-- 선택한 상품의 카테고리 목록을 불러오는 SQL -->
+	<select id="getPostList_checked" parameterType="SearchItem" resultMap="postList_rm">
+		SELECT POST_NO, POST_TITLE, 
+			   TO_CHAR(UNIT_PRICE, 'FM999,999,999,999') UNIT_PRICE, 
+			   CATEGORY_NO, POST_CONTENT, POST_VIEW,
+				(SELECT POST_IMG_ADDRESS
+			   	FROM POST_IMG PIMG
+			   	WHERE PIMG.POST_NO = P.POST_NO
+			   	AND POST_IMG_ORDER = 0
+			   	AND ROWNUM = 1) AS THUMBNAIL_IMG
+		FROM POST P
+		WHERE CATEGORY_NO = #{category} 
+		<if test=' keyword != null '>
+			AND POST_TITLE LIKE '%${keyword}%' 
+		</if>
+		<if test=' sort != null'>
+			<choose>
+				<when test=' sort == "views" '>
+					ORDER BY POST_VIEW DESC
+				</when>
+				<when test=' sort == "newest" '>
+					ORDER BY POST_NO DESC
+				</when>
+				<when test=' sort == "priceLowToHigh" '>
+					ORDER BY UNIT_PRICE
+				</when>
+				<when test=' sort == "priceHighToLow" '>
+					ORDER BY UNIT_PRICE DESC
+				</when>
+			</choose>
+		</if>
+
+	</select>
+	
+	<!-- 모든 상품 목록의 개수를 가져오는 SQL -->
+	<select id="getCount_checked" parameterType="SearchItem" resultType="_int">
+		SELECT COUNT(*)
+		FROM POST
+		WHERE CATEGORY_NO = #{category}
+		<if test=' #{keyword} != null '>
+			AND POST_TITLE LIKE '%' || #{keyword} || '%' 
+		</if>
+	</select>
+
+
+</mapper>

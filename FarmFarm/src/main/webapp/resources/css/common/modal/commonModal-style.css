@@ -1,0 +1,126 @@
+.login-confirm-container{
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--modal-background-color);
+
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: var(--main-font-size);
+  font-family: "NotoSansKR-Bold";
+}
+
+.login-confirm-container > div:first-child {
+  width: 300px;
+  height: 140px;
+  background-color: white;
+
+  border-radius: 5px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.login-confirm-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: 70%;
+}
+
+.login-confirm-btn {
+  width: 100%;
+  height: 40px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.login-confirm-btn > button {
+  width: 50%;
+
+  font-weight: bold;
+}
+
+.login-confirm-btn > button:last-child {
+  color: var(--point-color);
+}
+
+/* 메세지 모달창 관련 */
+
+.message-container {
+  width: 100vw;
+  height: 85vh;
+
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+
+  font-size: var(--main-font-size);
+  font-family: "NotoSansKR-Bold";
+}
+
+.message-area {
+  min-width: 200px;
+  min-height: 30px;
+  background-color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 5px;
+
+  font-weight: bold;
+
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .2);
+}
+
+.hide {
+  display: none;
+  opacity: 0;
+}
+
+.appear {
+  animation: fade-in 0.3s;
+  animation-fill-mode: forwards;
+  display: flex;
+}
+
+.disappear {
+  animation: fade-out 0.3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+
+  }
+  to {
+    opacity: 0;
+  }
+}
