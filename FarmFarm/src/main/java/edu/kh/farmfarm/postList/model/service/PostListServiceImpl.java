@@ -60,7 +60,7 @@ public class PostListServiceImpl implements PostListService {
 	public Map<String, Object> getPostListAll(int cp, String keyword, String sort) {
 		
 		// 1. 전체 개수를 가져옴
-		int listCount = dao.getCountAll();
+		int listCount = dao.getCountAll(keyword);
 		
 		// 2. 가져온 개수와, 현재 페이지(cp)를 이용해서 페이지네이션 객체를 생성
 		Pagination pagination = new Pagination(listCount, cp, 12);
@@ -91,7 +91,7 @@ public class PostListServiceImpl implements PostListService {
 	public Map<String, Object> getPostListChecked(int cp, String keyword, int category, String sort) {
 		
 		// 1. 전체 개수를 가져옴
-		int listCount = dao.getCountChecked(category);
+		int listCount = dao.getCountChecked(keyword, category);
 		
 		// 2. 가져온 개수와, 현재 페이지(cp)를 이용해서 페이지네이션 객체를 생성
 		Pagination pagination = new Pagination(listCount, cp, 12);

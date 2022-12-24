@@ -23,3 +23,23 @@ const copy = (text) => {
   document.execCommand('copy');
   document.body.removeChild($textarea);
 };
+
+/* 문자열에서 일부 특수문자 제거 */
+const replaceSpecialSymbols = (text) => {   
+  // 문자열을 파라미터로 받아서
+  // 웹해킹에 사용될 가능성이 있는 특수문자를 전부 제거하고 
+  // 결과를 반환
+  
+  text = text.replace(/\=/gi, '');
+  text = text.replace(/\&/gi, '');
+  text = text.replace(/\?/gi, '');
+  text = text.replace(/\@/gi, '');
+  text = text.replace(/\#/gi, '');
+  text = text.replace(/\$/gi, '');
+  text = text.replace(/\%/gi, '');
+  text = text.replace(/\;/gi, '');
+  text = text.replace(/\|/gi, '');
+  text = text.replace(/\\/gi, '');
+
+  return text;
+}

@@ -28,7 +28,7 @@
 			   	AND POST_IMG_ORDER = 0
 			   	AND ROWNUM = 1) AS THUMBNAIL_IMG
 		FROM POST P
-		<if test=' #{keyword} != null '>
+		<if test=' keyword != null '>
 			WHERE POST_TITLE LIKE '%${keyword}%' 
 		</if>
 		<if test=' sort != null'>
@@ -51,13 +51,16 @@
 	</select>
 	
 	<!-- 모든 상품 목록의 개수를 가져오는 SQL -->
-	<select id="getCount_all" resultType="_int">
+	<select id="getCount_all" parameterType="SearchItem" resultType="_int">
 		SELECT COUNT(*)
 		FROM POST
+		<if test=' #{keyword} != null '>
+			WHERE POST_TITLE LIKE '%' || #{keyword} || '%' 
+		</if>
 	</select>
 	
 	<!-- 선택한 상품의 카테고리 목록을 불러오는 SQL -->
-	<select id="getPostList_checked" parameterType="_int" resultMap="postList_rm">
+	<select id="getPostList_checked" parameterType="SearchItem" resultMap="postList_rm">
 		SELECT POST_NO, POST_TITLE, 
 			   TO_CHAR(UNIT_PRICE, 'FM999,999,999,999') UNIT_PRICE, 
 			   CATEGORY_NO, POST_CONTENT, POST_VIEW,
@@ -68,7 +71,7 @@
 			   	AND ROWNUM = 1) AS THUMBNAIL_IMG
 		FROM POST P
 		WHERE CATEGORY_NO = #{category} 
-		<if test=' #{keyword} != null '>
+		<if test=' keyword != null '>
 			AND POST_TITLE LIKE '%${keyword}%' 
 		</if>
 		<if test=' sort != null'>
@@ -91,10 +94,13 @@
 	</select>
 	
 	<!-- 모든 상품 목록의 개수를 가져오는 SQL -->
-	<select id="getCount_checked" parameterType="_int" resultType="_int">
+	<select id="getCount_checked" parameterType="SearchItem" resultType="_int">
 		SELECT COUNT(*)
 		FROM POST
 		WHERE CATEGORY_NO = #{category}
+		<if test=' #{keyword} != null '>
+			AND POST_TITLE LIKE '%' || #{keyword} || '%' 
+		</if>
 	</select>
 
 

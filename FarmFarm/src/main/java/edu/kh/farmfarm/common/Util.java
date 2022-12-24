@@ -41,5 +41,26 @@ public class Util {
 	   public static String newLineClear(String content) {
 		   return content.replaceAll("<br>", "\n");
 	   }
+	   
+	   // 특수문자 제거 : 주소창에 특수문자를 입력한 경우 특수문자를 공백으로 제거함
+	   public static String replaceSpecialSymbol(String text) {
+		   
+		   if(text != null) {
+			   text = text.replaceAll("\\=", "");
+			   text = text.replaceAll("\\&", "");
+			   text = text.replaceAll("\\?", "");
+			   text = text.replaceAll("\\@", "");
+			   text = text.replaceAll("\\#", "");
+			   text = text.replaceAll("\\$", "");
+			   text = text.replaceAll("\\%", "");
+			   text = text.replaceAll("\\;", "");
+			   text = text.replaceAll("\\|", "");
+			   text = text.replaceAll("\\\\", "");
+		   }           
+		   
+		   return text;
+		   
+	   }
+	   
 
 }

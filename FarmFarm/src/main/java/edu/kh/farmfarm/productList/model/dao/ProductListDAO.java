@@ -61,7 +61,7 @@ public class ProductListDAO {
 		SearchItem searchItem = new SearchItem();
 		searchItem.setKeyword(keyword);
 		searchItem.setSort(sort);
-		System.out.println("sort : " + searchItem.getSort());
+		System.out.println("keyword : " + searchItem.getKeyword());
 		
 		
 		return sqlSession.selectList("productListMapper.getProductList_all", searchItem, rowBounds);
@@ -70,8 +70,13 @@ public class ProductListDAO {
 	/** 모든 상품 목록의 개수를 가져오기
 	 * @return
 	 */
-	public int getCountAll() {
-		return sqlSession.selectOne("productListMapper.getCount_all");
+	public int getCountAll(String keyword) {
+		
+		// 검색어 객체 생성
+		SearchItem searchItem = new SearchItem();
+		searchItem.setKeyword(keyword);
+		
+		return sqlSession.selectOne("productListMapper.getCount_all", searchItem);
 	}
 
 	/** 선택된 카테고리의 상품 목록 가져오기
@@ -87,9 +92,12 @@ public class ProductListDAO {
 		// 검색어 객체 생성
 		SearchItem searchItem = new SearchItem();
 		searchItem.setKeyword(keyword);
+		
+		System.out.println("keyword : " + searchItem.getKeyword());
+		
+		
 		searchItem.setCategory(category);
 		searchItem.setSort(sort);
-		System.out.println("sort : " + searchItem.getSort());
 		
 		return sqlSession.selectList("productListMapper.getProductList_checked", searchItem, rowBounds);
 		
@@ -98,8 +106,14 @@ public class ProductListDAO {
 	/** 선택된 상품 목록의 개수를 가져오기
 	 * @return
 	 */
-	public int getCountChecked(int category) {
-		return sqlSession.selectOne("productListMapper.getCount_checked", category);
+	public int getCountChecked(String keyword, int category) {
+		
+		// 검색어 객체 생성
+		SearchItem searchItem = new SearchItem();
+		searchItem.setKeyword(keyword);
+		searchItem.setCategory(category);
+		
+		return sqlSession.selectOne("productListMapper.getCount_checked", searchItem);
 	}
 
 
