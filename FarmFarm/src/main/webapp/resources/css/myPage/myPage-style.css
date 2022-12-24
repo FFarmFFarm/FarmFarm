@@ -219,3 +219,49 @@ a:hover > span,
 button:hover > span {
   color: var(--point-color);
 }
+
+
+/* 페이지네이션 영역 */
+.pagination-area{
+  display: flex;
+  justify-content: center;
+  margin: 50px 0;
+}
+
+/* 페이지 박스 */
+.page-box{
+  color: var(--sub-font-color);
+  border: 1px solid var(--line-color);
+  width: 30px;
+  height: 30px;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font: var(--sub-font-color);
+
+  cursor: pointer;
+}
+
+.page-box:hover{
+  color: var(--main-font-color);
+  font-weight: 600;
+  transition-duration: 0.1s;
+}
+
+/* 현재 페이지 */
+.current-page-box{
+  font-weight: 600;
+  color: white;
+  background-color: var(--point-color);
+  border: 1px solid var(--line-color);
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font: var(--sub-font-color);
+}

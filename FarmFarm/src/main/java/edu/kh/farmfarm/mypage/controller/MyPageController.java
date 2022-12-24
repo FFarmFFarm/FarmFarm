@@ -28,7 +28,7 @@ public class MyPageController {
 	/** 마이페이지 이동(주문목록)
 	 * @return
 	 */
-	@GetMapping("/")
+	@GetMapping("")
 	public String myPage(
 			@SessionAttribute("loginMember")Member loginMember,
 			Model model,

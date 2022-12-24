@@ -76,51 +76,43 @@
           </c:forEach>
           </c:if>
 
-          <div class="pagination-area">
-            <ul class="pagination">
-              <!-- 첫 페이지로 이동 -->
-              <li><a href="/review/${reviewCode}">&lt;&lt;</a></li>
-
-              <!-- 이전 목록 마지막 번호로 이동 -->
-              <li>
-                <a href="/review/${reviewCode}?cp=${pagination.prevPage}"
-                  >&lt;</a
-                >
-              </li>
-
-              <c:forEach
-                var="i"
-                begin="${pagination.startPage}"
-                end="${pagination.endPage}"
-                step="1"
-              >
-                <c:choose>
-                  <c:when test="${i == pagination.currentPage}">
-                    <!-- 현재 보고있는 페이지 -->
-                    <li><a class="current">${i}</a></li>
-                  </c:when>
-
-                  <c:otherwise>
-                    <li><a href="/review/${reviewCode}?cp=${i}">${i}</a></li>
-                  </c:otherwise>
-                </c:choose>
-              </c:forEach>
-
-              <!-- 다음 목록 시작 번호로 이동 -->
-              <li>
-                <a href="/review/${reviewCode}?cp=${pagination.nextPage}"
-                  >&gt;</a
-                >
-              </li>
-
-              <!-- 끝 페이지로 이동 -->
-              <li>
-                <a href="/review/${reviewCode}?cp=${pagination.maxPage}"
-                  >&gt;&gt;</a
-                >
-              </li>
-            </ul>
+        <div class="pagination-area">
+          <!-- ajax로 만들어 보십시다 -->
+          <div id="1" class="page-box">
+              <i class="fa-solid fa-angles-left"></i>
           </div>
+          <div id="${pagination.prevPage}" class="page-box">
+              <i class="fa-solid fa-angle-left"></i>
+          </div>
+          <c:forEach var="i" 
+                      begin="${pagination.startPage}" 
+                      end="${pagination.endPage}"
+                      step="1">
+              <c:choose>
+                  <c:when test="${i == pagination.currentPage}">
+                      <div class="current-page-box">
+                          ${i}
+                      </div>
+                  </c:when>
+              
+                  <c:otherwise>
+                      <div id="${i}" class="page-box">
+                          ${i}
+                      </div>
+                  </c:otherwise>
+              </c:choose>
+          </c:forEach>
+
+          <div id="${pagination.nextPage}" class="page-box">
+              <i class="fa-solid fa-angle-right"></i>
+          </div>
+          <div id="${pagination.endPage}" class="page-box">
+              <i class="fa-solid fa-angles-right"></i>
+          </div>
+        </div>
+
+
+
         </div>
       </section>
     </main>
