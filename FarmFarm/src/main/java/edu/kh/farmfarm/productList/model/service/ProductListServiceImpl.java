@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import edu.kh.farmfarm.category.model.vo.Category;
 import edu.kh.farmfarm.category.model.vo.CategorySub;
 import edu.kh.farmfarm.common.Pagination;
+import edu.kh.farmfarm.common.Util;
 import edu.kh.farmfarm.productDetail.model.vo.Product;
 import edu.kh.farmfarm.productList.model.dao.ProductListDAO;
 
@@ -58,7 +59,7 @@ public class ProductListServiceImpl implements ProductListService {
 	public Map<String, Object> getProductListAll(int cp, String keyword, String sort) {
 		
 		// 1. 전체 개수를 가져옴
-		int listCount = dao.getCountAll();
+		int listCount = dao.getCountAll(keyword);
 		
 		// 2. 가져온 개수와, 현재 페이지(cp)를 이용해서 페이지네이션 객체를 생성
 		Pagination pagination = new Pagination(listCount, cp, 12);
@@ -66,10 +67,16 @@ public class ProductListServiceImpl implements ProductListService {
 		// 3. 페이지 네이션 객체를 생성해 목록 불러오기
 		List<Product> productList = dao.getProductListAll(pagination, keyword, sort);
 		
-		// 4. 맵 만들기
+		// 4. 개행문자 처리(util - newLineClear)
+		for(Product product : productList) {
+			product.setProductMessage(Util.newLineClear(product.getProductMessage()));
+		}
+		
+		// 5. 맵 만들기
 		Map<String, Object> productMap = new HashMap<String, Object>();
 		
-		// 5. 맵에 값 담기
+		
+		// 6. 맵에 값 담기
 		productMap.put("productList", productList);
 		productMap.put("pagination", pagination);
 		
@@ -84,13 +91,18 @@ public class ProductListServiceImpl implements ProductListService {
 	public Map<String, Object> getProductListChecked(int cp, String keyword, int category, String sort) {
 		
 		// 1. 전체 개수를 가져옴
-		int listCount = dao.getCountChecked(category);
+		int listCount = dao.getCountChecked(keyword, category);
 		
 		// 2. 가져온 개수와, 현재 페이지(cp)를 이용해서 페이지네이션 객체를 생성
 		Pagination pagination = new Pagination(listCount, cp, 12);
 		
-		// 4. 페이지 네이션 객체를 생성해 목록 불러오기
+		// 3. 페이지 네이션 객체를 생성해 목록 불러오기
 		List<Product> productList = dao.getProductListChecked(pagination, keyword, category, sort);
+		
+		// 4. 개행문자 처리(util - newLineClear)
+		for(Product product : productList) {
+			product.setProductMessage(Util.newLineClear(product.getProductMessage()));
+		}
 		
 		// 5. 맵 만들기
 		Map<String, Object> productMap = new HashMap<String, Object>();

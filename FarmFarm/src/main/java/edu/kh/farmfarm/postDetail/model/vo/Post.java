@@ -27,5 +27,6 @@ public class Post {
 	private String postImgAddress;
 	
 	private List<PostImg> imgList;
-
+	
+	private String thumbnailImg;
 }

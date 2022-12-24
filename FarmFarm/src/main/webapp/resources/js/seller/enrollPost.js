@@ -41,6 +41,7 @@ for(let i=0; i<inputImg.length; i++){
       }
     }else{
       preview[i].removeAttribute("src");
+      preview[i].nextElementSibling.style.display='block';
       
     }
   });
@@ -54,6 +55,19 @@ for(let i=0; i<inputImg.length; i++){
   });
 }
 
+const unitPrice = document.querySelector("[name='unitPrice']");
+
+unitPrice.addEventListener('keyup', (e)=>{
+  if((e.keyCode < 48 || e.keyCode > 57)&& e.keyCode!=8){
+    alert("숫자만 입력해주세요");
+    e.target.value="";
+  }
+
+  let value = e.target.value;                 
+  value = Number(value.replaceAll(',', ''));
+  const formatValue = value.toLocaleString('ko-KR');
+  unitPrice.value = formatValue;
+})
 
 // 게시글 유효성 검사
 const enrollPostForm = document.getElementById("enrollPostForm");
@@ -83,11 +97,13 @@ enrollPostForm.addEventListener("submit", (event)=>{
     event.preventDefault();
     return;
   }
-  
-  const unitPrice = document.querySelector("[name='unitPrice']");
-  if(unitPrice.value.trim().length==0){
+
+  const price= Number(unitPrice.value.split(",").join(""));
+  unitPrice.value = price;
+
+  if(unitPrice.value==0){
     alert("판매가격을 입력해주세요.");
-    unitPrice.value="";
+    unitPrice.value=0;
     unitPrice.focus();
     event.preventDefault();
     return;
@@ -102,8 +118,13 @@ enrollPostForm.addEventListener("submit", (event)=>{
     return;
   }
 
-  // const thumbnail = document.getElementById("img0");
-  // if(img0.value.)
+  const thumbnail = document.getElementById("img0");
+  if(img0.value.length==0){
+    alert("대표 이미지를 설정해주세요.");
+    img0.value="";
+    event.preventDefault();
+    return;
+  }
 
 
 
@@ -115,5 +136,6 @@ enrollPostForm.addEventListener("submit", (event)=>{
     event.preventDefault();
     return;
   }
+
 });
 

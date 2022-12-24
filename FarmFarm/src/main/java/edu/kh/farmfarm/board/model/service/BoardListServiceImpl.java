@@ -55,8 +55,16 @@ public class BoardListServiceImpl implements  BoardListService{
 		// 페이지네이션 객체 생성
 		Pagination pagination = new Pagination(listCount, cp);
 		
-		// 검색 조건에 맞는 리스트 가져오기
-		List<Board> boardList = dao.seleteBoardList(pagination, searchMap);
+//		if(searchMap.get(boardSelectNVL) != null) {
+//			
+//			
+//			
+//		}else {
+			
+			// 검색 조건에 맞는 리스트 가져오기
+			List<Board> boardList = dao.seleteBoardList(pagination, searchMap);
+//		}
+		
 		
 		Map<String, Object> boardMap = new HashMap<String, Object>();
 		boardMap.put("boardList", boardList);

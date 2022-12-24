@@ -203,10 +203,12 @@ button:disabled:active {
   border-right: 1px solid var(--line-color);
 }
 
-.stock {
+.stock,
+.soldout {
   color: red;
   font-size: var(--small-font-size);
 }
+
 
 .total-price {
   width: 250px;
@@ -391,6 +393,26 @@ button:disabled:active {
   margin-top: 20px;
   margin-left: 10px;
   position: relative;
+}
+
+.sort-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sort-area > * {
+  margin: 0 3px;
+}
+
+.sort-clicked {
+  color: var(--point-color);
+  font-weight: bold;
+}
+
+.or-bar {
+  font-size: var(--small-font-size);
+  color: var(--sub-font-color);
 }
 
 .latest {

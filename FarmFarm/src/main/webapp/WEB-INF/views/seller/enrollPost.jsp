@@ -94,7 +94,8 @@
                         </li>
                         <li class="info-list">
                             <p>판매가격</p>
-                            <input type="text" name="unitPrice">
+                            <input type="text" name="unitPrice" placeholder=0
+                            onfocus="this.placeholder = ''">
                             <p>원</p>
                         </li>
                         <li class="info-list">
@@ -172,10 +173,6 @@
         </section>
 
     </main>
-    
-    <!-- <div id="topBtn" class="view-hidden">
-        <i class="fa-sharp fa-solid fa-arrow-up"></i>
-    </div> -->
 
     <!-- footer -->
     <jsp:include page='/WEB-INF/views/common/footer.jsp' />
@@ -185,7 +182,13 @@
     <!-- ajax -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
-    
+    <c:if test="${! empty message}">
+        <script>
+            alert("${message}");
+        </script>
+        <c:remove var="message"/>
+    </c:if>
+
 </body>
 
 </html>

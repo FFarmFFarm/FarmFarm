@@ -80,3 +80,11 @@ button {
 html{
 	scroll-behavior: smooth;
 }
+
+.hide {
+  display: none;
+}
+
+.scroll-lock {
+  overflow: hidden;
+}

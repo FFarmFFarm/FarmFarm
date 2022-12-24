@@ -50,6 +50,7 @@
 		<mapper resource="/mappers/report-mapper.xml"/>
 		<mapper resource="/mappers/dup-mapper.xml"/>
 		<mapper resource="/mappers/admin-mapper.xml"/>
+		<mapper resource="/mappers/postList-mapper.xml"/>
   	</mappers>
 	
 </configuration>

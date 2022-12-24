@@ -74,4 +74,53 @@ public class ProductDetailDAO {
 
 
 
+	public Review selectReview(Map<String, Object> map) {
+		return sqlSession.selectOne("productDetailMapper.selectReview", map);
+	}
+
+
+
+	public List<Review> selectImgReview(int productNo) {
+		return sqlSession.selectList("productDetailMapper.selectImgReview", productNo);
+	}
+
+
+
+	/** 리뷰 도움돼요 추가
+	 * @param map
+	 * @return
+	 */
+	public int addHelp(Map<String, Object> map) {
+		return sqlSession.insert("productDetailMapper.addHelp", map);
+	}
+
+
+
+	/** 리뷰 도움돼요 취소
+	 * @param map
+	 * @return
+	 */
+	public int removeHelp(Map<String, Object> map) {
+		return sqlSession.delete("productDetailMapper.removeHelp", map);
+	}
+
+
+
+	public int reviewCount(Map<String, Object> paramMap) {
+		return sqlSession.selectOne("productDetailMapper.reviewCount", paramMap);
+	}
+
+
+
+	public List<Review> selectReviewList(Map<String, Object> paramMap, ReviewPagination pagination) {
+		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+
+		
+		return sqlSession.selectList("productDetailMapper.selectReviewList", paramMap, rowBounds);
+	}
+
+
+
 }
