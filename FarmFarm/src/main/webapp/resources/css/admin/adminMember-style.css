@@ -102,8 +102,8 @@ main{
 
 .member-select-table{
     width: 900px;
-    /* height: auto; */
-    height: 500px;
+    height: auto;
+    /* height: 500px; */
     padding: 10px;
     margin: 15px 20px;
     font-size: var(--small-font-size);
@@ -114,6 +114,7 @@ main{
 .member-select-table th{
     color: var(--point-color);
     padding-bottom: 10px;
+    vertical-align: top;
 }
 
 .member-select-table td{
@@ -123,8 +124,6 @@ main{
 .member-select-row{
     height: 30px;
 }
-
-
 
 .member-select-row:hover{
     background-color: #eef4ed;
@@ -140,6 +139,10 @@ main{
 }
 
 
+.report-member-seq{
+    color: var(--point-color);
+    opacity: 50%;
+}
 
 
 /* 페이지네이션 */
