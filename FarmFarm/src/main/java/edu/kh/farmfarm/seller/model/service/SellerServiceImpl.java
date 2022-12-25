@@ -98,6 +98,19 @@ public class SellerServiceImpl implements SellerService{
 		
 		return postNo;
 	}
+
+	
+	// 판매완료처리
+	@Override
+	public int soldoutPost(int postNo) {
+		return dao.soldoutPost(postNo);
+	}
+
+	// 상품삭제처리
+	@Override
+	public int deletePost(int postNo) {
+		return dao.deletePost(postNo);
+	}
 	
 	
 	
