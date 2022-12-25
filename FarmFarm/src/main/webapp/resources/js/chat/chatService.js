@@ -32,18 +32,6 @@ window.addEventListener("DOMContentLoaded", ()=>{
     
 })
 
-window.addEventListener('load', ()=>{
-    // 채팅방 미리보기에 이벤트 부여
-    // const chatPreviewBoxes = document.getElementsByClassName('chat-preview-box');
-
-    // console.log(chatPreviewBoxes);
-
-    // chatPreviewBoxes[0].addEventListener('click', ()=>{
-    //     console.log('ㅇㅇ')
-    // })
-
-})
-
 /* 요소에 클래스, 텍스트를 넣는 함수 */
 const packUpElement = (elementName, elementClass, elementContent) => {
 
