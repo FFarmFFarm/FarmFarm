@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"  %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -56,9 +57,9 @@ ${board.boardContent}
 
                 <div class="board-img-area">
                     <c:if test="${!empty board.imgList}">
-                        <c:forEach var="imgs" items="${board.imgList}">
+                        <c:forEach var="i" begin="0" end="${fn:length(board.imgList)-1}">
                             <div class="board-img">
-                                <img src="${imgs.boardImgAddress}" class="board-preview">
+                                <img src="${board.imgList[i].boardImgAddress}" class="board-preview">
                             </div>
                         </c:forEach>
 
@@ -68,12 +69,20 @@ ${board.boardContent}
         </section>
         <section class="board-like-report">
             <c:if test="${loginMember.memberNo != board.memberNo}">
-                <button class="board-like"><i class="fa-solid fa-heart"></i>&nbsp; 좋아요&nbsp;<span id="likeCount">${board.likeCount}</span></button>
+                <button class="board-like">
+                    <c:if test="${empty likeCheck}">
+                        <i class="fa-regular fa-heart"></i>
+                    </c:if>
+                    <c:if test="${!empty likeCheck}">
+                        <i class="fa-solid fa-heart"></i>
+                    </c:if>
+                    &nbsp; 좋아요&nbsp;<span id="likeCount">${board.likeCount}</span>
+                </button>
                 <button class="board-report">신고</button>
             </c:if>
             <c:if test="${loginMember.memberNo == board.memberNo}">
-                <button>수정하기</button>
-                <button>삭제하기</button>
+                <button id="boardUpdate">수정하기</button>
+                <button id="boardDelete">삭제하기</button>
             </c:if>
         </section>
 
@@ -83,9 +92,12 @@ ${board.boardContent}
 
     </main>
     <script>
-        const boardTypeNo = ${board.boardTypeNo};
+        const boardTypeNo = "${board.boardTypeNo}";
+        const boardNo = "${board.boardNo}";
+        const memberNo = "${loginMember.memberNo}";
     </script>
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="/resources/js/board/boardDetail.js"> </script>
 </body>
 </html>

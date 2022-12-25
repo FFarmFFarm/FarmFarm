@@ -28,6 +28,7 @@
       
       <result property="profileImg" column="PROFILE_IMG" />
       
+      <!-- <collection property="imgList" javaType="java.util.ArrayList"/> -->
       <collection property="imgList" javaType="java.util.ArrayList"
       	ofType="BoardImg" select="selectBoardImgList" column="BOARD_NO"/>
       	
@@ -185,6 +186,7 @@
 	<!-- 게시글 상세조회 -->
 	<select id="boardDetail" resultMap="board_rm">
 		SELECT BOARD_TYPE_NO, BOARD_TITLE, BOARD_CONTENT, MEMBER_NICKNAME, PROFILE_IMG, BOARD_VIEW,
+			BOARD_NO, MEMBER_NO,
 			TO_CHAR(BOARD_DATE, 'YYYY-MM-DD ') || 
 			<![CDATA[
 				CASE
@@ -210,6 +212,27 @@
 		WHERE BOARD_NO = #{boardNo}
 		ORDER BY BOARD_IMG_ORDER
 	</select>
+	
+	<!-- 로그인 멤버가 좋아요 눌렀는지 확인하기 -->
+	<select id="checkLike" resultType="_int">
+		SELECT COUNT(*) FROM "BOARD_LIKE"
+		WHERE BOARD_NO2 = #{boardNo}
+		AND MEMBER_NO2 = #{memberNo}
+	</select>
+	
+	
+	<!-- 게시글 좋아요 취소ㅠ -->
+	<delete id="boardLikeDelete">
+		DELETE FROM "BOARD_LIKE" 
+		WHERE BOARD_NO2 = #{boardNo}
+		AND MEMBER_NO2 = #{memberNo}
+	</delete>
+	
+	<!-- 게시글 좋아용~ -->
+	<insert id="boardLikeInsert">
+		INSERT INTO "BOARD_LIKE"
+		VALUES(#{boardNo}, #{memberNo})
+	</insert>
 
 
 </mapper>
