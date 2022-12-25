@@ -100,5 +100,9 @@
 		</foreach>
 	</insert>
 	
+	<!-- 판매완료처리 -->
+	<update id="soldoutPost">
+		UPDATE POST SET POST_SOLDOUT_FL=1 WHERE POST_NO = #{postNo}
+	</update>
 
 </mapper>
