@@ -78,6 +78,14 @@ public class SellerDAO {
 	public int soldoutPost(int postNo) {
 		return sqlSession.update("sellerMapper.soldoutPost",postNo);
 	}
+
+	/** 상품삭제
+	 * @param postNo
+	 * @return result
+	 */
+	public int deletePost(int postNo) {
+		return sqlSession.delete("sellerMapper.deletePost", postNo);
+	}
 	
 	
 	

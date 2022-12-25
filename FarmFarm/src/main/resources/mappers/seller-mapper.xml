@@ -74,6 +74,7 @@
 		JOIN POST_IMG USING(POST_NO)
 		WHERE MEMBER_NO=#{memberNo}
 		AND POST_IMG_ORDER=0
+		AND POST_DEL_FL='N'
 		ORDER BY POST_DATE DESC
 	</select>
 	
@@ -104,5 +105,12 @@
 	<update id="soldoutPost">
 		UPDATE POST SET POST_SOLDOUT_FL=1 WHERE POST_NO = #{postNo}
 	</update>
+
+	<!-- 게시물 삭제  -->
+	<update id="deletePost">
+		UPDATE POST SET POST_DEL_FL='Y' WHERE POST_NO = #{postNo}
+	</update>
+	
+	
 
 </mapper>
