@@ -17,5 +17,6 @@ public class Chat {
 	private int sendMemberNo;
 	private String chatDelFl;
 	private String readFl;
+	private String chatDate;
 	private String chatTime;
 }

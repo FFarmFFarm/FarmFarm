@@ -3,6 +3,7 @@ let selectedRoomNo;
 let senderNo;
 let partnerNickname;
 let partnerProfileImg;
+let nowDate;
 
 // 소켓
 let chattingSock;
@@ -157,17 +158,33 @@ const makeChatRoom = (myMemberNo, chatHistory, profileImg2, memberNickname2) => 
     // 읽기 영역 비우기
     readingArea.innerHTML = '';
 
+    // 날짜 라벨 초기화
+    nowDate = '';
+
     // 채팅 메세지 넣기
     for(let chat of chatHistory) {
+        if(nowDate != chat.chatDate) {
+            nowDate = chat.chatDate;
+            
+            const dateLabel = document.createElement('div');
+            const dateLabelLine = document.createElement('div');
+
+            packUpElement(dateLabel, 'date-label', nowDate);
+            packUpElement(dateLabelLine, 'date-label-line');
+
+            dateLabelLine.append(dateLabel);
+            readingArea.append(dateLabelLine);
+        }
+
         if(chat.sendMemberNo == myMemberNo) { // 보낸 메세지인 경우
 
-            const sentChat = makeSentChat(chat.chatContent);
+            const sentChat = makeSentChat(chat.chatContent, chat.chatTime);
 
             readingArea.append(sentChat)
 
         } else { // 수신 메세지인 경우
 
-            const receivedChat = makeReceivedChat(profileImg2, memberNickname2, chat.chatContent);
+            const receivedChat = makeReceivedChat(profileImg2, memberNickname2, chat.chatContent, chat.chatTime);
 
             readingArea.append(receivedChat);
         }
@@ -178,34 +195,40 @@ const makeChatRoom = (myMemberNo, chatHistory, profileImg2, memberNickname2) => 
 }
 
 /* 내가 보낸 메세지를 만드는 함수 */
-const makeSentChat = (chatContent) => {
+const makeSentChat = (chatContent, chatTime) => {
     const sentChat = document.createElement('div');
     const sentBubble = document.createElement('div');
     const sentBubbleTail = document.createElement('div');
+    const sentBubbleTime = document.createElement('div');
 
     packUpElement(sentChat, 'sent-chat', null);
     packUpElement(sentBubble, 'sent-bubble', chatContent);
     packUpElement(sentBubbleTail, 'sent-bubble-tail', null);
+    packUpElement(sentBubbleTime, 'sent-bubble-time', chatTime);
 
+    sentBubble.append(sentBubbleTime);
     sentChat.append(sentBubble, sentBubbleTail);
 
     return sentChat;
 }
 
 /* 받은 메세지를 만드는 함수 */
-const makeReceivedChat = (profileImg2, memberNickname2, chatContent) => {
+const makeReceivedChat = (profileImg2, memberNickname2, chatContent, chatTime) => {
     const receivedChat = document.createElement('div');
     const senderProfileImg = document.createElement('div');
     const senderName = document.createElement('div');
     const receivedBubbleTail = document.createElement('div');
     const receivedBubble = document.createElement('div');
+    const receivedBubbleTime = document.createElement('div');
 
     packUpElement(receivedChat, 'received-chat', null);
     packUpElement(senderProfileImg, 'sender-profile-img', profileImg2);
     packUpElement(senderName, 'sender-name', memberNickname2);
     packUpElement(receivedBubbleTail, 'received-bubble-tail', null);
     packUpElement(receivedBubble, 'received-bubble', chatContent);
+    packUpElement(receivedBubbleTime, 'received-bubble-time', chatTime);
 
+    receivedBubble.append(receivedBubbleTime);
     receivedChat.append(senderProfileImg, senderName, receivedBubbleTail, receivedBubble);
 
     return receivedChat;
@@ -245,12 +268,14 @@ document.getElementById('sendBtn').addEventListener('click', ()=>{
         sendChatToServer();
     }
 })
-document.getElementById('inputBox').addEventListener('focus', (e)=>{
-    if(e.target.key === 'Enter') {
-        if(selectedRoomNo != null) {
-            sendChatToServer();
+document.getElementById('inputBox').addEventListener('focus', ()=>{
+    addEventListener('keyup', (e) => {
+        if (e.key === 'Enter') {
+            if (selectedRoomNo != null) {
+                sendChatToServer();
+            }
         }
-    }
+    })
 })
 
 /* 채팅을 받는 함수 */
@@ -260,13 +285,27 @@ chattingSock.onmessage = function(e) {
     const readingArea = document.getElementById('readingArea');
 
     if(selectedRoomNo == chat.roomNo) { // 해당 채팅방을 보고 있는 경우..
+
+        if (nowDate != chat.chatDate) {
+            nowDate = chat.chatDate;
+
+            const dateLabel = document.createElement('div');
+            const dateLabelLine = document.createElement('div');
+
+            packUpElement(dateLabel, 'date-label', nowDate);
+            packUpElement(dateLabelLine, 'date-label-line');
+
+            dateLabelLine.append(dateLabel);
+            readingArea.append(dateLabelLine);
+        }
+
         if(senderNo == chat.sendMemberNo) { // 내가 보낸 채팅인 경우..
-            const sentChat = makeSentChat(chat.chatContent);
+            const sentChat = makeSentChat(chat.chatContent, chat.chatTime);
 
             readingArea.append(sentChat);
 
         } else { // 아닌 경우
-            const receivedChat = makeReceivedChat(partnerProfileImg, partnerNickname, chat.chatContent);
+            const receivedChat = makeReceivedChat(partnerProfileImg, partnerNickname, chat.chatContent, chat.chatTime);
 
             readingArea.append(receivedChat);
 
@@ -280,3 +319,10 @@ chattingSock.onmessage = function(e) {
 
     }
 }
+
+/* 사진 전송 버튼 */
+document.getElementById('addImageBtn').addEventListener('click', ()=>{
+    if(selectedRoomNo != null) {
+        document.getElementById('imageInput').click();
+    }
+})

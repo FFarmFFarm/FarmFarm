@@ -116,6 +116,7 @@
           <!-- 메세지 입력 영역 -->
           <div id="writingArea">
 
+            <input id="imageInput" type="file" accept="image/*" hidden>
             <button id="addImageBtn">
               <i class="fa-solid fa-image"></i>
             </button>

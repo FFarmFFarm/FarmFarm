@@ -30,6 +30,7 @@
 	      <result property="sendMemberNo" column="SEND_MEMBER_NO" />
 	      <result property="chatDelFl" column="CHAT_DEL_FL" />
 	      <result property="readFl" column="READ_FL" />
+	      <result property="chatDate" column="CHAT_DATE" />
 	      <result property="chatTime" column="CHAT_TIME" />
 	 </resultMap>
 	
@@ -71,7 +72,9 @@
 	
 	<!-- 선택한 채팅 내역 가져오기 -->
 	<select id="getChatHistory" parameterType="_int" resultMap="chat_rm">
-		SELECT CHAT_NO, CHAT_CONTENT, SEND_MEMBER_NO, READ_FL, CHAT_TIME
+		SELECT CHAT_NO, CHAT_CONTENT, SEND_MEMBER_NO, READ_FL,
+			   TO_CHAR(CHAT_TIME, 'YYYY-MM-DD') AS CHAT_DATE,
+			   TO_CHAR(CHAT_TIME, 'AM HH":"MI') AS CHAT_TIME
 		FROM "CHAT"
 		WHERE ROOM_NO = #{roomNo}
 		AND CHAT_DEL_FL = 'N'
