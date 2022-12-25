@@ -1,9 +1,17 @@
 // 전역변수
 let selectedRoomNo;
 let senderNo;
+let partnerNickname;
+let partnerProfileImg;
 
 // 소켓
 let chattingSock;
+
+
+// 채팅을 위한 소켓 생성
+if(loginMemberNo = 1) {
+    chattingSock = new SockJS('/echo/chat');
+}
 
 /* Axios, WebSocket */
 
@@ -24,9 +32,6 @@ window.addEventListener("DOMContentLoaded", ()=>{
     // 내 채팅방 목록 가져오기
     axios.post('/chat/chatRoomList')
         .then(function (response) {
-            // 채팅을 위한 소켓 생성
-            chattingSock = new SockJS('/echo/chat');
-
             // 채팅 프리뷰 영역
             const chatPreviewArea = document.querySelector('.chat-preview-area');
 
@@ -111,6 +116,7 @@ const chatPreviewBoxEvent = (chatPreviewBox) => {
     document.getElementById('roomBodyBlinder').style.display='none';
 
     const roomNo = chatPreviewBox.id;
+
     const profileImg2 = chatPreviewBox.children[0].innerHTML;
     const memberNickname2 = chatPreviewBox.children[1].children[0].innerText;
 
@@ -123,6 +129,8 @@ const chatPreviewBoxEvent = (chatPreviewBox) => {
             // 채팅 전송을 위해 전역 변수 세팅
             selectedRoomNo = roomNo;
             senderNo = myMemberNo;
+            partnerProfileImg = profileImg2;
+            partnerNickname = memberNickname2;
 
             // 채팅 내역
             let chatHistory = response.data.chatHistory
@@ -153,41 +161,58 @@ const makeChatRoom = (myMemberNo, chatHistory, profileImg2, memberNickname2) => 
     for(let chat of chatHistory) {
         if(chat.sendMemberNo == myMemberNo) { // 보낸 메세지인 경우
 
-            const sentChat = document.createElement('div');
-            const sentBubble = document.createElement('div');
-            const sentBubbleTail = document.createElement('div');
-
-            packUpElement(sentChat, 'sent-chat', null );
-            packUpElement(sentBubble, 'sent-bubble', chat.chatContent);
-            packUpElement(sentBubbleTail, 'sent-bubble-tail', null);
-
-            sentChat.append(sentBubble, sentBubbleTail);
+            const sentChat = makeSentChat(chat.chatContent);
 
             readingArea.append(sentChat)
 
         } else { // 수신 메세지인 경우
 
-            const receivedChat = document.createElement('div');
-            const senderProfileImg = document.createElement('div');
-            const senderName = document.createElement('div');
-            const receivedBubbleTail = document.createElement('div');
-            const receivedBubble = document.createElement('div');
-
-            packUpElement(receivedChat, 'received-chat', null);
-            packUpElement(senderProfileImg, 'sender-profile-img', profileImg2);
-            packUpElement(senderName, 'sender-name', memberNickname2);
-            packUpElement(receivedBubbleTail, 'received-bubble-tail', null);
-            packUpElement(receivedBubble, 'received-bubble', chat.chatContent);
-
-            receivedChat.append(senderProfileImg, senderName, receivedBubbleTail, receivedBubble);
+            const receivedChat = makeReceivedChat(profileImg2, memberNickname2, chat.chatContent);
 
             readingArea.append(receivedChat);
         }
     }
+
+    const nowScrollHeight = readingArea.scrollHeight;
+    readingArea.scrollTo(0, nowScrollHeight);
+}
+
+/* 내가 보낸 메세지를 만드는 함수 */
+const makeSentChat = (chatContent) => {
+    const sentChat = document.createElement('div');
+    const sentBubble = document.createElement('div');
+    const sentBubbleTail = document.createElement('div');
+
+    packUpElement(sentChat, 'sent-chat', null);
+    packUpElement(sentBubble, 'sent-bubble', chatContent);
+    packUpElement(sentBubbleTail, 'sent-bubble-tail', null);
+
+    sentChat.append(sentBubble, sentBubbleTail);
+
+    return sentChat;
+}
+
+/* 받은 메세지를 만드는 함수 */
+const makeReceivedChat = (profileImg2, memberNickname2, chatContent) => {
+    const receivedChat = document.createElement('div');
+    const senderProfileImg = document.createElement('div');
+    const senderName = document.createElement('div');
+    const receivedBubbleTail = document.createElement('div');
+    const receivedBubble = document.createElement('div');
+
+    packUpElement(receivedChat, 'received-chat', null);
+    packUpElement(senderProfileImg, 'sender-profile-img', profileImg2);
+    packUpElement(senderName, 'sender-name', memberNickname2);
+    packUpElement(receivedBubbleTail, 'received-bubble-tail', null);
+    packUpElement(receivedBubble, 'received-bubble', chatContent);
+
+    receivedChat.append(senderProfileImg, senderName, receivedBubbleTail, receivedBubble);
+
+    return receivedChat;
 }
 
 /* 채팅을 보내는 함수 */
-const sendChat = () => {
+const sendChatToServer = () => {
     // 입력창에서 입력한 내용을 가져오고, 입력창을 비움
     const inputBox = document.getElementById('inputBox');
     
@@ -208,26 +233,50 @@ const sendChat = () => {
 
         chattingSock.send(JSON.stringify(obj));
     }
+
+    // 스크롤을 하단으로 내림
+    const nowScrollHeight = readingArea.scrollHeight;
+    readingArea.scrollTo(0, nowScrollHeight);
 }
 
 /* 버튼, 엔터에 채팅 보내기 이벤트 */
 document.getElementById('sendBtn').addEventListener('click', ()=>{
     if(selectedRoomNo != null) {
-        sendChat();
+        sendChatToServer();
     }
 })
 document.getElementById('inputBox').addEventListener('focus', (e)=>{
-    if(e.key == 'Enter') {
+    if(e.target.key === 'Enter') {
         if(selectedRoomNo != null) {
-            sendChat();
+            sendChatToServer();
         }
     }
 })
 
 /* 채팅을 받는 함수 */
 chattingSock.onmessage = function(e) {
-
     const chat = JSON.parse(e.data);
 
-    console.log(chat);
+    const readingArea = document.getElementById('readingArea');
+
+    if(selectedRoomNo == chat.roomNo) { // 해당 채팅방을 보고 있는 경우..
+        if(senderNo == chat.sendMemberNo) { // 내가 보낸 채팅인 경우..
+            const sentChat = makeSentChat(chat.chatContent);
+
+            readingArea.append(sentChat);
+
+        } else { // 아닌 경우
+            const receivedChat = makeReceivedChat(partnerProfileImg, partnerNickname, chat.chatContent);
+
+            readingArea.append(receivedChat);
+
+        }
+
+        // 스크롤을 하단으로 내림
+        const nowScrollHeight = readingArea.scrollHeight;
+        readingArea.scrollTo(0,nowScrollHeight);
+
+    } else { // 해당 채팅방을 보고 있지 않은 경우..
+
+    }
 }
