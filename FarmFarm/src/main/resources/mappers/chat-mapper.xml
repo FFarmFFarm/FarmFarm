@@ -69,13 +69,29 @@
 		OR (MEMBER_NO2 = #{myMemberNo} AND MEMBER_FL2 = 'N')
 	</select>
 	
-	<!-- 채팅 내역 가져오기 -->
+	<!-- 선택한 채팅 내역 가져오기 -->
 	<select id="getChatHistory" parameterType="_int" resultMap="chat_rm">
 		SELECT CHAT_NO, CHAT_CONTENT, SEND_MEMBER_NO, READ_FL, CHAT_TIME
 		FROM "CHAT"
 		WHERE ROOM_NO = #{roomNo}
 		AND CHAT_DEL_FL = 'N'
 	</select>
+	
+	
+	<!-- 채팅 보내기 -->
+	<insert id="insertChat">
+		INSERT INTO CHAT
+		VALUES(SEQ_CHAT_NO.NEXTVAL, #{roomNo}, #{chatContent}, #{sendMemberNo},
+			   DEFAULT, DEFAULT, DEFAULT)
+	</insert>
+	
+	<!-- 채팅방 정보 가져오기 -->
+	<select id="getRoomInfo" parameterType="_int" resultMap="chatRoom_rm">
+		SELECT MEMBER_NO, MEMBER_NO2
+		FROM CHAT_ROOM
+		WHERE ROOM_NO = #{roomNo}
+	</select>
+	
 
 
 

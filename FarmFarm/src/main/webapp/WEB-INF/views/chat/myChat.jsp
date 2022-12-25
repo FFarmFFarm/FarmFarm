@@ -120,7 +120,7 @@
               <i class="fa-solid fa-image"></i>
             </button>
             <input id="inputBox" type="text" placeholder="메세지를 입력하세요">
-            <button id="sendMessage">
+            <button id="sendBtn">
               <i class="fa-solid fa-paper-plane"></i>
             </button>
 
@@ -131,11 +131,17 @@
         </section>
     </div>
 
+    <!-- https://github.com/sockjs/sockjs-client -->
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+
     <!-- Axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script src="/resources/js/chat/chatService.js"></script>
     <script src="/resources/js/chat/myChat.js"></script>
 
+    <script>
+      const loginMemberNo = "${loginMember.memberNo}";
+    </script>
 </body>
 </html>

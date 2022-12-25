@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.farmfarm.chat.model.dao.ChatDAO;
 import edu.kh.farmfarm.chat.model.vo.Chat;
@@ -26,5 +27,18 @@ public class ChatServiceImpl implements ChatService {
 	@Override
 	public List<Chat> getChatHistory(int roomNo) {
 		return dao.getChatHistory(roomNo);
+	}
+	
+	// 채팅 보내기
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int insertChat(Chat chat) {
+		return dao.insertChat(chat);
+	}
+
+	// 채팅방 참가자 정보를 가져옴
+	@Override
+	public ChatRoom getRoomInfo(int roomNo) {
+		return dao.getRoomInfo(roomNo);
 	}
 }

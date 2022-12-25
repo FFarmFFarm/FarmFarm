@@ -20,4 +20,17 @@ public interface ChatService {
 	 */
 	List<Chat> getChatHistory(int roomNo);
 
+	
+	/** 채팅 보내기
+	 * @param chat
+	 * @return
+	 */
+	int insertChat(Chat chat);
+
+	/** 채팅방 참가자 정보를 가져옴
+	 * @param roomNo
+	 * @return
+	 */
+	ChatRoom getRoomInfo(int roomNo);
+
 }

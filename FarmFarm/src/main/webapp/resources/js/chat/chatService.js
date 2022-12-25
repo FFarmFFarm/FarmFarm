@@ -1,3 +1,10 @@
+// 전역변수
+let selectedRoomNo;
+let senderNo;
+
+// 소켓
+let chattingSock;
+
 /* Axios, WebSocket */
 
 // 요청 생성하기
@@ -11,15 +18,22 @@
 
 //              })
 
-// 내 채팅방 목록 가져오기
+/* 내 채팅방 목록 가져오기 */
 window.addEventListener("DOMContentLoaded", ()=>{
+
     // 내 채팅방 목록 가져오기
     axios.post('/chat/chatRoomList')
         .then(function (response) {
+            // 채팅을 위한 소켓 생성
+            chattingSock = new SockJS('/echo/chat');
+
+            // 채팅 프리뷰 영역
             const chatPreviewArea = document.querySelector('.chat-preview-area');
 
+            // 채팅방 목록
             let chatRoomList = response.data.chatRoomList;
 
+            // 채팅 프리뷰 영역에 채팅방 목록 채워넣기
             for(let chatRoomInfo of chatRoomList) {
                 chatPreviewArea.append(makeChatPreviewBox(chatRoomInfo));
             }
@@ -28,8 +42,6 @@ window.addEventListener("DOMContentLoaded", ()=>{
             console.log(error);
             // location.href = '/error';
         });
-
-    
 })
 
 /* 요소에 클래스, 텍스트를 넣는 함수 */
@@ -107,6 +119,10 @@ const chatPreviewBoxEvent = (chatPreviewBox) => {
         .then(function (response) {
             // 내 번호
             let myMemberNo = response.data.myMemberNo;
+            
+            // 채팅 전송을 위해 전역 변수 세팅
+            selectedRoomNo = roomNo;
+            senderNo = myMemberNo;
 
             // 채팅 내역
             let chatHistory = response.data.chatHistory
@@ -168,4 +184,50 @@ const makeChatRoom = (myMemberNo, chatHistory, profileImg2, memberNickname2) => 
             readingArea.append(receivedChat);
         }
     }
+}
+
+/* 채팅을 보내는 함수 */
+const sendChat = () => {
+    // 입력창에서 입력한 내용을 가져오고, 입력창을 비움
+    const inputBox = document.getElementById('inputBox');
+    
+    const text = inputBox.value;
+    
+    inputBox.value = "";
+    
+    // 웹소켓을 이용해 채팅을 전송
+    if(text.trim().length == 0) {
+        alert("채팅을 입력해주세요!")
+    } else {
+        // json 객체 만들기
+        let obj = {
+            "roomNo" : selectedRoomNo,
+            "sendMemberNo" : senderNo,
+            "chatContent" : text
+        };
+
+        chattingSock.send(JSON.stringify(obj));
+    }
+}
+
+/* 버튼, 엔터에 채팅 보내기 이벤트 */
+document.getElementById('sendBtn').addEventListener('click', ()=>{
+    if(selectedRoomNo != null) {
+        sendChat();
+    }
+})
+document.getElementById('inputBox').addEventListener('focus', (e)=>{
+    if(e.key == 'Enter') {
+        if(selectedRoomNo != null) {
+            sendChat();
+        }
+    }
+})
+
+/* 채팅을 받는 함수 */
+chattingSock.onmessage = function(e) {
+
+    const chat = JSON.parse(e.data);
+
+    console.log(chat);
 }

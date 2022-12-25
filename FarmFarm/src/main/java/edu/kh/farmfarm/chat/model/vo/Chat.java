@@ -10,6 +10,8 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class Chat {
+	
+	private int roomNo;
 	private int chatNo;
 	private String chatContent;
 	private int sendMemberNo;
