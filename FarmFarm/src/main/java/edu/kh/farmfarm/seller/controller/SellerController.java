@@ -102,4 +102,14 @@ public class SellerController {
 		return service.soldoutPost(postNo);
 	}
 	
+	
+	// 상품삭제
+	@ResponseBody
+	@GetMapping("/post/delete")
+	public int deletePost(
+			@RequestParam("postNo") int postNo) {
+
+		return service.deletePost(postNo);
+	}
+	
 }

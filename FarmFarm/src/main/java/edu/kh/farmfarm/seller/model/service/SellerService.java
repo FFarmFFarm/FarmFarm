@@ -42,4 +42,11 @@ public interface SellerService {
 	 */
 	int soldoutPost(int postNo);
 
+
+	/** 상품삭제처리
+	 * @param postNo
+	 * @return result
+	 */
+	int deletePost(int postNo);
+
 }

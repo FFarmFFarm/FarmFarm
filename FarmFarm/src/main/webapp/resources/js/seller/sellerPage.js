@@ -36,3 +36,35 @@ const soldout = (postNo)=>{
     }
   })
 };
+
+// 상품 삭제 버튼
+const deleteBtn = document.querySelectorAll(".delete-btn");
+
+for(let i=0; i<deleteBtn.length; i++){
+  deleteBtn[i].addEventListener("click",()=>{
+    const check =confirm("정말 삭제하시겠습니까?");
+    if(check){
+      console.log(deleteBtn[i].getAttribute("id"));
+      deletePost(deleteBtn[i].getAttribute("id"));
+    } else {
+      alert("취소되었습니다.");
+    }
+  });
+}
+
+const deletePost = (postNo)=>{
+  $.ajax({
+    url: "/post/delete",
+    data: {"postNo" : postNo},
+    type: "GET",
+    success: (result)=>{
+      if(result>0){
+        alert("상품이 삭제되었습니다.");
+        window.location.reload();
+      }
+    },
+    error: ()=>{
+      console.log("완료처리 실패");
+    }
+  })
+};
