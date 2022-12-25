@@ -13,6 +13,8 @@
 	      <result property="postContent" column="POST_CONTENT" />
 	      <result property="thumbnailImg" column="THUMBNAIL_IMG" />
 	      <result property="postView" column="POST_VIEW" />
+	      <result property="postDelFl" column="POST_DEL_FL" />
+	      <result property="postSoldOutFl" column="POST_SOLDOUT_FL" />
 	 </resultMap>
 
 
@@ -21,15 +23,16 @@
 	<select id="getPostList_all" parameterType="SearchItem" resultMap="postList_rm">
 		SELECT POST_NO, POST_TITLE,
 			   TO_CHAR(UNIT_PRICE, 'FM999,999,999,999') UNIT_PRICE, 
-		       CATEGORY_NO, POST_CONTENT, POST_VIEW,
+		       CATEGORY_NO, POST_CONTENT, POST_VIEW, POST_SOLDOUT_FL,
 				(SELECT POST_IMG_ADDRESS
 			   	FROM POST_IMG PIMG
 			   	WHERE PIMG.POST_NO = P.POST_NO
 			   	AND POST_IMG_ORDER = 0
 			   	AND ROWNUM = 1) AS THUMBNAIL_IMG
 		FROM POST P
+		WHERE POST_DEL_FL = 'N'
 		<if test=' keyword != null '>
-			WHERE POST_TITLE LIKE '%${keyword}%' 
+			AND POST_TITLE LIKE '%${keyword}%' 
 		</if>
 		<if test=' sort != null'>
 			<choose>
@@ -54,8 +57,9 @@
 	<select id="getCount_all" parameterType="SearchItem" resultType="_int">
 		SELECT COUNT(*)
 		FROM POST
+		WHERE POST_DEL_FL = 'N'
 		<if test=' #{keyword} != null '>
-			WHERE POST_TITLE LIKE '%' || #{keyword} || '%' 
+			AND POST_TITLE LIKE '%' || #{keyword} || '%' 
 		</if>
 	</select>
 	
@@ -63,14 +67,15 @@
 	<select id="getPostList_checked" parameterType="SearchItem" resultMap="postList_rm">
 		SELECT POST_NO, POST_TITLE, 
 			   TO_CHAR(UNIT_PRICE, 'FM999,999,999,999') UNIT_PRICE, 
-			   CATEGORY_NO, POST_CONTENT, POST_VIEW,
+			   CATEGORY_NO, POST_CONTENT, POST_VIEW, POST_SOLDOUT_FL,
 				(SELECT POST_IMG_ADDRESS
 			   	FROM POST_IMG PIMG
 			   	WHERE PIMG.POST_NO = P.POST_NO
 			   	AND POST_IMG_ORDER = 0
 			   	AND ROWNUM = 1) AS THUMBNAIL_IMG
 		FROM POST P
-		WHERE CATEGORY_NO = #{category} 
+		WHERE POST_DEL_FL = 'N'
+		AND CATEGORY_NO = #{category} 
 		<if test=' keyword != null '>
 			AND POST_TITLE LIKE '%${keyword}%' 
 		</if>
@@ -97,7 +102,8 @@
 	<select id="getCount_checked" parameterType="SearchItem" resultType="_int">
 		SELECT COUNT(*)
 		FROM POST
-		WHERE CATEGORY_NO = #{category}
+		WHERE POST_DEL_FL = 'N'
+		AND CATEGORY_NO = #{category}
 		<if test=' #{keyword} != null '>
 			AND POST_TITLE LIKE '%' || #{keyword} || '%' 
 		</if>

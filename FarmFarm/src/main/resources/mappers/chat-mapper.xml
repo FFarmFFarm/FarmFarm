@@ -3,105 +3,81 @@
 <mapper namespace="chatMapper">
 
 
-	 <resultMap type="Post" id="postList_rm">
+	 <resultMap type="ChatRoom" id="chatRoom_rm">
 	        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
-	     <id property = "postNo" column="POST_NO"/>
+	     <id property = "roomNo" column="ROOM_NO"/>
 	     <!-- 나머지 일반 컬럼 -->
-	      <result property="postTitle" column="POST_TITLE" />
-	      <result property="unitPrice" column="UNIT_PRICE" />
-	      <result property="categoryNo" column="CATEGORY_NO" />
-	      <result property="postContent" column="POST_CONTENT" />
-	      <result property="thumbnailImg" column="THUMBNAIL_IMG" />
-	      <result property="postView" column="POST_VIEW" />
+	      <result property="roomDate" column="ROOM_DATE" />
+	      <result property="memberNo" column="MEMBER_NO" />
+	      <result property="memberFl" column="MEMBER_FL" />
+	      <result property="memberNickname" column="MEMBER_NICKNAME" />
+	      <result property="profileImg" column="PROFILE_IMG" />
+	      <result property="memberNo2" column="MEMBER_NO2" />
+	      <result property="memberFl2" column="MEMBER_FL2" />
+	      <result property="memberNickname2" column="MEMBER_NICKNAME2" />
+	      <result property="profileImg2" column="PROFILE_IMG2" />
+	      <result property="closedFl" column="CLOSED_FL" />
+	      <result property="lastChatTime" column="LAST_CHAT_TIME" />
+	      <result property="lastChatContent" column="LAST_CHAT_CONTENT" />
 	 </resultMap>
-
-
-
-	<!-- 모든 상품 목록을 불러오는 SQL -->
-	<select id="getPostList_all" parameterType="SearchItem" resultMap="postList_rm">
-		SELECT POST_NO, POST_TITLE,
-			   TO_CHAR(UNIT_PRICE, 'FM999,999,999,999') UNIT_PRICE, 
-		       CATEGORY_NO, POST_CONTENT, POST_VIEW,
-				(SELECT POST_IMG_ADDRESS
-			   	FROM POST_IMG PIMG
-			   	WHERE PIMG.POST_NO = P.POST_NO
-			   	AND POST_IMG_ORDER = 0
-			   	AND ROWNUM = 1) AS THUMBNAIL_IMG
-		FROM POST P
-		<if test=' keyword != null '>
-			WHERE POST_TITLE LIKE '%${keyword}%' 
-		</if>
-		<if test=' sort != null'>
-			<choose>
-				<when test=' sort == "views" '>
-					ORDER BY POST_VIEW DESC
-				</when>
-				<when test=' sort == "newest" '>
-					ORDER BY POST_NO DESC
-				</when>
-				<when test=' sort == "priceLowToHigh" '>
-					ORDER BY UNIT_PRICE
-				</when>
-				<when test=' sort == "priceHighToLow" '>
-					ORDER BY UNIT_PRICE DESC
-				</when>
-			</choose>
-		</if>
-
+	 
+	 <resultMap type="Chat" id="chat_rm">
+	        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+	     <id property = "roomNo" column="ROOM_NO"/>
+	     <!-- 나머지 일반 컬럼 -->
+	      <result property="chatNo" column="CHAT_NO" />
+	      <result property="chatContent" column="CHAT_CONTENT" />
+	      <result property="sendMemberNo" column="SEND_MEMBER_NO" />
+	      <result property="chatDelFl" column="CHAT_DEL_FL" />
+	      <result property="readFl" column="READ_FL" />
+	      <result property="chatTime" column="CHAT_TIME" />
+	 </resultMap>
+	
+	
+	
+	<!-- 채팅방 목록 -->
+	<select id="getChatRoomList" parameterType="_int" resultMap="chatRoom_rm">
+		SELECT ROOM_NO, ROOM_DATE, MEMBER_NO, MEMBER_NO2,
+			  (SELECT MEMBER_NICKNAME
+			  	FROM MEMBER M1
+			  	WHERE M1.MEMBER_NO = CR.MEMBER_NO) AS MEMBER_NICKNAME,
+			  (SELECT PROFILE_IMG
+			   FROM MEMBER M1
+			   WHERE M1.MEMBER_NO = CR.MEMBER_NO) AS PROFILE_IMG, 
+			  (SELECT MEMBER_NICKNAME
+			  	FROM MEMBER M2
+			  	WHERE M2.MEMBER_NO = CR.MEMBER_NO2) AS MEMBER_NICKNAME2,
+			  (SELECT PROFILE_IMG
+			   FROM MEMBER M2
+			   WHERE M2.MEMBER_NO = CR.MEMBER_NO2) AS PROFILE_IMG2,
+			   (SELECT CASE WHEN TO_CHAR(CHAT_TIME, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+			   				THEN TO_CHAR(CHAT_TIME, 'AM HH"시" MI"분"')
+			   				ELSE TO_CHAR(CHAT_TIME, 'YYYY-MM-DD') END CHAT_TIME
+			   FROM (SELECT CHAT_TIME
+			   		 FROM CHAT C 
+			   		 WHERE C.ROOM_NO = CR.ROOM_NO 
+			   		 ORDER BY CHAT_NO DESC)
+			   WHERE ROWNUM = 1) AS LAST_CHAT_TIME,
+			  (SELECT CHAT_CONTENT
+			  FROM (SELECT CHAT_CONTENT
+			  		 FROM CHAT C 
+			  		 WHERE C.ROOM_NO = CR.ROOM_NO 
+			  		 ORDER BY CHAT_NO DESC)
+			  WHERE ROWNUM = 1) AS LAST_CHAT_CONTENT
+		FROM CHAT_ROOM CR
+		WHERE (MEMBER_NO = #{myMemberNo} AND MEMBER_FL = 'N')
+		OR (MEMBER_NO2 = #{myMemberNo} AND MEMBER_FL2 = 'N')
 	</select>
 	
-	<!-- 모든 상품 목록의 개수를 가져오는 SQL -->
-	<select id="getCount_all" parameterType="SearchItem" resultType="_int">
-		SELECT COUNT(*)
-		FROM POST
-		<if test=' #{keyword} != null '>
-			WHERE POST_TITLE LIKE '%' || #{keyword} || '%' 
-		</if>
+	<!-- 채팅 내역 가져오기 -->
+	<select id="getChatHistory" parameterType="_int" resultMap="chat_rm">
+		SELECT CHAT_NO, CHAT_CONTENT, SEND_MEMBER_NO, READ_FL, CHAT_TIME
+		FROM "CHAT"
+		WHERE ROOM_NO = #{roomNo}
+		AND CHAT_DEL_FL = 'N'
 	</select>
-	
-	<!-- 선택한 상품의 카테고리 목록을 불러오는 SQL -->
-	<select id="getPostList_checked" parameterType="SearchItem" resultMap="postList_rm">
-		SELECT POST_NO, POST_TITLE, 
-			   TO_CHAR(UNIT_PRICE, 'FM999,999,999,999') UNIT_PRICE, 
-			   CATEGORY_NO, POST_CONTENT, POST_VIEW,
-				(SELECT POST_IMG_ADDRESS
-			   	FROM POST_IMG PIMG
-			   	WHERE PIMG.POST_NO = P.POST_NO
-			   	AND POST_IMG_ORDER = 0
-			   	AND ROWNUM = 1) AS THUMBNAIL_IMG
-		FROM POST P
-		WHERE CATEGORY_NO = #{category} 
-		<if test=' keyword != null '>
-			AND POST_TITLE LIKE '%${keyword}%' 
-		</if>
-		<if test=' sort != null'>
-			<choose>
-				<when test=' sort == "views" '>
-					ORDER BY POST_VIEW DESC
-				</when>
-				<when test=' sort == "newest" '>
-					ORDER BY POST_NO DESC
-				</when>
-				<when test=' sort == "priceLowToHigh" '>
-					ORDER BY UNIT_PRICE
-				</when>
-				<when test=' sort == "priceHighToLow" '>
-					ORDER BY UNIT_PRICE DESC
-				</when>
-			</choose>
-		</if>
 
-	</select>
-	
-	<!-- 모든 상품 목록의 개수를 가져오는 SQL -->
-	<select id="getCount_checked" parameterType="SearchItem" resultType="_int">
-		SELECT COUNT(*)
-		FROM POST
-		WHERE CATEGORY_NO = #{category}
-		<if test=' #{keyword} != null '>
-			AND POST_TITLE LIKE '%' || #{keyword} || '%' 
-		</if>
-	</select>
+
 
 
 </mapper>
