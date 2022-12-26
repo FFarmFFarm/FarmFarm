@@ -40,7 +40,14 @@ public class ChatWebsocketHandler extends TextWebSocketHandler {
 		
 		Chat chat = chatMapper.readValue(message.getPayload(), Chat.class);
 		
-		int result =  service.insertChat(chat);
+		int result = 0;
+		
+		if(chat.getImgFl().equals("Y")) {
+			result = 1;
+		} else {
+			result = service.insertChat(chat);
+		}
+		
 		
 		if(result > 0) {
 			

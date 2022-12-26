@@ -30,4 +30,8 @@ public class ChatRoom {
 	private String lastChatContent;
 	private String lastChatImgFl;
 	
+	private String unreadChatCount;
+	
+	private String chatTimeOrder;
+	
 }

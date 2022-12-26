@@ -36,4 +36,8 @@ public class Board {
 	
 	private String thumbnail;
 
+	private String profileImg;
+	
+	// 댓글 목록을 나타내는 리스트
+	private List<Comment> commentList;
 }

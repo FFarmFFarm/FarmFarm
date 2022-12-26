@@ -27,6 +27,13 @@ public class ChatServiceImpl implements ChatService {
 	public List<ChatRoom> getChatRoomList(int myMemberNo) {
 		return dao.getChatRoomList(myMemberNo);
 	}
+	
+	// 채팅 내역 가져오기 전, 읽음 처리
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updateChatReadFl(Map<String, Object> updateInfo) {
+		return dao.updateChatReadFl(updateInfo);
+	}
 
 	// 채팅 내역 가져오기
 	@Override
@@ -47,13 +54,6 @@ public class ChatServiceImpl implements ChatService {
 		return dao.getRoomInfo(roomNo);
 	}
 	
-	
-	// 채팅 번호 찾기...
-//	@Override
-//	public int selectChatNo(Chat chat) {
-//		return dao.selectChatNo(chat);
-//	}
-
 	// 서버에 사진 저장하기..
 	@Transactional(rollbackFor = Exception.class)
 	@Override
@@ -112,5 +112,6 @@ public class ChatServiceImpl implements ChatService {
 		
 		return result;
 	}
+
 	
 }

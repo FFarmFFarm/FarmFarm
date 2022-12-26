@@ -64,6 +64,13 @@ public interface MyPageService {
 			Member loginMember) throws Exception;
 
 
+	/** 주문 목록 구매 확정
+	 * @param orderNo
+	 * @return
+	 */
+	int orderConfirm(int orderNo);
+
+
 
 
 

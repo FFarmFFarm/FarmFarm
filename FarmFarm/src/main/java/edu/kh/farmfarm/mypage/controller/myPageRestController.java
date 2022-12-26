@@ -27,7 +27,8 @@ public class myPageRestController {
 	
 	@GetMapping("/order/list")
 	public String selectOrderList(
-			@SessionAttribute("loginMember")Member loginMember, int cp
+			@SessionAttribute("loginMember")Member loginMember,
+			@RequestParam(value="cp", required=false, defaultValue = "1") int cp
 			) {
 		
 		
@@ -40,7 +41,8 @@ public class myPageRestController {
 	
 	@GetMapping("/review/list")
 	public String selectReviewList(
-			@SessionAttribute("loginMember")Member loginMember, int cp
+			@SessionAttribute("loginMember")Member loginMember,
+			@RequestParam(value="cp", required=false, defaultValue = "1") int cp
 			) {
 		
 		
@@ -53,7 +55,8 @@ public class myPageRestController {
 	
 	@GetMapping("/board/list")
 	public String selectBoardList(
-			@SessionAttribute("loginMember")Member loginMember, int cp,
+			@SessionAttribute("loginMember")Member loginMember,
+			@RequestParam(value="cp", required=false, defaultValue = "1") int cp,
 			@RequestParam(name ="sortFl", required = false, defaultValue="N") String sortFl
 			) {
 		
@@ -71,7 +74,8 @@ public class myPageRestController {
 	
 	@GetMapping("/comment/list")
 	public String selectCommentList(
-			@SessionAttribute("loginMember")Member loginMember, int cp
+			@SessionAttribute("loginMember")Member loginMember,
+			@RequestParam(value="cp", required=false, defaultValue = "1") int cp
 			) {
 		
 		int memberNo = loginMember.getMemberNo();
@@ -85,7 +89,8 @@ public class myPageRestController {
 	
 	@GetMapping("/wish/list")
 	public String selectWishList(
-			@SessionAttribute("loginMember")Member loginMember, int cp
+			@SessionAttribute("loginMember")Member loginMember,
+			@RequestParam(value="cp", required=false, defaultValue = "1") int cp
 			) {
 		
 		int memberNo = loginMember.getMemberNo();
@@ -112,6 +117,13 @@ public class myPageRestController {
 		return service.updateBgImg(webPath, filePath, mypageImg, loginMember);
 	}
 
+	
+	@GetMapping("/order/confirm")
+	public int orderConfirm(int orderNo) {
+		
+		return service.orderConfirm(orderNo);
+	}
+	
 	
 
 }
