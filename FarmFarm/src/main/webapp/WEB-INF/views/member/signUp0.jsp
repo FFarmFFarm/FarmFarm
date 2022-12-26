@@ -156,12 +156,15 @@
                         crossorigin="anonymous"></script>
 
                     <script>
-                        $(document).ready(function () {
+                    checkObj.agreeInput1 = true;
+                     $(document).ready(function () {
                             $("#close-btn-wrap").click(function () {
                                 $(this).closest(".modal").css("display", "none");
                                 $("#agreeInput").prop("checked", true);
+                                checkObj.agreeInput = true;
+
                             });
-                        })
+                        });
 
                         //휴대폰번호 인증번호 보내기 버튼 클릭 이벤트
                         $('#send').click(function() {
