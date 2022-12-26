@@ -28,7 +28,7 @@
             <div class="select">
                 <div class="select-user">
                     <button class="select-btn">
-                        <a href="/signUp">
+                        <a href="/signUp0">
                             <img src="/resources/images/member/user.png" class="select-img">
                             <div class="select-p">
                                 <p>구매자</p>
@@ -38,7 +38,7 @@
                 </div>
                 <div class="select-farmer">
                     <button class="select-btn">
-                        <a href="/signUp">
+                        <a href="/signUp1">
                             <img src="/resources/images/member/farmer.png" class="select-img">
                             <div class="select-p">
                                 <p>판매자</p>

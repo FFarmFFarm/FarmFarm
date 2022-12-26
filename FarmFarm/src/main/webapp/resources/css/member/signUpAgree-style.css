@@ -1,0 +1,99 @@
+@import "../root-style.css";
+
+body{
+    margin: 0 auto;
+    width: 1000px;
+    background-color: #eeeeee;
+}
+
+.container{
+    width: 1000px;
+    height: 1100px;
+    background-color: var(--background-color);
+    margin: 0 auto;
+    border-radius: 20px;
+    box-shadow: 3px 3px 15px rgba(120, 120, 120, 0.6);
+    display: flex;
+}
+
+.container-sub{
+    margin: 0 auto;
+    margin-top: 60px;
+}
+
+.success-page{
+    margin-bottom: 100px;
+}
+
+.success-img{
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+    margin-bottom: 65px;
+}
+
+.success-img img{
+    width: 180px;
+}
+
+.title{
+    font-size: 27px;
+    color: var(--main-font-color);
+    font-family: "NotoSansKR-Bold";
+    display: flex;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+.subtitle{
+    font-size: 20px;
+    color: #999;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+}
+
+.form-wrap{
+    width: 730px;
+    margin: 0 auto;
+    margin-bottom: 33px;
+}
+
+.form-wrap h2{
+    margin-bottom: 20px;
+}
+
+.close-wrap{
+    display: flex;
+    justify-content: center;
+}
+
+.close-btn{
+    width: 730px;
+    height: 55px;
+    background-color: var(--point-color);
+    font-weight: 700;
+    text-align: center;
+    font-size: var(--title-font-size);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+.close-wrap button {
+    border: none;
+    background-color: var(--point-color);
+
+    font-size: 20px;
+    font-family: "NotoSansKR-Medium";
+    color: var(--background-color);
+    letter-spacing :10px;
+}
+
+.success-btn a{
+    color: var(--background-color);
+    margin-bottom: 2px;
+    font-family: "NotoSansKR-Regular";
+}
