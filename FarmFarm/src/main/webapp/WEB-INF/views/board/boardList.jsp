@@ -89,7 +89,9 @@
                                     <c:if test="${empty board.thumbnail}">
                                         <span class="board-img"></span>
                                     </c:if>
-                                    <span class="board-title"><a href="">${board.boardTitle}&nbsp;(${board.commentCount})</a></span>
+                                    <span class="board-title">
+                                        <a href="/board/${boardTypeNo}/${board.boardNo}?cp=${pagination.currentPage}${sURL}">${board.boardTitle}&nbsp;(${board.commentCount})</a>
+                                    </span>
                                     <span class="board-date">${board.boardDate}</span>
                                     <span class="board-view">${board.boardView}</span>
                                 </li>

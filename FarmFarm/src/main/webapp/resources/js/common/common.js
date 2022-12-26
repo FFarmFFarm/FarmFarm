@@ -76,7 +76,7 @@ const messageModalOpen = (message) => {
 
   displayflex(messageModal);
 
-  setTimeout(() => {displayNone(messageModal) }, 1000);
+  setTimeout(() => {displayNone(messageModal) }, 2000);
 
 }
 

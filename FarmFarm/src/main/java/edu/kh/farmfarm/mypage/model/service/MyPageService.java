@@ -3,6 +3,8 @@ package edu.kh.farmfarm.mypage.model.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import edu.kh.farmfarm.member.model.VO.Member;
 import edu.kh.farmfarm.mypage.model.vo.Comment;
 
@@ -48,6 +50,25 @@ public interface MyPageService {
 	 * @return
 	 */
 	Map<String, Object> selectWishList(int memberNo, int cp);
+
+
+	/** 마이페이지 배경 사진 변경
+	 * @param webPath
+	 * @param filePath
+	 * @param mypageImg
+	 * @param loginMember
+	 * @return
+	 */
+	int updateBgImg(String webPath,
+			String filePath, MultipartFile mypageImg,
+			Member loginMember) throws Exception;
+
+
+	/** 주문 목록 구매 확정
+	 * @param orderNo
+	 * @return
+	 */
+	int orderConfirm(int orderNo);
 
 
 
