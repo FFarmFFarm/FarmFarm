@@ -13,7 +13,7 @@ const makePageBox = (elementName, inputHtml, inputId, className) => {
 //TODO 배경사진 변경하기
 
 const mypageImgInput = document.getElementById('mypageImgInput');
-mypageImgInput?.addEventListener('change', (e) => {
+mypageImgInput.addEventListener('change', (e) => {
 
   if (e.target.files[0] != undefined) {
 
