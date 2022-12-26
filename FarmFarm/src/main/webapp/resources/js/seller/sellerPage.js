@@ -64,7 +64,18 @@ const deletePost = (postNo)=>{
       }
     },
     error: ()=>{
-      console.log("완료처리 실패");
+      console.log("삭제처리 실패");
     }
+  })
+};
+
+const updateBtn = document.querySelectorAll(".update-btn");
+
+for(let i=0; i<updateBtn.length; i++){
+  updateBtn[i].addEventListener("click",()=>{
+
+    url = "/post/" + updateBtn[i].getAttribute("id") +"/update";
+
+    location.href= url;
   })
 };
