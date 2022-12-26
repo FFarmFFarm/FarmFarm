@@ -123,6 +123,8 @@ body{
         /* 스크롤바 숨기기 */
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none;   /* Firefox */
+
+    transition-duration: 0.5s;
 }
 
 /* 스크롤바 숨기기 */
@@ -210,7 +212,7 @@ body{
     justify-content: flex-end;
 }
 
-/* 채팅내용(2줄까지) */
+/* 채팅내용(1줄까지) */
 .last-chat-content{
     font-size: var(--small-font-size);
     width: 160px;
@@ -221,20 +223,22 @@ body{
     white-space: nowrap;
 }
 
-.enter-icon{
-    height: 50px;
-    width: 50px;
-
-    color: #2b8c4470;
-    
-    display: none;
-    justify-content: center;
-    align-items: center;
-
+/* 읽지 않은 채팅 개수 */
+.unread-chat-count{
+    width: 20px;
+    height: 20px;
+    background-color: rgb(250, 83, 83);
+    color: white;
+    font-size: var(--small-font-size);
+    border-radius: 50%;
     position: absolute;
 
-    top: 0px;
-    right: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    bottom: 8px;
+    right: 10px;
 }
 
 /* 채팅박스 hover */
@@ -612,7 +616,7 @@ body{
 .sent-bubble > img{
     background-color: white;
     border-radius: 10px;
-    width: 200px;
+    /* width: 200px; */
     height: 200px;
     padding: 10px;
 }
@@ -665,6 +669,16 @@ body{
     
     bottom: 2px;
     left: -60px;
+
+    position: absolute;
+}
+
+/* 읽음 여부 */
+.sent-bubble-read-fl{
+    font-size: var(--small-font-size);
+
+    bottom: 17px;
+    left: -52px;
 
     position: absolute;
 }
@@ -813,7 +827,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 320px;
+    /* width: 320px; */
     height: 180px;
 }
 
@@ -825,6 +839,12 @@ body{
     justify-content: center;
     align-items: center;
     color: white;
+
+    cursor: pointer;
+}
+
+#sendImgBtn:hover{
+    opacity: 0.8;
 }
 
 #sendBtn{

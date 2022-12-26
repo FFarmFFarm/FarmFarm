@@ -20,6 +20,6 @@ public class Chat {
 	private String chatDate;
 	private String chatTime;
 	
-	private String chatImg;
 	private String imgFl;
+
 }

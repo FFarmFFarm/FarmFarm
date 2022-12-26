@@ -17,9 +17,13 @@
 	      <result property="memberNickname2" column="MEMBER_NICKNAME2" />
 	      <result property="profileImg2" column="PROFILE_IMG2" />
 	      <result property="closedFl" column="CLOSED_FL" />
+	      
 	      <result property="lastChatTime" column="LAST_CHAT_TIME" />
 	      <result property="lastChatContent" column="LAST_CHAT_CONTENT" />
 	      <result property="lastChatImgFl" column="LAST_CHAT_IMG_FL" />
+	      <result property="unreadChatCount" column="UNREAD_CHAT_COUNT" />
+	      
+	      <result property="chatTimeOrder" column="CHAT_TIME_ORDER" />
 	 </resultMap>
 	 
 	 <resultMap type="Chat" id="chat_rm">
@@ -33,7 +37,6 @@
 	      <result property="readFl" column="READ_FL" />
 	      <result property="chatDate" column="CHAT_DATE" />
 	      <result property="chatTime" column="CHAT_TIME" />
-	      <result property="chatImg" column="CHAT_IMG" />
 	      <result property="imgFl" column="IMG_FL" />
 	 </resultMap>
 
@@ -54,18 +57,23 @@
 	<!-- 채팅방 목록 -->
 	<select id="getChatRoomList" parameterType="_int" resultMap="chatRoom_rm">
 		SELECT ROOM_NO, ROOM_DATE, MEMBER_NO, MEMBER_NO2,
+				-- 닉네임1
 			  (SELECT MEMBER_NICKNAME
 			  	FROM MEMBER M1
 			  	WHERE M1.MEMBER_NO = CR.MEMBER_NO) AS MEMBER_NICKNAME,
+			  	-- 이미지1
 			  (SELECT PROFILE_IMG
 			   FROM MEMBER M1
 			   WHERE M1.MEMBER_NO = CR.MEMBER_NO) AS PROFILE_IMG, 
+			   -- 닉네임2
 			  (SELECT MEMBER_NICKNAME
 			  	FROM MEMBER M2
 			  	WHERE M2.MEMBER_NO = CR.MEMBER_NO2) AS MEMBER_NICKNAME2,
+			  	-- 이미지2
 			  (SELECT PROFILE_IMG
 			   FROM MEMBER M2
 			   WHERE M2.MEMBER_NO = CR.MEMBER_NO2) AS PROFILE_IMG2,
+			   -- 날짜(날짜가 오늘 날짜와 같으면 시간만, 아니면 날짜만 가져옴)
 			   (SELECT CASE WHEN TO_CHAR(CHAT_TIME, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 			   				THEN TO_CHAR(CHAT_TIME, 'AM HH"시" MI"분"')
 			   				ELSE TO_CHAR(CHAT_TIME, 'YYYY-MM-DD') END CHAT_TIME
@@ -74,31 +82,52 @@
 			   		 WHERE C.ROOM_NO = CR.ROOM_NO 
 			   		 ORDER BY CHAT_NO DESC)
 			   WHERE ROWNUM = 1) AS LAST_CHAT_TIME,
+	  			-- 읽지 않은 채팅의 개수
+	  		  (SELECT COUNT(*)
+	  		   FROM (SELECT CHAT_NO
+	  		   FROM CHAT C 
+	  		   WHERE C.ROOM_NO = CR.ROOM_NO 
+	  		   AND C.SEND_MEMBER_NO != #{myMemberNo}
+	  		   AND READ_FL = 'N') ) AS UNREAD_CHAT_COUNT,
+			   -- 마지막 대화 내용
 			  (SELECT CHAT_CONTENT
 			  FROM (SELECT CHAT_CONTENT
 			  		 FROM CHAT C 
 			  		 WHERE C.ROOM_NO = CR.ROOM_NO 
 			  		 ORDER BY CHAT_NO DESC)
 			  WHERE ROWNUM = 1) AS LAST_CHAT_CONTENT,
+			  -- 마지막 대화의 텍스트 / 이미지 여부
 			  (SELECT IMG_FL
 			  FROM (SELECT IMG_FL
 			  		 FROM CHAT C 
 			  		 WHERE C.ROOM_NO = CR.ROOM_NO 
 			  		 ORDER BY CHAT_NO DESC)
-			  WHERE ROWNUM = 1) AS LAST_CHAT_IMG_FL
+			  WHERE ROWNUM = 1) AS LAST_CHAT_IMG_FL,
+			  -- 마지막 대화의 날짜(정렬전용)
+			   (SELECT CHAT_NO
+			   FROM (SELECT CHAT_NO
+			   		 FROM CHAT C 
+			   		 WHERE C.ROOM_NO = CR.ROOM_NO 
+			   		 ORDER BY CHAT_NO DESC)
+			   WHERE ROWNUM = 1) AS CHAT_TIME_ORDER
 		FROM CHAT_ROOM CR
 		WHERE (MEMBER_NO = #{myMemberNo} AND MEMBER_FL = 'N')
 		OR (MEMBER_NO2 = #{myMemberNo} AND MEMBER_FL2 = 'N')
+		ORDER BY CHAT_TIME_ORDER DESC
 	</select>
+	
+	<!-- 채팅 업데이트 -->
+	<update id="updateChatReadFl">
+		UPDATE CHAT SET READ_FL ='Y'
+		WHERE ROOM_NO = #{roomNo}
+		AND SEND_MEMBER_NO != #{myMemberNo}
+	</update>
 	
 	<!-- 선택한 채팅 내역 가져오기 -->
 	<select id="getChatHistory" parameterType="_int" resultMap="chat_rm">
 		SELECT CHAT_NO, CHAT_CONTENT, SEND_MEMBER_NO, READ_FL, IMG_FL,
 			   TO_CHAR(CHAT_TIME, 'YYYY-MM-DD') AS CHAT_DATE,
 			   TO_CHAR(CHAT_TIME, 'AM HH":"MI') AS CHAT_TIME
-<!-- 			   (SELECT CHAT_IMG_PATH
-			   FROM "CHAT_IMG" CI
-			   WHERE CI.CHAT_NO = C.CHAT_NO) AS CHAT_IMG -->
 		FROM "CHAT" C
 		WHERE ROOM_NO = #{roomNo}
 		AND CHAT_DEL_FL = 'N'
