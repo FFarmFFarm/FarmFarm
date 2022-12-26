@@ -265,3 +265,63 @@ button:hover > span {
 
   font: var(--sub-font-color);
 }
+
+
+/* 구매 확정 모달창 */
+.order-confirm-container{
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--modal-background-color);
+
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: var(--main-font-size);
+  font-family: "NotoSansKR-Bold";
+}
+
+.order-confirm-container > div:first-child {
+  width: 300px;
+  height: 140px;
+  background-color: white;
+
+  border-radius: 5px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.order-confirm-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: 70%;
+}
+
+.order-confirm-btn {
+  width: 100%;
+  height: 40px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-confirm-btn > button {
+  width: 50%;
+
+  font-weight: bold;
+}
+
+.order-confirm-btn > button:last-child {
+  color: var(--point-color);
+}

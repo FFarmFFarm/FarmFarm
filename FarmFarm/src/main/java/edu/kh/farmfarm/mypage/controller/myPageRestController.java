@@ -3,12 +3,16 @@ package edu.kh.farmfarm.mypage.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
@@ -23,7 +27,8 @@ public class myPageRestController {
 	
 	@GetMapping("/order/list")
 	public String selectOrderList(
-			@SessionAttribute("loginMember")Member loginMember, int cp
+			@SessionAttribute("loginMember")Member loginMember,
+			@RequestParam(value="cp", required=false, defaultValue = "1") int cp
 			) {
 		
 		
@@ -36,7 +41,8 @@ public class myPageRestController {
 	
 	@GetMapping("/review/list")
 	public String selectReviewList(
-			@SessionAttribute("loginMember")Member loginMember, int cp
+			@SessionAttribute("loginMember")Member loginMember,
+			@RequestParam(value="cp", required=false, defaultValue = "1") int cp
 			) {
 		
 		
@@ -49,7 +55,8 @@ public class myPageRestController {
 	
 	@GetMapping("/board/list")
 	public String selectBoardList(
-			@SessionAttribute("loginMember")Member loginMember, int cp,
+			@SessionAttribute("loginMember")Member loginMember,
+			@RequestParam(value="cp", required=false, defaultValue = "1") int cp,
 			@RequestParam(name ="sortFl", required = false, defaultValue="N") String sortFl
 			) {
 		
@@ -67,7 +74,8 @@ public class myPageRestController {
 	
 	@GetMapping("/comment/list")
 	public String selectCommentList(
-			@SessionAttribute("loginMember")Member loginMember, int cp
+			@SessionAttribute("loginMember")Member loginMember,
+			@RequestParam(value="cp", required=false, defaultValue = "1") int cp
 			) {
 		
 		int memberNo = loginMember.getMemberNo();
@@ -81,7 +89,8 @@ public class myPageRestController {
 	
 	@GetMapping("/wish/list")
 	public String selectWishList(
-			@SessionAttribute("loginMember")Member loginMember, int cp
+			@SessionAttribute("loginMember")Member loginMember,
+			@RequestParam(value="cp", required=false, defaultValue = "1") int cp
 			) {
 		
 		int memberNo = loginMember.getMemberNo();
@@ -93,7 +102,28 @@ public class myPageRestController {
 		return new Gson().toJson(map);
 	}
 	
+	
+	@PostMapping("/myPage/update/bgImg")
+	public int updateBgImg(@RequestParam(value="mypageImg") MultipartFile mypageImg, 
+			@SessionAttribute("loginMember") Member loginMember,
+			HttpServletRequest req) throws Exception {
+		
+		
+		String webPath = "/resources/images/myPage/background/";
+		
+		String filePath = req.getSession().getServletContext().getRealPath(webPath);
+		
+		
+		return service.updateBgImg(webPath, filePath, mypageImg, loginMember);
+	}
 
+	
+	@GetMapping("/order/confirm")
+	public int orderConfirm(int orderNo) {
+		
+		return service.orderConfirm(orderNo);
+	}
+	
 	
 
 }

@@ -49,4 +49,25 @@ public interface SellerService {
 	 */
 	int deletePost(int postNo);
 
+	
+	/** 판매글 수정페이지로 이동
+	 * @param postNo
+	 * @return post
+	 */
+	Post selectPostDetail(int postNo);
+
+	/** 판매글 수정
+	 * @param post
+	 * @param postImgList
+	 * @param webPath
+	 * @param folderPath
+	 * @param deleteList
+	 * @return result
+	 * @throws Exception 
+	 */
+	int postUpdate(Post post, List<MultipartFile> postImgList, String webPath, String folderPath, String deleteList) throws Exception;
+
+
+	
+
 }

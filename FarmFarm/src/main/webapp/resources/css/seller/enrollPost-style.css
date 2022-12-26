@@ -78,7 +78,7 @@
     cursor: pointer;
 }
 
-#category-name{
+#categoryName{
     padding-right: 15px;
     color: var(--point-color);
     font-size: var(--main-font-size);

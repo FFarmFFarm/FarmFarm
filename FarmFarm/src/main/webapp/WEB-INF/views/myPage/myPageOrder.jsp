@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="/resources/css/myPage/myPage-style.css" />
     <link rel="stylesheet" href="/resources/css/myPage/myPageOrder-style.css" />
     <link rel="stylesheet" href="/resources/css/modal/reviewForm-style.css" />
+    <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
     <script
       src="https://kit.fontawesome.com/591746f9e8.js"
       crossorigin="anonymous"
@@ -86,17 +87,17 @@
             </div>
             <div class="button-area">
               <c:if test="${order.orderStatus == 0}">
-              <button type="button">구매확정</button>
-              <button type="button">주문취소</button>
+              <button type="button" class="confirmation" id="${order.orderNo}">구매확정</button>
+              <button type="button" class="cancel-order" id="${order.orderNo}">주문취소</button>
               </c:if>
               <c:if test="${order.orderStatus == 1}">
-              <button type="button">구매확정</button>
-              <button type="button">반품요청</button>
+              <button type="button" class="confirmation" id="${order.orderNo}">구매확정</button>
+              <button type="button" class="return" id="${order.orderNo}">반품요청</button>
               </c:if>
               <c:if test="${order.orderStatus == 2}">
               </c:if>
               <c:if test="${order.orderStatus == 3}">
-              <button type="button">리뷰작성</button>
+              <button type="button" class="write-review" id="${order.orderNo}">리뷰작성</button>
               </c:if>
             </div>
           </div>
@@ -151,56 +152,18 @@
 
   </main>
 
-    <div class="review-form-container">
-      <form action="" method="post" class="review-form">
-        <div class="review-head">
-          <button type="button" class="back-btn">
-            <i class="fa-solid fa-chevron-left"></i>
-          </button>
-          <span class="review-head-title">후기 작성</span>
-          <span class="empty"></span>
-        </div>
-        <div class="review-product-preview">
-          <div class="product-thumbnail">
-            <img
-              src="/resources/images/product/thumbnail/productThumbnail.png"
-              alt=""
-            />
-          </div>
-          <div class="product-name">
-            <span>[이연복의 목란] 짬뽕 2인분</span>
-          </div>
-        </div>
-        <div class="review-write-area">
-          <div class="review-write-head">
-            <span>자세한 후기를 들려주세요</span>
-            <span
-              >작성 시 유의사항 <i class="fa-regular fa-circle-question"></i
-            ></span>
-          </div>
-          <div class="review-write-content">
-            <textarea name="" id="" cols="30" rows="10"></textarea>
-          </div>
-          <div class="review-img-upload">
-            <div class="review-one-img">
-              <label for="reviewImg"><i class="fa-solid fa-plus"></i></label>
-              <input type="file" id="reviewImg" />
-            </div>
-          </div>
-          <div class="review-notice">
-            <p>
-              사진은 최대 5장까지, 30MB 이하의 이미지만 업로드가 가능합니다.
-            </p>
-          </div>
-          <div class="review-submit"><button>등록하기</button></div>
-        </div>
-      </form>
-    </div>
+   
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
 
+    <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
+    <jsp:include page="/WEB-INF/views/myPage/modal/orderConfirm.jsp"/>
+    <jsp:include page="/WEB-INF/views/myPage/modal/reviewForm.jsp"/>
+
     <script>
       var cp = "${pagination.currentPage}";
+
+      var confirmOrderNo;
 
     </script>
 

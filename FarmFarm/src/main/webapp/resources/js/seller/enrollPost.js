@@ -119,9 +119,9 @@ enrollPostForm.addEventListener("submit", (event)=>{
   }
 
   const thumbnail = document.getElementById("img0");
-  if(img0.value.length==0){
+  if(thumbnail.value.length==0){
     alert("대표 이미지를 설정해주세요.");
-    img0.value="";
+    thumbnail.value="";
     event.preventDefault();
     return;
   }
