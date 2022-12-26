@@ -36,6 +36,7 @@
 		<typeAlias type="edu.kh.farmfarm.report.model.vo.Report" alias="Report"/>
 		<typeAlias type="edu.kh.farmfarm.common.SearchItem" alias="SearchItem"/>
 		<typeAlias type="edu.kh.farmfarm.seller.model.vo.Seller" alias="Seller"/>
+		<typeAlias type="edu.kh.farmfarm.admin.model.vo.Admin" alias="Admin"/>
 	</typeAliases>
 	
 	<!-- mapper 파일(SQL 작성되는파일) 위치 등록 부분 -->

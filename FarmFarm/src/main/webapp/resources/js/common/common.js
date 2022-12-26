@@ -47,17 +47,20 @@ const loginConfirmOpen = () => {
 
 
 /* 로그인 컨펌창 취소 클릭 시 닫힘 */
-document.getElementById('loginCalcelBtn').addEventListener('click', function () { 
-  const loginConfirm = document.getElementById('loginConfirm');
-  displayNone(loginConfirm);
-})
+if(document.getElementById('loginCalcelBtn') != undefined) {
 
-
+  document.getElementById('loginCalcelBtn').addEventListener('click', function () { 
+    const loginConfirm = document.getElementById('loginConfirm');
+    displayNone(loginConfirm);
+  })
+  
+  
 /* 로그인 컨펌창 확인 클릭 시 로그인 페이지로 이동 */
 document.getElementById('loginConfirmBtn').addEventListener('click', function () { 
   location.href = "/login";
 })
 
+}
 
 /* R1, C1 처럼 앞에 fl 붙은 번호 잘라내기 */
 const cutNumber = (number) => { 
