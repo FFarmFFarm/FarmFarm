@@ -154,9 +154,9 @@
                                 <c:if test="${loginMember.memberNo == memberInfo.memberNo}">
                                     <c:if test="${post.postSoldoutFl == 0}">
                                         <button type="button" class="soldout-btn" id="${post.postNo}">판매완료</button>
-                                        <button type="button">게시물 수정</button>
+                                        <button type="button" class="update-btn" id="${post.postNo}">판매글 수정</button>
                                     </c:if>
-                                    <button type="button" class="delete-btn" id="${post.postNo}">게시물 삭제</button>
+                                    <button type="button" class="delete-btn" id="${post.postNo}">판매글 삭제</button>
                                 </c:if>
                             </div>
                         </div>

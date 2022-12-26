@@ -88,6 +88,48 @@ public class SellerDAO {
 	}
 	
 	
+	/** 게시글 수정페이지로 이동(상세조회)
+	 * @param postNo
+	 * @return
+	 */
+	public Post selectPostDetail(int postNo) {
+		return sqlSession.selectOne("sellerMapper.selectPost", postNo);
+	}
+
+	/** 게시글 수정
+	 * @param post
+	 * @return result
+	 */
+	public int updatePost(Post post) {
+		return sqlSession.update("sellerMapper.updatePost", post);
+	}
+
+	/** 이미지 삭제
+	 * @param condition
+	 * @return result
+	 */
+	public int postImgDelete(String condition) {
+		return sqlSession.delete("sellerMapper.postImgDelete", condition);
+	}
+
+	/** 이미지 업데이트
+	 * @param img
+	 * @return result
+	 */
+	public int postImgUpdate(PostImg img) {
+		return sqlSession.update("sellerMapper.postImgUpdate", img);
+	}
+
+	/** 이미지 삽입
+	 * @param img
+	 * @return result
+	 */
+	public int postImgInsert(PostImg img) {
+		return sqlSession.insert("sellerMapper.postImgInsert", img);
+	}
+
+	
+	
 	
 	
 	
