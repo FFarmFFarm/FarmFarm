@@ -19,7 +19,7 @@ if (writeReviewBtn != undefined) {
   }
 }
 
-
+// FIX: 이미지 넣는 창 처음부터 다섯개 띄우기?
 /* 리뷰 작성 form 모달창 사진 첨부 시 미리보기 생성 및 새로운 input 태그 추가 */
 document.getElementById('imgInput1').addEventListener('change', (e) => { 
 
@@ -31,79 +31,62 @@ document.getElementById('imgInput1').addEventListener('change', (e) => {
 
     fileReader.onload = (event) => {
 
-      document.getElementById('reviewImg1').src = event.target.result;
-      document.getElementById('reviewImg1').style.display = 'block';
-
-      document.getElementById('inputLabel').style.display = 'none';
-
-      const button = document.createElement('button');
-      button.innerHTML = '<i class="fa-solid fa-xmark"></i>';
-
-      document.getElementById('reviewOneImg').append(button);
-
-      button.addEventListener('click', () => { 
-        document.getElementById('imgInput1').val("");
-        reviewImg1.style.display = 'none';
-      })
-
 
     }
   }
 
-  createInput(1);
-  
 })
 
 
 
-const createInput = (order) => { 
-  const imgUploadArea = document.getElementById('imgUploadArea');
+// const createInput = () => { 
+//   const imgUploadArea = document.getElementById('imgUploadArea');
 
-  const div = document.createElement('div');
-  div.classList.add('review-one-img');
+//   const div = document.createElement('div');
+//   div.classList.add('review-one-img');
 
-  const label = document.createElement('label');
-  label.innerHTML = '<i class="fa-solid fa-plus"></i>';
+//   const label = document.createElement('label');
+//   label.innerHTML = '<i class="fa-solid fa-plus"></i>';
 
-  const input = document.createElement('input');
-  input.type = 'file';
-  input.id = 'imgInput' + order;
+//   const input = document.createElement('input');
+//   input.type = 'file';
+//   input.id = 'imgInput' + imgOrder;
 
-  label.append(input);
-  div.append(label);
-  imgUploadArea.append(div);
+//   label.append(input);
+//   div.append(label);
+//   imgUploadArea.append(div);
 
-  input.addEventListener('change', (e) => { 
+//   input.addEventListener('change', (e) => { 
 
     
-    if (e.target.files[0] != undefined) {
+//     if (e.target.files[0] != undefined) {
       
-      const fileReader = new FileReader();
+//       const fileReader = new FileReader();
       
-      fileReader.readAsDataURL(e.target.files[0]);
+//       fileReader.readAsDataURL(e.target.files[0]);
       
-      fileReader.onload = (event) => {
+//       fileReader.onload = (event) => {
 
-        const img = document.createElement('img');
-        img.src = event.target.result;
-        img.classList.add('review-img-thumbnail');
-        img.id = 'reviewImg' + order;
-        img.style.display = 'block';
+//         const img = document.createElement('img');
+//         img.src = event.target.result;
+//         img.classList.add('review-img-thumbnail');
+//         img.id = 'reviewImg' + imgOrder;
+//         img.style.display = 'block';
 
-        label.style.display = 'none';
+//         label.style.display = 'none';
 
-        div.prepend(img);
-      }
-    }
+//         div.prepend(img);
+//       }
+//     }
 
-    order = order + 1;
+    
+//     if (imgOrder <= 4) {
+//       createInput();
+//       imgOrder++;
+//     }
+//   })
 
-    if (order <= 4) {
-      createInput(order);
-    }
-  })
-
-}
+// }
 
 
 

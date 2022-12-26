@@ -34,10 +34,34 @@
             <textarea name="" id="" cols="30" rows="10"></textarea>
           </div>
           <div class="review-img-upload" id="imgUploadArea">
-            <div class="review-one-img" id='reviewOneImg'>
+            <div class="review-one-img" id='reviewOneImg1'>
               <img class="review-img-thumbnail" id="reviewImg1"></img>
               <label id="inputLabel"><i class="fa-solid fa-plus"></i>
                 <input type="file" id="imgInput1" class="input-file"/>
+              </label>
+            </div>
+            <div class="review-one-img hide" id='reviewOneImg2'>
+              <img class="review-img-thumbnail" id="reviewImg2"></img>
+              <label id="inputLabel"><i class="fa-solid fa-plus"></i>
+                <input type="file" id="imgInput2" class="input-file"/>
+              </label>
+            </div>
+            <div class="review-one-img hide" id='reviewOneImg3'>
+              <img class="review-img-thumbnail" id="reviewImg3"></img>
+              <label id="inputLabel"><i class="fa-solid fa-plus"></i>
+                <input type="file" id="imgInput3" class="input-file"/>
+              </label>
+            </div>
+            <div class="review-one-img hide" id='reviewOneImg4'>
+              <img class="review-img-thumbnail" id="reviewImg4"></img>
+              <label id="inputLabel"><i class="fa-solid fa-plus"></i>
+                <input type="file" id="imgInput4" class="input-file"/>
+              </label>
+            </div>
+            <div class="review-one-img hide" id='reviewOneImg5'>
+              <img class="review-img-thumbnail" id="reviewImg5"></img>
+              <label id="inputLabel"><i class="fa-solid fa-plus"></i>
+                <input type="file" id="imgInput5" class="input-file"/>
               </label>
             </div>
           </div>

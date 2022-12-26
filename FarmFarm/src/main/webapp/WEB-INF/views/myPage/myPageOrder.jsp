@@ -165,6 +165,8 @@
 
       var confirmOrderNo;
 
+      var imgOrder = 1;
+
     </script>
 
 
