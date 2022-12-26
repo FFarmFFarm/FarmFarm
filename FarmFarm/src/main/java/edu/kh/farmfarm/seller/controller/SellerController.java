@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.kh.farmfarm.common.Util;
 import edu.kh.farmfarm.member.model.VO.Member;
 import edu.kh.farmfarm.postDetail.model.vo.Post;
 import edu.kh.farmfarm.seller.model.service.SellerService;
@@ -111,5 +112,52 @@ public class SellerController {
 
 		return service.deletePost(postNo);
 	}
+	
+	
+	// 판매글 수정페이지로 이동
+	@GetMapping("/post/{postNo}/update")
+	public String updatePost(
+			@PathVariable("postNo") int postNo, Model model) {
+		
+		Post post = service.selectPostDetail(postNo);
+		
+		post.setPostContent(Util.newLineClear(post.getPostContent()));
+		
+		model.addAttribute("post", post);
+		
+		return "seller/updatePost";
+	}
+	
+	
+	
+	// 판매글 수정
+	@PostMapping("/post/{postNo}/update")
+	public String updatePost(
+			Post post,
+			@PathVariable("postNo") int postNo,
+			@RequestParam(value="deleteList", required=false) String deleteList,
+			@RequestParam(value="postImg", required=false) List<MultipartFile> postImgList,
+			@RequestHeader("referer") String referer,
+			HttpSession session) throws Exception {
+		
+		post.setPostNo(postNo);
+		
+		String webPath = "/resources/images/post/postDetail/";
+		String folderPath = session.getServletContext().getRealPath(webPath);
+		
+		int result = service.postUpdate(post, postImgList, webPath, folderPath, deleteList);
+		
+		String path = null;
+		
+		if(result>0) {
+			path= "/post/"+postNo;
+		}else {
+			path= referer;
+		}
+		
+		return "redirect:" + path;
+	}
+	
+	
 	
 }
