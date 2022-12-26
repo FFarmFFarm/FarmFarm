@@ -33,83 +33,91 @@
       <section class="list-container">
         <jsp:include page="/WEB-INF/views/myPage/myPageNav.jsp"/>
 
-        <form action="" method="post" class="wish-list">
+        <div class="wish-list" >
           <span class="wish-list-title">찜 목록</span>
 
           <c:if test="${empty wishList}">
           <div>찜 목록이 비었습니다</div>
           </c:if>
+
+
+          <div class="wish-list-container" id="wishListContainer">
           <c:if test="${!empty wishList}">
           <c:forEach var="wish" items="${wishList}">
-          
-          <div class="wish">
-            <div class="wish-thumbnail">
-            <c:if test="${! empty wish.productImg}">
-              <img
-                src="${wish.productImg}"
-                alt=""
-                class="wish-thumbnail-img"
-              />
-            </c:if>
+            <div class="wish">
+              <a href="/product/${wish.productNo}" class="wish-thumbnail">
+              <c:if test="${! empty wish.productImg}">
+                <img
+                  src="${wish.productImg}"
+                  alt=""
+                  class="wish-thumbnail-img"
+                />
+              </c:if>
+              </a>
+              <div class="wish-info">
+                <span class="wish-reg-date">${wish.wishDate}</span>
+                <a href="/product/${wish.productNo}" class="wish-title">${wish.productName}</a>
+                <span class="wish-price"><span> ${wish.productPrice}</span>원</span>
+              </div>
+              <button type="button" class="delete-wish-btn">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
             </div>
-            <div class="wish-info">
-              <span class="wish-reg-date">${wish.wishDate}</span>
-              <a href="/product/${productNo}" class="wish-title">${wish.productName}</a>
-              <span class="wish-price"><span> ${wish.productPrice}</span>원</span>
-            </div>
-            <button type="button" class="delete-wish-btn">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-          </div>
 
+            
           </c:forEach>
-          </c:if>
-
-
-          <div class="pagination-area">
-            <ul class="pagination">
-              <!-- 첫 페이지로 이동 -->
-              <li><a href="/board/${boardCode}">&lt;&lt;</a></li>
-
-              <!-- 이전 목록 마지막 번호로 이동 -->
-              <li>
-                <a href="/board/${boardCode}?cp=${pagination.prevPage}">&lt;</a>
-              </li>
-
-              <!-- <c:forEach
-                var="i"
-                begin="${pagination.startPage}"
-                end="${pagination.endPage}"
-                step="1"
-              >
-                <c:choose>
-                  <c:when test="${i == pagination.currentPage}">
-                   현재 보고있는 페이지
-                    <li><a class="current">${i}</a></li>
-                  </c:when>
-  
-                  <c:otherwise>
-                    <li><a href="/board/${boardCode}?cp=${i}">${i}</a></li>
-                  </c:otherwise>
-                </c:choose>
-              </c:forEach> -->
-
-              <!-- 다음 목록 시작 번호로 이동 -->
-              <li>
-                <a href="/board/${boardCode}?cp=${pagination.nextPage}">&gt;</a>
-              </li>
-
-              <!-- 끝 페이지로 이동 -->
-              <li>
-                <a href="/board/${boardCode}?cp=${pagination.maxPage}"
-                  >&gt;&gt;</a
-                >
-              </li>
-            </ul>
+        </c:if>
+        
+        <div class="pagination-area">
+          <!-- ajax로 만들어 보십시다 -->
+          <div id="1" class="page-box">
+              <i class="fa-solid fa-angles-left"></i>
           </div>
-        </form>
+          <div id="${pagination.prevPage}" class="page-box">
+              <i class="fa-solid fa-angle-left"></i>
+          </div>
+          <c:forEach var="i" 
+                      begin="${pagination.startPage}" 
+                      end="${pagination.endPage}"
+                      step="1">
+              <c:choose>
+                  <c:when test="${i == pagination.currentPage}">
+                      <div class="current-page-box">
+                          ${i}
+                      </div>
+                  </c:when>
+              
+                  <c:otherwise>
+                      <div id="${i}" class="page-box">
+                          ${i}
+                      </div>
+                  </c:otherwise>
+              </c:choose>
+          </c:forEach>
+  
+          <div id="${pagination.nextPage}" class="page-box">
+              <i class="fa-solid fa-angle-right"></i>
+          </div>
+          <div id="${pagination.endPage}" class="page-box">
+              <i class="fa-solid fa-angles-right"></i>
+          </div>
+        </div>
+        
+      </div>
+
+
+
+        </div>
       </section>
     </main>
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+
+    <script src="/resources/js/myPage/myPage.js"></script>
+    <script src="/resources/js/myPage/myPageWish.js"></script>
+
   </body>
 </html>

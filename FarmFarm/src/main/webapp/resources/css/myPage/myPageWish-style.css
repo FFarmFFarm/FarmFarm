@@ -58,6 +58,10 @@ a.wish > i {
   justify-content: center;
 }
 
+.wish-list-container {
+  width: 100%;
+}
+
 .wish {
   display: flex;
   justify-content: center;

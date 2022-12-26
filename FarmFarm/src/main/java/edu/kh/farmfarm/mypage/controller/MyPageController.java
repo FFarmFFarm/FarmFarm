@@ -28,7 +28,7 @@ public class MyPageController {
 	/** 마이페이지 이동(주문목록)
 	 * @return
 	 */
-	@GetMapping("/")
+	@GetMapping("")
 	public String myPage(
 			@SessionAttribute("loginMember")Member loginMember,
 			Model model,
@@ -74,12 +74,15 @@ public class MyPageController {
 	public String myPageBoard(
 		@SessionAttribute("loginMember")Member loginMember, 
 		Model model,
-		@RequestParam(value="cp", required=false, defaultValue = "1") int cp) {
+		@RequestParam(value="cp", required=false, defaultValue = "1") int cp,
+		@RequestParam(name ="sortFl", required = false, defaultValue="N") String sortFl) {
 	
-
-	int memberNo = loginMember.getMemberNo();
+		
+	Map<String, Object> paramMap = new HashMap<String, Object>();
+	paramMap.put("memberNo", loginMember.getMemberNo());
+	paramMap.put("sortFl", sortFl);
 	          
-	Map<String, Object> map = service.selectBoardList(memberNo, cp);
+	Map<String, Object> map = service.selectBoardList(paramMap, cp);
 	
 	
 
