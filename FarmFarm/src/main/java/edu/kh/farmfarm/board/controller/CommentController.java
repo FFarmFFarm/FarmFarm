@@ -20,7 +20,7 @@ public class CommentController {
 	private CommentService serivce;
 	
 	
-	@GetMapping("/comment/list")
+	@GetMapping("/board/comment/list")
 	public String commentList( int boardNo) {
 //		List<Comment> coList = serivce.commentList(boardNo);
 		List<Comment> coList = serivce.commentList(boardNo);
