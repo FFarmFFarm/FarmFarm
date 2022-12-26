@@ -13,7 +13,12 @@ const makePageBox = (elementName, inputHtml, inputId, className) => {
 //TODO 배경사진 변경하기
 
 const mypageImgInput = document.getElementById('mypageImgInput');
-mypageImgInput?.addEventListener('change', (e) => {
+const memberBgImg = document.getElementById('memberBgImg');
+
+const originalBgImg = memberBgImg.getAttribute('src');
+
+
+mypageImgInput.addEventListener('change', (e) => {
 
   if (e.target.files[0] != undefined) {
 
@@ -22,7 +27,41 @@ mypageImgInput?.addEventListener('change', (e) => {
     
     fileReader.readAsDataURL(e.target.files[0]);
 
-    fileReader.onload = (e) => {}
+    fileReader.onload = (event) => {
+
+      memberBgImg.src = event.target.result;
+
+    }
+
+    updateBgImg();
+
+  } else {
+
+    memberBgImg.setAttribute('src', originalBgImg);
+
+
   }
 
 })
+
+const updateBgImg = () => {
+
+  const form = document.getElementById('mypageImgForm');
+  const formData = new FormData(form);
+
+  $.ajax({
+    url: '/mypage/update/bgImg',
+    type: 'POST',
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: (result) => {
+      if(result > 0) {
+        messageModalOpen("배경 이미지가 변경되었습니다.");
+      }
+    },
+    error: () => {}
+  })
+
+}
+

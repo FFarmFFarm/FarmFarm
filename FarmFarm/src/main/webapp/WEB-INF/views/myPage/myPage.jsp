@@ -7,8 +7,9 @@
             src="/resources/images/myPage/background/bgImg2.jpg"
             alt=""
             class="member-bg-img"
+            id="memberBgImg"
           />
-          <form action="/myPage/update/bgImg" enctype="multipart/form-data" onsubmit="return profileValidate()">   
+          <form id="mypageImgForm">   
             <label for="mypageImgInput" class="bg-change-btn fa-solid fa-image"></label>
             <input type="file" name="mypageImg" id="mypageImgInput" accept="image/*" style="display:none;"></input>
           </form>
