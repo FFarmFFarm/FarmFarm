@@ -1,13 +1,17 @@
 package edu.kh.farmfarm.mypage.model.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.farmfarm.board.model.vo.Board;
+import edu.kh.farmfarm.common.Util;
 import edu.kh.farmfarm.member.model.VO.Member;
 import edu.kh.farmfarm.mypage.model.dao.MyPageDAO;
 import edu.kh.farmfarm.mypage.model.vo.Comment;
@@ -134,6 +138,49 @@ public class MyPageServiceImpl implements MyPageService {
 		map.put("wishCount", wishCount);
 		
 		return map;
+	}
+	
+	
+	/** 마이페이지 배경 이미지 변경
+	 * @throws Exception 
+	 *
+	 */
+	@Override
+	public int updateBgImg(String webPath, String filePath, 
+			MultipartFile mypageImg, Member loginMember) throws Exception {
+		
+		
+		String temp = loginMember.getMypageImg();
+		
+		String rename = null;
+		
+		if(mypageImg.getSize() == 0) {
+			loginMember.setMypageImg(null);
+		} else {
+			
+			rename = Util.fileRename(mypageImg.getOriginalFilename());
+			
+			loginMember.setMypageImg(webPath + rename);
+			
+		}
+		
+		int result = dao.updateBgImg(loginMember);
+		
+		if(result > 0) {
+			
+			if(rename != null) {
+				
+				mypageImg.transferTo(new File(filePath+rename));
+				
+			}
+			
+		} else {
+			loginMember.setMypageImg(temp);
+			
+			throw new Exception("파일 업로드 실패");
+		}
+		
+		return result;
 	}
 
 }

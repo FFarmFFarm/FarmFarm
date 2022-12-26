@@ -3,12 +3,16 @@ package edu.kh.farmfarm.mypage.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
@@ -93,6 +97,20 @@ public class myPageRestController {
 		return new Gson().toJson(map);
 	}
 	
+	
+	@PostMapping("/myPage/update/bgImg")
+	public int updateBgImg(@RequestParam(value="mypageImg") MultipartFile mypageImg, 
+			@SessionAttribute("loginMember") Member loginMember,
+			HttpServletRequest req) throws Exception {
+		
+		
+		String webPath = "/resources/images/myPage/background/";
+		
+		String filePath = req.getSession().getServletContext().getRealPath(webPath);
+		
+		
+		return service.updateBgImg(webPath, filePath, mypageImg, loginMember);
+	}
 
 	
 
