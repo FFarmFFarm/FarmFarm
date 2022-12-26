@@ -30,7 +30,7 @@ public interface MyPageService {
 	 * @param cp
 	 * @return
 	 */
-	Map<String, Object> selectBoardList(int memberNo, int cp);
+	Map<String, Object> selectBoardList(Map<String, Object> paramMap, int cp);
 	
 	
 	

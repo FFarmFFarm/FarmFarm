@@ -3,6 +3,7 @@ package edu.kh.farmfarm.admin.model.service;
 import java.util.List;
 import java.util.Map;
 
+import edu.kh.farmfarm.admin.model.vo.Admin;
 import edu.kh.farmfarm.member.model.VO.Member;
 
 public interface AdminService {
@@ -24,7 +25,18 @@ public interface AdminService {
 	 * @param memberNo
 	 * @return memberAllList
 	 */
-	List<Member> selectMemberAll(int memberNo);
+	List<Member> selectMemberAll();
+
+
+	/** 상세 회원 정보 조회
+	 * @param memberId
+	 * @return member
+	 */
+	Admin selectMemberDetail(String memberId);
+
+
+
+
 
 
 }

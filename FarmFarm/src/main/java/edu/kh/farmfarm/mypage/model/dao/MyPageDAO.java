@@ -1,6 +1,8 @@
 package edu.kh.farmfarm.mypage.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -115,13 +117,14 @@ public class MyPageDAO {
 	 * @param pagination
 	 * @return
 	 */
-	public List<Board> selectBoardList(int memberNo, CommentPagination pagination) {
+	public List<Board> selectBoardList(Map<String, Object> paramMap, CommentPagination pagination) {
 		
 		int offset = (pagination.getCurrentPage() - 1) * pagination.getLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
 
-		return sqlSession.selectList("myPageMapper.selectBoardList", memberNo, rowBounds);
+		return sqlSession.selectList("myPageMapper.selectBoardList", paramMap, rowBounds);
 	}
 
 
