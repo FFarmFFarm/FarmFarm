@@ -57,18 +57,18 @@
                             <!-- 한 행 반복 -->
                             <!-- <c:forEach var="member" items="${memberAllList}"> -->
                                 <!-- <c:set var="i" value="${i+1}" /> -->
-                                <!-- <tr class="member-select-row" id="memberSelectRow"> -->
+                                <%-- <tr class="member-select-row" id="memberSelectRow">  --%>
                                     
                                     <!-- <td class="report-member-seq">${i}</td>
                                     <td>${member.memberNo}</td>
                                     <td>${member.memberId}</td>
-                                    <input type="hidden" id="inputMemberId" value="${member.memberId}">
                                     <td>${member.memberNickname}</td>
 
 
                                     <td>${member.memberAddress}</td>
                                     <td>${member.signUpDate}</td>
 
+                                    <%-- 판매자 인증 --%>
                                     <c:if test="${not empty member.authority}">
                                         <c:if test="${member.authority == 0}">
                                             <td>미등록</td>
@@ -77,16 +77,18 @@
                                             <td>판매자</td>
                                         </c:if>
                                         <c:if test="${member.authority == 3}">
-                                            <td>인증 대기중</td>
+                                            <td>인증 대기</td>
                                         </c:if>
                                     </c:if>
 
-                                    <c:if test="${not empty report.reportPenalty && not empty member.memberDelFl}">
+                                    <%-- 상태 --%>
+                                    <%-- <c:if test="${not empty report.reportPenalty && not empty member.memberDelFl}"> --%>
+                                    <c:if test="${not empty member.memberDelFl}">
                                         <c:if test="${member.memberDelFl eq 'N'}">
-                                            <c:if test="${report.reportPenalty eq 'N'}">
+                                            <c:if test="${member.reportPenalty eq 'N' || not empty member.reportPenalty}">
                                                 <td>활동중</td>
                                             </c:if>
-                                            <c:if test="${report.reportPenalty eq 'Y'}">
+                                            <c:if test="${member.reportPenalty eq 'Y'&& not empty member.reportType}">
                                                 <td>정지</td>
                                             </c:if>
                                         </c:if>
@@ -97,7 +99,7 @@
 
                                     </c:if> -->
 
-                                <!-- </tr> -->
+                                <%-- </tr> --%>
                             <!-- </c:forEach> -->
 
                             
@@ -107,8 +109,8 @@
                     <!-- todo: 페이지네이션 반복문 -->
                     <div class="admin-pagination-area">
                         <ul class="admin-pagination">
-                            <!-- <li><a href="">&lt;&lt;</a></li>
-                            <li><a href="">&lt;</a></li> -->
+                            <li><a href=""><i class="fa-solid fa-angles-left"></i></a></li>
+                            <li><a href=""><i class="fa-solid fa-angle-left"></i></a></li> 
                             <li><a href="">1</a></li>
                             <li><a href="">2</a></li>
                             <li><a href="">3</a></li>
@@ -119,19 +121,19 @@
                             <li><a href="">8</a></li>
                             <li><a href="">9</a></li>
                             <li><a href="">10</a></li>
-                            <!-- <li><a href="">&gt;</a></li>
-                            <li><a href="">&gt;&gt;</a></li> -->
+                            <li><a href=""><i class="fa-solid fa-angle-right"></i></a></li>
+                            <li><a href=""><i class="fa-solid fa-angles-right"></i></a></li>
                         </ul>
                     </div>
                 </div>
 
-                <div class="middle-board">
+                <div class="middle-board" id="middleBoard">
                     <div class="middle-detail">
                         <span class="member-detail-title line">회원 상세 정보</span>
                         <span class="member-detail">
                             <!-- todo: el쓰는부분 ajax로 -->
                             <table class="member-detail-table">
-                                <tr>
+                                <%-- <tr>
                                     <td rowspan="6" class="detail-profileImg" id="detailMemberImg">
                                         <!-- <img src="/resources/images/member/user.png" alt=""> -->
                                     </td>
@@ -168,34 +170,34 @@
                                 <tr>
                                     <td class="detail-bold" id="detailMemberAddress">주소</td>
                                     <!-- <td colspan="3">서울 중구 남대문로 120 무슨빌딩 2층 kh정보교육원</td> -->
-                                </tr>
+                                </tr> --%>
                             </table>
                         </span>
 
                         <span class="member-history-title line">계정 상태</span>
                         <span class="member-history">
                             <table class="member-history-table">
-                                <tr class="member-history-row">
+                                <%-- <tr class="member-history-row">
                                     <th width="100px">일자</th>
                                     <th width="100px">상태</th>
                                     <th width="150px">사유</th>
                                 </tr>
 
-                                <tr id="row1">
+                                <tr id="row2">
                                     <!-- <td>2022-12-14</td>
                                     <td>가입</td>
                                     <td></td> -->
                                 </tr>
-                                <tr id="row2">
+                                <tr id="row3">
                                     <!-- <td>2022-12-14</td>
                                     <td>계정 정지</td>
                                     <td>불법 사기 계좌 운용</td> -->
                                 </tr>
-                                <tr id="row3">
+                                <tr id="row4">
                                     <!-- <td>2022-12-14</td>
                                     <td>탈퇴</td>
                                     <td>음란물 배포, 댓글 도배</td> -->
-                                </tr>
+                                </tr> --%>
 
                             </table>
                         </span>

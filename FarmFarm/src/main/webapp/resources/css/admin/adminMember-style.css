@@ -75,8 +75,8 @@ main{
 
 .member-select{
     width: 100%;
-    min-height: 350px;
-    height: 350px;
+    min-height: 500px;
+    height: 500px;
     border-radius: 10px;
     background-color: white;
     overflow: auto;
@@ -264,13 +264,15 @@ main{
 
 
 
-
+/* //fix: 클릭하면 보이도록 */
 .middle-board{
     min-height: 800px;
     display: flex;
     justify-content: center;
     align-items: center;
     align-content: space-between;    
+
+    display: none;
 
 }
 

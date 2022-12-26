@@ -116,14 +116,14 @@ public class AdminController {
 		if(result == 1 && loginMember != null) {
 			
 		
-			if(memberId == null) {
+//			if(memberId == null) {
 				// 전체 회원 정보 조회
 				memberAllList = service.selectMemberAll();
-				System.out.println(memberAllList);
+//				System.out.println(memberAllList);
 			
-			} else {
-				memberDetail = service.selectMemberDetail(memberId);
-			}
+//			} else {
+//				memberDetail = service.selectMemberDetail(memberId);
+//			}
 			
 	
 			// [주소]  ,, 사이 주소 가져오기
@@ -158,14 +158,14 @@ public class AdminController {
 		}
 		
 		
-		Map<String, Object> map = new HashMap<String, Object>();
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		
+//		map.put("memberAllList", memberAllList);
+//		map.put("memberDetail", memberDetail);
 		
-		map.put("memberAllList", memberAllList);
-		map.put("memberDetail", memberDetail);
+//		model.addAttribute(map);
 		
-		model.addAttribute(map);
-		
-		return new Gson().toJson(map);
+		return new Gson().toJson(memberAllList);
 	
 	}
 	
