@@ -153,10 +153,10 @@
                             <div class="button-area">
                                 <c:if test="${loginMember.memberNo == memberInfo.memberNo}">
                                     <c:if test="${post.postSoldoutFl == 0}">
-                                        <button type="button" id="soldOutBtn">판매완료</button>
+                                        <button type="button" class="soldout-btn" id="${post.postNo}">판매완료</button>
+                                        <button type="button">게시물 수정</button>
                                     </c:if>
-                                    <button type="button">게시물 수정</button>
-                                    <button type="button">게시물 삭제</button>
+                                    <button type="button" class="delete-btn" id="${post.postNo}">게시물 삭제</button>
                                 </c:if>
                             </div>
                         </div>
@@ -215,6 +215,10 @@
 
     <!-- footer -->
     <jsp:include page='/WEB-INF/views/common/footer.jsp' />
+
+    <script>
+        let selectPostNo;
+    </script>
 
     <script src="/resources/js/seller/sellerPage.js"></script>
 

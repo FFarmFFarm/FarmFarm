@@ -35,4 +35,18 @@ public interface SellerService {
 	 */
 	int enrollPost(Post post, List<MultipartFile> postImgList, String webPath, String folderPath) throws IOException;
 
+
+	/** 판매완료처리
+	 * @param postNo
+	 * @return result
+	 */
+	int soldoutPost(int postNo);
+
+
+	/** 상품삭제처리
+	 * @param postNo
+	 * @return result
+	 */
+	int deletePost(int postNo);
+
 }
