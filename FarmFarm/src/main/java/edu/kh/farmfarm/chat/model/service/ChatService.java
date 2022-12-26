@@ -17,6 +17,15 @@ public interface ChatService {
 	 */
 	List<ChatRoom> getChatRoomList(int myMemberNo);
 
+	
+	/** 수신 채팅 읽음처리
+	 * @param roomNo
+	 * @param myMemberNo
+	 * @return
+	 */
+	int updateChatReadFl(Map<String, Object> updateInfo);
+	
+	
 	/** 채팅 내역 가져오기
 	 * @param roomNo
 	 * @return
@@ -36,13 +45,6 @@ public interface ChatService {
 	 */
 	ChatRoom getRoomInfo(int roomNo);
 
-//	/** 이미지 번호 찾기...
-//	 * @param roomNo
-//	 * @param senderNo
-//	 * @param chatContent
-//	 * @return
-//	 */
-//	int selectChatNo(Chat chat);
 
 	/** 서버에 사진 저장하기..
 	 * @param chatNo
@@ -52,5 +54,7 @@ public interface ChatService {
 	 * @return
 	 */
 	String insertChatImg(int roomNo, int sendMemberNo, MultipartFile chatImg,  String webPath, String folderPath) throws IllegalStateException, IOException;
+
+
 
 }
