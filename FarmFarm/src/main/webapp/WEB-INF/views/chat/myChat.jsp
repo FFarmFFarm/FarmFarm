@@ -121,6 +121,14 @@
               <i class="fa-solid fa-image"></i>
             </button>
             <input id="inputBox" type="text" placeholder="메세지를 입력하세요">
+            <div id="inputImgPreviewBox">
+              <div id="inputImgPreviewBoxHeader">
+                <span>사진 보내기</span>
+                <i id="inputImgPreviewDelBtn" class="fa-solid fa-xmark"></i>
+              </div>
+              <img id="inputImgPreview"> <!-- 사진 미리보기 들어갑니다! -->
+              <div id="sendImgBtn">사진 전송</div>
+            </div>
             <button id="sendBtn">
               <i class="fa-solid fa-paper-plane"></i>
             </button>

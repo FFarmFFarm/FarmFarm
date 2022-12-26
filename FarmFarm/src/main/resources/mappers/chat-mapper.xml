@@ -19,6 +19,7 @@
 	      <result property="closedFl" column="CLOSED_FL" />
 	      <result property="lastChatTime" column="LAST_CHAT_TIME" />
 	      <result property="lastChatContent" column="LAST_CHAT_CONTENT" />
+	      <result property="lastChatImgFl" column="LAST_CHAT_IMG_FL" />
 	 </resultMap>
 	 
 	 <resultMap type="Chat" id="chat_rm">
@@ -32,7 +33,21 @@
 	      <result property="readFl" column="READ_FL" />
 	      <result property="chatDate" column="CHAT_DATE" />
 	      <result property="chatTime" column="CHAT_TIME" />
+	      <result property="chatImg" column="CHAT_IMG" />
+	      <result property="imgFl" column="IMG_FL" />
 	 </resultMap>
+
+	 <resultMap type="ChatImg" id="chatImg_rm">
+	        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+	     <id property = "chatImgNo" column="CHAT_IMG_NO"/>
+	     <!-- 나머지 일반 컬럼 -->
+	      <result property="chatNo" column="CHAT_NO" />
+	      <result property="chatImgOriginal" column="CHAT_IMG_ORIGINAL" />
+	      <result property="chatImgRename" column="CHAT_IMG_RENAME" />
+	      <result property="chatImgPath" column="CHAT_IMG_PATH" />
+	      <result property="chatImgDelFl" column="CHAT_IMG_DEL_FL" />
+	 </resultMap>
+	 
 	
 	
 	
@@ -64,7 +79,13 @@
 			  		 FROM CHAT C 
 			  		 WHERE C.ROOM_NO = CR.ROOM_NO 
 			  		 ORDER BY CHAT_NO DESC)
-			  WHERE ROWNUM = 1) AS LAST_CHAT_CONTENT
+			  WHERE ROWNUM = 1) AS LAST_CHAT_CONTENT,
+			  (SELECT IMG_FL
+			  FROM (SELECT IMG_FL
+			  		 FROM CHAT C 
+			  		 WHERE C.ROOM_NO = CR.ROOM_NO 
+			  		 ORDER BY CHAT_NO DESC)
+			  WHERE ROWNUM = 1) AS LAST_CHAT_IMG_FL
 		FROM CHAT_ROOM CR
 		WHERE (MEMBER_NO = #{myMemberNo} AND MEMBER_FL = 'N')
 		OR (MEMBER_NO2 = #{myMemberNo} AND MEMBER_FL2 = 'N')
@@ -72,10 +93,13 @@
 	
 	<!-- 선택한 채팅 내역 가져오기 -->
 	<select id="getChatHistory" parameterType="_int" resultMap="chat_rm">
-		SELECT CHAT_NO, CHAT_CONTENT, SEND_MEMBER_NO, READ_FL,
+		SELECT CHAT_NO, CHAT_CONTENT, SEND_MEMBER_NO, READ_FL, IMG_FL,
 			   TO_CHAR(CHAT_TIME, 'YYYY-MM-DD') AS CHAT_DATE,
 			   TO_CHAR(CHAT_TIME, 'AM HH":"MI') AS CHAT_TIME
-		FROM "CHAT"
+<!-- 			   (SELECT CHAT_IMG_PATH
+			   FROM "CHAT_IMG" CI
+			   WHERE CI.CHAT_NO = C.CHAT_NO) AS CHAT_IMG -->
+		FROM "CHAT" C
 		WHERE ROOM_NO = #{roomNo}
 		AND CHAT_DEL_FL = 'N'
 	</select>
@@ -85,7 +109,14 @@
 	<insert id="insertChat">
 		INSERT INTO CHAT
 		VALUES(SEQ_CHAT_NO.NEXTVAL, #{roomNo}, #{chatContent}, #{sendMemberNo},
-			   DEFAULT, DEFAULT, DEFAULT)
+			   DEFAULT, DEFAULT, DEFAULT, DEFAULT)
+	</insert>
+	
+	<!-- 채팅 보내기2 -->
+	<insert id="insertChat_imgType">
+		INSERT INTO CHAT
+		VALUES(SEQ_CHAT_NO.NEXTVAL, #{roomNo}, #{chatContent}, #{sendMemberNo},
+			   DEFAULT, DEFAULT, DEFAULT, 'Y')
 	</insert>
 	
 	<!-- 채팅방 정보 가져오기 -->
@@ -95,8 +126,29 @@
 		WHERE ROOM_NO = #{roomNo}
 	</select>
 	
+	<!-- 채팅 번호 찾기... -->
+<!-- 	<select id="selectChatNo123" parameterType="Chat" resultType="_int">
+		SELECT CHAT_NO 
+		FROM 	(SELECT CHAT_NO
+				FROM CHAT
+				WHERE ROOM_NO = #{roomNo}
+				AND SEND_MEMBER_NO = #{sendMemberNo}
+				AND CHAT_CONTENT = #{chatContent}
+				ORDER BY CHAT_NO DESC)
+		WHERE ROWNUM = 1
+	</select> -->
+	
+	<!-- 채팅 번호 찾기 -->
+	<select id="selectChatNo" parameterType="string" resultType="_int">
+		SELECT CHAT_NO 
+		FROM CHAT
+		WHERE CHAT_CONTENT = #{chatImgPath}
+	</select>
 
-
-
+	<!-- 채팅 이미지 넣기 -->
+	<insert id="insertChatImgDb">
+		INSERT INTO CHAT_IMG
+		VALUES(SEQ_CHAT_IMG_NO.NEXTVAL, #{chatNo}, #{chatImgOriginal}, #{chatImgRename}, #{chatImgPath}, default)
+	</insert>
 
 </mapper>

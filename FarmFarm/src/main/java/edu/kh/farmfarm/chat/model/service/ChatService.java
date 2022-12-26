@@ -1,7 +1,10 @@
 package edu.kh.farmfarm.chat.model.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.farmfarm.chat.model.vo.Chat;
 import edu.kh.farmfarm.chat.model.vo.ChatRoom;
@@ -32,5 +35,22 @@ public interface ChatService {
 	 * @return
 	 */
 	ChatRoom getRoomInfo(int roomNo);
+
+//	/** 이미지 번호 찾기...
+//	 * @param roomNo
+//	 * @param senderNo
+//	 * @param chatContent
+//	 * @return
+//	 */
+//	int selectChatNo(Chat chat);
+
+	/** 서버에 사진 저장하기..
+	 * @param chatNo
+	 * @param chatImg
+	 * @param webPath
+	 * @param folderPath
+	 * @return
+	 */
+	String insertChatImg(int roomNo, int sendMemberNo, MultipartFile chatImg,  String webPath, String folderPath) throws IllegalStateException, IOException;
 
 }

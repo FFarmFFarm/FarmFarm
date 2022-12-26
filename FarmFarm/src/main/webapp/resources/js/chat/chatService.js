@@ -97,7 +97,11 @@ const makeChatPreviewBox = (chatRoomInfo) => {
     if(chatRoomInfo.lastChatContent == undefined) {
         packUpElement(lastChatContent, 'last-chat-content', '대화 내용이 없습니다.');
     } else {
-        packUpElement(lastChatContent, 'last-chat-content', chatRoomInfo.lastChatContent);
+        if(chatRoomInfo.lastChatImgFl === 'N') { // 사진이 아닌 경우
+            packUpElement(lastChatContent, 'last-chat-content', chatRoomInfo.lastChatContent);
+        } else { // 사진인 경우
+            packUpElement(lastChatContent, 'last-chat-content', '사진을 보냈습니다.');
+        }
     }
 
     // 포장하기
@@ -119,12 +123,16 @@ const chatPreviewBoxEvent = (chatPreviewBox) => {
     const roomNo = chatPreviewBox.id;
 
     const profileImg2 = chatPreviewBox.children[0].innerHTML;
+    console.log('profileImg2 : ' + profileImg2);
+
     const memberNickname2 = chatPreviewBox.children[1].children[0].innerText;
+    console.log('memberNickname2' + memberNickname2);
 
     // 채팅 목록 가져오기
     axios.post('/chat/' + roomNo)
         .then(function (response) {
             // 내 번호
+            console.log("채팅 목록 가져오기?")
             let myMemberNo = response.data.myMemberNo;
             
             // 채팅 전송을 위해 전역 변수 세팅
@@ -160,9 +168,11 @@ const makeChatRoom = (myMemberNo, chatHistory, profileImg2, memberNickname2) => 
 
     // 날짜 라벨 초기화
     nowDate = '';
-
+    
     // 채팅 메세지 넣기
     for(let chat of chatHistory) {
+        
+        // 날짜 라벨 업데이트
         if(nowDate != chat.chatDate) {
             nowDate = chat.chatDate;
             
@@ -174,17 +184,19 @@ const makeChatRoom = (myMemberNo, chatHistory, profileImg2, memberNickname2) => 
 
             dateLabelLine.append(dateLabel);
             readingArea.append(dateLabelLine);
+
+            console.log('label 생성했음!')
         }
 
         if(chat.sendMemberNo == myMemberNo) { // 보낸 메세지인 경우
-
-            const sentChat = makeSentChat(chat.chatContent, chat.chatTime);
+            console.log('발신메세지 생성했음!')
+            const sentChat = makeSentChat(chat.chatContent, chat.chatTime, chat.imgFl);
 
             readingArea.append(sentChat)
 
         } else { // 수신 메세지인 경우
-
-            const receivedChat = makeReceivedChat(profileImg2, memberNickname2, chat.chatContent, chat.chatTime);
+            console.log('수신메세지 생성했음!')
+            const receivedChat = makeReceivedChat(profileImg2, memberNickname2, chat.chatContent, chat.chatTime, chat.imgFl);
 
             readingArea.append(receivedChat);
         }
@@ -195,25 +207,40 @@ const makeChatRoom = (myMemberNo, chatHistory, profileImg2, memberNickname2) => 
 }
 
 /* 내가 보낸 메세지를 만드는 함수 */
-const makeSentChat = (chatContent, chatTime) => {
+/* sentchat 안에 sentBubbleTime(보낸 시간),  sentBubble(버블:내용이 담기는 곳입니다), sentBubbleTail(말풍선 모양을 만드는 꼬리)를 넣어주세요 */
+/* sentBubble에는 채팅의 내용이나 이미지를 넣어주세요! */
+const makeSentChat = (chatContent, chatTime, imgFl) => {
     const sentChat = document.createElement('div');
     const sentBubble = document.createElement('div');
     const sentBubbleTail = document.createElement('div');
     const sentBubbleTime = document.createElement('div');
 
     packUpElement(sentChat, 'sent-chat', null);
-    packUpElement(sentBubble, 'sent-bubble', chatContent);
+
+    if(imgFl === 'N') { // 사진이 아닌 경우!
+        packUpElement(sentBubble, 'sent-bubble', chatContent);
+    } else { // 사진인 경우...
+        const imgArea = document.createElement('img');
+        imgArea.setAttribute('src', chatContent);
+        
+        packUpElement(sentBubble, 'sent-bubble', null);
+        sentBubble.append(imgArea);
+    }
+
     packUpElement(sentBubbleTail, 'sent-bubble-tail', null);
     packUpElement(sentBubbleTime, 'sent-bubble-time', chatTime);
 
     sentBubble.append(sentBubbleTime);
     sentChat.append(sentBubble, sentBubbleTail);
-
+    
     return sentChat;
 }
 
 /* 받은 메세지를 만드는 함수 */
-const makeReceivedChat = (profileImg2, memberNickname2, chatContent, chatTime) => {
+/* receivedchat 안에 receivedBubbleTime(받은 시간), senderProfileImg(상대방 사진), senderName(상대방 이름)과
+   receivedBubble(버블:내용이 담기는 곳입니다), receivedBubbleTail(말풍선 모양을 만드는 꼬리)를 넣어주세요 */
+/* receivedBubble에는 채팅의 내용이나 이미지를 넣어주세요! */
+const makeReceivedChat = (profileImg2, memberNickname2, chatContent, chatTime, imgFl) => {
     const receivedChat = document.createElement('div');
     const senderProfileImg = document.createElement('div');
     const senderName = document.createElement('div');
@@ -225,10 +252,19 @@ const makeReceivedChat = (profileImg2, memberNickname2, chatContent, chatTime) =
     packUpElement(senderProfileImg, 'sender-profile-img', profileImg2);
     packUpElement(senderName, 'sender-name', memberNickname2);
     packUpElement(receivedBubbleTail, 'received-bubble-tail', null);
-    packUpElement(receivedBubble, 'received-bubble', chatContent);
-    packUpElement(receivedBubbleTime, 'received-bubble-time', chatTime);
+    if(imgFl === 'N') {
+        packUpElement(receivedBubble, 'received-bubble', chatContent);
+    } else {
+        const imgArea = document.createElement('img');
+        imgArea.setAttribute('src', chatContent);
 
+        packUpElement(receivedBubble, 'sent-bubble', null);
+        receivedBubble.append(imgArea);
+    }
+    packUpElement(receivedBubbleTime, 'received-bubble-time', chatTime);
+    
     receivedBubble.append(receivedBubbleTime);
+    // receivedChat.append(receivedBubbleTime, senderProfileImg, senderName, receivedBubbleTail, receivedBubble);
     receivedChat.append(senderProfileImg, senderName, receivedBubbleTail, receivedBubble);
 
     return receivedChat;
@@ -238,9 +274,8 @@ const makeReceivedChat = (profileImg2, memberNickname2, chatContent, chatTime) =
 const sendChatToServer = () => {
     // 입력창에서 입력한 내용을 가져오고, 입력창을 비움
     const inputBox = document.getElementById('inputBox');
-    
+
     const text = inputBox.value;
-    
     inputBox.value = "";
     
     // 웹소켓을 이용해 채팅을 전송
@@ -251,10 +286,51 @@ const sendChatToServer = () => {
         let obj = {
             "roomNo" : selectedRoomNo,
             "sendMemberNo" : senderNo,
-            "chatContent" : text
+            "chatContent" : text,
+            "imgFl": 'N'
         };
 
         chattingSock.send(JSON.stringify(obj));
+    }
+
+    // 스크롤을 하단으로 내림
+    const nowScrollHeight = readingArea.scrollHeight;
+    readingArea.scrollTo(0, nowScrollHeight);
+}
+
+/* 채팅을 보내는 함수 */
+const sendImgToServer = () => {
+    const imageInput = document.getElementById('imageInput');
+    const imgData = imageInput.files[0];
+
+    if(imgData != null) {
+        let formData = new FormData();
+        formData.append("roomNo", selectedRoomNo);
+        formData.append("sendMemberNo", senderNo);
+        formData.append("chatImg", imgData);
+
+        axios.post('/chat/insert/img', formData, {
+            headers: {
+                "Content-Type": 'multipart/form-data',
+            }
+            })
+            .then(function (response) {
+                console.log(response.data)
+
+                // json 객체 만들기
+                let obj = {
+                    "roomNo": selectedRoomNo,
+                    "sendMemberNo": senderNo,
+                    "chatContent": response.data,
+                    "imgFl":'Y'
+                };
+
+                chattingSock.send(JSON.stringify(obj));
+
+            })
+            .catch(function (error) {
+                console.log('이미지 전송 실패1...')
+            })
     }
 
     // 스크롤을 하단으로 내림
@@ -268,6 +344,7 @@ document.getElementById('sendBtn').addEventListener('click', ()=>{
         sendChatToServer();
     }
 })
+
 document.getElementById('inputBox').addEventListener('focus', ()=>{
     addEventListener('keyup', (e) => {
         if (e.key === 'Enter') {
@@ -278,6 +355,11 @@ document.getElementById('inputBox').addEventListener('focus', ()=>{
     })
 })
 
+/* 사진 보내기 이벤트 */
+document.getElementById('sendImgBtn').addEventListener('click', ()=>{
+    sendImgToServer();
+})
+
 /* 채팅을 받는 함수 */
 chattingSock.onmessage = function(e) {
     const chat = JSON.parse(e.data);
@@ -286,6 +368,7 @@ chattingSock.onmessage = function(e) {
 
     if(selectedRoomNo == chat.roomNo) { // 해당 채팅방을 보고 있는 경우..
 
+        // 날짜가 바뀌었는지 확인
         if (nowDate != chat.chatDate) {
             nowDate = chat.chatDate;
 
@@ -300,15 +383,14 @@ chattingSock.onmessage = function(e) {
         }
 
         if(senderNo == chat.sendMemberNo) { // 내가 보낸 채팅인 경우..
-            const sentChat = makeSentChat(chat.chatContent, chat.chatTime);
+            const sentChat = makeSentChat(chat.chatContent, chat.chatTime, chat.imgFl);
 
             readingArea.append(sentChat);
 
         } else { // 아닌 경우
-            const receivedChat = makeReceivedChat(partnerProfileImg, partnerNickname, chat.chatContent, chat.chatTime);
+            const receivedChat = makeReceivedChat(partnerProfileImg, partnerNickname, chat.chatContent, chat.chatTime, chat.imgFl);
 
             readingArea.append(receivedChat);
-
         }
 
         // 스크롤을 하단으로 내림
@@ -320,9 +402,35 @@ chattingSock.onmessage = function(e) {
     }
 }
 
-/* 사진 전송 버튼 */
+/* 사진 선택 버튼 */
 document.getElementById('addImageBtn').addEventListener('click', ()=>{
     if(selectedRoomNo != null) {
         document.getElementById('imageInput').click();
+    }
+})
+
+/* 사진 삽입 시 미리보기 보여주기 */
+document.getElementById('imageInput').addEventListener('change', (e)=>{
+    let imageReader = new FileReader();
+    imageReader.readAsDataURL(e.target.files[0]);
+    console.log(e.target.files[0]);
+
+    imageReader.onload = e => {
+        const inputImgPreview = document.getElementById('inputImgPreview')
+        inputImgPreview.setAttribute('src', e.target.result)
+        document.getElementById('inputImgPreviewBox').style.display = 'flex';
+        document.getElementById('inputImgPreviewBox').style.height = '240px';
+        document.getElementById('inputImgPreviewBox').style.opacity = 1;
+    }
+
+})
+
+/* 사진 미리보기 취소 */
+document.getElementById('inputImgPreviewDelBtn').addEventListener('click', (e) => {
+    if(e.target) {
+        document.getElementById('inputImgPreview').removeAttribute('src');
+        document.getElementById('inputImgPreviewBox').style.height = 0;
+        document.getElementById('inputImgPreviewBox').style.opacity = 0;
+
     }
 })

@@ -1,5 +1,6 @@
 package edu.kh.farmfarm.chat.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
@@ -101,5 +103,37 @@ public class ChatController {
 		
 		// 3. 반환
 		return new Gson().toJson(chatHistoryMap);
+	}
+
+	
+	// 서버에 사진 저장하기
+	@PostMapping("/chat/insert/img")
+	@ResponseBody
+	public String insertChatImg(
+			int roomNo,
+			int sendMemberNo,
+			MultipartFile chatImg,
+			HttpSession session) throws IllegalStateException, IOException {
+		
+		System.out.println("insertChatImg");
+		
+		// webPath
+		String webPath = "/resources/images/chat/storage";
+		
+		// 저장소 번호
+		int storageNo = (int)(Math.random() * 5) + 1;
+		
+		// 저장소 번호 붙이기
+		webPath += storageNo + "/";
+		
+		// 폴더 경로
+		String folderPath = session.getServletContext().getRealPath(webPath);
+		
+		// 삽입
+		String chatContent = service.insertChatImg(roomNo, sendMemberNo, chatImg, webPath, folderPath);
+		
+		
+		return new Gson().toJson(chatContent);
+		
 	}
 }

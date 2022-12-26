@@ -608,6 +608,23 @@ body{
     position: relative;
 }
 
+/* 주고 받은 사진 */
+.sent-bubble > img{
+    background-color: white;
+    border-radius: 10px;
+    width: 200px;
+    height: 200px;
+    padding: 10px;
+}
+
+.received-bubble > img{
+    background-color: white;
+    border-radius: 10px;
+    width: 200px;
+    height: 200px;
+    padding: 10px;
+}
+
 /* 메세지 꼬리 */
 .received-bubble-tail{
     border-top: 10px solid transparent;
@@ -746,6 +763,69 @@ body{
     width: 90%;
 }
 
+#inputImgPreviewBox{
+    display: none;
+    flex-direction: column;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+
+    padding: 10px;
+
+    border-radius: 10px;
+    bottom: 50px;
+    left: 45px;
+    width: 320px;
+    height: 240px;
+    /* height: 0; */
+    /* opacity: 0; */
+    transition-duration: 0.2s;
+    box-shadow: 2px 2px 10px 0px #bcbcbc;
+}
+
+#inputImgPreviewBoxHeader{
+    background-color: var(--point-color);
+    border-radius: 5px;
+    padding: 0px 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#inputImgPreviewBoxHeader > span{
+    font-size: var(--main-font-size);
+    color: white;
+    font-weight: 600;
+}
+
+#inputImgPreviewDelBtn{
+    color: white;
+}
+
+#inputImgPreviewDelBtn:hover{
+    opacity: 0.8;
+}
+
+#inputImgPreview{
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 320px;
+    height: 180px;
+}
+
+#sendImgBtn{
+    background-color: var(--point-color);
+    border-radius: 5px;
+    padding: 0px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
 
 #sendBtn{
     color: white;

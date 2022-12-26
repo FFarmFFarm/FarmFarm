@@ -37,6 +37,7 @@
 		<typeAlias type="edu.kh.farmfarm.common.SearchItem" alias="SearchItem"/>
 		<typeAlias type="edu.kh.farmfarm.chat.model.vo.Chat" alias="Chat"/>
 		<typeAlias type="edu.kh.farmfarm.chat.model.vo.ChatRoom" alias="ChatRoom"/>
+		<typeAlias type="edu.kh.farmfarm.chat.model.vo.ChatImg" alias="ChatImg"/>
 	</typeAliases>
 	
 	<!-- mapper 파일(SQL 작성되는파일) 위치 등록 부분 -->

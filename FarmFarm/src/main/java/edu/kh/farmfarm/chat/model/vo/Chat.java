@@ -19,4 +19,7 @@ public class Chat {
 	private String readFl;
 	private String chatDate;
 	private String chatTime;
+	
+	private String chatImg;
+	private String imgFl;
 }

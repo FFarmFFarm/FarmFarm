@@ -47,6 +47,8 @@ public class ChatWebsocketHandler extends TextWebSocketHandler {
 			// 채팅방 정보를 찾음
 			ChatRoom roomInfo = service.getRoomInfo(chat.getRoomNo());
 			
+			// 사진 정보를 찾음
+			
 			// 현재 날짜
 	        chat.setChatDate(LocalDate.now() + "");
 	        

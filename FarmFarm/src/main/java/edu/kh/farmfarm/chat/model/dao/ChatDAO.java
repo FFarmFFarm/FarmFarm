@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.farmfarm.chat.model.vo.Chat;
+import edu.kh.farmfarm.chat.model.vo.ChatImg;
 import edu.kh.farmfarm.chat.model.vo.ChatRoom;
 
 @Repository
@@ -39,6 +40,14 @@ public class ChatDAO {
 	public int insertChat(Chat chat) {
 		return sqlSession.insert("chatMapper.insertChat", chat);
 	}
+	
+	/** 채팅 보내기
+	 * @param chat
+	 * @return
+	 */
+	public int insertChatImgType(Chat chat) {
+		return sqlSession.insert("chatMapper.insertChat_imgType", chat);
+	}
 
 	/** 채팅방 정보 가져오기
 	 * @param roomNo
@@ -46,5 +55,23 @@ public class ChatDAO {
 	 */
 	public ChatRoom getRoomInfo(int roomNo) {
 		return sqlSession.selectOne("chatMapper.getRoomInfo", roomNo);
+	}
+
+	/** 채팅 번호 찾기...
+	 * @param roomNo
+	 * @param senderNo
+	 * @param chatContent
+	 * @return
+	 */
+	public int selectChatNo(String chatImgPath) {
+		return sqlSession.selectOne("chatMapper.selectChatNo", chatImgPath);	
+	}
+
+	/** 채팅 이미지 전달
+	 * @param newImg
+	 * @return
+	 */
+	public int insertChatImg(ChatImg newImg) {
+		return sqlSession.insert("chatMapper.insertChatImgDb", newImg);
 	}
 }

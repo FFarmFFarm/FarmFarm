@@ -28,5 +28,6 @@ public class ChatRoom {
 	
 	private String lastChatTime;
 	private String lastChatContent;
+	private String lastChatImgFl;
 	
 }
