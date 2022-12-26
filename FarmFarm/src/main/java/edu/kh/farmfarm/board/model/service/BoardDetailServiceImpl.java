@@ -45,5 +45,12 @@ public class BoardDetailServiceImpl implements BoardDetailService{
 	}
 
 
+	// 조회수 증가~
+	@Override
+	public int updateBoardView(int boardNo) {
+		return dao.updateBoardView(boardNo);
+	}
+
+
 
 }

@@ -18,5 +18,8 @@ public interface BoardDetailService {
 	// 게시글 좋아요~
 	int boardLikeInsert(Map<String, Object> likeMap);
 
+	// 조회수 증가~
+	int updateBoardView(int boardNo);
+
 
 }

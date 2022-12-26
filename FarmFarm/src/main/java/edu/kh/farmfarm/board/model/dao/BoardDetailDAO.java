@@ -38,4 +38,10 @@ public class BoardDetailDAO {
 		return sqlSession.insert("boardMapper.boardLikeInsert", likeMap);
 	}
 
+
+	// 조회수 증가~
+	public int updateBoardView(int boardNo) {
+		return sqlSession.update("boardMapper.updateBoardView", boardNo);
+	}
+
 }

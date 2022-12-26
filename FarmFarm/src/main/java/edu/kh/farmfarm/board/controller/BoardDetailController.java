@@ -1,7 +1,15 @@
 package edu.kh.farmfarm.board.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +24,7 @@ import edu.kh.farmfarm.board.model.service.BoardDetailService;
 import edu.kh.farmfarm.board.model.vo.Board;
 import edu.kh.farmfarm.common.Util;
 import edu.kh.farmfarm.member.model.VO.Member;
+import oracle.net.aso.c;
 
 @Controller
 public class BoardDetailController {
@@ -29,7 +38,8 @@ public class BoardDetailController {
 			@PathVariable("boardTypeNo") int boardTypeNo,
 			@PathVariable("boardNo") int boardNo,
 			Model model,
-			@SessionAttribute(value="loginMember", required = false) Member loginMember) {
+			@SessionAttribute(value="loginMember", required = false) Member loginMember,
+			HttpServletRequest req, HttpServletResponse resp) throws ParseException {
 		
 		Board board = serivce.boardDetail(boardNo);
 		
@@ -40,15 +50,80 @@ public class BoardDetailController {
 			likeMap.put("boardNo2", boardNo);
 			likeMap.put("memberNo2", loginMember.getMemberNo());
 			
-			int result = serivce.checkLike(likeMap);
+			int likeResult = serivce.checkLike(likeMap);
 			
-			if(result>0) {
+			if(likeResult>0) {
 				model.addAttribute("likeCheck", "like");
 			}
 			
+			// 조회수 증가 (하루에 조회수 1번만 올라감)
+			
+			// 쿠키를 얻어옵니다
+			Cookie[] cookies = req.getCookies();
+			
+			// 쿠키에 viewBoardNo가 있는지 확인합니다
+			Cookie c = null;
+			
+			if(cookies != null) {
+				for(Cookie temp : cookies) {
+					if(temp.getName().equals(("viewBoardNo"))){
+						c = temp;
+					}
+				}
+			}
+			
+			int result = 0;
+			
+			// 쿠키에 viewBoardNo가 없으면 조회수 증가시켜주기
+			if(c == null) {
+				
+				result = serivce.updateBoardView(boardNo);
+				c = new Cookie("viewBoardNo", "|"+boardNo+"|");
+				
+			}else { // 쿠키에는 viewBoardNo가 있으나 해당 게시글을 처음 보는거면 쿠키 추가추가 해주는코드
+				
+				// 쿠키에 저장된 값 중 해당 게시글이 있는지 확인 - 없음
+				if(c.getValue().indexOf("|"+boardNo+"|")==-1) {
+					
+					// 조회수 증가 시켜주고
+					result = serivce.updateBoardView(boardNo);
+					// 쿠키에 더해준다
+					c.setValue(c.getValue()+"|"+boardNo+"|");
+				}
+				
+			}
+			
+			if(result>0) { // 조회수 증가에 성공했으니 Board에도 넣어줄까~
+				board.setBoardView(board.getBoardView()+1);
+				
+				// 하루에 한번만 조회수가 증가되도록 시간을 설정해봅시다
+				
+				// c의 모든 경로에 설정을 해줄겁니다
+				c.setPath("/");
+				
+				// 현재 시간
+				Date now = new Date();
+				// 기준 시간 : 1970년 1월 1일 09시 0분 0초인데
+				// new Date(ms) : 기준 시간 + ms 만큼 지난 시간이래
+				
+				Calendar cal = Calendar.getInstance();
+				cal.add(cal.DATE, 1); // 날짜에 1을 추가
+				
+				// simpleDateFormat을 이용해서 cal의 시간들을 0:0:0 으로 바꿉니다
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				Date temp = new Date( cal.getTimeInMillis() );
+				
+				Date now2 = sdf.parse(sdf.format(temp)); // 하루 지난 날짜의 시간이죠
+				// 날짜 형식을 String을 Date로 변환한답니다
+				
+				// 날짜 끼리는 빼기가 안된데요
+				long diff = now2.getTime() - now.getTime();
+				
+				c.setMaxAge((int)(diff/1000));
+				resp.addCookie(c);
+				
+			}
 		}
-		
-		
 		
 		model.addAttribute("board", board);
 		

@@ -233,6 +233,13 @@
 		INSERT INTO "BOARD_LIKE"
 		VALUES(#{boardNo}, #{memberNo})
 	</insert>
+	
+	<!-- 조회수 증가~ -->
+	<update id="updateBoardView">
+		UPDATE "BOARD" SET
+		BOARD_VIEW = BOARD_VIEW+1
+		WHERE BOARD_NO = #{boardNo}
+	</update>
 
 
 </mapper>
