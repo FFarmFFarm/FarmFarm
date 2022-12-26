@@ -182,5 +182,13 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		return result;
 	}
+	
+	/** 주문 목록 구매 확정
+	 *
+	 */
+	@Override
+	public int orderConfirm(int orderNo) {
+		return dao.orderConfirm(orderNo);
+	}
 
 }

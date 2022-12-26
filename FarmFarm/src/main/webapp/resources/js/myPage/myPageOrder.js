@@ -1,27 +1,187 @@
-// TODO 리뷰 작성 버튼 클릭 시 리뷰 작성 form 모달창 출력
+// 리뷰 작성 버튼 클릭 시 리뷰 작성 form 모달창 출력
+const writeReviewBtn = document.getElementsByClassName('write-review');
+if (writeReviewBtn != undefined) {
+  for (let btn of writeReviewBtn) {
+    btn.addEventListener('click', () => {
+      const reviewFormContainer = document.getElementById('reviewFormContainer');
+
+      const productName = btn.parentElement.previousElementSibling.firstElementChild.innerText;
+      const productThumbnail = btn.parentElement.previousElementSibling.
+        previousElementSibling.firstElementChild.getAttribute('src');
+      const href = btn.parentElement.previousElementSibling.firstElementChild.href;
+      
+      document.getElementById('modalProductThumbnail').setAttribute('src', productThumbnail);
+      document.getElementById('modalProductName').innerHTML = productName;
+      document.getElementById('modalProductName').href = href;
+
+      displayflex(reviewFormContainer);
+    })
+  }
+}
+
+
+/* 리뷰 작성 form 모달창 사진 첨부 시 미리보기 생성 및 새로운 input 태그 추가 */
+document.getElementById('imgInput1').addEventListener('change', (e) => { 
+
+  if (e.target.files[0] != undefined) {
+      
+    const fileReader = new FileReader();
+    
+    fileReader.readAsDataURL(e.target.files[0]);
+
+    fileReader.onload = (event) => {
+
+      document.getElementById('reviewImg1').src = event.target.result;
+      document.getElementById('reviewImg1').style.display = 'block';
+
+      document.getElementById('inputLabel').style.display = 'none';
+
+      const button = document.createElement('button');
+      button.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+
+      document.getElementById('reviewOneImg').append(button);
+
+      button.addEventListener('click', () => { 
+        document.getElementById('imgInput1').val("");
+        reviewImg1.style.display = 'none';
+      })
+
+
+    }
+  }
+
+  createInput(1);
+  
+})
+
+
+
+const createInput = (order) => { 
+  const imgUploadArea = document.getElementById('imgUploadArea');
+
+  const div = document.createElement('div');
+  div.classList.add('review-one-img');
+
+  const label = document.createElement('label');
+  label.innerHTML = '<i class="fa-solid fa-plus"></i>';
+
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.id = 'imgInput' + order;
+
+  label.append(input);
+  div.append(label);
+  imgUploadArea.append(div);
+
+  input.addEventListener('change', (e) => { 
+
+    
+    if (e.target.files[0] != undefined) {
+      
+      const fileReader = new FileReader();
+      
+      fileReader.readAsDataURL(e.target.files[0]);
+      
+      fileReader.onload = (event) => {
+
+        const img = document.createElement('img');
+        img.src = event.target.result;
+        img.classList.add('review-img-thumbnail');
+        img.id = 'reviewImg' + order;
+        img.style.display = 'block';
+
+        label.style.display = 'none';
+
+        div.prepend(img);
+      }
+    }
+
+    order = order + 1;
+
+    if (order <= 4) {
+      createInput(order);
+    }
+  })
+
+}
+
+
+
 
 // TODO 주문 취소 버튼 클릭 시 주문 취소
 
 // TODO 반품 신청 버튼 클릭 시 반품 신청 form 모달 출력
 
-// TODO 구매확정 버튼 클릭 시 구매 확정
+// 구매확정 버튼 클릭 시 구매 확정
+const confirmation = document.getElementsByClassName('confirmation');
+if (confirmation.length != 0) { 
+  for (let btn of confirmation) {
+    btn.addEventListener('click', () => { 
+
+      displayflex(document.getElementById('orderConfirmModal'));
+    
+      confirmOrderNo = btn.id;
+    })
+  }
+  
+}
+
+document.getElementById('orderCalcelBtn').addEventListener('click', () => {
+  displayNone(document.getElementById('orderConfirmModal'));
+});
+
+document.getElementById('orderConfirmBtn').addEventListener('click', () => {
+  orderConfirmation(confirmOrderNo);
+  displayNone(document.getElementById('orderConfirmModal'));
+
+  let cp = selectCp();
+
+  selectOrderList(cp);
+});
 
 
 
-// TODO 주문 목록 AJAX 페이지네이션
+
+/* 주문 구매 확정하는 Function */
+const orderConfirmation = (orderNo) => { 
+
+  $.ajax({
+    url: "/order/confirm",
+    data: { "orderNo": orderNo },
+    success: (result) => { 
+      if (result > 0) {
+        const message = '주문번호 ' + orderNo + '번 구매가 확정되었습니다.'
+
+        messageModalOpen(message);
+      }
+    },
+    error: () => { 
+      console.log('구매 확정 중 에러 발생');
+    }
+  })
+
+}
+
+
+
+
+//  주문 목록 AJAX 페이지네이션
 const pageBox = document.getElementsByClassName('page-box');
 for(let page of pageBox) {
   page.addEventListener('click', ()=>{
 
-      let cp = page.id;
-  
-      selectOrderList(cp);
+    let cp = page.id;
 
+    selectOrderList(cp);
 
+    changeURL(cp);
 
   });
 }
 
+
+
+/* 주문 목록 조회 */
 const selectOrderList = (cp) => {
   
   $.ajax({
@@ -29,11 +189,7 @@ const selectOrderList = (cp) => {
     data: {"cp":cp},
     dataType: "json",
     success: (map)=>{
-
-      console.log(map.orderList);
-
       printOrderList(map.orderList, map.pagination);
-
 
     },
     error: ()=>{
@@ -43,7 +199,7 @@ const selectOrderList = (cp) => {
 }
 
 
-
+/* 주문 목록 출력 */
 const printOrderList = (orderList, pagination) => {
 
   const orderListContainer = document.getElementById('orderListContainer');
@@ -182,35 +338,60 @@ const printOrderList = (orderList, pagination) => {
       if(order.orderStatus == 0 ) {
         button1.setAttribute('type', 'button');
         button1.innerText = '구매확정';
-        button1.id = 'confirmation';
-
+        button1.classList.add('confirmation');
+        button1.id = order.orderNo;
+        
         button2.setAttribute('type', 'button');
         button2.innerText = '주문취소';
-        button2.id = 'cancelOrder';
-
+        button2.classList.add('cancel-order');
+        button2.id = order.orderNo;
+        
         buttonArea.append(button1, button2);
-      }
 
+        /* 구매확정 버튼 클릭 시 주문 구매 확정 */
+        button1.addEventListener('click', () => { 
+          
+          displayflex(document.getElementById('orderConfirmModal'));
+    
+          confirmOrderNo = order.orderNo;
+
+        })
+
+        
+      }
+      
       if(order.orderStatus == 1 ) {
         button1.setAttribute('type', 'button');
         button1.innerText = '구매확정';
-        button1.id = 'confirmation';
-
+        button1.classList.add('confirmation');
+        button1.id = order.orderNo;
+        
         button2.setAttribute('type', 'button');
         button2.innerText = '반품요청';
-        button2.id = 'return';
-
+        button2.classList.add('return');
+        button2.id = order.orderNo;
+        
         buttonArea.append(button1, button2);
-      }
 
+        /* 구매확정 버튼 클릭 시 주문 구매 확정 */
+        button1.addEventListener('click', () => { 
+          
+          displayflex(document.getElementById('orderConfirmModal'));
+    
+          confirmOrderNo = order.orderNo;
+
+        })
+      }
+      
       if(order.orderStatus == 2 ) {
       }
-
+      
       if(order.orderStatus == 3 ) {
         button1.setAttribute('type', 'button');
         button1.innerText = '리뷰작성';
-        button1.id = 'writeReview';
-
+        button1.classList.add('write-review');
+        button1.id = order.orderNo;
+        
         buttonArea.append(button1);
       }
 
@@ -242,6 +423,8 @@ const printOrderList = (orderList, pagination) => {
 
 }
 
+
+/* 페이지내이션 출력 */
 const printPagination = (paginationArea, pagination) => {
 
   // 이전 페이지
@@ -287,6 +470,7 @@ const selectOrderListEvent = (element, cp) => {
   
   element.addEventListener('click', () => {
     selectOrderList(cp);
+    changeURL(cp);
   });
 
 }

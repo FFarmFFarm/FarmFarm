@@ -205,9 +205,14 @@
 	
 </select>
 
-
+<!-- 마이 페이지 배경 사진 변경 -->
 <update id="updateBgImg">
 	UPDATE "MEMBER" SET MYPAGE_IMG = #{mypageImg} WHERE MEMBER_NO = #{memberNo}
+</update>
+
+<!-- 주문 구매 확정 -->
+<update id="orderConfirm">
+	UPDATE "ORDER" SET ORDER_STATUS = 3 WHERE ORDER_NO = #{orderNo}
 </update>
 
 

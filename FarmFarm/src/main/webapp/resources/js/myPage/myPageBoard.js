@@ -36,6 +36,8 @@ for(let page of pageBox) {
 
     selectBoardList(cp);
 
+    changeURL(cp);
+
   })
 }
 
@@ -192,6 +194,7 @@ const selectBoardListEvent = (element, cp) => {
   
   element.addEventListener('click', () => {
     selectBoardList(cp);
+    changeURL(cp);
   });
 
 }

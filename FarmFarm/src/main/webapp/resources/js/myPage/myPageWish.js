@@ -7,6 +7,7 @@ for(let page of pageBox) {
     let cp = page.id;
 
     selectWishList(cp);
+    changeURL(cp);
 
   })
 }
@@ -143,6 +144,7 @@ const selectWishListEvent = (element, cp) => {
   
   element.addEventListener('click', () => {
     selectWishList(cp);
+    changeURL(cp);
   });
 
 }
