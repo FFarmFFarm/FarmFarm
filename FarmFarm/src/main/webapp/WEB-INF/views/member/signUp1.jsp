@@ -96,7 +96,7 @@
                                                     <div class="farm-img">
                                                         <div class="farm-img-upload">
                                                             <label for="farmImg"><img class="preview" src=""></label>
-                                                            <input type="file" name="farmImg" id="farmImg" class="input-image" accept="image/*">
+                                                            <input type="file" name="farmfarm" id="farmImg" class="input-image" accept="image/*">
                                                             <span class="delete-image">&times;</span>
                                                         </div>
                                                         <div class="farm-img-upload1">

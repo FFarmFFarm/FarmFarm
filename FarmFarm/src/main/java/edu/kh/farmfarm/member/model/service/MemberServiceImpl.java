@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.apache.ibatis.javassist.expr.NewExpr;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import edu.kh.farmfarm.member.model.VO.Member;
 import edu.kh.farmfarm.member.model.VO.MemberAddress;
 import edu.kh.farmfarm.member.model.dao.MemberDAO;
 import edu.kh.farmfarm.seller.model.vo.Seller;
+import net.nurigo.java_sdk.api.Message;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -87,7 +90,7 @@ public class MemberServiceImpl implements MemberService {
 	// 회원가입 (판매자) 
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int signUp1(Member inputMember, String[] memberAddress, String webPath, String folderPath, MultipartFile image) throws Exception {
+	public int signUp1(Member inputMember, String[] memberAddress, String webPath, String folderPath, MultipartFile farmImg) throws Exception {
 		String encPw = bcrypt.encode(inputMember.getMemberPw());
 		inputMember.setMemberPw(encPw);
 		
@@ -95,63 +98,27 @@ public class MemberServiceImpl implements MemberService {
 		int memberNo = dao.signUp1(inputMember);
 		
 		// 이미지 삽입 
-//		if(memberNo > 0) {
-//			String rename = null;
-//			Seller farmImage = new Seller();
-//			
-//			if(image.getSize() != 0) {
-//				rename = Util.fileRename(image.getOriginalFilename());
-//				
-//				farmImage.setMemberNo(memberNo);
-//				farmImage.setFarmImg(webPath + rename);
-//			}
-//			if(farmImage != null) {
-//				int result1 = dao.insertFarmImage(farmImage);
-//				
-//				if(result1 > 0) {
-//					image.transferTo(new File(folderPath + rename));
-//				}
-//			}
-//		}
+		String rename = null;
+		Seller farmImage = new Seller();
 		
-//			if(image != null) {
-//				
-//				// 파일명 리네임 
-//				reName = Util.fileRename(image.getOriginalFilename());
-//				
-//				farmImage.setFarmImg(webPath + reName);
-//				farmImage.setMemberNo(memberNo);
-//				
-//			}
-//			
-//		// 업로드 된 이미지가 있을 경우 
-//		if(farmImage != null) {
-//			int img = dao.insertFarmImage(farmImage);
-//			image.transferTo(new File(folderPath + reName));
-//		}
+		if(farmImg.getSize() > 0) {
+			rename = Util.fileRename(farmImg.getOriginalFilename());
+			
+			farmImage.setMemberNo(memberNo);
+			farmImage.setFarmImg(farmImg.getOriginalFilename());
+
+			int result1 = dao.insertFarmImage(farmImage);
+			
+			if(result1 > 0) {
+				farmImg.transferTo(new File(folderPath + rename));
+			}
+		}
+		
 		
 		int result = 0;
 		
 		if(memberNo > 0) {
-			String rename = null;
-			Seller farmImage = new Seller();
-			
-			if(image.getSize() != 0) {
-				rename = Util.fileRename(image.getOriginalFilename());
-				
-				farmImage.setMemberNo(memberNo);
-				farmImage.setFarmImg(webPath + rename);
-			}
-			if(farmImage != null) {
-				int result1 = dao.insertFarmImage(farmImage);
-				
-				if(result1 > 0) {
-					image.transferTo(new File(folderPath + rename));
-				}
-			}
-			
-			
-			// 주소가 작성 경우
+			// 주소가 작성된 경우
 			if(!memberAddress.equals(",,")) {
 				inputMember.setMemberAddress(String.join(",,", memberAddress));
 				String add = inputMember.getMemberAddress();
@@ -166,5 +133,44 @@ public class MemberServiceImpl implements MemberService {
 		
 		return result;
 	}
+
+//	@Override
+//	public String memberPhoneCheck(String memberPhoneCheck) throws CoolsmsException {
+//		String api_key = "NCS5PXEAYWDXYENJ";
+//		String api_secret = "S7HWXOACBXDYWJZX7R0ZWZI7GBZJAGW6";
+//		Message coolsms = new Message(api_key, api_secret);
+//
+//		  
+//		HashMap<String, String> params = new HashMap<String, String>();
+//	    params.put("to", memberPhoneCheck);    // 수신전화번호 (ajax로 view 화면에서 받아온 값으로 넘김)
+//	    params.put("from", "01020901167");    // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
+//	    params.put("type", "sms"); 
+//	    params.put("text", "팜팜 인증번호는 [" + numStr + "] 입니다.");
+//	    params.put("app_version", "test app 1.2");
+//	 
+//	    coolsms.send(params); // 메시지 전송
+//			  
+//			  
+//		return numStr;
+//	}
+
+	@Override
+	public void memberPhoneCheck(String memberPhoneCheck, String numStr) {
+		String api_key = "NCS5PXEAYWDXYENJ";
+		String api_secret = "S7HWXOACBXDYWJZX7R0ZWZI7GBZJAGW6";
+		Message coolsms = new Message(api_key, api_secret);
+
+		  
+		HashMap<String, String> params = new HashMap<String, String>();
+	    params.put("to", memberPhoneCheck);    // 수신전화번호 (ajax로 view 화면에서 받아온 값으로 넘김)
+	    params.put("from", "01020901167");    // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
+	    params.put("type", "sms"); 
+	    params.put("text", "팜팜 인증번호는 [" + numStr + "] 입니다.");
+	    params.put("app_version", "test app 1.2");
+	 
+		
+	}
+
+
 
 }

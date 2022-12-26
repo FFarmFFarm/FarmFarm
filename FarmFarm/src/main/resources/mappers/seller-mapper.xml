@@ -47,6 +47,11 @@
   	<result property="postImgOrder" column="POST_IMG_ORDER"/>
   
   </resultMap>
+  
+  <resultMap type="Seller" id="seller_rm">
+  	<id property="memberNo" column="MEMBER_NO"/>
+  	<result property="farmImg" column="FARM_IMG"/>
+  </resultMap>
 
 	<!-- 멤버 기본 정보 조회 -->
 	<select id="selectMemberInfo" resultMap="member_rm">

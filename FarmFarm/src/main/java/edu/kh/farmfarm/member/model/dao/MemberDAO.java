@@ -46,11 +46,13 @@ public class MemberDAO {
 		return memberNo; // 0 또는 삽입된 멤버번호 
 	}
 
+	// 주소 
 	public int insertMemberAddressList(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return sqlSession.insert("memberMapper.insertMemberAddressList", map);
 	}
 
+	// 이미지 
 	public int insertFarmImage(Seller farmImage) {
 		return sqlSession.insert("sellerMapper.insertFarmImage", farmImage);
 	}

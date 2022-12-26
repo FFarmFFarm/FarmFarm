@@ -28,7 +28,7 @@
                                 <form action="/signUp0" method="post" id="signUpFrm">
                                     <section class="signup">
                                         <input type="text" name="memberId" id="memberId" placeholder="아이디"
-                                            autocomplete="off" maxlegnth="50"  value="${tempMember.memberId}">
+                                            autocomplete="off" maxlegnth="50" value="${tempMember.memberId}">
                                         <div id="IdConfirm" class="coner">영어, 숫자, 특수문자(-,_) 6~20글자 사이로 입력해주세요.</div>
                                     </section>
                                     <section class="signup">
@@ -46,7 +46,7 @@
                                     </section>
                                     <section class="signup">
                                         <input type="text" name="memberNickname" id="memberNickname" placeholder="닉네임"
-                                            maxlegnth="10" value = "${tempMember.memberNickname}">
+                                            maxlegnth="10" value="${tempMember.memberNickname}">
                                         <div id="nicknameConfirm" class="coner">한글, 영어, 숫자 2~10자리 입력해주세요.</div>
                                     </section>
                                     <section class="signup">
@@ -78,17 +78,18 @@
                                                             value="${addr[2]}">
                                                     </div>
                                                 </section>
-                                                <section class="signup tel">
+                                                <section class="signup tel phoneCertifyDiv">
                                                     <div class="title">전화번호 인증</div>
-                                                    <input type="text" name="memberTel" id="memberTel"
+                                                    <input type="text" name="memberPhoneCheck" id="memberTel"
                                                         placeholder="전화번호" maxlength="11" autocomplete="off"
                                                         value="${tempMember.memberTel}">
+                                                    <button type="button" id="memberPhoneCheck" class="find-btn tel-btn1">인증번호 전송</button>
                                                     <div id="telMessage" class="coner">-를 제외하고 입력해주세요.</div>
                                                 </section>
-                                                <section class="signup tel">
-                                                    <input type="text" name="memberTelConfirm" id="memberTelConfirm"
+                                                <section class="signup tel" id="phoneCertifyDiv">
+                                                    <input type="text" name="memberPhoneCertify" id="memberTelConfirm"
                                                         placeholder="인증번호 4자리" maxlength="4" autocomplete="off">
-                                                    <button class="find-btn tel-btn2">인증하기</button>
+                                                    <button type="button" id="certifyCheck" class="find-btn tel-btn2">인증하기</button>
                                                     <div id="telConfirm" class="coner"></div>
                                                 </section>
                                                 <section class="agree-wrap agree">
@@ -154,7 +155,8 @@
                     <script src="/resources/js/member/signUp.js"></script>
                     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
                     <script src="https://code.jquery.com/jquery-3.6.1.min.js"
-                        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+                        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+                        crossorigin="anonymous"></script>
 
                     <script>
                         $(document).ready(function () {
@@ -163,6 +165,46 @@
                                 $("#agreeInput").prop("checked", true);
                             });
                         })
+
+                        //휴대폰번호 인증번호 보내기 버튼 클릭 이벤트
+                        $('#memberPhoneCheck').click(function () {
+                            let memberPhoneCheck = $('input[name="memberPhoneCheck"]').val();
+                            alert('인증번호 발송 완료');
+
+                            $.ajax({
+                                url: "/memberPhoneCheck",
+                                type: "GET",
+                                data: { "memberPhoneCheck": memberPhoneCheck },
+                                dataType: "json",
+                                success: function (res) {
+                                    $('#memberPhoneCheck').click(function () {
+                                        if ($.trim(res) == $('#memberTel').val()) {
+                                            alert(
+                                                '인증성공!',
+                                                '휴대폰 인증이 정상적으로 완료되었습니다.',
+                                                'success'
+                                            )
+
+                                            $.ajax({
+                                                type: "GET",
+                                                url: "update/phone",
+                                                data: {
+                                                    "memberPhoneCheck": $('#memberTel').val()
+                                                }
+                                            })
+                                            document.location.href = "/";
+                                        } else {
+                                            alert({
+                                                icon: 'error',
+                                                title: '인증오류',
+                                                text: '인증번호가 올바르지 않습니다!',
+                                                footer: '<a href="/home">다음에 인증하기</a>'
+                                            })
+                                        }
+                                    })
+                                }
+                            });
+                        });
                     </script>
                 </body>
 
