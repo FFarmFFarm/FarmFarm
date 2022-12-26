@@ -169,7 +169,9 @@ public class MyPageServiceImpl implements MyPageService {
 		if(result > 0) {
 			
 			if(rename != null) {
+				
 				mypageImg.transferTo(new File(filePath+rename));
+				
 			}
 			
 		} else {

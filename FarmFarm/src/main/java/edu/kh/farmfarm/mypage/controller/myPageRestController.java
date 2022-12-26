@@ -104,7 +104,7 @@ public class myPageRestController {
 			HttpServletRequest req) throws Exception {
 		
 		
-		String webPath = "/resources/images/myPage/background";
+		String webPath = "/resources/images/myPage/background/";
 		
 		String filePath = req.getSession().getServletContext().getRealPath(webPath);
 		

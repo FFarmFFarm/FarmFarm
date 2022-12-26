@@ -50,12 +50,13 @@ const updateBgImg = () => {
   const formData = new FormData(form);
 
   $.ajax({
-    url: '/mypage/update/bgImg',
+    url: '/myPage/update/bgImg',
     type: 'POST',
     data: formData,
     processData: false,
     contentType: false,
     success: (result) => {
+      console.log("성공")
       if(result > 0) {
         messageModalOpen("배경 이미지가 변경되었습니다.");
       }

@@ -199,6 +199,8 @@
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
 
+    <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
+
     <script>
       var cp = "${pagination.currentPage}";
 

@@ -1,14 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
+
 <section class="profile-container">
         <div class="profile-background">
+        <c:if test="${empty loginMember.mypageImg}">
           <img
-            src="/resources/images/myPage/background/bgImg2.jpg"
-            alt=""
-            class="member-bg-img"
-            id="memberBgImg"
+          src="/resources/images/myPage/background/bgImg2.jpg"
+          alt=""
+          class="member-bg-img"
+          id="memberBgImg"
           />
+        </c:if>
+        <c:if test="${! empty loginMember.mypageImg}">
+          <img
+          src="${loginMember.mypageImg}"
+          alt=""
+          class="member-bg-img"
+          id="memberBgImg"
+          />
+        </c:if>
           <form id="mypageImgForm">   
             <label for="mypageImgInput" class="bg-change-btn fa-solid fa-image"></label>
             <input type="file" name="mypageImg" id="mypageImgInput" accept="image/*" style="display:none;"></input>
