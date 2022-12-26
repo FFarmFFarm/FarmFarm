@@ -152,6 +152,15 @@ public class MyPageDAO {
 	}
 
 
+	/** 마이페이지 배경 사진 수정
+	 * @param loginMember
+	 * @return
+	 */
+	public int updateBgImg(Member loginMember) {
+		return sqlSession.update("myPageMapper.updateBgImg", loginMember);
+	}
+
+
 
 
 

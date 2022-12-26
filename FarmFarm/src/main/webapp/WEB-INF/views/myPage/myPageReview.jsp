@@ -118,10 +118,13 @@
     </main>
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
+    <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
+
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
 
+    <script src="/resources/js/common/common.js"></script>
     <script src="/resources/js/myPage/myPage.js"></script>
     <script src="/resources/js/myPage/myPageReview.js"></script>
 

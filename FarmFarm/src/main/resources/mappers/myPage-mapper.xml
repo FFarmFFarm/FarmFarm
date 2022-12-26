@@ -158,10 +158,10 @@
 	(SELECT BOARD_IMG_ADDRESS FROM BOARD_IMG bi WHERE bi.BOARD_NO = b.BOARD_NO AND BOARD_IMG_ORDER = 0) BOARD_THUMBNAIL
 	FROM BOARD b WHERE MEMBER_NO = #{memberNo} AND BOARD_DEL_FL ='N'
 	<if test='sortFl.equals("V")'>
-	ORDER BY BOARD_VIEW DESC, BOARD_DATE
+	ORDER BY BOARD_VIEW DESC, BOARD_DATE DESC
 	</if>
 	<if test='sortFl.equals("N")'>
-	ORDER BY BOARD_DATE DESC, BOARD_VIEW
+	ORDER BY BOARD_DATE DESC, BOARD_VIEW DESC
 	</if>
 </select>
 
@@ -204,6 +204,11 @@
 	ORDER BY WISH_DATE DESC
 	
 </select>
+
+
+<update id="updateBgImg">
+	UPDATE "MEMBER" SET MYPAGE_IMG = #{mypageImg} WHERE MEMBER_NO = #{memberNo}
+</update>
 
 
 </mapper>
