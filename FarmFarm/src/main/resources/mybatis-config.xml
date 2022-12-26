@@ -35,6 +35,9 @@
 		<typeAlias type="edu.kh.farmfarm.board.model.vo.BoardImg" alias="BoardImg"/>
 		<typeAlias type="edu.kh.farmfarm.report.model.vo.Report" alias="Report"/>
 		<typeAlias type="edu.kh.farmfarm.common.SearchItem" alias="SearchItem"/>
+		<typeAlias type="edu.kh.farmfarm.chat.model.vo.Chat" alias="Chat"/>
+		<typeAlias type="edu.kh.farmfarm.chat.model.vo.ChatRoom" alias="ChatRoom"/>
+		<typeAlias type="edu.kh.farmfarm.chat.model.vo.ChatImg" alias="ChatImg"/>
 		<typeAlias type="edu.kh.farmfarm.seller.model.vo.Seller" alias="Seller"/>
 		<typeAlias type="edu.kh.farmfarm.admin.model.vo.Admin" alias="Admin"/>
 	</typeAliases>
@@ -53,6 +56,7 @@
 		<mapper resource="/mappers/dup-mapper.xml"/>
 		<mapper resource="/mappers/admin-mapper.xml"/>
 		<mapper resource="/mappers/postList-mapper.xml"/>
+		<mapper resource="/mappers/chat-mapper.xml"/>
   	</mappers>
 	
 </configuration>

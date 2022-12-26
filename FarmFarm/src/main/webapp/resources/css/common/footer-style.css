@@ -17,6 +17,19 @@
   cursor: pointer;
 }
 
+#showChatWidget{
+  display: none;
+}
+
+#showChatWidget:checked + .btn-chat{
+  background-color: var(--point-color);
+}
+
+#showChatWidget:checked + .btn-chat > i{
+  color: white;
+}
+
+
 .btn-chat {
   position: fixed;
   right: 40px;
