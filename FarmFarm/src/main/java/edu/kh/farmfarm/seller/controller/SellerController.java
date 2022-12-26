@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
@@ -90,6 +91,25 @@ public class SellerController {
 		
 		return "redirect:" + path;
 		
+	}
+	
+	// 상품판매완료처리
+	@ResponseBody
+	@GetMapping("/post/soldout")
+	public int soldoutPost(
+			@RequestParam("postNo") int postNo) {
+
+		return service.soldoutPost(postNo);
+	}
+	
+	
+	// 상품삭제
+	@ResponseBody
+	@GetMapping("/post/delete")
+	public int deletePost(
+			@RequestParam("postNo") int postNo) {
+
+		return service.deletePost(postNo);
 	}
 	
 }

@@ -8,7 +8,10 @@
             alt=""
             class="member-bg-img"
           />
-          <span class="bg-change-btn fa-solid fa-image"></span>
+          <form action="/myPage/update/bgImg" enctype="multipart/form-data" onsubmit="return profileValidate()">   
+            <label for="mypageImgInput" class="bg-change-btn fa-solid fa-image"></label>
+            <input type="file" name="mypageImg" id="mypageImgInput" accept="image/*" style="display:none;"></input>
+          </form>
         </div>
 
         <div class="profile-info">

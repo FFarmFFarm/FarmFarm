@@ -57,6 +57,7 @@ a.ordered > i {
 .order-no {
   font-size: var(--main-font-size);
   font-weight: bold;
+  color: var(--main-font-color);
 }
 
 .order-no > span {

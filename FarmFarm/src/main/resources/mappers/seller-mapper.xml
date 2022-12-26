@@ -11,7 +11,7 @@
       <result property="memberPw" column="MEMBER_PW" />
       <result property="memberName" column="MEMBER_NAME" />
       <result property="memberNickname" column="MEMBER_NICKNAME" />
-      <result property="memberTel" column="MEMBER_TEL" />
+      <result property="to" column="MEMBER_TEL" />
       <result property="memberAddress" column="MEMBER_ADDRESS" />
       <result property="signUpDate" column="SIGNUP_DATE" />
       <result property="memberDelFl" column="MEMBER_DEL_FL" />
@@ -47,6 +47,11 @@
   	<result property="postImgOrder" column="POST_IMG_ORDER"/>
   
   </resultMap>
+  
+  <resultMap type="Seller" id="seller_rm">
+  	<id property="memberNo" column="MEMBER_NO"/>
+  	<result property="farmImg" column="FARM_IMG"/>
+  </resultMap>
 
 	<!-- 멤버 기본 정보 조회 -->
 	<select id="selectMemberInfo" resultMap="member_rm">
@@ -74,8 +79,14 @@
 		JOIN POST_IMG USING(POST_NO)
 		WHERE MEMBER_NO=#{memberNo}
 		AND POST_IMG_ORDER=0
+		AND POST_DEL_FL='N'
 		ORDER BY POST_DATE DESC
 	</select>
+	
+	<!-- 농장 인증 사진 삽입 -->
+	<insert id="insertFarmImage">
+		INSERT INTO SELLER VALUES(#{memberNo}, #{farmImg})
+	</insert>
 	
 	<!-- 판매글 삽입 -->
 	<insert id="enrollPost" parameterType="Post" useGeneratedKeys="true">
@@ -99,6 +110,17 @@
 			FROM DUAL
 		</foreach>
 	</insert>
+	
+	<!-- 판매완료처리 -->
+	<update id="soldoutPost">
+		UPDATE POST SET POST_SOLDOUT_FL=1 WHERE POST_NO = #{postNo}
+	</update>
+
+	<!-- 게시물 삭제  -->
+	<update id="deletePost">
+		UPDATE POST SET POST_DEL_FL='Y' WHERE POST_NO = #{postNo}
+	</update>
+	
 	
 
 </mapper>

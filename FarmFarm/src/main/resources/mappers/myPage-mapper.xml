@@ -14,6 +14,7 @@
       <result property="boardTitle" column="BOARD_TITLE" />
       <result property="memberNo" column="MEMBER_NO" />
       <result property="commentParent" column="COMMENT_PARENT" />
+      <result property="boardTypeNo" column="BOARD_TYPE_NO" />
   </resultMap>
   
    <resultMap type="Order" id="order_rm">
@@ -109,7 +110,7 @@
 <!-- 작성 댓글 목록 조회 -->
 <select id="selectCommentList" resultMap="comment_rm">
 	SELECT c.COMMENT_NO, c.COMMENT_CONTENT , c.COMMENT_DATE , c.BOARD_NO , b.BOARD_TITLE ,
-	(SELECT COUNT(*) FROM "COMMENT" c2 WHERE c2.BOARD_NO = b.BOARD_NO) COMMENT_COUNT 
+	(SELECT COUNT(*) FROM "COMMENT" c2 WHERE c2.BOARD_NO = b.BOARD_NO) COMMENT_COUNT, BOARD_TYPE_NO
 	FROM "COMMENT" c
 	JOIN BOARD b ON (c.BOARD_NO = b.BOARD_NO)
 	WHERE c.MEMBER_NO = #{memberNo} AND COMMENT_DEL_FL = 'N'
@@ -156,6 +157,12 @@
 	(SELECT COUNT(*) FROM "COMMENT" c WHERE c.BOARD_NO = b.BOARD_NO) COMMENT_COUNT,
 	(SELECT BOARD_IMG_ADDRESS FROM BOARD_IMG bi WHERE bi.BOARD_NO = b.BOARD_NO AND BOARD_IMG_ORDER = 0) BOARD_THUMBNAIL
 	FROM BOARD b WHERE MEMBER_NO = #{memberNo} AND BOARD_DEL_FL ='N'
+	<if test='sortFl.equals("V")'>
+	ORDER BY BOARD_VIEW DESC, BOARD_DATE
+	</if>
+	<if test='sortFl.equals("N")'>
+	ORDER BY BOARD_DATE DESC, BOARD_VIEW
+	</if>
 </select>
 
 <!-- 작성 후기 수 조회 -->

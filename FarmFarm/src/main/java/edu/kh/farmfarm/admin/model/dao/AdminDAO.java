@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import edu.kh.farmfarm.admin.model.vo.Admin;
 import edu.kh.farmfarm.member.model.VO.Member;
 
 @Repository
@@ -24,7 +25,7 @@ public class AdminDAO {
 		return sqlSession.selectOne("adminMapper.checkAdmin");
 	}
 	
-
+	
 	
 	/** 대시보드_통계 조회
 	 * @return statMap
@@ -60,9 +61,23 @@ public class AdminDAO {
 	 * @param memberNo
 	 * @return memberAllList
 	 */
-	public List<Member> selectMemberAll(int memberNo) {
-		return sqlSession.selectList("adminMapper.selectMemberAll", memberNo);
+	public List<Member> selectMemberAll() {
+		return sqlSession.selectList("adminMapper.selectMember");
 	}
+
+
+
+	/** 상세 회원 정보 조회
+	 * @param memberId
+	 * @return memberDetail
+	 */
+	public Admin selectMemberDetail(String memberId) {
+		return sqlSession.selectOne("adminMapper.selectMember", memberId);
+	}
+
+
+
+
 
 
 }

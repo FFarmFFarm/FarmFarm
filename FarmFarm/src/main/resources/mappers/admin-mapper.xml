@@ -3,7 +3,7 @@
 <mapper namespace="adminMapper">
 
 
- <resultMap type="Member" id="member_rm">
+ <resultMap type="Admin" id="admin_rm">
         <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
      <id property = "memberNo" column="MEMBER_NO"/>
      <!-- 나머지 일반 컬럼 -->
@@ -11,7 +11,7 @@
       <result property="memberPw" column="MEMBER_PW" />
       <result property="memberName" column="MEMBER_NAME" />
       <result property="memberNickname" column="MEMBER_NICKNAME" />
-      <result property="memberTel" column="MEMBER_TEL" />
+      <result property="to" column="MEMBER_TEL" />
       <result property="signUpDate" column="SIGNUP_DATE" />
       <result property="memberDelFl" column="MEMBER_DEL_FL" />
       <result property="memberBirth" column="MEMBER_BIRTH" />
@@ -24,22 +24,19 @@
       <result property="boardCount" column="BOARD_COUNT" />
       <result property="commentCount" column="COMMENT_COUNT" />
       <result property="orderCount" column="ORDER_COUNT" />
-   
       
-  </resultMap>
-
- <resultMap type="MemberAddress" id="memberAddress_rm">
-        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
-     <id property = "addressNo" column="ADDRESS_NO"/>
-     <!-- 나머지 일반 컬럼 -->
       <result property="memberAddress" column="MEMBER_ADDRESS" />
       <result property="defaultFl" column="DEFAULT_FL" />
-      <result property="memberNo" column="MEMBER_NO" />
-  </resultMap>
-  
-  
-  
 
+     	 <result property="reportNo" column="REPORT_NO" />
+	     <result property="reportType" column="REPORT_TYPE" />
+	     <result property="reportMemberNo" column="REPORT_MEMBER_NO" />
+	     <result property="reportTargetNo" column="REPORT_TARGET_NO" />
+	     <result property="reportReason" column="REPORT_REASON" />
+	     <result property="reportDate" column="REPORT_DATE" />
+	     <result property="reportPenalty" column="REPORT_PENALTY" />
+	     <result property="processDate" column="REPORT_DATE" />
+  </resultMap>
 
 
 	<!-- 관리자인지 확인 -->
@@ -48,6 +45,16 @@
 		FROM "MEMBER" 
 		WHERE AUTHORITY = 2
 	</select>
+	
+	
+	<!-- 판매자 인증중인 회원인지 확인 -->
+	<select id="checkAuth" resultType="_int">
+		SELECT COUNT(*)
+		FROM "MEMBER"
+		WHERE AUTHORITY = 3
+		AND MEMBER_NO = #{memberNo}
+	</select>
+	
 
 
 	<!-- 대시보드 -->
@@ -74,14 +81,17 @@
 
 	
 	<!-- 전체 회원 정보 조회 -->
-	<select id="selectMemberAll" resultMap="member_rm">
+	<select id="selectMember" resultMap="admin_rm">
 		SELECT *
 		FROM MEMBER
 		LEFT JOIN ADDRESS USING(MEMBER_NO)
 		LEFT JOIN SELLER USING(MEMBER_NO)
+		LEFT JOIN REPORT ON (MEMBER_NO = REPORT_TARGET_NO)
+		WHERE MEMBER_ID != 'admin'
+		AND MEMBER_DEL_FL = 'N'
 		
-		<if test='memberNo != null and memberNo !=""'>
-			WHERE MEMBER_NO = #{memberNo}
+		<if test='memberId != null and memberId !=""'>
+			AND MEMBER_ID = #{memberId}
 		</if>
 	</select>
 
