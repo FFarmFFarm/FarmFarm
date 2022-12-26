@@ -49,9 +49,24 @@
                                 <th id="sellerAuth">판매자 등록
                                     <i class="fa-solid fa-caret-down caret-icon" class="select-filter"></i>
                                 </th>
+                                <div>
+                                    <ul class="auth-filter-drop">
+                                        <li><input type="radio" name="auth"> 전체</li>
+                                        <li><input type="radio" name="auth"> 미등록</li>
+                                        <li><input type="radio" name="auth"> 판매자</li>
+                                        <li><input type="radio" name="auth"> 인증 대기</li>
+                                    </ul>
+                                </div>
+                                
                                 <th id="memberStatus">상태
                                     <i class="fa-solid fa-caret-down caret-icon" class="select-filter"></i>
                                 </th>
+                                <%-- <div class="status-filter-drop">
+                                    <span>활동중</span>
+                                    <span>신고 접수</span>
+                                    <span>정지</span>
+                                    <span>탈퇴</span>
+                                </div>  --%>
                             </tr>
 
                             <!-- 한 행 반복 -->

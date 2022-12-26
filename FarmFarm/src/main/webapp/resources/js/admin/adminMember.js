@@ -165,7 +165,7 @@ function selectMemberList(){
                 
                 const tdTel = document.createElement("td");
                 tdTel.style.width = "175px";
-                tdTel.innerText = member.memberTel;
+                tdTel.innerText = member.to;
 
 
                 // 2)

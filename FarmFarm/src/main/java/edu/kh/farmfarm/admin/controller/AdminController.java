@@ -158,12 +158,12 @@ public class AdminController {
 		}
 		
 		
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		
-//		map.put("memberAllList", memberAllList);
-//		map.put("memberDetail", memberDetail);
+		Map<String, Object> map = new HashMap<String, Object>();
 		
-//		model.addAttribute(map);
+		map.put("memberAllList", memberAllList);
+		map.put("memberDetail", memberDetail);
+		
+		model.addAttribute(map);
 		
 		return new Gson().toJson(memberAllList);
 	
