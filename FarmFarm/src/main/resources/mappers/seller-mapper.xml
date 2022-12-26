@@ -37,6 +37,10 @@
   	<result property="memberNo" column="MEMBER_NO"/>
   	<result property="categoryNo" column="CATEGORY_NO"/>
   	<result property="postImgAddress" column="POST_IMG_ADDRESS"/>
+  	<collection property="imgList" 
+     			  javaType="java.util.ArrayList" ofType="PostImg"
+     			  select="selectImgList"
+     			  column = "POST_NO"/>
   </resultMap>
   
   <resultMap type="PostImg" id="postImg_rm">
@@ -111,6 +115,50 @@
 		UPDATE POST SET POST_DEL_FL='Y' WHERE POST_NO = #{postNo}
 	</update>
 	
+	
+	<!-- 게시글 상세조회(수정용) -->
+	<select id="selectPost" resultMap="post_rm">
+		SELECT POST_NO , POST_TITLE , POST_CONTENT, CATEGORY_NO,
+			TO_CHAR(UNIT_PRICE, '999,999,999,999') UNIT_PRICE, 
+			TO_CHAR(OPEN_DATE, 'YYYY-MM-DD') OPEN_DATE
+		FROM POST
+		WHERE POST_NO = #{postNo}
+	</select>
+
+	<!-- 판매자 상품 이미지 목록 조회 -->
+	<select id="selectImgList" resultMap="postImg_rm">
+		SELECT * FROM POST_IMG WHERE POST_NO = #{postNo}
+	</select>
+	
+	
+	<!-- 게시글 수정 -->
+	<update id="updatePost">
+		UPDATE POST SET
+		POST_TITLE = #{postTitle},
+		POST_CONTENT = #{postContent}
+		WHERE POST_NO = #{postNo}
+	</update>
+	
+	<!-- 이미지 삭제 -->
+	<delete id="postImgDelete">
+		DELETE FROM POST_IMG
+		${condition}
+	</delete>
+	
+	<!-- 이미지 수정 -->
+	<update id="postImgUpdate">
+		UPDATE POST_IMG SET
+		POST_IMG_ADDRESS = #{postImgAddress}
+		WHERE POST_NO = #{postNo}
+		AND POST_IMG_ORDER = #{postImgOrder}
+	</update>
+	
+	<!-- 이미지 삽입 -->
+	<insert id="postImgInsert">
+		INSERT INTO POST_IMG 
+		VALUES(SEQ_POST_IMG_NO.NEXTVAL, #{postImgAddress}, 
+		#{postNo}, #{postImgOrder})
+	</insert>
 	
 
 </mapper>

@@ -9,9 +9,21 @@ categoryBtn.addEventListener("click", ()=>{
   selectIcon.classList.toggle("rotate");
 });
 
+// 선택된 카테고리 불러오기
+(()=>{
+  const categoryNoList = document.getElementsByName("categoryNo");
+  for(let item of categoryNoList){
+    if(item.value==categoryNo){
+      item.checked = true;
+      document.getElementById("categoryName").innerText= item.nextElementSibling.innerText;
+    }
+  }
+})();
+
+
 // 카테고리 선택시 내용 출력
-let category = document.querySelectorAll('input[name="category"]');
-let categoryName = document.getElementById("category-name");
+let category = document.querySelectorAll('input[name="categoryNo"]');
+let categoryName = document.getElementById("categoryName");
 
 for(let i=0; i<category.length; i++){
   category[i].addEventListener("change", (e)=>{
@@ -27,6 +39,8 @@ const inputImg = document.getElementsByClassName("input-img");
 const preview = document.getElementsByClassName("preview");
 const deleteImg = document.getElementsByClassName("delete-img");
 
+const deleteSet = new Set();
+
 for(let i=0; i<inputImg.length; i++){
 
   inputImg[i].addEventListener("change", (e)=>{
@@ -36,13 +50,20 @@ for(let i=0; i<inputImg.length; i++){
 
       reader.onload = e =>{
         preview[i].setAttribute("src", e.target.result);
-        // preview.display="block";
-        preview[i].nextElementSibling.style.display='none';
+        // 삭제하면 안된다 == deleteSet에서 해당 순번 제거
+        deleteSet.delete(i);
+
+        preview[i].nextElementSibling.remove();
       }
     }else{
       preview[i].removeAttribute("src");
-      preview[i].nextElementSibling.style.display='block';
-      
+      if(preview[i].nextElementSibling==null){
+
+        const addPhoto = document.createElement("p");
+        addPhoto.innerText = "사진추가";
+  
+        preview[i].after(addPhoto);
+      }
     }
   });
 
@@ -50,7 +71,15 @@ for(let i=0; i<inputImg.length; i++){
     if(preview[i].getAttribute("src")!=""){
       preview[i].removeAttribute("src");
       inputImg[i].value="";
-      preview[i].nextElementSibling.style.display='block';
+      
+      deleteSet.add(i)
+
+      if(preview[i].nextElementSibling==null){
+        const addPhoto = document.createElement("p");
+        addPhoto.innerText = "사진추가";
+  
+        preview[i].after(addPhoto);
+      }
     }
   });
 }
@@ -118,15 +147,13 @@ enrollPostForm.addEventListener("submit", (event)=>{
     return;
   }
 
-  const thumbnail = document.getElementById("img0");
-  if(thumbnail.value.length==0){
+  const thumbnail = document.getElementsByClassName("thumbnail-preview")[0];
+  if(thumbnail.getAttribute("src")==null){
     alert("대표 이미지를 설정해주세요.");
     thumbnail.value="";
     event.preventDefault();
     return;
   }
-
-
 
   const postContent = document.querySelector("[name='postContent']");
   if(postContent.value.trim().length==0){
@@ -136,6 +163,8 @@ enrollPostForm.addEventListener("submit", (event)=>{
     event.preventDefault();
     return;
   }
+
+  document.getElementById("deleteList").value = Array.from(deleteSet);
 
 });
 
