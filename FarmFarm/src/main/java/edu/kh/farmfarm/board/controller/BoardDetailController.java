@@ -52,7 +52,7 @@ public class BoardDetailController {
 		
 		model.addAttribute("board", board);
 		
-		return "/board/boardDetail";
+		return "board/boardDetail";
 	}
 	
 	// 게시글 좋아요++

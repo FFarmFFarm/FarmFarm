@@ -36,11 +36,11 @@ goList.addEventListener("click", ()=>{
 const likeBtn = document.querySelector(".board-like");
 likeBtn.addEventListener("click", ()=>{
 
-    const heartIcon = document.querySelector(".fa-heart");
+    const heartIcon = document.getElementById("boardLike")
     const likeCount = document.getElementById("likeCount")
 
     // 좋아요 취소하는 경우
-    if(heartIcon.classList.contains("checkLike")){
+    if(heartIcon.classList.contains("fa-solid")){
         $.ajax({
             url : "/boardLikeDelete",
             data : {"boardNo":boardNo, "memberNo":memberNo},
@@ -48,6 +48,8 @@ likeBtn.addEventListener("click", ()=>{
 
                 if(result>0){ // 좋아요 취소 성공
                     heartIcon.classList.remove("checkLike");
+                    heartIcon.classList.remove("fa-solid");
+                    heartIcon.classList.add("fa-regular");
                     likeCount.innerText=Number(likeCount.innerText)-1;
                 }else{
                     console.log("좋아요 취소 실패");
@@ -56,8 +58,10 @@ likeBtn.addEventListener("click", ()=>{
             error : ()=>{
                 console.log("좋아요 취소 통신 실패");
             }
-        })
-    }else{
+        });
+    }
+    else{
+    // if(e.target.classList.contains('fa-regular')){
         // 좋아요 누르기~
         $.ajax({
             url:"/boardLikeInsert",
@@ -65,6 +69,8 @@ likeBtn.addEventListener("click", ()=>{
             success : result=>{
     
                 if(result>0){
+                    heartIcon.classList.add("fa-solid");
+                    heartIcon.classList.remove("fa-regular");
                     heartIcon.classList.add("checkLike");
                     likeCount.innerText = Number(likeCount.innerText)+1;
                 }else{
@@ -74,7 +80,7 @@ likeBtn.addEventListener("click", ()=>{
             error : ()=>{
                 console.log("좋아요 통신 실패..");
             }
-        })
+        });
 
     }
     

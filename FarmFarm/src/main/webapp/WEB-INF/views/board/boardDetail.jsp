@@ -70,11 +70,13 @@ ${board.boardContent}
         <section class="board-like-report">
             <c:if test="${loginMember.memberNo != board.memberNo}">
                 <button class="board-like">
-                    <c:if test="${empty likeCheck}">
-                        <i class="fa-regular fa-heart"></i>
+                    <c:if test="${empty likeCheck}"> 
+                        <%-- 좋아요 안눌러진 경우 --%>
+                        <i class="fa-regular fa-heart" id="boardLike"></i>
                     </c:if>
                     <c:if test="${!empty likeCheck}">
-                        <i class="fa-solid fa-heart"></i>
+                        <%-- 좋아요 눌러진 경우 --%>
+                        <i class="fa-solid fa-heart" id="boardLike"></i>
                     </c:if>
                     &nbsp; 좋아요&nbsp;<span id="likeCount">${board.likeCount}</span>
                 </button>
