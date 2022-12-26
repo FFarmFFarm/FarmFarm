@@ -7,6 +7,7 @@ for(let page of pageBox) {
     let cp = page.id;
 
     selectReviewList(cp);
+    changeURL(cp);
 
   })
 }
@@ -183,6 +184,7 @@ const selectReviewListEvent = (element, cp) => {
   
   element.addEventListener('click', () => {
     selectReviewList(cp);
+    changeURL(cp);
   });
 
 }
