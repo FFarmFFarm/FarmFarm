@@ -10,4 +10,19 @@ const makePageBox = (elementName, inputHtml, inputId, className) => {
 }
 
 
+//TODO 배경사진 변경하기
 
+const mypageImgInput = document.getElementById('mypageImgInput');
+mypageImgInput?.addEventListener('change', (e) => {
+
+  if (e.target.files[0] != undefined) {
+
+    
+    const fileReader = new FileReader();
+    
+    fileReader.readAsDataURL(e.target.files[0]);
+
+    fileReader.onload = (e) => {}
+  }
+
+})

@@ -115,6 +115,9 @@ public class MyPageServiceImpl implements MyPageService {
 	
 	
 	
+	/** 찜목록 조회
+	 *
+	 */
 	@Override
 	public Map<String, Object> selectWishList(int memberNo, int cp) {
 		

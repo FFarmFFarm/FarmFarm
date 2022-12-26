@@ -1,5 +1,5 @@
 
-/* 게시글 추천순, 최근 등록순 정렬하기 */
+/* 게시글 조회수, 최근 등록순 정렬하기 */
 document.getElementById('sortNewest').addEventListener('click', (e) => { 
 
   if (! e.target.classList.contains('sort-clicked')) {
