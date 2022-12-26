@@ -4,21 +4,22 @@ document.getElementById('sortNewest').addEventListener('click', (e) => {
 
   if (! e.target.classList.contains('sort-clicked')) {
     sortFl = 'N'; 
-    selectBoardList(1, sortFl); 
+    selectBoardListBySoltFl(1, sortFl); 
 
     e.target.classList.add('sort-clicked');
-    document.getElementById('sortNewest').classList.remove('sort-clicked');
+    document.getElementById('sortView').classList.remove('sort-clicked');
   }
 })
 
 document.getElementById('sortView').addEventListener('click', (e) => { 
-  
   if (!e.target.classList.contains('sort-clicked')) { 
+    console.log("조회수순")
     
     sortFl = 'V'; 
-    selectBoardList(1, sortFl);
+    selectBoardListBySoltFl(1, sortFl);
+
     e.target.classList.add('sort-clicked');
-    document.getElementById('sortView').classList.remove('sort-clicked');
+    document.getElementById('sortNewest').classList.remove('sort-clicked');
   }
 
 })
@@ -33,14 +34,27 @@ for(let page of pageBox) {
 
     let cp = page.id;
 
-    selectBoardList(cp, sortFl);
+    selectBoardList(cp);
 
   })
 }
 
 
 /* cp를 받아 게시글 목록 조회해오기 */
-const selectBoardList = (cp, sortFl)=>{
+const selectBoardList = (cp)=>{
+  $.ajax({
+    url:"/board/list", 
+    data: {"cp":cp, "sortFl": sortFl},
+    dataType: "json",
+    success: (map)=>{
+      printBoardList(map.boardList, map.pagination);
+    },
+    error: ()=>{}
+  });
+}
+
+/* cp를 받아 게시글 목록 조회해오기 */
+const selectBoardListBySoltFl = (cp, sortFl)=>{
   $.ajax({
     url:"/board/list", 
     data: {"cp":cp, "sortFl":sortFl},

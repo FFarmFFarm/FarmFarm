@@ -36,6 +36,7 @@ a.board-wrote > i {
 .sort-area > * {
   background-color: white;
   margin: 0 3px;
+  color: var(--sub-font-color)
 }
 
 .sort-clicked {
@@ -45,10 +46,6 @@ a.board-wrote > i {
 
 .or-bar {
   font-size: var(--small-font-size);
-  color: var(--sub-font-color);
-}
-
-.latest {
   color: var(--sub-font-color);
 }
 

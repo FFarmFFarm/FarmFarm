@@ -37,9 +37,9 @@
           <span class="board-list-title">작성 게시글</span>
           <div class="board-list-header">
             <div class="sort-area">
-              <button class="popular sort-clicked" id="sortNewest">최신순</button>
+              <button class="latest sort-clicked" id="sortNewest">최신순</button>
               <span class="or-bar">|</span>
-              <button class="latest" id="sortView">조회수순</button>
+              <button class="view" id="sortView">조회수순</button>
             </div>
           </div>
           <div class="list-category">
@@ -134,7 +134,7 @@
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
     <script>
-      sortFl = 'N';
+      var sortFl = 'N';
     </script>
 
     <!-- jquery -->
