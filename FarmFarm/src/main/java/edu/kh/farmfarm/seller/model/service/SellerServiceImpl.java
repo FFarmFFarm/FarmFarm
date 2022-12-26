@@ -111,6 +111,72 @@ public class SellerServiceImpl implements SellerService{
 	public int deletePost(int postNo) {
 		return dao.deletePost(postNo);
 	}
+
+	
+	// 판매글 수정페이지로 이동
+	@Override
+	public Post selectPostDetail(int postNo) {
+		return dao.selectPostDetail(postNo);
+	}
+	
+	
+	// 판매글 수정
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int postUpdate(Post post, List<MultipartFile> postImgList, String webPath, String folderPath,
+			String deleteList) throws Exception {
+		
+		// XSS 처리
+		post.setPostTitle(Util.XSSHandling(post.getPostTitle()));
+		post.setPostContent(Util.XSSHandling(post.getPostContent()));
+		// 개행처리
+		post.setPostContent(Util.newLineHandling(post.getPostContent()));
+		
+		
+		int result = dao.updatePost(post);
+		
+		if(result>0) {
+			if(!deleteList.equals("")) {
+				String condition = "WHERE POST_NO = " + post.getPostNo()
+									+ "AND POST_IMG_ORDER IN(" + deleteList + ")";
+				
+				result = dao.postImgDelete(condition);
+			}
+			
+			List<PostImg> imgList = new ArrayList<PostImg>();
+			List<String> renameList = new ArrayList<String>();
+			
+			for(int i=0; i<postImgList.size(); i++) {
+				if(postImgList.get(i).getSize()>0) {
+					PostImg img = new PostImg();
+					
+					String rename = Util.fileRename(postImgList.get(i).getOriginalFilename());
+					renameList.add(rename);
+					
+					img.setPostImgAddress(webPath+rename);
+					img.setPostImgOrder(i);
+					img.setPostNo(post.getPostNo());
+					
+					imgList.add(img);
+					result = dao.postImgUpdate(img);
+					
+					// result== 0 : 이미지는 있는데 기존에 없었던 경우
+					if(result==0) {
+						result = dao.postImgInsert(img);
+					}
+				}
+			}
+			if(!imgList.isEmpty()) {
+				for(int i=0; i<imgList.size(); i++) {
+					int index = imgList.get(i).getPostImgOrder();
+					postImgList.get(index).transferTo(new File(folderPath+renameList.get(i)));
+				}
+			}
+		}
+		
+		return result;
+	}
+
 	
 	
 	
