@@ -83,8 +83,8 @@ ${board.boardContent}
                 <button class="board-report">신고</button>
             </c:if>
             <c:if test="${loginMember.memberNo == board.memberNo}">
-                <button id="boardUpdate">수정하기</button>
-                <button id="boardDelete">삭제하기</button>
+                <button type="button" id="boardUpdate">수정하기</button>
+                <button type="button" id="boardDelete">삭제하기</button>
             </c:if>
         </section>
 

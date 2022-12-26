@@ -87,3 +87,14 @@ likeBtn.addEventListener("click", ()=>{
 
 });
 
+// 해야되는게 삭제하기 수정하기인데 삭제랑 수정을 
+// 모달으로 물어볼지 아님 컨펌으로 할지 잘 생각해보기
+// 그 다음에 댓글 수정 삭제 답글 하자!
+// 게시글 삭제하기~
+const boardDelete = document.getElementById("boardDelete");
+if(boardDelete != null){
+    boardDelete.addEventListener("click", ()=>{
+
+    })
+}
+
