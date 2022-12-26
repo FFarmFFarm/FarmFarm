@@ -11,7 +11,7 @@
       <result property="memberPw" column="MEMBER_PW" />
       <result property="memberName" column="MEMBER_NAME" />
       <result property="memberNickname" column="MEMBER_NICKNAME" />
-      <result property="memberTel" column="MEMBER_TEL" />
+      <result property="to" column="MEMBER_TEL" />
       <result property="memberAddress" column="MEMBER_ADDRESS" />
       <result property="signUpDate" column="SIGNUP_DATE" />
       <result property="memberDelFl" column="MEMBER_DEL_FL" />

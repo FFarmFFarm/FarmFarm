@@ -80,16 +80,13 @@
                                                 </section>
                                                 <section class="signup tel phoneCertifyDiv">
                                                     <div class="title">전화번호 인증</div>
-                                                    <input type="text" name="memberPhoneCheck" id="memberTel"
-                                                        placeholder="전화번호" maxlength="11" autocomplete="off"
-                                                        value="${tempMember.memberTel}">
-                                                    <button type="button" id="memberPhoneCheck" class="find-btn tel-btn1">인증번호 전송</button>
+                                                    <input type="text" name="to" id="to" placeholder="전화번호" maxlength="11" autocomplete="off">
+                                                    <button type="button" id="send" class="find-btn tel-btn1">인증번호 전송</button>
                                                     <div id="telMessage" class="coner">-를 제외하고 입력해주세요.</div>
                                                 </section>
                                                 <section class="signup tel" id="phoneCertifyDiv">
-                                                    <input type="text" name="memberPhoneCertify" id="memberTelConfirm"
-                                                        placeholder="인증번호 4자리" maxlength="4" autocomplete="off">
-                                                    <button type="button" id="certifyCheck" class="find-btn tel-btn2">인증하기</button>
+                                                    <input type="text" name="userNum" id="userNum" placeholder="인증번호 4자리" maxlength="4" autocomplete="off">
+                                                    <button type="button" id="enterBtn" class="find-btn tel-btn2">인증하기</button>
                                                     <div id="telConfirm" class="coner"></div>
                                                 </section>
                                                 <section class="agree-wrap agree">
@@ -167,44 +164,35 @@
                         })
 
                         //휴대폰번호 인증번호 보내기 버튼 클릭 이벤트
-                        $('#memberPhoneCheck').click(function () {
-                            let memberPhoneCheck = $('input[name="memberPhoneCheck"]').val();
-                            alert('인증번호 발송 완료');
-
-                            $.ajax({
-                                url: "/memberPhoneCheck",
-                                type: "GET",
-                                data: { "memberPhoneCheck": memberPhoneCheck },
-                                dataType: "json",
-                                success: function (res) {
-                                    $('#memberPhoneCheck').click(function () {
-                                        if ($.trim(res) == $('#memberTel').val()) {
-                                            alert(
-                                                '인증성공!',
-                                                '휴대폰 인증이 정상적으로 완료되었습니다.',
-                                                'success'
-                                            )
-
-                                            $.ajax({
-                                                type: "GET",
-                                                url: "update/phone",
-                                                data: {
-                                                    "memberPhoneCheck": $('#memberTel').val()
-                                                }
-                                            })
-                                            document.location.href = "/";
-                                        } else {
-                                            alert({
-                                                icon: 'error',
-                                                title: '인증오류',
-                                                text: '인증번호가 올바르지 않습니다!',
-                                                footer: '<a href="/home">다음에 인증하기</a>'
-                                            })
-                                        }
-                                    })
-                                }
-                            });
+                        $('#send').click(function() {
+	
+                        const to = $('#to').val();
+                        
+                        $.ajax ({
+                            url: '/check/sendSMS',
+                            type: 'GET',
+                            data: {
+                                "to" : to
+                            },
+                            success: function(data) {
+                                const checkNum = data;
+                                alert('checkNum:'+ checkNum);
+                                
+                                $('#enterBtn').click(function() {	
+                                    const userNum = $('#userNum').val();
+                                    
+                                    if(checkNum === userNum) {
+                                        alert('인증 성공하였습니다.');
+                                    }
+                                    else {
+                                        alert('인증 실패하였습니다. 다시 입력해주세요.');
+                                    }
+                                });
+                                
+                            }
                         });
+                        
+                    });
                     </script>
                 </body>
 

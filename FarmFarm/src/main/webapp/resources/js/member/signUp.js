@@ -80,8 +80,10 @@ const checkObj = {
     "memberPwConfirm" : false,
     "memberName"  : false,
     "memberNickname"  : false,
-    "memberTel"       : false,
-    // "authKey"         : false
+    "agreeInput1"         : false, // 동의
+    "agreeInput"         : false, // 동의
+    "farmImg"         : false, // 사진
+    // "userNum" :false
 };
 
 // 회원 가입 양식이 제출 되었을 때
@@ -108,8 +110,10 @@ document.getElementById("signUpFrm").addEventListener("submit",function(event){
                 case "memberPwConfirm" : str = "비밀번호 확인이 유효하지 않습니다."; break;
                 case "memberName" : str = "이름이 유효하지 않습니다."; break;
                 case "memberNickname" : str = "닉네임이 유효하지 않습니다."; break;
-                case "memberTel" : str = " 전화번호가 유효하지 않습니다"; break;
-                // case "authKey" : str = "인증이 완료되지 않았습니다"; break;
+                case "agreeInput1" : str = "농장인증 절차 확인을 확인해주세요."; break;
+                case "agreeInput" : str = "개인 정보 수집 및 이용동의를 확인해주세요."; break;
+                case "farmImg" : str = "농장 인증을 해주세요."; break;
+                // case "userNum" : str = "전화번호 인증을 해주세요."; break;
             }
 
             alert(str); // 대화상자 출력
@@ -123,6 +127,35 @@ document.getElementById("signUpFrm").addEventListener("submit",function(event){
         }
     }
 
+})
+
+const userNum = document.getElementById("userNum");
+// userNum.addEventListener("")
+
+// 체크박스 유효성 검사
+const agreeInput1 = document.getElementById("agreeInput1");
+const agreeInput = document.getElementById("agreeInput");
+agreeInput1.addEventListener("input", function(){
+    if(agreeInput1.checked){
+        checkObj.agreeInput1 = true;
+        return;
+    }
+});
+
+agreeInput.addEventListener("input", function(){
+    if(agreeInput.checked){
+        checkObj.agreeInput = true;
+        return;
+    }
+});
+
+// 농장 인증 유효성 검사
+const farmImg = document.getElementById("farmImg");
+farmImg.addEventListener("change", function(){
+    if(farmImg != null){
+        checkObj.farmImg = true;
+        return;
+    }
 })
 
 
@@ -141,7 +174,7 @@ memberId.addEventListener("input",function(){
         // confirm, error 클래스 제거 -> 검정글씨로 만들기
         IdConfirm.classList.remove("confirm", "error");
 
-        // 유효성 검사 확안 객체에 현재 상태 저장
+        // 유효성 검사 확인 객체에 현재 상태 저장
         checkObj.memberId = false;
         return;
     }
@@ -401,7 +434,7 @@ function tempFn(){
 
 
 // 전화번호 유효성 검사
-const memberTel = document.getElementById("memberTel");
+const memberTel = document.getElementById("to");
 const telMessage = document.getElementById("telMessage");
 
 memberTel.addEventListener("input", function(){
@@ -428,7 +461,6 @@ memberTel.addEventListener("input", function(){
         checkObj.memberTel = false;
 
     }
-
 });
 
 // 생일 유효성 검사
@@ -441,8 +473,7 @@ memberBirth.addEventListener("input", ()=>{
         return;
     }
     checkObj.memberBirth=true;
-})
-
+});
 
 // 이미지 미리보기
 const inputImage = document.getElementsByClassName("input-image");
@@ -499,3 +530,41 @@ for(let i=0; i<inputImage.length; i++){
     });
 }
 
+// $(document).ready(function () {
+//     $("#close-btn-wrap").click(function () {
+//         $(this).closest(".modal").css("display", "none");
+//         $("#agreeInput").prop("checked", true);
+//         $("#agreeInput1").prop("checked", true);
+//     });
+// });
+
+// //휴대폰번호 인증번호 보내기 버튼 클릭 이벤트
+// $('#send').click(function() {
+
+// const to = $('#to').val();
+
+// $.ajax ({
+//     url: '/check/sendSMS',
+//     type: 'GET',
+//     data: {
+//         "to" : to
+//     },
+//     success: function(data) {
+//         const checkNum = data;
+//         // alert('checkNum:'+ checkNum);
+        
+//         $('#enterBtn').click(function() {	
+//             const userNum = $('#userNum').val();
+            
+//             if(checkNum === userNum) {
+//                 alert('인증 성공하였습니다.');
+//             }
+//             else {
+//                 alert('인증 실패하였습니다. 다시 입력해주세요.');
+//             }
+//         });
+        
+//     }
+// });
+
+// });

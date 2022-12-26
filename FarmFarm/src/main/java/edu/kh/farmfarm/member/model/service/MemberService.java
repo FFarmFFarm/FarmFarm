@@ -21,7 +21,7 @@ public interface MemberService {
 
 	int signUp1(Member inputMember, String[] memberAddress, String webPath, String folderPath, MultipartFile farmImg) throws IOException, Exception;
 
-	void memberPhoneCheck(String memberPhoneCheck, String numStr);
+	String phoneNumberCheck(String to) throws CoolsmsException;
 
 
 
