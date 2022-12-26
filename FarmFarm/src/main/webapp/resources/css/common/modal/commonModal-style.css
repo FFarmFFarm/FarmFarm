@@ -72,13 +72,15 @@
 
   font-size: var(--main-font-size);
   font-family: "NotoSansKR-Bold";
+
 }
 
 .message-area {
   min-width: 200px;
   min-height: 30px;
   background-color: white;
-
+  padding: 0 20px;
+  
   display: flex;
   justify-content: center;
   align-items: center;
