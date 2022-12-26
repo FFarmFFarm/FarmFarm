@@ -31,7 +31,7 @@
       <section class="list-container">
        <jsp:include page="/WEB-INF/views/myPage/myPageNav.jsp"/>
 
-        <div class="review-list">
+        <div class="review-list" id="reviewListContainer">
           <span class="review-list-title">작성 후기</span>
 
           <c:if test="${empty reviewList}">
@@ -117,5 +117,13 @@
       </section>
     </main>
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+
+    <script src="/resources/js/myPage/myPage.js"></script>
+    <script src="/resources/js/myPage/myPageReview.js"></script>
+
   </body>
 </html>

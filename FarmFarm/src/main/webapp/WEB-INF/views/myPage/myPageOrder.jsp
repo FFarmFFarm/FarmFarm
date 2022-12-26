@@ -35,8 +35,7 @@
        
     <jsp:include page="/WEB-INF/views/myPage/myPageNav.jsp"/>
 
-
-      <div class="order-list">
+      <div class="order-list" id="orderListContainer">
         <span class="order-list-title">주문 내역</span>
         <c:if test="${empty orderList}">
           <div>주문 내역이 없습니다.</div>
@@ -49,8 +48,7 @@
         <div class="order">
           <div class="order-info-container">
             <div class="order-info">
-              <input type="hidden" value="${order.orderNo}" />
-              <a href="" class="order-no">주문번호 <span>${order.orderNo}</span></a>
+              <span class="order-no" id="${order.orderNo}">주문번호 <span>${order.orderNo}</span></span>
               <span class="order-reg-date">2022.12.15</span>
             </div>
           </div>
@@ -65,7 +63,7 @@
               />
             </a>
             <div class="order-total">
-                <a href="/product/${product.productNo}" class="product-title">${product.productName}</span></a>
+              <a href="/product/${product.productNo}" class="product-title">${product.productName}</a>
               <div class="order-detail">
                 <div class="order-price"><span>${product.productPrice}</span>원</div>
                 <span class="or">|</span>
@@ -199,5 +197,21 @@
       </form>
     </div>
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+
+
+    <script>
+      var cp = "${pagination.currentPage}";
+
+    </script>
+
+
+
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+    <script src="/resources/js/common/common.js"></script>
+    <script src="/resources/js/myPage/myPage.js"></script>
+    <script src="/resources/js/myPage/myPageOrder.js"></script>
   </body>
+
 </html>

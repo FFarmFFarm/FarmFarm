@@ -71,14 +71,14 @@ public class MyPageServiceImpl implements MyPageService {
 	 *
 	 */
 	@Override
-	public Map<String, Object> selectBoardList(int memberNo, int cp) {
+	public Map<String, Object> selectBoardList(Map<String, Object> paramMap, int cp) {
 		
 		
-		int boardCount = dao.boardCount(memberNo);
+		int boardCount = dao.boardCount((int)paramMap.get("memberNo"));
 		
 		CommentPagination pagination = new CommentPagination(boardCount, cp);
 		
-		List<Board> boardList = dao.selectBoardList(memberNo, pagination);
+		List<Board> boardList = dao.selectBoardList(paramMap, pagination);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
