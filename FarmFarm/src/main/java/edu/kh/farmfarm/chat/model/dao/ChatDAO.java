@@ -24,6 +24,15 @@ public class ChatDAO {
 	public List<ChatRoom> getChatRoomList(int myMemberNo) {
 		return sqlSession.selectList("chatMapper.getChatRoomList", myMemberNo);
 	}
+	
+	/** 채팅 내역 가져오기 전, 읽음 처리
+	 * @param roomNo
+	 * @param myMemberNo
+	 * @return
+	 */
+	public int updateChatReadFl(Map<String, Object> updateInfo) {
+		return sqlSession.update("chatMapper.updateChatReadFl", updateInfo);
+	}
 
 	/** 채팅 내역 가져오기
 	 * @param roomNo
@@ -74,4 +83,6 @@ public class ChatDAO {
 	public int insertChatImg(ChatImg newImg) {
 		return sqlSession.insert("chatMapper.insertChatImgDb", newImg);
 	}
+
+
 }

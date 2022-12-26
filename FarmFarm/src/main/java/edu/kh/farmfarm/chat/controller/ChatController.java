@@ -92,16 +92,25 @@ public class ChatController {
 		// 2. 회원 정보 객체에서 회원 번호를 꺼냄
 		int myMemberNo = loginMember.getMemberNo();
 		
-		// 3. roomNo를 보내 채팅 목록을 가져옴
+		// 3. roomNo와 loginMemberNo를 보내 채팅 목록을 가져옴
+		Map<String, Object> updateInfo = new HashMap<String, Object>();
+		updateInfo.put("roomNo", roomNo);
+		updateInfo.put("myMemberNo", myMemberNo);
+		
+		int result = service.updateChatReadFl(updateInfo);
+		
+		System.out.println(result);
+		
+		// 4. 다시 roomNo를 보내서 채팅 목록을 가져옴
 		List<Chat> chatHistory = service.getChatHistory(roomNo);
 		
-		// 4. 내 회원 번호, 채팅 목록을 Map에 담음
+		// 5. 내 회원 번호, 채팅 목록을 Map에 담음
 		Map<String, Object> chatHistoryMap = new HashMap<String, Object>();
 		
 		chatHistoryMap.put("myMemberNo", myMemberNo);
 		chatHistoryMap.put("chatHistory", chatHistory);
 		
-		// 3. 반환
+		// 6. 반환
 		return new Gson().toJson(chatHistoryMap);
 	}
 
