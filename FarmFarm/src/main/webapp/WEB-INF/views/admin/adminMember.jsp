@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 
 <!DOCTYPE html>
@@ -37,8 +38,8 @@
                     </div>
 
                     <div class="member-select">
-                        <table class="member-select-table">
-                            <tr>
+                        <table class="member-select-table" id="memberSelectTable">
+                            <tr class="member-first-row">
                                 <th>NO</th>
                                 <th>회원번호</th>
                                 <th>아이디</th>
@@ -54,14 +55,19 @@
                             </tr>
 
                             <!-- 한 행 반복 -->
-                            <c:forEach var="member" items="${memberAllList}">
-                                <tr class="member-select-row">
-                                    <td></td>
+                            <!-- <c:forEach var="member" items="${memberAllList}"> -->
+                                <!-- <c:set var="i" value="${i+1}" /> -->
+                                <!-- <tr class="member-select-row" id="memberSelectRow"> -->
+                                    
+                                    <!-- <td class="report-member-seq">${i}</td>
                                     <td>${member.memberNo}</td>
-                                    <td>${member.memberName}</td>
+                                    <td>${member.memberId}</td>
+                                    <input type="hidden" id="inputMemberId" value="${member.memberId}">
                                     <td>${member.memberNickname}</td>
+
+
                                     <td>${member.memberAddress}</td>
-                                    <td>${member.signUpDate}/td>
+                                    <td>${member.signUpDate}</td>
 
                                     <c:if test="${not empty member.authority}">
                                         <c:if test="${member.authority == 0}">
@@ -70,228 +76,30 @@
                                         <c:if test="${member.authority == 1}">
                                             <td>판매자</td>
                                         </c:if>
-                                        <c:if test="${member.authority == 2}">
-                                            <td>관리자</td>
+                                        <c:if test="${member.authority == 3}">
+                                            <td>인증 대기중</td>
                                         </c:if>
                                     </c:if>
-                                    <td>활동중</td>
-                                </tr>
-                            </c:forEach>
+
+                                    <c:if test="${not empty report.reportPenalty && not empty member.memberDelFl}">
+                                        <c:if test="${member.memberDelFl eq 'N'}">
+                                            <c:if test="${report.reportPenalty eq 'N'}">
+                                                <td>활동중</td>
+                                            </c:if>
+                                            <c:if test="${report.reportPenalty eq 'Y'}">
+                                                <td>정지</td>
+                                            </c:if>
+                                        </c:if>
+                                        <c:if test="${member.memberDelFl eq 'Y'}">
+                                            <td>탈퇴</td>
+                                        </c:if>
 
 
-                            <tr class="member-select-row">
-                                <td>2</td>
-                                <td>12345</td>
-                                <td>longideneti12</td>
-                                <td>유저일</td>
-                                <td>서울 강동구</td>
-                                <td>2022-12-14</td>
-                                <td>2022-12-14</td>
-                                <td>정지</td>
-                            </tr>
+                                    </c:if> -->
 
-                            <tr class="member-select-row">
-                                <td>3</td>
-                                <td>12345</td>
-                                <td>longideneti12</td>
-                                <td>유저일</td>
-                                <td>서울 강동구</td>
-                                <td>2022-12-14</td>
-                                <td>2022-12-14</td>
-                                <td>정지</td>
-                            </tr>
-                            <tr class="member-select-row">
-                                <td>4</td>
-                                <td>12345</td>
-                                <td>longideneti12</td>
-                                <td>유저일</td>
-                                <td>서울 강동구</td>
-                                <td>2022-12-14</td>
-                                <td>미등록</td>
-                                <td>활동중</td>
-                            </tr>
-                            <tr class="member-select-row">
-                                <td>5</td>
-                                <td>12345</td>
-                                <td>longideneti12</td>
-                                <td>유저일</td>
-                                <td>서울 강동구</td>
-                                <td>2022-12-14</td>
-                                <td>미등록</td>
-                                <td>활동중</td>
-                            </tr>
-                            <tr class="member-select-row">
-                                <td>6</td>
-                                <td>12345</td>
-                                <td>longideneti12</td>
-                                <td>유저일</td>
-                                <td>서울 강동구</td>
-                                <td>2022-12-14</td>
-                                <td>미등록</td>
-                                <td>활동중</td>
-                            </tr>
-                            <tr class="member-select-row">
-                                <td>7</td>
-                                <td>12345</td>
-                                <td>longideneti12</td>
-                                <td>유저일</td>
-                                <td>서울 강동구</td>
-                                <td>2022-12-14</td>
-                                <td>미등록</td>
-                                <td>정지</td>
-                            </tr>
-                            <tr class="member-select-row">
-                                <td>8</td>
-                                <td>12345</td>
-                                <td>longideneti12</td>
-                                <td>유저일</td>
-                                <td>서울 강동구</td>
-                                <td>2022-12-14</td>
-                                <td>미등록</td>
-                                <td>활동중</td>
-                            </tr>
-                            <tr class="member-select-row">
-                                <td>9</td>
-                                <td>12345</td>
-                                <td>longideneti12</td>
-                                <td>유저일</td>
-                                <td>서울 강동구</td>
-                                <td>2022-12-14</td>
-                                <td>미등록</td>
-                                <td>활동중</td>
-                            </tr>
-                            <tr class="member-select-row">
-                                <td>10</td>
-                                <td>12345</td>
-                                <td>longideneti12</td>
-                                <td>유저일</td>
-                                <td>서울 강동구</td>
-                                <td>2022-12-14</td>
-                                <td>2022-12-14</td>
-                                <td>활동중</td>
-                            </tr>
-                            <tr class="member-select-row">
-                                <td>11</td>
-                                <td>12345</td>
-                                <td>longideneti12</td>
-                                <td>유저일</td>
-                                <td>서울 강동구</td>
-                                <td>2022-12-14</td>
-                                <td>2022-12-14</td>
-                                <td>정지</td>
-                            </tr>
-                            <tr class="member-select-row">
-                                <td>12</td>
-                                <td>12345</td>
-                                <td>longideneti12</td>
-                                <td>유저일</td>
-                                <td>서울 강동구</td>
-                                <td>2022-12-14</td>
-                                <td>미등록</td>
-                                <td>활동중</td>
-                            </tr>
-                            <tr class="member-select-row">
-                                <td>13</td>
-                                <td>12345</td>
-                                <td>longideneti12</td>
-                                <td>유저일</td>
-                                <td>서울 강동구</td>
-                                <td>2022-12-14</td>
-                                <td>미등록</td>
-                                <td>활동중</td>
-                            </tr>
-                            <tr class="member-select-row">
-                                <td>14</td>
-                                <td>12345</td>
-                                <td>longideneti12</td>
-                                <td>유저일</td>
-                                <td>서울 강동구</td>
-                                <td>2022-12-14</td>
-                                <td>미등록</td>
-                                <td>정지</td>
-                            </tr>
-                            <tr class="member-select-row">
-                                <td>15</td>
-                                <td>12345</td>
-                                <td>longideneti12</td>
-                                <td>유저일</td>
-                                <td>서울 강동구</td>
-                                <td>2022-12-14</td>
-                                <td>미등록</td>
-                                <td>활동중</td>
-                            </tr>
-                            <tr class="member-select-row">
-                                <td>16</td>
-                                <td>12345</td>
-                                <td>longideneti12</td>
-                                <td>유저일</td>
-                                <td>서울 강동구</td>
-                                <td>2022-12-14</td>
-                                <td>2022-12-14</td>
-                                <td>활동중</td>
-                            </tr>
-                            <tr class="member-select-row">
-                                <td>17</td>
-                                <td>12345</td>
-                                <td>longideneti12</td>
-                                <td>유저일</td>
-                                <td>서울 강동구</td>
-                                <td>2022-12-14</td>
-                                <td>2022-12-14</td>
-                                <td>활동중</td>
-                            </tr>
-                            <tr class="member-select-row">
-                                <td>18</td>
-                                <td>12345</td>
-                                <td>longideneti12</td>
-                                <td>유저일</td>
-                                <td>서울 강동구</td>
-                                <td>2022-12-14</td>
-                                <td>2022-12-14</td>
-                                <td>활동중</td>
-                            </tr>
-                            <tr class="member-select-row">
-                                <td>19</td>
-                                <td>12345</td>
-                                <td>longideneti12</td>
-                                <td>유저일</td>
-                                <td>서울 강동구</td>
-                                <td>2022-12-14</td>
-                                <td>미등록</td>
-                                <td>활동중</td>
-                            </tr>
-                            <tr class="member-select-row">
-                                <td>20</td>
-                                <td>12345</td>
-                                <td>longideneti12</td>
-                                <td>유저일</td>
-                                <td>서울 강동구</td>
-                                <td>2022-12-14</td>
-                                <td>2022-12-14</td>
-                                <td>활동중</td>
-                            </tr>
+                                <!-- </tr> -->
+                            <!-- </c:forEach> -->
 
-                            <tr class="member-select-row">
-                                <td>21</td>
-                                <td>12345</td>
-                                <td>longideneti12</td>
-                                <td>유저일</td>
-                                <td>서울 강동구</td>
-                                <td>2022-12-14</td>
-                                <td>미등록</td>
-                                <td>활동중</td>
-                            </tr>
-
-                            <tr class="member-select-row">
-                                <td>22</td>
-                                <td>12345</td>
-                                <td>longideneti12</td>
-                                <td>유저일</td>
-                                <td>서울 강동구</td>
-                                <td>2022-12-14</td>
-                                <td>2022-12-14</td>
-                                <td>활동중</td>
-                            </tr>
                             
                         </table>
                     </div>
@@ -324,41 +132,42 @@
                             <!-- todo: el쓰는부분 ajax로 -->
                             <table class="member-detail-table">
                                 <tr>
-                                    <td rowspan="6" class="detail-profileImg">
-                                        <img src="/resources/images/member/user.png" alt="">
+                                    <td rowspan="6" class="detail-profileImg" id="detailMemberImg">
+                                        <!-- <img src="/resources/images/member/user.png" alt=""> -->
                                     </td>
-                                    <td class="detail-bold" width="90px">회원번호</td>
-                                    <td width="120px">12345</td>
-                                    <td class="detail-bold" width="90px">연락처</td>
-                                    <td width="175px">010-1234-7894</td>
+                                    <td class="detail-bold" width="90px" id="detailMemberNo">회원번호</td>
+                                    <!-- <td width="120px">12345</td> -->
+                                    <td class="detail-bold" width="90px" id="detailMemberTel">연락처</td>
+                                    <!-- <td width="175px">010-1234-7894</td> -->
                                 </tr>
                                 <tr>
-                                    <td class="detail-bold">아이디</td>
-                                    <td>USER01</td>
-                                    <td class="detail-bold">생년월일</td>
-                                    <td>1900-01-01</td>
+                                    <td class="detail-bold" id="detailMemberId">아이디</td>
+                                    <!-- <input type="hidden" id="inputMemberId" value="${map.memberDetail.memberId}"> -->
+                                    <!-- <td>USER01</td> -->
+                                    <td class="detail-bold" id="detailMemberBirth">생년월일</td>
+                                    <!-- <td>1900-01-01</td> -->
                                 </tr>
                                 <tr>
-                                    <td class="detail-bold">성명</td>
-                                    <td>이은지</td>
-                                    <td class="detail-bold">판매자 인증</td>
-                                    <td>2022-12-19</td>
+                                    <td class="detail-bold" id="detailMemberName">성명</td>
+                                    <!-- <td>이은지</td> -->
+                                    <td class="detail-bold" id="detailSellerAuth">판매자 인증</td>
+                                    <!-- <td>2022-12-19</td> -->
                                 </tr>
                                 <tr>
-                                    <td class="detail-bold">닉네임</td>
-                                    <td>은지농장</td>
-                                    <td class="detail-bold">상태</td>
-                                    <td class="status-bold">활동중/계정정지/신고접수중?</td>
+                                    <td class="detail-bold" id="detailMemberNickname">닉네임</td>
+                                    <!-- <td>은지농장</td> -->
+                                    <td class="detail-bold" id="detailMemberStatus">상태</td>
+                                    <!-- <td class="status-bold">활동중/계정정지/신고접수중?</td> -->
                                 </tr>
                                 <tr>
-                                    <td class="detail-bold">가입일</td>
-                                    <td>2022-12-14</td>
-                                    <td class="detail-bold">사유</td>
-                                    <td>있으면 나오고 없으면 안 나오고</td>
+                                    <td class="detail-bold" id="detailSignUpDate">가입일</td>
+                                    <!-- <td>2022-12-14</td> -->
+                                    <td class="detail-bold" id="detailReportReason">신고 사유</td>
+                                    <!-- <td>있으면 나오고 없으면 안 나오고</td> -->
                                 </tr>
                                 <tr>
-                                    <td class="detail-bold">주소</td>
-                                    <td colspan="3">서울 중구 남대문로 120 무슨빌딩 2층 kh정보교육원</td>
+                                    <td class="detail-bold" id="detailMemberAddress">주소</td>
+                                    <!-- <td colspan="3">서울 중구 남대문로 120 무슨빌딩 2층 kh정보교육원</td> -->
                                 </tr>
                             </table>
                         </span>
@@ -372,20 +181,20 @@
                                     <th width="150px">사유</th>
                                 </tr>
 
-                                <tr>
-                                    <td>2022-12-14</td>
+                                <tr id="row1">
+                                    <!-- <td>2022-12-14</td>
                                     <td>가입</td>
-                                    <td></td>
+                                    <td></td> -->
                                 </tr>
-                                <tr>
-                                    <td>2022-12-14</td>
+                                <tr id="row2">
+                                    <!-- <td>2022-12-14</td>
                                     <td>계정 정지</td>
-                                    <td>불법 사기 계좌 운용</td>
+                                    <td>불법 사기 계좌 운용</td> -->
                                 </tr>
-                                <tr>
-                                    <td>2022-12-14</td>
+                                <tr id="row3">
+                                    <!-- <td>2022-12-14</td>
                                     <td>탈퇴</td>
-                                    <td>음란물 배포, 댓글 도배</td>
+                                    <td>음란물 배포, 댓글 도배</td> -->
                                 </tr>
 
                             </table>
@@ -400,5 +209,7 @@
 
         <!-- <jsp:include page="/WEB-INF/views/common/footer.jsp"/>  -->
 
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+        <script src="/resources/js/admin/adminMember.js"></script>
     </body>
 </html>
