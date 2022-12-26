@@ -29,7 +29,6 @@ public class Board {
 	private int memberNo2; // 게시글 좋아요 누른 회원 번호
 	
 	// 이미지 목록을 나타내는 리스트
-//	private List<BoardImg> imgList;
 	private List<BoardImg> imgList;
 	
 	private int commentCount;
@@ -38,4 +37,7 @@ public class Board {
 	private String thumbnail;
 
 	private String profileImg;
+	
+	// 댓글 목록을 나타내는 리스트
+	private List<Comment> commentList;
 }

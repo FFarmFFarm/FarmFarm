@@ -18,5 +18,7 @@ public class Comment {
 	private int commentCount;
 	private String boardTitle;
 	private String commentContent;
+	
+	private String memberNickname; // 회원 닉네임
 
 }

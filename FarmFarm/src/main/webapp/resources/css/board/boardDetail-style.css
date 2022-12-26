@@ -73,7 +73,7 @@ main{
     height: 100%;
 }
 .writer-ect{
-    width: 130px;
+    width: 141px;
     margin: auto 15px;
     font-size: var(--main-font-size);
     color: var(--sub-font-color);
@@ -81,7 +81,7 @@ main{
 
 /* 게시판 제목 */
 .board-title{
-    width: 600px;
+    width: 580px;
     font-weight: bold;
     margin-left: 15px;
 }
@@ -104,7 +104,8 @@ main{
 .board-content-area{
     color: var(--main-font-color);
     border-bottom: 1px solid var(--line-color);
-    height: 500px;
+    min-height: 500px;
+    max-height: 100%;
     padding: 30px 60px;
 }
 
@@ -167,6 +168,35 @@ main{
     border-bottom: 1px solid var(--line-color);
     padding: 30px 40px;
     color: var(--main-font-color);
+}
+.commentCount{
+    font-size: var(--large-font-size);
+    margin-bottom: 5px;
+}
+.comment-write{
+    display: flex;
+}
+.comment-content{
+    resize: none;
+    width: 850px;
+    height: 95px;
+    margin: auto;
+    line-height: 1.5;
+    letter-spacing: 1px;
+}
+.commentInsert{
+    width: 75px;
+    height: 95px;
+    margin: auto;
+    /* border-radius: 5px; */
+    /* border: 1px solid var(--point-color); */
+    background-color: white;
+    font-size: var(--main-font-size);
+    letter-spacing: 3px;
+    line-height: 23px;
+    
+    border: none;
+    background-color: #ddd;
 }
 .comment-writer{
     display: flex;
