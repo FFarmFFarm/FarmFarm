@@ -135,14 +135,16 @@ const userNum = document.getElementById("userNum");
 // 체크박스 유효성 검사
 const agreeInput1 = document.getElementById("agreeInput1");
 const agreeInput = document.getElementById("agreeInput");
-agreeInput1.addEventListener("input", function(){
-    if(agreeInput1.checked){
-        checkObj.agreeInput1 = true;
-        return;
-    }
-});
+if(agreeInput1 != null){
+    agreeInput1.addEventListener("change", function(){
+        if(agreeInput1.checked){
+            checkObj.agreeInput1 = true;
+            return;
+        }
+    });
+}
 
-agreeInput.addEventListener("input", function(){
+agreeInput.addEventListener("change", function(){
     if(agreeInput.checked){
         checkObj.agreeInput = true;
         return;
@@ -151,12 +153,15 @@ agreeInput.addEventListener("input", function(){
 
 // 농장 인증 유효성 검사
 const farmImg = document.getElementById("farmImg");
-farmImg.addEventListener("change", function(){
-    if(farmImg != null){
-        checkObj.farmImg = true;
-        return;
-    }
-})
+if(farmImg != null){
+    farmImg.addEventListener("change", function(){
+        if(farmImg != null){
+            checkObj.farmImg = true;
+            return;
+        }
+    })
+
+}
 
 
 // 아이디 유효성 검사
