@@ -179,7 +179,11 @@
                             $("#close-btn-wrap").click(function () {
                                 $(this).closest(".modal").css("display", "none");
                                 $("#agreeInput").prop("checked", true);
-                                $("#agreeInput1").prop("checked", true);
+                                checkObj.agreeInput = true;
+                                if(agreeInput1 != null){
+                                    $("#agreeInput1").prop("checked", true);
+                                    checkObj.agreeInput1 = true;
+                                }
                             });
                         });
 
