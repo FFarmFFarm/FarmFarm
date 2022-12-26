@@ -73,7 +73,8 @@
       <result property="boardTitle" column="BOARD_TITLE" />
       <result property="memberNo" column="MEMBER_NO" />
       <result property="commentParent" column="COMMENT_PARENT" />
-		<result property="memberNickname" column="MEMBER_NICKNAME"/>
+		  <result property="memberNickname" column="MEMBER_NICKNAME"/>
+		  <result property="profileImg" column="PROFILE_IMG"/>
   </resultMap>
 
 
@@ -279,12 +280,11 @@
 	
 	<!-- 댓글 불러오기~~~~ -->
 	<select id="commentList" resultMap="comment_rm">
-		SELECT COMMENT_NO, COMMENT_CONTENT, COMMENT_DATE, COMMENT_PARENT,
+		SELECT COMMENT_NO, COMMENT_CONTENT, COMMENT_DATE, COMMENT_PARENT, COMMENT_DEL_FL,
 			MEMBER_NO, BOARD_NO, MEMBER_NICKNAME
 		FROM "COMMENT"
 		JOIN "MEMBER" USING(MEMBER_NO)
 		WHERE BOARD_NO = #{boardNo}
-		AND COMMENT_DEL_FL = 'N'
 	</select>
 
 

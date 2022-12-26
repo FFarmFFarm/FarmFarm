@@ -164,25 +164,28 @@ main{
 }
 
 /* 댓글부분 */
+/* 댓글 전체 */
 .comment-area{
     border-bottom: 1px solid var(--line-color);
     padding: 30px 40px;
     color: var(--main-font-color);
 }
-.commentCount{
-    font-size: var(--large-font-size);
-    margin-bottom: 5px;
-}
+/* 댓글 쓰기 */
 .comment-write{
     display: flex;
+    margin-bottom: 30px;
 }
-.comment-content{
+.write-comment{
     resize: none;
     width: 850px;
     height: 95px;
     margin: auto;
     line-height: 1.5;
     letter-spacing: 1px;
+    border: 1px solid var(--sub-font-color);
+}
+.comment-content > div{
+    width: 100%;
 }
 .commentInsert{
     width: 75px;
@@ -198,10 +201,20 @@ main{
     border: none;
     background-color: #ddd;
 }
+/* 댓글 부분 */
+.comment-row{
+    /* margin-bottom: 20px; */
+    border-bottom: 1px solid green;
+    padding: 20px 0;
+}
 .comment-writer{
     display: flex;
     margin: auto 0;
     align-items: center;
+}
+.emptyComment{
+    justify-content: center;
+    color: var(--sub-font-color);
 }
 .writer-profile{
     width: 60px;
@@ -211,17 +224,27 @@ main{
     overflow: hidden;
     margin: auto 10px;
 }
-.writer-name-time{
+.writer-name{
     width: 640px;
 }
-.comment-like-report{
+.comment-like{
     text-align: end;
-}
-.comment-like-report>span{
     cursor: pointer;
     margin: 0 20px;
     color: var(--sub-font-color);
+    cursor: pointer;
 }
 .comment-content{
     padding: 10px 20px;
+}
+.comment-child{
+    padding-left: 50px;
+}
+.writer-time-reply{
+    font-size: var(--main-font-size);
+    color: var(--sub-font-color);
+    padding-left: 20px;
+}
+.comment-reply{
+    cursor: pointer;
 }
