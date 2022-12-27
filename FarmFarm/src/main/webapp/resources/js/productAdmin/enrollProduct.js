@@ -22,37 +22,58 @@ for(let i=0; i<category.length; i++){
   });
 }
 
-// 이미지 미리보기
-const inputImg = document.getElementsByClassName("input-img");
-const preview = document.getElementsByClassName("preview");
-const deleteImg = document.getElementsByClassName("delete-img");
+// 썸네일 이미지 미리보기
+const inputThumbnail = document.getElementById("img0");
+const preview = document.getElementsByClassName("preview")[0];
+const deleteThumbnail = document.getElementsByClassName("delete-thumbnail")[0];
 
-for(let i=0; i<inputImg.length; i++){
+inputThumbnail.addEventListener("change", (e)=>{
+  if(e.target.files[0] != undefined){
+    const reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+
+    reader.onload = e =>{
+      preview.setAttribute("src", e.target.result);
+      // preview.display="block";
+      preview.nextElementSibling.style.display='none';
+    }
+  }else{
+    preview.removeAttribute("src");
+    preview.nextElementSibling.style.display='block';
+    
+  }
+});
+
+deleteThumbnail.addEventListener("click",()=>{
+  if(preview.getAttribute("src")!=""){
+    preview.removeAttribute("src");
+    inputThumbnail.value="";
+    preview.nextElementSibling.style.display='block';
+  }
+});
+
+// 상품 이미지 버튼
+const inputImg = document.getElementsByClassName("input-img");
+const deleteImg = document.getElementsByClassName("delete-img");
+for(let i=0;i<inputImg.length;i++){
 
   inputImg[i].addEventListener("change", (e)=>{
-    if(e.target.files[0] != undefined){
+    if(e.target.files[0]!= undefined){
       const reader = new FileReader();
       reader.readAsDataURL(e.target.files[0]);
-
-      reader.onload = e =>{
-        preview[i].setAttribute("src", e.target.result);
-        // preview.display="block";
-        preview[i].nextElementSibling.style.display='none';
-      }
-    }else{
-      preview[i].removeAttribute("src");
-      preview[i].nextElementSibling.style.display='block';
       
+      deleteImg[i].style.display='block';
+    }else{
+      deleteImg[i].style.display='none';
     }
-  });
+  })
 
   deleteImg[i].addEventListener("click",()=>{
-    if(preview[i].getAttribute("src")!=""){
-      preview[i].removeAttribute("src");
+    if(inputImg[i].files[0]!= undefined){
       inputImg[i].value="";
-      preview[i].nextElementSibling.style.display='block';
+      deleteImg[i].style.display='none';
     }
-  });
+  })
 }
 
 const unitPrice = document.querySelector("[name='unitPrice']");
@@ -70,9 +91,9 @@ unitPrice.addEventListener('keyup', (e)=>{
 })
 
 // 게시글 유효성 검사
-const enrollPostForm = document.getElementById("enrollPostForm");
+const enrollproductForm = document.getElementById("enrollproductForm");
 
-enrollPostForm.addEventListener("submit", (event)=>{
+enrollproductForm.addEventListener("submit", (event)=>{
 
   const categoryNo = document.querySelectorAll("[name='categoryNo']");
   
@@ -89,11 +110,11 @@ enrollPostForm.addEventListener("submit", (event)=>{
     return;
   }
 
-  const postTitle = document.querySelector("[name='postTitle']");
-  if(postTitle.value.trim().length==0){
+  const productTitle = document.querySelector("[name='productTitle']");
+  if(productTitle.value.trim().length==0){
     alert("제목을 입력해주세요.");
-    postTitle.value="";
-    postTitle.focus();
+    productTitle.value="";
+    productTitle.focus();
     event.preventDefault();
     return;
   }
@@ -128,11 +149,11 @@ enrollPostForm.addEventListener("submit", (event)=>{
 
 
 
-  const postContent = document.querySelector("[name='postContent']");
-  if(postContent.value.trim().length==0){
+  const productContent = document.querySelector("[name='productContent']");
+  if(productContent.value.trim().length==0){
     alert("내용을 입력해주세요.");
-    postContent.value="";
-    postContent.focus();
+    productContent.value="";
+    productContent.focus();
     event.preventDefault();
     return;
   }
