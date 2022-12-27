@@ -76,9 +76,9 @@ for(let i=0;i<inputImg.length;i++){
   })
 }
 
-const unitPrice = document.querySelector("[name='unitPrice']");
+const productPrice = document.querySelector("[name='productPrice']");
 
-unitPrice.addEventListener('keyup', (e)=>{
+productPrice.addEventListener('keyup', (e)=>{
   if((e.keyCode < 48 || e.keyCode > 57)&& e.keyCode!=8){
     alert("숫자만 입력해주세요");
     e.target.value="";
@@ -87,7 +87,7 @@ unitPrice.addEventListener('keyup', (e)=>{
   let value = e.target.value;                 
   value = Number(value.replaceAll(',', ''));
   const formatValue = value.toLocaleString('ko-KR');
-  unitPrice.value = formatValue;
+  productPrice.value = formatValue;
 })
 
 // 게시글 유효성 검사
@@ -110,31 +110,31 @@ enrollproductForm.addEventListener("submit", (event)=>{
     return;
   }
 
-  const productTitle = document.querySelector("[name='productTitle']");
-  if(productTitle.value.trim().length==0){
+  const productName = document.querySelector("[name='productName']");
+  if(productName.value.trim().length==0){
     alert("제목을 입력해주세요.");
-    productTitle.value="";
-    productTitle.focus();
+    productName.value="";
+    productName.focus();
     event.preventDefault();
     return;
   }
 
-  const price= Number(unitPrice.value.split(",").join(""));
-  unitPrice.value = price;
+  const price= Number(productPrice.value.split(",").join(""));
+  productPrice.value = price;
 
-  if(unitPrice.value==0){
+  if(productPrice.value==0){
     alert("판매가격을 입력해주세요.");
-    unitPrice.value=0;
-    unitPrice.focus();
+    productPrice.value=0;
+    productPrice.focus();
     event.preventDefault();
     return;
   }
 
-  const openDate = document.querySelector("[name='openDate']");
-  if(openDate.value.trim().length==0){
-    alert("생산일을 입력해주세요.");
-    openDate.value="";
-    openDate.focus();
+  const stock = document.querySelector("[name='stock']");
+  if(stock.value.trim().length==0){
+    alert("재고를 입력해주세요.");
+    stock.value="";
+    stock.focus();
     event.preventDefault();
     return;
   }
@@ -149,11 +149,11 @@ enrollproductForm.addEventListener("submit", (event)=>{
 
 
 
-  const productContent = document.querySelector("[name='productContent']");
-  if(productContent.value.trim().length==0){
+  const productMessage = document.querySelector("[name='productMessage']");
+  if(productMessage.value.trim().length==0){
     alert("내용을 입력해주세요.");
-    productContent.value="";
-    productContent.focus();
+    productMessage.value="";
+    productMessage.focus();
     event.preventDefault();
     return;
   }
