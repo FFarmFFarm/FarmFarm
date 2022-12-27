@@ -16,10 +16,10 @@
 	      <result property="wishCheck" column="WISH_CHECK" />
 	      <result property="soldoutFl" column="SOLDOUT_FL" />
 	      
-	      <collection property="imgList" 
+<!-- 	      <collection property="imgList" 
 	      			  javaType="java.util.ArrayList" ofType="ProductImg"
 	      			  select="selectImgList"
-	      			  column = "PRODUCT_NO"/>	  
+	      			  column = "PRODUCT_NO"/>	   -->
 	  </resultMap>
   
   
@@ -37,7 +37,7 @@
   
 	
 	<!-- 팜팜 상품 조회 -->
-	<select id="selectProduct" resultMap="product_rm">
+<!-- 	<select id="selectProduct" resultMap="product_rm">
 		SELECT PRODUCT_NO, PRODUCT_NAME, REG_DATE, SOLDOUT_FL,
 			TO_CHAR(PRODUCT_PRICE, 'FM999,999,999,999') PRODUCT_PRICE, 
 			(STOCK - (SELECT SUM(PRODUCT_AMOUNT) 
@@ -49,14 +49,14 @@
 		FROM PRODUCT p
 		JOIN CATEGORY c USING(CATEGORY_NO)
 		WHERE PRODUCT_NO = #{productNo}
-	</select>
+	</select> -->
 	
 	
 	<!-- 상품 이미지 목록 조회 -->
-	<select id="selectImgList" resultMap="productImg_rm">
+<!-- 	<select id="selectImgList" resultMap="productImg_rm">
 		SELECT * FROM PRODUCT_IMG pi2
 		WHERE PRODUCT_NO = #{productNo}
-	</select>
+	</select> -->
 	
 	
 	<!-- 팜팜 상품 등록 -->
@@ -65,8 +65,8 @@
 			SELECT SEQ_PRODUCT_NO.NEXTVAL FROM DUAL
 		</selectKey>
 		INSERT INTO PRODUCT VALUES
-		(#{prodcutNo}, #{productName}, DEFAULT, #{productPrice}, 
-		DEFAULT, #{categoryNo}, #{stock}, #{productMessage})
+		(#{productNo}, #{productName}, DEFAULT, #{productPrice}, 
+		DEFAULT, #{categoryNo}, #{stock}, #{productMessage}, DEFAULT)
 	</insert>
 	
 
