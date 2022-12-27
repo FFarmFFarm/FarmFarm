@@ -46,6 +46,17 @@
   cursor: pointer;
 }
 
+#chatAlarmDot{
+  position: fixed;
+  right: 37px;
+  bottom: 161px;
+  display: none;
+}
+
+#chatAlarmDot > i{
+  color: red;
+}
+
 .btn-chat:hover {
   background-color: var(--point-color);
 }

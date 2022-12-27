@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.farmfarm.chat.model.vo.Chat;
 import edu.kh.farmfarm.chat.model.vo.ChatRoom;
+import edu.kh.farmfarm.member.model.VO.Member;
 
 public interface ChatService {
 
@@ -54,6 +55,14 @@ public interface ChatService {
 	 * @return
 	 */
 	String insertChatImg(int roomNo, int sendMemberNo, MultipartFile chatImg,  String webPath, String folderPath) throws IllegalStateException, IOException;
+
+
+	/** shortcut으로 접근한 경우, 상대방의 이름과 정보를 검색함
+	 * @param roomNo
+	 * @param myMemberNo
+	 * @return
+	 */
+	Member findPartnerInfo(int roomNo, int myMemberNo);
 
 
 

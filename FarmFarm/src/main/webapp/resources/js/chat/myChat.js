@@ -9,15 +9,15 @@ const roomEditBtn = document.getElementById("roomEditBtn");
 const roomEditDropdown = document.getElementById("roomEditDropdown");
 
 /* 채팅방 스크롤 하단 */
-const readingArea = document.getElementById('readingArea');
-let initialScrollHeight = document.getElementById("readingArea").scrollHeight;
-let bottomScrollHeight = 0;
-const bottomBtn = document.getElementById("bottomBtn");
+// const readingArea = document.getElementById('readingArea');
+// let initialScrollHeight = document.getElementById("readingArea").scrollHeight;
+// let bottomScrollHeight = 0;
+// const bottomBtn = document.getElementById("bottomBtn");
 
 window.addEventListener('DOMContentLoaded', ()=>{
     roomEditDropdown.classList.add('dropdown-fold');
-    readingArea.scrollTo(0,initialScrollHeight);
-    bottomScrollHeight = document.getElementById('readingArea').scrollTop;
+    // readingArea.scrollTo(0,initialScrollHeight);
+    // bottomScrollHeight = document.getElementById('readingArea').scrollTop;
 })
 
 /* 로딩 후 */
@@ -87,18 +87,18 @@ roomEditBtn.addEventListener("click", ()=>{
 })
 
 
-/* reading-area */
-readingArea.addEventListener("scroll", ()=>{
-    let nowScrollHeight = document.getElementById("readingArea").scrollTop;
-    if(nowScrollHeight <bottomScrollHeight - 300) {
-        bottomBtn.style.display='flex';
-    } else {
-        bottomBtn.style.display='none';
-    }
-})
+// /* reading-area */
+// readingArea.addEventListener("scroll", ()=>{
+//     let nowScrollHeight = document.getElementById("readingArea").scrollTop;
+//     if(nowScrollHeight < bottomScrollHeight - 300) {
+//         bottomBtn.style.display='flex';
+//     } else {
+//         bottomBtn.style.display='none';
+//     }
+// })
 
-/* 하단 버튼 이동 */
+// /* 하단 버튼 이동 */
 
-bottomBtn.addEventListener('click', ()=>{
-    readingArea.scrollTo(0, initialScrollHeight);
-})
+// bottomBtn.addEventListener('click', ()=>{
+//     readingArea.scrollTo(0, initialScrollHeight);
+// })

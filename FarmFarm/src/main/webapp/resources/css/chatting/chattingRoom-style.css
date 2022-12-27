@@ -465,8 +465,8 @@ body{
 /* 메세지 읽기 영역 */
 #readingArea{
     height: 470px;
-    
     overflow-y: scroll;
+    scroll-behavior: smooth;
 }
 
 /* 수신 채팅 */
@@ -590,8 +590,8 @@ body{
     border-radius: 50%;
 
     position: absolute;
-    right: 30px;
-    bottom: 50px;
+    right: 45px;
+    bottom: 70px;
 
     z-index: 30;
 
