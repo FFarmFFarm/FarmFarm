@@ -29,45 +29,45 @@ public class ProductAdminServiceImpl implements ProductAdminService{
 		// XSS 처리
 		product.setProductName(Util.XSSHandling(product.getProductName()));
 		product.setProductMessage(Util.XSSHandling(product.getProductMessage()));
-				// 개행처리
+		// 개행처리
 		product.setProductMessage(Util.newLineHandling(product.getProductMessage()));
 				
 				
-				int productNo = dao.enrollProduct(product);
+		int productNo = dao.enrollProduct(product);
 				
-				if(productNo>0) {
-					List<ProductImg> imgList = new ArrayList<ProductImg>();
-					List<String> renameList = new ArrayList<String>();
+		if(productNo>0) {
+			List<ProductImg> imgList = new ArrayList<ProductImg>();
+			List<String> renameList = new ArrayList<String>();
 					
-					for(int i=0; i<productImgList.size(); i++) {
-						if(productImgList.get(i).getSize()>0) {
-							ProductImg img = new ProductImg();
+			for(int i=0; i<productImgList.size(); i++) {
+				if(productImgList.get(i).getSize()>0) {
+					ProductImg img = new ProductImg();
 							
-							String rename = Util.fileRename(productImgList.get(i).getOriginalFilename());
-							renameList.add(rename);
+					String rename = Util.fileRename(productImgList.get(i).getOriginalFilename());
+					renameList.add(rename);
 							
-							img.setProductImgAddress(webPath+rename);
-							img.setProductImgOrder(i);
-							img.setProductNo(productNo);
+					img.setProductImgAddress(webPath+rename);
+					img.setProductImgOrder(i);
+					img.setProductNo(productNo);
 							
-							imgList.add(img);
-						}
+					imgList.add(img);
+				}
 						
-					}
+			}
 					
-					if(!imgList.isEmpty()) {
-						int result = dao.insertProductImgList(imgList);
+			if(!imgList.isEmpty()) {
+				int result = dao.insertProductImgList(imgList);
 						
-						if(result==imgList.size()) {
-							for(int i=0; i<imgList.size(); i++) {
-								int index = imgList.get(i).getProductImgOrder();
-								productImgList.get(index).transferTo(new File(folderPath+renameList.get(i)));
-							}
-						}
+				if(result==imgList.size()) {
+					for(int i=0; i<imgList.size(); i++) {
+						int index = imgList.get(i).getProductImgOrder();
+						productImgList.get(index).transferTo(new File(folderPath+renameList.get(i)));
 					}
 				}
+			}
+		}
 				
-				return productNo;
+		return productNo;
 	}
 	
 }

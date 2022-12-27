@@ -20,11 +20,16 @@ public class ProductAdminDAO {
 	 * @return productNo
 	 */
 	public int enrollProduct(Product product) {
-		return sqlSession.insert("productAdmin.enrollProduct", product);
+		int result = sqlSession.insert("productAdmin.enrollProduct", product);
+		
+		if(result>0) {
+			result = product.getProductNo();
+		}
+		return result;
 	}
 
 	public int insertProductImgList(List<ProductImg> imgList) {
-		return sqlSession.insert("prodcutAdmin.insertProductImgList", imgList);
+		return sqlSession.insert("productAdmin.insertProductImgList", imgList);
 	}
 	
 }
