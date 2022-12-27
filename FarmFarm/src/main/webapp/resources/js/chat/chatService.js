@@ -12,7 +12,6 @@ let nowDate;
 // 소켓
 let chattingSock;
 
-
 // 채팅을 위한 소켓 생성
 if(loginMemberNo = 1) {
     chattingSock = new SockJS('/echo/chat');
@@ -34,6 +33,11 @@ if(loginMemberNo = 1) {
 /* 내 채팅방 목록 가져오기 */
 window.addEventListener("DOMContentLoaded", ()=>{
     requestMyChatRoomList();
+
+    if(shortcutNo > 0) {
+        shortcut(shortcutNo);
+        history.replaceState("", "", "/chat");
+    }
 })
 
 
@@ -47,6 +51,48 @@ const packUpElement = (elementName, elementClass, elementContent) => {
     }
 
     return elementName;
+}
+
+/*  */
+const shortcut = (shortcutNo) => {
+
+    const roomNo = shortcutNo;
+
+    // 채팅 목록 가져오기
+    axios.post('/chat/' + roomNo + '/shortcut')
+        .then(function (response) {
+            console.log(response.data);
+            // 내 번호
+            let myMemberNo = response.data.myMemberNo;
+
+            // 채팅 전송을 위해 전역 변수 세팅
+            selectedRoomNo = roomNo;
+            senderNo = myMemberNo;
+
+            if(response.data.partnerInfo.profileImg == undefined) {
+                partnerProfileImg = "<img src='/resources/images/member/user.png'>";
+            } else {
+                partnerProfileImg = response.data.partnerInfo.profileImg;
+            }
+            partnerNickname = response.data.partnerInfo.memberNickname;
+
+            // 읽음 처리 해야함..
+            requestMyChatRoomList();
+
+            // 채팅 내역
+            let chatHistory = response.data.chatHistory
+
+            // 채팅방 만들기
+            makeChatRoom(myMemberNo, chatHistory, partnerProfileImg, partnerNickname);
+
+            // 블라인드 해제
+            document.getElementById('roomBodyBlinder').style.display = 'none';
+
+        }).catch(function (error) {
+            console.log(error);
+            // location.href = '/error';
+        });
+
 }
 
 /* 내 채팅방 목록을 요청하는 함수(axios) */

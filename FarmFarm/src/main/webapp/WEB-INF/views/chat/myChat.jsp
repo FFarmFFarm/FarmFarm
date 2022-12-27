@@ -148,7 +148,12 @@
 
     <!-- Axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
+    <script>
+      const shortcutNo = "${shortcutNo}"
+    </script>
+    
+    <c:remove var="shortcutNo" />
+    
     <script src="/resources/js/chat/chatService.js"></script>
     <script src="/resources/js/chat/myChat.js"></script>
 

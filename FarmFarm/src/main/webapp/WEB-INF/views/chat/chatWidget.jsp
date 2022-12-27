@@ -10,7 +10,7 @@
 <!-- 채팅 위잿 영역 -->
 <!-- 채팅 위젯은 최대 6개입니다. -->
 
-<div class="chatWidget-container">
+<form action="/chat/shortcut" method="POST"class="chatWidget-container" >
   
   <div class="chatWidget-header">
     <div class="chatWidget-title">
@@ -22,34 +22,27 @@
     </a>
   </div>
 
-  <!-- 채팅 위젯에 표시될 메뉴(최대 n개) -->
-  <div class="chatWidget-box">
+  <div id="chatWidgetBody">
+    <!-- 채팅 위젯에 표시될 메뉴(최대 6개) -->
+  </div> <!-- end body -->
 
-    <div class="chatWidget-profile-img">
-      <img src="/resources/images/chat/farmer.png">
+  <div id="chatWidgetFooter">
+    채팅 목록을 불러오고 있습니다...
+    <div id="refreshChatWidget">
+      <i id="widgetRotater" class="fa-solid fa-rotate"></i>
     </div>
-    
-    <div class="chatWidget-enter-icon">
-      <i class="fa-solid fa-right-to-bracket"></i>
-    </div>
-
-    <div class="chatWidget-box-label">
-      <div class="chatWidget-member-nickname">
-        착한 판매자1
-      </div>
-    
-      <div class="chatWidget-last-message-time">
-        2022-12-18
-      </div>
-    
-    </div>
-    
-    <div class="chatWidget-last-message-content">
-      메세지가 아무리 길어도 1줄 이상은 출력되지 않게 만들려고 합니다. 메세지가 긴 경우는 이렇게 됩니다.
-    </div>
-
-  </div> <!-- end box -->
+  </div>
 
 </div>  
 
-<script src="/resources/js/chat/chatWidget.js"></script>
+    <!-- https://github.com/sockjs/sockjs-client -->
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
+    <script src="/resources/js/chat/chatWidget.js"></script>
+    
+    <script>
+      const loginMemberNo = "${loginMember.memberNo}";
+    </script>
