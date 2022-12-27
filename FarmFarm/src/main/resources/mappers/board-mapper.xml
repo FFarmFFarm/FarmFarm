@@ -301,7 +301,8 @@
 	<update id="updateBoard">
 		UPDATE "BOARD" SET
 		BOARD_TITLE = #{boardTitle},
-		BOARD_CONTENT = #{boardContent}
+		BOARD_CONTENT = #{boardContent},
+		BOARD_UPDATE_DATE = SYSDATE
 		WHERE BOARD_NO = #{boardNo}
 	</update>
 	

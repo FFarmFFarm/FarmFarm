@@ -133,3 +133,5 @@ commentInsert.addEventListener("click", e=>{
 
 
 // 답글 달기 해보자!
+// 답글 달기를 누르면 답글 다는 박스가 새로 생겨야 돼.
+const commentReply = document.querySelector(".comment-reply");

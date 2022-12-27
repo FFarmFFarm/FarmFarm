@@ -51,7 +51,7 @@
                 <div class="board-content-area">
                     <div class="board-content">
                         <pre> 
-    ${board.boardContent}
+${board.boardContent}
                         </pre>
                     </div>
 

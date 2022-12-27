@@ -31,6 +31,13 @@
                                 <div>${comment.commentContent}</div>	
                             </div>	
                             <div class="writer-time-reply">${comment.commentDate} &nbsp; | <span class="comment-reply"> &nbsp;답글달기</span>  </div>	
+                            <div class="comment-co">
+                                <textarea class="comment-co-content" name=""></textarea>
+                                <div class="co-btn-area">
+                                    <button class="send-co">답글 보내기</button>
+                                    <button class="cancle-co">취소</button>
+                                </div>
+                            </div>
                         </li>	
                     </c:forEach>
                 </c:if>

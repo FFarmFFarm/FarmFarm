@@ -205,7 +205,7 @@ main{
 /* 댓글 부분 */
 .comment-row{
     /* margin-bottom: 20px; */
-    border-bottom: 1px solid green;
+    border-bottom: 1px solid var(--point-color);
     padding: 20px 0;
 }
 .comment-writer{
@@ -245,7 +245,44 @@ main{
     font-size: var(--main-font-size);
     color: var(--sub-font-color);
     padding-left: 20px;
+    margin-bottom: 15px;
 }
 .comment-reply{
     cursor: pointer;
+}
+
+
+
+/* 답글달기 부분 */
+.comment-co{
+    width: 100%;
+}
+.comment-co-content{
+    width: 850px;
+    resize: none;
+    height: 75px;
+    margin-left: 19px;
+    display: flex;
+    font-size: var(--main-font-size);
+    padding: 8px;
+    border-radius: 10px;
+    border: 1px solid var(--point-color);
+    margin-bottom: 5px;
+}
+.comment-co-content:focus{
+    outline: none;
+}
+.co-btn-area{
+    display: flex;
+    justify-content: end;
+    padding-right: 50px;
+}
+.send-co, .cancle-co{
+    font-size: var(--small-font-size);
+    width: 95px;
+    height: 35px;
+    border-radius: 10px;
+    border: 1px solid var(--point-color);
+    background-color: white;
+    margin-left: 5px;
 }
