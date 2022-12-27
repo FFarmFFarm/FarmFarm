@@ -200,12 +200,12 @@
         <div class="cooking-img">
           <img src="resources/images/main/cooking.jpg">
         </div>
-        <div class="cooking-a">
+        <button class="cooking-a">
           <a href="/board"></a>
             <p>레시피 보러가기 </p>
             <i class="fa-solid fa-arrow-right cooking-arrow"></i>
           </a>
-        </div>
+        </button>
       </div>
 
     </main>
