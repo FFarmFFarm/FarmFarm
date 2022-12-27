@@ -246,16 +246,16 @@ nav {
 
 .nav-list a {
   vertical-align: -webkit-baseline-middle;
+  font-family: "NotoSansKR-Medium";
   text-decoration: none;
   color: var(--main-font-color);
-  font-family: "NotoSansKR-Bold";
-  font-size: var( --medium-font-size);
+  font-size: var(--medium-font-size);
   transition-duration: 0.2s;
 }
 
 .nav-list a:hover{
   font-size: var(--large-font-size);
-
+  font-family: "NotoSansKR-Bold";
 }
 
 main{
@@ -401,6 +401,11 @@ main{
   cursor: pointer;
 
   margin: 50px auto;
+}
+
+.cooking{
+  display: flex;
+  align-items: center;
 }
 
 .cooking-a p{
