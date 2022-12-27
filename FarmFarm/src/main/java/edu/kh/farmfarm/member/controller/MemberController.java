@@ -102,9 +102,9 @@ public class MemberController {
 					String notice = "계정 사용이 중지됨" + "(기간 : " + checkReport + ") 자세한 사항은 고객센터(help@farmfarm)으로 문의 바랍니다.";
 					ra.addFlashAttribute("message", notice);
 				}
-				if (loginMember.getAuthority() == 3) {
-					path = "/authenticating";
 				}
+			if (loginMember.getAuthority() == 3) {
+				path = "/authenticating";
 			}
 		} else {
 			path = referer;
