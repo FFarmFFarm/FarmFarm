@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
+
 <!DOCTYPE html>
 <html lang="kr">
 <head>
@@ -84,7 +85,7 @@
                         </ul>
                     </div>
                 </div>
-
+                
                 <c:forEach items="${post.imgList}" var="img">
                     <c:choose>
                         <c:when test="${img.postImgOrder==0}">
@@ -202,21 +203,22 @@
                 </div>
 
                 <input type="hidden" name="deleteList" id="deleteList" value="">
-                <input type="hidden" name="cp" value="${param.cp}">
+                <input type="hidden" name="cp" value="${cp}">
                 <input type="hidden" name="memberNo" value="${post.memberNo}">
             </form>
         </section>
-
     </main>
 
     <!-- footer -->
     <jsp:include page='/WEB-INF/views/common/footer.jsp' />
 
+    <%-- <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/> --%>
+
     <script>
         const categoryNo="${post.categoryNo}";
     </script>
     <script src="/resources/js/seller/updatePost.js"></script>
-
+    <%-- <script src="/resources/js/common/common.js"></script> --%>
 
     <!-- ajax -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>

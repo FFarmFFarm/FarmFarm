@@ -39,7 +39,7 @@ public class SellerServiceImpl implements SellerService{
 		
 		int listCount = dao.getListCount(memberNo);
 		
-		Pagination pagination = new Pagination(listCount, cp, 1, 5);
+		Pagination pagination = new Pagination(listCount, cp, 10, 5);
 		
 		List<Post> postList = dao.selectPostList(pagination, memberNo);
 		

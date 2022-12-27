@@ -206,16 +206,22 @@
         </section>
     </main>
 
-    <!-- <div id="topBtn" class="view-hidden">
-        <i class="fa-sharp fa-solid fa-arrow-up"></i>
-    </div> -->
-
     <!-- footer -->
     <jsp:include page='/WEB-INF/views/common/footer.jsp' />
 
+    
+
     <script>
         let selectPostNo;
+        var cp="${param.cp}";
     </script>
+
+    <c:if test="${!empty message}">
+        <script>
+            alert("${message}")
+        </script>
+        <c:remove var="message"/>
+    </c:if>
 
     <script src="/resources/js/seller/sellerPage.js"></script>
 

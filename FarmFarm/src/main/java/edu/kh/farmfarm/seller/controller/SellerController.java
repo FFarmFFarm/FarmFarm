@@ -117,13 +117,15 @@ public class SellerController {
 	// 판매글 수정페이지로 이동
 	@GetMapping("/post/{postNo}/update")
 	public String updatePost(
-			@PathVariable("postNo") int postNo, Model model) {
+			@PathVariable("postNo") int postNo, Model model,
+			@RequestParam(value="cp", required=false, defaultValue="1") int cp) {
 		
 		Post post = service.selectPostDetail(postNo);
 		
 		post.setPostContent(Util.newLineClear(post.getPostContent()));
 		
 		model.addAttribute("post", post);
+		model.addAttribute("cp", cp);
 		
 		return "seller/updatePost";
 	}
@@ -140,6 +142,7 @@ public class SellerController {
 			@RequestParam(value="deleteList", required=false) String deleteList,
 			@RequestParam(value="postImg", required=false) List<MultipartFile> postImgList,
 			@RequestHeader("referer") String referer,
+			RedirectAttributes ra,
 			HttpSession session) throws Exception {
 		
 		post.setPostNo(postNo);
@@ -150,12 +153,17 @@ public class SellerController {
 		int result = service.postUpdate(post, postImgList, webPath, folderPath, deleteList);
 		
 		String path = null;
+		String message = null;
 		
 		if(result>0) {
 			path= "/seller/"+ memberNo + "?cp=" +cp;
+			message = "판매글 수정이 완료되었습니다.";
 		}else {
 			path= referer;
+			message = "판매글 수정 실패";
 		}
+		
+		ra.addFlashAttribute("message", message);
 		
 		return "redirect:" + path;
 	}
