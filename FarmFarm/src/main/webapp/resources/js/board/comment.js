@@ -12,32 +12,29 @@ function selectCommentList(){
             const commentList = document.querySelector(".comment-list");
             commentList.innerHTML="";
 
-            // 댓글 li태그
-            const commentRow = document.createElement("li");
-            commentRow.classList.add("comment-row");
-
-            
-            // 댓글 작성자의 인적사항
-            const commentWriter = document.createElement("div");
-            commentWriter.classList.add("comment-writer");
-
-
             // 댓글이 없다면!
-            if(coList == null){
+            if(coList.length == 0){
                 commentWriter.classList.add("emptyComment");
                 commentWriter.innerText = "첫 번째 댓글을 달아보세요";
                 
             }else{ // 댓글이 있따면!!
-    
+                
                 // coList 요소들을 하나씩 꺼내볼까요~?
                 for(let comment of coList){
-    
+                    
+                    // 댓글 li태그
+                    const commentRow = document.createElement("li");
+                    commentRow.classList.add("comment-row");
+        
+                    
+                    // 댓글 작성자의 인적사항
+                    const commentWriter = document.createElement("div");
+                    commentWriter.classList.add("comment-writer");
     
                     // 자식 댓글인 경우
                     if(comment.commentParent != 0){
                         commentRow.classList.add("comment-child")
                     }
-    
     
                     // 댓글 작성자의 프로필 이미지
                     const writerProfile = document.createElement("div");
@@ -62,38 +59,31 @@ function selectCommentList(){
                     const commentContent = document.createElement("div");
                     commentContent.classList.add("comment-content");
                     // 댓글 내용
-                    const contentPre = document.createElement("pre");
-                    contentPre.innerText = comment.commentContent;
+                    const contentPre = document.createElement("div");
+                    contentPre.innerHTML = comment.commentContent;
 
                     // 작성일 + 답글달기
                     // 작성일
                     const writeTimeReply = document.createElement("div");
                     writeTimeReply.classList.add("writer-time-reply");
-                    writeTimeReply.innerText = comment.commentDate + '&nbsp; |';
+                    writeTimeReply.innerHTML = comment.commentDate + '&nbsp; |';
                     // 답글달기
                     const commentReply = document.createElement("span");
                     commentReply.classList.add("comment-reply");
-                    commentReply.innerText = ' &nbsp;답글달기';
+                    commentReply.innerHTML = ' &nbsp;답글달기';
     
                     // 자~ append 해볼까
-                    commentRow.append(commentContent,writeTimeReply);
-    
+                    commentList.append(commentRow);
+                    commentRow.append(commentWriter, commentContent,writeTimeReply);
+                    
                     commentWriter.append(writerProfile, writerName);
                     writerProfile.append(profileImage);
-
+                    
                     commentContent.append(contentPre);
-
+                    
                     writeTimeReply.append(commentReply);
-
                 }
-
-                // 자~ append 해볼까
-                commentList.append(commentRow);
-    
-                commentRow.append(commentWriter);
-
             }
-
         },
         error : (req, status, error)=>{
             console.log("댓글 ajax 통신 실패ㅠㅜ");
@@ -116,7 +106,6 @@ commentInsert.addEventListener("click", e=>{
         writeComment.focus();
         e.preventDefault();
     }
-
 
     // ajax로 댓글을 삽입해봅시다!
     $.ajax({
@@ -141,3 +130,6 @@ commentInsert.addEventListener("click", e=>{
         }
     });
 });
+
+
+// 답글 달기 해보자!

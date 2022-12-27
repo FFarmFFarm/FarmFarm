@@ -188,7 +188,7 @@ main{
 .comment-content > div{
     width: 100%;
 }
-.commentInsert{
+.comment-insert{
     width: 75px;
     height: 95px;
     margin: auto;
