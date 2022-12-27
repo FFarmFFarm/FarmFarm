@@ -3,7 +3,9 @@ package edu.kh.farmfarm.chat.model.websocket;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +56,12 @@ public class ChatWebsocketHandler extends TextWebSocketHandler {
 			// 채팅방 정보를 찾음
 			ChatRoom roomInfo = service.getRoomInfo(chat.getRoomNo());
 			
-			// 사진 정보를 찾음
+			// 해당 채팅방의 모든 채팅을 읽음처리
+			Map<String, Object> updateInfo = new HashMap<String, Object>();
+			updateInfo.put("roomNo", chat.getRoomNo());
+			updateInfo.put("myMemberNo", chat.getSendMemberNo());
+			
+			service.updateChatReadFl(updateInfo);
 			
 			// 현재 날짜
 	        chat.setChatDate(LocalDate.now() + "");
@@ -63,13 +70,24 @@ public class ChatWebsocketHandler extends TextWebSocketHandler {
 	        int hour = LocalTime.now().getHour();
 	        int minute = LocalTime.now().getMinute();
 	        String meridiem = "오전";
+	        String strHour = "";
+	        String strMin = "";
 	        
 	        if(hour > 12) {
 	        	hour-= 12;
 	        	meridiem = "오후";
+	        	strHour = "0" + hour;
+	        } else {
+	        	strHour = "" + hour;
 	        }
 	        
-	        chat.setChatTime(meridiem + " " + hour  + ":" + minute);
+	        if(minute < 10) {
+	        	strMin = "0" + minute;
+	        } else {
+	        	strMin = "" + minute;
+	        }
+	        
+	        chat.setChatTime(meridiem + " " + strHour  + ":" + strMin);
 	 
 			
 			for(WebSocketSession s : sessions) {
