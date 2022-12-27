@@ -7,6 +7,7 @@ for(let page of pageBox) {
     let cp = page.id;
 
     selectCommentList(cp);
+    changeURL(cp);
 
   })
 }
@@ -118,6 +119,7 @@ const selectCommentListEvent = (element, cp) => {
   
   element.addEventListener('click', () => {
     selectCommentList(cp);
+    changeURL(cp);
   });
 
 }
