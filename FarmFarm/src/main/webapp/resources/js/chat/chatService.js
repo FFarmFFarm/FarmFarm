@@ -51,7 +51,6 @@ const requestMyChatRoomList = () => {
     // 채팅방 리스트
     const chatPreviewArea = document.querySelector('.chat-preview-area');
 
-
     // 내 채팅방 목록 가져오기
     axios.post('/chat/chatRoomList')
         .then(function (response) {
@@ -60,13 +59,18 @@ const requestMyChatRoomList = () => {
             // 채팅방 목록
             let chatRoomList = response.data.chatRoomList;
 
-            // 기존 채팅방 목록 비우기
-            chatPreviewArea.innerHTML = "";
+            // 검색창에 입력한 값이 없을 때만 채팅방 목록을 가져옵니다.
 
-            // 채팅 프리뷰 영역에 채팅방 목록 채워넣기
-            for (let chatRoomInfo of chatRoomList) {
-                chatPreviewArea.append(makeChatPreviewBox(chatRoomInfo));
+            if(document.getElementById('searchBar').value.trim().length == 0) {
+                // 기존 채팅방 목록 비우기
+                chatPreviewArea.innerHTML = "";
+
+                // 채팅 프리뷰 영역에 채팅방 목록 채워넣기
+                for (let chatRoomInfo of chatRoomList) {
+                    chatPreviewArea.append(makeChatPreviewBox(chatRoomInfo));
+                }
             }
+
 
         }).catch(function (error) {
             console.log(error);
@@ -206,7 +210,7 @@ const makeChatRoom = (myMemberNo, chatHistory, profileImg2, memberNickname2) => 
         }
 
         if(chat.sendMemberNo == myMemberNo) { // 보낸 메세지인 경우
-            const sentChat = makeSentChat(chat.chatContent, chat.chatTime, chat.imgFl, chat.readFl);
+            const sentChat = makeSentChat(chat.chatContent, chat.chatTime, chat.imgFl, '');
 
             readingArea.append(sentChat)
 
@@ -325,7 +329,7 @@ const sendChatToServer = () => {
     document.getElementById('inputBox').blur();
 }
 
-/* 채팅을 보내는 함수 */
+/* 채팅(이미지)를 보내는 함수 */
 const sendImgToServer = () => {
     const imageInput = document.getElementById('imageInput');
     const imgData = imageInput.files[0];
@@ -369,6 +373,9 @@ const sendImgToServer = () => {
     // 스크롤을 하단으로 내림
     const nowScrollHeight = readingArea.scrollHeight;
     readingArea.scrollTo(0, nowScrollHeight);
+
+    // 채팅 읽음처리 없데이트
+    
 }
 
 /* 버튼, 엔터에 채팅 보내기 이벤트 */
@@ -413,12 +420,15 @@ chattingSock.onmessage = function(e) {
         }
 
         if(senderNo == chat.sendMemberNo) { // 내가 보낸 채팅인 경우..
-            const sentChat = makeSentChat(chat.chatContent, chat.chatTime, chat.imgFl, chat.readFl);
+            const sentChat = makeSentChat(chat.chatContent, chat.chatTime, chat.imgFl, 'N');
 
             readingArea.append(sentChat);
 
         } else { // 아닌 경우
             const receivedChat = makeReceivedChat(partnerProfileImg, partnerNickname, chat.chatContent, chat.chatTime, chat.imgFl);
+            
+            // 현재 보이는 읽지 않음을 전부 읽음처리해야함;;(동기화작업)
+            readMyChat();
 
             readingArea.append(receivedChat);
         }
@@ -463,3 +473,49 @@ document.getElementById('inputImgPreviewDelBtn').addEventListener('click', (e) =
         document.getElementById('inputImgPreviewBox').style.opacity = 0;
     }
 })
+
+/* 검색창 만들기 이벤트 */
+document.getElementById('searchBtn').addEventListener('click', ()=>{
+    let input = document.getElementById('searchBar');
+
+    if(input.value.trim().length == 0) {
+        input.focus();
+    } else {
+
+        console.log('검색중이에요.........')
+
+        // 버튼 보여주세요
+        document.getElementById('resetRoomSearch').style.display='block';
+
+        let roomList = document.getElementsByClassName('chat-preview-box');
+        
+        for(room of roomList) {
+            room.style.display = 'flex';
+            let roomName = room.children[1].children[0].innerText;
+            console.log('방제 : ' + roomName);
+    
+            if(!roomName.includes(input.value)) {
+                room.style.display='none';
+            } 
+        }
+
+    }
+
+})
+
+/* 초기화 버튼 클릭 시 */
+document.getElementById('resetRoomSearch').addEventListener('click', (e)=>{
+    // e.target.parent.style.display='none'; // 버튼 숨김
+    document.getElementById('resetRoomSearch').style.display = 'none'
+    document.getElementById('searchBar').value=''; // 채팅방 검색창 초기화
+    requestMyChatRoomList(); // 목록 가져옴
+})
+
+/* 현재 방에 있을 때, 메시지를 받았을 때, 내가 보낸 메시지를 전부 읽음처리로 수정 */
+const readMyChat = () => {
+    let sentBubbleReadFlList = document.getElementsByClassName('sent-bubble-read-fl');
+
+    for(let one of sentBubbleReadFlList) {
+        one.innerText = "";
+    }
+}
