@@ -26,6 +26,8 @@ public class Post {
 	private String categoryName;
 	private String postImgAddress;
 	
+	private int loginMemberNo;
+	
 	private List<PostImg> imgList;
 	private String thumbnailImg;
 	
