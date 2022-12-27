@@ -346,10 +346,15 @@ margin-top: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
 
     font: var(--sub-font-color);
 
     cursor: pointer;
+}
+
+.page-box>a{
+    width: 100%;
 }
 
 .page-box:hover{
