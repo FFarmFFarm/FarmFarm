@@ -49,6 +49,7 @@
 		<mapper resource="/mappers/postDetail-mapper.xml"/>
 		<mapper resource="/mappers/category-mapper.xml"/>
 		<mapper resource="/mappers/productList-mapper.xml"/>
+		<mapper resource="/mappers/productAdmin-mapper.xml"/>
 		<mapper resource="/mappers/member-mapper.xml"/>
 		<mapper resource="/mappers/board-mapper.xml"/>
 		<mapper resource="/mappers/seller-mapper.xml"/>

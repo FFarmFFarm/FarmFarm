@@ -41,7 +41,7 @@
                                 <i class="fa-solid fa-caret-down select-icon"></i>
                             </button>
                             <div class="category-selected">
-                                <p id="category-name"></p>
+                                <p id="categoryName"></p>
                             </div>
                         </div>
                         <ul id="category-list">

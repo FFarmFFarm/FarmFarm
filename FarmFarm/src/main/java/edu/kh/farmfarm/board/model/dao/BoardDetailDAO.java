@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.farmfarm.board.model.vo.Board;
+import edu.kh.farmfarm.board.model.vo.BoardImg;
 
 @Repository
 public class BoardDetailDAO {
@@ -42,6 +43,36 @@ public class BoardDetailDAO {
 	// 조회수 증가~
 	public int updateBoardView(int boardNo) {
 		return sqlSession.update("boardMapper.updateBoardView", boardNo);
+	}
+
+
+	// 게시글 삭제
+	public int boardDelete(int boardNo) {
+		return sqlSession.update("boardMapper.boardDelete", boardNo);
+	}
+
+
+	// 게시글 제목 + 내용 수정
+	public int updateBoard(Board board) {
+		return sqlSession.update("boardMapper.updateBoard", board);
+	}
+
+
+	// 게시글 수정 - 이미지 삭제
+	public int updateDeleteImg(String condition) {
+		return sqlSession.delete("boardMapper.updateDeleteImg", condition);
+	}
+
+
+	// 게시글 수정 - 이미지 수정 업데이트 시도
+	public int updateBoardImg(BoardImg img) {
+		return sqlSession.update("boardMapper.updateBoardImg", img);
+	}
+
+
+	// 게시글 수정 - 이미지 삽입하기...
+	public int boardImgInsert(BoardImg img) {
+		return sqlSession.insert("boardMapper.boardImgInsert", img);
 	}
 
 }

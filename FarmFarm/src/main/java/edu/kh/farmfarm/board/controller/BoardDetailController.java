@@ -1,24 +1,31 @@
 package edu.kh.farmfarm.board.controller;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.kh.farmfarm.board.model.service.BoardDetailService;
 import edu.kh.farmfarm.board.model.vo.Board;
@@ -130,6 +137,7 @@ public class BoardDetailController {
 		return "board/boardDetail";
 	}
 	
+	
 	// 게시글 좋아요++
 	@GetMapping("/boardLikeInsert")
 	@ResponseBody
@@ -145,6 +153,35 @@ public class BoardDetailController {
 	public int boardLikeDelete(
 			@RequestParam Map<String, Object> likeMap) {
 		return serivce.boardLikeDelete(likeMap);
+	}
+
+	
+	// 게시글 삭제하기...
+	@GetMapping("/board/{boardTypeNo}/{boardNo}/delete")
+	public String boardDelete(
+			@PathVariable("boardTypeNo") int boardTypeNo,
+			@PathVariable("boardNo") int boardNo,
+			RedirectAttributes ra,
+			@RequestHeader("referer") String referer) {
+		
+		int result = serivce.boardDelete(boardNo);
+		
+		String message = null;
+		String path = null;
+		
+		// 삭제 성공!
+		if(result>0) {
+			message = "게시글을 삭제했습니다.";
+			path = "/board/"+boardTypeNo;
+			
+		}else {
+			message = "삭제 실패...";
+			path = referer;
+		}
+		
+		ra.addFlashAttribute("message", message);
+		
+		return "redirect:"+path;
 	}
 		
 	
@@ -165,14 +202,44 @@ public class BoardDetailController {
 		
 		return "board/boardUpdate";
 	}
-//	public String boardUpdate(
-//			@PathVariable("boardTypeNo") int boardTypeNo,
-//			@PathVariable("boardNo") int boardNo,
-//			Board board,
-//			Model model,
-//			) {
-//		return null;
-//	}
+	
+	
+	// 게시글 수정합니다
+	@PostMapping("/board/{boardTypeNo}/{boardNo}/update")
+	public String boardUpdate(
+			@PathVariable("boardTypeNo") int boardTypeNo,
+			@PathVariable("boardNo") int boardNo,
+			Board board,
+			@RequestParam(value="cp", required = false, defaultValue="1") int cp,
+			@RequestParam(value="deleteImgList", required = false) String deleteImgList,
+			@RequestParam(value="imgs", required = false) List<MultipartFile> imgList,
+			@RequestHeader("referer") String referer, // 수정 실패 시 이전 요청 주소 요청
+			HttpSession session, // 서버 파일 저장 경로 얻기
+			RedirectAttributes ra // 메세지 전달용
+			) throws IOException {
+		
+		board.setBoardNo(boardNo);
+		
+		String webPath = "/resources/images/board/";
+		String folderPath = session.getServletContext().getRealPath(webPath);
+		
+		int result = serivce.updateBoard(board, deleteImgList, imgList, webPath, folderPath);
+		
+		String message = null;
+		String path = null;
+		
+		if(result>0) {
+			path = "/board/" + boardTypeNo + "/" + boardNo + "?cp=" + cp;
+			message = "게시글이 수정되었습니다.";
+		}else {
+			path = referer;
+			message = "게시글 수정에 실패했습니다....";
+		}
+		
+		ra.addFlashAttribute("message", message);
+		
+		return "redirect:"+path;
+	}
 
 	
 }
