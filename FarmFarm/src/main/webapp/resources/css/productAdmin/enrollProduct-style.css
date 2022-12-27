@@ -1,0 +1,285 @@
+@import "../root-style.css";
+
+
+.header-container{
+    z-index: 50;
+}
+
+body{
+    width: 100vw;
+    height:auto;
+    /* background-color: #eef4ed; */
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main{
+    width: 1200px;
+    height: auto;
+
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+
+/* todo: 카테고리 선택 부분 _카테고리별로 다르게 표시! */
+.admin-nav-sub:nth-of-type(3){
+    height: 30px;
+    padding-top: 5px;
+    background-color: #eef4ed;
+    font-weight: bold;
+}
+
+
+/* 상품등록 페이지 전체 */
+.enroll-section{
+    display: flex;
+    flex-direction: column;
+    width: 1000px;
+    padding: 0 50px 50px;
+    background-color: #eef4ed;
+}
+
+.enroll-product{
+    background-color: var(--background-color);
+    padding: 80px 50px;
+    border-radius: 10px;
+}
+
+/* 페이지 제목 */
+.page-title{
+    text-align: center;
+    font-size: var(--headline-font-size);
+    height: 115px;
+    padding-top: 50px;
+    margin-bottom: 30px;
+}
+
+/* 항목별 공통설정 */
+.product-items{
+    margin-bottom: 30px;
+}
+
+.item-title{
+    padding: 13px 5px;
+}
+
+/* 카테고리 설정 */
+.category-item{
+    display: flex;
+}
+
+.category-item>p{
+    width: 15%;
+    padding-top: 0;
+}
+
+.select-category{
+    width: 85%;
+}
+
+.category-headline{
+    height: 45px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #C7C7C7;
+}
+
+.category-headline p{
+    display: inline-block;
+}
+
+#category-btn{
+    width: 18%;
+    font-size: var(--main-font-size);
+    margin-left: 15px;
+    cursor: pointer;
+
+    border: none;
+    background-color: var(--background-color);
+}
+
+#category-btn>i{
+    padding-left: 10px;
+}
+
+.category-selected{
+    width: 40%;
+    font-size: var(--small-font-size);
+    margin-right: 15px;
+    text-align: right;
+}
+
+.category-selected>p{
+    cursor: pointer;
+}
+
+#categoryName{
+    padding-right: 15px;
+    color: var(--point-color);
+    font-size: var(--main-font-size);
+}
+
+/* 카테고리 리스트 */
+#category-list{
+    border: 1px solid #C7C7C7;
+    padding: 20px 0 20px 90px;
+    display: none;
+}
+
+#category-list>li{
+    width: 190px;
+    display: inline-block;
+    font-size: var(--main-font-size);
+    padding-bottom: 5px;
+}
+
+.show-category{
+    display: block !important;
+}
+
+.rotate {transform: perspective(500px) rotateX(180deg);}
+
+[name="categoryNo"]{
+    accent-color: var(--point-color);
+}
+
+
+/* 상품정보 */
+.product-info{
+    border: 1px solid #C7C7C7;
+    padding: 30px 60px;
+}
+
+.info-list{
+    display: flex;
+    padding: 15px;
+    align-items: center;
+}
+
+.info-list>p{
+    font-size: var(--main-font-size);
+}
+
+.info-list>p:first-child{
+    width: 20%;
+}
+
+.info-list>input{
+    border: none;
+    border-bottom: 1px solid #C7C7C7;
+    font-size: var(--main-font-size);
+    line-height: 30px;
+}
+
+input[name="productPrice"], input[name="stock"] {
+    text-align: right;
+    padding-right: 10px;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* 이미지 삽입 */
+.thumbnail{
+    width: 150px;
+    height: 150px;
+    border: 1px solid #CECECE;
+    position: relative;
+}
+
+.thumbnail i{
+    font-size: 30px;
+    color: #B0B0B0;
+}
+
+.thumbnail>label{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: var(--small-font-size);
+    color: #888;
+}
+
+.thumbnail>.input-img{
+    display: none;
+}
+
+
+.thumbnail-img{
+    display: none;
+}
+
+.input-img{
+    border: none !important; 
+    padding-bottom: 3px;
+    /* width: 400px; */
+}
+
+
+.preview{
+    max-width: 100%;
+    height: 100%;
+}
+
+
+.delete-thumbnail{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: #B0B0B0;
+    cursor: pointer;
+}
+
+.delete-img{
+    display: none;
+    margin-left: 10px;
+    color: #888;
+    cursor: pointer;
+}
+
+.input-img button{
+    border: none;
+}
+
+/* 상품 상세 설명 */
+.product-message{
+    border: 1px solid #C7C7C7;
+    padding: 20px;
+    line-height: 20px;
+    outline: none;
+}
+
+.button-area{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.button-area>button{
+    width: 200px;
+    height: 45px;
+    border: none;
+    font-size: var(--medium-font-size);
+}
+
+#cancelBtn{
+    background-color: #F2F2F2;
+    margin-right: 10px;
+}
+
+#enrollBtn{
+    background-color: var(--point-color);
+    color: #ffffff;
+}
