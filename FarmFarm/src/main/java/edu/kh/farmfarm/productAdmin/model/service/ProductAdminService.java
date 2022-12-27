@@ -1,6 +1,7 @@
 package edu.kh.farmfarm.productAdmin.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,5 +19,11 @@ public interface ProductAdminService {
 	 * @throws Exception 
 	 */
 	int enrollProduct(Product product, List<MultipartFile> productImgList, String webPath, String folderPath) throws Exception;
+
+	/** 팜팜 재고관리
+	 * @param cp
+	 * @return map
+	 */
+	Map<String, Object> selectProductList(int cp);
 
 }

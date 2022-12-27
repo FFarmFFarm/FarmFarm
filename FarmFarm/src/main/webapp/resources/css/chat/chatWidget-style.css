@@ -82,10 +82,11 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-
+    text-align: start;
     position: relative;
 
     cursor: pointer;
+    border: none;
     border-bottom: 1px solid var(--line-color);
 
 }
@@ -114,7 +115,7 @@
 .chatWidget-box-label{
     border-bottom: 1px solid var(--line-color);
 
-    width: 175px;
+    width: 200px;
     /* padding-bottom: 10px; */
     margin-bottom: 5px;
     display: flex;
@@ -139,11 +140,12 @@
 }
 
 /* 시간 */
-.chatWidget-last-message-time{
-    width: 53px;
-    font-size: 1px;
+.chatWidget-last-chat-time{
+    width: 73px;
+    font-size: var(--small-font-size);
     font-family: sans-serif;
     color: var(--sub-font-color);
+    letter-spacing: -1px;
 
     display: flex;
     align-items: flex-end;
@@ -151,11 +153,11 @@
 }
 
 /* 채팅내용(1줄까지) */
-.chatWidget-last-message-content{
-    width: 160px;
+.chatWidget-last-chat-content{
+    width: 170px;
     height: 17px;
     /* padding: 5px 0px; */
-    font-size: var(--small-font-size);
+    font-size: var(--main-font-size);
     color: var(--main-font-color); 
 
     text-overflow: ellipsis;
@@ -163,20 +165,42 @@
     white-space: nowrap;
 }
 
-.chatWidget-enter-icon{
-    height: 50px;
-    width: 50px;
-
-    color: #2b8c4470;
-    
-    display: none;
-    justify-content: center;
-    align-items: center;
-
+/* 채팅방 안읽은 개수 알림 */
+.chatWidget-unread-chat-count{
     position: absolute;
 
-    top: 0px;
-    right: 5px;
+    font-size: var(--main-font-size);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+
+    background-color: red;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    bottom: 10px;
+    right: 21px;
+}
+
+/*  */
+#chatWidgetFooter{
+    display: flex;
+    align-items: center;
+
+    padding: 10px;
+    position: relative;
+}
+
+/*  */
+#refreshChatWidget{
+    right: 10px;
+    position: absolute;
+    transition-duration: 10s;
+    transition-delay: 1s;
+    transform: rotate(10turn);
 }
 
 /* 채팅위젯박스 hover */
@@ -194,7 +218,7 @@
     -webkit-line-clamp: 3;
 }
 
-.chatWidget-box:hover .last-message-content{
+.chatWidget-box:hover .last-chat-content{
     height: 0;
 }
 
