@@ -26,8 +26,8 @@
     <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
     <main>
+      <jsp:include page="/WEB-INF/views/myPage/myPage.jsp"/>
 
-      <!-- <div class="order-list-header"></div> -->
       <section class="list-container">
        <jsp:include page="/WEB-INF/views/myPage/myPageNav.jsp"/>
 
@@ -45,20 +45,19 @@
                 <a href="/product/${review.productNo}" class="review-title">
                 ${review.productName}
                 </a>
-                <div class="review-content">
-                  <span> 내용 보기 </span>
+                <div class="review-content show-btn">
+                  <span > 내용 보기 </span>
                   <button type="button" class="fa-solid fa-angle-right"></button>
                 </div>
               </div>
               <span class="review-reg-date">${review.createDate}</span>
             </div>
-            <div class="review-detail">
+            <div class="review-detail hide">
               <div class="review-detail-content">
                 <span>${review.productName}</span>
                 <p>
                 ${review.reviewContent}
                 </p>
-
                 <c:if test="${! empty review.imgList}">
                 <div class="review-img">
                   <c:forEach var="img" items="${review.imgList}">

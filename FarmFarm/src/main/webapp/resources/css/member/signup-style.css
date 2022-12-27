@@ -88,7 +88,7 @@ main{
     border: none;
     background-color: var(--point-color);
     color: var(--background-color);
-    width: 80px;
+    width: 100px;
     height: 27px;
     display: flex;
     align-items: center;
@@ -97,8 +97,8 @@ main{
 }
 
 .address-btn{
-    top: 930px;
-    left: 1005px;
+    top: 950px;
+    left: 980px;
 }
 
 .address-btn1{
@@ -107,12 +107,12 @@ main{
 
 .tel-btn1{
     top: 70px;
-    left: 315px;
+    left: 293px;
 }
 
 .tel-btn2{
     top: 17px;
-    left: 315px;
+    left: 293px;
 }
 
 .farm-img{

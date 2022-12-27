@@ -186,6 +186,14 @@ const createPostBox = (postMap) => {
             // box 포장하기
             postBox.append(postThumbnail, postDetail);
 
+            // 만약 품절이면 soldOut처리
+            if(post.postSoldoutFl == 1) {
+                const soldOutBlind = document.createElement('div');
+                soldOutBlind.classList.add('sold-out-blind');
+                soldOutBlind.innerHTML ="<img src='/resources/images/postList/out-of-stock.png'>";
+                postBox.append(soldOutBlind);
+            }
+
             // listAreaBody에 추가
             listAreaBody.append(postBox);
         }

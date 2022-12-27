@@ -183,10 +183,19 @@
   width: 100%;
   height: 50px;
 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
   padding: 10px 5px;
 
   font-size: var(--small-font-size);
   color: var(--sub-font-color);
+}
+
+.review-notice > button {
+  font-size: var(--small-font-size);
+  color:var(--sub-font-color);
 }
 
 .review-submit {

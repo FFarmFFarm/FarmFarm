@@ -8,102 +8,118 @@ if (writeReviewBtn != undefined) {
       const productName = btn.parentElement.previousElementSibling.firstElementChild.innerText;
       const productThumbnail = btn.parentElement.previousElementSibling.
         previousElementSibling.firstElementChild.getAttribute('src');
+
+      /* 상품 링크 경로 */
       const href = btn.parentElement.previousElementSibling.firstElementChild.href;
-      
+
+      /* 상품 번호 구하기 */
+      const index = href.lastIndexOf('/');
+      const productNo = href.substring(index + 1);
+
+
+      document.getElementById('productNoInput').value = productNo;
+
+
+
       document.getElementById('modalProductThumbnail').setAttribute('src', productThumbnail);
       document.getElementById('modalProductName').innerHTML = productName;
       document.getElementById('modalProductName').href = href;
 
-      displayflex(reviewFormContainer);
+      displayFlex(reviewFormContainer);
     })
   }
 }
 
+/* 리뷰 작성 form 모달창 사진 첨부 시 미리보기 생성*/
+const inputFile = document.getElementsByClassName('input-file');
+const reviewImg = document.getElementsByClassName('review-img-thumbnail');
+const inputLabel = document.getElementsByClassName('input-label');
+const xBtn = document.getElementsByClassName('x-btn');
 
-/* 리뷰 작성 form 모달창 사진 첨부 시 미리보기 생성 및 새로운 input 태그 추가 */
-document.getElementById('imgInput1').addEventListener('change', (e) => { 
+for (let i = 0; i < inputFile.length; i++) {
+  inputFile[i].addEventListener('change', (e) => {
 
-  if (e.target.files[0] != undefined) {
-      
-    const fileReader = new FileReader();
-    
-    fileReader.readAsDataURL(e.target.files[0]);
-
-    fileReader.onload = (event) => {
-
-      document.getElementById('reviewImg1').src = event.target.result;
-      document.getElementById('reviewImg1').style.display = 'block';
-
-      document.getElementById('inputLabel').style.display = 'none';
-
-      const button = document.createElement('button');
-      button.innerHTML = '<i class="fa-solid fa-xmark"></i>';
-
-      document.getElementById('reviewOneImg').append(button);
-
-      button.addEventListener('click', () => { 
-        document.getElementById('imgInput1').val("");
-        reviewImg1.style.display = 'none';
-      })
-
-
-    }
-  }
-
-  createInput(1);
-  
-})
-
-
-
-const createInput = (order) => { 
-  const imgUploadArea = document.getElementById('imgUploadArea');
-
-  const div = document.createElement('div');
-  div.classList.add('review-one-img');
-
-  const label = document.createElement('label');
-  label.innerHTML = '<i class="fa-solid fa-plus"></i>';
-
-  const input = document.createElement('input');
-  input.type = 'file';
-  input.id = 'imgInput' + order;
-
-  label.append(input);
-  div.append(label);
-  imgUploadArea.append(div);
-
-  input.addEventListener('change', (e) => { 
-
-    
     if (e.target.files[0] != undefined) {
-      
+      console.log('파일 있음');
+
       const fileReader = new FileReader();
-      
+
       fileReader.readAsDataURL(e.target.files[0]);
-      
+
       fileReader.onload = (event) => {
 
-        const img = document.createElement('img');
-        img.src = event.target.result;
-        img.classList.add('review-img-thumbnail');
-        img.id = 'reviewImg' + order;
-        img.style.display = 'block';
+        reviewImg[i].setAttribute('src', event.target.result);
+        displayFlexNoLock(reviewImg[i]);
+        inputLabel[i].classList.add('hide');
+        inputLabel[i].classList.remove('appear');
+        displayFlexNoLock(xBtn[i]);
 
-        label.style.display = 'none';
-
-        div.prepend(img);
       }
-    }
-
-    order = order + 1;
-
-    if (order <= 4) {
-      createInput(order);
+    } else {
+      console.log('파일 없음');
+      reviewImg[i].classList.add('hide');
+      reviewImg[i].classList.remove('appear');
+      inputFile[i].value = '';
+      displayFlexNoLock(inputLabel[i]);
+      xBtn[i].classList.add('hide');
+      xBtn[i].classList.remove('appear');
     }
   })
 
+
+  xBtn[i].addEventListener('click', (e) => {
+    console.log('x버튼 클릭');
+    reviewImg[i].classList.add('hide');
+    reviewImg[i].classList.remove('appear');
+    displayFlexNoLock(inputLabel[i]);
+    xBtn[i].classList.add('hide');
+    xBtn[i].classList.remove('appear');
+
+    inputFile[i].value = '';
+  })
 }
+
+
+/* 리뷰 등록하기 버튼 클릭 */
+document.getElementById('submitBtn').addEventListener('click', () => {
+  console.log('등록 버튼 클릭')
+  const reviewTextArea = document.getElementById('reviewTextArea');
+  console.log(reviewTextArea.value);
+
+  if (reviewTextArea.value.trim().length == 0) {
+    console.log('글을 안씀');
+
+  } else {
+    console.log('등록 하기');
+    const form = document.getElementById('reviewFrom');
+    const formData = new FormData(form);
+
+    $.ajax({
+      url: "/order/review",
+      data: formData,
+      type: "POST",
+      contentType: false,
+      processData: false,
+      success: (result) => {
+
+        if (result > 0) {
+
+          displayNone(document.getElementById('reviewFormContainer'));
+
+          let cp = selectCp();
+
+          selectOrderList(cp);
+        }
+      },
+      error: () => {
+        console.log('error');
+
+      }
+    })
+  }
+
+})
+
 
 
 
@@ -114,22 +130,24 @@ const createInput = (order) => {
 
 // 구매확정 버튼 클릭 시 구매 확정
 const confirmation = document.getElementsByClassName('confirmation');
-if (confirmation.length != 0) { 
+if (confirmation.length != 0) {
   for (let btn of confirmation) {
-    btn.addEventListener('click', () => { 
+    btn.addEventListener('click', () => {
 
-      displayflex(document.getElementById('orderConfirmModal'));
-    
+      displayFlex(document.getElementById('orderConfirmModal'));
+
       confirmOrderNo = btn.id;
     })
   }
-  
+
 }
 
+/* 구매확정 취소 버튼 */
 document.getElementById('orderCalcelBtn').addEventListener('click', () => {
   displayNone(document.getElementById('orderConfirmModal'));
 });
 
+/* 구매확정 확인 버튼 */
 document.getElementById('orderConfirmBtn').addEventListener('click', () => {
   orderConfirmation(confirmOrderNo);
   displayNone(document.getElementById('orderConfirmModal'));
@@ -143,19 +161,19 @@ document.getElementById('orderConfirmBtn').addEventListener('click', () => {
 
 
 /* 주문 구매 확정하는 Function */
-const orderConfirmation = (orderNo) => { 
+const orderConfirmation = (orderNo) => {
 
   $.ajax({
     url: "/order/confirm",
     data: { "orderNo": orderNo },
-    success: (result) => { 
+    success: (result) => {
       if (result > 0) {
         const message = '주문번호 ' + orderNo + '번 구매가 확정되었습니다.'
 
         messageModalOpen(message);
       }
     },
-    error: () => { 
+    error: () => {
       console.log('구매 확정 중 에러 발생');
     }
   })
@@ -163,12 +181,10 @@ const orderConfirmation = (orderNo) => {
 }
 
 
-
-
 //  주문 목록 AJAX 페이지네이션
 const pageBox = document.getElementsByClassName('page-box');
-for(let page of pageBox) {
-  page.addEventListener('click', ()=>{
+for (let page of pageBox) {
+  page.addEventListener('click', () => {
 
     let cp = page.id;
 
@@ -183,16 +199,16 @@ for(let page of pageBox) {
 
 /* 주문 목록 조회 */
 const selectOrderList = (cp) => {
-  
+
   $.ajax({
     url: "/order/list",
-    data: {"cp":cp},
+    data: { "cp": cp },
     dataType: "json",
-    success: (map)=>{
+    success: (map) => {
       printOrderList(map.orderList, map.pagination);
 
     },
-    error: ()=>{
+    error: () => {
       console.log("주문 목록 불러오기 중 에러 발생")
     }
   })
@@ -206,11 +222,11 @@ const printOrderList = (orderList, pagination) => {
   orderListContainer.innerHTML = "";
 
   const orderContainer = document.createElement('div');
-  
-  for(let order of orderList) {
+
+  for (let order of orderList) {
 
     orderContainer.classList.add('order');
-    
+
     const orderInfoContainer = document.createElement('div');
     orderInfoContainer.classList.add('order-info-container');
 
@@ -240,7 +256,7 @@ const printOrderList = (orderList, pagination) => {
 
 
     /* 주문 상품 목록 */
-    for(let product of order.productList) {
+    for (let product of order.productList) {
 
       const orderOne = document.createElement('div');
       orderOne.classList.add('order-one');
@@ -274,10 +290,10 @@ const printOrderList = (orderList, pagination) => {
       orderDetail.classList.add('order-detail');
 
       orderTotal.append(productTitle, orderDetail);
-      
+
       const orderPrice = document.createElement('div');
       orderPrice.classList.add('order-price');
-      
+
       const span = document.createElement('span');
       span.innerText = product.productPrice;
 
@@ -285,14 +301,14 @@ const printOrderList = (orderList, pagination) => {
       span1.innerText = '원';
 
       orderPrice.append(span, span1);
-      
+
       const orSpan = document.createElement('span');
       orSpan.innerText = "|"
       orSpan.classList.add("or");
 
       const orderAmount = document.createElement('div');
       orderAmount.classList.add('order-amount');
-      
+
       const span2 = document.createElement('span');
       span2.innerHTML = product.productAmount;
 
@@ -305,94 +321,113 @@ const printOrderList = (orderList, pagination) => {
 
       const orderStatus = document.createElement('div');
       orderStatus.classList.add('order-status');
-      
+
       const span4 = document.createElement('span');
       const a = document.createElement('a');
 
-      if(order.orderStatus == 0 ) {
+      if (order.orderStatus == 0) {
         span4.innerText = '결제완료';
-        orderStatus.append(span4);   
+        orderStatus.append(span4);
       }
-      if(order.orderStatus == 1 ) {
+      if (order.orderStatus == 1) {
         a.innerText = '배송중';
         a.classList.add('order-shipping');
-        orderStatus.append(a);   
+        orderStatus.append(a);
       }
-      if(order.orderStatus == 2 ) {
+      if (order.orderStatus == 2) {
         span4.innerText = '취소완료';
-        orderStatus.append(span4);   
+        orderStatus.append(span4);
       }
-      if(order.orderStatus == 3 ) {
+      if (order.orderStatus == 3) {
         span4.innerText = '구매확정';
-        orderStatus.append(span4);   
+        orderStatus.append(span4);
       }
 
       orderTotal.append(orderStatus);
 
       const buttonArea = document.createElement('div');
       buttonArea.classList.add('button-area');
-      
+
       const button1 = document.createElement('button');
       const button2 = document.createElement('button');
 
-      if(order.orderStatus == 0 ) {
+      if (order.orderStatus == 0) {
         button1.setAttribute('type', 'button');
         button1.innerText = '구매확정';
         button1.classList.add('confirmation');
         button1.id = order.orderNo;
-        
+
         button2.setAttribute('type', 'button');
         button2.innerText = '주문취소';
         button2.classList.add('cancel-order');
         button2.id = order.orderNo;
-        
+
         buttonArea.append(button1, button2);
 
         /* 구매확정 버튼 클릭 시 주문 구매 확정 */
-        button1.addEventListener('click', () => { 
-          
-          displayflex(document.getElementById('orderConfirmModal'));
-    
+        button1.addEventListener('click', () => {
+
+          displayFlex(document.getElementById('orderConfirmModal'));
+
           confirmOrderNo = order.orderNo;
 
         })
 
-        
+
       }
-      
-      if(order.orderStatus == 1 ) {
+
+      if (order.orderStatus == 1) {
         button1.setAttribute('type', 'button');
         button1.innerText = '구매확정';
         button1.classList.add('confirmation');
         button1.id = order.orderNo;
-        
+
         button2.setAttribute('type', 'button');
         button2.innerText = '반품요청';
         button2.classList.add('return');
         button2.id = order.orderNo;
-        
+
         buttonArea.append(button1, button2);
 
         /* 구매확정 버튼 클릭 시 주문 구매 확정 */
-        button1.addEventListener('click', () => { 
-          
-          displayflex(document.getElementById('orderConfirmModal'));
-    
+        button1.addEventListener('click', () => {
+
+          displayFlex(document.getElementById('orderConfirmModal'));
+
           confirmOrderNo = order.orderNo;
 
         })
       }
-      
-      if(order.orderStatus == 2 ) {
+
+      if (order.orderStatus == 2) {
       }
-      
-      if(order.orderStatus == 3 ) {
-        button1.setAttribute('type', 'button');
-        button1.innerText = '리뷰작성';
-        button1.classList.add('write-review');
-        button1.id = order.orderNo;
-        
+
+      if (order.orderStatus == 3) {
+        if (product.reviewCheck == 0) {
+          button1.setAttribute('type', 'button');
+          button1.innerText = '후기작성';
+          button1.classList.add('write-review');
+          button1.id = order.orderNo;
+        }
+
+        if (product.reviewCheck == 1) {
+          button1.setAttribute('type', 'button');
+          button1.innerText = '후기완료';
+          button1.classList.add('write-review');
+          button1.setAttribute('disabled', true);
+        }
+
         buttonArea.append(button1);
+
+        button1.addEventListener('click', () => {
+          const reviewFormContainer = document.getElementById('reviewFormContainer');
+
+          document.getElementById('modalProductThumbnail').setAttribute('src', product.productImg);
+          document.getElementById('modalProductName').innerHTML = product.productName;
+          document.getElementById('modalProductName').href = '/product/' + product.productNo;
+
+          displayFlex(reviewFormContainer);
+        })
       }
 
       orderOne.append(buttonArea);
@@ -413,7 +448,7 @@ const printOrderList = (orderList, pagination) => {
 
 
   }
-  
+
   const paginationArea = document.createElement('div');
   paginationArea.classList.add('pagination-area');
 
@@ -432,24 +467,24 @@ const printPagination = (paginationArea, pagination) => {
   const prevPage = document.createElement('div');
   makePageBox(firstPage, '<i class="fa-solid fa-angles-left"></i>', 1, 'page-box');
   makePageBox(prevPage, '<i class="fa-solid fa-angle-left"></i>', pagination.prevPage, 'page-box');
-  
+
   paginationArea.append(firstPage, prevPage);
 
   // 번호 페이지 제작
-  for(let i=pagination.startPage; i<=pagination.endPage; i++) {
-      const numPage = document.createElement('div');
-      if(i == pagination.currentPage) {
-          makePageBox(numPage, i, i, 'current-page-box');
-      } else {
-          makePageBox(numPage, i, i, 'page-box');
+  for (let i = pagination.startPage; i <= pagination.endPage; i++) {
+    const numPage = document.createElement('div');
+    if (i == pagination.currentPage) {
+      makePageBox(numPage, i, i, 'current-page-box');
+    } else {
+      makePageBox(numPage, i, i, 'page-box');
 
-      }
-      
-      paginationArea.append(numPage);
+    }
 
-      selectOrderListEvent(numPage, i);
+    paginationArea.append(numPage);
+
+    selectOrderListEvent(numPage, i);
   }
-  
+
   // 이후 페이지 제작
   const nextPage = document.createElement('div');
   const maxPage = document.createElement('div');
@@ -467,7 +502,7 @@ const printPagination = (paginationArea, pagination) => {
 
 
 const selectOrderListEvent = (element, cp) => {
-  
+
   element.addEventListener('click', () => {
     selectOrderList(cp);
     changeURL(cp);
