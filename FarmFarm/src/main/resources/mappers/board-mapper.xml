@@ -95,6 +95,7 @@
 			DEFAULT, NULL, DEFAULT, DEFAULT, #{memberNo}, #{boardTypeNo})
 	</insert>
 	
+	
 	<insert id="insertBoardImgList">
 		INSERT INTO "BOARD_IMG" 
 			SELECT SEQ_BOARD_IMG_NO.NEXTVAL BOARD_IMG_NO, A.* FROM
@@ -286,6 +287,46 @@
 		JOIN "MEMBER" USING(MEMBER_NO)
 		WHERE BOARD_NO = #{boardNo}
 	</select>
+	
+	
+	<!-- 게시글 삭제 -->
+	<update id="boardDelete">
+		UPDATE "BOARD" SET
+		BOARD_DEL_FL = 'Y'
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	
+	<!-- 게시글 수정 - 제목+내용 -->
+	<update id="updateBoard">
+		UPDATE "BOARD" SET
+		BOARD_TITLE = #{boardTitle},
+		BOARD_CONTENT = #{boardContent}
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	
+	<!-- 게시글 수정 - 이미지 삭제 -->
+	<delete id="updateDeleteImg">
+		DELETE FROM "BOARD_IMG"
+		#{condition}
+	</delete>
+	
 
+	<!-- 게시글 수정 - 이미지 수정 업데이트 -->
+	<update id="updateBoardImg">
+		UPDATE "BOARD_IMG" SET
+		BOARD_IMG_ADDRESS = #{boardImgAddress}
+		WHERE BOARD_NO = #{boardNo}
+		AND BOARD_IMG_ORDER = #{boardImgOrder}
+	</update>
+	
+	
+	<!-- 게시글 수정 - 이미지 수정 -->
+	<insert id="boardImgInsert">
+		INSERT INTO "BOARD_IMG"
+		VALUES(SEQ_BOARD_IMG_NO.NEXTVAL, #{boardNo}, #{boardImgAddress}, #{boardImgOrder})
+	</insert>	
+	
 
 </mapper>

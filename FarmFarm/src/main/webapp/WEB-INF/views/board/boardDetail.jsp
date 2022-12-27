@@ -19,78 +19,76 @@
     <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
     <main>
-        <section class="board-top">
-            <div class="board-top-title">와글와글 ${boardType.boardName}</div>
-        </section>
-        <section class="board-nav">
-            <div class="board-nav-area">
-                <span id="type1">물물교환</span>
-                <span id="type2">팁</span>
-                <span id="type3">질문</span>
-            </div>
-        </section>
-        <section class="board-title-content">
-            <div class="board-title-area">
-                <div class="writer-img">
-                    <c:if test="${empty board.profileImg}">
-                        <img src="" alt=""><%-- 기본 이미지 주소 넣기 --%>
-                    </c:if>
-                    <c:if test="${!empty board.profileImg}">
-                        <img src="${board.profileImg}" alt="">
-                    </c:if>
+            <section class="board-top">
+                <div class="board-top-title">와글와글 ${boardType.boardName}</div>
+            </section>
+            <section class="board-nav">
+                <div class="board-nav-area">
+                    <span id="type1">물물교환</span>
+                    <span id="type2">팁</span>
+                    <span id="type3">질문</span>
                 </div>
-                <div class="writer-ect">
-                    <div class="writer-name">${board.memberNickname}</div>
-                    <div class="writer-date-view">${board.boardDate}&nbsp; 조회&nbsp; ${board.boardView}</div>
+            </section>
+            <section class="board-title-content">
+                <div class="board-title-area">
+                    <div class="writer-img">
+                        <c:if test="${empty board.profileImg}">
+                            <img src="" alt=""><%-- 기본 이미지 주소 넣기 --%>
+                        </c:if>
+                        <c:if test="${!empty board.profileImg}">
+                            <img src="${board.profileImg}" alt="">
+                        </c:if>
+                    </div>
+                    <div class="writer-ect">
+                        <div class="writer-name">${board.memberNickname}</div>
+                        <div class="writer-date-view">${board.boardDate}&nbsp; 조회&nbsp; ${board.boardView}</div>
+                    </div>
+                    <div class="board-title">
+                        ${board.boardTitle}
+                    </div>
+                    <div class="goList">목록으로</div>
                 </div>
-                <div class="board-title">
-                    ${board.boardTitle}
-                </div>
-                <div class="goList">목록으로</div>
-            </div>
-            <div class="board-content-area">
-                <div class="board-content">
-                    <pre> 
-${board.boardContent}
-                    </pre>
-                </div>
+                <div class="board-content-area">
+                    <div class="board-content">
+                        <pre> 
+    ${board.boardContent}
+                        </pre>
+                    </div>
 
-                <div class="board-img-area">
-                    <c:if test="${!empty board.imgList}">
-                        <c:forEach var="i" begin="0" end="${fn:length(board.imgList)-1}">
-                            <div class="board-img">
-                                <img src="${board.imgList[i].boardImgAddress}" class="board-preview">
-                            </div>
-                        </c:forEach>
+                    <div class="board-img-area">
+                        <c:if test="${!empty board.imgList}">
+                            <c:forEach var="i" begin="0" end="${fn:length(board.imgList)-1}">
+                                <div class="board-img">
+                                    <img src="${board.imgList[i].boardImgAddress}" class="board-preview">
+                                </div>
+                            </c:forEach>
 
-                    </c:if>
+                        </c:if>
+                    </div>
                 </div>
-            </div>
-        </section>
-        <section class="board-like-report">
-            <c:if test="${loginMember.memberNo != board.memberNo}">
-                <button class="board-like">
-                    <c:if test="${empty likeCheck}"> 
-                        <%-- 좋아요 안눌러진 경우 --%>
-                        <i class="fa-regular fa-heart" id="boardLike"></i>
-                    </c:if>
-                    <c:if test="${!empty likeCheck}">
-                        <%-- 좋아요 눌러진 경우 --%>
-                        <i class="fa-solid fa-heart" id="boardLike"></i>
-                    </c:if>
-                    &nbsp; 좋아요&nbsp;<span id="likeCount">${board.likeCount}</span>
-                </button>
-                <button class="board-report">신고</button>
-            </c:if>
-            <c:if test="${loginMember.memberNo == board.memberNo}">
-                <button id="boardUpdate">수정하기</button>
-                <button id="boardDelete">삭제하기</button>
-            </c:if>
-        </section>
+            </section>
+            <section class="board-like-report">
+                <c:if test="${loginMember.memberNo != board.memberNo}">
+                    <button class="board-like">
+                        <c:if test="${empty likeCheck}"> 
+                            <%-- 좋아요 안눌러진 경우 --%>
+                            <i class="fa-regular fa-heart" id="boardLike"></i>
+                        </c:if>
+                        <c:if test="${!empty likeCheck}">
+                            <%-- 좋아요 눌러진 경우 --%>
+                            <i class="fa-solid fa-heart" id="boardLike"></i>
+                        </c:if>
+                        &nbsp; 좋아요&nbsp;<span id="likeCount">${board.likeCount}</span>
+                    </button>
+                    <button class="board-report">신고</button>
+                </c:if>
+                <c:if test="${loginMember.memberNo == board.memberNo}">
+                    <button type="button" id="boardUpdate">수정하기</button>
+                    <button  type="button" id="boardDelete">삭제하기</button>
+                </c:if>
+            </section>
 
-    <%-- 댓글 --%>
-    <jsp:include page="/WEB-INF/views/board/comment.jsp"/>
-
+            <jsp:include page="/WEB-INF/views/board/comment.jsp"/>
 
     </main>
     <script>

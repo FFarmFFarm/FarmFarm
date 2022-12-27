@@ -22,9 +22,9 @@ mypageImgInput.addEventListener('change', (e) => {
 
   if (e.target.files[0] != undefined) {
 
-    
+
     const fileReader = new FileReader();
-    
+
     fileReader.readAsDataURL(e.target.files[0]);
 
     fileReader.onload = (event) => {
@@ -57,11 +57,11 @@ const updateBgImg = () => {
     contentType: false,
     success: (result) => {
       console.log("성공")
-      if(result > 0) {
+      if (result > 0) {
         messageModalOpen("배경 이미지가 변경되었습니다.");
       }
     },
-    error: () => {}
+    error: () => { }
   })
 
 }
@@ -75,12 +75,12 @@ const changeURL = (cp) => {
   //현재 주소를 가져온다.
   var renewURL = location.href;
   //현재 주소 중 page 부분이 있다면 날려버린다.
-  renewURL = renewURL.replace(location.search,'');
-  
+  renewURL = renewURL.replace(location.search, '');
+
   //새로 부여될 페이지 번호를 할당한다.
   // page는 ajax에서 넘기는 page 번호를 변수로 할당해주거나 할당된 변수로 변경
-  renewURL += '?cp='+cp;
-  
+  renewURL += '?cp=' + cp;
+
   //페이지 갱신 실행!
   history.pushState(null, null, renewURL);
 }
