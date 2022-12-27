@@ -10,8 +10,8 @@ categoryBtn.addEventListener("click", ()=>{
 });
 
 // 카테고리 선택시 내용 출력
-let category = document.querySelectorAll('input[name="category"]');
-let categoryName = document.getElementById("category-name");
+let category = document.querySelectorAll('input[name="categoryNo"]');
+let categoryName = document.getElementById("categoryName");
 
 for(let i=0; i<category.length; i++){
   category[i].addEventListener("change", (e)=>{
