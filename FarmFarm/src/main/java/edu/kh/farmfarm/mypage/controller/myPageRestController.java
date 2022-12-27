@@ -148,5 +148,16 @@ public class myPageRestController {
 	}
 	
 	
+	@GetMapping("/wish/delete")
+	public int deleteWish(@SessionAttribute("loginMember") Member loginMember,
+			int productNo) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("productNo", productNo);
+		map.put("memberNo", loginMember.getMemberNo());
+		
+		return service.deleteWish(map);
+	}
+	
 
 }

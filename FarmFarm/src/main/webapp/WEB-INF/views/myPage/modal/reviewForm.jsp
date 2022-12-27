@@ -5,7 +5,7 @@
 <div class="review-form-container hide" id='reviewFormContainer'>
       <form class="review-form" id="reviewFrom" >
         <div class="review-head">
-          <button type="button" class="back-btn">
+          <button type="button" class="back-btn" id="reviewBackBtn">
             <i class="fa-solid fa-chevron-left"></i>
           </button>
           <span class="review-head-title">후기 작성</span>
@@ -27,9 +27,16 @@
         <div class="review-write-area">
           <div class="review-write-head">
             <span>자세한 후기를 들려주세요</span>
-            <span
-              >작성 시 유의사항 <i class="fa-regular fa-circle-question"></i
-            ></span>
+            <span class="tooltip">작성 시 유의사항 
+              <i class="fa-regular fa-circle-question"></i>
+              <p class="tooltiptext">
+                ※ 작성된 글과 첨부된 멀티미디어 파일 등으로<br/>
+                이루어진 각 상품평은 개인의 의견을 반영하므로,<br/>
+                게시된 내용에 대한 모든 책임은 작성자에게<br/>
+                있습니다.
+              </p>
+          </span>
+
           </div>
           <div class="review-write-content">
             <textarea name="reviewContent" id="reviewTextArea" cols="30" rows="10" required></textarea>

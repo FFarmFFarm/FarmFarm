@@ -1,8 +1,8 @@
 // 페이지네이션 박스에 클릭 이벤트 추가
 const pageBox = document.getElementsByClassName('page-box');
 
-for(let page of pageBox) {
-  page.addEventListener('click', function(e) {
+for (let page of pageBox) {
+  page.addEventListener('click', function (e) {
 
     let cp = page.id;
 
@@ -14,29 +14,29 @@ for(let page of pageBox) {
 
 
 /* cp를 받아 리뷰 목록 조회해오기 */
-const selectWishList = (cp)=>{
+const selectWishList = (cp) => {
   $.ajax({
-    url:"/wish/list", 
-    data: {"cp":cp},
+    url: "/wish/list",
+    data: { "cp": cp },
     dataType: "json",
-    success: (map)=>{
+    success: (map) => {
       printWishList(map.wishList, map.pagination);
     },
-    error: ()=>{}
+    error: () => { }
   });
 }
 
 
 /* 조회해오 리뷰 목록을 화면에 출력 */
-const printWishList = (wishList, pagination)=>{
+const printWishList = (wishList, pagination) => {
 
   const wishListContainer = document.getElementById('wishListContainer');
   wishListContainer.innerHTML = '';
 
-  for(let wish of wishList) {
+  for (let wish of wishList) {
     const wishContainer = document.createElement('div');
     wishContainer.classList.add('wish');
-    
+
     wishListContainer.append(wishContainer);
 
     const wishThumbnail = document.createElement('a');
@@ -50,7 +50,7 @@ const printWishList = (wishList, pagination)=>{
     wishThumbnailImg.classList.add('wish-thumbnail-img');
 
     wishThumbnail.append(wishThumbnailImg);
-    
+
     const wishInfo = document.createElement('div');
     wishInfo.classList.add('wish-info');
 
@@ -77,7 +77,7 @@ const printWishList = (wishList, pagination)=>{
     wishInfo.append(wishRegDate, wishTitle, wishPrice);
 
     const deleteWishBtn = document.createElement('button');
-    deleteWishBtn.classList.add('wish-delete-btn');
+    deleteWishBtn.classList.add('delete-wish-btn');
     deleteWishBtn.setAttribute('type', 'button');
 
     const xMark = document.createElement('i');
@@ -86,13 +86,18 @@ const printWishList = (wishList, pagination)=>{
     deleteWishBtn.append(xMark);
 
     wishContainer.append(deleteWishBtn);
-    
 
+    deleteWishBtn.addEventListener('click', (e) => {
+
+      deleteWish(wish.productNo);
+
+
+    })
   }
 
   const paginationArea = document.createElement('div');
   paginationArea.classList.add('pagination-area');
-  
+
   wishListContainer.append(paginationArea);
 
   printPagination(paginationArea, pagination);
@@ -106,24 +111,24 @@ const printPagination = (paginationArea, pagination) => {
   const prevPage = document.createElement('div');
   makePageBox(firstPage, '<i class="fa-solid fa-angles-left"></i>', 1, 'page-box');
   makePageBox(prevPage, '<i class="fa-solid fa-angle-left"></i>', pagination.prevPage, 'page-box');
-  
+
   paginationArea.append(firstPage, prevPage);
 
   // 번호 페이지 제작
-  for(let i=pagination.startPage; i<=pagination.endPage; i++) {
-      const numPage = document.createElement('div');
-      if(i == pagination.currentPage) {
-          makePageBox(numPage, i, i, 'current-page-box');
-      } else {
-          makePageBox(numPage, i, i, 'page-box');
+  for (let i = pagination.startPage; i <= pagination.endPage; i++) {
+    const numPage = document.createElement('div');
+    if (i == pagination.currentPage) {
+      makePageBox(numPage, i, i, 'current-page-box');
+    } else {
+      makePageBox(numPage, i, i, 'page-box');
 
-      }
-      
-      paginationArea.append(numPage);
+    }
 
-      selectWishListEvent(numPage, i);
+    paginationArea.append(numPage);
+
+    selectWishListEvent(numPage, i);
   }
-  
+
   // 이후 페이지 제작
   const nextPage = document.createElement('div');
   const maxPage = document.createElement('div');
@@ -141,10 +146,39 @@ const printPagination = (paginationArea, pagination) => {
 
 /* 페이지네이션 박스에 클릭이벤트 추가 */
 const selectWishListEvent = (element, cp) => {
-  
+
   element.addEventListener('click', () => {
     selectWishList(cp);
     changeURL(cp);
   });
 
+}
+
+
+/* x 버튼 클릭 시 찜목록 삭제 */
+const wishDeleteBtn = document.getElementsByClassName('delete-wish-btn');
+for (let btn of wishDeleteBtn) {
+  btn.addEventListener('click', (e) => {
+
+    console.log(btn.id);
+    const productNo = btn.id;
+
+    deleteWish(productNo);
+
+  })
+}
+
+const deleteWish = (productNo) => {
+  $.ajax({
+    url: "/wish/delete",
+    data: { "productNo": productNo },
+    success: (result) => {
+
+      selectWishList(selectCp());
+
+    },
+    error: () => {
+      console.log('찜목록 삭제중 에러 발생')
+    }
+  })
 }

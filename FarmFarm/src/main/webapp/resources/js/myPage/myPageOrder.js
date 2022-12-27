@@ -120,6 +120,12 @@ document.getElementById('submitBtn').addEventListener('click', () => {
 
 })
 
+/* 리뷰 작성 창 뒤로가기 클릭 시 */
+const reviewBackBtn = document.getElementById('reviewBackBtn');
+reviewBackBtn.addEventListener('click', () => {
+  displayNone(document.getElementById('reviewFormContainer'));
+})
+
 
 
 
