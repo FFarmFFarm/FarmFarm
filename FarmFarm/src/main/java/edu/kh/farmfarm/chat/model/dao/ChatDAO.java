@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import edu.kh.farmfarm.chat.model.vo.Chat;
 import edu.kh.farmfarm.chat.model.vo.ChatImg;
 import edu.kh.farmfarm.chat.model.vo.ChatRoom;
+import edu.kh.farmfarm.member.model.VO.Member;
 
 @Repository
 public class ChatDAO {
@@ -82,6 +83,23 @@ public class ChatDAO {
 	 */
 	public int insertChatImg(ChatImg newImg) {
 		return sqlSession.insert("chatMapper.insertChatImgDb", newImg);
+	}
+
+
+	/** 상대방 번호를 가져옴
+	 * @param roomNo
+	 * @return
+	 */
+	public ChatRoom selectParticipantNo(int roomNo) {
+		return sqlSession.selectOne("chatMapper.selectParticipantNo", roomNo);
+	}
+
+	/** 상대방의 닉네임, 이미지를 가져옴
+	 * @param partnerNo
+	 * @return
+	 */
+	public Member selectPartnerInfo(int memberNo) {
+		return sqlSession.selectOne("memberMapper.selectPartnerInfo", memberNo);
 	}
 
 

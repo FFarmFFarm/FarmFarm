@@ -15,6 +15,7 @@ import edu.kh.farmfarm.chat.model.vo.Chat;
 import edu.kh.farmfarm.chat.model.vo.ChatImg;
 import edu.kh.farmfarm.chat.model.vo.ChatRoom;
 import edu.kh.farmfarm.common.Util;
+import edu.kh.farmfarm.member.model.VO.Member;
 
 @Service
 public class ChatServiceImpl implements ChatService {
@@ -111,6 +112,26 @@ public class ChatServiceImpl implements ChatService {
 		}
 		
 		return result;
+	}
+	// shortcut으로 접근한 경우, 상대방의 이름과 정보를 검색함
+	@Override
+	public Member findPartnerInfo(int roomNo, int myMemberNo) {
+		// 1. roomNo를 이용해서 참가자들의 번호를 가져옴
+		ChatRoom tempInfo = dao.selectParticipantNo(roomNo);
+		
+		int memberNo = 0;
+		
+		// 2. 상대방의 번호를 찾음
+		if(tempInfo.getMemberNo() == myMemberNo) {
+			memberNo = tempInfo.getMemberNo2();
+		} else {
+			memberNo = tempInfo.getMemberNo();
+		}
+		
+		// 3. 번호를 보내서 이미지, 닉네임을 가져옴
+		Member partner = dao.selectPartnerInfo(memberNo);
+		
+		return partner;
 	}
 
 	
