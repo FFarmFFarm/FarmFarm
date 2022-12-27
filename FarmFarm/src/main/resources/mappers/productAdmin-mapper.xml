@@ -15,6 +15,7 @@
 	      <result property="categoryName" column="CATEGORY_NAME" />
 	      <result property="wishCheck" column="WISH_CHECK" />
 	      <result property="soldoutFl" column="SOLDOUT_FL" />
+	      <result property="productImgAddress" column="PRODUCT_IMG_ADDRESS" />
 	      
 <!-- 	      <collection property="imgList" 
 	      			  javaType="java.util.ArrayList" ofType="ProductImg"
@@ -82,5 +83,22 @@
 			FROM DUAL
 		</foreach>
 	</insert>
+	
+	<!-- 팜팜글 수 조회 -->
+	<select id="getListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM PRODUCT
+	</select>
+	
+	<select id="selectProductList" resultMap="product_rm">
+		SELECT PRODUCT_NO, PRODUCT_NAME, PRODUCT_IMG_ADDRESS,
+			STOCK, SOLDOUT_FL,
+			TO_CHAR(REG_DATE, 'YYYY-MM-DD') REG_DATE
+		FROM PRODUCT
+		JOIN PRODUCT_IMG USING(PRODUCT_NO)
+		WHERE PRODUCT_IMG_ORDER=0
+		AND PRODUCT_DEL_FL='N'
+		ORDER BY PRODUCT_NO DESC
+	</select>
 	
 </mapper>
