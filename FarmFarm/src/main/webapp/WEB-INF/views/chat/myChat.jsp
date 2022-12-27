@@ -109,35 +109,35 @@
  
             </div>
 
-            <div id="bottomBtn">
-              <i class="fa-solid fa-caret-down"></i>
-            </div>
-
-          </div>
-
             
-          <!-- 메세지 입력 영역 -->
-          <div id="writingArea">
-
-            <input id="imageInput" type="file" accept="image/*" hidden>
-            <button id="addImageBtn">
-              <i class="fa-solid fa-image"></i>
-            </button>
-            <input id="inputBox" type="text" placeholder="메세지를 입력하세요">
-            <div id="inputImgPreviewBox">
-              <div id="inputImgPreviewBoxHeader">
-                <span>사진 보내기</span>
-                <i id="inputImgPreviewDelBtn" class="fa-solid fa-xmark"></i>
+            
+            
+            <!-- 메세지 입력 영역 -->
+            <div id="writingArea">
+              
+              <input id="imageInput" type="file" accept="image/*" hidden>
+              <button id="addImageBtn">
+                <i class="fa-solid fa-image"></i>
+              </button>
+              <input id="inputBox" type="text" placeholder="메세지를 입력하세요">
+              <div id="inputImgPreviewBox">
+                <div id="inputImgPreviewBoxHeader">
+                  <span>사진 보내기</span>
+                  <i id="inputImgPreviewDelBtn" class="fa-solid fa-xmark"></i>
+                </div>
+                <img id="inputImgPreview"> <!-- 사진 미리보기 들어갑니다! -->
+                <div id="sendImgBtn">사진 전송</div>
               </div>
-              <img id="inputImgPreview"> <!-- 사진 미리보기 들어갑니다! -->
-              <div id="sendImgBtn">사진 전송</div>
-            </div>
             <button id="sendBtn">
               <i class="fa-solid fa-paper-plane"></i>
             </button>
-
           </div>
-
+          
+        </div>
+        <!-- 하단 이동 -->
+        <div id="bottomBtn">
+          <i class="fa-solid fa-caret-down"></i>
+        </div>
 
 
         </section>
@@ -148,7 +148,12 @@
 
     <!-- Axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
+    <script>
+      const shortcutNo = "${shortcutNo}"
+    </script>
+    
+    <c:remove var="shortcutNo" />
+    
     <script src="/resources/js/chat/chatService.js"></script>
     <script src="/resources/js/chat/myChat.js"></script>
 

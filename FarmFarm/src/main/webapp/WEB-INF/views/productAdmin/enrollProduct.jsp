@@ -32,7 +32,7 @@
                 <p>팜팜상품 등록</p>
             </div>
 
-            <form action="/admin/enroll" method="product" enctype="multipart/form-data"
+            <form action="/admin/enroll" method="POST" enctype="multipart/form-data"
             class="enroll-product" id="enrollproductForm">
                 <div class="product-items category-item">
                     <p class="item-title">카테고리 설정</p> 
@@ -74,17 +74,17 @@
                     <ul class="product-info">
                         <li class="info-list">
                             <p>상품명</p>
-                            <input type="text" name="productTitle" size="60" maxlength="20">
+                            <input type="text" name="productName" size="60" maxlength="20">
                         </li>
                         <li class="info-list">
                             <p>판매가격</p>
-                            <input type="text" name="unitPrice" placeholder=0
+                            <input type="text" name="productPrice" placeholder=0
                             onfocus="this.placeholder = ''">
                             <p>원</p>
                         </li>
                         <li class="info-list">
                             <p>최초 입고량</p>
-                            <input type="text" name="unitPrice" placeholder=0
+                            <input type="number" name="stock" placeholder=0
                             onfocus="this.placeholder = ''">
                             <p>개</p>
                         </li>
@@ -95,32 +95,32 @@
                                     <img class="preview" src="">
                                     <i class="fa-solid fa-plus"></i>
                                 </label>
-                                <input type="file" name="productImg" class="thumbnail-img"
+                                <input type="file" name="productImage" class="thumbnail-img"
                                 id="img0" accept="image/*">
                                 <span class="delete-thumbnail">&times;</span>
                             </div>
                         </li>
                         <li class="info-list">
                             <p>상품이미지 1</p>
-                            <input type="file" name="productImg" class="input-img"
+                            <input type="file" name="productImage" class="input-img"
                             id="img1" accept="image/*">
                             <span class="delete-img">&times;</span>
                         </li>
                         <li class="info-list">
                             <p>상품이미지 2</p>
-                            <input type="file" name="productImg" class="input-img"
+                            <input type="file" name="productImage" class="input-img"
                             id="img2" accept="image/*">
                             <span class="delete-img">&times;</span>
                         </li>
                         <li class="info-list">
                             <p>상품이미지 3</p>
-                            <input type="file" name="productImg" class="input-img"
+                            <input type="file" name="productImage" class="input-img"
                             id="img3" accept="image/*">
                             <span class="delete-img">&times;</span>
                         </li>
                         <li class="info-list">
                             <p>상품이미지 4</p>
-                            <input type="file" name="productImg" class="input-img"
+                            <input type="file" name="productImage" class="input-img"
                             id="img4" accept="image/*">
                             <span class="delete-img">&times;</span>
                         </li>
@@ -128,7 +128,7 @@
                 </div>
                 <div class="product-items">
                     <p class="item-title">상품 설명</p>
-                    <textarea rows="5" cols="111" class="product-content" name="productContent"
+                    <textarea rows="5" cols="111" class="product-message" name="productMessage"
                         placeholder="상품에 대한 정보를 간략히 작성해주세요."
                         style="resize: none"></textarea>
                 </div>

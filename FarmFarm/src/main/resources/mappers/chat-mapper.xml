@@ -133,6 +133,12 @@
 		AND CHAT_DEL_FL = 'N'
 	</select>
 	
+	<!-- 참가자 정보 찾기 -->
+	<select id="selectParticipantNo" parameterType="_int" resultMap="chatRoom_rm">
+		SELECT MEMBER_NO, MEMBER_NO2
+		FROM "CHAT_ROOM"
+		WHERE ROOM_NO = #{roomNo} 
+	</select>
 	
 	<!-- 채팅 보내기 -->
 	<insert id="insertChat">

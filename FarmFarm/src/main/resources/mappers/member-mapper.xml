@@ -83,6 +83,12 @@
 		INSERT INTO ADDRESS VALUES(SEQ_ADDRESS_NO.NEXTVAL, #{memberAddress},'Y', #{memberNo})
 	</insert>
 	
+	<!-- 채팅방에서 사용할 회원 닉네임과 이미지를 가져옵니다 -->
+	<select id="selectPartnerInfo" parameterType="_int" resultMap="member_rm">
+		SELECT MEMBER_NICKNAME, PROFILE_IMG
+		FROM "MEMBER"
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
 
 
 </mapper>
