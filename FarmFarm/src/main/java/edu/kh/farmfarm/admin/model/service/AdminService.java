@@ -21,21 +21,12 @@ public interface AdminService {
 	Map<String, Object> selectStats();
 
 
-	/** 전체 회원 조회
-	 * @param memberNo
-	 * @return memberAllList
+	/** 전체 회원 조회(페이지네이션, 정렬)
+	 * @param paramMap
+	 * @param cp
+	 * @return map
 	 */
-	List<Member> selectMemberAll();
-
-
-	/** 상세 회원 정보 조회
-	 * @param memberId
-	 * @return member
-	 */
-	Admin selectMemberDetail(String memberId);
-
-
-
+	Map<String, Object> selectMember(Map<String, Object> paramMap, int cp);
 
 
 
