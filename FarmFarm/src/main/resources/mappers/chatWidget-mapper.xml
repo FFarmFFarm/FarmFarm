@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="chatWidgetMapper">
+
+	 <resultMap type="ChatRoom" id="chatRoom_rm">
+	        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+	     <id property = "roomNo" column="ROOM_NO"/>
+	     <!-- 나머지 일반 컬럼 -->
+	      <result property="roomDate" column="ROOM_DATE" />
+	      <result property="memberNo" column="MEMBER_NO" />
+	      <result property="memberFl" column="MEMBER_FL" />
+	      <result property="memberNickname" column="MEMBER_NICKNAME" />
+	      <result property="profileImg" column="PROFILE_IMG" />
+	      <result property="memberNo2" column="MEMBER_NO2" />
+	      <result property="memberFl2" column="MEMBER_FL2" />
+	      <result property="memberNickname2" column="MEMBER_NICKNAME2" />
+	      <result property="profileImg2" column="PROFILE_IMG2" />
+	      <result property="closedFl" column="CLOSED_FL" />
+	      
+	      <result property="lastChatTime" column="LAST_CHAT_TIME" />
+	      <result property="lastChatContent" column="LAST_CHAT_CONTENT" />
+	      <result property="lastChatImgFl" column="LAST_CHAT_IMG_FL" />
+	      <result property="unreadChatCount" column="UNREAD_CHAT_COUNT" />
+	      
+	      <result property="chatTimeOrder" column="CHAT_TIME_ORDER" />
+	 </resultMap>
+	
+	<!-- 채팅방 목록 -->
+	<select id="getMyChatWidget" parameterType="_int" resultMap="chatRoom_rm">
+		SELECT ROOM_NO, ROOM_DATE, MEMBER_NO, MEMBER_NO2,
+				-- 닉네임1
+			  (SELECT MEMBER_NICKNAME
+			  	FROM MEMBER M1
+			  	WHERE M1.MEMBER_NO = CR.MEMBER_NO) AS MEMBER_NICKNAME,
+			  	-- 이미지1
+			  (SELECT PROFILE_IMG
+			   FROM MEMBER M1
+			   WHERE M1.MEMBER_NO = CR.MEMBER_NO) AS PROFILE_IMG, 
+			   -- 닉네임2
+			  (SELECT MEMBER_NICKNAME
+			  	FROM MEMBER M2
+			  	WHERE M2.MEMBER_NO = CR.MEMBER_NO2) AS MEMBER_NICKNAME2,
+			  	-- 이미지2
+			  (SELECT PROFILE_IMG
+			   FROM MEMBER M2
+			   WHERE M2.MEMBER_NO = CR.MEMBER_NO2) AS PROFILE_IMG2,
+			   -- 날짜(날짜가 오늘 날짜와 같으면 시간만, 아니면 날짜만 가져옴)
+			   (SELECT CASE WHEN TO_CHAR(CHAT_TIME, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+			   				THEN TO_CHAR(CHAT_TIME, 'AM HH"시" MI"분"')
+			   				ELSE TO_CHAR(CHAT_TIME, 'YYYY-MM-DD') END CHAT_TIME
+			   FROM (SELECT CHAT_TIME
+			   		 FROM CHAT C 
+			   		 WHERE C.ROOM_NO = CR.ROOM_NO 
+			   		 ORDER BY CHAT_NO DESC)
+			   WHERE ROWNUM = 1) AS LAST_CHAT_TIME,
+	  			-- 읽지 않은 채팅의 개수
+	  		  (SELECT COUNT(*)
+	  		   FROM (SELECT CHAT_NO
+	  		   FROM CHAT C 
+	  		   WHERE C.ROOM_NO = CR.ROOM_NO 
+	  		   AND C.SEND_MEMBER_NO != #{myMemberNo}
+	  		   AND READ_FL = 'N') ) AS UNREAD_CHAT_COUNT,
+			   -- 마지막 대화 내용
+			  (SELECT CHAT_CONTENT
+			  FROM (SELECT CHAT_CONTENT
+			  		 FROM CHAT C 
+			  		 WHERE C.ROOM_NO = CR.ROOM_NO 
+			  		 ORDER BY CHAT_NO DESC)
+			  WHERE ROWNUM = 1) AS LAST_CHAT_CONTENT,
+			  -- 마지막 대화의 텍스트 / 이미지 여부
+			  (SELECT IMG_FL
+			  FROM (SELECT IMG_FL
+			  		 FROM CHAT C 
+			  		 WHERE C.ROOM_NO = CR.ROOM_NO 
+			  		 ORDER BY CHAT_NO DESC)
+			  WHERE ROWNUM = 1) AS LAST_CHAT_IMG_FL,
+			  -- 마지막 대화의 날짜(정렬전용)
+			   (SELECT CHAT_NO
+			   FROM (SELECT CHAT_NO
+			   		 FROM CHAT C 
+			   		 WHERE C.ROOM_NO = CR.ROOM_NO 
+			   		 ORDER BY CHAT_NO DESC)
+			   WHERE ROWNUM = 1) AS CHAT_TIME_ORDER
+		FROM CHAT_ROOM CR
+		WHERE ((MEMBER_NO = #{myMemberNo} AND MEMBER_FL = 'N')
+		OR (MEMBER_NO2 = #{myMemberNo} AND MEMBER_FL2 = 'N'))
+		<![CDATA[
+			AND ROWNUM <= 6
+		]]>
+		ORDER BY CHAT_TIME_ORDER DESC
+	</select>
+	
+</mapper>
