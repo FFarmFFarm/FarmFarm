@@ -390,7 +390,6 @@ button:disabled:active {
   display: flex;
   align-items: center;
 
-  margin-top: 20px;
   margin-left: 10px;
   position: relative;
 }
@@ -450,6 +449,17 @@ button:disabled:active {
 .review-content {
   padding-top: 10px;
   flex-basis: 70%;
+  position: relative;
+
+  padding-right: 5px;
+}
+
+.review-update-btn {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  color: var(--point-color);
+  color: var(--sub-font-color);
 }
 
 .review-content > span {
@@ -479,6 +489,7 @@ button:disabled:active {
   align-items: center;
 
   color: var(--sub-font-color);
+  padding-right: 5px;
 }
 
 .review-create-date > button {

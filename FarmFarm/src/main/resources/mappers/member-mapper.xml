@@ -82,6 +82,7 @@
 	<insert id="insertMemberAddressList">
 		INSERT INTO ADDRESS VALUES(SEQ_ADDRESS_NO.NEXTVAL, #{memberAddress},'Y', #{memberNo})
 	</insert>
+	
 
 
 </mapper>

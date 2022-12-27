@@ -12,16 +12,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>마이페이지 - 주문 내역</title>
+    <script
+      src="https://kit.fontawesome.com/591746f9e8.js"
+      crossorigin="anonymous"
+    ></script>
     <link rel="stylesheet" href="/resources/css/common/header-style.css" />
     <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
     <link rel="stylesheet" href="/resources/css/myPage/myPage-style.css" />
     <link rel="stylesheet" href="/resources/css/myPage/myPageOrder-style.css" />
     <link rel="stylesheet" href="/resources/css/modal/reviewForm-style.css" />
     <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
-    <script
-      src="https://kit.fontawesome.com/591746f9e8.js"
-      crossorigin="anonymous"
-    ></script>
   </head>
 
   <body>
@@ -97,7 +97,12 @@
               <c:if test="${order.orderStatus == 2}">
               </c:if>
               <c:if test="${order.orderStatus == 3}">
-              <button type="button" class="write-review" id="${order.orderNo}">리뷰작성</button>
+                <c:if test="${product.reviewCheck == 0}">
+                  <button type="button" class="write-review" id="${order.orderNo}">후기작성</button>
+                </c:if>
+                <c:if test="${product.reviewCheck == 1}">
+                  <button type="button" class="write-review" disabled>후기완료</button>
+                </c:if>
               </c:if>
             </div>
           </div>

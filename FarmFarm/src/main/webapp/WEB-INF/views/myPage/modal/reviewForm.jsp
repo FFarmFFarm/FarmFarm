@@ -3,7 +3,7 @@
 
 
 <div class="review-form-container hide" id='reviewFormContainer'>
-      <form action="" method="post" class="review-form" >
+      <form class="review-form" id="reviewFrom" >
         <div class="review-head">
           <button type="button" class="back-btn">
             <i class="fa-solid fa-chevron-left"></i>
@@ -21,6 +21,7 @@
           </div>
           <div class="product-name" >
             <a href="/product/1" id="modalProductName">[이연복의 목란] 짬뽕 2인분</a>
+            <input type="hidden" name="productNo" id="productNoInput"/>
           </div>
         </div>
         <div class="review-write-area">
@@ -31,37 +32,42 @@
             ></span>
           </div>
           <div class="review-write-content">
-            <textarea name="" id="" cols="30" rows="10"></textarea>
+            <textarea name="reviewContent" id="reviewTextArea" cols="30" rows="10" required></textarea>
           </div>
           <div class="review-img-upload" id="imgUploadArea">
             <div class="review-one-img" id='reviewOneImg1'>
-              <img class="review-img-thumbnail" id="reviewImg1"></img>
-              <label id="inputLabel"><i class="fa-solid fa-plus"></i>
-                <input type="file" id="imgInput1" class="input-file"/>
+              <img class="review-img-thumbnail hide" id="reviewImg1"></img>
+              <button type="button" class="x-btn fa-solid fa-xmark hide"></button>
+              <label id="inputLabel" class="input-label"><i class="fa-solid fa-plus"></i>
+                <input type="file" id="imgInput1" class="input-file" name="reviewImg"/>
               </label>
             </div>
-            <div class="review-one-img hide" id='reviewOneImg2'>
-              <img class="review-img-thumbnail" id="reviewImg2"></img>
-              <label id="inputLabel"><i class="fa-solid fa-plus"></i>
-                <input type="file" id="imgInput2" class="input-file"/>
+            <div class="review-one-img" id='reviewOneImg2'>
+              <img class="review-img-thumbnail hide" id="reviewImg2"></img>
+              <button type="button" class="x-btn fa-solid fa-xmark hide"></button>
+              <label id="inputLabel" class="input-label"><i class="fa-solid fa-plus"></i>
+                <input type="file" id="imgInput2" class="input-file" name="reviewImg"/>
               </label>
             </div>
-            <div class="review-one-img hide" id='reviewOneImg3'>
-              <img class="review-img-thumbnail" id="reviewImg3"></img>
-              <label id="inputLabel"><i class="fa-solid fa-plus"></i>
-                <input type="file" id="imgInput3" class="input-file"/>
+            <div class="review-one-img" id='reviewOneImg3'>
+              <img class="review-img-thumbnail hide" id="reviewImg3"></img>
+              <button type="button" class="x-btn fa-solid fa-xmark hide"></button>
+              <label id="inputLabel" class="input-label"><i class="fa-solid fa-plus"></i>
+                <input type="file" id="imgInput3" class="input-file" name="reviewImg"/>
               </label>
             </div>
-            <div class="review-one-img hide" id='reviewOneImg4'>
-              <img class="review-img-thumbnail" id="reviewImg4"></img>
-              <label id="inputLabel"><i class="fa-solid fa-plus"></i>
-                <input type="file" id="imgInput4" class="input-file"/>
+            <div class="review-one-img" id='reviewOneImg4'>
+              <img class="review-img-thumbnail hide" id="reviewImg4"></img>
+              <button type="button" class="x-btn fa-solid fa-xmark hide"></button>
+              <label id="inputLabel" class="input-label"><i class="fa-solid fa-plus"></i>
+                <input type="file" id="imgInput4" class="input-file" name="reviewImg"/>
               </label>
             </div>
-            <div class="review-one-img hide" id='reviewOneImg5'>
-              <img class="review-img-thumbnail" id="reviewImg5"></img>
-              <label id="inputLabel"><i class="fa-solid fa-plus"></i>
-                <input type="file" id="imgInput5" class="input-file"/>
+            <div class="review-one-img" id='reviewOneImg5'>
+              <img class="review-img-thumbnail hide" id="reviewImg5"></img>
+              <button type="button" class="x-btn fa-solid fa-xmark hide"></button>
+              <label id="inputLabel" class="input-label"><i class="fa-solid fa-plus"></i>
+                <input type="file" id="imgInput5" class="input-file" name="reviewImg"/>
               </label>
             </div>
           </div>
@@ -70,7 +76,9 @@
               사진은 최대 5장까지, 30MB 이하의 이미지만 업로드가 가능합니다.
             </p>
           </div>
-          <div class="review-submit"><button>등록하기</button></div>
+          <div class="review-submit">
+            <button type="button" id="submitBtn">등록하기</button>
+          </div>
         </div>
       </form>
     </div>

@@ -1,8 +1,8 @@
 // 페이지네이션 박스에 클릭 이벤트 추가
 const pageBox = document.getElementsByClassName('page-box');
 
-for(let page of pageBox) {
-  page.addEventListener('click', function(e) {
+for (let page of pageBox) {
+  page.addEventListener('click', function (e) {
 
     let cp = page.id;
 
@@ -14,27 +14,27 @@ for(let page of pageBox) {
 
 
 /* cp를 받아 리뷰 목록 조회해오기 */
-const selectReviewList = (cp)=>{
+const selectReviewList = (cp) => {
   $.ajax({
-    url:"/review/list", 
-    data: {"cp":cp},
+    url: "/review/list",
+    data: { "cp": cp },
     dataType: "json",
-    success: (map)=>{
+    success: (map) => {
       printReviewList(map.reviewList, map.pagination);
     },
-    error: ()=>{}
+    error: () => { }
   });
 }
 
 
 /* 조회해오 리뷰 목록을 화면에 출력 */
-const printReviewList = (reviewList, pagination)=>{
+const printReviewList = (reviewList, pagination) => {
 
   const reviewListContainer = document.getElementById('reviewListContainer');
   reviewListContainer.innerHTML = '';
 
-  
-  for(let review of reviewList){
+
+  for (let review of reviewList) {
     const reviewArea = document.createElement('div');
 
     reviewArea.classList.add('review');
@@ -57,7 +57,7 @@ const printReviewList = (reviewList, pagination)=>{
     reviewContent.classList.add('review-content');
 
     reviewContainer.append(reviewTitle, reviewContent);
-  
+
     const span = document.createElement('span');
 
     span.innerText = '내용보기'
@@ -73,7 +73,7 @@ const printReviewList = (reviewList, pagination)=>{
     reviewDate.innerText = review.createDate;
 
     div.append(reviewDate);
-    
+
     const reviewDetail = document.createElement('div');
     reviewDetail.classList.add('review-detail');
 
@@ -93,23 +93,23 @@ const printReviewList = (reviewList, pagination)=>{
     reviewDetailContent.append(span1, p);
 
     const reivewImg = document.createElement('div');
-    if(review.imgList.length > 0) {
+    if (review.imgList.length > 0) {
       reivewImg.classList.add('review-img');
 
-      for(let img of review.imgList) {
+      for (let img of review.imgList) {
         const image = document.createElement('img');
         image.setAttribute('src', img.reviewImgPath);
 
         reivewImg.append(image);
 
-      }      
+      }
     }
 
     reviewDetailContent.append(reivewImg);
-    
+
     const reviewCreateDate = document.createElement('div');
     reviewCreateDate.classList.add('review-create-date');
-    
+
     const span2 = document.createElement('span');
     span2.innerText = review.createDate;
 
@@ -124,7 +124,7 @@ const printReviewList = (reviewList, pagination)=>{
 
     reviewCreateDate.append(span2, span3);
 
-    reviewDetailContent.append(reviewCreateDate);   
+    reviewDetailContent.append(reviewCreateDate);
 
     reviewListContainer.append(reviewArea);
 
@@ -132,7 +132,7 @@ const printReviewList = (reviewList, pagination)=>{
 
   const paginationArea = document.createElement('div');
   paginationArea.classList.add('pagination-area');
-  
+
   reviewListContainer.append(paginationArea);
 
   printPagination(paginationArea, pagination);
@@ -146,24 +146,24 @@ const printPagination = (paginationArea, pagination) => {
   const prevPage = document.createElement('div');
   makePageBox(firstPage, '<i class="fa-solid fa-angles-left"></i>', 1, 'page-box');
   makePageBox(prevPage, '<i class="fa-solid fa-angle-left"></i>', pagination.prevPage, 'page-box');
-  
+
   paginationArea.append(firstPage, prevPage);
 
   // 번호 페이지 제작
-  for(let i=pagination.startPage; i<=pagination.endPage; i++) {
-      const numPage = document.createElement('div');
-      if(i == pagination.currentPage) {
-          makePageBox(numPage, i, i, 'current-page-box');
-      } else {
-          makePageBox(numPage, i, i, 'page-box');
+  for (let i = pagination.startPage; i <= pagination.endPage; i++) {
+    const numPage = document.createElement('div');
+    if (i == pagination.currentPage) {
+      makePageBox(numPage, i, i, 'current-page-box');
+    } else {
+      makePageBox(numPage, i, i, 'page-box');
 
-      }
-      
-      paginationArea.append(numPage);
+    }
 
-      selectReviewListEvent(numPage, i);
+    paginationArea.append(numPage);
+
+    selectReviewListEvent(numPage, i);
   }
-  
+
   // 이후 페이지 제작
   const nextPage = document.createElement('div');
   const maxPage = document.createElement('div');
@@ -181,10 +181,26 @@ const printPagination = (paginationArea, pagination) => {
 
 /* 페이지네이션 박스에 클릭이벤트 추가 */
 const selectReviewListEvent = (element, cp) => {
-  
+
   element.addEventListener('click', () => {
     selectReviewList(cp);
     changeURL(cp);
   });
 
+}
+
+
+/* 리뷰 내용보기 버튼 클릭 시 내용 창 표시 */
+const showBtn = document.getElementsByClassName('show-btn');
+const reviewDetail = document.getElementsByClassName('review-detail');
+
+for (let i = 0; i < showBtn.length; i++) {
+  showBtn[i].addEventListener('click', () => {
+    console.log('클릭');
+    if (reviewDetail[i].classList.contains('hide')) {
+      reviewDetail[i].classList.remove('hide');
+    } else {
+      reviewDetail[i].classList.add('hide');
+    }
+  })
 }
