@@ -36,11 +36,12 @@
         <div class="board-list">
           <span class="board-list-title">개인 정보 수정</span>
           <span class="sub-update">* 변경가능</span>
-            <form action="/myPage/myPageProfile" id="myProfileFrm" class="profile-form" method="post">
+            <form action="/myPage/myPageImage" id="imgFrm" method="post" class="profile-img-form"
+            enctype="multipart/form-data" onsubmit = "return profileValidate()">
               <section class="image">
                 <div class="farm-img">
-                  <label for="farmImg"><img class="preview" src="">
-                    <div class="profile-img">
+                  <label for="farmImg">
+                    <div class="profile-img" id="profile-image">
                       <c:if test="${empty loginMember.profileImg}">
                         <img
                         src="/resources/images/myPage/profile/profileImg.png"
@@ -57,11 +58,13 @@
                     <input type="file" name="farmfarm" id="farmImg" class="input-image" accept="image/*">
                   </label>
                   <div class="delete">
-                    <span class="delete-image">&times;</span>
+                    <span class="delete-image" id="delete-img">&times;</span>
                   </div>
                 </div>
               </section>
-    
+              </form>
+
+              <form  action="/myPage/myPageProfile" id="myProfileFrm" class="profile-form" method="post" onsubmit="return checkValidate()">
               <section class="update">
                 <div class="title">아이디</div>
                 <div class="update-div">
@@ -69,11 +72,16 @@
                 </div>
               </section>
               <section class="update">
-                <div class="title">*비밀번호</div>
-                <input type="password" name="memberPw" id="memberPw" placeholder="비밀번호"
+                <div class="title">*현재 비밀번호</div>
+                <input type="password" name="memberPw" id="memberPw" placeholder="현재 비밀번호"
+                    maxlegnth="20">
+              </section>
+              <section class="update">
+                <div class="title">*새 비밀번호</div>
+                <input type="password" name="memberPw" id="memberPw" placeholder="새 비밀번호"
                     maxlegnth="20">
                 <input type="password" name="memberPwConfirm" id="memberPwConfirm"
-                    placeholder="비밀번호 확인" maxlegnth="20">
+                    placeholder="새 비밀번호 확인" maxlegnth="20">
                 <div id="pwConfirm" class="coner">영어, 숫자, 특수문자(!,@,#,-,_) 최소 6자 이상 입력해주세요.
                 </div>
               </section>
@@ -98,24 +106,23 @@
     
               <%-- a,,b,,c --%>
               <%-- 주소 문자열 -> 배열로 쪼개기 --%>
-              ${loginMember.memberAddress}
               <c:set var="addr" value="${fn:split(loginMember.memberAddress,',,')}" />
               <%-- 변수 선언 --%>
               <section class="update">
                   <div class="title">*주소</div>
                   <div>
                       <input type="text" name="memberAddress" id="sample6_postcode"
-                          placeholder="우편번호" maxlength="6" value="${addr[0]}">
+                          maxlength="6" value="${addr[0]}">
                       <button type="button" class="find-btn address-btn address-btn1"
                           onclick="sample6_execDaumPostcode()">주소찾기</button>
                   </div>
                   <div>
                       <input type="text" name="memberAddress" id="sample6_address"
-                          placeholder="도로명/지번 주소" value="${addr[1]}">
+                          value="${addr[1]}">
                   </div>
                   <div>
                       <input type="text" name="memberAddress"
-                          id="sample6_detailAddress" placeholder="상세 주소"
+                          id="sample6_detailAddress"
                           value="${addr[2]}">
                   </div>
               </section>
@@ -146,7 +153,7 @@
     <script src="/resources/js/common/common.js"></script>
 
     <script src="/resources/js/myPage/myPage.js"></script>
-    <script src="/resources/js/myPage/myPageBoard.js"></script>
+    <script src="/resources/js/myPage/myPageProfile.js"></script>
 
   </body>
 </html>

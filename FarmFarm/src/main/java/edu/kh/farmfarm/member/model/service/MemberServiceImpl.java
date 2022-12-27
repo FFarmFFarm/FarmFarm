@@ -72,7 +72,8 @@ public class MemberServiceImpl implements MemberService {
 		if(memberNo > 0) {
 			// 주소가 작성 경우
 			if(!memberAddress.equals(",,")) {
-				inputMember.setMemberAddress(String.join(",,", memberAddress));
+				String address = String.join(",,", memberAddress);
+				inputMember.setMemberAddress(address);
 				String add = inputMember.getMemberAddress();
 				System.out.println(add);
 				
