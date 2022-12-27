@@ -202,7 +202,8 @@
                 </div>
 
                 <input type="hidden" name="deleteList" id="deleteList" value="">
-
+                <input type="hidden" name="cp" value="${param.cp}">
+                <input type="hidden" name="memberNo" value="${post.memberNo}">
             </form>
         </section>
 

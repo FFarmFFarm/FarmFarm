@@ -135,6 +135,8 @@ public class SellerController {
 	public String updatePost(
 			Post post,
 			@PathVariable("postNo") int postNo,
+			@RequestParam(value="cp", required=false, defaultValue="1") int cp,
+			@RequestParam(value="memberNo") int memberNo,
 			@RequestParam(value="deleteList", required=false) String deleteList,
 			@RequestParam(value="postImg", required=false) List<MultipartFile> postImgList,
 			@RequestHeader("referer") String referer,
@@ -150,7 +152,7 @@ public class SellerController {
 		String path = null;
 		
 		if(result>0) {
-			path= "/post/"+postNo;
+			path= "/seller/"+ memberNo + "?cp=" +cp;
 		}else {
 			path= referer;
 		}
