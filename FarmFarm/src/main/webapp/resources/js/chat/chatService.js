@@ -5,6 +5,10 @@ let partnerNickname;
 let partnerProfileImg;
 let nowDate;
 
+// 하단 변수
+// let initialScrollHeight = document.getElementById("readingArea").scrollHeight;
+// let bottomScrollHeight = 0;
+
 // 소켓
 let chattingSock;
 
@@ -506,7 +510,7 @@ document.getElementById('searchBtn').addEventListener('click', ()=>{
 /* 초기화 버튼 클릭 시 */
 document.getElementById('resetRoomSearch').addEventListener('click', (e)=>{
     // e.target.parent.style.display='none'; // 버튼 숨김
-    document.getElementById('resetRoomSearch').style.display = 'none'
+    document.getElementById('resetRoomSearch').style.display = 'none';
     document.getElementById('searchBar').value=''; // 채팅방 검색창 초기화
     requestMyChatRoomList(); // 목록 가져옴
 })
@@ -519,3 +523,52 @@ const readMyChat = () => {
         one.innerText = "";
     }
 }
+
+/* 하향 화살표 버튼을 눌렀을 때, 채팅방의 하단으로 이동하는 기능 구현하기 */
+
+/* 
+
+    * 고려할 상황
+    - 1. 채팅방에 들어갈 때, 채팅방의 높이를 받아와야 함
+    - 2. 메세지를 받았을 때 마다(onmessage), 채팅방의 높이를 다시 계산해야 함(초기화)
+
+    * 사용할 함수 및 이벤트
+    1. 채팅방의 높이를 계산하는 함수
+    2. 현재 스크롤의 높이를 인식해서, 버튼의 display 속성을 바꾸는 이벤트
+    3. 누르면 최하단으로 가지는 이벤트
+
+    scrollHeight : 스크롤 전체 길이
+    scrollTop : 현재 스크롤의 위치
+    scrollTo(X,Y) : 이동
+
+*/
+
+/* 1. 채팅방의 높이를 계산하는 함수 */
+const calculateRoomHeight = () => {
+    let roomHeight = document.getElementById('readingArea').scrollHeight;
+    return roomHeight;
+}
+
+/* 2. 현재 스크롤의 위치를 인식하는 함수 */
+const calcuateNowHeight = () => {
+    let nowHeight = document.getElementById('readingArea').scrollTop;
+    return nowHeight;
+}
+
+/* 3. 현재 스크롤의 위치를 인식해서, 버튼의 속성을 바꾸자 */
+document.getElementById('readingArea').addEventListener('scroll', () => {
+    let roomHeight = calculateRoomHeight();
+    let nowHeight = calcuateNowHeight();
+
+    if(nowHeight < roomHeight - 300) { // 스크롤 최하단보다 300만큼 높은 경우 버튼을 보임
+        document.getElementById('bottomBtn').style.display='flex';
+    } else { // 아니면 버튼을 가림
+        document.getElementById('bottomBtn').style.display='none';
+    }
+})
+
+/* 4. 전체 스크롤의 길이를 받아서, 최하단(=전체 스크롤의 길이)으로 보내자 */
+document.getElementById('bottomBtn').addEventListener('click', ()=>{
+    let roomHeight = calculateRoomHeight();
+    document.getElementById('readingArea').scrollTo(0, roomHeight);
+})

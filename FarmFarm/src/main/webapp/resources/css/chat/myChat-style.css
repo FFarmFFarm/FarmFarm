@@ -1,5 +1,9 @@
 @import '../root-style.css';
 
+*{
+    scroll-behavior: smooth;
+}
+
 body{
     display: flex;
     flex-direction: column;
