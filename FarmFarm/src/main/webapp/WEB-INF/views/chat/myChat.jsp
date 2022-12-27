@@ -33,6 +33,9 @@
               </div>
               <div class="search-area">
                   <input id="searchBar" placeholder="채팅방 검색">
+                  <button id="resetRoomSearch">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                  </button>
                   <button id="searchBtn">
                       검색
                   </button>
