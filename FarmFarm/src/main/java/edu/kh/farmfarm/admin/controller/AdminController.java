@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -99,76 +100,72 @@ public class AdminController {
 	// 전체 회원 조회
 	@GetMapping("/admin/selectMemberList")
 	@ResponseBody
-	public String selectMemberAll(@SessionAttribute(value="loginMember") Member loginMember, 
-									Model model, String memberId) {
+	public String selectMember(@SessionAttribute(value="loginMember") Member loginMember, 
+								Model model,
+								@RequestParam(value="cp", required=false, defaultValue="1") int cp,
+								@RequestParam(value="authFilter", required=false, defaultValue="0") String authFilter,
+								@RequestParam(value="statFilter", required=false, defaultValue="0") String statFilter) {
 		
-		List<Member> memberAllList = new ArrayList<Member>();
 		
-		Admin memberDetail = new Admin();
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("authFilter", authFilter);
+		paramMap.put("statFilter", statFilter);
 		
-		// 관리자인지 확인
+		// 관리자인지 확인 (관리자면 result==1)
 		int result = service.checkAdmin();
 		System.out.println(result);
 		
-//		String path = null;
-//		String memberAddress = null;
+		Map<String, Object> map = new HashMap<String, Object>();
 		
 		if(result == 1 && loginMember != null) {
-			
-		
-//			if(memberId == null) {
-				// 전체 회원 정보 조회
-				memberAllList = service.selectMemberAll();
-//				System.out.println(memberAllList);
-			
-//			} else {
-//				memberDetail = service.selectMemberDetail(memberId);
-//			}
-			
+
+			// 전체 회원 정보 조회 + 페이지네이션 + 정렬
+			map = service.selectMember(paramMap, cp);
 	
-			// [주소]  ,, 사이 주소 가져오기
-//			for(Member member : memberAllList) {
-////				
-// 				if(member != null){
-//					String address = member.getMemberAddress();
-//					String add = address.substring(address.indexOf(",,")+2, address.lastIndexOf(",,"));
-//	//				System.out.println(memberAddress.indexOf(",,"));
-//	//				System.out.println(memberAddress.lastIndexOf(",,"));
-//					
-//					if(address.indexOf(",,") == -1 || address.lastIndexOf(",,") == -1) {
-//	
-//						System.out.println(",,가 없습니다.");
-//	
-//					} else {
-//						
-//						member.setMemberAddress(add);
-//						memberAddress = member.getMemberAddress();
-//						System.out.println(memberAddress);
-//					}
-// 				
-// 				} else {
-// 					
-// 					System.out.println("member가 null입니다.");
-// 					
-// 				}
-//			}
-//			
 		} else {
 			System.out.println("관리자만 접근 가능합니다.");
 		}
 		
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		map.put("memberAllList", memberAllList);
-		map.put("memberDetail", memberDetail);
-		
 		model.addAttribute(map);
 		
-		return new Gson().toJson(memberAllList);
-	
+		return new Gson().toJson(map);
 	}
 	
+	
+//	System.out.println(memberAllList);
+	
+//} else {
+//	memberDetail = service.selectMemberDetail(memberId);
+//}
+
+
+// [주소]  ,, 사이 주소 가져오기
+//for(Member member : memberAllList) {
+////	
+//		if(member != null){
+//		String address = member.getMemberAddress();
+//		String add = address.substring(address.indexOf(",,")+2, address.lastIndexOf(",,"));
+////				System.out.println(memberAddress.indexOf(",,"));
+////				System.out.println(memberAddress.lastIndexOf(",,"));
+//		
+//		if(address.indexOf(",,") == -1 || address.lastIndexOf(",,") == -1) {
+//
+//			System.out.println(",,가 없습니다.");
+//
+//		} else {
+//			
+//			member.setMemberAddress(add);
+//			memberAddress = member.getMemberAddress();
+//			System.out.println(memberAddress);
+//		}
+//		
+//		} else {
+//			
+//			System.out.println("member가 null입니다.");
+//			
+//		}
+//}
+//
 	
 	
 	

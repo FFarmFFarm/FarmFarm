@@ -4,11 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.farmfarm.admin.model.vo.Admin;
+import edu.kh.farmfarm.common.Pagination;
 import edu.kh.farmfarm.member.model.VO.Member;
 
 @Repository
@@ -57,25 +59,40 @@ public class AdminDAO {
 
 
 
- 	/** 회원 전체 조회
-	 * @param memberNo
-	 * @return memberAllList
+	/** 전체 회원 수(관리자 제외)
+	 * @return memberListCount
 	 */
-	public List<Member> selectMemberAll() {
-		return sqlSession.selectList("adminMapper.selectMember");
+	public int memberListCount() {
+		return sqlSession.selectOne("adminMapper.memberListCount");
 	}
 
 
 
-	/** 상세 회원 정보 조회
-	 * @param memberId
-	 * @return memberDetail
+	/** 전체 회원 조회(정렬 포함)
+	 * @param paramMap
+	 * @param pagination
+	 * @return
 	 */
-	public Admin selectMemberDetail(String memberId) {
-		return sqlSession.selectOne("adminMapper.selectMember", memberId);
+	public List<Member> selectMember(Map<String, Object> paramMap, Pagination pagination) {
+		
+		int offset = (pagination.getCurrentPage() -1) * 15;
+		RowBounds rowBounds = new RowBounds(offset, 15);
+		
+		return sqlSession.selectList("adminMapper.selectMemberList", paramMap, rowBounds);
 	}
 
 
+
+
+
+//
+//	/** 회원 조회
+//	 * @return memberList
+//	 */
+//	public List<Member> selectMemberList(pagination) {
+//		return sqlSession.selectList("adminMapper.selectMemberList");
+//	}
+//
 
 
 

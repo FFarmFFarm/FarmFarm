@@ -2,6 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
+<c:set var="pagination" value="${map.pagination}" />
+<c:set var="memberList" value="${map.memberList}" />
+<c:set var="memberListCount" value="${map.memberListCount}" />
 
 <!DOCTYPE html>
 <html lang="en">
@@ -46,27 +49,30 @@
                                 <th>닉네임</th>
                                 <th>주소</th>
                                 <th>가입일</th>
-                                <th id="sellerAuth">판매자 등록
-                                    <i class="fa-solid fa-caret-down caret-icon" class="select-filter"></i>
+                                <th id="sellerAuth"><span id="dropBtn1">판매자 등록
+                                    <i class="fa-solid fa-caret-down caret-icon" class="select-filter"></i></span>
+                                    <div class="drop-menu1" id="dropMenu1">
+                                        <ul class="drop-ul" id="dropUl1">
+                                            <li class="authFilter" id="a0">전체</li>
+                                            <li class="authFilter" id="a1">미등록</li>
+                                            <li class="authFilter" id="a2">판매자</li>
+                                            <li class="authFilter" id="a3">인증 대기</li>
+                                        </ul>
+                                    </div>
                                 </th>
-                                <div>
-                                    <ul class="auth-filter-drop">
-                                        <li><input type="radio" name="auth"> 전체</li>
-                                        <li><input type="radio" name="auth"> 미등록</li>
-                                        <li><input type="radio" name="auth"> 판매자</li>
-                                        <li><input type="radio" name="auth"> 인증 대기</li>
-                                    </ul>
-                                </div>
                                 
-                                <th id="memberStatus">상태
-                                    <i class="fa-solid fa-caret-down caret-icon" class="select-filter"></i>
+                                <th id="memberStatus"><span id="dropBtn2">상태
+                                    <i class="fa-solid fa-caret-down caret-icon" class="select-filter" id="dropBtn2"></i></span>
+                                    <div class="drop-menu2" id="dropMenu2">
+                                        <ul class="drop-ul" id="dropUl2">
+                                            <li class="statFilter" id="s0">전체</li>
+                                            <li class="statFilter" id="s1">활동중</li>
+                                            <li class="statFilter" id="s2">신고 접수</li>
+                                            <li class="statFilter" id="s3">정지</li>
+                                            <li class="statFilter" id="s4">탈퇴</li>
+                                        </ul>
+                                    </div>
                                 </th>
-                                <%-- <div class="status-filter-drop">
-                                    <span>활동중</span>
-                                    <span>신고 접수</span>
-                                    <span>정지</span>
-                                    <span>탈퇴</span>
-                                </div>  --%>
                             </tr>
 
                             <!-- 한 행 반복 -->
@@ -124,20 +130,36 @@
                     <!-- todo: 페이지네이션 반복문 -->
                     <div class="admin-pagination-area">
                         <ul class="admin-pagination">
-                            <li><a href=""><i class="fa-solid fa-angles-left"></i></a></li>
-                            <li><a href=""><i class="fa-solid fa-angle-left"></i></a></li> 
-                            <li><a href="">1</a></li>
-                            <li><a href="">2</a></li>
-                            <li><a href="">3</a></li>
-                            <li><a href="">4</a></li>
-                            <li><a href="">5</a></li>
-                            <li><a href="">6</a></li>
-                            <li><a href="">7</a></li>
-                            <li><a href="">8</a></li>
-                            <li><a href="">9</a></li>
-                            <li><a href="">10</a></li>
-                            <li><a href=""><i class="fa-solid fa-angle-right"></i></a></li>
-                            <li><a href=""><i class="fa-solid fa-angles-right"></i></a></li>
+                            <%-- << : 제일 첫 페이지(1p)로 --%>
+                            <li id="1" class="page-box">  
+                                <i class="fa-solid fa-angles-left"></i>
+                            </li>
+                            <%-- 이전 페이지로 --%>
+                            <li id="${pagination.prevPage}" class="page-box"> 
+                                <i class="fa-solid fa-angle-left"></i>
+                            </li> 
+
+                            <c:forEach var="i" begin="${pagination.startPage}" end="${pagination.endPage}" step="1">
+                                <c:choose>
+                                    <c:when test="${i == pagination.currentPage}">
+                                        <li class="current-page-box">
+                                            ${i}
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li id="${i}" class="page-box">
+                                            ${i}
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+
+                            <li id="${pagination.nextPage}" class="page-box">
+                                <i class="fa-solid fa-angle-right"></i>
+                            </li>
+                            <li id="${pagination.endPage}" class="page-box">
+                                <i class="fa-solid fa-angles-right"></i>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -226,7 +248,15 @@
 
         <!-- <jsp:include page="/WEB-INF/views/common/footer.jsp"/>  -->
 
+        <script>
+            var authFilter = 0;  /* 판매자등록 필터  0: 전체 조회 */
+            var statFilter = 0;  /* 상태 필터 0: 전체 조회  */
+            var cp = 1;
+        </script>
+
+        <%-- jquery --%>
         <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+        
         <script src="/resources/js/admin/adminMember.js"></script>
     </body>
 </html>
