@@ -8,10 +8,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import edu.kh.farmfarm.common.Pagination;
 import edu.kh.farmfarm.member.model.VO.Member;
 import edu.kh.farmfarm.postDetail.model.vo.Post;
 import edu.kh.farmfarm.postDetail.model.vo.PostImg;
-import edu.kh.farmfarm.seller.model.vo.SellerPagination;
 
 @Repository
 public class SellerDAO {
@@ -40,7 +40,7 @@ public class SellerDAO {
 	 * @param memberNo
 	 * @return map
 	 */
-	public List<Post> selectPostList(SellerPagination pagination, int memberNo) {
+	public List<Post> selectPostList(Pagination pagination, int memberNo) {
 		
 		int offset = (pagination.getCurrentPage()-1)*pagination.getLimit();
 		

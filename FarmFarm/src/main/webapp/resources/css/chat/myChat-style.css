@@ -77,25 +77,28 @@ body{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid var(--line-color);
+
+    position: relative;
 }
 
 #searchBar{
     font-size: var(--small-font-size);
     font-weight: 100;
-    border: 1px solid var(--line-color);
     
-    width: 82%;
-    height: 39px;
+    width : 75%;
+    height: 36px;
     outline: none;
-    
-    padding: 0px 10px;
+    background-color: transparent;
+    padding: 0px 20px 0px 10px;
+    border: none;
 
-    background-color: white;
-    border-radius: 10px;
 }
 
 #searchBtn{
-    width: 17%;
+    width : 20%;
     height: 39px;
     color: var(--sub-font-color);
     font-weight: 100;
@@ -114,6 +117,17 @@ body{
 #searchBtn:hover{
     background-color: #fafafa;
     font-weight: 600;
+}
+
+#resetRoomSearch{
+    /* flex-basis: 10%; */
+    background-color: transparent;
+    border: none;
+
+    text-align: center;
+    position: absolute;
+    right: 57px;
+    display: none;
 }
 
 .chat-preview-area{

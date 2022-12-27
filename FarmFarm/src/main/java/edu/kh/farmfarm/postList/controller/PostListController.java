@@ -27,7 +27,7 @@ public class PostListController {
 				@RequestParam(value = "keyword", required = false) String keyword, // 검색어
 				@RequestParam(value = "category", required = false, defaultValue = "0") int category,
 				@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, // 현재 페이지
-				@RequestParam(value = "sort", required = false, defaultValue = "rates") String sort // 정렬 옵션
+				@RequestParam(value = "sort", required = false, defaultValue = "views") String sort // 정렬 옵션
 				) {
 			
 			// 1. 입력받은 모든 파라미터에서 특수문자를 제거함

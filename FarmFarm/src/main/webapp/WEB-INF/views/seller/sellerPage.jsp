@@ -164,61 +164,64 @@
                 </c:forEach>
                 
             <div class="pagination-area">
-                <!-- ajax로 만들어 보십시다 -->
                 <div class="page-box">
-                    <i class="fa-solid fa-angles-left"></i>
+                    <a href="/seller/${memberInfo.memberNo}">
+                        <i class="fa-solid fa-angles-left"></i>
+                    </a>
                 </div>
                 <div class="page-box">
-                    <i class="fa-solid fa-angle-left"></i>
+                    <a href="/seller/${memberInfo.memberNo}?cp=${pagination.prevPage}">
+                        <i class="fa-solid fa-angle-left"></i>
+                    </a>
+                </div>
+                <c:forEach var="i"
+                    begin="${pagination.startPage}"
+                    end="${pagination.endPage}"
+                    step="1">
+                    <c:choose>
+                        <c:when test="${i==pagination.currentPage}">
+                            <div class="page-box">
+                                <a class="current">${i}</a>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="page-box">
+                                <a href="/seller/${memberInfo.memberNo}?cp=${i}">${i}</a>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+                <div class="page-box">
+                    <a href="/seller/${memberInfo.memberNo}?cp=${pagination.nextPage}">
+                        <i class="fa-solid fa-angle-right"></i>
+                    </a>
                 </div>
                 <div class="page-box">
-                    1
-                </div>
-                <div class="page-box">
-                    2
-                </div>
-                <div class="page-box">
-                    3
-                </div>
-                <div class="page-box">
-                    4
-                </div>
-                <div class="page-box">
-                    5
-                </div>
-                <div class="page-box">
-                    6
-                </div>
-                <div class="page-box">
-                    7
-                </div>
-                <div class="page-box">
-                    8
-                </div>
-                <div class="page-box">
-                    9
-                </div>
-                <div class="page-box">
-                    <i class="fa-solid fa-angle-right"></i>
-                </div>
-                <div class="page-box">
-                    <i class="fa-solid fa-angles-right"></i>
+                    <a href="/seller/${memberInfo.memberNo}?cp=${pagination.maxPage}">
+                        <i class="fa-solid fa-angles-right"></i>
+                    </a>
                 </div>
             </div>
             </div>
         </section>
     </main>
 
-    <!-- <div id="topBtn" class="view-hidden">
-        <i class="fa-sharp fa-solid fa-arrow-up"></i>
-    </div> -->
-
     <!-- footer -->
     <jsp:include page='/WEB-INF/views/common/footer.jsp' />
 
+    
+
     <script>
         let selectPostNo;
+        var cp="${param.cp}";
     </script>
+
+    <c:if test="${!empty message}">
+        <script>
+            alert("${message}")
+        </script>
+        <c:remove var="message"/>
+    </c:if>
 
     <script src="/resources/js/seller/sellerPage.js"></script>
 

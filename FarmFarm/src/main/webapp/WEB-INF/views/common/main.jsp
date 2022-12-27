@@ -116,7 +116,7 @@
     <main>
       <div class="main-wrap">
         <div class="main-background">
-          <img src="resources/images/main/bg2.jpg">
+          <img src="resources/images/main/bg2.png">
         </div>
         <div class="main-title">
           <!-- <p>내 손으로 키운 작물,<br>손쉽게 거래하세요.</p>
@@ -201,9 +201,11 @@
           <img src="resources/images/main/cooking.jpg">
         </div>
         <div class="cooking-a">
-          <a href="/board"></a>
-            <p>레시피 보러가기 </p>
-            <i class="fa-solid fa-arrow-right cooking-arrow"></i>
+          <a href="/board">
+            <div class="cooking">
+              <p>레시피 보러가기 </p>
+              <i class="fa-solid fa-arrow-right cooking-arrow"></i>
+            </div>
           </a>
         </div>
       </div>
@@ -215,61 +217,65 @@
     <jsp:include page="/WEB-INF/views/report/report-modal.jsp"/> 
 
     <script>
-      // 프로필 드롭다운
-      const dropbtn = document.querySelector('.dropbtn');
-      dropbtn.addEventListener('click', () => {
-        const icon = document.querySelector('.caret-icon');
-        const myDropdown = document.querySelector('.dropdown-content');
+      const loginMember = "${loginMember}"
 
-        if (
-          myDropdown.style.display == 'none' ||
-          myDropdown.style.display == ''
-        ) {
-          icon.style.transform = 'perspective(500px) rotateX(180deg)';
-          myDropdown.style.display = 'block';
-        } else {
-          icon.style.transform = 'perspective(500px) rotateX(360deg)';
-          myDropdown.style.display = 'none';
-        }
-      });
-
-      //const dd = document.querySelectorAll(".dropdown, #myDropdown, #myDropdown *");
-
-      window.addEventListener('click', e => {
-        console.log(e.target);
-        const myDropdown = document.querySelector('.dropdown-content');
-
-        if(myDropdown.style.display == 'block' &&
-          !e.target.matches(".dropdown, .dropdown *, #myDropdown, #myDropdown *")){
-          
+      if(loginMember){
+        // 프로필 드롭다운
+        const dropbtn = document.querySelector('.dropbtn');
+        dropbtn.addEventListener('click', () => {
           const icon = document.querySelector('.caret-icon');
           const myDropdown = document.querySelector('.dropdown-content');
-          
-          myDropdown.style.display = '';
-          icon.style.transform = 'perspective(500px) rotateX(360deg)';
-        }
-      });
-
-      // 알림 드롭다운
-      const dropbtn1 = document.querySelector('.dropbtn1');
-      dropbtn1.addEventListener('click', () => {
-        const myDropdown1 = document.querySelector('.dropdown-message');
-
-        if (
-          myDropdown1.style.display == 'none' ||
-          myDropdown1.style.display == ''
-        ) {
-          myDropdown1.style.display = 'block';
-        } else {
-          myDropdown1.style.display = 'none';
-        }
-      });
-
-      dropbtn1.addEventListener('blur', () => {
-        const myDropdown1 = document.querySelector('.dropdown-message');
-
-        myDropdown1.style.display = '';
-      });
+  
+          if (
+            myDropdown.style.display == 'none' ||
+            myDropdown.style.display == ''
+          ) {
+            icon.style.transform = 'perspective(500px) rotateX(180deg)';
+            myDropdown.style.display = 'block';
+          } else {
+            icon.style.transform = 'perspective(500px) rotateX(360deg)';
+            myDropdown.style.display = 'none';
+          }
+        });
+  
+        //const dd = document.querySelectorAll(".dropdown, #myDropdown, #myDropdown *");
+  
+        window.addEventListener('click', e => {
+          console.log(e.target);
+          const myDropdown = document.querySelector('.dropdown-content');
+  
+          if(myDropdown.style.display == 'block' &&
+            !e.target.matches(".dropdown, .dropdown *, #myDropdown, #myDropdown *")){
+            
+            const icon = document.querySelector('.caret-icon');
+            const myDropdown = document.querySelector('.dropdown-content');
+            
+            myDropdown.style.display = '';
+            icon.style.transform = 'perspective(500px) rotateX(360deg)';
+          }
+        });
+  
+        // 알림 드롭다운
+        const dropbtn1 = document.querySelector('.dropbtn1');
+        dropbtn1.addEventListener('click', () => {
+          const myDropdown1 = document.querySelector('.dropdown-message');
+  
+          if (
+            myDropdown1.style.display == 'none' ||
+            myDropdown1.style.display == ''
+          ) {
+            myDropdown1.style.display = 'block';
+          } else {
+            myDropdown1.style.display = 'none';
+          }
+        });
+  
+        dropbtn1.addEventListener('blur', () => {
+          const myDropdown1 = document.querySelector('.dropdown-message');
+  
+          myDropdown1.style.display = '';
+        });
+      }
 
     </script>
   </body>
