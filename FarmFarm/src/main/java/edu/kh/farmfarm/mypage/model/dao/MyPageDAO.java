@@ -17,6 +17,7 @@ import edu.kh.farmfarm.mypage.model.vo.Order;
 import edu.kh.farmfarm.mypage.model.vo.OrderPagination;
 import edu.kh.farmfarm.mypage.model.vo.Wish;
 import edu.kh.farmfarm.productDetail.model.vo.Review;
+import edu.kh.farmfarm.productDetail.model.vo.ReviewImg;
 
 @Repository
 public class MyPageDAO {
@@ -163,6 +164,20 @@ public class MyPageDAO {
 
 	public int orderConfirm(int orderNo) {
 		return sqlSession.update("myPageMapper.orderConfirm", orderNo);
+	}
+
+
+	/** 리뷰 등록
+	 * @param review
+	 * @return
+	 */
+	public int writeReview(Review review) {
+		return sqlSession.insert("myPageMapper.insertReview", review);
+	}
+
+
+	public int insertReviewImgList(List<ReviewImg> reviewImgList) {
+		return sqlSession.insert("myPageMapper.insertReviewImgList", reviewImgList);
 	}
 
 

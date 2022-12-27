@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Setter
 @Getter
+@Setter
 @ToString
 public class Post {
 	
@@ -27,6 +27,6 @@ public class Post {
 	private String postImgAddress;
 	
 	private List<PostImg> imgList;
-	
 	private String thumbnailImg;
+	
 }

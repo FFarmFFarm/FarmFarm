@@ -30,7 +30,7 @@
      <collection property="productList" 
 		  javaType="java.util.ArrayList" ofType="Product"
 		  select="selectProductList"
-		  column = "ORDER_NO"/>
+		  column = "{orderNo=ORDER_NO, memberNo=MEMBER_NO}"/>
   </resultMap>
   
   <!-- 팜팜 상품 resultMap -->
@@ -43,6 +43,7 @@
       <result property="productAmount" column="PRODUCT_AMOUNT" />
       <result property="productImg" column="PRODUCT_IMG" />       			  
       <result property="wishDate" column="WISH_DATE" />       			  
+      <result property="reviewCheck" column="REVIEW_CHECK" />       			  
   </resultMap>
   
   
@@ -75,11 +76,8 @@
       <result property="likeCheck" column="LIKE_CHECK" />
       <result property="likeCount" column="LIKE_COUNT" />
       
-      
       <result property="memberNickname" column="MEMBER_NICKNAME" />
       <result property="profileImg" column="PROFILE_IMG" />
-      
-      
       
       <collection property="imgList" 
       			  javaType="java.util.ArrayList" ofType="ReviewImg"
@@ -138,7 +136,9 @@
 		(SELECT PRODUCT_IMG_ADDRESS 
 		FROM PRODUCT_IMG pi3 
 		WHERE pi3.PRODUCT_NO = op.PRODUCT_NO 
-		AND PRODUCT_IMG_ORDER = 0) PRODUCT_IMG
+		AND PRODUCT_IMG_ORDER = 0) PRODUCT_IMG,
+		(SELECT COUNT(*) FROM REVIEW r 
+		WHERE PRODUCT_NO = op.PRODUCT_NO AND MEMBER_NO = #{memberNo}) REVIEW_CHECK
 	FROM ORDER_PRODUCT op 
 	JOIN PRODUCT p ON (op.PRODUCT_NO = p.PRODUCT_NO)
 	WHERE ORDER_NO = #{orderNo}
@@ -172,11 +172,13 @@
 
 <!-- 작성 후기 목록 조회 -->
 <select id="selectReviewList" resultMap="review_rm">
-	SELECT REVIEW_NO, REVIEW_CONTENT, PRODUCT_NO, PRODUCT_NAME, TO_CHAR(CREATE_DATE, 'yyyy.MM.DD') CREATE_DATE,
+	SELECT REVIEW_NO, REVIEW_CONTENT, PRODUCT_NO, PRODUCT_NAME, 
+	TO_CHAR(CREATE_DATE, 'yyyy.MM.DD') CREATE_DATE,
 	(SELECT COUNT(*) FROM REVIEW_LIKE rl WHERE rl.REVIEW_NO = r.REVIEW_NO) LIKE_COUNT
 	FROM REVIEW r
 	JOIN PRODUCT p USING(PRODUCT_NO)
 	WHERE r.MEMBER_NO = #{memberNo}
+	ORDER BY CREATE_DATE DESC
 </select>
 
 <!-- 상품 리뷰 이미지 목록 조회 -->
@@ -214,6 +216,31 @@
 <update id="orderConfirm">
 	UPDATE "ORDER" SET ORDER_STATUS = 3 WHERE ORDER_NO = #{orderNo}
 </update>
+
+<!-- 리뷰 삽입 -->
+<insert id="insertReview" parameterType="review" useGeneratedKeys="true">
+
+	<selectKey keyProperty="reviewNo" resultType="_int" order="BEFORE">
+		SELECT SEQ_REVIEW_NO.NEXTVAL FROM DUAL
+	</selectKey>
+	
+	INSERT INTO REVIEW
+	VALUES(#{reviewNo}, #{reviewContent}, DEFAULT, #{memberNo}, #{productNo}, DEFAULT)
+	
+</insert>
+
+<!-- 리뷰 이미지 삽입 -->
+<insert id="insertReviewImgList" parameterType="list">
+	INSERT INTO REVIEW_IMG
+	SELECT SEQ_REVIEW_IMG_NO.NEXTVAL REVIEW_IMG_NO, A.* FROM
+	<foreach collection="list" item="img" open="(" close=") A" separator="UNION ALL">
+	SELECT #{img.reviewNo} REVIEW_NO,
+		    #{img.reviewImgPath} REVIEW_IMG_PATH,
+		    #{img.reviewImgOrder} REVIEW_IMG_ORDER
+	FROM DUAL
+	</foreach>
+</insert>
+
 
 
 </mapper>

@@ -9,7 +9,7 @@ const getProductNo = () => {
 
   const lastIndex = pathname.lastIndexOf('/');
 
-  return pathname.substring(lastIndex+1, pathname.length);
+  return pathname.substring(lastIndex + 1, pathname.length);
 }
 
 
@@ -103,8 +103,8 @@ removeBtn.addEventListener('click', () => {
 
 // TODO
 /* 주문하기 버튼 클릭하면 주문서 창으로 */
-if (document.getElementById('orderBtn') != undefined) { 
-  document.getElementById('orderBtn').addEventListener('click', () => { 
+if (document.getElementById('orderBtn') != undefined) {
+  document.getElementById('orderBtn').addEventListener('click', () => {
     if (loginMember == '') {
       loginConfirmOpen();
     }
@@ -113,8 +113,8 @@ if (document.getElementById('orderBtn') != undefined) {
 
 // TODO
 /* 장바구니 담기 클릭하면 장바구니로 */
-if (document.getElementById('cartBtn') != undefined) { 
-  document.getElementById('cartBtn').addEventListener('click', () => { 
+if (document.getElementById('cartBtn') != undefined) {
+  document.getElementById('cartBtn').addEventListener('click', () => {
     if (loginMember == '') {
       loginConfirmOpen();
     }
@@ -147,13 +147,13 @@ if (document.getElementById('cartBtn') != undefined) {
 const lastReviewImg = document.querySelector('.last-review-img');
 
 if (lastReviewImg != undefined) {
-  lastReviewImg.addEventListener('click', () => { 
+  lastReviewImg.addEventListener('click', () => {
     const reviewImgList = document.getElementById('reviewImgList');
-    
+
     /* 사진 리뷰 목록 조회 */
     selectImgReview();
-    
-    displayflex(reviewImgList);
+
+    displayFlex(reviewImgList);
   });
 }
 
@@ -166,7 +166,7 @@ document.getElementById('imgListClose').addEventListener('click', () => {
 
 
 /* 사진 리뷰 목록 조회  Function*/
-const selectImgReview = () => { 
+const selectImgReview = () => {
   const productNo = getProductNo();
 
   $.ajax({
@@ -176,7 +176,7 @@ const selectImgReview = () => {
     success: (reviewList) => {
       reviewImgList(reviewList);
     },
-    error: () => { 
+    error: () => {
       console.log("사진 리뷰 목록 조회 중 에러 발생");
     }
   })
@@ -200,7 +200,7 @@ const reviewImgList = (reviewList) => {
     imgReviewList.append(div);
 
     /* 이미지 하나 클릭 시 상세조회 창 출력 */
-    div.addEventListener('click', function () { 
+    div.addEventListener('click', function () {
 
       const reviewDetail = document.getElementById('reviewDetail');
 
@@ -209,7 +209,7 @@ const reviewImgList = (reviewList) => {
       selectReview(reviewNo, memberNo);
 
       setTimeout(() => {
-        displayflex(reviewDetail);
+        displayFlex(reviewDetail);
       }, '200');
 
     })
@@ -242,7 +242,7 @@ for (let img of reviewImg) {
     const reviewNo = img.id;
 
     setTimeout(() => {
-      displayflex(reviewDetail);
+      displayFlex(reviewDetail);
     }, '200');
 
     selectReview(reviewNo, memberNo);
@@ -313,7 +313,7 @@ const newReview = (review) => {
   reviewContent.classList.add('review-content-container');
 
   reviewDetailModal.append(reviewHead, reviewContent);
-  
+
   const reviewImgList = document.createElement('div');
   reviewImgList.classList.add('review-img-list-container');
 
@@ -323,42 +323,40 @@ const newReview = (review) => {
   const imgContainer = document.createElement('div');
   imgContainer.classList.add("swiper-wrapper");
   imgContainer.id = "imgContainer";
-  
+
   reviewContent.append(reviewImgList);
   reviewImgList.append(reviewSwiperArea);
   reviewSwiperArea.append(imgContainer);
-  
+
   /* 리뷰 이미지 슬라이드 만들기 */
   for (let image of review.imgList) {
     console.log(image);
     const div = document.createElement('div');
     div.classList.add('swiper-slide');
-    
+
     const img = document.createElement('img');
     img.src = image.reviewImgPath;
 
     div.append(img);
-    
-    imgContainer.append(div);
-    
-  }
-  
 
+    imgContainer.append(div);
+
+  }
 
 
   if (review.imgList.length > 1) {
-    
+
     const nextBtn = document.createElement('div');
     nextBtn.classList.add("swiper-button-next");
-    
+
     const prevBtn = document.createElement('div');
     prevBtn.classList.add("swiper-button-prev");
-    
+
     const pagination = document.createElement('div');
     pagination.classList.add("swiper-pagination");
-    
+
     reviewSwiperArea.append(pagination, prevBtn, nextBtn);
-    
+
     var swiper = new Swiper('.mySwiper', {
       spaceBetween: 30,
       hashNavigation: {
@@ -375,13 +373,9 @@ const newReview = (review) => {
       observer: true,
       observeParents: true,
     });
-    
+
   }
-  
 
-
-  
-  
 
   const reviewProductContent = document.createElement('div');
   reviewProductContent.classList.add('review-product-content');
@@ -396,13 +390,13 @@ const newReview = (review) => {
   thumbnailImg.src = review.productThumbnail;
 
   productThumbnail.append(thumbnailImg);
-  
+
   const reviewProductName = document.createElement('div');
   reviewProductName.classList.add('review-product-name');
-  
+
   const productName = document.createElement('span');
   productName.innerText = document.getElementById('productName').innerText;
-  
+
   reviewProductName.append(productName);
   reviewProductPreview.append(productThumbnail, reviewProductName);
 
@@ -412,12 +406,15 @@ const newReview = (review) => {
   const reviewDetailContent = document.createElement('div');
   reviewDetailContent.classList.add('review-detail-content');
   reviewDetailContent.innerHTML = review.reviewContent;
-  
+
   const reviewNotice = document.createElement('div');
   reviewNotice.classList.add('review-notice');
 
   const p = document.createElement('p');
   p.innerHTML = '개인의 경험일 뿐 사실과 다를 수 있습니다';
+
+  reviewNotice.append(p);
+
 
   const createDate = document.createElement('div');
   createDate.classList.add('review-create-date');
@@ -425,24 +422,65 @@ const newReview = (review) => {
   const dateSpan = document.createElement('span');
   dateSpan.innerText = review.createDate;
 
-  const btn = document.createElement("button");
-  btn.id = review.reviewNo;
 
-  const icon = document.createElement("i");
-  icon.classList.add('fa-regular', 'fa-thumbs-up');
+  if (Number(memberNo) != review.memberNo) {
+    const btn = document.createElement("button");
+    btn.id = review.reviewNo;
 
-  const helpSpan = document.createElement("span");
-  helpSpan.innerText = "도움돼요";
+    const icon = document.createElement("i");
+    icon.classList.add('fa-regular', 'fa-thumbs-up');
 
-  
-  if (review.likeCheck > 0) {
-    btn.classList.add("clicked", "helped-btn");
+
+    const helpSpan = document.createElement("span");
+    helpSpan.innerText = "도움돼요";
+
+    if (review.likeCheck > 0) {
+      btn.classList.add("clicked", "helped-btn");
+    } else {
+      btn.classList.add("unclicked", "helped-btn");
+    }
+
+    btn.append(icon, helpSpan);
+    createDate.append(dateSpan, btn);
+
+    btn.addEventListener('click', (e) => {
+
+      const helpedBtn = document.getElementById("R" + review.reviewNo);
+
+      helpedClick(btn, review.reviewNo);
+
+      if (helpedBtn != undefined) {
+        helpedBtn.classList.toggle("unclicked");
+        helpedBtn.classList.toggle("clicked");
+      }
+    })
   } else {
-    btn.classList.add("unclicked", "helped-btn");
+    const span1 = document.createElement("span");
+    span1.innerText = "도움";
+
+    const span2 = document.createElement("span");
+    span2.classList.add('review-helped');
+    span2.innerText = review.likeCount;
+
+    span1.append(span2);
+
+
+
+    const button = document.createElement("button");
+    button.id = 'updateReview';
+    button.setAttribute('type', 'button');
+    button.innerText = '수정하기';
+
+    const input = document.createElement("input");
+    input.setAttribute('type', 'hidden');
+    input.value = review.reviewNo;
+    input.id = 'reviewNoInput';
+
+    createDate.append(dateSpan, span1);
+    reviewNotice.append(button, input);
+
+
   }
-  
-  btn.append(icon, helpSpan);
-  createDate.append(dateSpan, btn);
 
   reviewContentArea.append(reviewDetailContent, reviewNotice, createDate);
   reviewProductContent.append(reviewProductPreview, reviewContentArea);
@@ -450,22 +488,11 @@ const newReview = (review) => {
 
 
 
-  backBtn.addEventListener("click", function() {
+  backBtn.addEventListener("click", function () {
     displayNone(document.getElementById("reviewDetail"));
   });
 
 
-  btn.addEventListener('click', (e) => { 
-
-    const helpedBtn = document.getElementById("R" + review.reviewNo);
-    
-    helpedClick(btn, review.reviewNo);
-  
-    if (helpedBtn != undefined) { 
-      helpedBtn.classList.toggle("unclicked");
-      helpedBtn.classList.toggle("clicked");
-    }
-  })
 
 };
 
@@ -477,8 +504,8 @@ const newReview = (review) => {
 // 상세페이지 리뷰 목록 도움돼요 버튼 클릭 이벤트 추가
 const helpedBtn = document.getElementsByClassName('helped-btn');
 for (let btn of helpedBtn) {
-  btn.addEventListener('click', () => { 
-    const reviewNo = btn.parentElement.parentElement.parentElement.id; 
+  btn.addEventListener('click', () => {
+    const reviewNo = btn.parentElement.parentElement.parentElement.id;
     helpedClick(btn, reviewNo);
 
   })
@@ -487,9 +514,9 @@ for (let btn of helpedBtn) {
 
 
 /* 도움돼요 버튼 클릭 시 도움돼요 추가 혹은 취소 Function */
-const helpedClick = (helpedBtn, reviewNo) => { 
-  
-  if(loginMember == '') {
+const helpedClick = (helpedBtn, reviewNo) => {
+
+  if (loginMember == '') {
 
     loginConfirmOpen();
 
@@ -499,7 +526,7 @@ const helpedClick = (helpedBtn, reviewNo) => {
       /* 이미 도움돼요 버튼을 누른 경우 */
       removeHelp(reviewNo, helpedBtn);
 
-    } else if (helpedBtn.classList.contains('unclicked')){
+    } else if (helpedBtn.classList.contains('unclicked')) {
       /* 도움돼요 버튼을 누르지 않은 경우 */
       addHelp(reviewNo, helpedBtn);
     }
@@ -509,7 +536,7 @@ const helpedClick = (helpedBtn, reviewNo) => {
 
 
 // 도움돼요 추가 Function
-const addHelp = (reviewNo, helpedBtn) => { 
+const addHelp = (reviewNo, helpedBtn) => {
 
   $.ajax({
     url: '/help/add',
@@ -555,9 +582,9 @@ const reviewNext = document.getElementById('reviewNext');
 
 // TODO 이전 페이지로
 if (reviewPre != undefined) {
-  reviewPre.addEventListener('click', () => { 
+  reviewPre.addEventListener('click', () => {
     cp--;
-        
+
     const productNo = getProductNo();
 
     selectReviewList(productNo, cp);
@@ -565,15 +592,15 @@ if (reviewPre != undefined) {
 }
 
 // 다음 페이지로
-if (reviewNext != undefined) { 
-  reviewNext.addEventListener('click', () => { 
+if (reviewNext != undefined) {
+  reviewNext.addEventListener('click', () => {
 
     cp++;
-        
+
     const productNo = getProductNo();
 
     selectReviewList(productNo, cp);
-    
+
   })
 }
 
@@ -581,14 +608,14 @@ if (reviewNext != undefined) {
 const selectReviewList = (productNo, cp) => {
   $.ajax({
     url: '/review/select',
-    data: { "productNo": productNo, "cp": cp, "sortFl": sortFl},
+    data: { "productNo": productNo, "cp": cp, "sortFl": sortFl },
     dataType: 'json',
-    success: (map) => { 
+    success: (map) => {
       printReviewList(map.reviewList, map.pagination);
 
       cp = map.pagination.currentPage;
     },
-    error: () => { 
+    error: () => {
       console.log("리뷰 불러오기 중 에러 발생");
     }
   });
@@ -599,7 +626,7 @@ const selectReviewList = (productNo, cp) => {
 
 
 /* 조회해온 리뷰 출력하는 Function*/
-const printReviewList = (reviewList, pagination, sortFL) => { 
+const printReviewList = (reviewList, pagination, sortFL) => {
 
   /* 리뷰 목록 비우기 */
   const productReviewList = document.getElementById('productReviewList');
@@ -629,26 +656,37 @@ const printReviewList = (reviewList, pagination, sortFL) => {
 
     profileImg.classList.add("writer-profile-img");
 
-    
+
     const nicknameArea = document.createElement("div");
     nicknameArea.classList.add("nickname-area");
 
-    
+
     const writerNickname = document.createElement("span");
     writerNickname.classList.add("writer-nickname");
     writerNickname.innerText = review.memberNickname;
 
     nicknameArea.append(writerNickname);
-    
+
     if (review.likeCount > 10) {
       const bestReview = document.createElement("span");
       bestReview.classList.add("best-review");
       bestReview.innerText = "베스트";
-      
+
       nicknameArea.append(bestReview);
     }
-    
+
     reviewWriter.append(profileImg, nicknameArea);
+
+    if (Number(memberNo) == review.memberNo) {
+      const button = document.createElement("button");
+      button.classList.add('review-update-btn');
+      button.id = review.reviewNo;
+      button.setAttribute('type', 'button');
+      button.innerText = '수정하기';
+
+      reviewContent.append(button);
+
+    }
 
     const productName = document.createElement("span");
     productName.innerText = document.getElementById('productName').innerText;
@@ -656,12 +694,12 @@ const printReviewList = (reviewList, pagination, sortFL) => {
     const p = document.createElement("p");
     p.innerHTML = review.reviewContent;
 
-    
+
     const reviewImg = document.createElement("div");
     reviewImg.classList.add("review-img");
 
     if (review.imgList.length > 0) {
-      for (let image of review.imgList) { 
+      for (let image of review.imgList) {
         const img = document.createElement("img");
         img.classList.add("review-one-img");
         img.id = review.reviewNo;
@@ -674,51 +712,65 @@ const printReviewList = (reviewList, pagination, sortFL) => {
           selectReview(review.reviewNo, memberNo);
 
           setTimeout(() => {
-            displayflex(document.getElementById('reviewDetail'));
+            displayFlex(document.getElementById('reviewDetail'));
           }, '200');
         })
       }
     }
-    
+
     const createDate = document.createElement("div");
     createDate.classList.add("review-create-date");
 
     const dateSpan = document.createElement("span");
     dateSpan.innerText = review.createDate;
 
-    const btn = document.createElement("button");
-    btn.id = "R" + review.reviewNo;
+    if (Number(memberNo) != review.memberNo) {
+      const btn = document.createElement("button");
+      btn.id = review.reviewNo;
 
-    const icon = document.createElement("i");
-    icon.classList.add('fa-regular', 'fa-thumbs-up');
-
-    const helpSpan = document.createElement("span");
-    helpSpan.innerText = "도움돼요";
+      const icon = document.createElement("i");
+      icon.classList.add('fa-regular', 'fa-thumbs-up');
 
 
+      const helpSpan = document.createElement("span");
+      helpSpan.innerText = "도움돼요";
 
-    btn.append(icon, helpSpan);
+      if (review.likeCheck > 0) {
+        btn.classList.add("clicked", "helped-btn");
+      } else {
+        btn.classList.add("unclicked", "helped-btn");
+      }
 
-    if (review.likeCheck > 0) {
-      btn.classList.add("clicked", "helped-btn");
+      btn.append(icon, helpSpan);
+      createDate.append(dateSpan, btn);
+
+      /* 이벤트 추가 */
+
+      /* 도움돼요 버튼 */
+      btn.addEventListener('click', () => {
+        helpedClick(btn, review.reviewNo);
+
+      })
     } else {
-      btn.classList.add("unclicked", "helped-btn");
+      const span1 = document.createElement("span");
+      span1.innerText = "도움";
+
+      const span2 = document.createElement("span");
+      span2.classList.add('review-helped');
+      span2.innerText = review.likeCount;
+
+      span1.append(span2);
+
+      createDate.append(dateSpan, span1);
     }
 
-    createDate.append(dateSpan, btn);
+
     reviewContent.append(productName, p, reviewImg, createDate);
     li.append(reviewWriter, reviewContent);
     productReviewList.append(li);
 
     scrollToTag(document.getElementById('productReview'));
 
-    /* 이벤트 추가 */
-
-    /* 도움돼요 버튼 */
-    btn.addEventListener('click', () => { 
-      helpedClick(btn, review.reviewNo);
-
-    })
 
 
   }
@@ -730,7 +782,7 @@ const printReviewList = (reviewList, pagination, sortFL) => {
   const preBtn = document.createElement('button');
   preBtn.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
   preBtn.id = 'reviewPre';
-  
+
   const nextBtn = document.createElement('button');
   nextBtn.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
   nextBtn, id = 'reviewNext';
@@ -745,7 +797,7 @@ const printReviewList = (reviewList, pagination, sortFL) => {
     paginationArea.innerHTML = "";
     paginationArea.appendChild(preBtn);
   }
-  
+
 
 
   /* 이벤트 추가 */
@@ -758,14 +810,14 @@ const printReviewList = (reviewList, pagination, sortFL) => {
 
 
   });
-  
+
 
   /* 이전 페이지 버튼 */
   preBtn.addEventListener('click', () => {
     cp--;
     const productNo = getProductNo();
-    selectReviewList(productNo, cp , sortFL);
-    
+    selectReviewList(productNo, cp, sortFL);
+
 
   });
 
@@ -775,23 +827,23 @@ const printReviewList = (reviewList, pagination, sortFL) => {
 
 
 /* 리뷰 추천순, 최근 등록순 정렬하기 */
-document.getElementById('sortRecommend').addEventListener('click', (e) => { 
+document.getElementById('sortRecommend').addEventListener('click', (e) => {
 
-  if (! e.target.classList.contains('sort-clicked')) {
-    sortFl = 'R'; 
+  if (!e.target.classList.contains('sort-clicked')) {
+    sortFl = 'R';
     const productNo = getProductNo();
-    selectReviewList(productNo); 
+    selectReviewList(productNo);
 
     e.target.classList.add('sort-clicked');
     document.getElementById('sortNewest').classList.remove('sort-clicked');
   }
 })
 
-document.getElementById('sortNewest').addEventListener('click', (e) => { 
-  
-  if (!e.target.classList.contains('sort-clicked')) { 
-    
-    sortFl = 'N'; 
+document.getElementById('sortNewest').addEventListener('click', (e) => {
+
+  if (!e.target.classList.contains('sort-clicked')) {
+
+    sortFl = 'N';
     const productNo = getProductNo();
     selectReviewList(productNo);
     e.target.classList.add('sort-clicked');
@@ -805,14 +857,14 @@ document.getElementById('sortNewest').addEventListener('click', (e) => {
 const selectReviewListBySort = (productNo, sortFL) => {
   $.ajax({
     url: '/review/select',
-    data: { "productNo": productNo, "sortFl": sortFL},
+    data: { "productNo": productNo, "sortFl": sortFL },
     dataType: 'json',
-    success: (map) => { 
+    success: (map) => {
       printReviewList(map.reviewList, map.pagination, sortFL);
 
       cp = map.pagination.currentPage;
     },
-    error: () => { 
+    error: () => {
       console.log("리뷰 불러오기 중 에러 발생");
     }
   });
