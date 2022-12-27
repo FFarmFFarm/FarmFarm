@@ -11,7 +11,10 @@ public interface CommentService {
 
 	
 	// 댓글 불러오기~
-//	List<Comment> commentList(int boardNo);
 	List<Comment> commentList(int boardNo);
+
+	
+	// 댓글 추가하기~
+	int commentWrite(Comment comment);
 
 }

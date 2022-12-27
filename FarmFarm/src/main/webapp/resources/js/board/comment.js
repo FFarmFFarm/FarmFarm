@@ -100,3 +100,44 @@ function selectCommentList(){
         }
     });
 }
+
+// 댓글 등록
+const commentInsert = document.querySelector(".comment-insert");
+const writeComment = document.querySelector(".write-comment");
+
+commentInsert.addEventListener("click", e=>{
+
+    // 1. 로그인이 되었는가
+
+    // 댓글 작성이 됐는지 확인을 해볼까요~?
+    if(writeComment.value.trim().length == 0){
+        alert("댓글을 작성해주세요");
+        writeComment.value="";
+        writeComment.focus();
+        e.preventDefault();
+    }
+
+
+    // ajax로 댓글을 삽입해봅시다!
+    $.ajax({
+        url : "/board/comment/insert",
+        data : {"boardNo" : boardNo,
+                "memberNo" : memberNo,
+                "commentContent" : writeComment.value},
+        type : "post",
+        success : result=>{
+
+            if(result>0){
+                alert("댓글이 등록되었습니다");
+                writeComment.value=""; // 작성한 댓글 없애주기
+                selectCommentList(); // 다시 ajax로 불러옵시다!
+            }else{
+                alert("댓글 등록에 실패했습니다...");
+            }
+        },
+        error : (req, status, error)=>{
+            alert("댓글 등록 ajax 통신오류...ㅜㅠ");
+            console.log("댓글 등록 ajax 통신오류...ㅜㅠ");
+        }
+    });
+});

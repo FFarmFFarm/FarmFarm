@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -10,12 +11,12 @@
 <body>
      <section class="comment-area">
 
-            <div class="comment-write">
+            <form action="/comment/write/${boardNo}" class="comment-write">
                 <textarea class="write-comment" name="commentContent" id=""></textarea>
-                <button class="commentInsert">
+                <button type="button" class="comment-insert">
                     댓글<br>등록
                 </button>
-            </div>
+            </form>
 
             <ul class="comment-list">
                 <c:if test="${!empty board.commentList}">
@@ -23,12 +24,12 @@
                         <li class="comment-row  <c:if test="${comment.commentParent != 0 }"> comment-child </c:if>">
                             <div class="comment-writer">
                                 <div class="writer-profile">
-                                    <%-- <c:if test="${empty comment.profileImg}"> --%>
-                                        <img src="" alt=""><%-- 기본 이미지 주소 넣기 --%>	
-                                    <%-- </c:if>	
+                                    <c:if test="${empty comment.profileImg}">
+                                        <img src="/resources/images/myPage/profile/profileImg.png" alt=""><%-- 기본 이미지 주소 넣기 --%>	
+                                    </c:if>	
                                     <c:if test="${!empty comment.profileImg}">	
                                         <img src="${comment.profileImg}" alt="">	
-                                    </c:if> --%>	
+                                    </c:if>	
                                 </div>	
                                 <div class="writer-name">${comment.memberNickname}</div>	
                                 <%-- <div class="comment-like">	<i class="fa-solid fa-heart"></i> &nbsp;좋아요 </div>	 --%>

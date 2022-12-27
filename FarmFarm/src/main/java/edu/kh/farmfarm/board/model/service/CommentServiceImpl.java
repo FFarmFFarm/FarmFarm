@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.kh.farmfarm.board.model.dao.CommentDAO;
+import edu.kh.farmfarm.common.Util;
 //import edu.kh.farmfarm.board.model.vo.Comment;
 import edu.kh.farmfarm.mypage.model.vo.Comment;
 
@@ -17,14 +18,23 @@ public class CommentServiceImpl implements CommentService{
 
 	
 	// 댓글 불러오기~~
-//	@Override
-//	public List<Comment> commentList(int boardNo) {
-//		return dao.commentList(boardNo);
-//	}
-	
 	@Override
 	public List<Comment> commentList(int boardNo) {
 		return dao.commentList(boardNo);
 	}
+
+
+	// 댓글 추가하기~
+	@Override
+	public int commentWrite(Comment comment) {
+		
+		comment.setCommentContent(Util.XSSHandling(comment.getCommentContent()));
+		comment.setCommentContent(Util.newLineHandling(comment.getCommentContent()));
+		
+		return dao.commentWrite(comment);
+	}
+	
+	
+	
 
 }

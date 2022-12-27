@@ -116,15 +116,17 @@ if(boardDelete != null){
 
 // 게시글 수정하기!
 const boardUpdate = document.getElementById("boardUpdate");
-boardUpdate.addEventListener("click", ()=>{
+if(boardUpdate != null){
+    boardUpdate.addEventListener("click", ()=>{
+        
+        if(confirm("게시글을 수정하시겠습니까?")){
+            // if(boardTypeNo == 1){
     
-    if(confirm("게시글을 수정하시겠습니까?")){
-        // if(boardTypeNo == 1){
-
-        // }
-        const pathname = location.pathname
-        location.href = pathname + "/update" + location.search;
-    }
-})
+            // }
+            const pathname = location.pathname
+            location.href = pathname + "/update" + location.search;
+        }
+    })
+}
 
 
