@@ -73,17 +73,17 @@
               </section>
               <section class="update">
                 <div class="title">*현재 비밀번호</div>
-                <input type="password" name="memberPw" id="memberPw" placeholder="현재 비밀번호"
+                <input type="password" name="currentPw" id="currentPw" placeholder="현재 비밀번호"
                     maxlegnth="20">
+                <div id="pwConfirm" class="coner">현재 비밀번호를 입력해주세요.</div>
               </section>
               <section class="update">
                 <div class="title">*새 비밀번호</div>
-                <input type="password" name="memberPw" id="memberPw" placeholder="새 비밀번호"
+                <input type="password" name="newPw" id="newPw" placeholder="새 비밀번호"
                     maxlegnth="20">
-                <input type="password" name="memberPwConfirm" id="memberPwConfirm"
+                <input type="password" name="newPwConfirm" id="newPwConfirm"
                     placeholder="새 비밀번호 확인" maxlegnth="20">
-                <div id="pwConfirm" class="coner">영어, 숫자, 특수문자(!,@,#,-,_) 최소 6자 이상 입력해주세요.
-                </div>
+                <div id="pwConfirm" class="coner">영어, 숫자, 특수문자(!,@,#,-,_) 최소 6자 이상 입력해주세요.</div>
               </section>
               <section class="update">
                 <div class="title">이름</div>
@@ -144,7 +144,7 @@
     <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
 
     <script>
-      var sortFl = 'N';
+      var loginMemberPw = "${loginMember.memberPw}";
     </script>
 
     <!-- jquery -->
