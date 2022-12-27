@@ -1,0 +1,41 @@
+.board-nav{
+    font-size: 20px;
+    border-top: 1px solid var(--line-color);
+    border-bottom: 1px solid var(--line-color);
+    height: 70px;
+    display: flex;
+    padding-left: 35px;
+}
+
+.board-nav-area{
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 215px;
+    align-items: center;
+}
+
+.board-update{
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: var(--point-color);
+    color: white;
+    border: none;
+    letter-spacing: 2px;
+    font-size: var(--medium-font-size);
+    margin: auto;
+    margin-left: 145px;
+}
+
+.board-nav-area > span{
+    width: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nowType{
+    height: 100%;
+    border-bottom: 3px solid var(--point-color);
+}
