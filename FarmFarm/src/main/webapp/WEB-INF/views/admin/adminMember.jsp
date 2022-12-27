@@ -33,7 +33,7 @@
             <section class="admin-content-section">
                 <div class="upper-board">
                     <div class="title-div">
-                        <span class="member-select-title">회원 조회</span>
+                        <span class="member-select-title">회원 조회 ${memberListCount}</span>
                         <span class="member-search"> 
                             <input type="text" name="memberSearch" id="memberSearchInput" placeholder="검색">
                             <button type="button" id="memberSearchBtn"><i class="fa-solid fa-magnifying-glass"></i></button>

@@ -97,41 +97,40 @@
 		LEFT JOIN REPORT ON (MEMBER_NO = REPORT_TARGET_NO)
 		WHERE MEMBER_ID != 'admin'
 		
-		<!-- 
 		<if test='statFilter != 4'>
 			AND MEMBER_DEL_FL = 'N'
-			<if test='authFilter==0 and statFilter==0'> 전체 -->
-				<!-- ORDER BY MEMBER_NO
+			<if test='authFilter==0 and statFilter==0'> <!--전체 -->
+				ORDER BY MEMBER_NO
 			</if>
-			<if test='authFilter==1'> 판매자인증: 미등록 -->
-				<!-- AND AUTHORITY = 0
+			<if test='authFilter==1'> <!--판매자인증: 미등록 -->
+				AND AUTHORITY = 0
 			</if>		
-			<if test='authFilter==2'> 판매자인증: 판매자 -->
-				<!-- AND AUTHORITY = 1
+			<if test='authFilter==2'> <!--판매자인증: 판매자 -->
+				AND AUTHORITY = 1
 			</if>
-			<if test='authFilter==3'> 판매자인증: 인증대기 -->
-				<!-- AND AUTHORITY = 3
+			<if test='authFilter==3'> <!--판매자인증: 인증대기 -->
+				AND AUTHORITY = 3
 			</if>
 			
-			<if test='statFilter==1'> 상태: 활동중 -->
-				<!-- AND REPORT_PENALTY IS NULL
+			<if test='statFilter==1'> <!--상태: 활동중 -->
+				AND REPORT_PENALTY IS NULL
 			</if>
-			<if test='statFilter==2'> 상태: 신고접수 -->
-				<!-- AND REPORT_PENALTY = 'N' 
+			<if test='statFilter==2'> <!--상태: 신고접수 -->
+				AND REPORT_PENALTY = 'N' 
 				AND REPORT_TYPE IS NOT NULL
 			</if>
-			<if test='statFilter==3'> 상태: 정지 -->
-				<!-- AND REPORT_PENALTY = 'Y' 
+			<if test='statFilter==3'> <!--상태: 정지 -->
+				AND REPORT_PENALTY = 'Y' 
 				AND PROCESS_DATE IS NOT NULL
 				ORDER BY MEMBER_NO
 			</if>
 		</if>
-		<if test='statFilter==4'> 상태: 강제 탈퇴 -->
-			<!-- AND MEMBER_DEL_FL = 'Y'
+		<if test='statFilter==4'> <!--상태: 강제 탈퇴 -->
+			AND MEMBER_DEL_FL = 'Y'
 			AND REPORT_PENALTY = 'Y' 
 			AND PROCESS_DATE IS NOT NULL
 			ORDER BY MEMBER_NO
-		</if> -->
+		</if> 
 	</select>
 
 

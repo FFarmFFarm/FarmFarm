@@ -126,7 +126,7 @@ public class AdminController {
 			System.out.println("관리자만 접근 가능합니다.");
 		}
 		
-		model.addAttribute(map);
+		model.addAttribute("map", map);
 		
 		return new Gson().toJson(map);
 	}

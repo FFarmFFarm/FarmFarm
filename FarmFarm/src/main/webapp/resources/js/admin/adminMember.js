@@ -64,14 +64,14 @@ const printMemberList = (memberList, pagination) => {
     printPagination(adminPagination, pagination);
 
 
-    console.log(memberListCount);
-    for(let count of memberListCount){
-        // no
-        const td1 = document.createElement("td");
-        count++;
-        td1.innerText = td1.innerText+count;
-        console.log(td1);
-    }
+    // console.log(memberListCount);
+    // const td1 = document.createElement("td");
+    // for(let i=0; i<60; i++){
+    //     // no
+    //     i++;
+    //     td1.innerText = td1.innerText+i;
+    //     console.log(td1);
+    // }
     // td1.classList.add("report-member-seq");
     // td1.style.color = '#2b8c44';
     // td1.style.opacity = '50%';
@@ -93,11 +93,11 @@ const printMemberList = (memberList, pagination) => {
 
         
         // no
-        // const td1 = document.createElement("td");
-        // td1.classList.add("report-member-seq");
+        const td1 = document.createElement("td");
+        td1.classList.add("report-member-seq");
 
-        // i++;
-        // td1.innerText = td1.innerText+i;
+        i++;
+        td1.innerText = td1.innerText+i;
 
 
         // 회원번호
@@ -168,7 +168,7 @@ const printMemberList = (memberList, pagination) => {
 
 
         // 조립
-        tr.append(td2, td3, td4, td5, td6, td7, td8, inputMemberId);
+        tr.append(td1, td2, td3, td4, td5, td6, td7, td8, inputMemberId);
         tbody.append(tr);
 
 
@@ -472,10 +472,6 @@ const printMemberList = (memberList, pagination) => {
         })
 
     }
-    
-    
-
-
 }
 
 
@@ -534,35 +530,8 @@ const printPagination = (adminPagination, pagination) => {
 }
 
 
-
-// HTML 문서가 모두 읽어진 후에!!!
-// 바로 selectMemberList() 호출
-// 반대로하면 읽지 못함.
-// todo: 전체 회원정보 조회
-// 첫 페이지 불러오기
-document.addEventListener("DOMContentLoaded", () => {
-    selectMemberList();
-});
-
-
-// 2페이지 이후에 불러오기
-/* 페이지네이션 박스에 클릭 이벤트 추가 */
-const selectMemberListEvent = (element, cp) => {
-
-    element.addEventListener('click', () => {
-        document.getElementById("tbody").innerHTML = "";
-        document.getElementById("adminPaginationArea").innerHTML = "";
-        selectMemberList(cp);
-    });
-}
-
-
-
-
-
-
-
 //todo: 필터 드롭다운 메뉴
+//fix: 페이지네이션 이후에 수정하기! 드롭다운 메뉴 동시에 열림..
 const dropBtn1 = document.getElementById("dropBtn1");
 const dropBtn2 = document.getElementById("dropBtn2");
 const dropMenu1 = document.getElementById("dropMenu1");
@@ -589,7 +558,26 @@ dropUl2.addEventListener("click", () => {
 
 
 
-//fix: 페이지네이션 이후에 수정하기! 드롭다운 메뉴 동시에 열림..
+// HTML 문서가 모두 읽어진 후에!!!
+// 바로 selectMemberList() 호출
+// 반대로하면 읽지 못함.
+// todo: 전체 회원정보 조회
+// 첫 페이지 불러오기
+document.addEventListener("DOMContentLoaded", () => {
+    selectMemberList();
+});
+
+
+// 2페이지 이후에 불러오기
+/* 페이지네이션 박스에 클릭 이벤트 추가 */
+const selectMemberListEvent = (element, cp) => {
+
+    element.addEventListener('click', () => {
+        document.getElementById("tbody").innerHTML = "";
+        document.getElementById("adminPaginationArea").innerHTML = "";
+        selectMemberList(cp);
+    });
+}
 
 
 
@@ -600,18 +588,35 @@ const statFiltering = document.getElementsByClassName("statFilter");
 
 // 판매자인증 필터 authFilter
 // 0 전체, 1 미등록, 2 판매자, 3 인증대기
-for(auth of authFiltering){
-    auth.addEventListener("click", ()=>{
-        let authFl = getFilterNum(auth.id);
-        authFilter = authFl;  // authFilter : jsp에서 전역변수로 선언함.
-        selectMemberListFiltering();
-    })
-}
+// for(auth of authFiltering){
+//     auth.addEventListener("click", ()=>{
+//         // document.getElementById("tbody").innerHTML = "";
+//         // document.getElementById("adminPaginationArea").innerHTML = "";
+
+//         console.log(auth);
+//         console.log(authFiltering);
+//         let authFl = getFilterNum(auth.id);
+//         authFilter = authFl;  // authFilter : jsp에서 전역변수로 선언함.
+//         selectMemberListFiltering();
+//         console.log(authFilter);
+//     })
+// }
+
+document.getElementById("a1").addEventListener("click", ()=>{
+
+    let auth = getFilterNum("a1");
+    authFilter = auth;
+    selectMemberListFiltering();
+    console.log(auth);
+});
 
 // 상태 필터 ststFilter
 // 0 전체, 1 활동중, 2 신고 접수, 3 정지, 4 탈퇴
 for(stat of statFiltering){
     stat.addEventListener("click", () => {
+        // document.getElementById("tbody").innerHTML = "";
+        // document.getElementById("adminPaginationArea").innerHTML = "";
+
         let statFl = getFilterNum(stat.id);
         statFilter = statFl;
         selectMemberListFiltering();
