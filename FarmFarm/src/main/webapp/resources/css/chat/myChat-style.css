@@ -507,6 +507,8 @@ body{
 #readingArea{
     height: 470px;
     overflow-y: scroll;
+    scroll-behavior: smooth;
+    transition-duration: 0.3s;
 }
 
 /* 날짜 라벨 */
@@ -710,8 +712,8 @@ body{
     border-radius: 50%;
 
     position: absolute;
-    right: 30px;
-    bottom: 50px;
+    right: 45px;
+    bottom: 70px;
 
     z-index: 30;
 
@@ -899,6 +901,7 @@ body{
     position: absolute;
     z-index: 30;
     background-color: #e3f0e7;
+    border-radius: 10px;
 }
 
 #emptyChat{

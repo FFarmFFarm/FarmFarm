@@ -560,7 +560,10 @@ document.getElementById('readingArea').addEventListener('scroll', () => {
     let roomHeight = calculateRoomHeight();
     let nowHeight = calcuateNowHeight();
 
-    if(nowHeight < roomHeight - 300) { // 스크롤 최하단보다 300만큼 높은 경우 버튼을 보임
+    // console.log(roomHeight);
+    // console.log(nowHeight);
+    
+    if(nowHeight < roomHeight - 1500) { // 스크롤 최하단보다 300만큼 높은 경우 버튼을 보임
         document.getElementById('bottomBtn').style.display='flex';
     } else { // 아니면 버튼을 가림
         document.getElementById('bottomBtn').style.display='none';

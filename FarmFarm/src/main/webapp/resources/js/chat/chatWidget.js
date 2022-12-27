@@ -6,6 +6,7 @@
 //     console.log(showChatWidget.checked);
 // })
 
+/* 채팅 위젯 열기  */
 document.getElementById('showChatWidget').addEventListener('change', (e)=>{
     if(e.target.checked) {
         document.querySelector('.chatWidget-container').style.display='block';
@@ -13,3 +14,8 @@ document.getElementById('showChatWidget').addEventListener('change', (e)=>{
         document.querySelector('.chatWidget-container').style.display='none';
     }
 })
+
+/* 채팅 내역 받아오기 */
+
+
+/* 소켓 열어서 받아오기만 하기 */

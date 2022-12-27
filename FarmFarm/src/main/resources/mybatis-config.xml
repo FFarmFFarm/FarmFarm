@@ -57,6 +57,7 @@
 		<mapper resource="/mappers/admin-mapper.xml"/>
 		<mapper resource="/mappers/postList-mapper.xml"/>
 		<mapper resource="/mappers/chat-mapper.xml"/>
+		<mapper resource="/mappers/chatWidget-mapper.xml"/>
   	</mappers>
 	
 </configuration>
