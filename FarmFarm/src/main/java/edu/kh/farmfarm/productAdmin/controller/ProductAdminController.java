@@ -32,7 +32,7 @@ public class ProductAdminController {
 	// 팜팜 상품 등록
 	@PostMapping("/admin/enroll")
 	public String enrollProduct(Product product,
-			@RequestParam(value="productImg", required=false) List<MultipartFile> productImgList,
+			@RequestParam(value="productImage", required=false) List<MultipartFile> productImgList,
 			RedirectAttributes ra, HttpSession session,
 			@RequestHeader("referer") String referer) throws Exception {
 		
