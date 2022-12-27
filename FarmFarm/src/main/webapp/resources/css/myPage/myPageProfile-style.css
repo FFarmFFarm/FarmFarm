@@ -1,0 +1,217 @@
+a.setting > span,
+a.setting > i {
+  font-weight: bold;
+  color: var(--point-color);
+}
+
+/* 마이페이지 작성 게시글 목록 */
+.board-list {
+  width: 750px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: space-between;
+  justify-content: center;
+}
+
+.board-list-title {
+  font-size: var(--large-font-size);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  width: 100%;
+  height: 100px;
+  border-bottom: 1px solid var(--main-font-color);
+  font-weight: bold;
+}
+
+.sub-update{
+  font-size: var(--small-font-size);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  height: 25px;
+  margin-right: 15px;
+  color: var(--point-color);
+}
+
+.profile-form{
+    width: 400px;
+    margin: 55px auto;
+}
+
+.profile-form input{
+    width: 400px;
+    height: 40px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    margin-top: 10px;
+    padding-left: 15px;
+    font-size: var(--medium-font-size);
+    color: #888;
+}
+
+.coner{
+    font-size: var(--main-font-size);
+    color: var(--point-color);
+    margin: 4px 0 0 13px;
+}
+
+.title{
+    font-size: var(--main-font-size);
+    margin-top: 30px;
+    margin-left: 12px;
+}
+
+.tel{
+    display: inline-block;
+    position: relative;
+}
+
+.find-btn{
+    position: absolute;
+    border: none;
+    background-color: var(--point-color);
+    color: var(--background-color);
+    width: 100px;
+    height: 27px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+}
+
+.address-btn{
+    top: 1045px;
+    left: 720px;
+}
+
+.imgage{
+  display: flex;
+  flex-direction: column;
+}
+
+.farm-img label{
+    margin: auto;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: var(--background-color);
+}
+
+.farm-img input[type="file"]{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+}
+
+.farm-img-upload{
+    border: 1px solid #ccc;
+    width: 180px;
+    height: 150px;
+    overflow: hidden;
+}
+
+.farm-img-upload1{
+    display: table;
+    border: 1px solid #ccc;
+    width: 180px;
+    height: 120px;
+    overflow: hidden;
+}
+
+.farm-img-upload1 p{
+    text-align: center;
+
+}
+
+.farm-img-upload:first-child{
+    margin-right: 10px;
+}
+
+.profile-img{
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  margin: auto;
+}
+
+.profile-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 이미지 삭제 버튼 */
+.delete{
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  background-color: var(--point-color);
+  position: absolute;
+  top: 183px;
+  right: 304px;
+  cursor: pointer;
+  font-size: 22px;
+  text-align: center;
+  color: var(--background-color);
+}
+
+.delete-image{
+  font-family: "NotoSansKR-Bold";
+
+}
+
+.update-div{
+   width: 400px;
+   height: 40px;
+   border-bottom: 1px solid #ccc;
+   margin-top: 10px;
+   display: flex;
+   align-items: center;
+}
+
+.update-div > p{
+  padding-left: 15px;
+  font-size: var(--medium-font-size);
+  color: var(--main-font-color);
+}
+
+.update-btn{
+    border: 0;
+    width: 100%;
+    height: 45px;
+    display: block;
+    margin: 25px 0;
+    color: var(--background-color);
+    background-color: var(--point-color);
+    cursor: pointer;
+    font-size: var(--medium-font-size);
+    border-radius: 5px;
+    font-weight: 600;
+}
+
+.confirm{
+    color: var(--point-color);
+    font-size: 14px;
+}
+.error{
+    color: red;
+    font-size: 14px;
+}
+.no{
+    color: black;
+    font-size: 14px;
+}
+
+
+

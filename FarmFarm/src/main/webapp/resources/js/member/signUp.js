@@ -160,7 +160,6 @@ if(farmImg != null){
             return;
         }
     })
-
 }
 
 
@@ -334,27 +333,11 @@ memberName.addEventListener("input", function(){
     }
     const regEx = /^[a-zA-Z가-힇]{2,10}$/;
     if(regEx.test(memberName.value)){
+        nameConfirm.innerText = "유효한 이름입니다."
+        nameConfirm.classList.add("confirm");
+        nameConfirm.classList.remove("error");
+        checkObj.memberName=true;
 
-        $.ajax({
-            url : "/nameDupCheck",
-            data : {"memberName" : memberName.value},
-            success : (result)=>{
-                if(result == 0){ // 사용 가능
-                    nameConfirm.innerText="사용 가능한 이름입니다.";
-                    nameConfirm.classList.add("confirm");
-                    nameConfirm.classList.remove("error");
-                    checkObj.memberName=true;
-                }else{
-                    nameConfirm.innerText="사용 중인 이름입니다.";
-                    nameConfirm.classList.add("error");
-                    nameConfirm.classList.remove("confirm");
-                    checkObj.memberName=false;
-                }
-            },
-            error : ()=>{
-                console.log("ajax 통신 실패");
-            }
-        })
     }else{
         nameConfirm.innerText="이름 형식이 유효하지 않습니다.";
         nameConfirm.classList.add("error");

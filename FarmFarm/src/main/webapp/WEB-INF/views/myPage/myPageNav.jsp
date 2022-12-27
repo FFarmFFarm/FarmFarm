@@ -19,7 +19,7 @@
           <a href="/myPage/wishList" class="wish">
             <span>찜 목록</span><i class="fa-solid fa-chevron-right"></i
           ></a>
-          <a href="" class="setting">
+          <a href="/myPage/profile" class="setting">
             <span>개인 정보 수정</span><i class="fa-solid fa-chevron-right"></i
           ></a>
         </section>

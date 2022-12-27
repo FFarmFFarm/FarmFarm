@@ -145,6 +145,17 @@ public class MyPageController {
 		return "myPage/myPageWish";
 	}
 	
+	/** 마이페이지 프로필 
+	 * @return
+	 */
+	@GetMapping("/profile")
+	public String myPageProfile(
+			@SessionAttribute("loginMember")Member loginMember,
+			Model model) {
+		
+		return "myPage/myPageProfile";
+	}
+	
 	
 
 	
