@@ -34,19 +34,20 @@
 		<if test=' keyword != null '>
 			AND POST_TITLE LIKE '%${keyword}%' 
 		</if>
+		ORDER BY POST_SOLDOUT_FL,
 		<if test=' sort != null'>
 			<choose>
 				<when test=' sort == "views" '>
-					ORDER BY POST_VIEW DESC
+					POST_VIEW DESC
 				</when>
 				<when test=' sort == "newest" '>
-					ORDER BY POST_NO DESC
+					POST_NO DESC
 				</when>
 				<when test=' sort == "priceLowToHigh" '>
-					ORDER BY UNIT_PRICE
+					UNIT_PRICE
 				</when>
 				<when test=' sort == "priceHighToLow" '>
-					ORDER BY UNIT_PRICE DESC
+					UNIT_PRICE DESC
 				</when>
 			</choose>
 		</if>
@@ -79,19 +80,20 @@
 		<if test=' keyword != null '>
 			AND POST_TITLE LIKE '%${keyword}%' 
 		</if>
+		ORDER BY POST_SOLDOUT_FL,
 		<if test=' sort != null'>
 			<choose>
 				<when test=' sort == "views" '>
-					ORDER BY POST_VIEW DESC
+					POST_VIEW DESC
 				</when>
 				<when test=' sort == "newest" '>
-					ORDER BY POST_NO DESC
+					POST_NO DESC
 				</when>
 				<when test=' sort == "priceLowToHigh" '>
-					ORDER BY UNIT_PRICE
+					UNIT_PRICE
 				</when>
 				<when test=' sort == "priceHighToLow" '>
-					ORDER BY UNIT_PRICE DESC
+					UNIT_PRICE DESC
 				</when>
 			</choose>
 		</if>
