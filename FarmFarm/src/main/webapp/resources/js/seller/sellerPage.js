@@ -74,7 +74,7 @@ const updateBtn = document.querySelectorAll(".update-btn");
 for(let i=0; i<updateBtn.length; i++){
   updateBtn[i].addEventListener("click",()=>{
 
-    url = "/post/" + updateBtn[i].getAttribute("id") +"/update";
+    url = "/post/" + updateBtn[i].getAttribute("id") +"/update?cp=" + cp ;
 
     location.href= url;
   })

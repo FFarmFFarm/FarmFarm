@@ -13,12 +13,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.kh.farmfarm.common.Pagination;
 import edu.kh.farmfarm.common.Util;
 import edu.kh.farmfarm.member.model.VO.Member;
 import edu.kh.farmfarm.postDetail.model.vo.Post;
 import edu.kh.farmfarm.postDetail.model.vo.PostImg;
 import edu.kh.farmfarm.seller.model.dao.SellerDAO;
-import edu.kh.farmfarm.seller.model.vo.SellerPagination;
 
 @Service
 public class SellerServiceImpl implements SellerService{
@@ -39,7 +39,7 @@ public class SellerServiceImpl implements SellerService{
 		
 		int listCount = dao.getListCount(memberNo);
 		
-		SellerPagination pagination = new SellerPagination(listCount, cp);
+		Pagination pagination = new Pagination(listCount, cp, 10, 5);
 		
 		List<Post> postList = dao.selectPostList(pagination, memberNo);
 		

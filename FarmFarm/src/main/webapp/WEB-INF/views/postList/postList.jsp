@@ -151,8 +151,12 @@
                 <c:if test="${! empty postMap}">
                 
                     <c:forEach items="${postMap.postList}" var="map">
-                
                         <a href="/post/${map.postNo}" class="post-box">
+                            <c:if test="${map.postSoldoutFl==1}">
+                                <div class="sold-out-blind">
+                                    <img src="/resources/images/postList/out-of-stock.png">
+                                </div>
+                            </c:if>
                             <div class="post-thumbnail">
                                 <c:if test="${! empty map.thumbnailImg}">
                                     <img src="${map.thumbnailImg}">
