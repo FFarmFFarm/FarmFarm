@@ -1,5 +1,6 @@
 package edu.kh.farmfarm.mypage.model.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.farmfarm.member.model.VO.Member;
 import edu.kh.farmfarm.mypage.model.vo.Comment;
+import edu.kh.farmfarm.productDetail.model.vo.Review;
 
 public interface MyPageService {
 
@@ -69,6 +71,16 @@ public interface MyPageService {
 	 * @return
 	 */
 	int orderConfirm(int orderNo);
+
+
+	/** 리뷰 작성 
+	 * @param webPath
+	 * @param filePath
+	 * @param review
+	 * @param reviewImgList
+	 * @return
+	 */
+	int writeReview(String webPath, String filePath, Review review, List<MultipartFile> imageList) throws IOException;
 
 
 

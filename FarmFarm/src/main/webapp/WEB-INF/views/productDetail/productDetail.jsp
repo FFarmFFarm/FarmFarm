@@ -259,6 +259,9 @@
                 </div>
               </div>
               <div class="review-content">
+                <c:if test="${review.memberNo == loginMember.memberNo}">
+                  <button type="button" class="review-update-btn" id="${review.reviewNo}">수정하기</button>
+                </c:if>
                 <span>${product.productName}</span>
                 <p>
                   ${review.reviewContent}
@@ -272,17 +275,24 @@
                 </div>
                 <div class="review-create-date">
                   <span>${review.createDate}</span>
+
+                <c:if test="${review.memberNo != loginMember.memberNo}">
+
                   <c:if test="${review.likeCheck > 0}">
-                  <button class="clicked helped-btn" id="R${review.reviewNo}">
-                    <i class="fa-regular fa-thumbs-up "></i>
-                    <span>도움돼요<span>
-                  </button>
+                    <button class="clicked helped-btn" id="R${review.reviewNo}">
+                      <i class="fa-regular fa-thumbs-up "></i>
+                      <span>도움돼요<span>
+                      </button>
+                    </c:if>
+                    <c:if test="${review.likeCheck == 0}">
+                      <button class="unclicked helped-btn" id="R${review.reviewNo}">
+                        <i class="fa-regular fa-thumbs-up "></i>
+                        <span>도움돼요<span>
+                      </button>
+                    </c:if>
                   </c:if>
-                  <c:if test="${review.likeCheck == 0}">
-                  <button class="unclicked helped-btn" id="R${review.reviewNo}">
-                    <i class="fa-regular fa-thumbs-up "></i>
-                    <span>도움돼요<span>
-                  </button>
+                  <c:if test="${review.memberNo == loginMember.memberNo}">
+                    <span>도움 <span class="review-helped">${review.likeCount}</span> </span>
                   </c:if>
                 </div>
               </div>
