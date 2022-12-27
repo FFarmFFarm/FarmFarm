@@ -2,12 +2,14 @@ package edu.kh.farmfarm.mypage.model.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.farmfarm.board.model.vo.Board;
@@ -20,6 +22,7 @@ import edu.kh.farmfarm.mypage.model.vo.Order;
 import edu.kh.farmfarm.mypage.model.vo.OrderPagination;
 import edu.kh.farmfarm.mypage.model.vo.Wish;
 import edu.kh.farmfarm.productDetail.model.vo.Review;
+import edu.kh.farmfarm.productDetail.model.vo.ReviewImg;
 
 @Service
 public class MyPageServiceImpl implements MyPageService {
@@ -189,6 +192,74 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public int orderConfirm(int orderNo) {
 		return dao.orderConfirm(orderNo);
+	}
+	
+	
+	/** 리뷰 작성
+	 *
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int writeReview(String webPath, String filePath, 
+			Review review, 
+			List<MultipartFile> imageList) throws IOException {
+		
+		review.setReviewContent(Util.XSSHandling(review.getReviewContent()));
+		
+		review.setReviewContent(Util.newLineHandling(review.getReviewContent()));
+		
+		int reviewNo = dao.writeReview(review);
+		
+		if(reviewNo > 0) {
+//			imageList: 실제 파일이 담겨있는 리스트
+//			boardImageList: DB에 삽입할 이미지 정보만 담겨있는 리스트
+//			reNameList: 변경된 파일명만 담겨있는 리스트
+			
+			List<ReviewImg> reviewImgList = new ArrayList<ReviewImg>();
+			List<String> renameList = new ArrayList<String>();
+			
+			for(int i=0; i<imageList.size(); i++) {
+				
+				if(imageList.get(i).getSize() > 0) {
+					
+					ReviewImg img = new ReviewImg();
+					
+					String rename = Util.fileRename(imageList.get(i).getOriginalFilename());
+					renameList.add(rename);
+					
+					img.setReviewImgPath(webPath + rename); 
+					
+					img.setReviewImgOrder(i);
+					
+					img.setReviewNo(review.getReviewNo());
+					
+					reviewImgList.add(img);
+					
+				}
+				
+			}
+			
+			if(!reviewImgList.isEmpty()) {
+				
+				int result = dao.insertReviewImgList(reviewImgList);
+				
+				if(result == reviewImgList.size()) {
+					
+					for(int i=0; i<reviewImgList.size(); i++) {
+						
+						int index = reviewImgList.get(i).getReviewImgOrder();
+						
+						imageList.get(index).transferTo(new File(filePath+renameList.get(i)));
+						
+					}
+					
+				}
+				
+			}
+			
+		}
+		
+		return reviewNo;
 	}
 
 }

@@ -27,6 +27,7 @@ public class Product {
 	private int wishCheck;
 	private String soldoutFl;
 	private String sortFl;
+	private int reviewCheck;
 	
 	private List<ProductImg> imgList;
 	

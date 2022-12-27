@@ -1,6 +1,8 @@
 package edu.kh.farmfarm.mypage.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +20,7 @@ import com.google.gson.Gson;
 
 import edu.kh.farmfarm.member.model.VO.Member;
 import edu.kh.farmfarm.mypage.model.service.MyPageService;
+import edu.kh.farmfarm.productDetail.model.vo.Review;
 
 @RestController
 public class myPageRestController {
@@ -122,6 +125,26 @@ public class myPageRestController {
 	public int orderConfirm(int orderNo) {
 		
 		return service.orderConfirm(orderNo);
+	}
+	
+	@PostMapping("/order/review")
+	public int writeReview(Review review, String reviewContent,
+			@SessionAttribute("loginMember") Member loginMember,
+			HttpServletRequest req,
+			@RequestParam(value="reviewImg", required = false) List<MultipartFile> imageList
+
+			) throws IOException {
+		
+		review.setMemberNo(loginMember.getMemberNo());
+		
+		String webPath = "/resources/images/product/review/";
+		
+		String filePath = req.getSession().getServletContext().getRealPath(webPath);
+		
+		int result = service.writeReview(webPath, filePath, review, imageList);
+		
+		
+		return result;
 	}
 	
 	
