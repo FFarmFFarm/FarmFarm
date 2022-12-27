@@ -10,21 +10,23 @@
 <!-- 채팅 위잿 영역 -->
 <!-- 채팅 위젯은 최대 6개입니다. -->
 
-<form action="/chat/shortcut" method="POST"class="chatWidget-container" >
+<div class="chatWidget-container" >
   
   <div class="chatWidget-header">
     <div class="chatWidget-title">
       채팅
     </div>
     <!-- 채팅방 전체화면으로 이동하기 -->
-    <a href='/chat' id="goChatRoom" >
-      더보기&nbsp;<i class="fa-solid fa-chevron-right"></i>
-    </a>
+    <form action="/chat" method="POST">
+      <button id="goChatRoom">
+        더보기&nbsp;<i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </form>
   </div>
 
-  <div id="chatWidgetBody">
+  <form action="/chat/shortcut" method="POST" id="chatWidgetBody">
     <!-- 채팅 위젯에 표시될 메뉴(최대 6개) -->
-  </div> <!-- end body -->
+  </form> <!-- end body -->
 
   <div id="chatWidgetFooter">
     채팅 목록을 불러오고 있습니다...

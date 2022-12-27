@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 
@@ -92,10 +93,11 @@ public class ChatWidgetController {
 	
 	
 	// 선택한 방으로 이동
-	@PostMapping("chat/shortcut")
-	private String goSelectedRoom(int roomNo, Model model) {
+	@PostMapping("/chat/shortcut")
+	private String goSelectedRoom(int roomNo, Model model, RedirectAttributes ra) {
 		
-		model.addAttribute("shortcutNo", roomNo);
+		ra.addFlashAttribute("shortcutNo", roomNo);
+		
 		
 		return "redirect:/chat";
 	}

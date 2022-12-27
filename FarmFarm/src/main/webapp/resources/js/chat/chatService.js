@@ -36,7 +36,7 @@ window.addEventListener("DOMContentLoaded", ()=>{
 
     if(shortcutNo > 0) {
         shortcut(shortcutNo);
-        history.replaceState("", "", "/chat");
+        // history.replaceState("", "", "/chat");
     }
 })
 
