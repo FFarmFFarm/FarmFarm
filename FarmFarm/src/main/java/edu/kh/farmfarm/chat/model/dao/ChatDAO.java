@@ -11,6 +11,7 @@ import edu.kh.farmfarm.chat.model.vo.Chat;
 import edu.kh.farmfarm.chat.model.vo.ChatImg;
 import edu.kh.farmfarm.chat.model.vo.ChatRoom;
 import edu.kh.farmfarm.member.model.VO.Member;
+import edu.kh.farmfarm.postDetail.model.vo.Post;
 
 @Repository
 public class ChatDAO {
@@ -63,8 +64,8 @@ public class ChatDAO {
 	 * @param roomNo
 	 * @return 참가중인 회원의 번호
 	 */
-	public ChatRoom selectRoomInfo(int roomNo) {
-		return sqlSession.selectOne("chatMapper.selectPostNoOfRoom", roomNo);
+	public ChatRoom getRoomInfo(int roomNo) {
+		return sqlSession.selectOne("chatMapper.getRoomInfo", roomNo);
 	}
 
 	/** 채팅 번호 찾기...
@@ -124,6 +125,22 @@ public class ChatDAO {
 	 */
 	public int insertNewRoom(ChatRoom chatRoom) {
 		return sqlSession.insert("chatMapper.insertNewRoom", chatRoom);
+	}
+
+	/** 채팅방의 상품 번호를 가져옴
+	 * @param roomNo
+	 * @return
+	 */
+	public int selectRoomPostNo(int roomNo) {
+		return sqlSession.selectOne("chatMapper.selectRoomPostNo", roomNo);
+	}
+
+	/** 상품 정보(썸네일. 한줄소개.)
+	 * @param postNo
+	 * @return
+	 */
+	public Post selectPostInfo(int postNo) {
+		return sqlSession.selectOne("postListMapper.selectPostInfo", postNo);
 	}
 
 

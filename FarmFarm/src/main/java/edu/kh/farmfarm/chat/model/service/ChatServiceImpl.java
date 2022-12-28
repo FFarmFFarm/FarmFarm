@@ -16,6 +16,7 @@ import edu.kh.farmfarm.chat.model.vo.ChatImg;
 import edu.kh.farmfarm.chat.model.vo.ChatRoom;
 import edu.kh.farmfarm.common.Util;
 import edu.kh.farmfarm.member.model.VO.Member;
+import edu.kh.farmfarm.postDetail.model.vo.Post;
 
 @Service
 public class ChatServiceImpl implements ChatService {
@@ -51,7 +52,7 @@ public class ChatServiceImpl implements ChatService {
 
 	// 채팅방 참가자 정보를 가져옴
 	@Override
-	public ChatRoom selectRoomInfo(int roomNo) {
+	public ChatRoom getRoomInfo(int roomNo) {
 		return dao.getRoomInfo(roomNo);
 	}
 	
@@ -161,6 +162,15 @@ public class ChatServiceImpl implements ChatService {
 		}
 		
 		return roomNo;
+	}
+
+	// 해당 채팅방의 상품 정보를 가져옴
+	@Override
+	public Post selectRoomPostInfo(int roomNo) {
+		// roomNo를 이용해서 postNo를 검색
+		int postNo = dao.selectRoomPostNo(roomNo);
+		
+		return dao.selectPostInfo(postNo);
 	}
 
 	

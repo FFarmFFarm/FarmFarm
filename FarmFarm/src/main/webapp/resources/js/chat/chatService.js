@@ -84,8 +84,11 @@ const shortcut = (shortcutNo) => {
             // 채팅 내역
             let chatHistory = response.data.chatHistory
 
+            // 상품 정보
+            let postInfo = response.data.postInfo;
+
             // 채팅방 만들기
-            makeChatRoom(myMemberNo, chatHistory, partnerProfileImg, partnerNickname);
+            makeChatRoom(myMemberNo, chatHistory, partnerProfileImg, partnerNickname, postInfo);
 
             // 블라인드 해제
             document.getElementById('roomBodyBlinder').style.display = 'none';
@@ -146,10 +149,10 @@ const makeChatPreviewBox = (chatRoomInfo) => {
     // 데이터 넣기
     packUpElement(chatPreviewBox, 'chat-preview-box', null);
     
-    if(chatRoomInfo.profileImg == undefined ) { // 이미지가 없는 경우 기본 이미지
+    if(chatRoomInfo.profileImg2 == undefined ) { // 이미지가 없는 경우 기본 이미지
         packUpElement(profileImg, 'profile-img', "<img src='/resources/images/member/user.png'>");
     } else {
-        packUpElement(profileImg, 'profile-img', chatRoomInfo.profileImg2);
+        packUpElement(profileImg, 'profile-img', "<img src=" + chatRoomInfo.profileImg2 + ">");
     }
     
     packUpElement(boxLabel, 'box-label', null);
@@ -218,8 +221,11 @@ const chatPreviewBoxEvent = (chatPreviewBox) => {
             // 채팅 내역
             let chatHistory = response.data.chatHistory
 
+            // 상품 정보
+            let postInfo = response.data.postInfo;
+
             // 채팅방 만들기
-            makeChatRoom(myMemberNo, chatHistory, profileImg2, memberNickname2);
+            makeChatRoom(myMemberNo, chatHistory, profileImg2, memberNickname2, postInfo);
 
         }).catch(function (error) {
             console.log(error);
@@ -228,12 +234,15 @@ const chatPreviewBoxEvent = (chatPreviewBox) => {
 }
 
 /* 채팅방을 만드는 함수 */
-const makeChatRoom = (myMemberNo, chatHistory, profileImg2, memberNickname2) => {
+const makeChatRoom = (myMemberNo, chatHistory, profileImg2, memberNickname2, postInfo) => {
 
     // 라벨 영역
     const postImg = document.getElementById('postImg');
+    postImg.innerHTML = "<img src=" + postInfo.thumbnailImg + ">";
+
     const postTitle = document.getElementById('postTitle');
-    
+    postTitle.innerHTML = postInfo.postTitle;
+
     // 읽기 영역
     const readingArea = document.getElementById('readingArea');
 

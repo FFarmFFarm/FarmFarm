@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import edu.kh.farmfarm.chat.model.vo.Chat;
 import edu.kh.farmfarm.chat.model.vo.ChatRoom;
 import edu.kh.farmfarm.member.model.VO.Member;
+import edu.kh.farmfarm.postDetail.model.vo.Post;
 
 /**
  * @author alpaca
@@ -48,7 +49,7 @@ public interface ChatService {
 	 * @param roomNo
 	 * @return
 	 */
-	ChatRoom selectRoomInfo(int roomNo);
+	ChatRoom getRoomInfo(int roomNo);
 
 
 	/** 서버에 사진 저장하기..
@@ -81,6 +82,13 @@ public interface ChatService {
 	 * @return
 	 */
 	int insertNewRoom(ChatRoom chatRoom);
+
+
+	/** 방 정보 가져오기
+	 * @param roomNo
+	 * @return
+	 */
+	Post selectRoomPostInfo(int roomNo);
 
 
 

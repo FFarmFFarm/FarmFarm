@@ -28,6 +28,7 @@ import edu.kh.farmfarm.chat.model.service.ChatService;
 import edu.kh.farmfarm.chat.model.vo.Chat;
 import edu.kh.farmfarm.chat.model.vo.ChatRoom;
 import edu.kh.farmfarm.member.model.VO.Member;
+import edu.kh.farmfarm.postDetail.model.vo.Post;
 
 @Controller
 @SessionAttributes({"loginMember", "shortcutNo"})
@@ -113,17 +114,18 @@ public class ChatController {
 		
 		int result = service.updateChatReadFl(updateInfo);
 		
-		System.out.println(result);
-		
 		// 4. 다시 roomNo를 보내서 채팅 목록을 가져옴
 		List<Chat> chatHistory = service.getChatHistory(roomNo);
 		
+		// 5. 한번 더 roomNo를 보내서 채팅방의 정보를 가져옴
+		Post postInfo = service.selectRoomPostInfo(roomNo);
 		
 		// 5. 내 회원 번호, 채팅 목록을 Map에 담음
 		Map<String, Object> chatHistoryMap = new HashMap<String, Object>();
 		
 		chatHistoryMap.put("myMemberNo", myMemberNo);
 		chatHistoryMap.put("chatHistory", chatHistory);
+		chatHistoryMap.put("postInfo", postInfo);
 		
 		// 6. 반환
 		return new Gson().toJson(chatHistoryMap);
@@ -149,19 +151,18 @@ public class ChatController {
 		
 		int result = service.updateChatReadFl(updateInfo);
 		
-		System.out.println(result);
-		
 		// 4. 다시 roomNo를 보내서 채팅 목록을 가져옴
 		List<Chat> chatHistory = service.getChatHistory(roomNo);
 		
 		// 5. 한번 더 roomNo를 보내서 채팅방의 정보를 가져옴
-		service.selectRoomInfo();
+		Post postInfo = service.selectRoomPostInfo(roomNo);
 
 		// 6. 내 회원 번호, 채팅방 정보, 채팅 목록을 Map에 담음
 		Map<String, Object> chatHistoryMap = new HashMap<String, Object>();
 		
 		chatHistoryMap.put("myMemberNo", myMemberNo);
 		chatHistoryMap.put("chatHistory", chatHistory);
+		chatHistoryMap.put("postInfo", postInfo);
 		
 		// 7. 상대방의 이미지와 이름을 가져옴
 		
