@@ -153,6 +153,7 @@ public class MyPageController {
 		return "myPage/myPageWish";
 	}
 	
+
 	
 	/** 마이페이지 프로필 
 	 * @return
