@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,6 +44,24 @@ public class ChatController {
 		return "chat/myChat";
 	}
 	
+	// 채팅 페이지로 이동하기 전 걸러내는 메서드
+	@PostMapping("/chat/bridge")
+	public String bridgetToChat(
+			RedirectAttributes ra,
+			@RequestHeader(value = "referer") String referer,
+			HttpSession session) {
+		
+		String path = "";
+		
+		if(session.getAttribute("loginMember") != null) {
+			path = "/chat";
+		} else {
+			ra.addFlashAttribute("message", "로그인 후 이용가능합니다.");
+			path = "/login";
+		}
+		return "redirect:" + path;
+	}
+	
 	// 내 채팅방 목록 가져오기
 	@PostMapping("/chat/chatRoomList")
 	@ResponseBody
@@ -72,11 +91,14 @@ public class ChatController {
 					int tempNo = chatRoom.getMemberNo();
 					chatRoom.setMemberNo(myMemberNo);
 					chatRoom.setMemberNo2(tempNo);
-				}
-				if(chatRoom.getMemberNickname2().equals(myMemberNickname)) {
+					
 					String tempNickname = chatRoom.getMemberNickname();
 					chatRoom.setMemberNickname(myMemberNickname);
-					chatRoom.setMemberNickname2(tempNickname);
+					chatRoom.setMemberNickname2(tempNickname);	
+					
+					String tempProfileImg = chatRoom.getProfileImg();
+					chatRoom.setProfileImg(chatRoom.getProfileImg2());
+					chatRoom.setProfileImg2(tempProfileImg);
 				}
 			}
 			

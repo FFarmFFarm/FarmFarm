@@ -115,7 +115,7 @@
 		FROM CHAT_ROOM CR
 		WHERE (MEMBER_NO = #{myMemberNo} AND MEMBER_FL = 'N')
 		OR (MEMBER_NO2 = #{myMemberNo} AND MEMBER_FL2 = 'N')
-		ORDER BY CHAT_TIME_ORDER DESC
+		ORDER BY CHAT_TIME_ORDER DESC NULLS LAST
 	</select>
 	
 	<!-- 채팅 업데이트 -->

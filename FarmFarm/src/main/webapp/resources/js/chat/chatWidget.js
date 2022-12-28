@@ -118,11 +118,11 @@ const fillChatWidget = (chatRoomList) => {
 
         // 재료 손질
         // 1. 사진
-        if(chatRoom.profileImg == undefined) {
+        if(chatRoom.profileImg2 == undefined) {
             packUpElement(chatWidgetProfileImg, 'chatWidget-profile-img', 
             "<img src='/resources/images/member/user.png'>");
         } else {
-            packUpElement(chatWidgetProfileImg, 'chatWidget-profile-img', chatRoom.profileImg);
+            packUpElement(chatWidgetProfileImg, 'chatWidget-profile-img', "<img src=" + chatRoom.profileImg2 + ">");
 
         }
         // 2. 이름
@@ -132,7 +132,16 @@ const fillChatWidget = (chatRoomList) => {
         packUpElement(chatWidgetLastChatTime, 'chatWidget-last-chat-time', chatRoom.lastChatTime);
         
         // 4. 마지막 내용
-        packUpElement(chatWidgetLastChatContent, 'chatWidget-last-chat-content', chatRoom.lastChatContent);
+        if (chatRoom.lastChatContent == undefined) { // 채팅 내용이 없는 경우 '대화 내용이 없습니다' 출력
+            packUpElement(chatWidgetLastChatContent, 'chatWidget-last-chat-content', '대화 내용이 없습니다.');
+        } else {
+            if (chatRoom.lastChatImgFl === 'N') { // 사진이 아닌 경우
+                packUpElement(chatWidgetLastChatContent, 'chatWidget-last-chat-content', chatRoom.lastChatContent);
+            } else { // 사진인 경우
+                packUpElement(chatWidgetLastChatContent, 'chatWidget-last-chat-content', '사진을 보냈습니다.');
+            }
+        }
+ 
 
         // 5. 라벨(이름, 시간)
         packUpElement(chatWidgetBoxLabel, 'chatWidget-box-label', null);

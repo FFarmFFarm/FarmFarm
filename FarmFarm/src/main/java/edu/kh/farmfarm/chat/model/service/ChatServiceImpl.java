@@ -159,6 +159,8 @@ public class ChatServiceImpl implements ChatService {
 				roomNo = chatRoom.getRoomNo();
 			}
 			
+		} else {
+			roomNo = result;
 		}
 		
 		return roomNo;
