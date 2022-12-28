@@ -83,7 +83,21 @@ function selectCommentList(){
                     const commentReply = document.createElement("button");
                     commentReply.classList.add("comment-reply");
                     commentReply.setAttribute("onclick", "showReply("+comment.commentNo+", this)");
-                    commentReply.innerHTML = ' &nbsp;답글달기';
+                    commentReply.innerHTML = ' &nbsp;답글달기&nbsp;';
+
+                    if(memberNo == comment.memberNo){
+                        const commentInsert = document.createElement("button");
+                        const commentDelete = document.createElement("button");
+
+                        commentInsert.classList.add("comment-reply");
+                        commentDelete.classList.add("comment-reply");
+
+                        commentInsert.innerHTML = "|&nbsp;&nbsp;수정&nbsp;";
+                        commentDelete.innerHTML = "|&nbsp;&nbsp;수정&nbsp;";
+
+                        commentInsert.setAttribute("onclick", "updateComment("+comment.commentNo+", this)");
+                        commentDelete.setAttribute("onclick", "deleteComment(this)");
+                    }
 
                     
                     if(commentRow.classList.contains("comment-child")){
@@ -250,5 +264,37 @@ function sendCo(parentNo, btn){
             alert("답글 ajax 통신 오류ㅠ");
         }
     });
+
+}
+
+
+
+// 댓글 수정 화면으로 바꿔 볼까요~?
+
+// 수정 전 원래 모양을 저장합니다~
+let beforeCommentRow; 
+
+function updateComment(commentNo, btn){
+
+    // 댓글 수정은 하나만 되야 하니까 임시로 만들어줘볼까?
+    const temp = document.getElementsByClassName("update-textarea");
+
+    if(temp.length > 0){
+        if(confirm("다른 댓글을 수정 중입니다. 현재 댓글을 수정하시겠습니까?")){
+            temp[0].parentElement.innerHTML = beforeCommentRow;
+        }else{
+            return;
+        }
+    }
+
+
+    // 댓글 수정이 클릭 된 행
+    const commentRow = btn.parentElement.parentElement;
+
+    // 댓글 수정 시 원래 내용을 저장해볼까요?
+    beforeCommentRow = commentRow.innerHTML;
+
+    
+
 
 }
