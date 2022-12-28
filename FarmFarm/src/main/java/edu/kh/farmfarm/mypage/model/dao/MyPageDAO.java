@@ -201,6 +201,24 @@ public class MyPageDAO {
 	}
 
 
+	public String selectEncPw(int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectEncPw", memberNo);
+	}
+
+
+	public int updatePw(Map<String, Object> map) {
+		return sqlSession.update("myPageMapper.updatePw", map);
+	}
+
+
+	/** 마이페이지 회원 탈퇴 
+	 * @return
+	 */
+	public int secession(int memberNo) {
+		return sqlSession.update("myPageMapper.secession", memberNo);
+	}
+
+
 
 
 

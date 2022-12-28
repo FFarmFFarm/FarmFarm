@@ -283,23 +283,13 @@ public class MyPageServiceImpl implements MyPageService {
 		int result = 0;
 		String rename = null;
 		
-		img.setMemberNo(loginMember.getMemberNo());
-		
 		if(checkImg >0) { // 이미지 있으면 수정 
 			String temp = loginMember.getProfileImg();
-			
-			if(farmfarm.getSize() == 0) {
-				img.setProfileImg(webPath + "profileImg.png");
-				
-				loginMember.setProfileImg("/resources/images/myPage/profile/profileImg.png");
-				
-				result = dao.updateBgImg(img);
-			} else {
+
 				rename = Util.fileRename(farmfarm.getOriginalFilename());
 				
-				img.setProfileImg(farmfarm.getOriginalFilename());
-				
-				loginMember.setProfileImg(webPath +rename);
+				img.setProfileImg(webPath +rename);
+				img.setMemberNo(loginMember.getMemberNo());
 				
 				result = dao.updateImg(img);
 				
@@ -312,15 +302,12 @@ public class MyPageServiceImpl implements MyPageService {
 					}
 					
 				}
-			}
 			
 		} else { // 이미지 없으면 추가 
 			if(farmfarm.getSize() != 0) {
 				rename = Util.fileRename(farmfarm.getOriginalFilename());
 				
-				img.setProfileImg(farmfarm.getOriginalFilename());
-				
-				loginMember.setProfileImg(webPath + rename);
+				img.setProfileImg(webPath + rename);
 				
 				result = dao.updateImg(img);
 				
@@ -359,6 +346,42 @@ public class MyPageServiceImpl implements MyPageService {
 		}
 		
 		return result;
+	}
+
+
+	/** 마이페이지 비밀번호 변경  
+	 * @return
+	 */
+	@Override
+	public int updatePw(Map<String, Object> map) {
+		int memberNo = (int)map.get("memberNo");
+		
+		String encPw = dao.selectEncPw(memberNo);
+		
+		if(bcrypt.matches((String)map.get("currentPw"), encPw)) {
+			String newPw = bcrypt.encode((String)map.get("newPw"));
+			map.put("newPw", newPw);
+			int result = dao.updatePw(map);
+			return result;
+		}
+		
+		return 0;
+	}
+
+
+	/** 마이페이지 회원 탈퇴 
+	 * @return
+	 */
+	@Override
+	public int secession(String memberPw, int memberNo) {
+		// 비밀번호 조회
+		String encPw = dao.selectEncPw(memberNo);
+		
+		if(bcrypt.matches(memberPw, encPw)) {
+			return dao.secession(memberNo);
+		}
+		
+		return 0;
 	}
 	
 	

@@ -26,28 +26,14 @@ a.update-pw > i {
   font-weight: bold;
 }
 
-.sub-update{
-  font-size: var(--small-font-size);
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  width: 100%;
-  height: 25px;
-  margin-right: 15px;
-  color: var(--point-color);
-}
-
-.profile-img-form{
-  margin-top: 20px;
-}
-
 .profile-form{
     width: 400px;
     margin: 0 auto;
     margin-bottom: 100px;
+    margin-top: 50px;
 }
 
-.profile-form input{
+.update input{
     width: 400px;
     height: 40px;
     border: none;
@@ -68,128 +54,6 @@ a.update-pw > i {
     font-size: var(--main-font-size);
     margin-top: 30px;
     margin-left: 12px;
-}
-
-.tel{
-    display: inline-block;
-    position: relative;
-}
-
-.find-btn{
-    position: absolute;
-    border: none;
-    background-color: var(--point-color);
-    color: var(--background-color);
-    width: 100px;
-    height: 27px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 20px;
-}
-
-.address-btn{
-    top: 930px;
-    left: 720px;
-}
-
-.imgage{
-  display: flex;
-  flex-direction: column;
-}
-
-.farm-img label{
-    margin: auto;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    color: var(--background-color);
-}
-
-.farm-img input[type="file"]{
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-}
-
-.farm-img-upload{
-    border: 1px solid #ccc;
-    width: 180px;
-    height: 150px;
-    overflow: hidden;
-}
-
-.farm-img-upload1{
-    display: table;
-    border: 1px solid #ccc;
-    width: 180px;
-    height: 120px;
-    overflow: hidden;
-}
-
-.farm-img-upload1 p{
-    text-align: center;
-
-}
-
-.farm-img-upload:first-child{
-    margin-right: 10px;
-}
-
-.profile-img{
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin: auto;
-}
-
-.profile-img img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* 이미지 삭제 버튼 */
-.delete{
-  width: 33px;
-  height: 33px;
-  border-radius: 50%;
-  background-color: var(--point-color);
-  position: absolute;
-  top: 300px;
-  right: 430px;
-  cursor: pointer;
-  text-align: center;
-  color: var(--background-color);
-}
-
-.delete-image{
-  font-size: 22px;
-  font-family: "NotoSansKR-Bold";
-
-}
-
-.update-div{
-   width: 400px;
-   height: 40px;
-   border-bottom: 1px solid #ccc;
-   margin-top: 10px;
-   display: flex;
-   align-items: center;
-}
-
-.update-div > p{
-  padding-left: 15px;
-  font-size: var(--medium-font-size);
-  color: var(--main-font-color);
 }
 
 .update-btn{

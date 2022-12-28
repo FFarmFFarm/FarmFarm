@@ -97,6 +97,17 @@ public interface MyPageService {
 	 */
 	int updateProfile(Member inputMember, String[] memberAddress);
 
+	/** 마이페이지 비밀번호 변경  
+	 * @return
+	 */
+	int updatePw(Map<String, Object> map);
+
+
+	/** 마이페이지 회원 탈퇴 
+	 * @return
+	 */
+	int secession(String memberPw, int memberNo);
+
 
 
 

@@ -12,10 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -163,7 +165,7 @@ public class MyPageController {
 		return "myPage/myPageProfile";
 	}
 	
-	/** 마이페이지 비밀번호 변경  
+	/** 마이페이지 비밀번호 변경 이동  
 	 * @return
 	 */
 	@GetMapping("/updatePw")
@@ -173,6 +175,35 @@ public class MyPageController {
 		
 		return "myPage/myPageUpdatePw";
 	}
+	
+	/** 마이페이지 비밀번호 변경  
+	 * @return
+	 */
+	@PostMapping("/updatePw")
+	public String updatePw(
+			@RequestParam Map<String, Object> map,
+			RedirectAttributes ra,
+			@SessionAttribute("loginMember") Member loginMember
+			){
+		map.put("memberNo", loginMember.getMemberNo());
+		
+		int result = service.updatePw(map);
+		
+		
+		String message = null;
+		
+		if(result>0) { // 비밀번호 변경 성공
+			message = "비밀번호 변경 성공";
+		}else {
+			message = "현재 비밀번호가 일치하지 않습니다.";
+		}
+		
+		ra.addFlashAttribute("message", message);
+
+		return "redirect:updatePw";
+	}
+	
+	
 	
 	/** 마이페이지 프로필수정_이미지  
 	 * @return
@@ -231,6 +262,36 @@ public class MyPageController {
 		return "redirect:profile";
 	}
 	
+	
+	/** 마이페이지 회원 탈퇴 
+	 * @return
+	 */
+	@PostMapping("/secession")
+	public String secession(
+			String memberPw,
+			SessionStatus status,
+			@SessionAttribute("loginMember") Member loginMember,
+			RedirectAttributes ra,
+			@RequestHeader("referer") String referer) {
+		
+		int result = service.secession(memberPw, loginMember.getMemberNo());
+		
+		String message = null;
+		String path = null;
+		
+		if(result > 0) { // 탈퇴 성공
+			message = "탈퇴 성공";
+			path = "/";
+			status.setComplete();
+		}else {
+			message = "비밀번호가 일치하지 않습니다.";
+			path = referer;
+		}
+		
+		ra.addFlashAttribute("message", message);
+		
+		return "redirect:" + path;
+	}
 	
 
 }

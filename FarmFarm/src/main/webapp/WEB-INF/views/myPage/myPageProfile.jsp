@@ -30,7 +30,7 @@
 
     <main>
       <jsp:include page="/WEB-INF/views/myPage/myPage.jsp"/>
-      
+      <!-- ${loginMember.profileImg} -->
       <section class="list-container">
         <jsp:include page="/WEB-INF/views/myPage/myPageNav.jsp"/>
         <div class="board-list">
