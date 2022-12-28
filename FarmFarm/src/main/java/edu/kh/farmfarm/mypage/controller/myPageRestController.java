@@ -127,7 +127,7 @@ public class myPageRestController {
 		return service.orderConfirm(orderNo);
 	}
 	
-	@PostMapping("/order/review")
+	@PostMapping("/review/write")
 	public int writeReview(Review review, String reviewContent,
 			@SessionAttribute("loginMember") Member loginMember,
 			HttpServletRequest req,

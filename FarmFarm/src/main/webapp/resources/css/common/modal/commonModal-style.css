@@ -73,6 +73,8 @@
   font-size: var(--main-font-size);
   font-family: "NotoSansKR-Bold";
 
+  z-index: 10;
+
 }
 
 .message-area {

@@ -197,5 +197,27 @@
 	DELETE FROM REVIEW_LIKE
 	WHERE MEMBER_NO = #{memberNo} AND REVIEW_NO = #{reviewNo}
 </insert>
+
+<update id="updateReview">
+	UPDATE REVIEW SET
+	REVIEW_CONTENT = #{reviewContent}
+	WHERE REVIEW_NO = #{reviewNo}
+</update>
+
+<insert id="insertReviewImg">
+	INSERT INTO REVIEW_IMG
+	VALUES(SEQ_REVIEW_IMG_NO.NEXTVAL, REVIEW_NO, REVIEW_IMG_PATH, REVIEW_IMG_ORDER)
+</insert>
+	
+<delete id="reviewImageDelete">
+	DELETE FROM REVIEW_IMG
+	${condition}
+</delete>
+
+<update id="updateReviewImg">
+	UPDATE REVIEW_IMG SET
+	REVIEW_IMG_PATH = #{reviewImgPath}, REVIEW_IMG_ORDER
+	WHERE REVIEW_NO
+</update>
 	
 </mapper>

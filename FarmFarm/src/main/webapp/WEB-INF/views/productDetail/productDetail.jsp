@@ -34,6 +34,7 @@
     <!-- 모달창 스타일 -->
     <link rel="stylesheet" href="/resources/css/modal/reviewImg-style.css" />
     <link rel="stylesheet" href="/resources/css/modal/reviewDetail-style.css" />
+    <link rel="stylesheet" href="/resources/css/modal/reviewForm-style.css" />
     <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
 
 

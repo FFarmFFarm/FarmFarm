@@ -1,12 +1,16 @@
 package edu.kh.farmfarm.productDetail.model.service;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import edu.kh.farmfarm.common.Util;
 import edu.kh.farmfarm.productDetail.model.dao.ProductDetailDAO;
 import edu.kh.farmfarm.productDetail.model.vo.Product;
 import edu.kh.farmfarm.productDetail.model.vo.Review;
@@ -125,5 +129,85 @@ public class ProductDetailServiceImpl implements ProductDetailService{
 		
 		
 		return map;
+	}
+	
+	/** 리뷰 수정
+	 *
+	 */
+	@Override
+	public int updateReview(String webPath, String folderPath, Review review, List<MultipartFile> imageList,
+			String deleteList) throws Exception {
+		
+		review.setReviewContent(Util.XSSHandling(review.getReviewContent()));
+		review.setReviewContent(Util.newLineHandling(review.getReviewContent()));
+		
+		int result = dao.updateReview(review);
+		
+		if(result > 0) {
+			
+			if(!deleteList.equals("")) {
+				
+				String condition = "WHERE REVIEW_NO = " + review.getReviewNo()
+					+ "AND REVIEW_IMG_ORDER IN("+ deleteList +")";
+				
+				result = dao.deleteReviewImg(condition);
+				
+				if(result == 0) {
+					throw new Exception("후기 이미지 삭제 실패");
+				}
+				
+			}
+			
+			List<ReviewImg> reviewImgList = new ArrayList<ReviewImg>();
+			List<String> renameList = new ArrayList<String>();
+			
+			for(int i=0; i<imageList.size(); i++) {
+				
+				
+				if(imageList.get(i).getSize() > 0) {
+					
+					ReviewImg img = new ReviewImg();
+					
+					String rename = Util.fileRename(imageList.get(i).getOriginalFilename());
+					
+					img.setReviewImgPath(webPath + rename);
+					
+					img.setReviewImgOrder(i);
+					
+					img.setReviewNo(review.getReviewNo());
+					
+					reviewImgList.add(img);
+					
+					result = dao.updateReviewImg(img);
+					
+					if(result == 0) {
+						result = dao.insertReviewImg(img);
+						
+						if(result == 0) {
+							throw new Exception("후기 이미지 수정/삽입 예외");
+						}
+					}
+					
+				}
+				
+			}
+			
+			if(!reviewImgList.isEmpty()) {
+				
+				for(int i=0; i<reviewImgList.size(); i++) {
+					
+					int index = reviewImgList.get(i).getReviewImgOrder();
+					
+					imageList.get(index).transferTo(new File(folderPath + renameList.get(i)));
+					
+				}
+				
+			}
+			
+			
+		}
+		
+		
+		return result;
 	}
 }

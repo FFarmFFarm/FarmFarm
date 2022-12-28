@@ -62,6 +62,7 @@ const printReviewList = (reviewList, pagination) => {
 
     span.innerText = '내용보기'
 
+
     const button = document.createElement('button');
     button.setAttribute('type', 'button');
     button.classList.add('fa-solid', 'fa-angle-right');
@@ -75,10 +76,18 @@ const printReviewList = (reviewList, pagination) => {
     div.append(reviewDate);
 
     const reviewDetail = document.createElement('div');
-    reviewDetail.classList.add('review-detail');
+    reviewDetail.classList.add('review-detail', 'hide');
 
     reviewArea.append(reviewDetail);
 
+    /* ------------------------------------------------------------------------------------------ */
+    span.addEventListener('click', () => {
+      if (reviewDetail.classList.contains('hide')) {
+        reviewDetail.classList.remove('hide');
+      } else {
+        reviewDetail.classList.add('hide');
+      }
+    })
     const reviewDetailContent = document.createElement('div');
     reviewDetailContent.classList.add('review-detail-content');
 
@@ -204,4 +213,5 @@ for (let i = 0; i < showBtn.length; i++) {
     }
   })
 }
+
 

@@ -1,4 +1,4 @@
-// 리뷰 작성 버튼 클릭 시 리뷰 작성 form 모달창 출력
+// 수정하기 버튼 클릭 시 후기 수정 form 모달창 출력
 const writeReviewBtn = document.getElementsByClassName('write-review');
 if (writeReviewBtn != undefined) {
   for (let btn of writeReviewBtn) {
@@ -14,11 +14,9 @@ if (writeReviewBtn != undefined) {
 
       /* 상품 번호 구하기 */
       const index = href.lastIndexOf('/');
-      const productNo = href.substring(index + 1);
 
 
-      document.getElementById('productNoInput').value = productNo;
-
+      document.getElementById('reviewNoInput').value = btn.id;
 
 
       document.getElementById('modalProductThumbnail').setAttribute('src', productThumbnail);
@@ -50,8 +48,7 @@ for (let i = 0; i < inputFile.length; i++) {
 
         reviewImg[i].setAttribute('src', event.target.result);
         displayFlexNoLock(reviewImg[i]);
-        inputLabel[i].classList.add('hide');
-        inputLabel[i].classList.remove('appear');
+        inputLabel[i].style.display = 'none';
         displayFlexNoLock(xBtn[i]);
 
       }
@@ -60,7 +57,7 @@ for (let i = 0; i < inputFile.length; i++) {
       reviewImg[i].classList.add('hide');
       reviewImg[i].classList.remove('appear');
       inputFile[i].value = '';
-      displayFlexNoLock(inputLabel[i]);
+      inputLabel[i].style.display = 'flex';
       xBtn[i].classList.add('hide');
       xBtn[i].classList.remove('appear');
     }
@@ -71,7 +68,7 @@ for (let i = 0; i < inputFile.length; i++) {
     console.log('x버튼 클릭');
     reviewImg[i].classList.add('hide');
     reviewImg[i].classList.remove('appear');
-    displayFlexNoLock(inputLabel[i]);
+    inputLabel[i].style.display = 'flex';
     xBtn[i].classList.add('hide');
     xBtn[i].classList.remove('appear');
 
@@ -82,12 +79,14 @@ for (let i = 0; i < inputFile.length; i++) {
 
 /* 리뷰 등록하기 버튼 클릭 */
 document.getElementById('submitBtn').addEventListener('click', () => {
-  console.log('등록 버튼 클릭')
+
   const reviewTextArea = document.getElementById('reviewTextArea');
-  console.log(reviewTextArea.value);
+
 
   if (reviewTextArea.value.trim().length == 0) {
-    console.log('글을 안씀');
+    messageModalOpen("후기 내용을 입력해주세요.")
+    reviewTextArea.value = "";
+    reviewTextArea.focus();
 
   } else {
     console.log('등록 하기');
@@ -95,7 +94,7 @@ document.getElementById('submitBtn').addEventListener('click', () => {
     const formData = new FormData(form);
 
     $.ajax({
-      url: "/order/review",
+      url: "/review/write",
       data: formData,
       type: "POST",
       contentType: false,
@@ -123,7 +122,22 @@ document.getElementById('submitBtn').addEventListener('click', () => {
 /* 리뷰 작성 창 뒤로가기 클릭 시 */
 const reviewBackBtn = document.getElementById('reviewBackBtn');
 reviewBackBtn.addEventListener('click', () => {
+  document.getElementById('reviewFrom').reset();
   displayNone(document.getElementById('reviewFormContainer'));
+
+  const reviewImg = document.getElementsByClassName('review-img-thumbnail');
+  const inputLabel = document.getElementsByClassName('input-label');
+  const xBtn = document.getElementsByClassName('x-btn');
+
+  for (let i = 0; i < xBtn.length; i++) {
+    reviewImg[i].classList.add('hide');
+    reviewImg[i].classList.remove('appear');
+    inputLabel[i].style.display = 'flex';
+
+    xBtn[i].classList.add('hide');
+    xBtn[i].classList.remove('appear');
+  }
+
 })
 
 
@@ -431,6 +445,7 @@ const printOrderList = (orderList, pagination) => {
           document.getElementById('modalProductThumbnail').setAttribute('src', product.productImg);
           document.getElementById('modalProductName').innerHTML = product.productName;
           document.getElementById('modalProductName').href = '/product/' + product.productNo;
+          document.getElementById('productNoInput').value = product.productNo;
 
           displayFlex(reviewFormContainer);
         })
