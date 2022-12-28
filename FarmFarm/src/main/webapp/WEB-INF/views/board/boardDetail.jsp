@@ -33,7 +33,7 @@
                 <div class="board-title-area">
                     <div class="writer-img">
                         <c:if test="${empty board.profileImg}">
-                            <img src="" alt=""><%-- 기본 이미지 주소 넣기 --%>
+                            <img src="/resources/images/myPage/profile/profileImg.png" alt=""><%-- 기본 이미지 주소 넣기 --%>
                         </c:if>
                         <c:if test="${!empty board.profileImg}">
                             <img src="${board.profileImg}" alt="">
@@ -51,7 +51,7 @@
                 <div class="board-content-area">
                     <div class="board-content">
                         <pre> 
-    ${board.boardContent}
+${board.boardContent}
                         </pre>
                     </div>
 
@@ -99,5 +99,6 @@
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="/resources/js/board/boardDetail.js"> </script>
+    <script src="/resources/js/board/comment.js"> </script>
 </body>
 </html>

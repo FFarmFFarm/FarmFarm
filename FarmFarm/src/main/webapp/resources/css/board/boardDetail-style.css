@@ -62,13 +62,17 @@ main{
     width: 73px;
     height: 73px;
     border-radius: 50%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     overflow: hidden;
     /* margin-left: 20px; */
     display: flex;
     align-items: center;
 }
-.write-img > img{
+.writer-img > img{
+    width: 100%;
+    height: 100%;
+}
+.proImg{
     width: 100%;
     height: 100%;
 }
@@ -165,6 +169,11 @@ main{
 
 /* 댓글부분 */
 /* 댓글 전체 */
+.comment-count{
+    font-size: var(--large-font-size);
+    margin-bottom: 15px;
+    color: var(--point-color);
+}
 .comment-area{
     border-bottom: 1px solid var(--line-color);
     padding: 30px 40px;
@@ -183,11 +192,12 @@ main{
     line-height: 1.5;
     letter-spacing: 1px;
     border: 1px solid var(--sub-font-color);
+    padding: 8px;
 }
 .comment-content > div{
     width: 100%;
 }
-.commentInsert{
+.comment-insert{
     width: 75px;
     height: 95px;
     margin: auto;
@@ -204,23 +214,23 @@ main{
 /* 댓글 부분 */
 .comment-row{
     /* margin-bottom: 20px; */
-    border-bottom: 1px solid green;
+    border-bottom: 1px solid var(--point-color);
     padding: 20px 0;
 }
 .comment-writer{
     display: flex;
     margin: auto 0;
     align-items: center;
+    height: 60px;
 }
 .emptyComment{
     justify-content: center;
     color: var(--sub-font-color);
 }
 .writer-profile{
-    width: 60px;
-    height: 60px;
+
     border-radius: 50%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     overflow: hidden;
     margin: auto 10px;
 }
@@ -244,7 +254,86 @@ main{
     font-size: var(--main-font-size);
     color: var(--sub-font-color);
     padding-left: 20px;
+    margin-bottom: 15px;
 }
 .comment-reply{
-    cursor: pointer;
+    border: none;
+    background-color: white;
+    color: var(--sub-font-color);
+}
+
+
+
+/* 답글달기 부분 */
+.comment-co{
+    width: 100%;
+}
+.comment-co-content{
+    width: 850px;
+    resize: none;
+    height: 75px;
+    margin-left: 19px;
+    display: flex;
+    font-size: var(--main-font-size);
+    padding: 8px;
+    border-radius: 10px;
+    border: 1px solid var(--point-color);
+    margin-bottom: 5px;
+    cursor: auto;
+}
+.comment-co-content:focus{
+    outline: none;
+}
+.co-btn-area{
+    display: flex;
+    justify-content: end;
+    padding-right: 50px;
+}
+.send-co, .cancle-co{
+    font-size: var(--small-font-size);
+    width: 95px;
+    height: 35px;
+    border-radius: 10px;
+    /* border: 1px solid var(--point-color); */
+    background-color: white;
+    margin-left: 5px;
+}
+.send-co{
+    border: none;
+    background-color: var(--point-color);
+    color: white;
+}
+.cancle-co{
+    border: 1px solid var(--sub-font-color);
+    color: var(--sub-font-color);
+}
+
+/* textarea에 스크를 디자인 해봤어요~ 
+    cursor는 이 textarea에 cursor:auto를 주면 해결! */
+.comment-co-content::-webkit-scrollbar{
+    width: 12px;
+}
+.comment-co-content::-webkit-scrollbar-thumb{
+    height: 30%;
+    background-color: var(--point-color);
+    border-radius: 10px;
+}
+.comment-co-content::-webkit-scrollbar-track{
+    background: #ddd;
+    border-top-right-radius: 9px;
+    border-bottom-right-radius: 9px;
+}
+
+
+.child-img{
+    width: 50px;
+    height: 50px;
+}
+.parent-img{
+    width: 60px;
+    height: 60px;
+}
+
+.child-content{
+    font-size: var(--main-font-size);
 }
