@@ -44,4 +44,10 @@ public interface ProductAdminService {
 	 */
 	int deleteProduct(int productNo);
 
+	/** 상품 수정 페이지 이동
+	 * @param productNo
+	 * @return product
+	 */
+	Product selectProductDetail(int productNo);
+
 }
