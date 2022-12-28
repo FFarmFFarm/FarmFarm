@@ -1,4 +1,4 @@
-// 리뷰 작성 버튼 클릭 시 리뷰 작성 form 모달창 출력
+// 수정하기 버튼 클릭 시 후기 수정 form 모달창 출력
 const writeReviewBtn = document.getElementsByClassName('write-review');
 if (writeReviewBtn != undefined) {
   for (let btn of writeReviewBtn) {
@@ -14,11 +14,9 @@ if (writeReviewBtn != undefined) {
 
       /* 상품 번호 구하기 */
       const index = href.lastIndexOf('/');
-      const productNo = href.substring(index + 1);
 
 
-      document.getElementById('productNoInput').value = productNo;
-
+      document.getElementById('reviewNoInput').value = btn.id;
 
 
       document.getElementById('modalProductThumbnail').setAttribute('src', productThumbnail);
@@ -50,8 +48,7 @@ for (let i = 0; i < inputFile.length; i++) {
 
         reviewImg[i].setAttribute('src', event.target.result);
         displayFlexNoLock(reviewImg[i]);
-        inputLabel[i].classList.add('hide');
-        inputLabel[i].classList.remove('appear');
+        inputLabel[i].style.display = 'none';
         displayFlexNoLock(xBtn[i]);
 
       }
@@ -60,7 +57,7 @@ for (let i = 0; i < inputFile.length; i++) {
       reviewImg[i].classList.add('hide');
       reviewImg[i].classList.remove('appear');
       inputFile[i].value = '';
-      displayFlexNoLock(inputLabel[i]);
+      inputLabel[i].style.display = 'flex';
       xBtn[i].classList.add('hide');
       xBtn[i].classList.remove('appear');
     }
@@ -71,7 +68,7 @@ for (let i = 0; i < inputFile.length; i++) {
     console.log('x버튼 클릭');
     reviewImg[i].classList.add('hide');
     reviewImg[i].classList.remove('appear');
-    displayFlexNoLock(inputLabel[i]);
+    inputLabel[i].style.display = 'flex';
     xBtn[i].classList.add('hide');
     xBtn[i].classList.remove('appear');
 
@@ -82,12 +79,14 @@ for (let i = 0; i < inputFile.length; i++) {
 
 /* 리뷰 등록하기 버튼 클릭 */
 document.getElementById('submitBtn').addEventListener('click', () => {
-  console.log('등록 버튼 클릭')
+
   const reviewTextArea = document.getElementById('reviewTextArea');
-  console.log(reviewTextArea.value);
+
 
   if (reviewTextArea.value.trim().length == 0) {
-    console.log('글을 안씀');
+    messageModalOpen("후기 내용을 입력해주세요.")
+    reviewTextArea.value = "";
+    reviewTextArea.focus();
 
   } else {
     console.log('등록 하기');
@@ -95,7 +94,7 @@ document.getElementById('submitBtn').addEventListener('click', () => {
     const formData = new FormData(form);
 
     $.ajax({
-      url: "/order/review",
+      url: "/review/write",
       data: formData,
       type: "POST",
       contentType: false,
@@ -116,6 +115,27 @@ document.getElementById('submitBtn').addEventListener('click', () => {
 
       }
     })
+  }
+
+})
+
+/* 리뷰 작성 창 뒤로가기 클릭 시 */
+const reviewBackBtn = document.getElementById('reviewBackBtn');
+reviewBackBtn.addEventListener('click', () => {
+  document.getElementById('reviewFrom').reset();
+  displayNone(document.getElementById('reviewFormContainer'));
+
+  const reviewImg = document.getElementsByClassName('review-img-thumbnail');
+  const inputLabel = document.getElementsByClassName('input-label');
+  const xBtn = document.getElementsByClassName('x-btn');
+
+  for (let i = 0; i < xBtn.length; i++) {
+    reviewImg[i].classList.add('hide');
+    reviewImg[i].classList.remove('appear');
+    inputLabel[i].style.display = 'flex';
+
+    xBtn[i].classList.add('hide');
+    xBtn[i].classList.remove('appear');
   }
 
 })
@@ -323,23 +343,50 @@ const printOrderList = (orderList, pagination) => {
       orderStatus.classList.add('order-status');
 
       const span4 = document.createElement('span');
-      const a = document.createElement('a');
+      const span5 = document.createElement('span');
 
       if (order.orderStatus == 0) {
         span4.innerText = '결제완료';
         orderStatus.append(span4);
       }
+
       if (order.orderStatus == 1) {
-        a.innerText = '배송중';
-        a.classList.add('order-shipping');
-        orderStatus.append(a);
+        if (product.productStatus == 0) {
+          span5.innerText = '배송중';
+          span5.classList.add('order-shipping');
+        }
+
+        if (product.productStatus == 1) {
+          span5.innerText = '반품 진행중';
+          span5.classList.add('order-shipping');
+        }
+
+        if (product.productStatus == 2) {
+          span5.innerText = '반품완료';
+          span5.classList.add('order-shipping');
+        }
+        orderStatus.append(span5);
       }
+
       if (order.orderStatus == 2) {
         span4.innerText = '취소완료';
         orderStatus.append(span4);
       }
+
       if (order.orderStatus == 3) {
-        span4.innerText = '구매확정';
+
+        if (product.productStatus == 0) {
+          span4.innerText = '구매확정';
+        }
+
+        if (product.productStatus == 1) {
+          span4.innerText = '반품 진행중';
+        }
+
+        if (product.productStatus == 2) {
+          span4.innerText = '반품 완료';
+        }
+
         orderStatus.append(span4);
       }
 
@@ -377,26 +424,44 @@ const printOrderList = (orderList, pagination) => {
       }
 
       if (order.orderStatus == 1) {
-        button1.setAttribute('type', 'button');
-        button1.innerText = '구매확정';
-        button1.classList.add('confirmation');
-        button1.id = order.orderNo;
 
-        button2.setAttribute('type', 'button');
-        button2.innerText = '반품요청';
-        button2.classList.add('return');
-        button2.id = order.orderNo;
+        if (product.productStatus == 0) {
+          button1.setAttribute('type', 'button');
+          button1.innerText = '구매확정';
+          button1.classList.add('confirmation');
+          button1.id = order.orderNo;
 
-        buttonArea.append(button1, button2);
+          const a = document.createElement('a');
 
-        /* 구매확정 버튼 클릭 시 주문 구매 확정 */
-        button1.addEventListener('click', () => {
+          a.innerText = '반품요청';
+          a.classList.add('return');
+          a.href = '/return/' + order.orderNo;
+          buttonArea.append(button1, a);
 
-          displayFlex(document.getElementById('orderConfirmModal'));
+          /* 구매확정 버튼 클릭 시 주문 구매 확정 */
+          button1.addEventListener('click', () => {
+            displayFlex(document.getElementById('orderConfirmModal'));
+            confirmOrderNo = order.orderNo;
+          })
 
-          confirmOrderNo = order.orderNo;
+        }
 
-        })
+        if (product.productStatus == 1) {
+          button2.setAttribute('type', 'button');
+          button2.innerText = '반품 진행중';
+          button2.classList.add('return');
+          button2.setAttribute('disabled', true);
+
+          buttonArea.append(button2);
+        }
+        if (product.productStatus == 2) {
+          button2.setAttribute('type', 'button');
+          button2.innerText = '반품 완료';
+          button2.classList.add('return');
+          button2.setAttribute('disabled', true);
+
+          buttonArea.append(button2);
+        }
       }
 
       if (order.orderStatus == 2) {
@@ -404,10 +469,13 @@ const printOrderList = (orderList, pagination) => {
 
       if (order.orderStatus == 3) {
         if (product.reviewCheck == 0) {
-          button1.setAttribute('type', 'button');
-          button1.innerText = '후기작성';
-          button1.classList.add('write-review');
-          button1.id = order.orderNo;
+          if (product.productStatus == 0) {
+
+            button1.setAttribute('type', 'button');
+            button1.innerText = '후기작성';
+            button1.classList.add('write-review');
+            button1.id = order.orderNo;
+          }
         }
 
         if (product.reviewCheck == 1) {
@@ -425,6 +493,7 @@ const printOrderList = (orderList, pagination) => {
           document.getElementById('modalProductThumbnail').setAttribute('src', product.productImg);
           document.getElementById('modalProductName').innerHTML = product.productName;
           document.getElementById('modalProductName').href = '/product/' + product.productNo;
+          document.getElementById('productNoInput').value = product.productNo;
 
           displayFlex(reviewFormContainer);
         })

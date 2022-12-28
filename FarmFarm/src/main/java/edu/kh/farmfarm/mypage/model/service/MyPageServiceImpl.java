@@ -8,8 +8,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.farmfarm.board.model.vo.Board;
@@ -29,6 +31,9 @@ public class MyPageServiceImpl implements MyPageService {
 	
 	@Autowired
 	private MyPageDAO dao;
+	
+	@Autowired
+	private BCryptPasswordEncoder bcrypt;
 	
 	
 	/** 주문 내역 조회
@@ -261,5 +266,162 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		return reviewNo;
 	}
+	
+	
+	@Override
+	public int deleteWish(Map<String, Object> map) {
+		return dao.deleteWish(map);
+	}
+
+
+	/** 마이페이지 프로필수정_이미지  
+	 * @return
+	 * @throws IOException 
+	 * @throws IllegalStateException 
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updateImage(String webPath, String folderPath, Member loginMember, MultipartFile farmfarm) throws Exception {
+		
+//		Member img = new Member();
+//		int checkImg = dao.checkImg(loginMember);
+//		
+//		int result = 0;
+//		String rename = null;
+//		
+//		if(checkImg >0) { // 이미지 있으면 수정 
+//			String temp = loginMember.getProfileImg();
+//
+//			rename = Util.fileRename(farmfarm.getOriginalFilename());
+//			
+//			img.setProfileImg(webPath +rename);
+//			img.setMemberNo(loginMember.getMemberNo());
+//			
+//			result = dao.updateImg(img);
+//			
+//			if(result>0) { // 수정 성공 
+//				if(rename != null) {
+//					farmfarm.transferTo(new File(folderPath +rename));
+//				} else {
+//					loginMember.setProfileImg(temp);
+//					throw new Exception("이미지 업로드 실패");
+//				}
+//				
+//			}
+//			
+//		} else { // 이미지 없으면 추가 
+//			if(farmfarm.getSize() != 0) {
+//				rename = Util.fileRename(farmfarm.getOriginalFilename());
+//				
+//				img.setProfileImg(webPath + rename);
+//				
+//				result = dao.updateImg(img);
+//				
+//				if(result > 0) { // 추가 성공 
+//					farmfarm.transferTo(new File(folderPath + rename));
+//				}
+//			}
+//		}
+//		
+//		return result;
+		
+		String temp = loginMember.getProfileImg();
+		
+		String rename = null;
+		
+		if(farmfarm.getSize() == 0) {
+			loginMember.setProfileImg(null);
+		} else {
+			
+			rename = Util.fileRename(farmfarm.getOriginalFilename());
+			
+			loginMember.setProfileImg(webPath + rename);
+			
+		}
+		
+		int result = dao.updateImg(loginMember);
+		
+		if(result > 0) {
+			
+			if(rename != null) {
+				
+				farmfarm.transferTo(new File(folderPath+rename));
+				
+			}
+			
+		} else {
+			loginMember.setProfileImg(temp);
+			
+			throw new Exception("파일 업로드 실패");
+		}
+		
+		return result;
+	}
+
+
+	/** 마이페이지 프로필수정_정보   
+	 * @return
+	 */
+	@Override
+	public int updateProfile(Member inputMember, String[] memberAddress) {
+		
+		int memberNickname = dao.updateMember(inputMember);
+		
+		int result = 0;
+		
+		if(memberNickname > 0) {
+			if(!memberAddress.equals(",,")) {
+				String address = String.join(",,", memberAddress);
+				inputMember.setMemberAddress(address);
+				String add = inputMember.getMemberAddress();
+				int memberNo = inputMember.getMemberNo();
+								
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("memberAddress", add);
+				map.put("memberNo", memberNo);
+				result = dao.updateAddress(map);
+			}
+		}
+		
+		return result;
+	}
+
+
+	/** 마이페이지 비밀번호 변경  
+	 * @return
+	 */
+	@Override
+	public int updatePw(Map<String, Object> map) {
+		int memberNo = (int)map.get("memberNo");
+		
+		String encPw = dao.selectEncPw(memberNo);
+		
+		if(bcrypt.matches((String)map.get("currentPw"), encPw)) {
+			String newPw = bcrypt.encode((String)map.get("newPw"));
+			map.put("newPw", newPw);
+			int result = dao.updatePw(map);
+			return result;
+		}
+		
+		return 0;
+	}
+
+
+	/** 마이페이지 회원 탈퇴 
+	 * @return
+	 */
+	@Override
+	public int secession(String memberPw, int memberNo) {
+		// 비밀번호 조회
+		String encPw = dao.selectEncPw(memberNo);
+		
+		if(bcrypt.matches(memberPw, encPw)) {
+			return dao.secession(memberNo);
+		}
+		
+		return 0;
+	}
+	
+	
 
 }

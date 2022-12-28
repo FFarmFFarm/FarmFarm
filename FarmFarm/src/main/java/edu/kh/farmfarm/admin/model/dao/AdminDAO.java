@@ -62,8 +62,8 @@ public class AdminDAO {
 	/** 전체 회원 수(관리자 제외)
 	 * @return memberListCount
 	 */
-	public int memberListCount() {
-		return sqlSession.selectOne("adminMapper.memberListCount");
+	public int memberListCount(Map<String, Object> paramMap) {
+		return sqlSession.selectOne("adminMapper.memberListCount", paramMap);
 	}
 
 
@@ -80,6 +80,18 @@ public class AdminDAO {
 		
 		return sqlSession.selectList("adminMapper.selectMemberList", paramMap, rowBounds);
 	}
+
+
+
+	/** 상세 조회_계정 상태(신고 내역)
+	 * @param paramMap
+	 * @return reportHistoryList
+	 */
+	public List<Admin> selectReportHistory(Map<String, Object> paramMap) {
+		return sqlSession.selectList("adminMapper.selectReportHistoryList", paramMap);
+	}
+
+
 
 
 

@@ -1,16 +1,22 @@
 package edu.kh.farmfarm.productDetail.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
@@ -89,6 +95,13 @@ public class ReviewController {
 		return service.removeHelp(map);
 	}
 	
+	/** 리뷰 목록 조회
+	 * @param productNo
+	 * @param loginMember
+	 * @param sortFl
+	 * @param cp
+	 * @return
+	 */
 	@GetMapping("/review/select")
 	public String selectReviewList(int productNo,
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
@@ -110,5 +123,43 @@ public class ReviewController {
 		
 		return new Gson().toJson(map);
 	}
+	
+	
+	/** 리뷰 수정
+	 * @param review
+	 * @param loginMember
+	 * @param session
+	 * @param imageList
+	 * @param deleteList
+	 * @return
+	 * @throws Exception
+	 */
+	@PostMapping("/review/update")
+	public int updateReview(Review review,
+			@SessionAttribute("loginMember") Member loginMember,
+			HttpSession session,
+			@RequestParam(value="reviewImg", required = false) List<MultipartFile> imageList,
+			@RequestParam(value = "deleteList", required = false) String deleteList
+			) throws Exception {
+		
+		review.setMemberNo(loginMember.getMemberNo());
+		
+		String webPath = "/resources/images/product/review/";
+		
+		String folderPath = session.getServletContext().getRealPath(webPath);
+		
+		int result = service.updateReview(webPath, folderPath, review, imageList, deleteList);
+		
+		
+		return result;
+	}
+	
+	
+	@GetMapping("/review/delete")
+	public int deleteReview(int reviewNo) {
+		
+		return service.deleteReview(reviewNo);
+	}
+	
 
 }

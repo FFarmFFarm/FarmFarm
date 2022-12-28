@@ -17,7 +17,7 @@
       채팅
     </div>
     <!-- 채팅방 전체화면으로 이동하기 -->
-    <form action="/chat" method="POST">
+    <form action="/chat/bridge" method="POST">
       <button id="goChatRoom">
         더보기&nbsp;<i class="fa-solid fa-chevron-right"></i>
       </button>

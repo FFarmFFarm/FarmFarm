@@ -36,7 +36,7 @@
        
     <jsp:include page="/WEB-INF/views/myPage/myPageNav.jsp"/>
 
-      <div class="order-list" id="orderListContainer">
+      <div class="order-list" >
         <span class="order-list-title">주문 내역</span>
         <c:if test="${empty orderList}">
           <div>주문 내역이 없습니다.</div>
@@ -45,9 +45,10 @@
 
         <c:if test="${! empty orderList}">
         <c:forEach var="order" items="${orderList}">
+        <div id="orderListContainer">
 
-        <div class="order">
-          <div class="order-info-container">
+          <div class="order">
+            <div class="order-info-container">
             <div class="order-info">
               <span class="order-no" id="${order.orderNo}">주문번호 <span>${order.orderNo}</span></span>
               <span class="order-reg-date">2022.12.15</span>
@@ -75,13 +76,29 @@
                 <span>결제완료</span>
                 </c:if>
                 <c:if test="${order.orderStatus == 1}">
-                <a class="order-shipping">배송중</a>
+                  <c:if test="${product.productStatus == 0}">
+                    <span class="order-shipping">배송중</span>
+                  </c:if>
+                  <c:if test="${product.productStatus == 1}">
+                    <span class="order-shipping">반품 진행중</span>
+                  </c:if>
+                  <c:if test="${product.productStatus == 2}">
+                    <span>반품 완료</span>
+                  </c:if>
                 </c:if>
                 <c:if test="${order.orderStatus == 2}">
-                <span>취소완료</span>
+                  <span>취소완료</span>
                 </c:if>
                 <c:if test="${order.orderStatus == 3}">
-                <span>구매확정</span>
+                  <c:if test="${product.productStatus == 0}">
+                    <span>구매확정</span>
+                  </c:if>
+                  <c:if test="${product.productStatus == 1}">
+                    <span class="order-shipping">반품 진행중</span>
+                  </c:if>
+                  <c:if test="${product.productStatus == 2}">
+                    <span>반품 완료</span>
+                  </c:if>
                 </c:if>
               </div>
             </div>
@@ -90,15 +107,25 @@
               <button type="button" class="confirmation" id="${order.orderNo}">구매확정</button>
               <button type="button" class="cancel-order" id="${order.orderNo}">주문취소</button>
               </c:if>
-              <c:if test="${order.orderStatus == 1}">
-              <button type="button" class="confirmation" id="${order.orderNo}">구매확정</button>
-              <button type="button" class="return" id="${order.orderNo}">반품요청</button>
+              <c:if test="${order.orderStatus == 1}"> 
+                <c:if test="${product.productStatus == 0}">
+                <button type="button" class="confirmation" id="${order.orderNo}">구매확정</button>
+                <a href="/return/${order.orderNo}" type="button" class="return" id="${order.orderNo}/${product.productNo}">반품요청</a>
+                </c:if>
+                <c:if test="${product.productStatus == 1}">
+                <button type="button" class="return" disabled>반품 진행중</button>
+                </c:if>
+                <c:if test="${product.productStatus == 2}">
+                    <button type="button" class="return" disabled>반품 완료</button>
+                </c:if>
               </c:if>
               <c:if test="${order.orderStatus == 2}">
               </c:if>
               <c:if test="${order.orderStatus == 3}">
                 <c:if test="${product.reviewCheck == 0}">
-                  <button type="button" class="write-review" id="${order.orderNo}">후기작성</button>
+                  <c:if test="${product.productStatus == 0}">
+                    <button type="button" class="write-review" id="${order.orderNo}">후기작성</button>
+                  </c:if>
                 </c:if>
                 <c:if test="${product.reviewCheck == 1}">
                   <button type="button" class="write-review" disabled>후기완료</button>
@@ -109,27 +136,27 @@
           </c:forEach>
           <div class="total-price">총 <span>${order.orderPrice}</span>원</div>
         </div>
-
-        </c:forEach>
-        </c:if>
-
-      
+        
+      </c:forEach>
+    </c:if>
+    
+    
         <div class="pagination-area">
           <!-- ajax로 만들어 보십시다 -->
           <div id="1" class="page-box">
-              <i class="fa-solid fa-angles-left"></i>
+            <i class="fa-solid fa-angles-left"></i>
           </div>
           <div id="${pagination.prevPage}" class="page-box">
-              <i class="fa-solid fa-angle-left"></i>
+            <i class="fa-solid fa-angle-left"></i>
           </div>
           <c:forEach var="i" 
-                      begin="${pagination.startPage}" 
+          begin="${pagination.startPage}" 
                       end="${pagination.endPage}"
                       step="1">
               <c:choose>
                   <c:when test="${i == pagination.currentPage}">
-                      <div class="current-page-box">
-                          ${i}
+                    <div class="current-page-box">
+                      ${i}
                       </div>
                   </c:when>
               
@@ -137,19 +164,20 @@
                       <div id="${i}" class="page-box">
                           ${i}
                       </div>
-                  </c:otherwise>
+                    </c:otherwise>
               </c:choose>
-          </c:forEach>
+            </c:forEach>
 
           <div id="${pagination.nextPage}" class="page-box">
               <i class="fa-solid fa-angle-right"></i>
           </div>
           <div id="${pagination.endPage}" class="page-box">
               <i class="fa-solid fa-angles-right"></i>
-          </div>
+            </div>
         </div>
 
-
+      </div>
+        
 
         
       </div>

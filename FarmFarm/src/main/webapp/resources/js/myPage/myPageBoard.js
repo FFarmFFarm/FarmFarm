@@ -1,21 +1,21 @@
 
 /* 게시글 조회수, 최근 등록순 정렬하기 */
-document.getElementById('sortNewest').addEventListener('click', (e) => { 
+document.getElementById('sortNewest').addEventListener('click', (e) => {
 
-  if (! e.target.classList.contains('sort-clicked')) {
-    sortFl = 'N'; 
-    selectBoardListBySoltFl(1, sortFl); 
+  if (!e.target.classList.contains('sort-clicked')) {
+    sortFl = 'N';
+    selectBoardListBySoltFl(1, sortFl);
 
     e.target.classList.add('sort-clicked');
     document.getElementById('sortView').classList.remove('sort-clicked');
   }
 })
 
-document.getElementById('sortView').addEventListener('click', (e) => { 
-  if (!e.target.classList.contains('sort-clicked')) { 
+document.getElementById('sortView').addEventListener('click', (e) => {
+  if (!e.target.classList.contains('sort-clicked')) {
     console.log("조회수순")
-    
-    sortFl = 'V'; 
+
+    sortFl = 'V';
     selectBoardListBySoltFl(1, sortFl);
 
     e.target.classList.add('sort-clicked');
@@ -29,8 +29,8 @@ document.getElementById('sortView').addEventListener('click', (e) => {
 // 페이지네이션 박스에 클릭 이벤트 추가
 const pageBox = document.getElementsByClassName('page-box');
 
-for(let page of pageBox) {
-  page.addEventListener('click', function(e) {
+for (let page of pageBox) {
+  page.addEventListener('click', function (e) {
 
     let cp = page.id;
 
@@ -43,40 +43,40 @@ for(let page of pageBox) {
 
 
 /* cp를 받아 게시글 목록 조회해오기 */
-const selectBoardList = (cp)=>{
+const selectBoardList = (cp) => {
   $.ajax({
-    url:"/board/list", 
-    data: {"cp":cp, "sortFl": sortFl},
+    url: "/board/list",
+    data: { "cp": cp, "sortFl": sortFl },
     dataType: "json",
-    success: (map)=>{
+    success: (map) => {
       printBoardList(map.boardList, map.pagination);
     },
-    error: ()=>{}
+    error: () => { }
   });
 }
 
 /* cp를 받아 게시글 목록 조회해오기 */
-const selectBoardListBySoltFl = (cp, sortFl)=>{
+const selectBoardListBySoltFl = (cp, sortFl) => {
   $.ajax({
-    url:"/board/list", 
-    data: {"cp":cp, "sortFl":sortFl},
+    url: "/board/list",
+    data: { "cp": cp, "sortFl": sortFl },
     dataType: "json",
-    success: (map)=>{
+    success: (map) => {
       printBoardList(map.boardList, map.pagination);
     },
-    error: ()=>{}
+    error: () => { }
   });
 }
 
 
 /* 조회해온 게시글 목록을 화면에 출력 */
-const printBoardList = (boardList, pagination)=>{
+const printBoardList = (boardList, pagination) => {
 
   const boardListContainer = document.getElementById('boardListContainer');
   boardListContainer.innerHTML = '';
 
-  
-  for(let board of boardList){
+
+  for (let board of boardList) {
 
     const boardContainer = document.createElement('div');
     boardContainer.classList.add('board');
@@ -89,9 +89,9 @@ const printBoardList = (boardList, pagination)=>{
 
     const boardTumbnail = document.createElement('div');
     boardTumbnail.classList.add('board-thumbnail');
-    
 
-    if(board.thumbnail != undefined){
+
+    if (board.thumbnail != undefined) {
       const boardThumbnailImg = document.createElement('img');
       boardThumbnailImg.classList.add('board-thumbnail-img');
       boardThumbnailImg.src = board.thumbnail;
@@ -108,7 +108,7 @@ const printBoardList = (boardList, pagination)=>{
     const titleDiv = document.createElement('div');
 
 
-    if(board.boardTitle.length >= 27) {
+    if (board.boardTitle.length >= 27) {
       titleDiv.innerHTML = board.boardTitle + "...";
     } else {
       titleDiv.innerHTML = board.boardTitle;
@@ -134,12 +134,12 @@ const printBoardList = (boardList, pagination)=>{
     boardContainer.append(boardRegDate, boardReadCount);
 
     boardListContainer.append(boardContainer);
-    
+
   }
 
   const paginationArea = document.createElement('div');
   paginationArea.classList.add('pagination-area');
-  
+
   boardListContainer.append(paginationArea);
 
   printPagination(paginationArea, pagination);
@@ -156,24 +156,24 @@ const printPagination = (paginationArea, pagination) => {
   const prevPage = document.createElement('div');
   makePageBox(firstPage, '<i class="fa-solid fa-angles-left"></i>', 1, 'page-box');
   makePageBox(prevPage, '<i class="fa-solid fa-angle-left"></i>', pagination.prevPage, 'page-box');
-  
+
   paginationArea.append(firstPage, prevPage);
 
   // 번호 페이지 제작
-  for(let i=pagination.startPage; i<=pagination.endPage; i++) {
-      const numPage = document.createElement('div');
-      if(i == pagination.currentPage) {
-          makePageBox(numPage, i, i, 'current-page-box');
-      } else {
-          makePageBox(numPage, i, i, 'page-box');
+  for (let i = pagination.startPage; i <= pagination.endPage; i++) {
+    const numPage = document.createElement('div');
+    if (i == pagination.currentPage) {
+      makePageBox(numPage, i, i, 'current-page-box');
+    } else {
+      makePageBox(numPage, i, i, 'page-box');
 
-      }
-      
-      paginationArea.append(numPage);
+    }
 
-      selectBoardListEvent(numPage, i);
+    paginationArea.append(numPage);
+
+    selectBoardListEvent(numPage, i);
   }
-  
+
   // 이후 페이지 제작
   const nextPage = document.createElement('div');
   const maxPage = document.createElement('div');
@@ -191,7 +191,7 @@ const printPagination = (paginationArea, pagination) => {
 
 /* 페이지네이션 박스에 클릭이벤트 추가 */
 const selectBoardListEvent = (element, cp) => {
-  
+
   element.addEventListener('click', () => {
     selectBoardList(cp);
     changeURL(cp);

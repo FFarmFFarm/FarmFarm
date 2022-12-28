@@ -83,6 +83,37 @@ public interface MyPageService {
 	int writeReview(String webPath, String filePath, Review review, List<MultipartFile> imageList) throws IOException;
 
 
+	/** 마이페이지 프로필수정_이미지  
+	 * @return
+	 * @throws Exception 
+	 */
+	int updateImage(String webPath, String folderPath, Member loginMember, MultipartFile farmfarm) throws Exception;
+
+
+	/** 마이페이지 프로필수정_정보   
+	 * @param memberAddress 
+	 * @param memberAddress 
+	 * @return
+	 */
+	int updateProfile(Member inputMember, String[] memberAddress);
+
+	/** 마이페이지 비밀번호 변경  
+	 * @return
+	 */
+	int updatePw(Map<String, Object> map);
+
+
+	/** 마이페이지 회원 탈퇴 
+	 * @return
+	 */
+	int secession(String memberPw, int memberNo);
+	/** 찜 삭제
+	 * @param map
+	 * @return
+	 */
+	int deleteWish(Map<String, Object> map);
+
+
 
 
 

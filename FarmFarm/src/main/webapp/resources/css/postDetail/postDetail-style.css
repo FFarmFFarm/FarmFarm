@@ -152,6 +152,21 @@ button:active {
   width: 400px;
   background-color: var(--point-color);
   font-size: var(--large-font-size);
+  border: none;
+  height: 45px;
+  border-radius: 4px;
+  color: white;
+
+  margin-left: 10px;
+}
+
+.chatting-btn:disabled {
+  background-color: var(--line-color);
+  cursor: default;
+}
+
+.chatting-btn:disabled:active {
+  transform: none;
 }
 
 .product-menu {

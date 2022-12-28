@@ -77,11 +77,14 @@ public class ChatWidgetController {
 					int tempNo = chatRoom.getMemberNo();
 					chatRoom.setMemberNo(myMemberNo);
 					chatRoom.setMemberNo2(tempNo);
-				}
-				if(chatRoom.getMemberNickname2().equals(myMemberNickname)) {
+					
 					String tempNickname = chatRoom.getMemberNickname();
 					chatRoom.setMemberNickname(myMemberNickname);
-					chatRoom.setMemberNickname2(tempNickname);
+					chatRoom.setMemberNickname2(tempNickname);	
+					
+					String tempProfileImg = chatRoom.getProfileImg();
+					chatRoom.setProfileImg(chatRoom.getProfileImg2());
+					chatRoom.setProfileImg2(tempProfileImg);
 				}
 				unReadCountAll += chatRoom.getUnreadChatCount();
 			}
@@ -113,7 +116,6 @@ public class ChatWidgetController {
 	private String goSelectedRoom(int roomNo, Model model, RedirectAttributes ra) {
 		
 		ra.addFlashAttribute("shortcutNo", roomNo);
-		
 		
 		return "redirect:/chat";
 	}

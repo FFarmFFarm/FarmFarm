@@ -16,10 +16,10 @@ public class DupServiceImpl implements DupService {
 		return dao.idDupCheck(memberId);
 	}
 
-	@Override
-	public int nameDupCheck(String memberName) {
-		return dao.nameDupCheck(memberName);
-	}
+//	@Override
+//	public int nameDupCheck(String memberName) {
+//		return dao.nameDupCheck(memberName);
+//	}
 
 	@Override
 	public int nicknameDupCheck(String memberNickname) {

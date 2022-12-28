@@ -3,7 +3,7 @@
 
 
     <div class="header-container">
-      <header>
+      <header style = "width:1200px;">
         <div class="home-logo">
           <a href="/">
             <img src="/resources/images/mainLogo.png" />
@@ -87,7 +87,7 @@
           <%-- <div class="nav-body">
             <div class="nav-list"> --%>
                 <span class="todayDate">
-                    2022-12-16  Fri
+                
                 </span>
               <%-- </div>
           </div>--%>

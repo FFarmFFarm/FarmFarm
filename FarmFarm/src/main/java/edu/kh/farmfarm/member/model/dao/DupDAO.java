@@ -14,9 +14,9 @@ public class DupDAO {
 		return sqlSession.selectOne("dupMapper.idDupCheck", memberId);
 	}
 
-	public int nameDupCheck(String memberName) {
-		return sqlSession.selectOne("dupMapper.nameDupCheck", memberName);
-	}
+//	public int nameDupCheck(String memberName) {
+//		return sqlSession.selectOne("dupMapper.nameDupCheck", memberName);
+//	}
 
 	public int nicknameDupCheck(String memberNickname) {
 		return sqlSession.selectOne("dupMapper.nicknameDupCheck",memberNickname);

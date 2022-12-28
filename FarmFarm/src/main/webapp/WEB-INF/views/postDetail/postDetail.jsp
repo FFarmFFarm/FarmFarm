@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/resources/css/common/header-style.css" />
     <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
     <link rel="stylesheet" href="/resources/css/postDetail/postDetail-style.css" />
+    <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"
@@ -59,18 +60,25 @@
             </div>
             <div class="summary-content">
               <span class="open-date">${post.openDate}</span>
-              <span class="seller">${post.memberNickname}</span>
+              <a href="/seller/${post.memberNo}" class="seller">${post.memberNickname}</a>
               <span class="origin">국산</span>
             </div>
+            ${post.memberNo}
           </div>
           <div class="product-btn-area">
-            <form action="/chat/makeroom" method="POST">
-              <input type="hidden" name="postNo" value="${post.postNo}">
-              <button type="button" class="chatting-btn">문의하기</button>
-            </form>
+
+            <c:if test="${post.postSoldoutFl == 0}">
+              <form action="/chat/insert/room" method="POST">
+                <input type="hidden" name="postNo" value="${post.postNo}">
+                <button class="chatting-btn">문의하기</button>
+              </form>
+            </c:if>
+            <c:if test="${post.postSoldoutFl == 1}">
+              <button type="button" class="chatting-btn" disabled>판매완료</button>
+            </c:if>
           </div>
         </div>
-        <button type="button" class="share-btn">
+        <button type="button" class="share-btn" id="shareBtn">
           <i class="fa-solid fa-share"></i>
         </button>
       </section>
@@ -94,6 +102,10 @@
 
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
+
+    <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
+
+
     <script>
       var swiper = new Swiper(".mySwiper", {
         slidesPerView: 1,
@@ -109,5 +121,17 @@
         },
       });
     </script>
+
+  <c:if test="${! empty message}">
+      <script>
+          alert("${message}")
+        
+        </script>
+      <c:remove var="message" />
+  </c:if> 
+
+    <!-- script -->
+    <script src="/resources/js/common/common.js"></script>
+    <script src="/resources/js/postDetail/postDetail.js"></script>
   </body>
 </html>
