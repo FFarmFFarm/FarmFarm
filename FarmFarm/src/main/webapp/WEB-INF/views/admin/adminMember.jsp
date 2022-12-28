@@ -31,9 +31,12 @@
 
             <!-- 오른쪽 -->
             <section class="admin-content-section">
+                <div class="page-title">
+                    <p>회원 관리</p>
+                </div>
                 <div class="upper-board">
                     <div class="title-div">
-                        <span class="member-select-title">회원 조회 ${memberListCount}</span>
+                        <span class="member-select-title">회원 조회</span>
                         <span class="member-search"> 
                             <input type="text" name="memberSearch" id="memberSearchInput" placeholder="검색">
                             <button type="button" id="memberSearchBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -50,7 +53,7 @@
                                     <th>닉네임</th>
                                     <th>주소</th>
                                     <th>가입일</th>
-                                    <th id="sellerAuth"><span id="dropBtn1">판매자 등록
+                                    <th id="sellerAuth"><span id="dropBtn1"><span id="dropBtn1Text">판매자 등록</span>
                                         <i class="fa-solid fa-caret-down caret-icon" class="select-filter"></i></span>
                                         <div class="drop-menu1" id="dropMenu1">
                                             <ul class="drop-ul" id="dropUl1">
@@ -62,7 +65,7 @@
                                         </div>
                                     </th>
                                     
-                                    <th id="memberStatus"><span id="dropBtn2">상태
+                                    <th id="memberStatus"><span id="dropBtn2"><span id="dropBtn2Text">상태</span>
                                         <i class="fa-solid fa-caret-down caret-icon" class="select-filter" id="dropBtn2"></i></span>
                                         <div class="drop-menu2" id="dropMenu2">
                                             <ul class="drop-ul" id="dropUl2">
@@ -247,7 +250,6 @@
             var authFilter = 0;  /* 판매자등록 필터  0: 전체 조회 */
             var statFilter = 0;  /* 상태 필터 0: 전체 조회  */
             var cp = "${pagination.currentPage}";
-            var memberListCount = "${memberListCount}";
         </script>
 
         <%-- jquery --%>

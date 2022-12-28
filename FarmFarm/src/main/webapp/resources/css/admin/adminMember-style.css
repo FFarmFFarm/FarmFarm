@@ -54,6 +54,15 @@ main{
 
 /* 오른쪽 상단 */
 
+.page-title{
+    text-align: center;
+    font-size: var(--title-font-size);
+    font-weight: bold;
+    height: 80px;
+    padding-top: 48px;
+}
+
+
 /* 회원 조회 */
 /* 회원 조회 타이틀 */
 .member-select-title{
@@ -104,6 +113,7 @@ main{
 
 .member-select-table{
     width: 900px;
+    /* height: 550px; */
     height: fit-content;
     /* margin: 15px 20px; */
     font-size: var(--small-font-size);
@@ -115,6 +125,49 @@ main{
     color: var(--point-color);
     padding-bottom: 10px;
     vertical-align: top;
+    height: 20px;
+    
+}
+
+/* 전체조회 th width 정하기 */
+/* no */
+.member-first-row th:first-child{
+    width: 24px;
+}
+
+/* 회원번호 */
+.member-first-row th:nth-child(2){
+    width: 45px;
+}
+
+/* 아이디 */
+.member-first-row th:nth-child(3){
+    width: 95px;
+}
+
+/* 닉네임 */
+.member-first-row th:nth-child(4){
+    width: 95px;
+}
+
+/* 주소 */
+.member-first-row th:nth-child(5){
+    width: 250px;
+}
+
+/* 가입일 */
+.member-first-row th:nth-child(6){
+    width: 150px;
+}
+
+/* 판매자 인증 */
+.member-first-row th:nth-child(7){
+    width: 80px;
+}
+
+/* 상태 */
+.member-first-row th:nth-child(8){
+    width: 80px;
 }
 
 .member-select-table td{

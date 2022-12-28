@@ -3,7 +3,7 @@
 
 
     <div class="header-container">
-      <header>
+      <header style = "width:1200px;">
         <div class="home-logo">
           <a href="/">
             <img src="/resources/images/mainLogo.png" />

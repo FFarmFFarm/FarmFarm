@@ -39,7 +39,7 @@ public class AdminServiceImpl implements AdminService{
 		
 		/* 페이지네이션 */
 		// 1. 전체 개수를 가져옴.
-		int memberListCount = dao.memberListCount();
+		int memberListCount = dao.memberListCount(paramMap);
 		
 		// 2. 가져온 개수와 현재 페이지를 이용해서 페이지네이션 객체 생성
 		Pagination pagination = new Pagination(memberListCount, cp, 15);
@@ -53,6 +53,10 @@ public class AdminServiceImpl implements AdminService{
 		map.put("memberListCount", memberListCount);
 		map.put("pagination", pagination);
 		map.put("memberList", memberList);
+		
+		
+		/* 신고 내역 조회 */
+//		int reportHistory = dao.selectReportHistory(paramMap);
 		
 		return map;
 	}
