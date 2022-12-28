@@ -17,6 +17,8 @@ if(loginMemberNo = 1) {
     chattingSock = new SockJS('/echo/chat');
 }
 
+
+
 /* Axios, WebSocket */
 
 // 요청 생성하기
@@ -40,6 +42,32 @@ window.addEventListener("DOMContentLoaded", ()=>{
         shortcut(shortcutNo);
         // history.replaceState("", "", "/chat");
     }
+
+    axios.post('/get/myNo'
+    ).then(function (response) {
+
+        myMemberNo = response.data;
+
+        if (myMemberNo != -1) {
+            listenChatSocket = new SockJS('/echo/chat');
+            console.log('야호!')
+
+            if (listenChatSocket != null) {
+
+                console.log('잘 들립니다!')
+
+                listenChatSocket.onmessage = function (e) {
+                    console.log('새로운 메세지가 있습니다.');
+                    document.getElementById('chatAlarmDot').style.display = 'block';
+                }
+            }
+
+        }
+
+    }).catch(function (error) {
+        console.log(error);
+    })
+
 })
 
 
@@ -284,6 +312,8 @@ const makeChatRoom = (myMemberNo, chatHistory, profileImg2, memberNickname2, pos
 
     const nowScrollHeight = readingArea.scrollHeight;
     readingArea.scrollTo(0, nowScrollHeight);
+
+    document.getElementById('inputBox').focus();
 }
 
 /* 내가 보낸 메세지를 만드는 함수 */
@@ -363,16 +393,20 @@ const sendChatToServer = () => {
     // 입력창에서 입력한 내용을 가져오고, 입력창을 비움
     const inputBox = document.getElementById('inputBox');
     const inputText = inputBox.value;
+
+    // 정규표현식으로 모든 태그를 제거(텍스트일때만 해당함)
+    // const cuttedText = inputText.replace(/(<([^>]+)>)/ig, "");
+    const cuttedText= inputText;
     
     // 웹소켓을 이용해 채팅을 전송
-    if (inputText.trim().length == 0) {
+    if (cuttedText.trim().length == 0) {
         alert("채팅을 입력해주세요!")
     } else {
         // json 객체 만들기
         let obj = {
             "roomNo" : selectedRoomNo,
             "sendMemberNo" : senderNo,
-            "chatContent": inputText,
+            "chatContent": cuttedText,
             "imgFl": 'N'
         };
 
@@ -451,6 +485,7 @@ document.getElementById('inputBox').addEventListener('keyup', (e)=>{
             sendChatToServer();
         }
     }
+    document.getElementById('inputBox').focus();
 })
 
 /* 사진 보내기 이벤트 */

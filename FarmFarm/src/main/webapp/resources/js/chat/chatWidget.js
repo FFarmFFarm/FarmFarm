@@ -31,8 +31,18 @@ addEventListener("DOMContentLoaded", () => {
 
         if (myMemberNo != -1) {
             listenChatSocket = new SockJS('/echo/chat');
-            console.log('야호~')
-            console.log(myMemberNo);
+            console.log('야호!')
+
+            if (listenChatSocket != null) {
+
+                console.log('잘 들립니다!')
+
+                listenChatSocket.onmessage = function (e) {
+                    console.log('새로운 메세지가 있습니다.');
+                    document.getElementById('chatAlarmDot').style.display = 'block';
+                }
+            }
+
         }
 
     }).catch(function (error) {
@@ -44,12 +54,7 @@ addEventListener("DOMContentLoaded", () => {
 addEventListener("load", ()=>{
     requestAndFillMyChatWidget();
 
-    if (listenChatSocket != null) {
-        console.log('듣고 있어요')
-        listenChatSocket.onmessage = function(e) {
-            document.getElementById('chatAlarmDot').style.display = 'block';
-        }
-    }
+
 })
 
 // ---------------------------- 비동기 요청 ---------------------------------- //
@@ -149,9 +154,15 @@ const fillChatWidget = (chatRoomList) => {
         // 6. 박스
         packUpElement(chatWidgetBox, 'chatWidget-box', null);
 
+        // 7. input값 세팅
+        const chatWidgetBoxInfo = document.createElement('input');
+        chatWidgetBoxInfo.hidden=true;
+        chatWidgetBoxInfo.setAttribute('name', "roomNo");
+        chatWidgetBoxInfo.setAttribute('value', chatRoom.roomNo);
+
         // 재료 조리
         chatWidgetBoxLabel.append(chatWidgetMemberNickname, chatWidgetLastChatTime);
-        chatWidgetBox.append(chatWidgetProfileImg, chatWidgetBoxLabel, chatWidgetLastChatContent);
+        chatWidgetBox.append(chatWidgetProfileImg, chatWidgetBoxLabel, chatWidgetLastChatContent, chatWidgetBoxInfo);
 
         // 사이드 메뉴 : 읽지 않은 메세지 개수(있는 경우에만)
         if(chatRoom.unreadChatCount > 0) {
@@ -160,8 +171,7 @@ const fillChatWidget = (chatRoomList) => {
             chatWidgetBox.append(chatWidgetUnreadChatCount);
         }
 
-        chatWidgetBox.setAttribute('name', "roomNo");
-        chatWidgetBox.setAttribute('value', chatRoom.roomNo);
+  
 
         // 플레이팅
         chatWidgetBody.append(chatWidgetBox);
