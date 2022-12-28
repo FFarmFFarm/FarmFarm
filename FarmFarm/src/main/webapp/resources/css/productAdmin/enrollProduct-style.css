@@ -177,7 +177,7 @@ main{
     line-height: 30px;
 }
 
-input[name="productPrice"], input[name="stock"] {
+input[name="productPrice"], input[name="productAmount"] {
     text-align: right;
     padding-right: 10px;
 }
