@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="/resources/css/common/header-style.css" />
     <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
     <link rel="stylesheet" href="/resources/css/myPage/myPage-style.css" />
-    <link rel="stylesheet" href="/resources/css/myPage/myPageSecession-style.css" />
+    <link rel="stylesheet" href="/resources/css/myPage/myPageProfile-style.css" />
     <script
       src="https://kit.fontawesome.com/591746f9e8.js"
       crossorigin="anonymous"
@@ -145,7 +145,7 @@
     <script src="/resources/js/common/common.js"></script>
 
     <script src="/resources/js/myPage/myPage.js"></script>
-    <script src="/resources/js/myPage/myPageSecession.js"></script>
+    <script src="/resources/js/myPage/myPageProfile.js"></script>
 
   </body>
 </html>
