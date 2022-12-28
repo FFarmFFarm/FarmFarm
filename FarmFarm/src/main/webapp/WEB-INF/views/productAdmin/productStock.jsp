@@ -76,7 +76,7 @@
                                 </div>
                                 <span class="product-name">${product.productName}</span>
                                 <div class="product-btn">
-                                    <button>수정</button>
+                                    <button class="update-btn" id="${product.productNo}">수정</button>
                                     <button class="delete-btn" id="${product.productNo}">삭제</button>
                                 </div>
                             </td>

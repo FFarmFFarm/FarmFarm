@@ -69,6 +69,7 @@ const deletePost = (postNo)=>{
   })
 };
 
+// 상품 수정 버튼
 const updateBtn = document.querySelectorAll(".update-btn");
 
 for(let i=0; i<updateBtn.length; i++){

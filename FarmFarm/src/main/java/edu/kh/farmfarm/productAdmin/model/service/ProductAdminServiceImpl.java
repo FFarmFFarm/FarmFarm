@@ -110,5 +110,11 @@ public class ProductAdminServiceImpl implements ProductAdminService{
 	public int deleteProduct(int productNo) {
 		return dao.deleteProduct(productNo);
 	}
+
+	// 상품 수정페이지로 이동
+	@Override
+	public Product selectProductDetail(int productNo) {
+		return dao.selectProductDetail(productNo);
+	}
 	
 }

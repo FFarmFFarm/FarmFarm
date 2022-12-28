@@ -90,5 +90,13 @@ public class ProductAdminDAO {
 	public int deleteProduct(int productNo) {
 		return sqlSession.update("productAdmin.deleteProduct", productNo);
 	}
+
+	/** 상품 수정페이지로 이동
+	 * @param productNo
+	 * @return product
+	 */
+	public Product selectProductDetail(int productNo) {
+		return sqlSession.selectOne("productAdmin.selectProductDetail", productNo);
+	}
 	
 }
