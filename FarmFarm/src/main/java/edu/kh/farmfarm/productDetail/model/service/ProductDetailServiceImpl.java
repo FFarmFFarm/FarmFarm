@@ -212,4 +212,15 @@ public class ProductDetailServiceImpl implements ProductDetailService{
 		
 		return result;
 	}
+	
+	
+	
+	/** 리뷰 삭제
+	 *
+	 */
+	@Override
+	public int deleteReview(int reviewNo) {
+		return dao.deleteReview(reviewNo);
+	}
+	
 }

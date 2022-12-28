@@ -163,4 +163,10 @@ public class ProductDetailDAO {
 
 
 
+	public int deleteReview(int reviewNo) {
+		return sqlSession.update("productDetailMapper.deleteReview", reviewNo);
+	}
+
+
+
 }

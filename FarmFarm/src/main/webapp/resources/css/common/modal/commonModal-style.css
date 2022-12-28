@@ -59,12 +59,9 @@
 /* 메세지 모달창 관련 */
 
 .message-container {
-  width: 100vw;
-  height: 85vh;
-
-  position: fixed;
-  left: 0;
-  top: 0;
+  position: absolute;
+  left: 50%;
+  bottom: 10%;
 
   display: flex;
   justify-content: center;
