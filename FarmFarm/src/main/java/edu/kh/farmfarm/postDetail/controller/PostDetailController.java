@@ -32,11 +32,6 @@ public class PostDetailController {
 	//	파라미터 담을 객체 생성
 		Post post = service.selectPost(postNo);
 		
-		if(loginMember == null) {
-			post.setMemberNo(0);
-		} else {
-			post.setMemberNo(loginMember.getMemberNo());
-		}
 
 		
 	//	모델에 저장

@@ -267,8 +267,8 @@ button:hover > span {
 }
 
 
-/* 구매 확정 모달창 */
-.order-confirm-container{
+/* 컨펌 모달창 */
+.confirm-container{
   width: 100vw;
   height: 100vh;
   background-color: var(--modal-background-color);
@@ -285,7 +285,7 @@ button:hover > span {
   font-family: "NotoSansKR-Bold";
 }
 
-.order-confirm-container > div:first-child {
+.confirm-container > div:first-child {
   width: 300px;
   height: 140px;
   background-color: white;
@@ -298,7 +298,7 @@ button:hover > span {
   justify-content: space-between;
 }
 
-.order-confirm-message {
+.confirm-message {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -307,7 +307,7 @@ button:hover > span {
   height: 70%;
 }
 
-.order-confirm-btn {
+.confirm-btn {
   width: 100%;
   height: 40px;
 
@@ -316,13 +316,13 @@ button:hover > span {
   align-items: center;
 }
 
-.order-confirm-btn > button {
+.confirm-btn > button {
   width: 50%;
 
   font-weight: bold;
 }
 
-.order-confirm-btn > button:last-child {
+.confirm-btn > button:last-child {
   color: var(--point-color);
 }
 

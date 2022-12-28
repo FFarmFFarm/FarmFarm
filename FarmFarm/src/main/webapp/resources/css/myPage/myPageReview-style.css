@@ -26,6 +26,18 @@ a.review-wrote > i {
   font-weight: bold;
 }
 
+.review-list-area {
+  width: 100%;
+}
+
+.no-review {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+}
+
 .review {
   display: flex;
   flex-direction: column;
@@ -53,6 +65,17 @@ a.review-wrote > i {
   text-align: center;
 }
 
+
+.review-delete-btn{
+  color: red;
+  background-color: white;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+
+}
+
 .review-container {
   height: 100%;
   display: flex;
@@ -61,6 +84,14 @@ a.review-wrote > i {
   justify-content: space-around;
   padding: 10px 0;
   margin-left: 50px;
+}
+
+.review-update-btn {
+  position: absolute;
+  top: 0;
+  right: 40px;
+  color: var(--sub-font-color);
+  background-color: white;
 }
 
 .review-content {
@@ -90,6 +121,7 @@ a.review-wrote > i {
 .review-detail-content {
   padding-top: 10px;
   width: 100%;
+  position: relative;
 }
 
 .review-detail-content > span {

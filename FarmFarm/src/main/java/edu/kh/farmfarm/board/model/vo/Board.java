@@ -2,6 +2,7 @@ package edu.kh.farmfarm.board.model.vo;
 
 import java.util.List;
 
+import edu.kh.farmfarm.mypage.model.vo.Comment;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

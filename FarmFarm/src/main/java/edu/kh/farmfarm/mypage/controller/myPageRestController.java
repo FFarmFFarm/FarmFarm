@@ -127,7 +127,7 @@ public class myPageRestController {
 		return service.orderConfirm(orderNo);
 	}
 	
-	@PostMapping("/order/review")
+	@PostMapping("/review/write")
 	public int writeReview(Review review, String reviewContent,
 			@SessionAttribute("loginMember") Member loginMember,
 			HttpServletRequest req,
@@ -147,6 +147,17 @@ public class myPageRestController {
 		return result;
 	}
 	
+	
+	@GetMapping("/wish/delete")
+	public int deleteWish(@SessionAttribute("loginMember") Member loginMember,
+			int productNo) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("productNo", productNo);
+		map.put("memberNo", loginMember.getMemberNo());
+		
+		return service.deleteWish(map);
+	}
 	
 
 }

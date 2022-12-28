@@ -10,11 +10,13 @@
 	      <result property="productName" column="PRODUCT_NAME" />
 	      <result property="regDate" column="REG_DATE" />
 	      <result property="productPrice" column="PRODUCT_PRICE" />
+	      <result property="productAmount" column="PRODUCT_AMOUNT" />
 	      <result property="stock" column="STOCK" />
 	      <result property="productMessage" column="PRODUCT_MESSAGE" />
 	      <result property="categoryName" column="CATEGORY_NAME" />
 	      <result property="wishCheck" column="WISH_CHECK" />
 	      <result property="soldoutFl" column="SOLDOUT_FL" />
+	      <result property="productDelFl" column="PRODUCT_DEL_FL" />
 	      <result property="productImgAddress" column="PRODUCT_IMG_ADDRESS" />
 	      
 <!-- 	      <collection property="imgList" 
@@ -67,7 +69,13 @@
 		</selectKey>
 		INSERT INTO PRODUCT VALUES
 		(#{productNo}, #{productName}, DEFAULT, #{productPrice}, 
-		DEFAULT, #{categoryNo}, #{stock}, #{productMessage}, DEFAULT)
+		DEFAULT, #{categoryNo}, 0, #{productMessage}, DEFAULT)
+	</insert>
+	
+	<!-- 최초 재고 등록 -->
+	<insert id="insertStock">
+		INSERT INTO STOCK_HISTORY VALUES
+		(SEQ_STOCK_NO.NEXTVAL, #{productAmount}, DEFAULT, #{productNo}, 0)
 	</insert>
 	
 
@@ -100,5 +108,24 @@
 		AND PRODUCT_DEL_FL='N'
 		ORDER BY PRODUCT_NO DESC
 	</select>
+	
+	<!-- 판매자 재고 증가 -->
+	<insert id="stockUp">
+		INSERT INTO STOCK_HISTORY VALUES
+		(SEQ_STOCK_NO.NEXTVAL, #{productAmount}, DEFAULT, #{productNo}, 2)
+	</insert>
+	
+	
+	<!-- 판매자 재고 감소 -->
+	<insert id="stockDown">
+		INSERT INTO STOCK_HISTORY VALUES
+		(SEQ_STOCK_NO.NEXTVAL, #{productAmount}, DEFAULT, #{productNo}, 3)
+	</insert>
+	
+	<!-- 판매글 삭제  -->
+	<update id="deleteProduct">
+		UPDATE PRODUCT SET PRODUCT_DEL_FL='Y' WHERE PRODUCT_NO = #{productNo}
+	</update>
+	
 	
 </mapper>

@@ -83,6 +83,13 @@ public interface MyPageService {
 	int writeReview(String webPath, String filePath, Review review, List<MultipartFile> imageList) throws IOException;
 
 
+	/** 찜 삭제
+	 * @param map
+	 * @return
+	 */
+	int deleteWish(Map<String, Object> map);
+
+
 
 
 

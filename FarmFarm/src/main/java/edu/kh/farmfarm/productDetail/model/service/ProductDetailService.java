@@ -3,6 +3,8 @@ package edu.kh.farmfarm.productDetail.model.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import edu.kh.farmfarm.productDetail.model.vo.Product;
 import edu.kh.farmfarm.productDetail.model.vo.Review;
 
@@ -56,5 +58,22 @@ public interface ProductDetailService {
 	 * @return
 	 */
 	Map<String, Object> selectReviewList(Map<String, Object> paramMap);
+
+	/** 리뷰 수정
+	 * @param webPath
+	 * @param folderPath
+	 * @param review
+	 * @param imageList
+	 * @param deleteList
+	 * @return
+	 */
+	int updateReview(String webPath, String folderPath, Review review, List<MultipartFile> imageList,
+			String deleteList) throws Exception;
+
+	/** 리뷰 삭제
+	 * @param reviewNo
+	 * @return
+	 */
+	int deleteReview(int reviewNo);
 
 }
