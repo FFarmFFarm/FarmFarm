@@ -114,7 +114,6 @@ public class ChatWidgetController {
 		
 		ra.addFlashAttribute("shortcutNo", roomNo);
 		
-		
 		return "redirect:/chat";
 	}
 }

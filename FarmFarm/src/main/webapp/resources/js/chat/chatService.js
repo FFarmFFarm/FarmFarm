@@ -34,6 +34,8 @@ if(loginMemberNo = 1) {
 window.addEventListener("DOMContentLoaded", ()=>{
     requestMyChatRoomList();
 
+    console.log("shortcutNo : " + shortcutNo);
+
     if(shortcutNo > 0) {
         shortcut(shortcutNo);
         // history.replaceState("", "", "/chat");
@@ -61,7 +63,7 @@ const shortcut = (shortcutNo) => {
     // 채팅 목록 가져오기
     axios.post('/chat/' + roomNo + '/shortcut')
         .then(function (response) {
-            console.log(response.data);
+            // console.log(response.data);
             // 내 번호
             let myMemberNo = response.data.myMemberNo;
 

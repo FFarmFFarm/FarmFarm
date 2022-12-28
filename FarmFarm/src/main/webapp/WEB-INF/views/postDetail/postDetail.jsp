@@ -64,9 +64,9 @@
             </div>
           </div>
           <div class="product-btn-area">
-            <form action="/chat/makeroom" method="POST">
+            <form action="/chat/insert/room" method="POST">
               <input type="hidden" name="postNo" value="${post.postNo}">
-              <button type="button" class="chatting-btn">문의하기</button>
+              <button class="chatting-btn">문의하기</button>
             </form>
           </div>
         </div>
@@ -109,5 +109,13 @@
         },
       });
     </script>
+
+  <c:if test="${! empty message}">
+      <script>
+          alert("${message}")
+        
+        </script>
+      <c:remove var="message" />
+  </c:if> 
   </body>
 </html>

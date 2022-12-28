@@ -63,8 +63,8 @@ public class ChatDAO {
 	 * @param roomNo
 	 * @return 참가중인 회원의 번호
 	 */
-	public ChatRoom getRoomInfo(int roomNo) {
-		return sqlSession.selectOne("chatMapper.getRoomInfo", roomNo);
+	public ChatRoom selectRoomInfo(int roomNo) {
+		return sqlSession.selectOne("chatMapper.selectPostNoOfRoom", roomNo);
 	}
 
 	/** 채팅 번호 찾기...
@@ -100,6 +100,30 @@ public class ChatDAO {
 	 */
 	public Member selectPartnerInfo(int memberNo) {
 		return sqlSession.selectOne("memberMapper.selectPartnerInfo", memberNo);
+	}
+
+	/** 판매자의 번호를 가져옴
+	 * @param postNo
+	 * @return
+	 */
+	public int selectSellerNo(int postNo) {
+		return sqlSession.selectOne("postDetailMapper.selectSellerNo", postNo);
+	}
+
+	/** 채팅방 개설 전, 동일한 채팅방이 있는지 검색
+	 * @param chatRoom
+	 * @return
+	 */
+	public int selectRoomNo(ChatRoom chatRoom) {
+		return sqlSession.selectOne("chatMapper.selectRoomNo", chatRoom);
+	}
+
+	/** 방 생성 후, 해당 방의 번호를 가져옴
+	 * @param chatRoom
+	 * @return
+	 */
+	public int insertNewRoom(ChatRoom chatRoom) {
+		return sqlSession.insert("chatMapper.insertNewRoom", chatRoom);
 	}
 
 

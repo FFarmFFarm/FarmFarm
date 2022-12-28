@@ -17,6 +17,7 @@
 	      <result property="memberNickname2" column="MEMBER_NICKNAME2" />
 	      <result property="profileImg2" column="PROFILE_IMG2" />
 	      <result property="closedFl" column="CLOSED_FL" />
+	      <result property="postNo" column="POST_NO" />
 	      
 	      <result property="lastChatTime" column="LAST_CHAT_TIME" />
 	      <result property="lastChatContent" column="LAST_CHAT_CONTENT" />
@@ -24,6 +25,7 @@
 	      <result property="unreadChatCount" column="UNREAD_CHAT_COUNT" />
 	      
 	      <result property="chatTimeOrder" column="CHAT_TIME_ORDER" />
+
 	 </resultMap>
 	 
 	 <resultMap type="Chat" id="chat_rm">
@@ -127,7 +129,7 @@
 	<select id="getChatHistory" parameterType="_int" resultMap="chat_rm">
 		SELECT CHAT_NO, CHAT_CONTENT, SEND_MEMBER_NO, READ_FL, IMG_FL,
 			   TO_CHAR(CHAT_TIME, 'YYYY-MM-DD') AS CHAT_DATE,
-			   TO_CHAR(CHAT_TIME, 'AM HH":"MI') AS CHAT_TIME
+			   TO_CHAR(CHAT_TIME, 'AM HH":"MI') AS CHAT_TIME,
 		FROM "CHAT" C
 		WHERE ROOM_NO = #{roomNo}
 		AND CHAT_DEL_FL = 'N'
@@ -136,7 +138,7 @@
 	<!-- 참가자 정보 찾기 -->
 	<select id="selectParticipantNo" parameterType="_int" resultMap="chatRoom_rm">
 		SELECT MEMBER_NO, MEMBER_NO2
-		FROM "CHAT_ROOM"
+		FROM CHAT_ROOM
 		WHERE ROOM_NO = #{roomNo} 
 	</select>
 	
@@ -155,8 +157,8 @@
 	</insert>
 	
 	<!-- 채팅방 정보 가져오기 -->
-	<select id="getRoomInfo" parameterType="_int" resultMap="chatRoom_rm">
-		SELECT MEMBER_NO, MEMBER_NO2
+	<select id="selectPostNoOfRoom" parameterType="_int" resultMap="chatRoom_rm">
+		SELECT POST_NO
 		FROM CHAT_ROOM
 		WHERE ROOM_NO = #{roomNo}
 	</select>
@@ -186,4 +188,26 @@
 		VALUES(SEQ_CHAT_IMG_NO.NEXTVAL, #{chatNo}, #{chatImgOriginal}, #{chatImgRename}, #{chatImgPath}, default)
 	</insert>
 
+	<!-- 방 번호 찾기 -->
+	<select id="selectRoomNo" parameterType="ChatRoom" resultType="_int">
+		SELECT NVL(MAX(ROOM_NO) ,0) AS ROOM_NO
+		FROM CHAT_ROOM
+		WHERE POST_NO = #{postNo} 
+		AND (MEMBER_NO = #{memberNo} AND MEMBER_NO2 = #{memberNo2})
+		AND CLOSED_FL = 'N'
+	</select>
+	
+	<!-- return sqlSession.insert("chatMapper.insertNewRoom", chatRoom) -->
+	<!-- 새로운 방을 생성한 후, 해당 방의 번호를 가져옴 -->
+	<!-- 객체의 roonNo에 담겨져서 나왔음!! -->
+	<insert id="insertNewRoom" useGeneratedKeys="true">
+		<selectKey keyProperty="roomNo" resultType="_int" order="AFTER">
+			SELECT SEQ_ROOM_NO.CURRVAL FROM DUAL
+		</selectKey>
+		INSERT INTO CHAT_ROOM VALUES(SEQ_ROOM_NO.NEXTVAL, DEFAULT, 
+									#{memberNo}, DEFAULT,
+									#{memberNo2}, DEFAULT,
+									DEFAULT,
+									#{postNo})
+	</insert>
 </mapper>

@@ -9,8 +9,6 @@
 let myMemberNo;
 let listenChatSocket;
 
-
-
 /* 요소에 클래스, 텍스트를 넣는 함수 */
 const packUpElement = (elementName, elementClass, elementContent) => {
 

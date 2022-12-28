@@ -10,6 +10,10 @@ import edu.kh.farmfarm.chat.model.vo.Chat;
 import edu.kh.farmfarm.chat.model.vo.ChatRoom;
 import edu.kh.farmfarm.member.model.VO.Member;
 
+/**
+ * @author alpaca
+ *
+ */
 public interface ChatService {
 
 	/** 채팅방 목록 가져오기
@@ -44,7 +48,7 @@ public interface ChatService {
 	 * @param roomNo
 	 * @return
 	 */
-	ChatRoom getRoomInfo(int roomNo);
+	ChatRoom selectRoomInfo(int roomNo);
 
 
 	/** 서버에 사진 저장하기..
@@ -63,6 +67,20 @@ public interface ChatService {
 	 * @return
 	 */
 	Member findPartnerInfo(int roomNo, int myMemberNo);
+
+	
+	/** 판매자 정보를 찾자
+	 * @param postNo
+	 * @return
+	 */
+	int selectSellerNo(int postNo);
+
+
+	/** 판매 문의 채팅방 개설하기
+	 * @param chatRoom
+	 * @return
+	 */
+	int insertNewRoom(ChatRoom chatRoom);
 
 
 

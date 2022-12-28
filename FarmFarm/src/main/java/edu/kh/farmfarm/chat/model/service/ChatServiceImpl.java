@@ -51,7 +51,7 @@ public class ChatServiceImpl implements ChatService {
 
 	// 채팅방 참가자 정보를 가져옴
 	@Override
-	public ChatRoom getRoomInfo(int roomNo) {
+	public ChatRoom selectRoomInfo(int roomNo) {
 		return dao.getRoomInfo(roomNo);
 	}
 	
@@ -132,6 +132,35 @@ public class ChatServiceImpl implements ChatService {
 		Member partner = dao.selectPartnerInfo(memberNo);
 		
 		return partner;
+	}
+	
+	// 판매자 정보를 찾아옴
+	@Override
+	public int selectSellerNo(int postNo) {
+		return dao.selectSellerNo(postNo);
+	}
+
+	// 채팅방 개설하기
+	@Override
+	public int insertNewRoom(ChatRoom chatRoom) {
+		
+		// 0. result 변수 생성
+		int roomNo = 0;
+		
+		// 1. 일단 채팅방이 있는지 확인
+		int result = dao.selectRoomNo(chatRoom);
+		
+		if(result == 0) {
+			// 2. 기존 채팅방이 없을때만 새로 만듦
+			result = dao.insertNewRoom(chatRoom); // insertRoom
+			
+			if(result > 0) {
+				roomNo = chatRoom.getRoomNo();
+			}
+			
+		}
+		
+		return roomNo;
 	}
 
 	
