@@ -44,8 +44,8 @@ public class MemberServiceImpl implements MemberService {
 			}
 		}
 		
-      System.out.println("입력한 비밀번호 : " + inputMember.getMemberPw());
-      System.out.println("암호화 비밀번호 : " + bcrypt.encode(inputMember.getMemberPw()) );
+//      System.out.println("입력한 비밀번호 : " + inputMember.getMemberPw());
+//      System.out.println("암호화 비밀번호 : " + bcrypt.encode(inputMember.getMemberPw()) );
 		
 		return loginMember;
 	}
@@ -70,9 +70,10 @@ public class MemberServiceImpl implements MemberService {
 		int result = 0;
 		
 		if(memberNo > 0) {
-			// 주소가 작성 경우
+			// 주소가 작성된 경우
 			if(!memberAddress.equals(",,")) {
-				inputMember.setMemberAddress(String.join(",,", memberAddress));
+				String address = String.join(",,", memberAddress);
+				inputMember.setMemberAddress(address);
 				String add = inputMember.getMemberAddress();
 				System.out.println(add);
 				

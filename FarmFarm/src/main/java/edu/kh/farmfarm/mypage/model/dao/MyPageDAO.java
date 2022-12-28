@@ -181,6 +181,45 @@ public class MyPageDAO {
 	}
 
 
+	public int checkImg(Member loginMember) {
+		return sqlSession.selectOne("myPageMapper.checkimg",loginMember);
+	}
+
+
+	public int updateImg(Member img) {
+		return sqlSession.update("myPageMapper.updateImg", img);
+	}
+
+
+	public int updateMember(Member inputMember) {
+		return sqlSession.update("myPageMapper.updateMember", inputMember);
+	}
+
+
+	public int updateAddress(Map<String, Object> map) {
+		return sqlSession.update("myPageMapper.updateAddress", map);
+	}
+
+
+	public String selectEncPw(int memberNo) {
+		return sqlSession.selectOne("myPageMapper.selectEncPw", memberNo);
+	}
+
+
+	public int updatePw(Map<String, Object> map) {
+		return sqlSession.update("myPageMapper.updatePw", map);
+	}
+
+
+	/** 마이페이지 회원 탈퇴 
+	 * @return
+	 */
+	public int secession(int memberNo) {
+		return sqlSession.update("myPageMapper.secession", memberNo);
+	}
+
+
+
 	/** 찜 삭제
 	 * @param map
 	 * @return

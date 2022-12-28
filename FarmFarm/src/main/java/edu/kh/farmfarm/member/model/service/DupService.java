@@ -4,7 +4,7 @@ public interface DupService {
 
 	int idDupCheck(String memberId);
 
-	int nameDupCheck(String memberName);
+//	int nameDupCheck(String memberName);
 
 	int nicknameDupCheck(String memberNickname);
 

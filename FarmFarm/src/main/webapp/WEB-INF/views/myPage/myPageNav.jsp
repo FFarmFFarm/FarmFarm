@@ -19,7 +19,13 @@
           <a href="/myPage/wishList" class="wish">
             <span>찜 목록</span><i class="fa-solid fa-chevron-right"></i
           ></a>
-          <a href="" class="setting">
+          <a href="/myPage/profile" class="setting">
             <span>개인 정보 수정</span><i class="fa-solid fa-chevron-right"></i
+          ></a>
+          <a href="/myPage/updatePw" class="update-pw">
+            <span>비밀번호 변경</span><i class="fa-solid fa-chevron-right"></i
+          ></a>
+          <a href="/myPage/secession" class="secession">
+            <span>회원 탈퇴</span><i class="fa-solid fa-chevron-right"></i
           ></a>
         </section>

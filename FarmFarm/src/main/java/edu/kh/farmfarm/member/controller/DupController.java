@@ -22,13 +22,13 @@ public class DupController {
 		return result;
 	}
 	
-	// 이름 중복 검사 
-	@GetMapping("/nameDupCheck")
-	@ResponseBody
-	public int nameDupCheck(String memberName) {
-		int result = service.nameDupCheck(memberName);
-		return result;
-	}
+//	// 이름 중복 검사 
+//	@GetMapping("/nameDupCheck")
+//	@ResponseBody
+//	public int nameDupCheck(String memberName) {
+//		int result = service.nameDupCheck(memberName);
+//		return result;
+//	}
 	
 	// 닉네임 중복 검사 
 	@GetMapping("/nicknameDupCheck")

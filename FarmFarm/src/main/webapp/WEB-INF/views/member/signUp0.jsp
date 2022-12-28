@@ -156,6 +156,8 @@
                         crossorigin="anonymous"></script>
 
                     <script>
+                    checkObj.farmImg = true;
+
                     checkObj.agreeInput1 = true;
                      $(document).ready(function () {
                             $("#close-btn-wrap").click(function () {
@@ -179,7 +181,7 @@
                             },
                             success: function(data) {
                                 const checkNum = data;
-                                alert('checkNum:'+ checkNum);
+                                alert('인증번호가 전송되었습니다.');
                                 
                                 $('#enterBtn').click(function() {	
                                     const userNum = $('#userNum').val();
