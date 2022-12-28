@@ -171,7 +171,7 @@ body{
 }
 
 /* 프로필 이미지 */
-.profile-img{
+/* .profile-img{
     width: 40px;
     height: 100%;
     margin-right: 5px;
@@ -188,19 +188,38 @@ body{
 
     border: 1px solid var(--line-color);
     border-radius: 50%;
+} */
+.thumbnail-img{
+    width: 40px;
+    height: 100%;
+    margin-right: 5px;
+    
+    display: flex;
+    align-items: center;
+}
+
+.thumbnail-img > img{
+    width: 40px;
+    height: 40px;
+    
+    padding: 2px;
+
+    border: 1px solid var(--line-color);
+    border-radius: 50%;
 }
 
 /* 이름 및 시간 */
 .box-label{
-    border-bottom: 1px solid var(--line-color);
+    /* border-bottom: 1px solid var(--line-color); */
+    border-top: 1px solid var(--line-color);
 
     width: 175px;
     
-    padding-bottom: 5px;
-    margin-bottom: 5px;
+    /* padding-bottom: 5px; */
+    margin-top: 5px;
     display: flex;
     justify-content: space-between;
-
+    align-items: center;
 }
 
 /* 이름 */
@@ -241,6 +260,17 @@ body{
     white-space: nowrap;
 }
 
+/* 상품 한줄소개 */
+.chat-sidebar .post-title{
+    font-size: var(--main-font-size);
+    width: 160px;
+    color: var(--main-font-color); 
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
 /* 읽지 않은 채팅 개수 */
 .unread-chat-count{
     width: 20px;
@@ -255,7 +285,8 @@ body{
     align-items: center;
     justify-content: center;
 
-    bottom: 8px;
+    /* bottom: 8px; */
+    bottom: 40px;
     right: 10px;
 }
 

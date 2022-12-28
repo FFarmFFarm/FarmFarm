@@ -26,6 +26,9 @@
 	      
 	      <result property="chatTimeOrder" column="CHAT_TIME_ORDER" />
 
+	      <result property="thumbnailImg" column="THUMBNAIL_IMG" />
+	      <result property="postTitle" column="POST_TITLE" />
+
 	 </resultMap>
 	 
 	 <resultMap type="Chat" id="chat_rm">
@@ -63,7 +66,7 @@
 			  (SELECT MEMBER_NICKNAME
 			  	FROM MEMBER M1
 			  	WHERE M1.MEMBER_NO = CR.MEMBER_NO) AS MEMBER_NICKNAME,
-			  	-- 이미지1
+			  	-- 프로필 이미지1
 			  (SELECT PROFILE_IMG
 			   FROM MEMBER M1
 			   WHERE M1.MEMBER_NO = CR.MEMBER_NO) AS PROFILE_IMG, 
@@ -71,10 +74,20 @@
 			  (SELECT MEMBER_NICKNAME
 			  	FROM MEMBER M2
 			  	WHERE M2.MEMBER_NO = CR.MEMBER_NO2) AS MEMBER_NICKNAME2,
-			  	-- 이미지2
+			  	-- 프로필 이미지2
 			  (SELECT PROFILE_IMG
 			   FROM MEMBER M2
 			   WHERE M2.MEMBER_NO = CR.MEMBER_NO2) AS PROFILE_IMG2,
+			   -- 상품 대표 이미지
+			  	(SELECT POST_IMG_ADDRESS
+			   	FROM POST_IMG PIMG
+			   	WHERE PIMG.POST_NO = CR.POST_NO
+			   	AND POST_IMG_ORDER = 0
+			   	AND ROWNUM = 1) AS THUMBNAIL_IMG,
+			   -- 상품 한줄소개
+   			  	(SELECT POST_TITLE
+			   	FROM POST PO
+			   	WHERE PO.POST_NO = CR.POST_NO) AS POST_TITLE,
 			   -- 날짜(날짜가 오늘 날짜와 같으면 시간만, 아니면 날짜만 가져옴)
 			   (SELECT CASE WHEN TO_CHAR(CHAT_TIME, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 			   				THEN TO_CHAR(CHAT_TIME, 'AM HH"시" MI"분"')

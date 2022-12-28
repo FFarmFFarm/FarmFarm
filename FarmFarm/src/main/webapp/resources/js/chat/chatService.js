@@ -20,8 +20,6 @@ let chattingSock;
 window.addEventListener("DOMContentLoaded", ()=>{
     requestMyChatRoomList();
 
-    console.log("shortcutNo : " + shortcutNo);
-
     if(shortcutNo > 0) {
         shortcut(shortcutNo);
         // history.replaceState("", "", "/chat");
@@ -146,11 +144,13 @@ const requestMyChatRoomList = () => {
 const makeChatPreviewBox = (chatRoomInfo) => {
     // 재료 준비
     const chatPreviewBox = document.createElement('div'); // 박스
-    const profileImg = document.createElement('div'); // 상대 이미지
-    const boxLabel = document.createElement('div'); // 이름, 시간이 들어감
+    // const profileImg = document.createElement('div'); // 상대 이미지
+    const thumbnailImg = document.createElement('div'); // 상대 이미지
+    const postTitle = document.createElement('div'); // 마지막 대화
+    const boxLabel = document.createElement('div'); // 이름, 마지막 대화 시간이 들어감
     const memberNickname = document.createElement('div'); // 상대 이름
     const lastChatTime = document.createElement('div'); // 마지막 대화 시간
-    const lastChatContent = document.createElement('div'); // 마지막 대화
+    // const lastChatContent = document.createElement('div'); // 마지막 대화
 
     // 방번호 넣기
     chatPreviewBox.id = chatRoomInfo.roomNo;
@@ -158,12 +158,15 @@ const makeChatPreviewBox = (chatRoomInfo) => {
     // 데이터 넣기
     packUpElement(chatPreviewBox, 'chat-preview-box', null);
     
-    if(chatRoomInfo.profileImg2 == undefined ) { // 이미지가 없는 경우 기본 이미지
-        packUpElement(profileImg, 'profile-img', "<img src='/resources/images/member/user.png'>");
+    // 상품 프로필 이미지
+    if(chatRoomInfo.thumbnailImg == undefined ) { // 이미지가 없는 경우 기본 이미지
+        packUpElement(thumbnailImg, 'thumbnail-img', "<img src='/resources/images/member/user.png'>");
     } else {
-        packUpElement(profileImg, 'profile-img', "<img src=" + chatRoomInfo.profileImg2 + ">");
+        packUpElement(thumbnailImg, 'thumbnail-img', "<img src=" + chatRoomInfo.thumbnailImg + ">");
     }
-    
+
+    packUpElement(postTitle, 'post-title', chatRoomInfo.postTitle);
+
     packUpElement(boxLabel, 'box-label', null);
     
     packUpElement(memberNickname, 'member-nickname', chatRoomInfo.memberNickname2);
@@ -174,19 +177,21 @@ const makeChatPreviewBox = (chatRoomInfo) => {
         packUpElement(lastChatTime, 'last-chat-time', chatRoomInfo.lastChatTime);
     }
 
-    if(chatRoomInfo.lastChatContent == undefined) { // 채팅 내용이 없는 경우 '대화 내용이 없습니다' 출력
-        packUpElement(lastChatContent, 'last-chat-content', '대화 내용이 없습니다.');
-    } else {
-        if(chatRoomInfo.lastChatImgFl === 'N') { // 사진이 아닌 경우
-            packUpElement(lastChatContent, 'last-chat-content', chatRoomInfo.lastChatContent);
-        } else { // 사진인 경우
-            packUpElement(lastChatContent, 'last-chat-content', '사진을 보냈습니다.');
-        }
-    }
+    // if(chatRoomInfo.lastChatContent == undefined) { // 채팅 내용이 없는 경우 '대화 내용이 없습니다' 출력
+    //     packUpElement(lastChatContent, 'last-chat-content', '대화 내용이 없습니다.');
+    // } else {
+    //     if(chatRoomInfo.lastChatImgFl === 'N') { // 사진이 아닌 경우
+    //         packUpElement(lastChatContent, 'last-chat-content', chatRoomInfo.lastChatContent);
+    //     } else { // 사진인 경우
+    //         packUpElement(lastChatContent, 'last-chat-content', '사진을 보냈습니다.');
+    //     }
+    // }
     
     // 포장하기
     boxLabel.append(memberNickname, lastChatTime);
-    chatPreviewBox.append(profileImg, boxLabel, lastChatContent);
+    chatPreviewBox.append(thumbnailImg, postTitle, boxLabel);
+    // boxLabel.append(memberNickname, lastChatTime);
+    // chatPreviewBox.append(profileImg, boxLabel, lastChatContent);
 
     if (chatRoomInfo.unreadChatCount > 0) { // 읽지 않은 채팅이 있는 경우
         const unreadChatCount = document.createElement('div'); // 읽지 않은 채팅 개수
@@ -208,9 +213,10 @@ const chatPreviewBoxEvent = (chatPreviewBox) => {
 
     const roomNo = chatPreviewBox.id;
 
-    const profileImg2 = chatPreviewBox.children[0].innerHTML;
+    // const profileImg2 = chatPreviewBox.children[0].innerHTML;
 
-    const memberNickname2 = chatPreviewBox.children[1].children[0].innerText;
+    // const memberNickname2 = chatPreviewBox.children[1].children[0].innerText;
+    const memberNickname2 = chatPreviewBox.children[2].children[0].innerText;
 
     // 채팅 목록 가져오기
     axios.post('/chat/' + roomNo)
@@ -221,7 +227,8 @@ const chatPreviewBoxEvent = (chatPreviewBox) => {
             // 채팅 전송을 위해 전역 변수 세팅
             selectedRoomNo = roomNo;
             senderNo = myMemberNo;
-            partnerProfileImg = profileImg2;
+            // partnerProfileImg = profileImg2;
+            const profileImg2 = response.data.partnerInfo.profileImg;
             partnerNickname = memberNickname2;
 
             // 읽음 처리 해야함..
@@ -347,7 +354,7 @@ const makeReceivedChat = (profileImg2, memberNickname2, chatContent, chatTime, i
     const receivedBubbleTime = document.createElement('div');
 
     packUpElement(receivedChat, 'received-chat', null);
-    packUpElement(senderProfileImg, 'sender-profile-img', profileImg2);
+    packUpElement(senderProfileImg, 'sender-profile-img', "<img src=" + profileImg2 + ">");
     packUpElement(senderName, 'sender-name', memberNickname2);
     packUpElement(receivedBubbleTail, 'received-bubble-tail', null);
     if(imgFl === 'N') {
