@@ -107,6 +107,11 @@ public interface MyPageService {
 	 * @return
 	 */
 	int secession(String memberPw, int memberNo);
+	/** 찜 삭제
+	 * @param map
+	 * @return
+	 */
+	int deleteWish(Map<String, Object> map);
 
 
 

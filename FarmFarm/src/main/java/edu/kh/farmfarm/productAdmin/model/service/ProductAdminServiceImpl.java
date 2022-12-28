@@ -3,13 +3,16 @@ package edu.kh.farmfarm.productAdmin.model.service;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.kh.farmfarm.common.Pagination;
 import edu.kh.farmfarm.common.Util;
 import edu.kh.farmfarm.productAdmin.model.dao.ProductAdminDAO;
 import edu.kh.farmfarm.productDetail.model.vo.Product;
@@ -68,6 +71,44 @@ public class ProductAdminServiceImpl implements ProductAdminService{
 		}
 				
 		return productNo;
+	}
+	
+	// 팜팜 상품 전체조회
+	@Override
+	public Map<String, Object> selectProductList(int cp) {
+		
+		int listCount = dao.getListCount();
+		
+		Pagination pagination = new Pagination(listCount, cp, 10, 10);
+		
+		List<Product> productList = dao.selectProductList(pagination);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("pagination", pagination);
+		map.put("productList", productList);
+		map.put("listCount", listCount);
+		
+		return map;
+	}
+
+	// 판매자 재고 증가
+	@Override
+	public int stockUp(Map<String, Object> map) {
+		return dao.stockUp(map);
+	}
+
+	
+	// 판매자 재고 감소
+	@Override
+	public int stockDown(Map<String, Object> map) {
+		return dao.stockDown(map);
+	}
+
+	// 상품 삭제
+	@Override
+	public int deleteProduct(int productNo) {
+		return dao.deleteProduct(productNo);
 	}
 	
 }

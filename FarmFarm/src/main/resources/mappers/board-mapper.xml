@@ -281,11 +281,16 @@
 	
 	<!-- 댓글 불러오기~~~~ -->
 	<select id="commentList" resultMap="comment_rm">
-		SELECT COMMENT_NO, COMMENT_CONTENT, COMMENT_DATE, COMMENT_PARENT, COMMENT_DEL_FL,
-			MEMBER_NO, BOARD_NO, MEMBER_NICKNAME
-		FROM "COMMENT"
-		JOIN "MEMBER" USING(MEMBER_NO)
-		WHERE BOARD_NO = #{boardNo}
+		SELECT LEVEL, C.* FROM
+			(SELECT COMMENT_NO, COMMENT_CONTENT, COMMENT_DATE, COMMENT_PARENT, COMMENT_DEL_FL,
+				MEMBER_NO, BOARD_NO, MEMBER_NICKNAME, PROFILE_IMG, 
+			 (SELECT COUNT(*) FROM "COMMENT" WHERE BOARD_NO = C.BOARD_NO) COMMENT_COUNT
+			FROM "COMMENT" C
+			JOIN "MEMBER" USING(MEMBER_NO)
+			WHERE BOARD_NO = #{boardNo}) C
+		START WITH COMMENT_PARENT IS NULL
+		CONNECT BY PRIOR COMMENT_NO = COMMENT_PARENT
+		ORDER SIBLINGS BY COMMENT_NO
 	</select>
 	
 	
@@ -301,7 +306,8 @@
 	<update id="updateBoard">
 		UPDATE "BOARD" SET
 		BOARD_TITLE = #{boardTitle},
-		BOARD_CONTENT = #{boardContent}
+		BOARD_CONTENT = #{boardContent},
+		BOARD_UPDATE_DATE = SYSDATE
 		WHERE BOARD_NO = #{boardNo}
 	</update>
 	
@@ -327,6 +333,21 @@
 		INSERT INTO "BOARD_IMG"
 		VALUES(SEQ_BOARD_IMG_NO.NEXTVAL, #{boardNo}, #{boardImgAddress}, #{boardImgOrder})
 	</insert>	
+	
+	
+	
+	<!-- 댓글 등록을 해봅시다 -->
+	<insert id="commentWrite">
+		INSERT INTO "COMMENT"
+		VALUES(SEQ_COMMENT_NO.NEXTVAL, #{commentContent}, DEFAULT, 
+			<if test='commentParent == 0'>
+				NULL,
+			</if>
+			<if test='commentParent != 0'>
+				#{commentParent},
+			</if>
+			 DEFAULT, #{memberNo}, #{boardNo})
+	</insert>
 	
 
 </mapper>

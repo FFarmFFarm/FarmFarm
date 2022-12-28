@@ -507,7 +507,7 @@ const printMemberList = (memberList, pagination) => {
 
 
 // todo: 페이지네이션 박스 화면에 출력
-const printPagination = (paginationArea, pagination){
+const printPagination = (paginationArea, pagination)=>{
 
     // 이전 페이지
     const firstPage = document.createElement('li');
