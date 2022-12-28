@@ -69,6 +69,7 @@ const fillReviewForm = (review) => {
   const modalProductName = document.getElementById('modalProductName');
   const reviewTextArea = document.getElementById('reviewTextArea');
   const productNoInput = document.getElementById('productNoInput');
+  const reviewNoInput = document.getElementById('reviewNoInput');
 
 
   modalProductThumbnail.removeAttribute('src');
@@ -80,6 +81,8 @@ const fillReviewForm = (review) => {
 
   productNoInput.value = '';
   productNoInput.value = review.productNo;
+
+  reviewNoInput.value = review.reviewNo;
 
   reviewTextArea.value = '';
   review.reviewContent = review.reviewContent.replaceAll('<br>', '\n');
@@ -176,12 +179,14 @@ document.getElementById('submitBtn').addEventListener('click', () => {
 
   } else {
     console.log('등록 하기');
+
+    document.getElementById('deleteSetInput').value = Array.from(deleteSet);
     const form = document.getElementById('reviewFrom');
     const formData = new FormData(form);
 
     $.ajax({
-      url: "/order/review/update",
-      data: { 'formData': formData, 'deleteSet': deleteSet },
+      url: "/review/update",
+      data: formData,
       type: "POST",
       contentType: false,
       processData: false,
@@ -193,7 +198,7 @@ document.getElementById('submitBtn').addEventListener('click', () => {
 
           let cp = selectCp();
 
-          selectOrderList(cp);
+          selectReviewList(cp);
         }
       },
       error: () => {

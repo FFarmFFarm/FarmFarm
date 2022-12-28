@@ -170,6 +170,8 @@ public class ProductDetailServiceImpl implements ProductDetailService{
 					
 					String rename = Util.fileRename(imageList.get(i).getOriginalFilename());
 					
+					renameList.add(rename);
+					
 					img.setReviewImgPath(webPath + rename);
 					
 					img.setReviewImgOrder(i);

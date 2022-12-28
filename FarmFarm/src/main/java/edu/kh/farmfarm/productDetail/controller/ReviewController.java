@@ -140,7 +140,7 @@ public class ReviewController {
 			@SessionAttribute("loginMember") Member loginMember,
 			HttpSession session,
 			@RequestParam(value="reviewImg", required = false) List<MultipartFile> imageList,
-			@RequestParam(value = "deleteList", required = false)String deleteList
+			@RequestParam(value = "deleteList", required = false) String deleteList
 			) throws Exception {
 		
 		review.setMemberNo(loginMember.getMemberNo());
