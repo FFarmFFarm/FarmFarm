@@ -343,23 +343,50 @@ const printOrderList = (orderList, pagination) => {
       orderStatus.classList.add('order-status');
 
       const span4 = document.createElement('span');
-      const a = document.createElement('a');
+      const span5 = document.createElement('span');
 
       if (order.orderStatus == 0) {
         span4.innerText = '결제완료';
         orderStatus.append(span4);
       }
+
       if (order.orderStatus == 1) {
-        a.innerText = '배송중';
-        a.classList.add('order-shipping');
-        orderStatus.append(a);
+        if (product.productStatus == 0) {
+          span5.innerText = '배송중';
+          span5.classList.add('order-shipping');
+        }
+
+        if (product.productStatus == 1) {
+          span5.innerText = '반품 진행중';
+          span5.classList.add('order-shipping');
+        }
+
+        if (product.productStatus == 2) {
+          span5.innerText = '반품완료';
+          span5.classList.add('order-shipping');
+        }
+        orderStatus.append(span5);
       }
+
       if (order.orderStatus == 2) {
         span4.innerText = '취소완료';
         orderStatus.append(span4);
       }
+
       if (order.orderStatus == 3) {
-        span4.innerText = '구매확정';
+
+        if (product.productStatus == 0) {
+          span4.innerText = '구매확정';
+        }
+
+        if (product.productStatus == 1) {
+          span4.innerText = '반품 진행중';
+        }
+
+        if (product.productStatus == 2) {
+          span4.innerText = '반품 완료';
+        }
+
         orderStatus.append(span4);
       }
 
@@ -397,26 +424,47 @@ const printOrderList = (orderList, pagination) => {
       }
 
       if (order.orderStatus == 1) {
-        button1.setAttribute('type', 'button');
-        button1.innerText = '구매확정';
-        button1.classList.add('confirmation');
-        button1.id = order.orderNo;
 
-        button2.setAttribute('type', 'button');
-        button2.innerText = '반품요청';
-        button2.classList.add('return');
-        button2.id = order.orderNo;
+        if (product.productStatus == 0) {
+          button1.setAttribute('type', 'button');
+          button1.innerText = '구매확정';
+          button1.classList.add('confirmation');
+          button1.id = order.orderNo;
 
-        buttonArea.append(button1, button2);
+          button2.setAttribute('type', 'button');
+          button2.innerText = '반품요청';
+          button2.classList.add('return');
+          button2.id = order.orderNo;
 
-        /* 구매확정 버튼 클릭 시 주문 구매 확정 */
-        button1.addEventListener('click', () => {
+          buttonArea.append(button1, button2);
 
-          displayFlex(document.getElementById('orderConfirmModal'));
+          /* 구매확정 버튼 클릭 시 주문 구매 확정 */
+          button1.addEventListener('click', () => {
 
-          confirmOrderNo = order.orderNo;
+            displayFlex(document.getElementById('orderConfirmModal'));
 
-        })
+            confirmOrderNo = order.orderNo;
+
+          })
+
+        }
+
+        if (product.productStatus == 1) {
+          button2.setAttribute('type', 'button');
+          button2.innerText = '반품 진행중';
+          button2.classList.add('return');
+          button2.setAttribute('disabled', true);
+
+          buttonArea.append(button2);
+        }
+        if (product.productStatus == 2) {
+          button2.setAttribute('type', 'button');
+          button2.innerText = '반품 완료';
+          button2.classList.add('return');
+          button2.setAttribute('disabled', true);
+
+          buttonArea.append(button2);
+        }
       }
 
       if (order.orderStatus == 2) {
@@ -424,10 +472,13 @@ const printOrderList = (orderList, pagination) => {
 
       if (order.orderStatus == 3) {
         if (product.reviewCheck == 0) {
-          button1.setAttribute('type', 'button');
-          button1.innerText = '후기작성';
-          button1.classList.add('write-review');
-          button1.id = order.orderNo;
+          if (product.productStatus == 0) {
+
+            button1.setAttribute('type', 'button');
+            button1.innerText = '후기작성';
+            button1.classList.add('write-review');
+            button1.id = order.orderNo;
+          }
         }
 
         if (product.reviewCheck == 1) {

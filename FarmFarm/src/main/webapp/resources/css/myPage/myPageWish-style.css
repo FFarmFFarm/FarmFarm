@@ -150,6 +150,7 @@ input#selectWish:checked + label.checkbox {
   border: none;
   font-size: var(--title-font-size);
   color: #aaa;
+  background-color: white;
 }
 
 .pagination {

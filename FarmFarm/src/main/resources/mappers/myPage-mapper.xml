@@ -44,6 +44,7 @@
       <result property="productImg" column="PRODUCT_IMG" />       			  
       <result property="wishDate" column="WISH_DATE" />       			  
       <result property="reviewCheck" column="REVIEW_CHECK" />       			  
+      <result property="productStatus" column="PRODUCT_STATUS" />       			  
   </resultMap>
   
   
@@ -132,7 +133,7 @@
 
 <!-- 주문한 상품 목록 조회 -->
 <select id="selectProductList" resultMap="product_rm">
-	SELECT op.PRODUCT_NO , op.PRODUCT_AMOUNT, PRODUCT_NAME, PRODUCT_PRICE,
+	SELECT op.PRODUCT_NO , op.PRODUCT_AMOUNT, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_STATUS,
 		(SELECT PRODUCT_IMG_ADDRESS 
 		FROM PRODUCT_IMG pi3 
 		WHERE pi3.PRODUCT_NO = op.PRODUCT_NO 
