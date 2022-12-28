@@ -34,7 +34,7 @@
       <section class="list-container">
         <jsp:include page="/WEB-INF/views/myPage/myPageNav.jsp"/>
         <div class="board-list">
-          <span class="board-list-title">개인 정보 수정</span>
+          <span class="board-list-title">개인 정보 수정</span> ${loginMember.memberPw}
           <span class="sub-update">* 변경가능</span>
             <form action="/myPage/myPageImage" id="imgFrm" method="post" class="profile-img-form"
             enctype="multipart/form-data" onsubmit = "return profileValidate()">
@@ -75,7 +75,6 @@
                 <div class="title">*현재 비밀번호</div>
                 <input type="password" name="currentPw" id="currentPw" placeholder="현재 비밀번호"
                     maxlegnth="20">
-                <div id="pwConfirm" class="coner">현재 비밀번호를 입력해주세요.</div>
               </section>
               <section class="update">
                 <div class="title">*새 비밀번호</div>
@@ -144,9 +143,10 @@
     <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
 
     <script>
-      var loginMemberPw = "${loginMember.memberPw}";
+      var oriNickname = "${loginMember.memberNickname}";
     </script>
 
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 

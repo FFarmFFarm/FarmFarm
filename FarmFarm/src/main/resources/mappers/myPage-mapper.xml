@@ -241,6 +241,19 @@
 	</foreach>
 </insert>
 
+<!-- 이미지 있는지 조회 -->
+<select id="checkimg" resultType="_int">
+	SELECT COUNT(*) FROM "MEMBER"
+	WHERE MEMBER_NO = #{memberNo}
+</select>
 
+<!-- 마이페이지 이미지 수정 -->
+<update id="updateImg">
+	UPDATE "MEMBER" SET
+	PROFILE_IMG = #{profileImg}
+	WHERE MEMBER_NO = #{memberNo}
+</update>
+
+</insert>
 
 </mapper>

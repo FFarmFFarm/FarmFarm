@@ -70,7 +70,7 @@ public class MemberServiceImpl implements MemberService {
 		int result = 0;
 		
 		if(memberNo > 0) {
-			// 주소가 작성 경우
+			// 주소가 작성된 경우
 			if(!memberAddress.equals(",,")) {
 				String address = String.join(",,", memberAddress);
 				inputMember.setMemberAddress(address);

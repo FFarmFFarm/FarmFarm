@@ -83,6 +83,20 @@ public interface MyPageService {
 	int writeReview(String webPath, String filePath, Review review, List<MultipartFile> imageList) throws IOException;
 
 
+	/** 마이페이지 프로필수정_이미지  
+	 * @return
+	 * @throws Exception 
+	 */
+	int updateImage(String webPath, String folderPath, Member loginMember, MultipartFile farmfarm) throws Exception;
+
+
+	/** 마이페이지 프로필수정_정보   
+	 * @param memberAddress 
+	 * @return
+	 */
+	int updateProfile(Member inputMember);
+
+
 
 
 

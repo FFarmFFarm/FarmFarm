@@ -40,6 +40,7 @@
 
 })();
 
+// 주소
 function sample6_execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function (data) {

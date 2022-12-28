@@ -67,7 +67,6 @@ if(myProfileFrm != null){
     const pwConfirm = document.getElementById("pwConfirm");
 
     const checkpw = {
-        "currentPw" :false,
         "newPw" : false,
         "newPwConfirm" : false
     }
@@ -107,32 +106,18 @@ if(myProfileFrm != null){
 
     currentPw.addEventListener("input",()=>{
         if(currentPw.value.trim().length==0){
-            pwConfirm.innerText ="현재 비밀번호를 작성해주세요.";
-            pwConfirm.classList.remove("confirm");
-            pwConfirm.classList.add("error");
+            alert("현재 비밀번호를 작성해주세요.");
             currentPw.focus();
             e.preventDefault();
             return;
-        } else {
-            if(currentPw.value == loginMemberPw.value){
-                checkpw.currentPw=true;
-                pwConfirm.innerText="현재 비밀번호가 일치합니다.";
-                pwConfirm.classList.add("confirm");
-                pwConfirm.classList.remove("error");
-            }else{
-                checkpw.currentPw=false;
-                pwConfirm.innerText="현재 비밀번호가 일치하지 않습니다.";
-                pwConfirm.classList.remove("confirm");
-                pwConfirm.classList.add("error");
-            }
-        }
+        } 
     })
 
     pwConfirm.classList.remove("confirm", "error");
     
-    newPw.addEventListener("input",()=>{
+    newPw.addEventListener("input",(e)=>{
 
-            const regEx = /^[\w!@#-_]{8,20}$/;
+            const regEx = /^[a-zA-Z\d!@#-_]{6,}$/;
             if(regEx.test(newPw.value)){
                 checkpw.newPw = true;
     
@@ -182,5 +167,97 @@ if(myProfileFrm != null){
             checkpw.newPwConfirm=false;
         }
     })
+
+
+    // 닉네임 
+    const memberNickname = document.getElementById("memberNickname");
+    const nicknameConfirm = document.getElementById("nicknameConfirm");
+    
+    memberNickname.addEventListener("click", () => {
+        nicknameConfirm.innerText="한글, 영어, 숫자 2~10글자 입력해주세요.";
+        nicknameConfirm.classList.remove("confirm", "error");
+    });
+
+    const ntcheck = {
+        "memberNickname" : true
+    }
+
+    memberNickname.addEventListener("input", () => {
+        const regEx = /^[가-힣a-zA-Z0-9]{2,10}$/;
+
+        if(oriNickname != memberNickname.value){
+            if(regEx.test(memberNickname.value)){
+                $.ajax({
+                    url : "/nicknameDupCheck",
+                    data : {"memberNickname" : memberNickname.value},
+                    success : result => {
+                        if(result == 0){
+                            nicknameConfirm.innerText = "사용 가능한 닉네임입니다.";
+                            nicknameConfirm.classList.add("confirm");
+                            nicknameConfirm.classList.remove("error");
+                            ntcheck.memberNickname = true;
+                        } else{
+                            nicknameConfirm.innerText="사용 중인 닉네임입니다.";
+                            nicknameConfirm.classList.add("error");
+                            nicknameConfirm.classList.remove("confirm");
+                            ntcheck.memberNickname = false;
+                        }
+                    },
+                    error : ()=>{
+                        alert("ajax 통신 중 오류 발생 : 닉네임 수정");
+                        ntcheck.memberNickname = false;
+                    }
+                })
+            } else{
+                nicknameConfirm.innerText="이름 형식이 유효하지 않습니다.";
+                nicknameConfirm.classList.add("error");
+                nicknameConfirm.classList.remove("confirm");
+                ntcheck.memberNickname = false;
+            }
+        }
+    });
+    function checkValidate(){
+        if(oriNickname == memberNickname.value){
+            alert("변경 사항이 없습니다.");
+            return false;
+        }
+
+        if(memberNickname.value.trim().length == 0){
+            alert("닉네임을 입력해주세요.");
+            return false;
+        }
+
+        if(!ntcheck.memberNickname){
+            alert("닉네임을 다시 입력해주세요.");
+            return false;
+        }
+    }
 };
+
+// 주소
+function sample6_execDaumPostcode() {
+    new daum.Postcode({
+        oncomplete: function (data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var addr = ''; // 주소 변수
+            var extraAddr = ''; // 참고항목 변수
+
+            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                addr = data.roadAddress;
+            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                addr = data.jibunAddress;
+            }
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('sample6_postcode').value = data.zonecode;
+            document.getElementById("sample6_address").value = addr;
+            // 커서를 상세주소 필드로 이동한다.
+            document.getElementById("sample6_detailAddress").focus();
+        }
+    }).open();
+}
 

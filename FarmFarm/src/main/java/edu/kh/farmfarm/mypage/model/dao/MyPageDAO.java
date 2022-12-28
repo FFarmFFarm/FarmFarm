@@ -181,6 +181,17 @@ public class MyPageDAO {
 	}
 
 
+	public int checkImg(Member loginMember) {
+		return sqlSession.selectOne("myPageMapper.checkimg",loginMember);
+	}
+
+
+	public int updateImg(Member img) {
+		return sqlSession.update("mypageMapper.updateImg", img);
+	}
+
+
+
 
 
 

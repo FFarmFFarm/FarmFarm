@@ -8,8 +8,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.farmfarm.board.model.vo.Board;
@@ -29,6 +31,9 @@ public class MyPageServiceImpl implements MyPageService {
 	
 	@Autowired
 	private MyPageDAO dao;
+	
+	@Autowired
+	private BCryptPasswordEncoder bcrypt;
 	
 	
 	/** 주문 내역 조회
@@ -261,5 +266,83 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		return reviewNo;
 	}
+
+
+	/** 마이페이지 프로필수정_이미지  
+	 * @return
+	 * @throws IOException 
+	 * @throws IllegalStateException 
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updateImage(String webPath, String folderPath, Member loginMember, MultipartFile farmfarm) throws Exception {
+		Member img = new Member();
+		
+		int checkImg = dao.checkImg(loginMember);
+		
+		int result = 0;
+		String rename = null;
+		
+		img.setMemberNo(loginMember.getMemberNo());
+		
+		if(checkImg >0) { // 이미지 있으면 수정 
+			String temp = loginMember.getProfileImg();
+			
+			if(farmfarm.getSize() == 0) {
+				img.setProfileImg(webPath + "profileImg.png");
+				
+				loginMember.setProfileImg("/resources/images/myPage/profile/profileImg.png");
+				
+				result = dao.updateBgImg(img);
+			} else {
+				rename = Util.fileRename(farmfarm.getOriginalFilename());
+				
+				img.setProfileImg(farmfarm.getOriginalFilename());
+				
+				loginMember.setProfileImg(webPath +rename);
+				
+				result = dao.updateImg(img);
+				
+				if(result>0) { // 수정 성공 
+					if(rename != null) {
+						farmfarm.transferTo(new File(folderPath +rename));
+					} else {
+						loginMember.setProfileImg(temp);
+						throw new Exception("이미지 업로드 실패");
+					}
+					
+				}
+			}
+			
+		} else { // 이미지 없으면 추가 
+			if(farmfarm.getSize() != 0) {
+				rename = Util.fileRename(farmfarm.getOriginalFilename());
+				
+				img.setProfileImg(farmfarm.getOriginalFilename());
+				
+				loginMember.setProfileImg(webPath + rename);
+				
+				result = dao.updateImg(img);
+				
+				if(result > 0) { // 추가 성공 
+					farmfarm.transferTo(new File(folderPath + rename));
+				}
+			}
+		}
+		
+		return result;
+	}
+
+
+	/** 마이페이지 프로필수정_정보   
+	 * @return
+	 */
+	@Override
+	public int updateProfile(Member inputMember) {
+
+		return 0;
+	}
+	
+	
 
 }
