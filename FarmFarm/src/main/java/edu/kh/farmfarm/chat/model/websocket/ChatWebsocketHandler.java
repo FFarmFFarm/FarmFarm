@@ -73,7 +73,7 @@ public class ChatWebsocketHandler extends TextWebSocketHandler {
 	        String strHour = "";
 	        String strMin = "";
 	        
-	        if(hour > 12) {
+	        if(hour >= 12) {
 	        	hour-= 12;
 	        	meridiem = "오후";
 	        	strHour = "0" + hour;
