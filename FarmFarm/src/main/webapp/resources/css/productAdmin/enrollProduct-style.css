@@ -234,18 +234,19 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 
-.delete-thumbnail{
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    color: #B0B0B0;
-    cursor: pointer;
-}
-
 .delete-img{
     display: none;
     margin-left: 10px;
     color: #888;
+    cursor: pointer;
+}
+
+.delete-thumbnail{
+    display: block;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: #B0B0B0;
     cursor: pointer;
 }
 

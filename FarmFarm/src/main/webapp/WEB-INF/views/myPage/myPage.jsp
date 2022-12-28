@@ -30,11 +30,18 @@
         <div class="profile-info">
           <div class="profile-img-container">
             <div class="member-profile">
-              <img
+              <c:if test="${empty loginMember.profileImg}">
+                <img
                 src="/resources/images/myPage/profile/profileImg.png"
-                alt=""
                 class="member-profile-img"
-              />
+                id="ProfileImg"/>
+              </c:if>
+              <c:if test="${!empty loginMember.profileImg}">
+                <img
+                src="${loginMember.profileImg}"
+                class="member-profile-img"
+                id="ProfileImg"/>
+              </c:if>
             </div>
             <span class="member-nickname">${loginMember.memberNickname}</span>
           </div>

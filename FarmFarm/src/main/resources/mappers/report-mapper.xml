@@ -13,13 +13,15 @@
 	     <result property="reportReason" column="REPORT_REASON" />
 	     <result property="reportDate" column="REPORT_DATE" />
 	     <result property="reportPenalty" column="REPORT_PENALTY" />
-	     <result property="processDate" column="REPORT_DATE" />
+	     <result property="processDate" column="PROCESS_DATE" />
+	     <result property="reportContent" column="REPORT_CONTENT" />
+	     <result property="processContent" column="PROCESS_CONTENT" />
 	</resultMap>
 
 
 	<insert id="insertReport">
 		INSERT INTO REPORT VALUES(SEQ_REPORT_NO.NEXTVAL, #{reportType}, #{memberNo}, #{reportTargetNo}, #{reportReason},
-			DEFAULT, DEFAULT, NULL, #{reportContent})
+			DEFAULT, DEFAULT, NULL, #{reportContent}, NULL)
 	</insert>
 
 

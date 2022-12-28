@@ -16,7 +16,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
+  min-height: 130vh;
 }
 
 button {
@@ -105,15 +105,15 @@ button {
 .member-profile {
   width: 150px;
   height: 150px;
-  object-fit: cover;
   overflow: hidden;
-
+  
   background-color: white;
   border-radius: 50%;
   border: 1px solid var(--line-color);
 }
 
 .member-profile-img {
+  object-fit: cover;
   width: 100%;
   height: 100%;
 }

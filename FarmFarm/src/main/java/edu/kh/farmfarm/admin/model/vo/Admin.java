@@ -38,7 +38,8 @@ public class Admin {
 	private String reportDate;
 	private String reportPenalty;
 	private String processDate;
-	private String reportConent;
+	private String reportContent;
+	private String processContent;
 	
 
 }

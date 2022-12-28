@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>신고</title>
 
-    <link rel="stylesheet" href="/resources/css/modal/report-style.css" />
+    <link rel="stylesheet" href="/resources/css/report/report-modal-style.css" />
 
     <script src="https://kit.fontawesome.com/d4fbceca97.js" crossorigin="anonymous"></script>
 

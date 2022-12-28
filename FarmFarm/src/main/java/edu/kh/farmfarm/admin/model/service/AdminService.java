@@ -1,10 +1,7 @@
 package edu.kh.farmfarm.admin.model.service;
 
-import java.util.List;
 import java.util.Map;
 
-import edu.kh.farmfarm.admin.model.vo.Admin;
-import edu.kh.farmfarm.member.model.VO.Member;
 
 public interface AdminService {
 

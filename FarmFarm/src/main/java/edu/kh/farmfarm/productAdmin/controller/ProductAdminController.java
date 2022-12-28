@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -111,5 +112,20 @@ public class ProductAdminController {
 
 		return service.deleteProduct(productNo);
 	}
+	
+	// 상품 수정페이지로 이동
+	@GetMapping("/admin/update/{productNo}")
+	public String updateProduct(
+			@PathVariable("productNo") int productNo, Model model,
+			@RequestParam(value="cp", required=false, defaultValue="1") int cp) {
+		
+		Product product = service.selectProductDetail(productNo);
+		
+		model.addAttribute("product", product);
+		model.addAttribute("cp", cp);
+		
+		return "productAdmin/updateProduct";
+	}
+	
 	
 }

@@ -31,6 +31,9 @@
 
             <!-- 오른쪽 -->
             <section class="admin-content-section">
+                <div class="page-title">
+                    <p>회원 관리</p>
+                </div>
                 <div class="upper-board">
                     <div class="title-div">
                         <span class="member-select-title">회원 조회</span>
@@ -40,101 +43,99 @@
                         </span>
                     </div>
 
-                    <div class="member-select">
+                    <div class="member-select" id="memberSelectDiv">
                         <table class="member-select-table" id="memberSelectTable">
-                            <tr class="member-first-row">
-                                <th>NO</th>
-                                <th>회원번호</th>
-                                <th>아이디</th>
-                                <th>닉네임</th>
-                                <th>주소</th>
-                                <th>가입일</th>
-                                <th id="sellerAuth"><span id="dropBtn1">판매자 등록
-                                    <i class="fa-solid fa-caret-down caret-icon" class="select-filter"></i></span>
-                                    <div class="drop-menu1" id="dropMenu1">
-                                        <ul class="drop-ul" id="dropUl1">
-                                            <li class="authFilter" id="a0">전체</li>
-                                            <li class="authFilter" id="a1">미등록</li>
-                                            <li class="authFilter" id="a2">판매자</li>
-                                            <li class="authFilter" id="a3">인증 대기</li>
-                                        </ul>
-                                    </div>
-                                </th>
-                                
-                                <th id="memberStatus"><span id="dropBtn2">상태
-                                    <i class="fa-solid fa-caret-down caret-icon" class="select-filter" id="dropBtn2"></i></span>
-                                    <div class="drop-menu2" id="dropMenu2">
-                                        <ul class="drop-ul" id="dropUl2">
-                                            <li class="statFilter" id="s0">전체</li>
-                                            <li class="statFilter" id="s1">활동중</li>
-                                            <li class="statFilter" id="s2">신고 접수</li>
-                                            <li class="statFilter" id="s3">정지</li>
-                                            <li class="statFilter" id="s4">탈퇴</li>
-                                        </ul>
-                                    </div>
-                                </th>
-                            </tr>
-
-                            <!-- 한 행 반복 -->
-                            <!-- <c:forEach var="member" items="${memberAllList}"> -->
-                                <!-- <c:set var="i" value="${i+1}" /> -->
-                                <%-- <tr class="member-select-row" id="memberSelectRow">  --%>
+                            <thead>
+                                <tr class="member-first-row">
+                                    <th>NO</th>
+                                    <th>회원번호</th>
+                                    <th>아이디</th>
+                                    <th>닉네임</th>
+                                    <th>주소</th>
+                                    <th>가입일</th>
+                                    <th id="sellerAuth"><span id="dropBtn1"><span id="dropBtn1Text">판매자 등록</span>
+                                        <i class="fa-solid fa-caret-down caret-icon" class="select-filter"></i></span>
+                                        <div class="drop-menu1" id="dropMenu1">
+                                            <ul class="drop-ul" id="dropUl1">
+                                                <li class="authFilter" id="a0">전체</li>
+                                                <li class="authFilter" id="a1">미등록</li>
+                                                <li class="authFilter" id="a2">판매자</li>
+                                                <li class="authFilter" id="a3">인증 대기</li>
+                                            </ul>
+                                        </div>
+                                    </th>
                                     
-                                    <!-- <td class="report-member-seq">${i}</td>
-                                    <td>${member.memberNo}</td>
-                                    <td>${member.memberId}</td>
-                                    <td>${member.memberNickname}</td>
+                                    <th id="memberStatus"><span id="dropBtn2"><span id="dropBtn2Text">상태</span>
+                                        <i class="fa-solid fa-caret-down caret-icon" class="select-filter" id="dropBtn2"></i></span>
+                                        <div class="drop-menu2" id="dropMenu2">
+                                            <ul class="drop-ul" id="dropUl2">
+                                                <li class="statFilter" id="s0">전체</li>
+                                                <li class="statFilter" id="s1">활동중</li>
+                                                <li class="statFilter" id="s2">신고 접수</li>
+                                                <li class="statFilter" id="s3">정지</li>
+                                                <li class="statFilter" id="s4">탈퇴</li>
+                                            </ul>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </thead>
 
+                            <tbody id="tbody">
+                                <!-- 한 행 반복 -->
+                                <%-- <c:forEach var="member" items="${memberList}">
+                                이 안이 아예 안되는거같은데..?
+                                    <c:set var="i" value="${i+1}" />
+                                    <tr class="member-select-row" id="memberSelectRow"> 
+                                        
+                                        <td class="report-member-seq">${i}</td>
+                                        <td>${member.memberNo}</td>
+                                        <td>${member.memberId}</td>
+                                        <td>${member.memberNickname}</td>
 
-                                    <td>${member.memberAddress}</td>
-                                    <td>${member.signUpDate}</td>
+                                        <td>${member.memberAddress}</td>
+                                        <td>${member.signUpDate}</td> --%>
 
-                                    <%-- 판매자 인증 --%>
-                                    <c:if test="${not empty member.authority}">
-                                        <c:if test="${member.authority == 0}">
-                                            <td>미등록</td>
-                                        </c:if>
-                                        <c:if test="${member.authority == 1}">
-                                            <td>판매자</td>
-                                        </c:if>
-                                        <c:if test="${member.authority == 3}">
-                                            <td>인증 대기</td>
-                                        </c:if>
-                                    </c:if>
-
-                                    <%-- 상태 --%>
-                                    <%-- <c:if test="${not empty report.reportPenalty && not empty member.memberDelFl}"> --%>
-                                    <c:if test="${not empty member.memberDelFl}">
-                                        <c:if test="${member.memberDelFl eq 'N'}">
-                                            <c:if test="${member.reportPenalty eq 'N' || not empty member.reportPenalty}">
-                                                <td>활동중</td>
+                                        <%-- 판매자 인증 --%>
+                                        <%-- <c:if test="${not empty member.authority}">
+                                            <c:if test="${member.authority == 0}">
+                                                <td>미등록</td>
                                             </c:if>
-                                            <c:if test="${member.reportPenalty eq 'Y'&& not empty member.reportType}">
-                                                <td>정지</td>
+                                            <c:if test="${member.authority == 1}">
+                                                <td>판매자</td>
                                             </c:if>
-                                        </c:if>
-                                        <c:if test="${member.memberDelFl eq 'Y'}">
-                                            <td>탈퇴</td>
-                                        </c:if>
+                                            <c:if test="${member.authority == 3}">
+                                                <td>인증 대기</td>
+                                            </c:if>
+                                        </c:if> --%>
 
-
-                                    </c:if> -->
-
-                                <%-- </tr> --%>
-                            <!-- </c:forEach> -->
-
+                                        <%-- 상태 --%>
+                                        <%-- <c:if test="${not empty report.reportPenalty && not empty member.memberDelFl}"> --%>
+                                        <%-- <c:if test="${not empty member.memberDelFl}">
+                                            <c:if test="${member.memberDelFl eq 'N'}">
+                                                <c:if test="${member.reportPenalty eq 'N' || not empty member.reportPenalty}">
+                                                    <td>활동중</td>
+                                                </c:if>
+                                                <c:if test="${member.reportPenalty eq 'Y'&& not empty member.reportType}">
+                                                    <td>정지</td>
+                                                </c:if>
+                                            </c:if>
+                                            <c:if test="${member.memberDelFl eq 'Y'}">
+                                                <td>탈퇴</td>
+                                            </c:if>
+                                        </c:if> 
+                                    </tr>
+                                </c:forEach> --%>
+                            </tbody>
                             
                         </table>
                     </div>
 
                     <!-- todo: 페이지네이션 반복문 -->
-                    <div class="admin-pagination-area">
-                        <ul class="admin-pagination">
-                            <%-- << : 제일 첫 페이지(1p)로 --%>
+                    <div class="admin-pagination-area" id="adminPaginationArea">
+                        <%-- <ul class="admin-pagination">
                             <li id="1" class="page-box">  
                                 <i class="fa-solid fa-angles-left"></i>
                             </li>
-                            <%-- 이전 페이지로 --%>
                             <li id="${pagination.prevPage}" class="page-box"> 
                                 <i class="fa-solid fa-angle-left"></i>
                             </li> 
@@ -159,8 +160,8 @@
                             </li>
                             <li id="${pagination.endPage}" class="page-box">
                                 <i class="fa-solid fa-angles-right"></i>
-                            </li>
-                        </ul>
+                            </li> 
+                        </ul> --%>
                     </div>
                 </div>
 
@@ -238,15 +239,16 @@
 
                             </table>
                         </span>
-                        
-                        <button id="secessionBtn">강제 탈퇴</button>
-
+                        <%-- <c:if test="${memberList.memberDelFl eq'N'}"> --%>
+                            <button id="adminDelBtn">강제 탈퇴</button>
+                        <%-- </c:if> --%>
                     </div>   
                 </div>
             </section>
         </main>
 
-        <!-- <jsp:include page="/WEB-INF/views/common/footer.jsp"/>  -->
+            
+        <jsp:include page="/WEB-INF/views/admin/adminDel-modal.jsp"/> 
 
         <script>
             var authFilter = 0;  /* 판매자등록 필터  0: 전체 조회 */
@@ -257,6 +259,7 @@
         <%-- jquery --%>
         <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
         
-        <script src="/resources/js/admin/adminMember.js"></script>
+        <script src="/resources/js/admin/adminMember.js"></script> 
+        <script src="/resources/js/admin/adminDel-modal.js"></script> 
     </body>
 </html>

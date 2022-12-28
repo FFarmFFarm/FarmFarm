@@ -76,13 +76,29 @@
                 <span>결제완료</span>
                 </c:if>
                 <c:if test="${order.orderStatus == 1}">
-                <a class="order-shipping">배송중</a>
+                  <c:if test="${product.productStatus == 0}">
+                    <span class="order-shipping">배송중</span>
+                  </c:if>
+                  <c:if test="${product.productStatus == 1}">
+                    <span class="order-shipping">반품 진행중</span>
+                  </c:if>
+                  <c:if test="${product.productStatus == 2}">
+                    <span>반품 완료</span>
+                  </c:if>
                 </c:if>
                 <c:if test="${order.orderStatus == 2}">
-                <span>취소완료</span>
+                  <span>취소완료</span>
                 </c:if>
                 <c:if test="${order.orderStatus == 3}">
-                  <span>구매확정</span>
+                  <c:if test="${product.productStatus == 0}">
+                    <span>구매확정</span>
+                  </c:if>
+                  <c:if test="${product.productStatus == 1}">
+                    <span class="order-shipping">반품 진행중</span>
+                  </c:if>
+                  <c:if test="${product.productStatus == 2}">
+                    <span>반품 완료</span>
+                  </c:if>
                 </c:if>
               </div>
             </div>
@@ -91,15 +107,25 @@
               <button type="button" class="confirmation" id="${order.orderNo}">구매확정</button>
               <button type="button" class="cancel-order" id="${order.orderNo}">주문취소</button>
               </c:if>
-              <c:if test="${order.orderStatus == 1}">
-              <button type="button" class="confirmation" id="${order.orderNo}">구매확정</button>
-              <button type="button" class="return" id="${order.orderNo}">반품요청</button>
+              <c:if test="${order.orderStatus == 1}"> 
+                <c:if test="${product.productStatus == 0}">
+                <button type="button" class="confirmation" id="${order.orderNo}">구매확정</button>
+                <a href="/return/${order.orderNo}" type="button" class="return" id="${order.orderNo}/${product.productNo}">반품요청</a>
+                </c:if>
+                <c:if test="${product.productStatus == 1}">
+                <button type="button" class="return" disabled>반품 진행중</button>
+                </c:if>
+                <c:if test="${product.productStatus == 2}">
+                    <button type="button" class="return" disabled>반품 완료</button>
+                </c:if>
               </c:if>
               <c:if test="${order.orderStatus == 2}">
               </c:if>
               <c:if test="${order.orderStatus == 3}">
                 <c:if test="${product.reviewCheck == 0}">
-                  <button type="button" class="write-review" id="${order.orderNo}">후기작성</button>
+                  <c:if test="${product.productStatus == 0}">
+                    <button type="button" class="write-review" id="${order.orderNo}">후기작성</button>
+                  </c:if>
                 </c:if>
                 <c:if test="${product.reviewCheck == 1}">
                   <button type="button" class="write-review" disabled>후기완료</button>

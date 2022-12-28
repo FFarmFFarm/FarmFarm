@@ -31,10 +31,13 @@ public class CommentController {
 	
 	
 	// 댓글 추가하기~
-//	@ResponseBody
 	@PostMapping("/board/comment/insert")
 	public int commentWrite(Comment comment) {
 		return serivce.commentWrite(comment);
 	}
+	
+	
+	// 댓글을 수정해볼까??
+	
 
 }

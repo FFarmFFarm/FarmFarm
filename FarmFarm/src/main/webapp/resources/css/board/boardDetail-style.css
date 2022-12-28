@@ -337,3 +337,10 @@ main{
 .child-content{
     font-size: var(--main-font-size);
 }
+
+
+.updateText{
+    resize: none;
+    width: 800px;
+    height: 100px;
+}
