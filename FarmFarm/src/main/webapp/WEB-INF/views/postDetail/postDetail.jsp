@@ -64,7 +64,10 @@
             </div>
           </div>
           <div class="product-btn-area">
-            <button type="button" class="chatting-btn">문의하기</button>
+            <form action="/chat/makeroom" method="POST">
+              <input type="hidden" name="postNo" value="${post.postNo}">
+              <button type="button" class="chatting-btn">문의하기</button>
+            </form>
           </div>
         </div>
         <button type="button" class="share-btn">
