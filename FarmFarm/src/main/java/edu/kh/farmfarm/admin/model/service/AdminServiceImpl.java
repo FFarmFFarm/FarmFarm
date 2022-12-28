@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +39,7 @@ public class AdminServiceImpl implements AdminService{
 		
 		/* 페이지네이션 */
 		// 1. 전체 개수를 가져옴.
-		int memberListCount = dao.memberListCount();
+		int memberListCount = dao.memberListCount(paramMap);
 		
 		// 2. 가져온 개수와 현재 페이지를 이용해서 페이지네이션 객체 생성
 		Pagination pagination = new Pagination(memberListCount, cp, 15);
@@ -50,10 +49,15 @@ public class AdminServiceImpl implements AdminService{
 		List<Member> memberList = dao.selectMember(paramMap, pagination);
 		
 		
+		/* 신고 내역 조회 */
+		List<Admin> reportHistoryList = dao.selectReportHistory(paramMap);
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("memberListCount", memberListCount);
 		map.put("pagination", pagination);
 		map.put("memberList", memberList);
+		map.put("reportHistoryList", reportHistoryList);
+		
 		
 		return map;
 	}
