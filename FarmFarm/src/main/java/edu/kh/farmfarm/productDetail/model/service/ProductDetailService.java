@@ -70,4 +70,10 @@ public interface ProductDetailService {
 	int updateReview(String webPath, String folderPath, Review review, List<MultipartFile> imageList,
 			String deleteList) throws Exception;
 
+	/** 리뷰 삭제
+	 * @param reviewNo
+	 * @return
+	 */
+	int deleteReview(int reviewNo);
+
 }

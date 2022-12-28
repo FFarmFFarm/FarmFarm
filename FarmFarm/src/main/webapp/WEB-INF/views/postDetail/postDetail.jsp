@@ -66,10 +66,11 @@
             ${post.memberNo}
           </div>
           <div class="product-btn-area">
+
             <c:if test="${post.postSoldoutFl == 0}">
-              <form action="/chat/makeroom" method="POST">
+              <form action="/chat/insert/room" method="POST">
                 <input type="hidden" name="postNo" value="${post.postNo}">
-                <button type="button" class="chatting-btn">문의하기</button>
+                <button class="chatting-btn">문의하기</button>
               </form>
             </c:if>
             <c:if test="${post.postSoldoutFl == 1}">
@@ -121,6 +122,13 @@
       });
     </script>
 
+  <c:if test="${! empty message}">
+      <script>
+          alert("${message}")
+        
+        </script>
+      <c:remove var="message" />
+  </c:if> 
 
     <!-- script -->
     <script src="/resources/js/common/common.js"></script>

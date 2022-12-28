@@ -62,5 +62,13 @@
 </select>
 
 
+<!-- 채팅방을 만들 때 사용하려고, 판매자 번호를 가져옵니다! -->
+<select id="selectSellerNo" parameterType="_int" resultType="_int">
+	SELECT MEMBER_NO
+	FROM POST
+	WHERE POST_NO = #{postNo}
+</select>
+
+
 
 </mapper>

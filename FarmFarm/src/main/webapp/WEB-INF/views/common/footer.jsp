@@ -12,11 +12,11 @@
                 </label>
                 <jsp:include page="/WEB-INF/views/chat/chatWidget.jsp"/>
             <!-- </a> -->
-            <!-- <a href="#"> -->
+            <a href="#">
                 <button type="button" class="btn-go-to-top" id="top_btn">
                     <i class="fa-solid fa-arrow-up go-to-top-icon"></i>
                 </button>
-            <!-- </a> -->
+            </a>
         </div>
 
         <footer>

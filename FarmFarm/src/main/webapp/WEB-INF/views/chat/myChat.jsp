@@ -62,13 +62,13 @@
           </div>
           <div id="roomLabel">
             <div id="postImg">
-              <img src="/resources/images/chat/potato.jpg">
+              <!-- <img src="/resources/images/chat/potato.jpg"> -->
             </div>
             <div id="postTitle">
+              <!-- 아주 긴 채팅방 제목... 아주 긴 채팅방 제목... 아주 긴 채팅방 제목...
               아주 긴 채팅방 제목... 아주 긴 채팅방 제목... 아주 긴 채팅방 제목...
               아주 긴 채팅방 제목... 아주 긴 채팅방 제목... 아주 긴 채팅방 제목...
-              아주 긴 채팅방 제목... 아주 긴 채팅방 제목... 아주 긴 채팅방 제목...
-              아주 긴 채팅방 제목... 아주 긴 채팅방 제목... 아주 긴 채팅방
+              아주 긴 채팅방 제목... 아주 긴 채팅방 제목... 아주 긴 채팅방 -->
             </div>
             <button id="purchaseBtn">
               구매하기
