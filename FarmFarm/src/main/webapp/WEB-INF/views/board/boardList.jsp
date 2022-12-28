@@ -143,7 +143,7 @@
     <script>
         let boardTypeNo = ${boardTypeNo};
 
-        const boardSelectNVL = document.getElementId("boardSelect");
+        const boardSelectNVL = document.getElementById("boardSelect");
         let NVL = boardSelectNVL.value;
 
         const inputQuery = document.getElementById("inputQuery");
