@@ -66,14 +66,11 @@
             ${post.memberNo}
           </div>
           <div class="product-btn-area">
-            <form action="/chat/insert/room" method="POST">
-              <input type="hidden" name="postNo" value="${post.postNo}">
-              <button class="chatting-btn">문의하기</button>
-            </form>
+
             <c:if test="${post.postSoldoutFl == 0}">
-              <form action="/chat/makeroom" method="POST">
+              <form action="/chat/insert/room" method="POST">
                 <input type="hidden" name="postNo" value="${post.postNo}">
-                <button type="button" class="chatting-btn">문의하기</button>
+                <button class="chatting-btn">문의하기</button>
               </form>
             </c:if>
             <c:if test="${post.postSoldoutFl == 1}">

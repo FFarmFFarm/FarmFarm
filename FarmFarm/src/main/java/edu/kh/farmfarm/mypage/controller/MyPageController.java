@@ -145,9 +145,7 @@ public class MyPageController {
 		return "myPage/myPageWish";
 	}
 	
-	
-	
-	
+
 
 	
 

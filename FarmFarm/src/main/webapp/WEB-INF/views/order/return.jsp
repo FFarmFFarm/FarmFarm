@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<c:set var="orderList" value="${map.orderList}"/>
-<c:set var="orderCount" value="${map.orderCount}"/>
-<c:set var="pagination" value="${map.pagination}"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,16 +8,14 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>마이페이지 - 주문 내역</title>
+    <title>반품 신청</title>
     <script
       src="https://kit.fontawesome.com/591746f9e8.js"
       crossorigin="anonymous"
     ></script>
     <link rel="stylesheet" href="/resources/css/common/header-style.css" />
     <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
-    <link rel="stylesheet" href="/resources/css/myPage/myPage-style.css" />
-    <link rel="stylesheet" href="/resources/css/myPage/myPageOrder-style.css" />
-    <link rel="stylesheet" href="/resources/css/modal/reviewForm-style.css" />
+    <link rel="stylesheet" href="/resources/css/order/return-style.css" />
     <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
   </head>
 
@@ -28,24 +23,14 @@
     <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
     <main>
-      <jsp:include page="/WEB-INF/views/myPage/myPage.jsp"/>
-      
+
 
   
-    <section class="list-container">
+      <section class="return-container">
        
-    <jsp:include page="/WEB-INF/views/myPage/myPageNav.jsp"/>
-
-      <div class="order-list" >
-        <span class="order-list-title">주문 내역</span>
-        <c:if test="${empty orderList}">
-          <div>주문 내역이 없습니다.</div>
-        </c:if>
+        <span class="return-title">반품 신청</span>
 
 
-        <c:if test="${! empty orderList}">
-        <c:forEach var="order" items="${orderList}">
-        <div id="orderListContainer">
 
           <div class="order">
             <div class="order-info-container">
@@ -102,85 +87,11 @@
                 </c:if>
               </div>
             </div>
-            <div class="button-area">
-              <c:if test="${order.orderStatus == 0}">
-              <button type="button" class="confirmation" id="${order.orderNo}">구매확정</button>
-              <button type="button" class="cancel-order" id="${order.orderNo}">주문취소</button>
-              </c:if>
-              <c:if test="${order.orderStatus == 1}"> 
-                <c:if test="${product.productStatus == 0}">
-                <button type="button" class="confirmation" id="${order.orderNo}">구매확정</button>
-                <a href="/return/${order.orderNo}" type="button" class="return" id="${order.orderNo}/${product.productNo}">반품요청</a>
-                </c:if>
-                <c:if test="${product.productStatus == 1}">
-                <button type="button" class="return" disabled>반품 진행중</button>
-                </c:if>
-                <c:if test="${product.productStatus == 2}">
-                    <button type="button" class="return" disabled>반품 완료</button>
-                </c:if>
-              </c:if>
-              <c:if test="${order.orderStatus == 2}">
-              </c:if>
-              <c:if test="${order.orderStatus == 3}">
-                <c:if test="${product.reviewCheck == 0}">
-                  <c:if test="${product.productStatus == 0}">
-                    <button type="button" class="write-review" id="${order.orderNo}">후기작성</button>
-                  </c:if>
-                </c:if>
-                <c:if test="${product.reviewCheck == 1}">
-                  <button type="button" class="write-review" disabled>후기완료</button>
-                </c:if>
-              </c:if>
-            </div>
           </div>
           </c:forEach>
           <div class="total-price">총 <span>${order.orderPrice}</span>원</div>
         </div>
-        
-      </c:forEach>
-    </c:if>
-    
-    
-        <div class="pagination-area">
-          <!-- ajax로 만들어 보십시다 -->
-          <div id="1" class="page-box">
-            <i class="fa-solid fa-angles-left"></i>
-          </div>
-          <div id="${pagination.prevPage}" class="page-box">
-            <i class="fa-solid fa-angle-left"></i>
-          </div>
-          <c:forEach var="i" 
-          begin="${pagination.startPage}" 
-                      end="${pagination.endPage}"
-                      step="1">
-              <c:choose>
-                  <c:when test="${i == pagination.currentPage}">
-                    <div class="current-page-box">
-                      ${i}
-                      </div>
-                  </c:when>
-              
-                  <c:otherwise>
-                      <div id="${i}" class="page-box">
-                          ${i}
-                      </div>
-                    </c:otherwise>
-              </c:choose>
-            </c:forEach>
-
-          <div id="${pagination.nextPage}" class="page-box">
-              <i class="fa-solid fa-angle-right"></i>
-          </div>
-          <div id="${pagination.endPage}" class="page-box">
-              <i class="fa-solid fa-angles-right"></i>
-            </div>
-        </div>
-
-      </div>
-        
-
-        
-      </div>
+ 
     </section>
 
   </main>

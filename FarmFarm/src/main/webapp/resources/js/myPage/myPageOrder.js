@@ -431,20 +431,17 @@ const printOrderList = (orderList, pagination) => {
           button1.classList.add('confirmation');
           button1.id = order.orderNo;
 
-          button2.setAttribute('type', 'button');
-          button2.innerText = '반품요청';
-          button2.classList.add('return');
-          button2.id = order.orderNo;
+          const a = document.createElement('a');
 
-          buttonArea.append(button1, button2);
+          a.innerText = '반품요청';
+          a.classList.add('return');
+          a.href = '/return/' + order.orderNo;
+          buttonArea.append(button1, a);
 
           /* 구매확정 버튼 클릭 시 주문 구매 확정 */
           button1.addEventListener('click', () => {
-
             displayFlex(document.getElementById('orderConfirmModal'));
-
             confirmOrderNo = order.orderNo;
-
           })
 
         }
