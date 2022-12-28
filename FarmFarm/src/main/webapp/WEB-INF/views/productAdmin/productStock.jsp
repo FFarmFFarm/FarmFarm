@@ -29,12 +29,12 @@
 
     <main>
         <jsp:include page='/WEB-INF/views/admin/adminNav.jsp' />
-        <section class="order-list-section">
+        <section class="product-list-section">
             <div class="page-title">
                 <p>상품관리</p>
             </div>
 
-            <div class="order-list">
+            <div class="product-list">
                 <div class="part-title list-search">
                     <p>전체상품</p>
                     <div class="count-list">총
@@ -53,7 +53,7 @@
                     </form>
                 </div>
 
-                <table class="order-list-table">
+                <table class="product-list-table">
                     <tr class="table-row table-head">
                         <th>제품코드</th>
                         <th>제품명</th>
@@ -67,7 +67,7 @@
                     <c:forEach items="${productList}" var="product">
                         <tr class="table-row">
                             <td class="product-code">
-                                <span>${product.productNo}</span>
+                                <span>farm-${product.productNo}</span>
                                 <span>(${product.regDate})</span>
                             </td>
                             <td class="product-title">
@@ -77,19 +77,19 @@
                                 <span class="product-name">${product.productName}</span>
                                 <div class="product-btn">
                                     <button>수정</button>
-                                    <button>삭제</button>
+                                    <button class="delete-btn" id="${product.productNo}">삭제</button>
                                 </div>
                             </td>
                             <td>${product.stock}</td>
                             <td>7</td>
                             <td>93</td>
                             <td>
-                                <input type="number" max="999"  class="stock-input income" placeholder="0">
-                                <button class="change-btn">수정</button>
+                                <input type="number" max="999"  class="stock-input" id="stockUp" placeholder="0">
+                                <button class="change-btn" id="${product.productNo}">수정</button>
                             </td>
                             <td>
-                                <input type="number" max="999" class="stock-input release" placeholder="0">
-                                <button class="change-btn">수정</button>
+                                <input type="number" max="999" class="stock-input" id="stockDown" placeholder="0">
+                                <button class="change-btn" id="${product.productNo}">수정</button>
                             </td>
                             <c:if test="${product.soldoutFl=='N'}">
                                 <td>판매중</td>
@@ -144,7 +144,7 @@
         </section>
     </main>
 
-    <%-- <script src="/resources/js/productAdmin/enrollProduct.js"></script> --%>
+    <script src="/resources/js/productAdmin/productStock.js"></script>
 
     <!-- ajax -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>

@@ -154,6 +154,15 @@ button:active {
   font-size: var(--large-font-size);
 }
 
+.chatting-btn:disabled {
+  background-color: var(--line-color);
+  cursor: default;
+}
+
+.chatting-btn:disabled:active {
+  transform: none;
+}
+
 .product-menu {
   margin-top: 100px;
   width: 100%;

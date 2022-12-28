@@ -59,7 +59,7 @@
                 <a href="/product/${wish.productNo}" class="wish-title">${wish.productName}</a>
                 <span class="wish-price"><span> ${wish.productPrice}</span>원</span>
               </div>
-              <button type="button" class="delete-wish-btn">
+              <button type="button" class="delete-wish-btn" id="${wish.productNo}">
                 <i class="fa-solid fa-xmark"></i>
               </button>
             </div>

@@ -130,9 +130,9 @@ enrollproductForm.addEventListener("submit", (event)=>{
     return;
   }
 
-  const stock = document.querySelector("[name='stock']");
+  const stock = document.querySelector("[name='productAmount']");
   if(stock.value.trim().length==0){
-    alert("재고를 입력해주세요.");
+    alert("입고량을 입력해주세요.");
     stock.value="";
     stock.focus();
     event.preventDefault();

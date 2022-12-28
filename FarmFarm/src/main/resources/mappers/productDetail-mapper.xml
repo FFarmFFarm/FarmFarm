@@ -88,10 +88,10 @@
 <select id="selectProduct" resultMap="product_rm">
 	SELECT PRODUCT_NO, PRODUCT_NAME, REG_DATE, SOLDOUT_FL,
 		TO_CHAR(PRODUCT_PRICE, 'FM999,999,999,999') PRODUCT_PRICE, 
-		(STOCK - (SELECT SUM(PRODUCT_AMOUNT) 
+		(STOCK - NVL((SELECT SUM(PRODUCT_AMOUNT) 
 		FROM "ORDER" 
 		JOIN ORDER_PRODUCT op USING(ORDER_NO) 
-		WHERE op.PRODUCT_NO = p.PRODUCT_NO)) STOCK, 
+		WHERE op.PRODUCT_NO = p.PRODUCT_NO), 0)) STOCK, 
 		PRODUCT_MESSAGE, CATEGORY_NAME, #{memberNo} MEMBER_NO,
 		(SELECT COUNT(*) FROM WISH w WHERE MEMBER_NO = #{memberNo} AND w.PRODUCT_NO = p.PRODUCT_NO) WISH_CHECK
 	FROM PRODUCT p
@@ -197,5 +197,27 @@
 	DELETE FROM REVIEW_LIKE
 	WHERE MEMBER_NO = #{memberNo} AND REVIEW_NO = #{reviewNo}
 </insert>
+
+<update id="updateReview">
+	UPDATE REVIEW SET
+	REVIEW_CONTENT = #{reviewContent}
+	WHERE REVIEW_NO = #{reviewNo}
+</update>
+
+<insert id="insertReviewImg">
+	INSERT INTO REVIEW_IMG
+	VALUES(SEQ_REVIEW_IMG_NO.NEXTVAL, REVIEW_NO, REVIEW_IMG_PATH, REVIEW_IMG_ORDER)
+</insert>
+	
+<delete id="reviewImageDelete">
+	DELETE FROM REVIEW_IMG
+	${condition}
+</delete>
+
+<update id="updateReviewImg">
+	UPDATE REVIEW_IMG SET
+	REVIEW_IMG_PATH = #{reviewImgPath}, REVIEW_IMG_ORDER
+	WHERE REVIEW_NO
+</update>
 	
 </mapper>

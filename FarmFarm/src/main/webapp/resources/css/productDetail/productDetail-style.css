@@ -414,10 +414,6 @@ button:disabled:active {
   color: var(--sub-font-color);
 }
 
-.latest {
-  color: var(--sub-font-color);
-}
-
 .review-writer > img {
   width: 50px;
   height: 50px;
