@@ -170,6 +170,8 @@ public class ProductDetailServiceImpl implements ProductDetailService{
 					
 					String rename = Util.fileRename(imageList.get(i).getOriginalFilename());
 					
+					renameList.add(rename);
+					
 					img.setReviewImgPath(webPath + rename);
 					
 					img.setReviewImgOrder(i);
@@ -210,4 +212,15 @@ public class ProductDetailServiceImpl implements ProductDetailService{
 		
 		return result;
 	}
+	
+	
+	
+	/** 리뷰 삭제
+	 *
+	 */
+	@Override
+	public int deleteReview(int reviewNo) {
+		return dao.deleteReview(reviewNo);
+	}
+	
 }
