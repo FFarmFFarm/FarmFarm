@@ -284,6 +284,8 @@ const makeChatRoom = (myMemberNo, chatHistory, profileImg2, memberNickname2, pos
 
     const nowScrollHeight = readingArea.scrollHeight;
     readingArea.scrollTo(0, nowScrollHeight);
+
+    document.getElementById('inputBox').focus();
 }
 
 /* 내가 보낸 메세지를 만드는 함수 */
@@ -451,6 +453,7 @@ document.getElementById('inputBox').addEventListener('keyup', (e)=>{
             sendChatToServer();
         }
     }
+    document.getElementById('inputBox').focus();
 })
 
 /* 사진 보내기 이벤트 */

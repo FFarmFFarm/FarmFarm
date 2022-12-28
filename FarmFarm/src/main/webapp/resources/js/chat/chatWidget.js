@@ -149,9 +149,15 @@ const fillChatWidget = (chatRoomList) => {
         // 6. 박스
         packUpElement(chatWidgetBox, 'chatWidget-box', null);
 
+        // 7. input값 세팅
+        const chatWidgetBoxInfo = document.createElement('input');
+        chatWidgetBoxInfo.hidden=true;
+        chatWidgetBoxInfo.setAttribute('name', "roomNo");
+        chatWidgetBoxInfo.setAttribute('value', chatRoom.roomNo);
+
         // 재료 조리
         chatWidgetBoxLabel.append(chatWidgetMemberNickname, chatWidgetLastChatTime);
-        chatWidgetBox.append(chatWidgetProfileImg, chatWidgetBoxLabel, chatWidgetLastChatContent);
+        chatWidgetBox.append(chatWidgetProfileImg, chatWidgetBoxLabel, chatWidgetLastChatContent, chatWidgetBoxInfo);
 
         // 사이드 메뉴 : 읽지 않은 메세지 개수(있는 경우에만)
         if(chatRoom.unreadChatCount > 0) {
@@ -160,8 +166,7 @@ const fillChatWidget = (chatRoomList) => {
             chatWidgetBox.append(chatWidgetUnreadChatCount);
         }
 
-        chatWidgetBox.setAttribute('name', "roomNo");
-        chatWidgetBox.setAttribute('value', chatRoom.roomNo);
+  
 
         // 플레이팅
         chatWidgetBody.append(chatWidgetBox);
