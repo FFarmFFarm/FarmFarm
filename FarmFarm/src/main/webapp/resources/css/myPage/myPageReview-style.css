@@ -26,6 +26,10 @@ a.review-wrote > i {
   font-weight: bold;
 }
 
+.review-list-area {
+  width: 100%;
+}
+
 .review {
   display: flex;
   flex-direction: column;
@@ -63,6 +67,14 @@ a.review-wrote > i {
   margin-left: 50px;
 }
 
+.review-update-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: var(--sub-font-color);
+  background-color: white;
+}
+
 .review-content {
   cursor: pointer;
 }
@@ -90,6 +102,7 @@ a.review-wrote > i {
 .review-detail-content {
   padding-top: 10px;
   width: 100%;
+  position: relative;
 }
 
 .review-detail-content > span {

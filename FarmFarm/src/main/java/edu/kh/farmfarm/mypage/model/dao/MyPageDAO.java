@@ -181,6 +181,15 @@ public class MyPageDAO {
 	}
 
 
+	/** 찜 삭제
+	 * @param map
+	 * @return
+	 */
+	public int deleteWish(Map<String, Object> map) {
+		return sqlSession.delete("myPageMapper.deleteWish", map);
+	}
+
+
 
 
 

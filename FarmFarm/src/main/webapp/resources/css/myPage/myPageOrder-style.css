@@ -44,6 +44,10 @@ a.ordered > i {
   font-weight: bold;
 }
 
+#orderListContainer {
+  width: 100%;
+}
+
 .order {
   display: flex;
   flex-direction: column;

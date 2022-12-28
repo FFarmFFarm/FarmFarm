@@ -261,5 +261,11 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		return reviewNo;
 	}
+	
+	
+	@Override
+	public int deleteWish(Map<String, Object> map) {
+		return dao.deleteWish(map);
+	}
 
 }
