@@ -1,11 +1,13 @@
 package edu.kh.farmfarm.productAdmin.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -57,4 +59,19 @@ public class ProductAdminController {
 		
 		return "redirect:" + path;
 	}
+	
+	
+	// 팜팜상품 재고관리
+	@GetMapping("/admin/stock")
+	public String productStock(Model model,
+		@RequestParam(value="cp", required=false, defaultValue="1")int cp) {
+		
+		Map<String, Object> map = service.selectProductList(cp);
+		
+		model.addAttribute("map", map);
+		
+		return "productAdmin/productStock";
+	}
+	
+	
 }
