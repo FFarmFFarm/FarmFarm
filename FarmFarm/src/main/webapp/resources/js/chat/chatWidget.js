@@ -6,7 +6,7 @@
 //     console.log(showChatWidget.checked);
 // })
 
-let myMemberNo = -1;
+let myMemberNo;
 let listenChatSocket;
 
 
@@ -31,9 +31,10 @@ addEventListener("DOMContentLoaded", () => {
 
         myMemberNo = response.data;
 
-        if (myMemberNo != null && myMemberNo != -1) {
+        if (myMemberNo != -1) {
             listenChatSocket = new SockJS('/echo/chat');
             console.log('야호~')
+            console.log(myMemberNo);
         }
 
     }).catch(function (error) {
@@ -45,7 +46,8 @@ addEventListener("DOMContentLoaded", () => {
 addEventListener("load", ()=>{
     requestAndFillMyChatWidget();
 
-    if (myMemberNo != null && myMemberNo != -1) {
+    if (listenChatSocket != null) {
+        console.log('듣고 있어요')
         listenChatSocket.onmessage = function(e) {
             document.getElementById('chatAlarmDot').style.display = 'block';
         }

@@ -67,7 +67,10 @@
           </div>
           <div class="product-btn-area">
             <c:if test="${post.postSoldoutFl == 0}">
-              <button type="button" class="chatting-btn">문의하기</button>
+              <form action="/chat/makeroom" method="POST">
+                <input type="hidden" name="postNo" value="${post.postNo}">
+                <button type="button" class="chatting-btn">문의하기</button>
+              </form>
             </c:if>
             <c:if test="${post.postSoldoutFl == 1}">
               <button type="button" class="chatting-btn" disabled>판매완료</button>

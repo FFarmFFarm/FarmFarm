@@ -125,7 +125,7 @@ main{
 
 
 /* 상품리스트 조회 */
-.order-list-section{
+.product-list-section{
     width: 1000px;
     min-height: 900px;
     height: auto;
@@ -138,9 +138,9 @@ main{
 
 .page-title{
     text-align: center;
-    font-size: var(--title-font-size);
-    height: 100px;
-    padding-top: 30px;
+    font-size: var(--headline-font-size);
+    height: 115px;
+    padding-top: 50px;
 }
 
 
@@ -193,7 +193,7 @@ main{
 
 
 /* 리스트 조회결과 */
-.order-list{
+.product-list{
     margin: auto;
 }
 
@@ -213,7 +213,7 @@ table{
     font-size: var(--small-font-size);
 }
 
-.order-list-table{
+.product-list-table{
     width: 100%;
     margin: 10px auto;
 

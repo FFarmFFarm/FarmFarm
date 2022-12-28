@@ -72,7 +72,8 @@ public class ProductAdminServiceImpl implements ProductAdminService{
 				
 		return productNo;
 	}
-
+	
+	// 팜팜 상품 전체조회
 	@Override
 	public Map<String, Object> selectProductList(int cp) {
 		
@@ -89,6 +90,25 @@ public class ProductAdminServiceImpl implements ProductAdminService{
 		map.put("listCount", listCount);
 		
 		return map;
+	}
+
+	// 판매자 재고 증가
+	@Override
+	public int stockUp(Map<String, Object> map) {
+		return dao.stockUp(map);
+	}
+
+	
+	// 판매자 재고 감소
+	@Override
+	public int stockDown(Map<String, Object> map) {
+		return dao.stockDown(map);
+	}
+
+	// 상품 삭제
+	@Override
+	public int deleteProduct(int productNo) {
+		return dao.deleteProduct(productNo);
 	}
 	
 }
