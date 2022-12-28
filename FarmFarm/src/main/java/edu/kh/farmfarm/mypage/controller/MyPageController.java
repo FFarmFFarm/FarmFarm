@@ -226,10 +226,11 @@ public class MyPageController {
 		String message = null;
 		
 		if(result>0) {
-
 			message = "프로필 이미지가 변경되었습니다.";
 		}
-		else {		message = "프로필 이미지 변경이 실패했습니다.";}
+		else {		
+			message = "프로필 이미지 변경이 실패했습니다.";
+		}
 		
 		ra.addFlashAttribute("message", message);
 		
@@ -263,10 +264,21 @@ public class MyPageController {
 	}
 	
 	
+	/** 마이페이지 회원 탈퇴 이동  
+	 * @return
+	 */
+	@GetMapping("/secession")
+	public String secession(
+			@SessionAttribute("loginMember")Member loginMember,
+			Model model) {
+		
+		return "myPage/myPageSecession";
+	}
+	
 	/** 마이페이지 회원 탈퇴 
 	 * @return
 	 */
-	@PostMapping("/secession")
+	@PostMapping("/myPageSecession")
 	public String secession(
 			String memberPw,
 			SessionStatus status,

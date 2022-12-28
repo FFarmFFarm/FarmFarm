@@ -282,45 +282,77 @@ public class MyPageServiceImpl implements MyPageService {
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int updateImage(String webPath, String folderPath, Member loginMember, MultipartFile farmfarm) throws Exception {
-		Member img = new Member();
 		
-		int checkImg = dao.checkImg(loginMember);
+//		Member img = new Member();
+//		int checkImg = dao.checkImg(loginMember);
+//		
+//		int result = 0;
+//		String rename = null;
+//		
+//		if(checkImg >0) { // 이미지 있으면 수정 
+//			String temp = loginMember.getProfileImg();
+//
+//			rename = Util.fileRename(farmfarm.getOriginalFilename());
+//			
+//			img.setProfileImg(webPath +rename);
+//			img.setMemberNo(loginMember.getMemberNo());
+//			
+//			result = dao.updateImg(img);
+//			
+//			if(result>0) { // 수정 성공 
+//				if(rename != null) {
+//					farmfarm.transferTo(new File(folderPath +rename));
+//				} else {
+//					loginMember.setProfileImg(temp);
+//					throw new Exception("이미지 업로드 실패");
+//				}
+//				
+//			}
+//			
+//		} else { // 이미지 없으면 추가 
+//			if(farmfarm.getSize() != 0) {
+//				rename = Util.fileRename(farmfarm.getOriginalFilename());
+//				
+//				img.setProfileImg(webPath + rename);
+//				
+//				result = dao.updateImg(img);
+//				
+//				if(result > 0) { // 추가 성공 
+//					farmfarm.transferTo(new File(folderPath + rename));
+//				}
+//			}
+//		}
+//		
+//		return result;
 		
-		int result = 0;
+		String temp = loginMember.getProfileImg();
+		
 		String rename = null;
 		
-		if(checkImg >0) { // 이미지 있으면 수정 
-			String temp = loginMember.getProfileImg();
-
-				rename = Util.fileRename(farmfarm.getOriginalFilename());
-				
-				img.setProfileImg(webPath +rename);
-				img.setMemberNo(loginMember.getMemberNo());
-				
-				result = dao.updateImg(img);
-				
-				if(result>0) { // 수정 성공 
-					if(rename != null) {
-						farmfarm.transferTo(new File(folderPath +rename));
-					} else {
-						loginMember.setProfileImg(temp);
-						throw new Exception("이미지 업로드 실패");
-					}
-					
-				}
+		if(farmfarm.getSize() == 0) {
+			loginMember.setProfileImg(null);
+		} else {
 			
-		} else { // 이미지 없으면 추가 
-			if(farmfarm.getSize() != 0) {
-				rename = Util.fileRename(farmfarm.getOriginalFilename());
+			rename = Util.fileRename(farmfarm.getOriginalFilename());
+			
+			loginMember.setProfileImg(webPath + rename);
+			
+		}
+		
+		int result = dao.updateImg(loginMember);
+		
+		if(result > 0) {
+			
+			if(rename != null) {
 				
-				img.setProfileImg(webPath + rename);
+				farmfarm.transferTo(new File(folderPath+rename));
 				
-				result = dao.updateImg(img);
-				
-				if(result > 0) { // 추가 성공 
-					farmfarm.transferTo(new File(folderPath + rename));
-				}
 			}
+			
+		} else {
+			loginMember.setProfileImg(temp);
+			
+			throw new Exception("파일 업로드 실패");
 		}
 		
 		return result;

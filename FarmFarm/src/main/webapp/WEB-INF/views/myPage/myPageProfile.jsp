@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="/resources/css/common/header-style.css" />
     <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
     <link rel="stylesheet" href="/resources/css/myPage/myPage-style.css" />
-    <link rel="stylesheet" href="/resources/css/myPage/myPageProfile-style.css" />
+    <link rel="stylesheet" href="/resources/css/myPage/myPageSecession-style.css" />
     <script
       src="https://kit.fontawesome.com/591746f9e8.js"
       crossorigin="anonymous"
@@ -34,7 +34,7 @@
       <section class="list-container">
         <jsp:include page="/WEB-INF/views/myPage/myPageNav.jsp"/>
         <div class="board-list">
-          <span class="board-list-title">개인 정보 수정</span> ${loginMember.memberPw}
+          <span class="board-list-title">개인 정보 수정</span> 
           <span class="sub-update">* 변경가능</span>
             <form action="/myPage/myPageImage" id="imgFrm" method="post" class="profile-img-form"
             enctype="multipart/form-data" onsubmit = "return profileValidate()">
@@ -45,8 +45,7 @@
                       <c:if test="${empty loginMember.profileImg}">
                         <img
                         src="/resources/images/myPage/profile/profileImg.png"
-                        class="member-profile-img"
-                        id="memberProfileImg"/>
+                        class="member-profile-img" id="memberProfileImg"/>
                       </c:if>
                       <c:if test="${!empty loginMember.profileImg}">
                         <img
@@ -126,13 +125,18 @@
       
       </div>
     </main>
+    <c:if test="${!empty message}">
+      <script>
+          alert("${message}");
+      </script>
+
+      <c:remove var="message"/>
+    </c:if>
+
+
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
     <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
-
-    <script>
-      var oriNickname = "${loginMember.memberNickname}";
-    </script>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <!-- jquery -->
@@ -141,7 +145,7 @@
     <script src="/resources/js/common/common.js"></script>
 
     <script src="/resources/js/myPage/myPage.js"></script>
-    <script src="/resources/js/myPage/myPageProfile.js"></script>
+    <script src="/resources/js/myPage/myPageSecession.js"></script>
 
   </body>
 </html>
