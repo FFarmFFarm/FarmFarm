@@ -48,20 +48,21 @@ public class AdminServiceImpl implements AdminService{
 		// 전체 회원 조회(정렬 포함)
 		List<Member> memberList = dao.selectMember(paramMap, pagination);
 		
-		
-		/* 신고 내역 조회 */
-		List<Admin> reportHistoryList = dao.selectReportHistory(paramMap);
-		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("memberListCount", memberListCount);
 		map.put("pagination", pagination);
 		map.put("memberList", memberList);
-		map.put("reportHistoryList", reportHistoryList);
 		
 		
 		return map;
 	}
 	
+	
+	// 회원 강제 탈퇴
+	@Override
+	public int memberKickout(String inputMemberId) {
+		return dao.memberKickout(inputMemberId);
+	}
 	
 
 }

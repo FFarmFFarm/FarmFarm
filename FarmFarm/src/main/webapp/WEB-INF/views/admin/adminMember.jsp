@@ -17,6 +17,8 @@
         <link rel="stylesheet" href="/resources/css/common/footer-style.css">
         <link rel="stylesheet" href="/resources/css/admin/adminNav-style.css">
         <link rel="stylesheet" href="/resources/css/admin/adminMember-style.css" />
+        <link rel="stylesheet" href="/resources/css/admin/adminDel-modal-style.css" />
+        <link rel="stylesheet" href="/resources/css/common/commonModal-style.css" />
 
         <script src="https://kit.fontawesome.com/d4fbceca97.js" crossorigin="anonymous"></script>
 
@@ -247,8 +249,25 @@
             </section>
         </main>
 
+
+        <!-- //TODO: 강제 탈퇴 모달 -->
+        <div class="adminDel-container" id="adminDelContainer">
+            <div class="adminDel-modal">
+    
+                <span class="adminDel-title"> 
+                    정말로 탈퇴시키겠습니까? 
+                </span>
+                
+                <div class="adminDel-form-div">
+                    <div class="adminDel-form">
+                        <button id="adminDelSubmitBtn">강제 탈퇴</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
             
-        <jsp:include page="/WEB-INF/views/admin/adminDel-modal.jsp"/> 
+        <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/> 
 
         <script>
             var authFilter = 0;  /* 판매자등록 필터  0: 전체 조회 */
@@ -261,5 +280,6 @@
         
         <script src="/resources/js/admin/adminMember.js"></script> 
         <script src="/resources/js/admin/adminDel-modal.js"></script> 
+        <script src="/resources/js/common/common.js"></script> 
     </body>
 </html>

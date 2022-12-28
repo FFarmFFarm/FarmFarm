@@ -83,28 +83,16 @@ public class AdminDAO {
 
 
 
-	/** 상세 조회_계정 상태(신고 내역)
-	 * @param paramMap
-	 * @return reportHistoryList
+	/** 회원 강제 탈퇴
+	 * @param inputMemberId
+	 * @return result
 	 */
-	public List<Admin> selectReportHistory(Map<String, Object> paramMap) {
-		return sqlSession.selectList("adminMapper.selectReportHistoryList", paramMap);
+	public int memberKickout(String inputMemberId) {
+		return sqlSession.update("adminMapper.memberKickout", inputMemberId);
 	}
 
 
 
-
-
-
-
-//
-//	/** 회원 조회
-//	 * @return memberList
-//	 */
-//	public List<Member> selectMemberList(pagination) {
-//		return sqlSession.selectList("adminMapper.selectMemberList");
-//	}
-//
 
 
 

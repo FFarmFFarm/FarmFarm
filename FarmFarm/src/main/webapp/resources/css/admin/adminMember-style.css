@@ -471,6 +471,7 @@ main{
     border-radius: 50%;
     width: 200px;
     height: 200px;
+    border: 10px solid #eef4ed;
 }
 
 
@@ -551,5 +552,4 @@ main{
     color: white;
     border: none;
 }
-
 

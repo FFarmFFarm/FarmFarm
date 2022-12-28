@@ -85,18 +85,28 @@ public class AdminController {
 		return "admin/dashboard";
 		
 	}
+
+	
 	
 	
 	
 	// 전체 회원 조회 페이지로 이동
-	// JSP 
 	@GetMapping("/admin/member")
-	public String adminMemberPage(@SessionAttribute(value="loginMember") Member loginMember, 
-									Model model,
-									@RequestParam(value="cp", required=false, defaultValue="1") int cp,
-									@RequestParam(value="authFilter", required=false, defaultValue="0") String authFilter,
-									@RequestParam(value="statFilter", required=false, defaultValue="0") String statFilter,
-									String memberId) {
+	public String adminMemberPage() {
+		return "admin/adminMember";
+	}
+	
+	
+	
+	// 전체 회원 조회 페이지로 이동 (값 전달 왜 안돼..?)
+	// JSP 
+//	@GetMapping("/admin/member")
+//	public String adminMemberPage(@SessionAttribute(value="loginMember") Member loginMember, 
+//									Model model,
+//									@RequestParam(value="cp", required=false, defaultValue="1") int cp,
+//									@RequestParam(value="authFilter", required=false, defaultValue="0") String authFilter,
+//									@RequestParam(value="statFilter", required=false, defaultValue="0") String statFilter,
+//									String memberId) {
 //		
 //		Map<String, Object> paramMap = new HashMap<String, Object>();
 //		paramMap.put("authFilter", authFilter);
@@ -119,8 +129,8 @@ public class AdminController {
 //		
 //		model.addAttribute("map", map);
 //		
-		return "admin/adminMember";
-	}
+//		return "admin/adminMember";
+//	}
 	
 	
 	
@@ -141,7 +151,6 @@ public class AdminController {
 		
 		// 관리자인지 확인 (관리자면 result==1)
 		int result = service.checkAdmin();
-		System.out.println(result);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -158,44 +167,23 @@ public class AdminController {
 		return new Gson().toJson(map);
 	}
 	
-	
-//	System.out.println(memberAllList);
-	
-//} else {
-//	memberDetail = service.selectMemberDetail(memberId);
-//}
 
-
-// [주소]  ,, 사이 주소 가져오기
-//for(Member member : memberAllList) {
-////	
-//		if(member != null){
-//		String address = member.getMemberAddress();
-//		String add = address.substring(address.indexOf(",,")+2, address.lastIndexOf(",,"));
-////				System.out.println(memberAddress.indexOf(",,"));
-////				System.out.println(memberAddress.lastIndexOf(",,"));
-//		
-//		if(address.indexOf(",,") == -1 || address.lastIndexOf(",,") == -1) {
-//
-//			System.out.println(",,가 없습니다.");
-//
-//		} else {
-//			
-//			member.setMemberAddress(add);
-//			memberAddress = member.getMemberAddress();
-//			System.out.println(memberAddress);
-//		}
-//		
-//		} else {
-//			
-//			System.out.println("member가 null입니다.");
-//			
-//		}
-//}
-//
 	
-	
-	
+	// 회원 강제 탈퇴
+	@PostMapping("/admin/kickout")
+	@ResponseBody
+	public int memberKickout(@SessionAttribute(value="loginMember") Member loginMember, String inputMemberId) {
+		
+		// 관리자인지 확인
+		int result = service.checkAdmin();
+		
+		if(result == 1  && loginMember != null) {
+			
+			result = service.memberKickout(inputMemberId);
+		}
+		
+		return  result;
+	}
 	
 	
 	

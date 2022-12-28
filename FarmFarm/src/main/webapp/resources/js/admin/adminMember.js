@@ -1,6 +1,15 @@
+/*
+
+전체 회원 정보 조회 (ajax) : selectMemberList()
+전체 회원 정보 조회 & 상세 정보 조회 생성 : printMemberList()
+페이지네이션 박스 생성 : printPagination()
+
+*/
+
 
 // optimize: 전체 회원 정보 조회 함수
 
+// numCount : 게시판 번호 no
 var numCount = 0;
 var inputMemberId = null;
 
@@ -44,6 +53,8 @@ const printMemberList = (memberList, pagination) => {
 
     console.log("가져옴");
 
+    window.scrollTo({top: 'header', behavior: 'smooth'});
+
     // 이 위치 사수하기
     document.getElementById("tbody").innerHTML = "";
     document.getElementById("adminPaginationArea").innerHTML = "";
@@ -66,19 +77,13 @@ const printMemberList = (memberList, pagination) => {
     printPagination(adminPagination, pagination);
 
     
+    // todo: 전체 조회 
     for(let member of memberList){
 
                 
         const tr = document.createElement("tr");
         tr.classList.add("member-select-row");
         tr.id = "memberSelectRow";
-
-
-        inputMemberId = document.createElement("input");
-        inputMemberId.value = member.memberId;
-        inputMemberId.className = "input-member-id";
-        inputMemberId.type = "hidden";
-        inputMemberId.name = "memberId";
 
         
         // no
@@ -162,7 +167,7 @@ const printMemberList = (memberList, pagination) => {
 
 
         // 조립
-        tr.append(td1, td2, td3, td4, td5, td6, td7, td8, inputMemberId);
+        tr.append(td1, td2, td3, td4, td5, td6, td7, td8);
         tbody.append(tr);
 
 
@@ -171,7 +176,11 @@ const printMemberList = (memberList, pagination) => {
         // 한 줄 클릭하면 상세창 뜨면서 정보 조회.
         tr.addEventListener("click", () => {
 
+
+            // 상세조회 창 등장
             middleBoard.style.display = "block";
+
+            window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
 
             // 다시 클릭할 때 텍스트 비우기
             detailTable.innerText = "";
@@ -230,6 +239,15 @@ const printMemberList = (memberList, pagination) => {
 
             const tdId = document.createElement("td");
             tdId.innerText = member.memberId;
+
+
+            // *아이디 가져오기
+
+            inputMemberId = document.createElement("input");
+            inputMemberId.value = member.memberId;
+            inputMemberId.className = "input-member-id";
+            inputMemberId.type = "hidden";
+            inputMemberId.name = "memberId";
 
 
             // 생년월일
@@ -371,6 +389,7 @@ const printMemberList = (memberList, pagination) => {
 
 
             // todo: 계정 상태
+
             // 1)
             const tr1 = document.createElement("tr");
             tr1.classList.add("member-history-row");
@@ -397,10 +416,12 @@ const printMemberList = (memberList, pagination) => {
             td5.innerText = "가입";
 
             const td6 = document.createElement("td");
-            td6.innerText = "";
+            // td6.innerText = "";
 
 
             // 3) 신고 처리 내역
+            // 강제 탈퇴 버튼
+            const adminDelBtn = document.getElementById('adminDelBtn');
 
             const trReport = document.createElement("tr");
             const tdReportDate = document.createElement("td");
@@ -414,24 +435,39 @@ const printMemberList = (memberList, pagination) => {
                         tdReport.innerText = "정지"
                     }
                 }
+
+                // 강제 탈퇴 버튼 활성화
+                adminDelBtn.style.backgroundColor = '#C43819';
+                adminDelBtn.style.cursor = 'pointer';
+                adminDelBtn.disabled = false; 
             }
 
             if(member.memberDelFl == 'Y'){
-                if(member.reportPenalty == 'N'){
-                    tdReport.innerText = "탈퇴";
+                if(member.reportPenalty == 'N' || member.reportPenalty == null){
+                    td6.innerText = "회원 탈퇴";
                 }
 
                 if(member.reportPenalty == 'Y'){
                     tdReportDate.innerText = member.processDate;
                     tdReport.innerText = "강제 탈퇴";
+                    tdReportReason.innerText = member.reportReason;
                 }
+
+                // 가입일자, 가입 상태에 취소선 긋기
+                td4.style.textDecoration = 'line-through';
+                td5.style.textDecoration = 'line-through';
+
+                // 강제 탈퇴 버튼 비활성화
+                adminDelBtn.style.backgroundColor = 'lightgray';
+                adminDelBtn.style.cursor = 'default';
+                adminDelBtn.disabled = true;
             }
 
-            if(member.processDate != null){
-                tdReportReason.innerText = member.processContent;
-            } else {
-                tdReportReason.innerText = "";
-            }
+            // if(member.processDate != null){
+            //     tdReportReason.innerText = member.reportReason;
+            // } else {
+            //     tdReportReason.innerText = "";
+            // }
                 
             
             // 조립
@@ -449,6 +485,7 @@ const printMemberList = (memberList, pagination) => {
 
 
 
+//-----------------------------------------------
 
 /* 페이지 박스를 만드는 함수 */
 const makePageBox = (elementName, inputHtml, inputId, className) => {
@@ -458,7 +495,7 @@ const makePageBox = (elementName, inputHtml, inputId, className) => {
 }
 
 
-// todo: 페이지네이션 박스 화면에 출력
+// optimize: 페이지네이션 박스 화면에 출력
 const printPagination = (adminPagination, pagination) => {
 
 
@@ -503,6 +540,9 @@ const printPagination = (adminPagination, pagination) => {
 }
 
 
+
+
+
 //todo: 필터 드롭다운 메뉴
 //fix: 페이지네이션 이후에 수정하기! 드롭다운 메뉴 동시에 열림..
 const dropBtn1 = document.getElementById("dropBtn1");
@@ -537,7 +577,6 @@ dropUl2.addEventListener("click", () => {
 // 첫 페이지 불러오기
 document.addEventListener("DOMContentLoaded", () => {
     selectMemberList();
-    document.getElementsByTagName("body").scrollTop!=0;
 });
 
 
@@ -546,6 +585,7 @@ document.addEventListener("DOMContentLoaded", () => {
 /* 페이지네이션 박스에 클릭 이벤트 추가 */
 const selectMemberListEvent = (element, cp) => {
     element.addEventListener('click', () => {
+        window.scrollTo({top: 0, behavior: 'smooth'});
         numCount = (cp-1)*15;
         selectMemberList(cp);
     });
@@ -665,6 +705,43 @@ document.getElementById("s4").addEventListener("click", ()=>{
 
 
 
+
+
+
+// todo: 강제 탈퇴 시키기 (by 관리자)
+//fixme: 안 비워줘서 바로바로 적용이 안되는 것 같다..
+// fixme: member-detail-table 모두 ajax로 만들기!
+document.getElementById("adminDelSubmitBtn").addEventListener('click', ()=>{
+  
+    $.ajax({
+        url: "/admin/kickout",
+        data: { "inputMemberId": inputMemberId.value},
+        type: "POST",
+        success: (result) => {
+            if(result > 0){
+                adminDel.style.display = "none";
+
+                if(adminDel.style.display == 'none'){
+                    selectMemberList(cp);
+                }          
+                
+                console.log("강제 탈퇴 완료!");
+                messageModalOpen();
+                messageContent.innerText = "강제 탈퇴 완료";
+
+            
+            } else {
+                console.log("처리 실패");
+            }
+        },
+        error: () => {
+            console.log("처리 오류");
+        }
+    });
+
+
+
+});
 
 
 

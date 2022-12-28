@@ -26,5 +26,12 @@ public interface AdminService {
 	Map<String, Object> selectMember(Map<String, Object> paramMap, int cp);
 
 
+	/** 회원 강제 탈퇴
+	 * @param inputMemberId
+	 * @return result
+	 */
+	int memberKickout(String inputMemberId);
+
+
 
 }
