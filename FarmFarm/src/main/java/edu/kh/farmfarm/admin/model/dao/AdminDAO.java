@@ -83,6 +83,16 @@ public class AdminDAO {
 
 
 
+	/** 상세 조회_계정 상태(신고 내역)
+	 * @param paramMap
+	 * @return reportHistoryList
+	 */
+	public List<Admin> selectReportHistory(Map<String, Object> paramMap) {
+		return sqlSession.selectList("adminMapper.selectReportHistoryList", paramMap);
+	}
+
+
+
 
 
 

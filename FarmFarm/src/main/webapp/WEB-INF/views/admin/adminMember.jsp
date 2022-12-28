@@ -239,22 +239,27 @@
 
                             </table>
                         </span>
-                        
-                        <button id="secessionBtn">강제 탈퇴</button>
+                        <%-- <c:if test="${memberList.memberDelFl eq'N'}"> --%>
+                            <button id="adminDelBtn">강제 탈퇴</button>
+                        <%-- </c:if> --%>
                     </div>   
                 </div>
             </section>
         </main>
 
+            
+        <jsp:include page="/WEB-INF/views/admin/adminDel-modal.jsp"/> 
+
         <script>
             var authFilter = 0;  /* 판매자등록 필터  0: 전체 조회 */
             var statFilter = 0;  /* 상태 필터 0: 전체 조회  */
-            var cp = "${pagination.currentPage}";
+            var cp = 1;
         </script>
 
         <%-- jquery --%>
         <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
         
         <script src="/resources/js/admin/adminMember.js"></script> 
+        <script src="/resources/js/admin/adminDel-modal.js"></script> 
     </body>
 </html>

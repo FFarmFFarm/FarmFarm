@@ -542,7 +542,7 @@ main{
 
 
 /* 강제 탈퇴 버튼 */
-#secessionBtn{
+#adminDelBtn{
     width: 150px;
     height: 30px;
     border-radius: 5px;  

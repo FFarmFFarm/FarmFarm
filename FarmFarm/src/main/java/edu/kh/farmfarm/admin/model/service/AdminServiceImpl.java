@@ -49,14 +49,15 @@ public class AdminServiceImpl implements AdminService{
 		List<Member> memberList = dao.selectMember(paramMap, pagination);
 		
 		
+		/* 신고 내역 조회 */
+		List<Admin> reportHistoryList = dao.selectReportHistory(paramMap);
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("memberListCount", memberListCount);
 		map.put("pagination", pagination);
 		map.put("memberList", memberList);
+		map.put("reportHistoryList", reportHistoryList);
 		
-		
-		/* 신고 내역 조회 */
-//		int reportHistory = dao.selectReportHistory(paramMap);
 		
 		return map;
 	}

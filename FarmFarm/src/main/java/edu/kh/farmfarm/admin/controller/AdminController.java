@@ -92,34 +92,35 @@ public class AdminController {
 	// JSP 
 	@GetMapping("/admin/member")
 	public String adminMemberPage(@SessionAttribute(value="loginMember") Member loginMember, 
-			Model model,
-			@RequestParam(value="cp", required=false, defaultValue="1") int cp,
-			@RequestParam(value="authFilter", required=false, defaultValue="0") String authFilter,
-			@RequestParam(value="statFilter", required=false, defaultValue="0") String statFilter) {
-		
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("authFilter", authFilter);
-		paramMap.put("statFilter", statFilter);
-		
-		// 관리자인지 확인 (관리자면 result==1)
-		int result = service.checkAdmin();
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		if(result == 1 && loginMember != null) {
-
-			// 전체 회원 정보 조회 + 페이지네이션 + 정렬
-			map = service.selectMember(paramMap, cp);
-	
-		} else {
-			System.out.println("관리자만 접근 가능합니다.");
-		}
-		
-		model.addAttribute("map", map);
-		
+									Model model,
+									@RequestParam(value="cp", required=false, defaultValue="1") int cp,
+									@RequestParam(value="authFilter", required=false, defaultValue="0") String authFilter,
+									@RequestParam(value="statFilter", required=false, defaultValue="0") String statFilter,
+									String memberId) {
+//		
+//		Map<String, Object> paramMap = new HashMap<String, Object>();
+//		paramMap.put("authFilter", authFilter);
+//		paramMap.put("statFilter", statFilter);
+//		paramMap.put("memberId", memberId);
+//		
+//		// 관리자인지 확인 (관리자면 result==1)
+//		int result = service.checkAdmin();
+//		
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		
+//		if(result == 1 && loginMember != null) {
+//
+//			// 전체 회원 정보 조회 + 페이지네이션 + 정렬
+//			map = service.selectMember(paramMap, cp);
+//	
+//		} else {
+//			System.out.println("관리자만 접근 가능합니다.");
+//		}
+//		
+//		model.addAttribute("map", map);
+//		
 		return "admin/adminMember";
 	}
-	
 	
 	
 	
@@ -127,12 +128,10 @@ public class AdminController {
 	@GetMapping("/admin/selectMemberList")
 	@ResponseBody
 	public String selectMember(@SessionAttribute(value="loginMember") Member loginMember, 
-								Model model,
 								@RequestParam(value="cp", required=false, defaultValue="1") int cp,
 								@RequestParam(value="authFilter", required=false, defaultValue="0") String authFilter,
 								@RequestParam(value="statFilter", required=false, defaultValue="0") String statFilter,
-								String memberId
-								) {
+								String memberId) {
 		
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -142,6 +141,7 @@ public class AdminController {
 		
 		// 관리자인지 확인 (관리자면 result==1)
 		int result = service.checkAdmin();
+		System.out.println(result);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -154,11 +154,9 @@ public class AdminController {
 			System.out.println("관리자만 접근 가능합니다.");
 		}
 		
-		model.addAttribute("map", map);
 		
 		return new Gson().toJson(map);
 	}
-	
 	
 	
 //	System.out.println(memberAllList);

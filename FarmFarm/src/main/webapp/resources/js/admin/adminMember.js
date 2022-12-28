@@ -165,10 +165,8 @@ const printMemberList = (memberList, pagination) => {
         tr.append(td1, td2, td3, td4, td5, td6, td7, td8, inputMemberId);
         tbody.append(tr);
 
-        console.log("보자보자");
-        console.log(inputMemberId);
 
-
+        
         //todo : 회원 상세 조회
         // 한 줄 클릭하면 상세창 뜨면서 정보 조회.
         tr.addEventListener("click", () => {
@@ -327,23 +325,23 @@ const printMemberList = (memberList, pagination) => {
             tdDate.innerText = member.signUpDate;
 
             // 신고 사유
-            const reason = document.createElement("td");
-            reason.classList.add("detail-bold");
+            // const reason = document.createElement("td");
+            // reason.classList.add("detail-bold");
 
-            if(tdStatus.innerText =="신고접수" || tdStatus.innerText == "정지" || tdStatus.innerText == "탈퇴"){
-                reason.innerText = "신고 사유";
-            } else {
-                reason.innerText = "";
-            }
+            // if(tdStatus.innerText =="신고접수" || tdStatus.innerText == "정지" || tdStatus.innerText == "탈퇴"){
+            //     reason.innerText = "신고 사유";
+            // } else {
+            //     reason.innerText = "";
+            // }
 
 
-            const tdReason = document.createElement("td");
+            // const tdReason = document.createElement("td");
 
-            if(member.reportReason != null){
-                tdReason.innerText = member.reportReason;
-            } else {
-                tdReason.innerText = "";
-            }
+            // if(member.reportReason != null){
+            //     tdReason.innerText = member.reportReason;
+            // } else {
+            //     tdReason.innerText = "";
+            // }
 
             //6)
             const detailTr6 = document.createElement("tr");
@@ -366,10 +364,10 @@ const printMemberList = (memberList, pagination) => {
             detailTr2.append(memberId, tdId, memberBirth, tdBirth);
             detailTr3.append(memberName, tdName, sellerAuth, tdAuth);
             detailTr4.append(memberNickname, tdNickname, memberStatus, tdStatus);
-            detailTr5.append(signUpDate, tdDate, reason, tdReason);
+            detailTr5.append(signUpDate, tdDate);
+            // detailTr5.append(signUpDate, tdDate, reason, tdReason);
             detailTr6.append(address, tdAddress);
             detailTable.append(detailTr1, detailTr2, detailTr3, detailTr4, detailTr5, detailTr6);
-
 
 
             // todo: 계정 상태
@@ -378,7 +376,7 @@ const printMemberList = (memberList, pagination) => {
             tr1.classList.add("member-history-row");
 
             const th1 = document.createElement("th");
-            th1.style.width = "100px";
+            th1.style.width = "160px";
             th1.innerText = "일자";
 
             const th2 = document.createElement("th");
@@ -387,7 +385,7 @@ const printMemberList = (memberList, pagination) => {
 
             const th3 = document.createElement("th");
             th3.style.width = "150px";
-            th3.innerText = "사유";
+            th3.innerText = "비고";
 
 
             // 2) 가입
@@ -403,68 +401,45 @@ const printMemberList = (memberList, pagination) => {
 
 
             // 3) 신고 처리 내역
-            // const trLoop = document.createElement("tr");
-            // trLoop.className = 'trLoop';
 
-            // const tdLoop1 = document.createElement("td");
-            // tdLoop1.className = "tdLoop";
+            const trReport = document.createElement("tr");
+            const tdReportDate = document.createElement("td");
+            const tdReport = document.createElement("td");
+            const tdReportReason = document.createElement("td");
 
-            // const tdLoop2 = document.createElement("td");
-            // tdLoop2.className = "tdLoop";
+            if(member.memberDelFl == 'N'){
+                if(member.reportPenalty == 'Y'){
+                    if(member.processDate != null){
+                        tdReportDate.innerText = member.processDate;
+                        tdReport.innerText = "정지"
+                    }
+                }
+            }
 
-            // const tdLoop3 = document.createElement("td");
-            // tdLoop3.className = "tdLoop";
+            if(member.memberDelFl == 'Y'){
+                if(member.reportPenalty == 'N'){
+                    tdReport.innerText = "탈퇴";
+                }
+
+                if(member.reportPenalty == 'Y'){
+                    tdReportDate.innerText = member.processDate;
+                    tdReport.innerText = "강제 탈퇴";
+                }
+            }
+
+            if(member.processDate != null){
+                tdReportReason.innerText = member.processContent;
+            } else {
+                tdReportReason.innerText = "";
+            }
+                
             
-
-            // for(let i=0; i<10; i++){
-
-            //     let tr = document.getElementsByClassName("trLoop")[i];
-            //     let td1 = document.getElementsByClassName("tdLoop1")[i];
-            //     let td2 = document.getElementsByClassName("tdLoop2")[i];
-            //     let td3 = document.getElementsByClassName("tdLoop3")[i];
-
-            //     console.log("반복");
-            //     console.log(tr[0]);
-
-            //     if(member.processDate != null){
-            //         td1[i].innerText = member.processDate;
-            //     } else {
-            //         td1[i].innerText = "";
-            //     }
-
-            //     // 정지 여부
-            //     if(member.memberDelFl == 'N'){
-            //         if(member.reportPenalty == 'Y'){
-            //             td2[i].innerText = "정지";
-            //         } else {
-            //             td2[i].innerText = "";
-            //         }
-            //     } 
-
-            //     // 정지 사유
-            //     if(member.memberDelFl == 'N'){
-            //         if(member.reportPenalty == 'Y'){
-            //             td3[i].innerText = member.reportReason;
-            //         } else {
-            //             td3[i].innerText = "";
-            //         }
-            //     }
-                
-            //     tr[i].append(td1[i], td2[i], td3[i]);
-                
-            //     tr1.after(tr[0]);
-            //     tr[i].after(tr[i+1]);
-                
-                
-            // }
-
-
             // 조립
             tr1.append(th1, th2, th3);
             tr2.append(td4, td5, td6);
-            // tr3.append(td7, td8, td9);
+            trReport.append(tdReportDate, tdReport, tdReportReason);
 
-            historyTable.append(tr1, tr2)
+            historyTable.append(tr1, tr2, trReport)
 
         })
 
@@ -561,6 +536,7 @@ dropUl2.addEventListener("click", () => {
 // 첫 페이지 불러오기
 document.addEventListener("DOMContentLoaded", () => {
     selectMemberList();
+    document.getElementsByTagName("body").scrollTop!=0;
 });
 
 
