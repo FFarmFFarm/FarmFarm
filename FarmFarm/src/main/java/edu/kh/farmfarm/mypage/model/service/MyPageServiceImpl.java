@@ -338,9 +338,27 @@ public class MyPageServiceImpl implements MyPageService {
 	 * @return
 	 */
 	@Override
-	public int updateProfile(Member inputMember) {
-
-		return 0;
+	public int updateProfile(Member inputMember, String[] memberAddress) {
+		
+		int memberNickname = dao.updateMember(inputMember);
+		
+		int result = 0;
+		
+		if(memberNickname > 0) {
+			if(!memberAddress.equals(",,")) {
+				String address = String.join(",,", memberAddress);
+				inputMember.setMemberAddress(address);
+				String add = inputMember.getMemberAddress();
+				int memberNo = inputMember.getMemberNo();
+								
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("memberAddress", add);
+				map.put("memberNo", memberNo);
+				result = dao.updateAddress(map);
+			}
+		}
+		
+		return result;
 	}
 	
 	

@@ -254,6 +254,18 @@
 	WHERE MEMBER_NO = #{memberNo}
 </update>
 
-</insert>
+<!-- 마이페이지 닉네임 수정 -->
+<update id="updateMember">
+	UPDATE "MEMBER" SET
+	MEMBER_NICKNAME = #{memberNickname}
+	WHERE MEMBER_NO = #{memberNo}
+</update>
+
+<!-- 마이페이지 주소 수정 -->
+<update id="updateAddress">
+	UPDATE "ADDRESS" SET
+	MEMBER_ADDRESS = #{memberAddress}
+	WHERE MEMBER_NO = #{memberNo}
+</update>
 
 </mapper>

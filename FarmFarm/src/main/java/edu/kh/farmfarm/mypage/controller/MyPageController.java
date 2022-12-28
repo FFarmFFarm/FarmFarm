@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -22,6 +23,7 @@ import edu.kh.farmfarm.member.model.VO.Member;
 import edu.kh.farmfarm.mypage.model.service.MyPageService;
 import edu.kh.farmfarm.mypage.model.vo.Comment;
 
+@SessionAttributes({"loginMember"})
 @Controller
 @RequestMapping("/myPage")
 public class MyPageController {
@@ -161,6 +163,17 @@ public class MyPageController {
 		return "myPage/myPageProfile";
 	}
 	
+	/** 마이페이지 비밀번호 변경  
+	 * @return
+	 */
+	@GetMapping("/updatePw")
+	public String myPageUpdatePw(
+			@SessionAttribute("loginMember")Member loginMember,
+			Model model) {
+		
+		return "myPage/myPageUpdatePw";
+	}
+	
 	/** 마이페이지 프로필수정_이미지  
 	 * @return
 	 * @throws Exception 
@@ -189,7 +202,7 @@ public class MyPageController {
 		
 		ra.addFlashAttribute("message", message);
 		
-		return "redirect:myPage/myPageProfile";
+		return "redirect:profile";
 	}
 	
 	/** 마이페이지 프로필수정_정보 
@@ -199,10 +212,10 @@ public class MyPageController {
 	public String updateProfile(
 			@SessionAttribute("loginMember") Member loginMember,
 			Member inputMember,
-			RedirectAttributes ra
+			RedirectAttributes ra, String[] memberAddress
 			) {
 		inputMember.setMemberNo(loginMember.getMemberNo());
-		int result = service.updateProfile(inputMember);
+		int result = service.updateProfile(inputMember, memberAddress);
 		
 		String message = null;
 		
@@ -215,7 +228,7 @@ public class MyPageController {
 		
 		ra.addFlashAttribute("message", message);
 		
-		return "redirect:myPage/myPageProfile";
+		return "redirect:profile";
 	}
 	
 	

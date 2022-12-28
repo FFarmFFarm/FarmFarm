@@ -92,9 +92,10 @@ public interface MyPageService {
 
 	/** 마이페이지 프로필수정_정보   
 	 * @param memberAddress 
+	 * @param memberAddress 
 	 * @return
 	 */
-	int updateProfile(Member inputMember);
+	int updateProfile(Member inputMember, String[] memberAddress);
 
 
 

@@ -187,7 +187,17 @@ public class MyPageDAO {
 
 
 	public int updateImg(Member img) {
-		return sqlSession.update("mypageMapper.updateImg", img);
+		return sqlSession.update("myPageMapper.updateImg", img);
+	}
+
+
+	public int updateMember(Member inputMember) {
+		return sqlSession.update("myPageMapper.updateMember", inputMember);
+	}
+
+
+	public int updateAddress(Map<String, Object> map) {
+		return sqlSession.update("myPageMapper.updateAddress", map);
 	}
 
 

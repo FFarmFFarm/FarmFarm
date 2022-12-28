@@ -1,5 +1,5 @@
-a.setting > span,
-a.setting > i {
+a.update-pw > span,
+a.update-pw > i {
   font-weight: bold;
   color: var(--point-color);
 }

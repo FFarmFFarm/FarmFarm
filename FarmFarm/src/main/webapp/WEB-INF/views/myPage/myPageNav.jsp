@@ -22,4 +22,7 @@
           <a href="/myPage/profile" class="setting">
             <span>개인 정보 수정</span><i class="fa-solid fa-chevron-right"></i
           ></a>
+          <a href="/myPage/updatePw" class="update-pw">
+            <span>비밀번호 변경</span><i class="fa-solid fa-chevron-right"></i
+          ></a>
         </section>
