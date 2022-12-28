@@ -26,6 +26,8 @@ public class ChatRoom {
 	
 	private String closedFl;
 	
+	private int postNo;
+	
 	private String lastChatTime;
 	private String lastChatContent;
 	private String lastChatImgFl;

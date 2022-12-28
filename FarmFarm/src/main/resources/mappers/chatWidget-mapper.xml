@@ -27,7 +27,8 @@
 	
 	<!-- 채팅방 목록 -->
 	<select id="getMyChatWidget" parameterType="_int" resultMap="chatRoom_rm">
-		SELECT ROOM_NO, ROOM_DATE, MEMBER_NO, MEMBER_NO2,
+		SELECT * FROM
+			  (SELECT ROOM_NO, ROOM_DATE, MEMBER_NO, MEMBER_NO2,
 				-- 닉네임1
 			  (SELECT MEMBER_NICKNAME
 			  	FROM MEMBER M1
@@ -84,10 +85,10 @@
 		FROM CHAT_ROOM CR
 		WHERE ((MEMBER_NO = #{myMemberNo} AND MEMBER_FL = 'N')
 		OR (MEMBER_NO2 = #{myMemberNo} AND MEMBER_FL2 = 'N'))
+		ORDER BY CHAT_TIME_ORDER DESC NULLS LAST)
 		<![CDATA[
-			AND ROWNUM <= 6
+			WHERE ROWNUM <= 6
 		]]>
-		ORDER BY CHAT_TIME_ORDER DESC
 	</select>
 	
 </mapper>
