@@ -17,6 +17,7 @@ public class Product {
 	private String regDate;
 	private String productPrice;
 	private String productImg;
+	private String productImgAddress;
 	private String productDelFl;
 	private String categoryName;
 	private String wishDate;
