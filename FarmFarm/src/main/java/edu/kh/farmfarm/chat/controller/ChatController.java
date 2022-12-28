@@ -1,6 +1,7 @@
 package edu.kh.farmfarm.chat.controller;
 
 import java.io.IOException;
+import java.net.http.HttpHeaders;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,15 +10,18 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 
@@ -25,6 +29,7 @@ import edu.kh.farmfarm.chat.model.service.ChatService;
 import edu.kh.farmfarm.chat.model.vo.Chat;
 import edu.kh.farmfarm.chat.model.vo.ChatRoom;
 import edu.kh.farmfarm.member.model.VO.Member;
+import edu.kh.farmfarm.postDetail.model.vo.Post;
 
 @Controller
 @SessionAttributes({"loginMember", "shortcutNo"})
@@ -34,9 +39,27 @@ public class ChatController {
 	private ChatService service;
 	
 	// 채팅 페이지로 이동
-	@PostMapping("/chat")
+	@GetMapping("/chat")
 	public String goChatPage() {
 		return "chat/myChat";
+	}
+	
+	// 채팅 페이지로 이동하기 전 걸러내는 메서드
+	@PostMapping("/chat/bridge")
+	public String bridgetToChat(
+			RedirectAttributes ra,
+			@RequestHeader(value = "referer") String referer,
+			HttpSession session) {
+		
+		String path = "";
+		
+		if(session.getAttribute("loginMember") != null) {
+			path = "/chat";
+		} else {
+			ra.addFlashAttribute("message", "로그인 후 이용가능합니다.");
+			path = "/login";
+		}
+		return "redirect:" + path;
 	}
 	
 	// 내 채팅방 목록 가져오기
@@ -68,11 +91,14 @@ public class ChatController {
 					int tempNo = chatRoom.getMemberNo();
 					chatRoom.setMemberNo(myMemberNo);
 					chatRoom.setMemberNo2(tempNo);
-				}
-				if(chatRoom.getMemberNickname2().equals(myMemberNickname)) {
+					
 					String tempNickname = chatRoom.getMemberNickname();
 					chatRoom.setMemberNickname(myMemberNickname);
-					chatRoom.setMemberNickname2(tempNickname);
+					chatRoom.setMemberNickname2(tempNickname);	
+					
+					String tempProfileImg = chatRoom.getProfileImg();
+					chatRoom.setProfileImg(chatRoom.getProfileImg2());
+					chatRoom.setProfileImg2(tempProfileImg);
 				}
 			}
 			
@@ -103,23 +129,25 @@ public class ChatController {
 		// 2. 회원 정보 객체에서 회원 번호를 꺼냄
 		int myMemberNo = loginMember.getMemberNo();
 		
-		// 3. roomNo와 loginMemberNo를 보내 채팅 목록을 가져옴
+		// 3. roomNo와 loginMemberNo를 보내 채팅 읽음 여부를 업데이트 함
 		Map<String, Object> updateInfo = new HashMap<String, Object>();
 		updateInfo.put("roomNo", roomNo);
 		updateInfo.put("myMemberNo", myMemberNo);
 		
 		int result = service.updateChatReadFl(updateInfo);
 		
-		System.out.println(result);
-		
 		// 4. 다시 roomNo를 보내서 채팅 목록을 가져옴
 		List<Chat> chatHistory = service.getChatHistory(roomNo);
+		
+		// 5. 한번 더 roomNo를 보내서 채팅방의 정보를 가져옴
+		Post postInfo = service.selectRoomPostInfo(roomNo);
 		
 		// 5. 내 회원 번호, 채팅 목록을 Map에 담음
 		Map<String, Object> chatHistoryMap = new HashMap<String, Object>();
 		
 		chatHistoryMap.put("myMemberNo", myMemberNo);
 		chatHistoryMap.put("chatHistory", chatHistory);
+		chatHistoryMap.put("postInfo", postInfo);
 		
 		// 6. 반환
 		return new Gson().toJson(chatHistoryMap);
@@ -138,25 +166,27 @@ public class ChatController {
 		// 2. 회원 정보 객체에서 회원 번호를 꺼냄
 		int myMemberNo = loginMember.getMemberNo();
 		
-		// 3. roomNo와 loginMemberNo를 보내 채팅 목록을 가져옴
+		// 3. roomNo와 loginMemberNo를 보내 채팅을 읽음처리함
 		Map<String, Object> updateInfo = new HashMap<String, Object>();
 		updateInfo.put("roomNo", roomNo);
 		updateInfo.put("myMemberNo", myMemberNo);
 		
 		int result = service.updateChatReadFl(updateInfo);
 		
-		System.out.println(result);
-		
 		// 4. 다시 roomNo를 보내서 채팅 목록을 가져옴
 		List<Chat> chatHistory = service.getChatHistory(roomNo);
 		
-		// 5. 내 회원 번호, 채팅 목록을 Map에 담음
+		// 5. 한번 더 roomNo를 보내서 채팅방의 정보를 가져옴
+		Post postInfo = service.selectRoomPostInfo(roomNo);
+
+		// 6. 내 회원 번호, 채팅방 정보, 채팅 목록을 Map에 담음
 		Map<String, Object> chatHistoryMap = new HashMap<String, Object>();
 		
 		chatHistoryMap.put("myMemberNo", myMemberNo);
 		chatHistoryMap.put("chatHistory", chatHistory);
+		chatHistoryMap.put("postInfo", postInfo);
 		
-		// 6. 상대방의 이미지와 이름을 가져옴
+		// 7. 상대방의 이미지와 이름을 가져옴
 		
 		Member partner = service.findPartnerInfo(roomNo, myMemberNo);
 		
@@ -203,5 +233,56 @@ public class ChatController {
 	}
 	
 	// 채팅방 개설
-//	@PostMapping("/chat/makeroom")
+	@PostMapping("/chat/insert/room")
+	public String insertNewRoom(int postNo, 
+			HttpSession session,
+			RedirectAttributes ra,
+			@RequestHeader(value = "referer") String referer) {
+		
+		String path = referer;
+				
+		if(session.getAttribute("loginMember") != null) {
+			// 세션에 로그인 회원 정보가 있을 때만 방 생성을 시작함
+			Member loginMember = (Member)session.getAttribute("loginMember");
+			int memberNo = loginMember.getMemberNo();
+
+			// 1. 내 권한을 확인해서, 구매자일때만 실행
+			if(loginMember.getAuthority() == 0) {
+				
+					// 2. 판매자 번호를 가져옴
+					int memberNo2 = service.selectSellerNo(postNo);
+					
+					// 3. 내 번호(memberNo), 판매자 번호(memberNo2), 상품 정보를 가지고 가서 채팅방을 만듦
+					
+					
+					ChatRoom chatRoom = new ChatRoom();
+					chatRoom.setMemberNo(memberNo);
+					chatRoom.setMemberNo2(memberNo2);
+					chatRoom.setPostNo(postNo);
+					
+					int result = service.insertNewRoom(chatRoom); // 번호가 안가져와짐..
+					
+					ra.addFlashAttribute("shortcutNo", result);
+					
+					path = "/chat";
+					
+	//			if(result > 0) { // 채팅방이 개설되면 ~
+	//				// 채팅방으로 고고
+	//			} else { // 채팅방이 새로 개설되지 않았다 == 기존 채팅방이 있다 == 해당 채팅방으로 던짐
+	//				ra.addFlashAttribute("shortcutNo", result);
+	//				return "redirect:/chat";
+	//			}
+					
+				} else {
+					// 만약 로그인이 안되어있으면...돌려보냄!
+					ra.addFlashAttribute("message", "일반 회원만 이용가능합니다.");
+				}
+			
+			} else {
+				ra.addFlashAttribute("message", "로그인 후 이용가능합니다.");
+			}
+		
+		
+		return "redirect:" + path;
+	}
 }
