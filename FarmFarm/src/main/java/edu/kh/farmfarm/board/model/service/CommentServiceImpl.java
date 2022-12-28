@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import edu.kh.farmfarm.board.model.dao.CommentDAO;
 import edu.kh.farmfarm.common.Util;
-//import edu.kh.farmfarm.board.model.vo.Comment;
 import edu.kh.farmfarm.mypage.model.vo.Comment;
 
 @Service

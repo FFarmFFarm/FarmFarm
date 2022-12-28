@@ -13,7 +13,6 @@ import com.google.gson.Gson;
 
 import edu.kh.farmfarm.board.model.service.CommentService;
 import edu.kh.farmfarm.mypage.model.vo.Comment;
-//import edu.kh.farmfarm.board.model.vo.Comment;
 
 @RestController
 @Controller

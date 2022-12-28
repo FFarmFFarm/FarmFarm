@@ -4,7 +4,6 @@ import java.util.List;
 
 import edu.kh.farmfarm.mypage.model.vo.Comment;
 
-//import edu.kh.farmfarm.board.model.vo.Comment;
 
 public interface CommentService {
 
