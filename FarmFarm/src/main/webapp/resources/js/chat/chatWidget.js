@@ -31,8 +31,18 @@ addEventListener("DOMContentLoaded", () => {
 
         if (myMemberNo != -1) {
             listenChatSocket = new SockJS('/echo/chat');
-            console.log('야호~')
-            console.log(myMemberNo);
+            console.log('야호!')
+
+            if (listenChatSocket != null) {
+
+                console.log('잘 들립니다!')
+
+                listenChatSocket.onmessage = function (e) {
+                    console.log('새로운 메세지가 있습니다.');
+                    document.getElementById('chatAlarmDot').style.display = 'block';
+                }
+            }
+
         }
 
     }).catch(function (error) {
@@ -44,12 +54,7 @@ addEventListener("DOMContentLoaded", () => {
 addEventListener("load", ()=>{
     requestAndFillMyChatWidget();
 
-    if (listenChatSocket != null) {
-        console.log('듣고 있어요')
-        listenChatSocket.onmessage = function(e) {
-            document.getElementById('chatAlarmDot').style.display = 'block';
-        }
-    }
+
 })
 
 // ---------------------------- 비동기 요청 ---------------------------------- //

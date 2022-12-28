@@ -47,6 +47,9 @@ public class ChatServiceImpl implements ChatService {
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int insertChat(Chat chat) {
+		
+		chat.setChatContent(Util.XSSHandling(chat.getChatContent()));
+		
 		return dao.insertChat(chat);
 	}
 
