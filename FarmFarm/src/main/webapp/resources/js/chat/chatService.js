@@ -43,30 +43,30 @@ window.addEventListener("DOMContentLoaded", ()=>{
         // history.replaceState("", "", "/chat");
     }
 
-    axios.post('/get/myNo'
-    ).then(function (response) {
+    // axios.post('/get/myNo'
+    // ).then(function (response) {
 
-        myMemberNo = response.data;
+    //     myMemberNo = response.data;
 
-        if (myMemberNo != -1) {
-            listenChatSocket = new SockJS('/echo/chat');
-            console.log('야호!')
+    //     if (myMemberNo != -1) {
+    //         listenChatSocket = new SockJS('/echo/chat');
+    //         console.log('야호!')
 
-            if (listenChatSocket != null) {
+    //         if (listenChatSocket != null) {
 
-                console.log('잘 들립니다!')
+    //             console.log('잘 들립니다!')
 
-                listenChatSocket.onmessage = function (e) {
-                    console.log('새로운 메세지가 있습니다.');
-                    document.getElementById('chatAlarmDot').style.display = 'block';
-                }
-            }
+    //             listenChatSocket.onmessage = function (e) {
+    //                 console.log('새로운 메세지가 있습니다.');
+    //                 document.getElementById('chatAlarmDot').style.display = 'block';
+    //             }
+    //         }
 
-        }
+    //     }
 
-    }).catch(function (error) {
-        console.log(error);
-    })
+    // }).catch(function (error) {
+    //     console.log(error);
+    // })
 
 })
 
@@ -434,6 +434,7 @@ const sendImgToServer = () => {
 
     if(imgData != null) {
         let formData = new FormData();
+        
         formData.append("roomNo", selectedRoomNo);
         formData.append("sendMemberNo", senderNo);
         formData.append("chatImg", imgData);
