@@ -84,7 +84,7 @@
                         </li>
                         <li class="info-list">
                             <p>최초 입고량</p>
-                            <input type="number" name="stock" placeholder=0
+                            <input type="number" name="productAmount" placeholder=0
                             onfocus="this.placeholder = ''">
                             <p>개</p>
                         </li>

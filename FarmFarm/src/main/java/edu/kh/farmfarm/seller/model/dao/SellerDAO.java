@@ -84,7 +84,7 @@ public class SellerDAO {
 	 * @return result
 	 */
 	public int deletePost(int postNo) {
-		return sqlSession.delete("sellerMapper.deletePost", postNo);
+		return sqlSession.update("sellerMapper.deletePost", postNo);
 	}
 	
 	

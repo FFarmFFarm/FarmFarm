@@ -15,7 +15,9 @@
     <link rel="stylesheet" href="/resources/css/common/header-style.css" />
     <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
     <link rel="stylesheet" href="/resources/css/myPage/myPage-style.css" />
+    <link rel="stylesheet" href="/resources/css/modal/reviewForm-style.css" />
     <link rel="stylesheet" href="/resources/css/myPage/myPageReview-style.css" />
+    <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
     <script
       src="https://kit.fontawesome.com/591746f9e8.js"
       crossorigin="anonymous"
@@ -31,7 +33,7 @@
       <section class="list-container">
        <jsp:include page="/WEB-INF/views/myPage/myPageNav.jsp"/>
 
-        <div class="review-list" id="reviewListContainer">
+        <div class="review-list" >
           <span class="review-list-title">작성 후기</span>
 
           <c:if test="${empty reviewList}">
@@ -39,8 +41,10 @@
           </c:if>
           <c:if test="${! empty reviewList}">
           <c:forEach var="review" items="${reviewList}">
-          <div class="review">
-            <div>
+          <div class="review-list-area" id="reviewListContainer">
+
+            <div class="review">
+              <div>
               <div class="review-container">
                 <a href="/product/${review.productNo}" class="review-title">
                 ${review.productName}
@@ -54,14 +58,15 @@
             </div>
             <div class="review-detail hide">
               <div class="review-detail-content">
+                <button type="button" class="review-update-btn" id="${review.reviewNo}">수정하기</button>
                 <span>${review.productName}</span>
                 <p>
-                ${review.reviewContent}
+                  ${review.reviewContent}
                 </p>
                 <c:if test="${! empty review.imgList}">
                 <div class="review-img">
                   <c:forEach var="img" items="${review.imgList}">
-                  <img src="${img.reviewImgPath}" alt="" />
+                    <img src="${img.reviewImgPath}" alt="" />
                   </c:forEach>
                 </div>
                 </c:if>
@@ -72,36 +77,36 @@
               </div>
             </div>
           </div>
-          </c:forEach>
-          </c:if>
-
-        <div class="pagination-area">
-          <!-- ajax로 만들어 보십시다 -->
+        </c:forEach>
+      </c:if>
+      
+      <div class="pagination-area">
+        <!-- ajax로 만들어 보십시다 -->
           <div id="1" class="page-box">
               <i class="fa-solid fa-angles-left"></i>
           </div>
           <div id="${pagination.prevPage}" class="page-box">
-              <i class="fa-solid fa-angle-left"></i>
+            <i class="fa-solid fa-angle-left"></i>
           </div>
           <c:forEach var="i" 
-                      begin="${pagination.startPage}" 
-                      end="${pagination.endPage}"
+          begin="${pagination.startPage}" 
+          end="${pagination.endPage}"
                       step="1">
               <c:choose>
-                  <c:when test="${i == pagination.currentPage}">
+                <c:when test="${i == pagination.currentPage}">
                       <div class="current-page-box">
-                          ${i}
+                        ${i}
                       </div>
-                  </c:when>
+                    </c:when>
               
                   <c:otherwise>
-                      <div id="${i}" class="page-box">
+                    <div id="${i}" class="page-box">
                           ${i}
                       </div>
                   </c:otherwise>
               </c:choose>
           </c:forEach>
-
+          
           <div id="${pagination.nextPage}" class="page-box">
               <i class="fa-solid fa-angle-right"></i>
           </div>
@@ -109,14 +114,25 @@
               <i class="fa-solid fa-angles-right"></i>
           </div>
         </div>
+      </div>
 
 
 
-        </div>
+      </div>
       </section>
     </main>
+
+    <script>
+      var memberNo = "${loginMember.memberNo}";
+
+    </script>
+
+    <!-- footer -->
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
+    <!-- modal -->
+    <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
+    <jsp:include page="/WEB-INF/views/myPage/modal/reviewForm.jsp"/>
     <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
 
     <!-- jquery -->
@@ -126,6 +142,7 @@
     <script src="/resources/js/common/common.js"></script>
     <script src="/resources/js/myPage/myPage.js"></script>
     <script src="/resources/js/myPage/myPageReview.js"></script>
+    <script src="/resources/js/myPage/updateReview.js"></script>
 
   </body>
 </html>

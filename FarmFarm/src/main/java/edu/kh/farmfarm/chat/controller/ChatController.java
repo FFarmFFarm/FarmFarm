@@ -34,7 +34,7 @@ public class ChatController {
 	private ChatService service;
 	
 	// 채팅 페이지로 이동
-	@GetMapping("/chat")
+	@PostMapping("/chat")
 	public String goChatPage() {
 		return "chat/myChat";
 	}
@@ -47,38 +47,47 @@ public class ChatController {
 //			@RequestParam(value = "memberNo", required = true) int memberNo
 			){
 		
+		int myMemberNo = -1;
+		String myMemberNickname = "";
+		
 		// 1. 세션에서 로그인 중인 회원의 정보가 담긴 객체를 가져옴
-		Member loginMember = (Member)session.getAttribute("loginMember");
+		if(session.getAttribute("loginMember") != null) {
+			// 2. 회원 정보 객체에서 회원 번호를 꺼냄
+			Member loginMember = (Member)session.getAttribute("loginMember");
+			myMemberNo = loginMember.getMemberNo();
+			myMemberNickname = loginMember.getMemberNickname();
+
+			// 3. 회원 번호를 보내, 회원이 참가중인 모든 채팅방을 가져옴
+			List<ChatRoom> chatRoomList = service.getChatRoomList(myMemberNo);
 		
-		// 2. 회원 정보 객체에서 회원 번호를 꺼냄
-		int myMemberNo = loginMember.getMemberNo();
-		String myMemberNickname = loginMember.getMemberNickname();
-		
-		// 3. 회원 번호를 보내, 회원이 참가중인 모든 채팅방을 가져옴
-		List<ChatRoom> chatRoomList = service.getChatRoomList(myMemberNo);
-		
-		// 4. 회원 정보를 재배치 : 내 이름, 내 정보는 MEMBER_NO, MEMBER_NICKNAME으로,
-		//                    상대 이름, 상대 정보는 MEMBER_NO2, MEMBER_NICKNAME2로 세팅
-		for(ChatRoom chatRoom : chatRoomList) {
-			if(chatRoom.getMemberNo2() == myMemberNo ) {
-				int tempNo = chatRoom.getMemberNo();
-				chatRoom.setMemberNo(myMemberNo);
-				chatRoom.setMemberNo2(tempNo);
+			
+			// 4. 회원 정보를 재배치 : 내 이름, 내 정보는 MEMBER_NO, MEMBER_NICKNAME으로,
+			//                    상대 이름, 상대 정보는 MEMBER_NO2, MEMBER_NICKNAME2로 세팅
+			for(ChatRoom chatRoom : chatRoomList) {
+				if(chatRoom.getMemberNo2() == myMemberNo ) {
+					int tempNo = chatRoom.getMemberNo();
+					chatRoom.setMemberNo(myMemberNo);
+					chatRoom.setMemberNo2(tempNo);
+				}
+				if(chatRoom.getMemberNickname2().equals(myMemberNickname)) {
+					String tempNickname = chatRoom.getMemberNickname();
+					chatRoom.setMemberNickname(myMemberNickname);
+					chatRoom.setMemberNickname2(tempNickname);
+				}
 			}
-			if(chatRoom.getMemberNickname2().equals(myMemberNickname)) {
-				String tempNickname = chatRoom.getMemberNickname();
-				chatRoom.setMemberNickname(myMemberNickname);
-				chatRoom.setMemberNickname2(tempNickname);
-			}
+			
+			// 5. map에 ChatRoom의 정보를 담음
+			Map<String, Object> chatRoomMap = new HashMap<String, Object>();
+			
+			chatRoomMap.put("chatRoomList", chatRoomList);
+			
+			// 6. Gson을 이용해 반환
+			return new Gson().toJson(chatRoomMap);
+			
+		} else {
+			return new Gson().toJson("empty");
 		}
 		
-		// 5. map에 ChatRoom의 정보를 담음
-		Map<String, Object> chatRoomMap = new HashMap<String, Object>();
-		
-		chatRoomMap.put("chatRoomList", chatRoomList);
-		
-		// 6. Gson을 이용해 반환
-		return new Gson().toJson(chatRoomMap);
 	}
 	
 	// 해당 채팅방의 채팅내역 가져오기
@@ -192,4 +201,7 @@ public class ChatController {
 		return new Gson().toJson(chatContent);
 		
 	}
+	
+	// 채팅방 개설
+//	@PostMapping("/chat/makeroom")
 }

@@ -1,5 +1,6 @@
 package edu.kh.farmfarm.productAdmin.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -73,5 +75,41 @@ public class ProductAdminController {
 		return "productAdmin/productStock";
 	}
 	
+	// 판매자 재고 증가
+	@ResponseBody
+	@GetMapping("/admin/stockUp")
+	public int stockUp(
+			@RequestParam("stockUp") int productAmount,
+			@RequestParam("productNo") int productNo) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("productAmount", productAmount);
+		map.put("productNo", productNo);
+		
+		return service.stockUp(map);
+	}
+	
+	// 판매자 재고 감소
+	@ResponseBody
+	@GetMapping("/admin/stockDown")
+	public int stockDown(
+			@RequestParam("stockDown") int productAmount,
+			@RequestParam("productNo") int productNo) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("productAmount", productAmount);
+		map.put("productNo", productNo);
+		
+		return service.stockDown(map);
+	}
+	
+	// 상품삭제
+	@ResponseBody
+	@GetMapping("/admin/delete")
+	public int deleteProduct(
+			@RequestParam("productNo") int productNo) {
+
+		return service.deleteProduct(productNo);
+	}
 	
 }

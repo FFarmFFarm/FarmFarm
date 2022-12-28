@@ -123,4 +123,44 @@ public class ProductDetailDAO {
 
 
 
+	/** 리뷰 수정
+	 * @param review
+	 * @return
+	 */
+	public int updateReview(Review review) {
+		return sqlSession.update("productDetailMapper.updateReview", review);
+	}
+
+
+
+	/** 리뷰 사진 삭제
+	 * @param condition
+	 * @return
+	 */
+	public int deleteReviewImg(String condition) {
+		return sqlSession.delete("productDetailMapper.deleteReviewImg", condition);
+	}
+
+
+
+	/** 리뷰 사진 수정
+	 * @param img
+	 * @return
+	 */
+	public int updateReviewImg(ReviewImg img) {
+		return sqlSession.update("productDetailMapper.updateReviewImg", img);
+	}
+
+
+
+	/** 리뷰 사진 삽입
+	 * @param img
+	 * @return
+	 */
+	public int insertReviewImg(ReviewImg img) {
+		return sqlSession.insert("productDetailMapper.insertReviewImg", img);
+	}
+
+
+
 }

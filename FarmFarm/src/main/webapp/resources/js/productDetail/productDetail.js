@@ -870,6 +870,21 @@ const selectReviewListBySort = (productNo, sortFL) => {
   });
 }
 
+const reviewUpdateBtn = document.getElementsByClassName('review-update-btn');
+for (let i = 0; i < reviewUpdateBtn.length; i++) {
+  reviewUpdateBtn[i].addEventListener('click', (e) => {
+
+    const reviewNo = reviewUpdateBtn[i].id;
+
+    $.ajax({
+
+    })
+
+
+  });
+
+}
+
 
 
 /* -------------------------------------------------------------------------------------------------- */
