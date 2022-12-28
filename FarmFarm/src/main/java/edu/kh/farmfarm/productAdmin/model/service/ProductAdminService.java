@@ -26,4 +26,22 @@ public interface ProductAdminService {
 	 */
 	Map<String, Object> selectProductList(int cp);
 
+	/** 판매자 재고 증가
+	 * @param map
+	 * @return result
+	 */
+	int stockUp(Map<String, Object> map);
+
+	/** 판매자 재고 감소
+	 * @param productAmount
+	 * @return result
+	 */
+	int stockDown(Map<String, Object> map);
+
+	/** 상품 삭제
+	 * @param productNo
+	 * @return result
+	 */
+	int deleteProduct(int productNo);
+
 }

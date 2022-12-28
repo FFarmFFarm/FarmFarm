@@ -1,6 +1,7 @@
 package edu.kh.farmfarm.productAdmin.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -11,6 +12,10 @@ import edu.kh.farmfarm.common.Pagination;
 import edu.kh.farmfarm.productDetail.model.vo.Product;
 import edu.kh.farmfarm.productDetail.model.vo.ProductImg;
 
+/**
+ * @author hyunjae
+ *
+ */
 @Repository
 public class ProductAdminDAO {
 
@@ -25,7 +30,11 @@ public class ProductAdminDAO {
 		int result = sqlSession.insert("productAdmin.enrollProduct", product);
 		
 		if(result>0) {
-			result = product.getProductNo();
+			
+			result = sqlSession.insert("productAdmin.insertStock", product);
+			if(result>0) {
+				result = product.getProductNo();				
+			}
 		}
 		return result;
 	}
@@ -54,7 +63,32 @@ public class ProductAdminDAO {
 		
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 		
-		return sqlSession.selectList("productAdmin.selectProductList", rowBounds);
+		
+		return sqlSession.selectList("productAdmin.selectProductList", 0, rowBounds);
+	}
+
+	/** 판매자 재고 증가
+	 * @param productAmount
+	 * @return result
+	 */
+	public int stockUp(Map<String, Object> map) {
+		return sqlSession.insert("productAdmin.stockUp", map);
+	}
+
+	/** 판매자 재고 감소
+	 * @param productAmount
+	 * @return result
+	 */
+	public int stockDown(Map<String, Object> map) {
+		return sqlSession.insert("productAdmin.stockDown", map);
+	}
+	
+	/** 판매 상품 삭제
+	 * @param productNo
+	 * @return result
+	 */
+	public int deleteProduct(int productNo) {
+		return sqlSession.update("productAdmin.deleteProduct", productNo);
 	}
 	
 }
