@@ -205,6 +205,7 @@
 	JOIN PRODUCT p ON (p.PRODUCT_NO = w.PRODUCT_NO)
 	WHERE MEMBER_NO = #{memberNo}
 	ORDER BY WISH_DATE DESC
+</select>
 
 	
 	<!-- 마이 페이지 배경 사진 변경 -->
