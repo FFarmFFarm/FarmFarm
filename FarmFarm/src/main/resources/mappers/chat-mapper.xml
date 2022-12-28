@@ -122,7 +122,7 @@
 	<update id="updateChatReadFl">
 		UPDATE CHAT SET READ_FL ='Y'
 		WHERE ROOM_NO = #{roomNo}
-		AND SEND_MEMBER_NO != #{myMemberNo}
+		AND SEND_MEMBER_NO != ${myMemberNo}
 	</update>
 	
 	<!-- 선택한 채팅 내역 가져오기 -->

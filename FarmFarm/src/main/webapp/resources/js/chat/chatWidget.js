@@ -1,11 +1,3 @@
-/* 채팅 위젯 표시 */
-// const btnChat = document.querySelector('.btn-chat');
-
-// btnChat.addEventListener('click', ()=>{
-//     let showChatWidget = document.getElementById('showChatWidget');
-//     console.log(showChatWidget.checked);
-// })
-
 let myMemberNo;
 let listenChatSocket;
 
@@ -31,11 +23,11 @@ addEventListener("DOMContentLoaded", () => {
 
         if (myMemberNo != -1) {
             listenChatSocket = new SockJS('/echo/chat');
-            console.log('야호!')
+            console.log('채팅 서버 연결중...')
 
             if (listenChatSocket != null) {
 
-                console.log('잘 들립니다!')
+                console.log('채팅 서버와 연결되었습니다.')
 
                 listenChatSocket.onmessage = function (e) {
                     console.log('새로운 메세지가 있습니다.');
