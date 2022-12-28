@@ -23,6 +23,7 @@
             <a href="/product/1" id="modalProductName">[이연복의 목란] 짬뽕 2인분</a>
             <input type="hidden" name="productNo" id="productNoInput"/>
             <input type="hidden" name="reviewNo" id="reviewNoInput"/>
+            <input type="hidden" name="deleteList" id="deleteSetInput"/>
           </div>
         </div>
         <div class="review-write-area">

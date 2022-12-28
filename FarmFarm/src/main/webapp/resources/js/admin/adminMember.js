@@ -461,6 +461,7 @@ const makePageBox = (elementName, inputHtml, inputId, className) => {
 // todo: 페이지네이션 박스 화면에 출력
 const printPagination = (adminPagination, pagination) => {
 
+
     // 이전 페이지
     const firstPage = document.createElement('li');
     const prevPage = document.createElement('li');

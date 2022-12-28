@@ -40,6 +40,7 @@
 
 })();
 
+// 주소
 function sample6_execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function (data) {
@@ -160,7 +161,6 @@ if(farmImg != null){
             return;
         }
     })
-
 }
 
 
@@ -334,27 +334,11 @@ memberName.addEventListener("input", function(){
     }
     const regEx = /^[a-zA-Z가-힇]{2,10}$/;
     if(regEx.test(memberName.value)){
+        nameConfirm.innerText = "유효한 이름입니다."
+        nameConfirm.classList.add("confirm");
+        nameConfirm.classList.remove("error");
+        checkObj.memberName=true;
 
-        $.ajax({
-            url : "/nameDupCheck",
-            data : {"memberName" : memberName.value},
-            success : (result)=>{
-                if(result == 0){ // 사용 가능
-                    nameConfirm.innerText="사용 가능한 이름입니다.";
-                    nameConfirm.classList.add("confirm");
-                    nameConfirm.classList.remove("error");
-                    checkObj.memberName=true;
-                }else{
-                    nameConfirm.innerText="사용 중인 이름입니다.";
-                    nameConfirm.classList.add("error");
-                    nameConfirm.classList.remove("confirm");
-                    checkObj.memberName=false;
-                }
-            },
-            error : ()=>{
-                console.log("ajax 통신 실패");
-            }
-        })
     }else{
         nameConfirm.innerText="이름 형식이 유효하지 않습니다.";
         nameConfirm.classList.add("error");
@@ -535,41 +519,3 @@ for(let i=0; i<inputImage.length; i++){
     });
 }
 
-// $(document).ready(function () {
-//     $("#close-btn-wrap").click(function () {
-//         $(this).closest(".modal").css("display", "none");
-//         $("#agreeInput").prop("checked", true);
-//         $("#agreeInput1").prop("checked", true);
-//     });
-// });
-
-// //휴대폰번호 인증번호 보내기 버튼 클릭 이벤트
-// $('#send').click(function() {
-
-// const to = $('#to').val();
-
-// $.ajax ({
-//     url: '/check/sendSMS',
-//     type: 'GET',
-//     data: {
-//         "to" : to
-//     },
-//     success: function(data) {
-//         const checkNum = data;
-//         // alert('checkNum:'+ checkNum);
-        
-//         $('#enterBtn').click(function() {	
-//             const userNum = $('#userNum').val();
-            
-//             if(checkNum === userNum) {
-//                 alert('인증 성공하였습니다.');
-//             }
-//             else {
-//                 alert('인증 실패하였습니다. 다시 입력해주세요.');
-//             }
-//         });
-        
-//     }
-// });
-
-// });

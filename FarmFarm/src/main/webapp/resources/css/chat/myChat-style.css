@@ -342,6 +342,9 @@ body{
     color: var(--main-font-color);
     font-size: var(--main-font-size);
 
+    display: flex;
+    align-items: center;
+
     margin-right: 30px;
 }
 

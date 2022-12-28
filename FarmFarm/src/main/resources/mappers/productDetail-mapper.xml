@@ -183,6 +183,7 @@
 	FROM REVIEW r 
 	WHERE r.PRODUCT_NO = #{productNo}
 	AND (SELECT COUNT(*) FROM REVIEW_IMG ri WHERE r.REVIEW_NO = ri.REVIEW_NO) > 0
+	AND REVIEW_DEL_FL = 'N'
 	ORDER BY CREATE_DATE DESC
 </select>
 
@@ -206,18 +207,22 @@
 
 <insert id="insertReviewImg">
 	INSERT INTO REVIEW_IMG
-	VALUES(SEQ_REVIEW_IMG_NO.NEXTVAL, REVIEW_NO, REVIEW_IMG_PATH, REVIEW_IMG_ORDER)
+	VALUES(SEQ_REVIEW_IMG_NO.NEXTVAL, #{reviewNo}, #{reviewImgPath}, #{reviewImgOrder})
 </insert>
 	
-<delete id="reviewImageDelete">
+<delete id="deleteReviewImg">
 	DELETE FROM REVIEW_IMG
 	${condition}
 </delete>
 
 <update id="updateReviewImg">
 	UPDATE REVIEW_IMG SET
-	REVIEW_IMG_PATH = #{reviewImgPath}, REVIEW_IMG_ORDER
-	WHERE REVIEW_NO
+	REVIEW_IMG_PATH = #{reviewImgPath}, REVIEW_IMG_ORDER = #{reviewImgOrder}
+	WHERE REVIEW_NO = #{reviewNo} AND REVIEW_IMG_NO = #{reviewImgNo}
+</update>
+
+<update id="deleteReview">
+	UPDATE REVIEW SET REVIEW_DEL_FL = 'Y' WHERE REVIEW_NO = #{reviewNo} 
 </update>
 	
 </mapper>

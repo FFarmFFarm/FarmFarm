@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import edu.kh.farmfarm.mypage.model.vo.Comment;
 
-//import edu.kh.farmfarm.board.model.vo.Comment;
 
 @Repository
 public class CommentDAO {
@@ -18,11 +17,14 @@ public class CommentDAO {
 
 	
 	// 댓글 불러오기~~~
-//	public List<Comment> commentList(int boardNo) {
-//		return sqlSession.selectList("boardMapper.commentList", boardNo);
-//	}
 	public List<Comment> commentList(int boardNo) {
 		return sqlSession.selectList("boardMapper.commentList", boardNo);
+	}
+
+
+	// 댓글 추가하기~
+	public int commentWrite(Comment comment) {
+		return sqlSession.insert("boardMapper.commentWrite", comment);
 	}
 
 }

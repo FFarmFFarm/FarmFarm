@@ -135,12 +135,11 @@ public class ReviewController {
 	 * @throws Exception
 	 */
 	@PostMapping("/review/update")
-	@ResponseBody
-	public int writeReview(Review review,
+	public int updateReview(Review review,
 			@SessionAttribute("loginMember") Member loginMember,
 			HttpSession session,
 			@RequestParam(value="reviewImg", required = false) List<MultipartFile> imageList,
-			@RequestParam(value = "deleteList", required = false)String deleteList
+			@RequestParam(value = "deleteList", required = false) String deleteList
 			) throws Exception {
 		
 		review.setMemberNo(loginMember.getMemberNo());
@@ -153,6 +152,13 @@ public class ReviewController {
 		
 		
 		return result;
+	}
+	
+	
+	@GetMapping("/review/delete")
+	public int deleteReview(int reviewNo) {
+		
+		return service.deleteReview(reviewNo);
 	}
 	
 

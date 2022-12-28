@@ -110,6 +110,18 @@
 			AND POST_TITLE LIKE '%' || #{keyword} || '%' 
 		</if>
 	</select>
+	
+	<!-- 채팅방에서 다루는 상품 정보를 가져옵니다! -->
+	<select id="selectPostInfo" parameterType="_int" resultMap="postList_rm">
+		SELECT POST_TITLE, 
+			  	(SELECT POST_IMG_ADDRESS
+			   	FROM POST_IMG PIMG
+			   	WHERE PIMG.POST_NO = P.POST_NO
+			   	AND POST_IMG_ORDER = 0
+			   	AND ROWNUM = 1) AS THUMBNAIL_IMG
+		FROM POST P
+		WHERE POST_NO = #{postNo}
+	</select>
 
 
 </mapper>

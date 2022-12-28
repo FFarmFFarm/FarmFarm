@@ -29,6 +29,7 @@ public class Product {
 	private String soldoutFl;
 	private String sortFl;
 	private int reviewCheck;
+	private int productStatus;
 	
 	private List<ProductImg> imgList;
 	
