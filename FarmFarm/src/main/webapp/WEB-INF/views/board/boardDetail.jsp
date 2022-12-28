@@ -76,7 +76,7 @@ ${board.boardContent}
                         </c:if>
                         <c:if test="${!empty likeCheck}">
                             <%-- 좋아요 눌러진 경우 --%>
-                            <i class="fa-solid fa-heart" id="boardLike"></i>
+                            <i class="fa-solid fa-heart checkLike" id="boardLike"></i>
                         </c:if>
                         &nbsp; 좋아요&nbsp;<span id="likeCount">${board.likeCount}</span>
                     </button>

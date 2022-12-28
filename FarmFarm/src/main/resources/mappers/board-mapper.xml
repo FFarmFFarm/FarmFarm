@@ -253,8 +253,8 @@
 	<!-- 로그인 멤버가 좋아요 눌렀는지 확인하기 -->
 	<select id="checkLike" resultType="_int">
 		SELECT COUNT(*) FROM "BOARD_LIKE"
-		WHERE BOARD_NO2 = #{boardNo}
-		AND MEMBER_NO2 = #{memberNo}
+		WHERE BOARD_NO2 = #{boardNo2}
+		AND MEMBER_NO2 = #{memberNo2}
 	</select>
 	
 	
@@ -315,7 +315,7 @@
 	<!-- 게시글 수정 - 이미지 삭제 -->
 	<delete id="updateDeleteImg">
 		DELETE FROM "BOARD_IMG"
-		#{condition}
+		${condition}
 	</delete>
 	
 
