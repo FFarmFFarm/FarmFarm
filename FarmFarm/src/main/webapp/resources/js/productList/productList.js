@@ -76,8 +76,7 @@ window.addEventListener("DOMContentLoaded", () => {
     resetBtnShow(category);
 
     // 검색창 초기화버튼을 표시
-    resetSearchShow();
-    navResetSearchShow();
+    initialSearchBar();
 
     // 검색창 이동
     searchInputMove();
@@ -468,57 +467,6 @@ const getSortOption = () => {
     return sort;
 }
 
-/* 검색 초기화 버튼을 숨기고 드러내는 함수 */
-const navResetSearchShow = () => {
-    const navSearchInput = document.getElementById('navSearchInput');
-    const navCleanBtn = document.getElementById('navCleanBtn');
-
-    if (navSearchInput.value.trim().length == 0) {
-        navSearchInput.value = '';
-        navCleanBtn.style.display = 'none';
-    } else {
-        navCleanBtn.style.display = 'inline-block';
-    }
-}
-
-const resetSearchShow = () => {
-    const searchInput = document.getElementById('searchInput');
-    const cleanBtn = document.getElementById('cleanBtn');
-
-    if (searchInput.value.trim().length == 0) {
-        searchInput.value = '';
-        cleanBtn.style.display = 'none';
-    } else {
-        cleanBtn.style.display = 'inline-block';
-    }
-}
-
-/* 검색창 위치 이동 함수 */
-const searchInputMove = () => {
-
-    let targetHeight = 700;  // 스크롤 위치 지정
-    const searchInput = document.getElementById('searchInput');
-    const navSearchInput = document.getElementById('navSearchInput');
-
-    if (navSearchBar.classList.contains('view-hidden')) {
-        if (window.scrollY >= targetHeight) {
-            navSearchBar.classList.remove('view-hidden');
-            navSearchBar.classList.add('view-flex');
-            navSearchInput.value = searchInput.value;
-            return;
-        }
-    }
-
-    if (navSearchBar.classList.contains('view-flex')) {
-        if (window.scrollY < targetHeight) {
-            navSearchBar.classList.add('view-hidden');
-            navSearchBar.classList.remove('view-flex');
-            searchInput.value = navSearchInput.value;
-            return;
-        }
-    }
-}
-
 /* 문자열에서 일부 특수문자 제거 */
 const replaceSpecialSymbols = (text) => {
     // 문자열을 파라미터로 받아서
@@ -551,13 +499,15 @@ const doSearch = () => {
     // 특수문자 제거
     keyword = replaceSpecialSymbols(keyword);
 
+    console.log(keyword);
+
     if (keyword.trim().length != 0) {
         getCustomList2(keyword, 0, 1);
 
         // 히스토리 업데이트
         const state = { 'keyword': keyword };
         const title = '';
-        const url = '/product/list?' + 'keyword=' + keyword + '&category=0&keyword=1';
+        const url = '/product/list?' + 'keyword=' + keyword + '&category=0&cp=1';
 
         history.pushState(state, title, url);
 
@@ -582,7 +532,6 @@ const doSearch = () => {
 
 /* 카테고리 선택 이벤트 */
 const categoryList = document.getElementsByName('types');
-
 
 for(let category of categoryList) {
     category.addEventListener("click", () => {
@@ -681,8 +630,7 @@ window.addEventListener("popstate", (event) => {
     resetBtnShow(category);
 
     // 검색창 초기화버튼을 표시
-    resetSearchShow();
-    navResetSearchShow();
+    initialSearchBar();
 });
 
 /* 검색 이벤트 */
@@ -729,30 +677,125 @@ for(let sorting of sortings) {
     })
 }
 
-/* 검색어를 초기화하는 이벤트 */
-document.getElementById('cleanBtn').addEventListener('click', ()=>{
-    const searchInput = document.getElementById('searchInput');
-    searchInput.value = '';
-    resetSearchShow();
-})
-document.getElementById('navCleanBtn').addEventListener('click', ()=>{
-    const navSearchInput = document.getElementById('navSearchInput');
-    navSearchInput.value = '';
-    navResetSearchShow();
-})
 
-/* 검색어가 입력되면, 검색 초기화 버튼이 나타나는 이벤트 */
-const searchInput = document.getElementById('searchInput');
-searchInput.addEventListener('keyup', ()=>{
-    resetSearchShow();
-})
-const navSearchInput = document.getElementById('navSearchInput');
-navSearchInput.addEventListener('keyup', () => {
-    navResetSearchShow();
-})
+/*  
+    검색창의 위치를 옮기(는 것처럼 연출하)고, 
+    초기화 버튼을 보여주거나 숨기고, 내용을 초기화하는 등
+    검색창과 관련된 함수, 이벤트 모음
 
+    * 검색창과 관련된 요소들
+    - searchInput : 메인 검색창
+    - cleanBtn : 메인 검색창 초기화 버튼
+    - navSearchInput : nav 검색창
+    - navCleanBtn : nav 검색창 초기화 버튼
 
-// /* 검색 기록 남기기 */
+    * 현재 문제
+    - 복잡하게 되어있어 알아보기 힘들고, 비효율적이며, 제대로 작동하지 않음
+
+    * 개선 가능 요소들
+    1. cleanBtn, navCleanBtn을 동일한 클래스를 가진 요소로 대체하기
+    2. searchInput과 navSearchInput에 다른 아이디, 같은 클래스를 부여해서, 
+       css속성은 분리하되 이벤트는 동일하게 부여해보기
+*/
+
+/* 검색 기록 남기기 */
 // const setSearchHistory = (keyword) => {
 //     localStorage.setItem('keyword', keyword);
 // }
+
+
+/* 검색창 위치 이동 함수 */
+const searchInputMove = () => {
+
+    let targetHeight = 700;  // 스크롤 위치 지정
+    const searchInput = document.getElementById('searchInput');
+    const navSearchInput = document.getElementById('navSearchInput');
+
+    if (navSearchBar.classList.contains('view-hidden')) {
+        if (window.scrollY >= targetHeight) {
+            navSearchBar.classList.remove('view-hidden');
+            navSearchBar.classList.add('view-flex');
+            navSearchInput.value = searchInput.value;
+            return;
+        }
+    }
+
+    if (navSearchBar.classList.contains('view-flex')) {
+        if (window.scrollY < targetHeight) {
+            navSearchBar.classList.add('view-hidden');
+            navSearchBar.classList.remove('view-flex');
+            searchInput.value = navSearchInput.value;
+            return;
+        }
+    }
+}
+
+/* 검색창에 change 이벤트가 발생하면, 다른 검색창의 값을 변화시키기 */
+document.getElementById('searchInput').addEventListener('keyup', (e)=>{
+    // 1. 메인 검색창의 값이 변하면, 
+    //    메인 검색창의 값을, 
+    //    nav 검색창의 값에 저장
+    document.getElementById('navSearchInput').value = e.target.value;
+
+    // 2. 입력값이 변했을 때, 
+    //    입력값이 공백이 아니면 모든 초기화 버튼을 보이게 하고
+    //    입력값이 공백이면 모든 초기화 버튼을 가림
+    for(let item of document.getElementsByClassName('reset-search')){
+        if(e.target.value.trim().length > 0){
+            item.style.display='inline-block';
+        } else {
+            item.style.display='none';
+        }
+    }
+})
+
+/* 반대쪽 검색창에도 동일한 이벤트를 부여함(반복문을 사용하면 더 깔끔해질듯!) */
+document.getElementById('navSearchInput').addEventListener('keyup', (e)=>{
+    document.getElementById('searchInput').value = e.target.value;
+    for (let item of document.getElementsByClassName('reset-search')) {
+        if (e.target.value.trim().length > 0) {
+            item.style.display = 'inline-block';
+        } else {
+            item.style.display = 'none';
+        }
+    }
+})
+
+/* 초기화 버튼 이벤트(검색어를 초기화하고, 초기화 버튼을 가림) */
+for (let item of document.getElementsByClassName('reset-search')){
+    item.addEventListener('click', ()=>{
+        for(let keywordItem of document.getElementsByClassName('keyword')) {
+            keywordItem.value = '';
+        }
+        for(let item of document.getElementsByClassName('reset-search')) {
+            item.style.display='none';
+        }
+    })
+}
+
+/* 
+    주소창을 통해 이동한 경우, 
+    주소창에 검색어가 있으면 검색창에 저장하고, 초기화 버튼을 표시 
+*/
+const initialSearchBar = () => {
+
+    // 1. 잘라내기
+    let keywordIndexStart = location.search.indexOf('?keyword', 0);
+    let keywordIndexEnd = location.search.indexOf('&', keywordIndexStart);
+    let keyword = location.search.substring(keywordIndexStart + 9, keywordIndexEnd);
+
+    let decodedKeyword = decodeURI(keyword);
+
+    for (let item of document.getElementsByClassName('keyword')) {
+
+        // 2. 0보다 크면 집어넣고 초기화 버튼 표시하기
+        if (decodedKeyword.trim().length > 0) {
+            
+            item.value = decodedKeyword;
+            
+            for(let btnItem of document.getElementsByClassName('reset-search')) {
+                btnItem.style.display='inline-block';
+            }
+        }
+    }
+}
