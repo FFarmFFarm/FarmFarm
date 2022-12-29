@@ -520,7 +520,7 @@ const doSearch = () => {
         // 히스토리 업데이트
         const state = { 'keyword': keyword };
         const title = '';
-        const url = '/product/list?' + 'keyword=' + keyword + '&category=0&keyword=1';
+        const url = '/product/list?' + 'keyword=' + keyword + '&category=0&cp=1';
 
         history.pushState(state, title, url);
 

@@ -499,13 +499,15 @@ const doSearch = () => {
     // 특수문자 제거
     keyword = replaceSpecialSymbols(keyword);
 
+    console.log(keyword);
+
     if (keyword.trim().length != 0) {
         getCustomList2(keyword, 0, 1);
 
         // 히스토리 업데이트
         const state = { 'keyword': keyword };
         const title = '';
-        const url = '/product/list?' + 'keyword=' + keyword + '&category=0&keyword=1';
+        const url = '/product/list?' + 'keyword=' + keyword + '&category=0&cp=1';
 
         history.pushState(state, title, url);
 
@@ -530,7 +532,6 @@ const doSearch = () => {
 
 /* 카테고리 선택 이벤트 */
 const categoryList = document.getElementsByName('types');
-
 
 for(let category of categoryList) {
     category.addEventListener("click", () => {
@@ -777,7 +778,7 @@ for (let item of document.getElementsByClassName('reset-search')){
     주소창에 검색어가 있으면 검색창에 저장하고, 초기화 버튼을 표시 
 */
 const initialSearchBar = () => {
-    
+
     // 1. 잘라내기
     let keywordIndexStart = location.search.indexOf('?keyword', 0);
     let keywordIndexEnd = location.search.indexOf('&', keywordIndexStart);
