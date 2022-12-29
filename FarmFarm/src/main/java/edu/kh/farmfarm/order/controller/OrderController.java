@@ -46,5 +46,10 @@ public class OrderController {
 		
 		return "redirect:" + path;
 	}
+	
+	@PostMapping("/orderPage")
+	public String orderPage() {
+		return "order/order";
+	}
 
 }
