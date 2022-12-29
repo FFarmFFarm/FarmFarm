@@ -38,6 +38,17 @@ public class CommentController {
 	
 	
 	// 댓글을 수정해볼까??
+	@PostMapping("/board/comment/update")
+	public int commentUpdate(Comment comment) {
+		return serivce.commentUpdate(comment);
+	}
 	
+	
+	
+	// 댓글을 삭제해봅시다!!
+	@GetMapping("/board/comment/delete")
+	public int commentDelete(Comment comment) {
+		return serivce.commentDelete(comment);
+	}
 
 }

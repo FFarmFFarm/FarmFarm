@@ -51,7 +51,7 @@ public class ProductListDAO {
 	/** 모든 상품 목록 가져오기
 	 * @return
 	 */
-	public List<Product> getProductListAll(Pagination pagination, String keyword, String sort) {
+	public List<Product> getProductListAll(Pagination pagination, String keyword, String sort, String stockOutFl) {
 		
 		int offset = ( pagination.getCurrentPage() - 1 ) * pagination.getLimit();
 		
@@ -61,6 +61,7 @@ public class ProductListDAO {
 		SearchItem searchItem = new SearchItem();
 		searchItem.setKeyword(keyword);
 		searchItem.setSort(sort);
+		searchItem.setStockOutFl(stockOutFl);
 		System.out.println("keyword : " + searchItem.getKeyword());
 		
 		
@@ -70,11 +71,12 @@ public class ProductListDAO {
 	/** 모든 상품 목록의 개수를 가져오기
 	 * @return
 	 */
-	public int getCountAll(String keyword) {
+	public int getCountAll(String keyword, String stockOutFl) {
 		
 		// 검색어 객체 생성
 		SearchItem searchItem = new SearchItem();
 		searchItem.setKeyword(keyword);
+		searchItem.setStockOutFl(stockOutFl);
 		
 		return sqlSession.selectOne("productListMapper.getCount_all", searchItem);
 	}
@@ -83,7 +85,7 @@ public class ProductListDAO {
 	 * @param category
 	 * @return
 	 */
-	public List<Product> getProductListChecked(Pagination pagination, String keyword, int category, String sort) {
+	public List<Product> getProductListChecked(Pagination pagination, String keyword, int category, String sort, String stockOutFl) {
 		
 		int offset = ( pagination.getCurrentPage() - 1 ) * pagination.getLimit();
 		
@@ -98,6 +100,7 @@ public class ProductListDAO {
 		
 		searchItem.setCategory(category);
 		searchItem.setSort(sort);
+		searchItem.setStockOutFl(stockOutFl);
 		
 		return sqlSession.selectList("productListMapper.getProductList_checked", searchItem, rowBounds);
 		
@@ -106,12 +109,13 @@ public class ProductListDAO {
 	/** 선택된 상품 목록의 개수를 가져오기
 	 * @return
 	 */
-	public int getCountChecked(String keyword, int category) {
+	public int getCountChecked(String keyword, int category, String stockOutFl) {
 		
 		// 검색어 객체 생성
 		SearchItem searchItem = new SearchItem();
 		searchItem.setKeyword(keyword);
 		searchItem.setCategory(category);
+		searchItem.setStockOutFl(stockOutFl);
 		
 		return sqlSession.selectOne("productListMapper.getCount_checked", searchItem);
 	}

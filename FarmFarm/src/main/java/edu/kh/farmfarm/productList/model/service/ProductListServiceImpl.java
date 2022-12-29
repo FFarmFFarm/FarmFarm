@@ -56,16 +56,16 @@ public class ProductListServiceImpl implements ProductListService {
 	 *  모든 상품 목록 가져오기
 	 */
 	@Override
-	public Map<String, Object> getProductListAll(int cp, String keyword, String sort) {
+	public Map<String, Object> getProductListAll(int cp, String keyword, String sort, String stockOutFl) {
 		
 		// 1. 전체 개수를 가져옴
-		int listCount = dao.getCountAll(keyword);
+		int listCount = dao.getCountAll(keyword, stockOutFl);
 		
 		// 2. 가져온 개수와, 현재 페이지(cp)를 이용해서 페이지네이션 객체를 생성
 		Pagination pagination = new Pagination(listCount, cp, 12);
 		
 		// 3. 페이지 네이션 객체를 생성해 목록 불러오기
-		List<Product> productList = dao.getProductListAll(pagination, keyword, sort);
+		List<Product> productList = dao.getProductListAll(pagination, keyword, sort, stockOutFl);
 		
 		// 4. 개행문자 처리(util - newLineClear)
 		for(Product product : productList) {
@@ -88,16 +88,16 @@ public class ProductListServiceImpl implements ProductListService {
 	 *  선택된 상품 목록 불러오기
 	 */
 	@Override
-	public Map<String, Object> getProductListChecked(int cp, String keyword, int category, String sort) {
+	public Map<String, Object> getProductListChecked(int cp, String keyword, int category, String sort, String stockOutFl) {
 		
 		// 1. 전체 개수를 가져옴
-		int listCount = dao.getCountChecked(keyword, category);
+		int listCount = dao.getCountChecked(keyword, category, stockOutFl);
 		
 		// 2. 가져온 개수와, 현재 페이지(cp)를 이용해서 페이지네이션 객체를 생성
 		Pagination pagination = new Pagination(listCount, cp, 12);
 		
 		// 3. 페이지 네이션 객체를 생성해 목록 불러오기
-		List<Product> productList = dao.getProductListChecked(pagination, keyword, category, sort);
+		List<Product> productList = dao.getProductListChecked(pagination, keyword, category, sort, stockOutFl);
 		
 		// 4. 개행문자 처리(util - newLineClear)
 		for(Product product : productList) {
