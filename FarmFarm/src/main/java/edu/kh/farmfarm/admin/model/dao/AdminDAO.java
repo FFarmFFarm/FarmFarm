@@ -73,7 +73,7 @@ public class AdminDAO {
 	 * @param pagination
 	 * @return
 	 */
-	public List<Member> selectMember(Map<String, Object> paramMap, Pagination pagination) {
+	public List<Admin> selectMember(Map<String, Object> paramMap, Pagination pagination) {
 		
 		int offset = (pagination.getCurrentPage() -1) * 15;
 		RowBounds rowBounds = new RowBounds(offset, 15);
@@ -81,14 +81,33 @@ public class AdminDAO {
 		return sqlSession.selectList("adminMapper.selectMemberList", paramMap, rowBounds);
 	}
 
-
-
-	/** 상세 조회_계정 상태(신고 내역)
-	 * @param paramMap
-	 * @return reportHistoryList
+	
+	/** 회원 상세 조회(회원정보)
+	 * @param inputMemberId
+	 * @return memberDetailList
 	 */
-	public List<Admin> selectReportHistory(Map<String, Object> paramMap) {
-		return sqlSession.selectList("adminMapper.selectReportHistoryList", paramMap);
+	public Admin selectMemberDetail(String hiddenId) {
+		return sqlSession.selectOne("adminMapper.selectMemberDetail", hiddenId);
+	}
+
+	
+
+	/** 회원 상세 조회(계정상태 변경 내역)
+	 * @param inputMemberId
+	 * @return memberHistoryList
+	 */
+	public List<Admin> selectMemberHistory(String hiddenId) {
+		return sqlSession.selectList("adminMapper.selectMemberHistory", hiddenId);
+	}
+
+	
+	
+	/** 회원 강제 탈퇴
+	 * @param inputMemberId
+	 * @return result
+	 */
+	public int memberKickout(String hiddenId) {
+		return sqlSession.update("adminMapper.memberKickout", hiddenId);
 	}
 
 
@@ -97,14 +116,8 @@ public class AdminDAO {
 
 
 
-//
-//	/** 회원 조회
-//	 * @return memberList
-//	 */
-//	public List<Member> selectMemberList(pagination) {
-//		return sqlSession.selectList("adminMapper.selectMemberList");
-//	}
-//
+
+
 
 
 

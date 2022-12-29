@@ -32,7 +32,7 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 
-	// 전체 회원 조회
+	// 전체 회원 조회 (정렬, 페이지네이션, 검색)
 	@Override
 	public Map<String, Object> selectMember(Map<String, Object> paramMap, int cp) {
 
@@ -46,22 +46,45 @@ public class AdminServiceImpl implements AdminService{
 		
 		// 3. 페이네이션 객체를 생성해 목록 불러오기
 		// 전체 회원 조회(정렬 포함)
-		List<Member> memberList = dao.selectMember(paramMap, pagination);
+		List<Admin> memberList = dao.selectMember(paramMap, pagination);
 		
-		
-		/* 신고 내역 조회 */
-		List<Admin> reportHistoryList = dao.selectReportHistory(paramMap);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("memberListCount", memberListCount);
 		map.put("pagination", pagination);
 		map.put("memberList", memberList);
-		map.put("reportHistoryList", reportHistoryList);
 		
 		
 		return map;
 	}
+
 	
+	// 회원 상세 조회
+	@Override
+	public Map<String, Object> selectMemberDetail(String hiddenId) {
+		
+		// 회원 상세 조회(회원 정보)
+		Admin memberDetailInfo = dao.selectMemberDetail(hiddenId);
+		
+		// 회원 상세 조회(계정상태 변경 내역)
+		List<Admin> memberHistoryList = dao.selectMemberHistory(hiddenId);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberDetailInfo", memberDetailInfo);
+		map.put("memberHistoryList", memberHistoryList);
+		
+		return map;
+	}
+	
+	
+			
+	
+	
+	// 회원 강제 탈퇴
+	@Override
+	public int memberKickout(String hiddenId) {
+		return dao.memberKickout(hiddenId);
+	}
 	
 
 }
