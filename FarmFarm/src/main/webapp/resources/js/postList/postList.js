@@ -255,13 +255,12 @@ const getAllpostList = () => {
 const getCustomList = (category, cp) => {
 
     let sort = getSortOption();
-
-  
+    let exceptFl = getExceptOption();
 
     $.ajax({
         url: '/post/list/items',
         method: 'GET',
-        data: { 'category': category, 'cp': cp, 'sort': sort },
+        data: { 'category': category, 'cp': cp, 'sort': sort, 'exceptFl': exceptFl },
         dataType: 'JSON',
         success: (postMap) => {
             createPostBox(postMap);
@@ -277,11 +276,12 @@ const getCustomList = (category, cp) => {
 const getCustomList2 = (keyword, category, cp) => {
 
     let sort = getSortOption();
-
+    let exceptFl = getExceptOption();
+    console.log(exceptFl);
     $.ajax({
         url: '/post/list/items',
         method: 'GET',
-        data: { 'keyword': keyword, 'category': category, 'cp': cp, 'sort': sort },
+        data: { 'keyword': keyword, 'category': category, 'cp': cp, 'sort': sort, 'exceptFl': exceptFl },
         dataType: 'JSON',
         success: (postMap) => {
             createPostBox(postMap);
@@ -480,6 +480,20 @@ const getSortOption = () => {
         }
     }
     return sort;
+}
+
+/* 제외옵션을 선택하는 함수 */
+const getExceptOption = () => {
+
+    let exceptFl;
+
+    if (document.getElementById('except').checked) {
+        exceptFl = 0;
+    } else {
+        exceptFl = 1;
+    }
+
+    return exceptFl;
 }
 
 /* 문자열에서 일부 특수문자 제거 */
@@ -695,6 +709,13 @@ for (let sorting of sortings) {
     })
 }
 
+/* 제외 옵션 선택 시 값을 불러오는 이벤트 */
+const exceptOpt = document.querySelector("#except");
+
+exceptOpt.addEventListener('click', () => {
+    initialList();
+})
+
 
 /*  
     검색창의 위치를 옮기(는 것처럼 연출하)고, 
@@ -799,20 +820,23 @@ const initialSearchBar = () => {
 
     // 1. 잘라내기
     let keywordIndexStart = location.search.indexOf('?keyword', 0);
-    let keywordIndexEnd = location.search.indexOf('&', keywordIndexStart);
-    let keyword = location.search.substring(keywordIndexStart + 9, keywordIndexEnd);
+    if (keywordIndexStart != -1) {
 
-    let decodedKeyword = decodeURI(keyword);
+        let keywordIndexEnd = location.search.indexOf('&', keywordIndexStart);
+        let keyword = location.search.substring(keywordIndexStart + 9, keywordIndexEnd);
 
-    for (let item of document.getElementsByClassName('keyword')) {
+        let decodedKeyword = decodeURI(keyword);
 
-        // 2. 0보다 크면 집어넣고 초기화 버튼 표시하기
-        if (decodedKeyword.trim().length > 0) {
+        for (let item of document.getElementsByClassName('keyword')) {
 
-            item.value = decodedKeyword;
+            // 2. 0보다 크면 검색창에 집어넣고 초기화 버튼 표시하기
+            if (decodedKeyword.trim().length > 0) {
 
-            for (let btnItem of document.getElementsByClassName('reset-search')) {
-                btnItem.style.display = 'inline-block';
+                item.value = decodedKeyword;
+
+                for (let btnItem of document.getElementsByClassName('reset-search')) {
+                    btnItem.style.display = 'inline-block';
+                }
             }
         }
     }

@@ -12,13 +12,13 @@ public interface PostListService {
 	/** 모든 상품 목록 불러오기
 	 * @return
 	 */
-	Map<String, Object> getPostListAll(int cp, String keyword, String sort);
+	Map<String, Object> getPostListAll(int cp, String keyword, String sort, int soldOutFl);
 
 	
 	/** 선택된 상품 목록 불러오기
 	 * @param category 
 	 * @return
 	 */
-	Map<String, Object> getPostListChecked(int cp, String keyword, int category, String sort);
+	Map<String, Object> getPostListChecked(int cp, String keyword, int category, String sort, int soldOutFl);
 
 }
