@@ -130,5 +130,13 @@ public class ProductAdminDAO {
 	public int productImgInsert(ProductImg img) {
 		return sqlSession.insert("productAdmin.productImgInsert", img);
 	}
+
+	/** 상품 상태 변경
+	 * @param map
+	 * @return result
+	 */
+	public int soldoutProduct(Map<String, Object> map) {
+		return sqlSession.update("productAdmin.soldoutProduct", map);
+	}
 	
 }

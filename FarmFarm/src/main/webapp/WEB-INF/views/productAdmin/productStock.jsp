@@ -105,7 +105,7 @@
                                 </c:if>
                             </td>
                             <td>
-                                <select name="soldoutFl" id="soldoutFl">
+                                <select name="soldoutFl" class="soldout-fl" id="${product.productNo}">
                                     <c:if test="${product.soldoutFl=='N'}">
                                         <option value="sell">판매중</option>
                                         <option value="out">품절</option>
