@@ -142,14 +142,23 @@ public class ChatController {
 		// 5. 한번 더 roomNo를 보내서 채팅방의 정보를 가져옴
 		Post postInfo = service.selectRoomPostInfo(roomNo);
 		
-		// 5. 내 회원 번호, 채팅 목록을 Map에 담음
+		// 6. 내 회원 번호, 채팅 목록을 Map에 담음
 		Map<String, Object> chatHistoryMap = new HashMap<String, Object>();
 		
 		chatHistoryMap.put("myMemberNo", myMemberNo);
 		chatHistoryMap.put("chatHistory", chatHistory);
 		chatHistoryMap.put("postInfo", postInfo);
 		
-		// 6. 반환
+		// 7. 상대방의 이미지와 이름을 가져옴
+		Member partner = service.findPartnerInfo(roomNo, myMemberNo);
+		
+		Map<String, Object> partnerInfo = new HashMap<String, Object>();
+		partnerInfo.put("profileImg", partner.getProfileImg());
+		partnerInfo.put("memberNickname", partner.getMemberNickname());
+		
+		chatHistoryMap.put("partnerInfo", partnerInfo);
+		
+		// 8. 반환
 		return new Gson().toJson(chatHistoryMap);
 	}
 	
@@ -187,7 +196,6 @@ public class ChatController {
 		chatHistoryMap.put("postInfo", postInfo);
 		
 		// 7. 상대방의 이미지와 이름을 가져옴
-		
 		Member partner = service.findPartnerInfo(roomNo, myMemberNo);
 		
 		Map<String, Object> partnerInfo = new HashMap<String, Object>();
