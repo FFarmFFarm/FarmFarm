@@ -93,12 +93,10 @@ public class ChatWidgetController {
 			Map<String, Object> chatWidgetMap = new HashMap<String, Object>();
 			
 			// 6. 읽지 않은 개수를 전부 합쳐서 가져옴
-			
-			
 			chatWidgetMap.put("chatRoomList", chatRoomList);
 			chatWidgetMap.put("unReadCountAll", unReadCountAll);
 			
-			// 6. Gson을 이용해 반환
+			// 7. Gson을 이용해 반환
 			return new Gson().toJson(chatWidgetMap);
 			
 		} else {
