@@ -49,42 +49,52 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </c:if>	
-
-                            <c:choose>
-                                <%-- 자식이라면~ --%>
-                                <c:when test="${comment.commentParent != 0}">
-                                    <div class="writer-name child-content">${comment.memberNickname}</div>	
-                                </c:when>
-                                <c:otherwise>
-                                    <div class="writer-name">${comment.memberNickname}</div>	
-                                </c:otherwise>
-                            </c:choose>
+                                <c:choose>
+                                    <%-- 자식이라면~ --%>
+                                    <c:when test="${comment.commentParent != 0}">
+                                        <div class="writer-name child-content">${comment.memberNickname}</div>	
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div class="writer-name">${comment.memberNickname}</div>	
+                                    </c:otherwise>
+                                </c:choose>
                             </div>	
-                            <%-- 자식이라면~ --%>
-                            <c:choose>
-                                <%-- 자식이라면~ --%>
-                                <c:when test="${comment.commentParent != 0}">
-                                    <div class="comment-content child-content">
-                                        ${comment.commentContent}
-                                    </div>	
-                                </c:when>
-                                <c:otherwise>
-                                    <div class="comment-content">
-                                        ${comment.commentContent}
-                                        <textarea name="updateText" class="updateText"></textarea>
-                                    </div>	
-                                </c:otherwise>
-                            </c:choose>
-                            <c:if test="${comment.commentParent != 0}">
-                            </c:if>
-                            <div class="writer-time-reply"> ${comment.commentDate} &nbsp; | 
-                                <button onclick="showReply(${comment.commentNo}, this)" class="comment-reply"> &nbsp;답글달기&nbsp;</button> 
-                                <c:if test="${loginMember.memberNo == comment.memberNo}">
-                                    <button onclick="updateComment(${comment.commentNo}, this)" class="comment-reply"> |&nbsp;&nbsp;수정&nbsp;</button>
-                                    <button onclick="deleteComment(this)" class="comment-reply"> |&nbsp;&nbsp;삭제</button>
 
-                                </c:if>
-                            </div>	
+                            <div class="content-area"> <%-- 댓글 나오는 부분들 등등 입니다~ --%>
+                                <%-- 자식이라면~ --%>
+                                <c:choose>
+                                    <%-- 자식이라면~ --%>
+                                    <c:when test="${comment.commentParent != 0}">
+                                        <div class="comment-content child-content">${comment.commentContent}</div>
+                                        <%-- <div class="comment-content child-content">
+                                            <div class="update-parent-btn ">
+                                                <button class="pa-update">수정하기</button>
+                                                <button class="pa-cancle">취소</button>
+                                            </div>	
+                                        </div> --%>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div class="comment-content">${comment.commentContent}</div>
+                                        <%-- <div class="comment-content">
+                                            <textarea name="boardContent" class="update-parent"></textarea>
+                                            <div class="update-parent-btn">
+                                                <button class="pa-update">수정하기</button>
+                                                <button class="pa-cancle">취소</button>
+                                            </div>
+                                        </div> --%>
+                                    </c:otherwise>
+                                </c:choose>
+                                <%-- <c:if test="${comment.commentParent != 0}">
+                                </c:if> --%>
+                                <div class="writer-time-reply"> ${comment.commentDate} &nbsp; | 
+                                    <button onclick="showReply(${comment.commentNo}, this)" class="comment-reply"> &nbsp;&nbsp;답글달기&nbsp;&nbsp;</button> 
+                                    <c:if test="${loginMember.memberNo == comment.memberNo && comment.commentDelFl == 'N'}">
+                                        <button onclick="showUpdateComment(${comment.commentNo}, this)" class="comment-reply"> |&nbsp;&nbsp;수정&nbsp;&nbsp;</button>
+                                        <button onclick="deleteComment(${comment.commentNo})" class="comment-reply"> |&nbsp;&nbsp;삭제</button>
+
+                                    </c:if>
+                                </div>	
+                            </div>
                         </li>	
                     </c:forEach>
                 </c:if>

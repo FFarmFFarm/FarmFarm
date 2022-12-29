@@ -32,8 +32,24 @@ public class CommentServiceImpl implements CommentService{
 		
 		return dao.commentWrite(comment);
 	}
-	
-	
+
+
+	// 댓글 수정하기~~
+	@Override
+	public int commentUpdate(Comment comment) {
+		
+		comment.setCommentContent(Util.XSSHandling(comment.getCommentContent()));
+		comment.setCommentContent(Util.newLineHandling(comment.getCommentContent()));
+		
+		return dao.commentUpdate(comment);
+	}
+
+
+	// 댓글 삭제하기~~~
+	@Override
+	public int commentDelete(Comment comment) {
+		return dao.commentDelete(comment);
+	}
 	
 
 }

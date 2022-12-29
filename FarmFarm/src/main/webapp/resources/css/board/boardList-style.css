@@ -169,7 +169,7 @@ input[type="text"]:focus{
 }
 /* 목록 페이지 번호 */
 .board-pagination{
-    width: 740px;
+    width: 900px;
     height: 80px;
     display: flex;
     justify-content: center;
@@ -178,6 +178,10 @@ input[type="text"]:focus{
 }
 .pagination{
     display: flex;
+    justify-content: center;
+}
+.pagination-area{
+    width: 630px;
 }
 .current{
     color: var(--point-color);
