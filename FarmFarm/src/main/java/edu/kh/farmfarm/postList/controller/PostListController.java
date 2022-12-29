@@ -27,7 +27,8 @@ public class PostListController {
 				@RequestParam(value = "keyword", required = false) String keyword, // 검색어
 				@RequestParam(value = "category", required = false, defaultValue = "0") int category,
 				@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, // 현재 페이지
-				@RequestParam(value = "sort", required = false, defaultValue = "views") String sort // 정렬 옵션
+				@RequestParam(value = "sort", required = false, defaultValue = "views") String sort, // 정렬 옵션
+				@RequestParam(value = "exceptFl", required = false, defaultValue = "1") int soldOutFl // 품절상품 제외하기 옵션
 				) {
 			
 			// 1. 입력받은 모든 파라미터에서 특수문자를 제거함
@@ -46,9 +47,9 @@ public class PostListController {
 			
 			// 입력받은 카테고리가 있으면 해당 카테고리만 가져오고, 없으면 전부 다 불러오기
 			if(category == 0) {
-				postMap = service.getPostListAll(cp, keyword, sort);
+				postMap = service.getPostListAll(cp, keyword, sort, soldOutFl);
 			} else {
-				postMap = service.getPostListChecked(cp, keyword, category, sort);
+				postMap = service.getPostListChecked(cp, keyword, category, sort, soldOutFl);
 			}
 			
 			// 5. 상품 리스트도 세션에 올린다.
@@ -66,7 +67,8 @@ public class PostListController {
 						@RequestParam(value = "keyword", required = false) String keyword, // 검색어
 						@RequestParam(value = "category", required = false, defaultValue = "0") int category,
 						@RequestParam(value = "cp", required = false, defaultValue = "1") int cp, // 현재 페이지
-						@RequestParam(value = "sort", required = false, defaultValue = "rates") String sort // 정렬 옵션
+						@RequestParam(value = "sort", required = false, defaultValue = "rates") String sort, // 정렬 옵션
+						@RequestParam(value = "exceptFl", required = false, defaultValue = "1") int soldOutFl // 품절상품 제외하기 옵션
 				) {
 			
 			// 1. 입력받은 모든 파라미터에서 특수문자를 제거함
@@ -78,9 +80,9 @@ public class PostListController {
 			
 			// 입력받은 카테고리가 있으면 해당 카테고리만 가져오고, 없으면 전부 다 불러오기
 			if(category == 0) {
-				postMap = service.getPostListAll(cp, keyword, sort);
+				postMap = service.getPostListAll(cp, keyword, sort, soldOutFl);
 			} else {
-				postMap = service.getPostListChecked(cp, keyword, category, sort);
+				postMap = service.getPostListChecked(cp, keyword, category, sort, soldOutFl);
 			}
 			
 			// 3. 반환하기

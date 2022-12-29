@@ -41,5 +41,4 @@ public class Product {
 	private String rates;
 	
 	
-	
 }

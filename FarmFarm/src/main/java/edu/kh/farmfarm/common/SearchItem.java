@@ -11,4 +11,6 @@ public class SearchItem {
 	private String keyword; 	// 검색어
 	private int category; 		// 선택한 카테고리
 	private String sort; 		// 정렬 옵션
+	private String stockOutFl;  	// 품절 제외 옵션
+	private int soldOutFl;  	// 품절 제외 옵션
 }
