@@ -36,6 +36,7 @@
 	      <result property="productImgAddress" column="PRODUCT_IMG_ADDRESS" />
 	      <result property="productNo" column="PRODUCT_NO" />
 	      <result property="productImgOrder" column="PRODUCT_IMG_ORDER" />
+	      <result property="productImgOriginal" column="PRODUCT_IMG_ORIGINAL" />
 	  </resultMap>
   
 		
@@ -64,7 +65,8 @@
 			SELECT
 				#{img.productImgAddress} PRODUCT_IMG_ADDRESS,
 				#{img.productNo} PRODUCT_NO,
-				#{img.productImgOrder} PRODUCT_IMG_ORDER
+				#{img.productImgOrder} PRODUCT_IMG_ORDER,
+				#{img.productImgOriginal} PRODUCT_IMG_ORIGINAL
 			FROM DUAL
 		</foreach>
 	</insert>
@@ -181,7 +183,8 @@
 	<!-- 이미지 수정 -->
 	<update id="productImgUpdate">
 		UPDATE PRODUCT_IMG SET
-		PRODUCT_IMG_ADDRESS = #{productImgAddress}
+		PRODUCT_IMG_ADDRESS = #{productImgAddress},
+		PRODUCT_IMG_ORIGINAL = #{productImgOriginal}
 		WHERE PRODUCT_NO = #{productNo}
 		AND PRODUCT_IMG_ORDER = #{productImgOrder}
 	</update>
@@ -190,7 +193,7 @@
 	<insert id="productImgInsert">
 		INSERT INTO PRODUCT_IMG 
 		VALUES(SEQ_PRODUCT_IMG_NO.NEXTVAL, #{productImgAddress}, 
-		#{productNo}, #{productImgOrder})
+		#{productNo}, #{productImgOrder}, #{productImgOriginal})
 	</insert>
 	
 	<!-- 상품 상태 변경 -->
