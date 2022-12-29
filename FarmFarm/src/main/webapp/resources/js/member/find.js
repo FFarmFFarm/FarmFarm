@@ -27,6 +27,15 @@ if(document.getElementById("findFrm") != null){
             e.preventDefault();
             return;
         }
+        
+        if(!checkObj.userNum){
+            alert("인증 번호가 잘못되었습니다.");
+            userNum.focus();
+            e.preventDefault();
+            return;
+        }
+
+
     });
 };
 
@@ -63,6 +72,13 @@ if(document.getElementById("findPwFrm") != null){
 
         if(userNum.value.trim().length == 0){
             alert("전화번호 인증을 해주세요.");
+            userNum.focus();
+            e.preventDefault();
+            return;
+        }
+                
+        if(!checkObj.userNum){
+            alert("인증 번호가 잘못되었습니다.");
             userNum.focus();
             e.preventDefault();
             return;

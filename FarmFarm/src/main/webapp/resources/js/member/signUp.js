@@ -83,52 +83,73 @@ const checkObj = {
     "memberNickname"  : false,
     "agreeInput1"         : false, // 동의
     "agreeInput"         : false, // 동의
-    "farmImg"         : false, // 사진
-    "userNum" :false
+    "farmImg"         : false // 사진
+    // "userNum" :false
 };
 
 // 회원 가입 양식이 제출 되었을 때
-document.getElementById("signUpFrm").addEventListener("submit",function(event){
+if(document.getElementById("signUpFrm") != null){
+    document.getElementById("signUpFrm").addEventListener("submit",function(event){
+        // checkObj의 속성 중 하나라도 false가 있다면 제출 이벤트 제거
 
-    // checkObj의 속성 중 하나라도 false가 있다면 제출 이벤트 제거
+        // for in 구문 : 객체의 key 값을 순서데로 접근하는 반복문
+        // [작성법]
+        // for(let 변수명 in 객체명)
+                // key
+        // -> 객체에서 순서대로 key를 하나씩 꺼내 왼쪽 변수에 저장
 
-    // for in 구문 : 객체의 key 값을 순서데로 접근하는 반복문
-    // [작성법]
-    // for(let 변수명 in 객체명)
-               // key
-    // -> 객체에서 순서대로 key를 하나씩 꺼내 왼쪽 변수에 저장
+        for (let key in checkObj){
+            
+            let str;
 
-    for (let key in checkObj){
-        
-        let str;
+            // checkObj 속성 하나를 꺼내 값을 검사했는데 false인 경우
+            if( !checkObj[key] ){
 
-        // checkObj 속성 하나를 꺼내 값을 검사했는데 false인 경우
-        if( !checkObj[key] ){
+                switch(key){
+                    case "memberId" : str = "아이디가 유효하지 않습니다."; break;
+                    case "memberPw" : str = "비밀번호 유효하지 않습니다."; break;
+                    case "memberPwConfirm" : str = "비밀번호 확인이 유효하지 않습니다."; break;
+                    case "memberName" : str = "이름이 유효하지 않습니다."; break;
+                    case "memberNickname" : str = "닉네임이 유효하지 않습니다."; break;
+                    case "agreeInput1" : str = "농장인증 절차 확인을 확인해주세요."; break;
+                    case "agreeInput" : str = "개인 정보 수집 및 이용동의를 확인해주세요."; break;
+                    case "farmImg" : str = "농장 인증을 해주세요."; break;
+                    // case "userNum" : str = "전화번호 인증을 해주세요."; break;
+                }
 
-            switch(key){
-                case "memberId" : str = "아이디가 유효하지 않습니다."; break;
-                case "memberPw" : str = "비밀번호 유효하지 않습니다."; break;
-                case "memberPwConfirm" : str = "비밀번호 확인이 유효하지 않습니다."; break;
-                case "memberName" : str = "이름이 유효하지 않습니다."; break;
-                case "memberNickname" : str = "닉네임이 유효하지 않습니다."; break;
-                case "agreeInput1" : str = "농장인증 절차 확인을 확인해주세요."; break;
-                case "agreeInput" : str = "개인 정보 수집 및 이용동의를 확인해주세요."; break;
-                case "farmImg" : str = "농장 인증을 해주세요."; break;
-                // case "userNum" : str = "전화번호 인증을 해주세요."; break;
+                alert(str); // 대화상자 출력
+
+                // 유효하지 않은 입력으로 포커스 이동
+                document.getElementById(key).focus();
+
+                event.preventDefault(); // 제출 이벤트 제거
+                return; // 함수 종료
+
             }
-
-            alert(str); // 대화상자 출력
-
-            // 유효하지 않은 입력으로 포커스 이동
-            document.getElementById(key).focus();
-
-            event.preventDefault(); // 제출 이벤트 제거
-            return; // 함수 종료
-
         }
-    }
 
-})
+    });
+}
+
+if(document.getElementById("signUpFrm") != null){
+    document.getElementById("signUpFrm").addEventListener("submit",(e)=>{
+
+        const userNum = document.getElementById("userNum");
+        if(userNum.value.trim().length == 0){
+            alert("전화번호 인증을 해주세요.");
+            userNum.focus();
+            e.preventDefault();
+            return;
+        }
+        
+        if(!checkObj.userNum){
+            alert("인증 번호가 잘못되었습니다.");
+            userNum.focus();
+            e.preventDefault();
+            return;
+        }
+    });
+}
 
 // 체크박스 유효성 검사
 const agreeInput1 = document.getElementById("agreeInput1");
@@ -141,7 +162,6 @@ if(agreeInput1 != null){
         }
     });
 }
-
 agreeInput.addEventListener("change", function(){
     if(agreeInput.checked){
         checkObj.agreeInput = true;
@@ -445,9 +465,13 @@ memberTel.addEventListener("input", function(){
         telMessage.classList.add("error");
         telMessage.classList.remove("confirm");
         checkObj.memberTel = false;
-
     }
+
 });
+
+// 전화번호 인증 유효성 
+
+
 
 // 생일 유효성 검사
 const memberBirth = document.getElementById("memberBirth");

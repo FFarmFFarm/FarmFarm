@@ -28,7 +28,6 @@
                                     <section class="find">
                                         <input type="text" name="memberName" id="memberName" placeholder="이름"
                                             autocomplete="off" maxlegnth="50" value="${tempMember.memberName}">
-                                        <div id="IdConfirm" class="coner">한글, 영어 2~10자리 입력해주세요.</div>
                                     </section>
                                     <section class="find tel phoneCertifyDiv">
                                         <div class="title">전화번호 인증</div>
