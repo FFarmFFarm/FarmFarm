@@ -55,8 +55,20 @@
 }
 
 
+#delCancelBtn{
+    width: 100px;
+    height: 30px;
+    background-color: var(--sub-font-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+
+
+
 #adminDelSubmitBtn{
-    width: 150px;
+    width: 100px;
     height: 30px;
     background-color: #C43819;
     color: white;
@@ -70,6 +82,12 @@
     50% {
         opacity: 0;
     }
+}
+
+#delCancelBtn:active{
+    animation: blink-effect 0.3s step-start;
+    animation-timing-function: ease;
+    scale: 0.99;
 }
 
 #adminDelSubmitBtn:active{

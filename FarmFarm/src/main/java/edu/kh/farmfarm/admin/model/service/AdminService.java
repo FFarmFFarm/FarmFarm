@@ -1,6 +1,9 @@
 package edu.kh.farmfarm.admin.model.service;
 
+import java.util.List;
 import java.util.Map;
+
+import edu.kh.farmfarm.admin.model.vo.Admin;
 
 
 public interface AdminService {
@@ -25,12 +28,28 @@ public interface AdminService {
 	 */
 	Map<String, Object> selectMember(Map<String, Object> paramMap, int cp);
 
+	
+	/** 회원 상세 조회 (회원정보 + 계정 상태 변경 내역)
+	 * @param inputMemberId
+	 * @return map
+	 */
+	Map<String, Object> selectMemberDetail(String hiddenId);
 
+	
+	
+	
 	/** 회원 강제 탈퇴
 	 * @param inputMemberId
 	 * @return result
 	 */
-	int memberKickout(String inputMemberId);
+	int memberKickout(String hiddenId);
+
+
+
+
+
+
+
 
 
 

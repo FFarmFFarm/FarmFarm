@@ -46,7 +46,8 @@ public class AdminServiceImpl implements AdminService{
 		
 		// 3. 페이네이션 객체를 생성해 목록 불러오기
 		// 전체 회원 조회(정렬 포함)
-		List<Member> memberList = dao.selectMember(paramMap, pagination);
+		List<Admin> memberList = dao.selectMember(paramMap, pagination);
+		
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("memberListCount", memberListCount);
@@ -56,12 +57,33 @@ public class AdminServiceImpl implements AdminService{
 		
 		return map;
 	}
+
+	
+	// 회원 상세 조회
+	@Override
+	public Map<String, Object> selectMemberDetail(String hiddenId) {
+		
+		// 회원 상세 조회(회원 정보)
+		Admin memberDetailInfo = dao.selectMemberDetail(hiddenId);
+		
+		// 회원 상세 조회(계정상태 변경 내역)
+		List<Admin> memberHistoryList = dao.selectMemberHistory(hiddenId);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("memberDetailInfo", memberDetailInfo);
+		map.put("memberHistoryList", memberHistoryList);
+		
+		return map;
+	}
+	
+	
+			
 	
 	
 	// 회원 강제 탈퇴
 	@Override
-	public int memberKickout(String inputMemberId) {
-		return dao.memberKickout(inputMemberId);
+	public int memberKickout(String hiddenId) {
+		return dao.memberKickout(hiddenId);
 	}
 	
 

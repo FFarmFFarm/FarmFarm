@@ -91,46 +91,46 @@ public class AdminController {
 	
 	
 	// 전체 회원 조회 페이지로 이동
-	@GetMapping("/admin/member")
-	public String adminMemberPage() {
-		return "admin/adminMember";
-	}
-	
+//	@GetMapping("/admin/member")
+//	public String adminMemberPage() {
+//		return "admin/adminMember";
+//	}
+//	
 	
 	
 	// 전체 회원 조회 페이지로 이동 (값 전달 왜 안돼..?)
 	// JSP 
-//	@GetMapping("/admin/member")
-//	public String adminMemberPage(@SessionAttribute(value="loginMember") Member loginMember, 
-//									Model model,
-//									@RequestParam(value="cp", required=false, defaultValue="1") int cp,
-//									@RequestParam(value="authFilter", required=false, defaultValue="0") String authFilter,
-//									@RequestParam(value="statFilter", required=false, defaultValue="0") String statFilter,
-//									String memberId) {
-//		
-//		Map<String, Object> paramMap = new HashMap<String, Object>();
-//		paramMap.put("authFilter", authFilter);
-//		paramMap.put("statFilter", statFilter);
-//		paramMap.put("memberId", memberId);
-//		
-//		// 관리자인지 확인 (관리자면 result==1)
-//		int result = service.checkAdmin();
-//		
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		
-//		if(result == 1 && loginMember != null) {
-//
-//			// 전체 회원 정보 조회 + 페이지네이션 + 정렬
-//			map = service.selectMember(paramMap, cp);
-//	
-//		} else {
-//			System.out.println("관리자만 접근 가능합니다.");
-//		}
-//		
-//		model.addAttribute("map", map);
-//		
-//		return "admin/adminMember";
-//	}
+	@GetMapping("/admin/member")
+	public String adminMemberPage(@SessionAttribute(value="loginMember") Member loginMember, 
+									Model model,
+									@RequestParam(value="cp", required=false, defaultValue="1") int cp,
+									@RequestParam(value="authFilter", required=false, defaultValue="0") String authFilter,
+									@RequestParam(value="statFilter", required=false, defaultValue="0") String statFilter,
+									@RequestParam(value="hiddenMemberId", required=false) String hiddenMemberId) {
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("authFilter", authFilter);
+		paramMap.put("statFilter", statFilter);
+		paramMap.put("memberId", hiddenMemberId);
+		
+		// 관리자인지 확인 (관리자면 result==1)
+		int result = service.checkAdmin();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if(result == 1 && loginMember != null) {
+
+			// 전체 회원 정보 조회 + 페이지네이션 + 정렬
+			map = service.selectMember(paramMap, cp);
+	
+		} else {
+			System.out.println("관리자만 접근 가능합니다.");
+		}
+		
+		model.addAttribute("map", map);
+		
+		return "admin/adminMember";
+	}
 	
 	
 	
@@ -140,14 +140,12 @@ public class AdminController {
 	public String selectMember(@SessionAttribute(value="loginMember") Member loginMember, 
 								@RequestParam(value="cp", required=false, defaultValue="1") int cp,
 								@RequestParam(value="authFilter", required=false, defaultValue="0") String authFilter,
-								@RequestParam(value="statFilter", required=false, defaultValue="0") String statFilter,
-								String memberId) {
+								@RequestParam(value="statFilter", required=false, defaultValue="0") String statFilter) {
 		
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("authFilter", authFilter);
 		paramMap.put("statFilter", statFilter);
-		paramMap.put("memberId", memberId);
 		
 		// 관리자인지 확인 (관리자면 result==1)
 		int result = service.checkAdmin();
@@ -167,19 +165,47 @@ public class AdminController {
 		return new Gson().toJson(map);
 	}
 	
+	
+	
+	// 회원 상세 조회
+	@GetMapping("/admin/selectMemberDetail")
+	@ResponseBody
+	public String selectMemberDetail(@SessionAttribute(value="loginMember") Member loginMember,
+										String hiddenId) {
+		// 관리자인지 확인 (관리자면 result==1)
+		int result = service.checkAdmin();
+		
+		Map<String, Object> map = new HashMap<String, Object>();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+		
+		if(result == 1 && loginMember != null) {
+
+			// 전체 회원 정보 조회 + 페이지네이션 + 정렬
+			map = service.selectMemberDetail(hiddenId);
+	
+		} else {
+			System.out.println("관리자만 접근 가능합니다.");
+		}
+		
+		
+		return new Gson().toJson(map);
+		
+	}
+	
+	
+	
 
 	
 	// 회원 강제 탈퇴
 	@PostMapping("/admin/kickout")
 	@ResponseBody
-	public int memberKickout(@SessionAttribute(value="loginMember") Member loginMember, String inputMemberId) {
+	public int memberKickout(@SessionAttribute(value="loginMember") Member loginMember, String hiddenId) {
 		
 		// 관리자인지 확인
 		int result = service.checkAdmin();
 		
 		if(result == 1  && loginMember != null) {
 			
-			result = service.memberKickout(inputMemberId);
+			result = service.memberKickout(hiddenId);
 		}
 		
 		return  result;

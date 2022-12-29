@@ -33,14 +33,15 @@
 
             <!-- 오른쪽 -->
             <section class="admin-content-section">
-                <div class="page-title">
+                <div class="page-title" id="pageTitle">
                     <p>회원 관리</p>
                 </div>
                 <div class="upper-board">
                     <div class="title-div">
                         <span class="member-select-title">회원 조회</span>
                         <span class="member-search"> 
-                            <input type="text" name="memberSearch" id="memberSearchInput" placeholder="검색">
+                            <input type="text" name="adminMemberkeyword" id="adminMemberkeyword" placeholder="아이디, 닉네임 검색" 
+                                                                spellcheck="false" autocomplete="off">
                             <button type="button" id="memberSearchBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
                         </span>
                     </div>
@@ -84,21 +85,20 @@
 
                             <tbody id="tbody">
                                 <!-- 한 행 반복 -->
-                                <%-- <c:forEach var="member" items="${memberList}">
-                                이 안이 아예 안되는거같은데..?
+                                <c:forEach var="member" items="${memberList}">
                                     <c:set var="i" value="${i+1}" />
                                     <tr class="member-select-row" id="memberSelectRow"> 
                                         
                                         <td class="report-member-seq">${i}</td>
                                         <td>${member.memberNo}</td>
-                                        <td>${member.memberId}</td>
-                                        <td>${member.memberNickname}</td>
+                                        <td id="mId">${member.memberId}</td>
+                                        <td id="mNickname">${member.memberNickname}</td>
 
-                                        <td>${member.memberAddress}</td>
-                                        <td>${member.signUpDate}</td> --%>
+                                        <td id="mAddress">${member.memberAddress}</td>
+                                        <td>${member.signUpDate}</td> 
 
                                         <%-- 판매자 인증 --%>
-                                        <%-- <c:if test="${not empty member.authority}">
+                                        <c:if test="${not empty member.authority}">
                                             <c:if test="${member.authority == 0}">
                                                 <td>미등록</td>
                                             </c:if>
@@ -108,16 +108,16 @@
                                             <c:if test="${member.authority == 3}">
                                                 <td>인증 대기</td>
                                             </c:if>
-                                        </c:if> --%>
+                                        </c:if> 
 
                                         <%-- 상태 --%>
                                         <%-- <c:if test="${not empty report.reportPenalty && not empty member.memberDelFl}"> --%>
-                                        <%-- <c:if test="${not empty member.memberDelFl}">
+                                        <c:if test="${not empty member.memberDelFl}">
                                             <c:if test="${member.memberDelFl eq 'N'}">
-                                                <c:if test="${member.reportPenalty eq 'N' || not empty member.reportPenalty}">
+                                                <c:if test="${member.reportPenalty eq 'N' || empty member.reportPenalty || member.reportPenalty eq 'N'}">
                                                     <td>활동중</td>
                                                 </c:if>
-                                                <c:if test="${member.reportPenalty eq 'Y'&& not empty member.reportType}">
+                                                <c:if test="${member.reportPenalty eq 'Y'&& not empty member.processDate}">
                                                     <td>정지</td>
                                                 </c:if>
                                             </c:if>
@@ -125,8 +125,11 @@
                                                 <td>탈퇴</td>
                                             </c:if>
                                         </c:if> 
+
+                                        <input type="hidden" class="hidden-memberId" name="hiddenId" id="hiddenMemberId" value="${member.memberId}">
                                     </tr>
-                                </c:forEach> --%>
+                                    
+                                </c:forEach>
                             </tbody>
                             
                         </table>
@@ -134,7 +137,7 @@
 
                     <!-- todo: 페이지네이션 반복문 -->
                     <div class="admin-pagination-area" id="adminPaginationArea">
-                        <%-- <ul class="admin-pagination">
+                        <ul class="admin-pagination">
                             <li id="1" class="page-box">  
                                 <i class="fa-solid fa-angles-left"></i>
                             </li>
@@ -163,16 +166,17 @@
                             <li id="${pagination.endPage}" class="page-box">
                                 <i class="fa-solid fa-angles-right"></i>
                             </li> 
-                        </ul> --%>
+                        </ul>
                     </div>
                 </div>
 
                 <div class="middle-board" id="middleBoard">
                     <div class="middle-detail">
                         <span class="member-detail-title line">회원 상세 정보</span>
-                        <span class="member-detail">
+                        <span class="member-detail" id="detailSpan">
                             <!-- todo: el쓰는부분 ajax로 -->
-                            <table class="member-detail-table">
+                            <table class="member-detail-table" id="detailTable">
+
                                 <%-- <tr>
                                     <td rowspan="6" class="detail-profileImg" id="detailMemberImg">
                                         <!-- <img src="/resources/images/member/user.png" alt=""> -->
@@ -216,34 +220,33 @@
 
                         <span class="member-history-title line">계정 상태</span>
                         <span class="member-history">
-                            <table class="member-history-table">
-                                <%-- <tr class="member-history-row">
-                                    <th width="100px">일자</th>
-                                    <th width="100px">상태</th>
-                                    <th width="150px">사유</th>
-                                </tr>
-
-                                <tr id="row2">
-                                    <!-- <td>2022-12-14</td>
-                                    <td>가입</td>
-                                    <td></td> -->
-                                </tr>
-                                <tr id="row3">
-                                    <!-- <td>2022-12-14</td>
-                                    <td>계정 정지</td>
-                                    <td>불법 사기 계좌 운용</td> -->
-                                </tr>
-                                <tr id="row4">
-                                    <!-- <td>2022-12-14</td>
-                                    <td>탈퇴</td>
-                                    <td>음란물 배포, 댓글 도배</td> -->
+                            <table class="member-history-table" id="historyTable">
+                                <%--
+                                    <thead>
+                                        <tr class="member-history-row">
+                                        <th width="160px">일자</th>
+                                        <th width="130px">상태</th>
+                                        <th width="150px">사유</th>
+                                    </thead> 
                                 </tr> --%>
 
+                                <%-- <tr id="row2" class="row2"> 
+                                    <td>2022-12-14</td>
+                                    <td>가입</td>
+                                    <td></td>
+                                </tr> --%>
+
+                                <%-- 
+                                <tbody>
+                                    <tr id="row3">
+                                    <td>2022-12-14</td>
+                                    <td>계정 정지</td>
+                                    <td>불법 사기 계좌 운용</td> 
+                                </tr>--%>
+                                </tbody>
                             </table>
                         </span>
-                        <%-- <c:if test="${memberList.memberDelFl eq'N'}"> --%>
-                            <button id="adminDelBtn">강제 탈퇴</button>
-                        <%-- </c:if> --%>
+                        <button id="adminDelBtn">강제 탈퇴</button>
                     </div>   
                 </div>
             </section>
@@ -260,6 +263,7 @@
                 
                 <div class="adminDel-form-div">
                     <div class="adminDel-form">
+                        <button id="delCancelBtn">취소</button>
                         <button id="adminDelSubmitBtn">강제 탈퇴</button>
                     </div>
                 </div>
