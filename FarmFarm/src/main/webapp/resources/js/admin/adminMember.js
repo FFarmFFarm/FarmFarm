@@ -106,6 +106,10 @@ const printMemberList = (memberList, pagination) => {
     // todo: 전체 조회 
     for(let member of memberList){
 
+        /*아이디 10자
+        주소 25자
+        닉네임 10자*/ 
+
                 
         const tr = document.createElement("tr");
         tr.classList.add("member-select-row");
@@ -126,7 +130,7 @@ const printMemberList = (memberList, pagination) => {
 
         // 아이디
         const td3 = document.createElement("td");
-        td3.innerText = member.memberId;
+        td3.innerText = member.memberId;  //fixme
 
 
         // 닉네임
@@ -670,8 +674,6 @@ var hiddenMemberId = document.getElementsByClassName('hidden-memberId');
 var hiddenId;
 
 for(let i=0; i<memberSelectRow.length; i++){
-    console.log("한 행 반복문");
-
     memberSelectRow[i].addEventListener('click', () => {
 
         hiddenId = hiddenMemberId[i].value;
@@ -812,19 +814,20 @@ document.getElementById("adminDelSubmitBtn").addEventListener('click', ()=>{
                 adminDel.style.display = "none";
 
                 if(adminDel.style.display == 'none'){
+                    selectMemberList(cp);
                     selectMemberDetail(hiddenId);
                 }          
                 
                 console.log("강제 탈퇴 완료!");
-                messageModalOpen();
+                // messageModalOpen();
 
             
             } else {
-                console.log("처리 실패");
+                console.log("강퇴 처리 실패");
             }
         },
         error: () => {
-            console.log("처리 오류");
+            console.log("강퇴 처리 오류");
         }
     });
 });
@@ -833,20 +836,30 @@ document.getElementById("adminDelSubmitBtn").addEventListener('click', ()=>{
 
 
 // TODO: 검색하기
-// fixme: 숫자 정렬
-
+// 1) 버튼 눌러서검색
 document.getElementById("memberSearchBtn").addEventListener('click', () => {
-    numCount = (cp-1)*15;
-    keyword = document.getElementById("adminMemberkeyword").value;   // 입력한 검색어 
-    console.log(keyword);
-    selectMemberList(cp);
-
+    doSearch();
 })
 
+// 2) 엔터키로 검색
+document.getElementById("adminMemberkeyword").addEventListener('keydown', (e) => {
+
+    const keyCode = e.keyCode;
+
+    if(keyCode == 13){  // 엔터키
+        doSearch();
+    } 
+})
+
+// 검색하는 함수
+const doSearch = () => {
+    numCount = (cp-1)*15;  //순번 정렬
+    keyword = document.getElementById("adminMemberkeyword").value; // 입력한 검색어 
+    selectMemberList(cp);
+}
 
 
-
-
+// todo: 
 // 전체 조회 글자 자르기
 /*
 유효성
@@ -859,22 +872,3 @@ document.getElementById("memberSearchBtn").addEventListener('click', () => {
 주소 25자
 닉네임 10자 
 */
-
-// let mId = document.getElementById("mId").innerText;
-// let mNickname = document.getElementById("mNickname").innerText;
-// let mAddress = document.getElementById("mAddress").innerText;
-
-// if(mId.length > 10){
-//     mId = mId.substring(0, 10);
-// }
-
-// if(mNickname.length > 10){
-//     mNickname = mNickname.substring(0, 10);
-// }
-
-// if(mAddress.length > 25){
-//     mAddress = mAddress.substring(0, 25);
-// }
-
-// console.log(mId);
-// console.log("??");

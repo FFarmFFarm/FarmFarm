@@ -28,6 +28,9 @@
 
         <!-- 오른쪽 -->
         <section class="admin-content-section">
+            <div class="page-title" id="pageTitle">
+                <p>판매자 인증 관리</p>
+            </div>
             <div class="board-content">
                 <span class="board-title">인증 신청 목록</span>
 
