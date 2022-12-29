@@ -1,42 +1,24 @@
 // 전역변수
+let myMemberNo;
 let selectedRoomNo;
 let senderNo;
 let partnerNickname;
 let partnerProfileImg;
 let nowDate;
 
-// 하단 변수
-// let initialScrollHeight = document.getElementById("readingArea").scrollHeight;
-// let bottomScrollHeight = 0;
-
 // 소켓
 let chattingSock;
 
 // 채팅을 위한 소켓 생성
-if(loginMemberNo = 1) {
-    chattingSock = new SockJS('/echo/chat');
-}
+// if(loginMemberNo = 1) {
+//     chattingSock = new SockJS('/echo/chat');
+//     chattingSock.onmessage = onMessage();
+// }
 
-
-
-/* Axios, WebSocket */
-
-// 요청 생성하기
-// 요청 보내기
-// axios.method('요청 주소', {보낼 data
-//              })
-//              .then(function (response) {
-
-//              })
-//              .catch(function (error) {
-
-//              })
 
 /* 내 채팅방 목록 가져오기 */
 window.addEventListener("DOMContentLoaded", ()=>{
     requestMyChatRoomList();
-
-    console.log("shortcutNo : " + shortcutNo);
 
     if(shortcutNo > 0) {
         shortcut(shortcutNo);
@@ -49,16 +31,13 @@ window.addEventListener("DOMContentLoaded", ()=>{
         myMemberNo = response.data;
 
         if (myMemberNo != -1) {
-            listenChatSocket = new SockJS('/echo/chat');
-            console.log('야호!')
+            chattingSock = new SockJS('/echo/chat');
 
-            if (listenChatSocket != null) {
-
-                console.log('잘 들립니다!')
-
-                listenChatSocket.onmessage = function (e) {
-                    console.log('새로운 메세지가 있습니다.');
-                    document.getElementById('chatAlarmDot').style.display = 'block';
+            if (chattingSock != null) {
+                console.log('채팅 서버와 연결되었습니다.')
+                chattingSock.onmessage = function(e) {
+                    const chat = JSON.parse(e.data);
+                    onMessage(chat);
                 }
             }
 
@@ -102,7 +81,7 @@ const shortcut = (shortcutNo) => {
             if(response.data.partnerInfo.profileImg == undefined) {
                 partnerProfileImg = "<img src='/resources/images/member/user.png'>";
             } else {
-                partnerProfileImg = response.data.partnerInfo.profileImg;
+                partnerProfileImg = "<img src=" + response.data.partnerInfo.profileImg + ">";
             }
             partnerNickname = response.data.partnerInfo.memberNickname;
 
@@ -165,11 +144,13 @@ const requestMyChatRoomList = () => {
 const makeChatPreviewBox = (chatRoomInfo) => {
     // 재료 준비
     const chatPreviewBox = document.createElement('div'); // 박스
-    const profileImg = document.createElement('div'); // 상대 이미지
-    const boxLabel = document.createElement('div'); // 이름, 시간이 들어감
+    // const profileImg = document.createElement('div'); // 상대 이미지
+    const thumbnailImg = document.createElement('div'); // 상대 이미지
+    const postTitle = document.createElement('div'); // 마지막 대화
+    const boxLabel = document.createElement('div'); // 이름, 마지막 대화 시간이 들어감
     const memberNickname = document.createElement('div'); // 상대 이름
     const lastChatTime = document.createElement('div'); // 마지막 대화 시간
-    const lastChatContent = document.createElement('div'); // 마지막 대화
+    // const lastChatContent = document.createElement('div'); // 마지막 대화
 
     // 방번호 넣기
     chatPreviewBox.id = chatRoomInfo.roomNo;
@@ -177,12 +158,15 @@ const makeChatPreviewBox = (chatRoomInfo) => {
     // 데이터 넣기
     packUpElement(chatPreviewBox, 'chat-preview-box', null);
     
-    if(chatRoomInfo.profileImg2 == undefined ) { // 이미지가 없는 경우 기본 이미지
-        packUpElement(profileImg, 'profile-img', "<img src='/resources/images/member/user.png'>");
+    // 상품 프로필 이미지
+    if(chatRoomInfo.thumbnailImg == undefined ) { // 이미지가 없는 경우 기본 이미지
+        packUpElement(thumbnailImg, 'thumbnail-img', "<img src='/resources/images/member/user.png'>");
     } else {
-        packUpElement(profileImg, 'profile-img', "<img src=" + chatRoomInfo.profileImg2 + ">");
+        packUpElement(thumbnailImg, 'thumbnail-img', "<img src=" + chatRoomInfo.thumbnailImg + ">");
     }
-    
+
+    packUpElement(postTitle, 'post-title', chatRoomInfo.postTitle);
+
     packUpElement(boxLabel, 'box-label', null);
     
     packUpElement(memberNickname, 'member-nickname', chatRoomInfo.memberNickname2);
@@ -193,19 +177,21 @@ const makeChatPreviewBox = (chatRoomInfo) => {
         packUpElement(lastChatTime, 'last-chat-time', chatRoomInfo.lastChatTime);
     }
 
-    if(chatRoomInfo.lastChatContent == undefined) { // 채팅 내용이 없는 경우 '대화 내용이 없습니다' 출력
-        packUpElement(lastChatContent, 'last-chat-content', '대화 내용이 없습니다.');
-    } else {
-        if(chatRoomInfo.lastChatImgFl === 'N') { // 사진이 아닌 경우
-            packUpElement(lastChatContent, 'last-chat-content', chatRoomInfo.lastChatContent);
-        } else { // 사진인 경우
-            packUpElement(lastChatContent, 'last-chat-content', '사진을 보냈습니다.');
-        }
-    }
+    // if(chatRoomInfo.lastChatContent == undefined) { // 채팅 내용이 없는 경우 '대화 내용이 없습니다' 출력
+    //     packUpElement(lastChatContent, 'last-chat-content', '대화 내용이 없습니다.');
+    // } else {
+    //     if(chatRoomInfo.lastChatImgFl === 'N') { // 사진이 아닌 경우
+    //         packUpElement(lastChatContent, 'last-chat-content', chatRoomInfo.lastChatContent);
+    //     } else { // 사진인 경우
+    //         packUpElement(lastChatContent, 'last-chat-content', '사진을 보냈습니다.');
+    //     }
+    // }
     
     // 포장하기
     boxLabel.append(memberNickname, lastChatTime);
-    chatPreviewBox.append(profileImg, boxLabel, lastChatContent);
+    chatPreviewBox.append(thumbnailImg, postTitle, boxLabel);
+    // boxLabel.append(memberNickname, lastChatTime);
+    // chatPreviewBox.append(profileImg, boxLabel, lastChatContent);
 
     if (chatRoomInfo.unreadChatCount > 0) { // 읽지 않은 채팅이 있는 경우
         const unreadChatCount = document.createElement('div'); // 읽지 않은 채팅 개수
@@ -227,9 +213,10 @@ const chatPreviewBoxEvent = (chatPreviewBox) => {
 
     const roomNo = chatPreviewBox.id;
 
-    const profileImg2 = chatPreviewBox.children[0].innerHTML;
+    // const profileImg2 = chatPreviewBox.children[0].innerHTML;
 
-    const memberNickname2 = chatPreviewBox.children[1].children[0].innerText;
+    // const memberNickname2 = chatPreviewBox.children[1].children[0].innerText;
+    const memberNickname2 = chatPreviewBox.children[2].children[0].innerText;
 
     // 채팅 목록 가져오기
     axios.post('/chat/' + roomNo)
@@ -240,7 +227,8 @@ const chatPreviewBoxEvent = (chatPreviewBox) => {
             // 채팅 전송을 위해 전역 변수 세팅
             selectedRoomNo = roomNo;
             senderNo = myMemberNo;
-            partnerProfileImg = profileImg2;
+            // partnerProfileImg = profileImg2;
+            const profileImg2 = response.data.partnerInfo.profileImg;
             partnerNickname = memberNickname2;
 
             // 읽음 처리 해야함..
@@ -253,7 +241,7 @@ const chatPreviewBoxEvent = (chatPreviewBox) => {
             let postInfo = response.data.postInfo;
 
             // 채팅방 만들기
-            makeChatRoom(myMemberNo, chatHistory, profileImg2, memberNickname2, postInfo);
+            makeChatRoom(myMemberNo, chatHistory, profileImg2, memberNickname2, postInfo); // 
 
         }).catch(function (error) {
             console.log(error);
@@ -266,7 +254,11 @@ const makeChatRoom = (myMemberNo, chatHistory, profileImg2, memberNickname2, pos
 
     // 라벨 영역
     const postImg = document.getElementById('postImg');
-    postImg.innerHTML = "<img src=" + postInfo.thumbnailImg + ">";
+    if(postInfo.thumbnailImg == undefined) {
+        postImg.innerHTML = "<img src='/resources/images/member/user.png'>";
+    } else {
+        postImg.innerHTML = "<img src=" + postInfo.thumbnailImg + ">";
+    }
 
     const postTitle = document.getElementById('postTitle');
     postTitle.innerHTML = postInfo.postTitle;
@@ -299,7 +291,7 @@ const makeChatRoom = (myMemberNo, chatHistory, profileImg2, memberNickname2, pos
         }
 
         if(chat.sendMemberNo == myMemberNo) { // 보낸 메세지인 경우
-            const sentChat = makeSentChat(chat.chatContent, chat.chatTime, chat.imgFl, '');
+            const sentChat = makeSentChat(chat.chatContent, chat.chatTime, chat.imgFl, chat.readFl);
 
             readingArea.append(sentChat)
 
@@ -366,7 +358,7 @@ const makeReceivedChat = (profileImg2, memberNickname2, chatContent, chatTime, i
     const receivedBubbleTime = document.createElement('div');
 
     packUpElement(receivedChat, 'received-chat', null);
-    packUpElement(senderProfileImg, 'sender-profile-img', profileImg2);
+    packUpElement(senderProfileImg, 'sender-profile-img', "<img src=" + profileImg2 + ">");
     packUpElement(senderName, 'sender-name', memberNickname2);
     packUpElement(receivedBubbleTail, 'received-bubble-tail', null);
     if(imgFl === 'N') {
@@ -434,6 +426,7 @@ const sendImgToServer = () => {
 
     if(imgData != null) {
         let formData = new FormData();
+        
         formData.append("roomNo", selectedRoomNo);
         formData.append("sendMemberNo", senderNo);
         formData.append("chatImg", imgData);
@@ -494,9 +487,52 @@ document.getElementById('sendImgBtn').addEventListener('click', ()=>{
 })
 
 /* 채팅을 받는 함수 */
-chattingSock.onmessage = function(e) {
-    const chat = JSON.parse(e.data);
+// chattingSock.onmessage = function(e) {
+//     const chat = JSON.parse(e.data);
 
+//     const readingArea = document.getElementById('readingArea');
+
+//     if(selectedRoomNo == chat.roomNo) { // 해당 채팅방을 보고 있는 경우..
+
+//         // 날짜가 바뀌었는지 확인
+//         if (nowDate != chat.chatDate) {
+//             nowDate = chat.chatDate;
+
+//             const dateLabel = document.createElement('div');
+//             const dateLabelLine = document.createElement('div');
+
+//             packUpElement(dateLabel, 'date-label', nowDate);
+//             packUpElement(dateLabelLine, 'date-label-line');
+
+//             dateLabelLine.append(dateLabel);
+//             readingArea.append(dateLabelLine);
+//         }
+
+//         if(senderNo == chat.sendMemberNo) { // 내가 보낸 채팅인 경우..
+//             const sentChat = makeSentChat(chat.chatContent, chat.chatTime, chat.imgFl, 'N');
+
+//             readingArea.append(sentChat);
+
+//         } else { // 아닌 경우
+//             const receivedChat = makeReceivedChat(partnerProfileImg, partnerNickname, chat.chatContent, chat.chatTime, chat.imgFl);
+            
+//             // 현재 보이는 읽지 않음을 전부 읽음처리해야함;;(동기화작업)
+//             readMyChat();
+
+//             readingArea.append(receivedChat);
+//         }
+
+//         // 스크롤을 하단으로 내림
+//         const nowScrollHeight = readingArea.scrollHeight;
+//         readingArea.scrollTo(0,nowScrollHeight);
+
+//     } else { // 해당 채팅방을 보고 있지 않은 경우..
+//         console.log('새로운 채팅이 왔어요')
+//     }
+//     requestMyChatRoomList();
+// }
+
+const onMessage = (chat) => {
     const readingArea = document.getElementById('readingArea');
 
     if(selectedRoomNo == chat.roomNo) { // 해당 채팅방을 보고 있는 경우..
@@ -522,7 +558,7 @@ chattingSock.onmessage = function(e) {
 
         } else { // 아닌 경우
             const receivedChat = makeReceivedChat(partnerProfileImg, partnerNickname, chat.chatContent, chat.chatTime, chat.imgFl);
-            
+        
             // 현재 보이는 읽지 않음을 전부 읽음처리해야함;;(동기화작업)
             readMyChat();
 

@@ -60,7 +60,7 @@
             <div class="member-info member-address">
               <span class="info-title basic-title">기본 주소지</span>
               <span class="info-content"
-                >${loginMember.memberAddress}</span
+                >${loginMember.memberAddress2}</span
               >
             </div>
 

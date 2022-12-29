@@ -68,11 +68,15 @@ function selectCommentList(){
                     // commentLike.classList.add("comment-like");
     
                     // 댓글 내용 부분
+                    const commentArea = document.createElement("div");
+                    commentArea.classList.add("content-area");
+
                     const commentContent = document.createElement("div");
                     commentContent.classList.add("comment-content");
                     // 댓글 내용
-                    const contentPre = document.createElement("div");
-                    contentPre.innerHTML = comment.commentContent;
+                    // const contentPre = document.createElement("div");
+                    // contentPre.innerHTML = comment.commentContent;
+                    commentContent.innerHTML = comment.commentContent;
 
                     // 작성일 + 답글달기
                     // 작성일
@@ -83,22 +87,7 @@ function selectCommentList(){
                     const commentReply = document.createElement("button");
                     commentReply.classList.add("comment-reply");
                     commentReply.setAttribute("onclick", "showReply("+comment.commentNo+", this)");
-                    commentReply.innerHTML = ' &nbsp;답글달기&nbsp;';
-
-                    if(memberNo == comment.memberNo){
-                        const commentInsert = document.createElement("button");
-                        const commentDelete = document.createElement("button");
-
-                        commentInsert.classList.add("comment-reply");
-                        commentDelete.classList.add("comment-reply");
-
-                        commentInsert.innerHTML = "|&nbsp;&nbsp;수정&nbsp;";
-                        commentDelete.innerHTML = "|&nbsp;&nbsp;수정&nbsp;";
-
-                        commentInsert.setAttribute("onclick", "updateComment("+comment.commentNo+", this)");
-                        commentDelete.setAttribute("onclick", "deleteComment(this)");
-                    }
-
+                    commentReply.innerHTML = ' &nbsp;&nbsp;답글달기&nbsp;&nbsp;';
                     
                     if(commentRow.classList.contains("comment-child")){
                         writerProfile.classList.add("child-img");
@@ -111,14 +100,34 @@ function selectCommentList(){
     
                     // 자~ append 해볼까
                     commentList.append(commentRow);
-                    commentRow.append(commentWriter, commentContent,writeTimeReply);
+                    commentRow.append(commentWriter, commentArea);
+
+                    commentArea.append(commentContent,writeTimeReply)
                     
                     commentWriter.append(writerProfile, writerName);
                     writerProfile.append(profileImage);
                     
-                    commentContent.append(contentPre);
+                    // commentContent.append(contentPre);
                     
-                    writeTimeReply.append(commentReply);
+                    
+                    if(memberNo == comment.memberNo && comment.commentDelFl == 'N'){
+                        const commentInsert = document.createElement("button");
+                        const commentDelete = document.createElement("button");
+
+                        commentInsert.classList.add("comment-reply");
+                        commentDelete.classList.add("comment-reply");
+
+                        commentInsert.innerHTML = "|&nbsp;&nbsp;수정&nbsp;&nbsp;";
+                        commentDelete.innerHTML = "|&nbsp;&nbsp;삭제&nbsp;&nbsp;";
+
+                        commentInsert.setAttribute("onclick", "showUpdateComment("+comment.commentNo+", this)");
+                        commentDelete.setAttribute("onclick", "deleteComment("+comment.commentNo+")");
+
+                        writeTimeReply.append(commentReply, commentInsert, commentDelete)
+                    }else{
+                        writeTimeReply.append(commentReply);
+                    }
+
                 }
             }
         },
@@ -217,6 +226,14 @@ function showReply(parentNo, btn){
 
         // 버튼 공간을 textarea다음에 넣어줘요~
         textarea.after(btnArea);
+
+        // 자식인지 부모인지 확인을 해보고 textarea 크기를 따로 지정을 해주자~
+        const commentRow = btn.parentElement.parentElement;
+        if(commentRow.classList.contains("comment-child")){
+            textarea.classList.add("ch-textarea");
+        }else{
+            textarea.classList.add("pa-textarea");
+        }
 }
 
 // 답글 취소를 누르면 없어지게 만들어보아요~~
@@ -272,29 +289,140 @@ function sendCo(parentNo, btn){
 // 댓글 수정 화면으로 바꿔 볼까요~?
 
 // 수정 전 원래 모양을 저장합니다~
-let beforeCommentRow; 
+let beforeCommentARea; 
 
-function updateComment(commentNo, btn){
+function showUpdateComment(commentNo, btn){
 
     // 댓글 수정은 하나만 되야 하니까 임시로 만들어줘볼까?
     const temp = document.getElementsByClassName("update-textarea");
 
     if(temp.length > 0){
         if(confirm("다른 댓글을 수정 중입니다. 현재 댓글을 수정하시겠습니까?")){
-            temp[0].parentElement.innerHTML = beforeCommentRow;
+            temp[0].parentElement.innerHTML = beforeCommentARea;
         }else{
             return;
         }
     }
 
+    // 선택된 댓글 li
+    const commentRow = btn.parentElement.parentElement.parentElement;
 
-    // 댓글 수정이 클릭 된 행
-    const commentRow = btn.parentElement.parentElement;
+    // 댓글 수정이 클릭 댓글 내용 나오는 부분
+    const commentArea = btn.parentElement.parentElement;
 
     // 댓글 수정 시 원래 내용을 저장해볼까요?
-    beforeCommentRow = commentRow.innerHTML;
+    beforeCommentARea = commentArea.innerHTML;
+
+    // 댓글에 작성 되었떤 내용을을 얻어와볼까
+    let beforeContent  = btn.parentElement.previousElementSibling.innerHTML;
+
+    // 댓글 부분을 싹 지워줍니다.
+    commentArea.innerHTML = "";
+
+    // 이들을 감싸고 있는 div를 만들어보자
+    const commentContent = document.createElement("div");
+    commentContent.classList.add("comment-content");
+
+    // textarea 만들어주고 클래스도 추가해주자
+    const paTextarea  = document.createElement("textarea");
+    // paTextarea.classList.add("update-textarea");
+    // 자식이면
+    if(commentRow.classList.contains("comment-child")){
+        paTextarea.classList.add("update-child");
+    }else{
+        paTextarea.classList.add("update-parent");
+    }
+
+    // ******************************************
+    // XSS 방지 처리 해제
+    beforeContent =  beforeContent.replaceAll("&amp;", "&");
+    beforeContent =  beforeContent.replaceAll("&lt;", "<");
+    beforeContent =  beforeContent.replaceAll("&gt;", ">");
+    beforeContent =  beforeContent.replaceAll("&quot;", "\"");
+    
+    // 개행문자 처리 해제
+    beforeContent =  beforeContent.replaceAll("<br>", "\n");
+
+    paTextarea.value = beforeContent;
+
+    // 행에 댓글 작성 부분 추가
+    commentRow.append(commentArea);
+
+    commentArea.append(commentContent);
 
     
+    // 버튼 영역 추가하기~
+    const updateBtnArea = document.createElement("div");
+    updateBtnArea.classList.add("update-parent-btn");
+
+    const paUpdate = document.createElement("button");
+    const paCancle = document.createElement("button");
+
+    paUpdate.classList.add("pa-update");
+    paCancle.classList.add("pa-cancle");
+
+    paUpdate.innerText = "수정하기";
+    paCancle.innerText = "취소";
+
+    paUpdate.setAttribute("onclick", "updateComment("+commentNo+", this)");
+    paCancle.setAttribute("onclick", "deleteCancle(this)");
+
+    commentContent.append(paTextarea, updateBtnArea);
+    updateBtnArea.append(paUpdate, paCancle);
+
+};
+
+// 댓글 수정 취소를 해볼까요,,,,,
+function deleteCancle(btn){
+    if(confirm("댓글 수정을 취소하시겠습니까?")){
+        btn.parentElement.parentElement.parentElement.innerHTML = beforeCommentARea;
+    }
+}
 
 
+// 댓글 수정을 해볼까요....
+function updateComment(commentNo, btn){
+
+    const commentContent = btn.parentElement.previousElementSibling.value;
+
+    $.ajax({
+        url : "/board/comment/update",
+        data : {"commentNo" : commentNo,
+                "commentContent" : commentContent},
+        type : "post",
+        success : result=>{
+
+            if(result>0){
+                alert("댓글이 수정되었습니다.");
+                selectCommentList();
+            }else{
+                alert("댓글 수정 실패ㅜㅠ");
+            }
+        },
+        error : ()=>{
+            alert("댓글/답글 수정 ajax 통신 오류ㅠ")
+        }
+    });
+}
+
+
+// 댓글 삭제를 해봅시다!! 
+function deleteComment(commentNo){
+    if(confirm("댓글을 삭제하시겠습니까?")){
+        $.ajax({
+            url : "/board/comment/delete",
+            data : {"commentNo" : commentNo},
+            success : result=>{
+                if(result>0){
+                    alert("댓글이 삭제되었습니다.");
+                    selectCommentList();
+                }else{
+                    alert("댓글 삭제 시류ㅐㅜㅠ");
+                }
+            },
+            error : (req, status, error)=>{
+                alert("댓글 삭제 ajax 통신 실패")
+            }
+        })
+    }
 }

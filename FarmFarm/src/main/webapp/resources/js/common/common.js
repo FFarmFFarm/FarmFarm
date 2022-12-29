@@ -63,7 +63,7 @@ const copy = (text) => {
 /* 로그인이 필요한 서비스 실행 시 로그인 컨펌창 열기 */
 const loginConfirmOpen = () => {
   const loginConfirm = document.getElementById('loginConfirm');
-  displayflex(loginConfirm);
+  displayFlex(loginConfirm);
 
 }
 

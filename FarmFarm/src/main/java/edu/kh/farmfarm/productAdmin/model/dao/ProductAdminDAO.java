@@ -56,7 +56,7 @@ public class ProductAdminDAO {
 
 	/** 팜팜글 리스트 조회
 	 * @param pagination
-	 * @return map
+	 * @return productList
 	 */
 	public List<Product> selectProductList(Pagination pagination) {
 		int offset = (pagination.getCurrentPage()-1)*pagination.getLimit();
@@ -65,6 +65,27 @@ public class ProductAdminDAO {
 		
 		
 		return sqlSession.selectList("productAdmin.selectProductList", 0, rowBounds);
+	}
+	
+	/** 조회 결과 수
+	 * @param pm
+	 * @return listCount
+	 */
+	public int getListCount(Map<String, Object> pm) {
+		return sqlSession.selectOne("productAdmin.getListCount_search", pm);
+	}
+
+	/** 조회 결과 리스트 조회
+	 * @param pagination
+	 * @param pm
+	 * @return productList
+	 */
+	public List<Product> selectProductList(Pagination pagination, Map<String, Object> pm) {
+		int offset = (pagination.getCurrentPage()-1)*pagination.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		return sqlSession.selectList("productAdmin.selectProductList_search", pm, rowBounds);
 	}
 
 	/** 판매자 재고 증가
@@ -98,5 +119,46 @@ public class ProductAdminDAO {
 	public Product selectProductDetail(int productNo) {
 		return sqlSession.selectOne("productAdmin.selectProductDetail", productNo);
 	}
+
+	/** 상품 수정
+	 * @param product
+	 * @return result
+	 */
+	public int updateProduct(Product product) {
+		return sqlSession.update("productAdmin.updateProduct", product);
+	}
+
+	/** 상품 이미지 삭제
+	 * @param condition
+	 * @return result
+	 */
+	public int productImgDelete(String condition) {
+		return sqlSession.delete("productAdmin.productImgDelete", condition);
+	}
+
+	/** 상품 이미지 업데이트
+	 * @param img
+	 * @return result
+	 */
+	public int productImgUpdate(ProductImg img) {
+		return sqlSession.update("productAdmin.productImgUpdate", img);
+	}
+
+	/** 상품 이미지 삽입
+	 * @param img
+	 * @return result
+	 */ 
+	public int productImgInsert(ProductImg img) {
+		return sqlSession.insert("productAdmin.productImgInsert", img);
+	}
+
+	/** 상품 상태 변경
+	 * @param map
+	 * @return result
+	 */
+	public int soldoutProduct(Map<String, Object> map) {
+		return sqlSession.update("productAdmin.soldoutProduct", map);
+	}
+
 	
 }

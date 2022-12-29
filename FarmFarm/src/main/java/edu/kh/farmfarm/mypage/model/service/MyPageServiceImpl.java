@@ -422,6 +422,14 @@ public class MyPageServiceImpl implements MyPageService {
 		return 0;
 	}
 	
+	/** 주문 하나 조회
+	 *
+	 */
+	@Override
+	public Order selectOrder(int orderNo) {
+		return dao.selectOrder(orderNo);
+	}
+	
 	
 
 }

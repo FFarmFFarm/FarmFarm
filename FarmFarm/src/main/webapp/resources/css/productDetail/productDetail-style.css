@@ -74,7 +74,7 @@ button:disabled:active {
 /* 대표 이미지 */
 .thumbnail-area {
   width: 430px;
-  height: 550px;
+  height: 450px;
   overflow: hidden;
 }
 
