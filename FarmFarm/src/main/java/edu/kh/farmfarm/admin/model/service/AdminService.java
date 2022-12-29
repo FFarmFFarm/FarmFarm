@@ -21,7 +21,7 @@ public interface AdminService {
 	Map<String, Object> selectStats();
 
 
-	/** 전체 회원 조회(페이지네이션, 정렬)
+	/** 전체 회원 조회(정렬, 페이지네이션, 검색)
 	 * @param paramMap
 	 * @param cp
 	 * @return map

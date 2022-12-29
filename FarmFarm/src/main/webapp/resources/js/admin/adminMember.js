@@ -11,8 +11,7 @@
 
 var numCount = 0;     // numCount : 게시판 번호 no
 var hiddenId = null;  // 상세 조회, 강제탈퇴 ajax에 사용
-const keyword = document.getElementById("adminMemberkeyword");   // 입력한 검색어 
-
+var keyword;
 
 
 
@@ -22,7 +21,7 @@ const keyword = document.getElementById("adminMemberkeyword");   // 입력한 �
 const selectMemberList = (cp) => {
     $.ajax({
         url: "/admin/selectMemberList",
-        data: {"cp":cp, "authFilter": authFilter, "statFilter":statFilter},
+        data: {"cp":cp, "authFilter": authFilter, "statFilter":statFilter, "keyword": keyword},
         dataType: "JSON",
         type: "GET",
         success: (map) => {
@@ -697,7 +696,7 @@ const getFilterNum = (string) => {
 }
 
 
-// 판매자인증 필터 authFilter
+// 판매자인증 필터 authFilter  ..  반복문 실패...
 // 0 전체, 1 미등록, 2 판매자, 3 인증대기
 // for(auth of authFiltering){
 //     auth.addEventListener("click", ()=>{
@@ -830,6 +829,19 @@ document.getElementById("adminDelSubmitBtn").addEventListener('click', ()=>{
     });
 });
 
+
+
+
+// TODO: 검색하기
+// fixme: 숫자 정렬
+
+document.getElementById("memberSearchBtn").addEventListener('click', () => {
+    numCount = (cp-1)*15;
+    keyword = document.getElementById("adminMemberkeyword").value;   // 입력한 검색어 
+    console.log(keyword);
+    selectMemberList(cp);
+
+})
 
 
 

@@ -98,7 +98,7 @@ public class AdminController {
 //	
 	
 	
-	// 전체 회원 조회 페이지로 이동 (값 전달 왜 안돼..?)
+	// 전체 회원 조회 페이지로 이동
 	// JSP 
 	@GetMapping("/admin/member")
 	public String adminMemberPage(@SessionAttribute(value="loginMember") Member loginMember, 
@@ -134,18 +134,23 @@ public class AdminController {
 	
 	
 	
-	// 전체 회원 조회
+	// 전체 회원 조회 (정렬, 페이지네이션, 검색)
 	@GetMapping("/admin/selectMemberList")
 	@ResponseBody
 	public String selectMember(@SessionAttribute(value="loginMember") Member loginMember, 
 								@RequestParam(value="cp", required=false, defaultValue="1") int cp,
 								@RequestParam(value="authFilter", required=false, defaultValue="0") String authFilter,
-								@RequestParam(value="statFilter", required=false, defaultValue="0") String statFilter) {
+								@RequestParam(value="statFilter", required=false, defaultValue="0") String statFilter,
+								@RequestParam(value="keyword", required=false) String keyword) {
 		
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("authFilter", authFilter);
 		paramMap.put("statFilter", statFilter);
+		
+		if(keyword != null) {
+			paramMap.put("keyword", keyword);
+		}
 		
 		// 관리자인지 확인 (관리자면 result==1)
 		int result = service.checkAdmin();

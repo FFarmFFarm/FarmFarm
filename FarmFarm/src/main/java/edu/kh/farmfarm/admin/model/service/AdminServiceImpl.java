@@ -32,7 +32,7 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 
-	// 전체 회원 조회
+	// 전체 회원 조회 (정렬, 페이지네이션, 검색)
 	@Override
 	public Map<String, Object> selectMember(Map<String, Object> paramMap, int cp) {
 

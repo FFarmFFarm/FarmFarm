@@ -68,6 +68,7 @@ main{
 .member-select-title{
     color: var(--icon-button-color);
     font-weight: bold;
+    margin-bottom: 10px
 }
 
 .upper-board{
@@ -359,6 +360,7 @@ main{
     padding: 1px 0;
     border: none;
     background-color: #e2e2e2;
+    font-size: var(--small-font-size);
 }
 
 #memberSearchBtn{

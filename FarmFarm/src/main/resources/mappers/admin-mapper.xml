@@ -125,6 +125,10 @@
 			<if test='statFilter==4'> <!--상태: 강제 탈퇴 -->
 				AND MEMBER_DEL_FL = 'Y'
 			</if>
+			<if test='keyword != null'>
+				AND (MEMBER_ID LIKE('%${keyword}%') OR MEMBER_ID LIKE LOWER('%${keyword}%') OR MEMBER_ID LIKE UPPER('%${keyword}%')
+				OR 	MEMBER_NICKNAME LIKE ('%${keyword}%') OR MEMBER_NICKNAME LIKE LOWER('%${keyword}%') OR MEMBER_NICKNAME LIKE ('%${keyword}%'))
+			</if>
 	</select>
 
 	
@@ -170,6 +174,10 @@
 			</if>
 			<if test='statFilter==4'> <!--상태: 강제 탈퇴 -->
 				AND MEMBER_DEL_FL = 'Y'
+			</if>
+			<if test='keyword != null'>
+				AND (MEMBER_ID LIKE('%${keyword}%') OR MEMBER_ID LIKE LOWER('%${keyword}%') OR MEMBER_ID LIKE UPPER('%${keyword}%')
+				OR 	MEMBER_NICKNAME LIKE ('%${keyword}%') OR MEMBER_NICKNAME LIKE LOWER('%${keyword}%') OR MEMBER_NICKNAME LIKE ('%${keyword}%'))
 			</if>
 	</select>
 	
