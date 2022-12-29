@@ -75,6 +75,7 @@
       <result property="commentParent" column="COMMENT_PARENT" />
 		  <result property="memberNickname" column="MEMBER_NICKNAME"/>
 		  <result property="profileImg" column="PROFILE_IMG"/>
+			<result property="commentDelFl" column="COMMENT_DEL_FL"/>
   </resultMap>
 
 
@@ -349,5 +350,21 @@
 			 DEFAULT, #{memberNo}, #{boardNo})
 	</insert>
 	
+	
+	<!-- 댓글 수정 입니다 -->
+	<update id="commentUpdate">
+		UPDATE "COMMENT" SET
+		COMMENT_CONTENT = #{commentContent}
+		WHERE COMMENT_NO = #{commentNo}
+	</update>
+	
+	
+	<!-- 댓글 삭제!!! -->
+	<update id="commentDelete">
+		UPDATE "COMMENT" SET
+		COMMENT_DEL_FL = 'Y',
+		COMMENT_CONTENT = '삭제된 댓글입니다.'
+		WHERE COMMENT_NO = #{commentNo}
+	</update>
 
 </mapper>
