@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="/resources/css/common/header-style.css" />
     <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
     <link rel="stylesheet" href="/resources/css/myPage/myPage-style.css" />
-    <link rel="stylesheet" href="/resources/css/myPage/myPageProfile-style.css" />
+    <link rel="stylesheet" href="/resources/css/myPage/myPageBoard-style.css" />
     <script
       src="https://kit.fontawesome.com/591746f9e8.js"
       crossorigin="anonymous"
