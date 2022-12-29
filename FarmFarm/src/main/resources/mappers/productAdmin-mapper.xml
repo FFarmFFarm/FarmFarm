@@ -59,7 +59,7 @@
 	<!-- 팜팜이미지 삽입 -->
 	<insert id="insertProductImgList" parameterType="list">
 		INSERT INTO PRODUCT_IMG
-		SELECT SEQ_PRODUCT_IMG_NO.NEXTVAL POST_IMG_NO, A.* FROM
+		SELECT SEQ_PRODUCT_IMG_NO.NEXTVAL PRODUCT_IMG_NO, A.* FROM
 		<foreach collection="list" item="img" open="(" close=") A" separator="UNION ALL">
 			SELECT
 				#{img.productImgAddress} PRODUCT_IMG_ADDRESS,
@@ -120,6 +120,35 @@
 		WHERE PRODUCT_NO = #{productNo}
 	</select>
 	
+	<!-- 게시글 수정 -->
+	<update id="updateProduct">
+		UPDATE PRODUCT SET
+		PRODUCT_NAME = #{productName},
+		PRODUCT_PRICE = #{productPrice},
+		CATEGORY_NO = #{categoryNo},
+		PRODUCT_MESSAGE = #{productMessage}
+		WHERE PRODUCT_NO = #{productNo}
+	</update>
 	
+	<!-- 이미지 삭제 -->
+	<delete id="productImgDelete">
+		DELETE FROM PRODUCT_IMG
+		${condition}
+	</delete>
+	
+	<!-- 이미지 수정 -->
+	<update id="productImgUpdate">
+		UPDATE PRODUCT_IMG SET
+		PRODUCT_IMG_ADDRESS = #{productImgAddress}
+		WHERE PRODUCT_NO = #{productNo}
+		AND PRODUCT_IMG_ORDER = #{productImgOrder}
+	</update>
+	
+	<!-- 이미지 삽입 -->
+	<insert id="productImgInsert">
+		INSERT INTO PRODUCT_IMG 
+		VALUES(SEQ_PRODUCT_IMG_NO.NEXTVAL, #{productImgAddress}, 
+		#{productNo}, #{productImgOrder})
+	</insert>
 	
 </mapper>

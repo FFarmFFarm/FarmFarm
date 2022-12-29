@@ -98,5 +98,37 @@ public class ProductAdminDAO {
 	public Product selectProductDetail(int productNo) {
 		return sqlSession.selectOne("productAdmin.selectProductDetail", productNo);
 	}
+
+	/** 상품 수정
+	 * @param product
+	 * @return result
+	 */
+	public int updateProduct(Product product) {
+		return sqlSession.update("productAdmin.updateProduct", product);
+	}
+
+	/** 상품 이미지 삭제
+	 * @param condition
+	 * @return result
+	 */
+	public int productImgDelete(String condition) {
+		return sqlSession.delete("productAdmin.productImgDelete", condition);
+	}
+
+	/** 상품 이미지 업데이트
+	 * @param img
+	 * @return result
+	 */
+	public int productImgUpdate(ProductImg img) {
+		return sqlSession.update("productAdmin.productImgUpdate", img);
+	}
+
+	/** 상품 이미지 삽입
+	 * @param img
+	 * @return result
+	 */ 
+	public int productImgInsert(ProductImg img) {
+		return sqlSession.insert("productAdmin.productImgInsert", img);
+	}
 	
 }

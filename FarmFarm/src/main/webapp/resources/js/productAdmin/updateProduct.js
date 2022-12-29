@@ -59,7 +59,8 @@ for(let i=0; i<productImage.length; i++){
         } else{
           // input 다음에 있는 요소 비우고
           productImage[i].nextElementSibling.innerHTML="";
-  
+          productImage[i].parentElement.nextElementSibling.innerHTML = "";
+
           // span태그 만들어서 파일 이름 넣기
           const imgAddress = document.createElement("span");
           imgAddress.classList.add("img-address");
@@ -146,6 +147,13 @@ for(let i=0; i<productImage.length; i++){
 
 const productPrice = document.querySelector("[name='productPrice']");
 
+productPrice.addEventListener("focus",()=>{
+  productPrice.setAttribute("placeholder", "");
+})
+productPrice.addEventListener("focusout",()=>{
+  productPrice.setAttribute("placeholder", "0");
+})
+
 productPrice.addEventListener('keyup', (e)=>{
   if((e.keyCode < 48 || e.keyCode > 57)&& e.keyCode!=8){
     alert("숫자만 입력해주세요");
@@ -198,15 +206,13 @@ enrollproductForm.addEventListener("submit", (event)=>{
     return;
   }
 
-  const thumbnail = document.getElementById("img0");
-  if(thumbnail.value.length==0){
+  const thumbnail = document.getElementsByClassName("thumbnail-preview")[0];
+  if(thumbnail.getAttribute("src")==null){
     alert("대표 이미지를 설정해주세요.");
     thumbnail.value="";
     event.preventDefault();
     return;
   }
-
-
 
   const productMessage = document.querySelector("[name='productMessage']");
   if(productMessage.value.trim().length==0){

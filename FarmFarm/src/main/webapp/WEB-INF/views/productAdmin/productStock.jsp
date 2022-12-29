@@ -71,32 +71,58 @@
                                 <span>(${product.regDate})</span>
                             </td>
                             <td class="product-title">
-                                <div class="product-img">
-                                <img src="${product.productImgAddress}">
-                                </div>
-                                <span class="product-name">${product.productName}</span>
+                                <a href="/product/${product.productNo}" class="product-url">
+                                    <div class="product-img">
+                                        <img src="${product.productImgAddress}">
+                                    </div>
+                                    <span class="product-name">${product.productName}</span>
+                                </a>
                                 <div class="product-btn">
                                     <button class="update-btn" id="${product.productNo}">수정</button>
                                     <button class="delete-btn" id="${product.productNo}">삭제</button>
                                 </div>
                             </td>
-                            <td>${product.stock}</td>
+                            <td class="stock">${product.stock}</td>
                             <td>7</td>
                             <td>93</td>
                             <td>
-                                <input type="number" max="999"  class="stock-input" id="stockUp" placeholder="0">
-                                <button class="change-btn" id="${product.productNo}">수정</button>
+                                <input type="number" max="999"  class="stock-input" placeholder="0">
+                                <c:if test="${product.soldoutFl=='N'}">
+                                    <button class="change-btn input-btn" id="${product.productNo}">수정</button>
+                                </c:if>
+                                <c:if test="${product.soldoutFl=='Y'}">
+                                    <button class="change-btn disabled-btn" disabled>수정</button>
+                                </c:if>
                             </td>
                             <td>
-                                <input type="number" max="999" class="stock-input" id="stockDown" placeholder="0">
-                                <button class="change-btn" id="${product.productNo}">수정</button>
+                                <input type="number" max="999" class="stock-output" placeholder="0">
+                                <c:if test="${product.stock != 0 && product.soldoutFl=='N'}">
+                                    <button class="change-btn output-btn" id="${product.productNo}">수정</button>
+                                </c:if>
+                                <c:if test="${product.stock == 0 || product.soldoutFl=='Y'}">
+                                    <button class="change-btn disabled-btn" disabled>
+                                    수정</button>
+                                </c:if>
                             </td>
-                            <c:if test="${product.soldoutFl=='N'}">
+                            <td>
+                                <select name="soldoutFl" id="soldoutFl">
+                                    <c:if test="${product.soldoutFl=='N'}">
+                                        <option value="sell">판매중</option>
+                                        <option value="out">품절</option>
+                                    </c:if>
+                                    <c:if test="${product.soldoutFl=='Y'}">
+                                        <option value="out">품절</option>
+                                        <option value="sell">판매중</option>
+                                    </c:if>
+                                </select>
+                            </td>
+
+                            <%-- <c:if test="${product.soldoutFl=='N'}">
                                 <td>판매중</td>
                             </c:if>
                             <c:if test="${product.soldoutFl=='Y'}">
                                 <td>판매완료</td>
-                            </c:if>
+                            </c:if> --%>
                         </tr>
                     </c:forEach>
                 </table>
