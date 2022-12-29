@@ -283,7 +283,19 @@
 	<!-- 댓글 불러오기~~~~ -->
 	<select id="commentList" resultMap="comment_rm">
 		SELECT LEVEL, C.* FROM
-			(SELECT COMMENT_NO, COMMENT_CONTENT, COMMENT_DATE, COMMENT_PARENT, COMMENT_DEL_FL,
+			(SELECT COMMENT_NO, COMMENT_CONTENT,
+			 TO_CHAR(COMMENT_DATE, 'YYYY-MM-DD ') || 
+				<![CDATA[
+					CASE
+							WHEN SYSDATE - COMMENT_DATE < 1/24/60
+							THEN FLOOR((SYSDATE - COMMENT_DATE) *24*60*60) || '초 전'
+							WHEN SYSDATE - COMMENT_DATE < 1/24
+							THEN FLOOR((SYSDATE - COMMENT_DATE) *24*60) || '분 전'
+							WHEN SYSDATE - COMMENT_DATE < 1
+							THEN FLOOR((SYSDATE - COMMENT_DATE) *24) || '시간 전'
+					END COMMENT_DATE, 
+				]]>
+			 COMMENT_PARENT, COMMENT_DEL_FL,
 				MEMBER_NO, BOARD_NO, MEMBER_NICKNAME, PROFILE_IMG, 
 			 (SELECT COUNT(*) FROM "COMMENT" WHERE BOARD_NO = C.BOARD_NO) COMMENT_COUNT
 			FROM "COMMENT" C
@@ -340,14 +352,14 @@
 	<!-- 댓글 등록을 해봅시다 -->
 	<insert id="commentWrite">
 		INSERT INTO "COMMENT"
-		VALUES(SEQ_COMMENT_NO.NEXTVAL, #{commentContent}, DEFAULT, 
+		VALUES(SEQ_COMMENT_NO.NEXTVAL, #{commentContent},
 			<if test='commentParent == 0'>
 				NULL,
 			</if>
 			<if test='commentParent != 0'>
 				#{commentParent},
 			</if>
-			 DEFAULT, #{memberNo}, #{boardNo})
+			 DEFAULT, #{memberNo}, #{boardNo}, DEFAULT)
 	</insert>
 	
 	

@@ -33,6 +33,7 @@ main{
     width: 650px;
     display: flex;
     margin-right: 140px;
+    height: 100%;
 }
 .category{
     width: 170px;
