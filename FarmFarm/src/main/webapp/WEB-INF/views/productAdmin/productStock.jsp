@@ -29,6 +29,11 @@
 
     <main>
         <jsp:include page='/WEB-INF/views/admin/adminNav.jsp' />
+
+        <c:if test="${not empty parma.key}">
+            <c:set var="sURL" value="$key=${param.key}&query=${param.query}"/>
+        </c:if>
+
         <section class="product-list-section">
             <div class="page-title">
                 <p>상품관리</p>
@@ -64,78 +69,90 @@
                         <th>출고</th>
                         <th>판매상태</th>
                     </tr>
-                    <c:forEach items="${productList}" var="product">
-                        <tr class="table-row">
-                            <td class="product-code">
-                                <span>farm-${product.productNo}</span>
-                                <span>(${product.regDate})</span>
-                            </td>
-                            <td class="product-title">
-                                <a href="/product/${product.productNo}" class="product-url">
-                                    <div class="product-img">
-                                        <img src="${product.productImgAddress}">
-                                    </div>
-                                    <span class="product-name">${product.productName}</span>
-                                </a>
-                                <div class="product-btn">
-                                    <button class="update-btn" id="${product.productNo}">수정</button>
-                                    <button class="delete-btn" id="${product.productNo}">삭제</button>
-                                </div>
-                            </td>
-                            <td class="stock">${product.stock}</td>
-                            <td>7</td>
-                            <td>93</td>
-                            <td>
-                                <input type="number" max="999"  class="stock-input" placeholder="0">
-                                <c:if test="${product.soldoutFl=='N'}">
-                                    <button class="change-btn input-btn" id="${product.productNo}">수정</button>
-                                </c:if>
-                                <c:if test="${product.soldoutFl=='Y'}">
-                                    <button class="change-btn disabled-btn" disabled>수정</button>
-                                </c:if>
-                            </td>
-                            <td>
-                                <input type="number" max="999" class="stock-output" placeholder="0">
-                                <c:if test="${product.stock != 0 && product.soldoutFl=='N'}">
-                                    <button class="change-btn output-btn" id="${product.productNo}">수정</button>
-                                </c:if>
-                                <c:if test="${product.stock == 0 || product.soldoutFl=='Y'}">
-                                    <button class="change-btn disabled-btn" disabled>
-                                    수정</button>
-                                </c:if>
-                            </td>
-                            <td>
-                                <select name="soldoutFl" class="soldout-fl" id="${product.productNo}">
-                                    <c:if test="${product.soldoutFl=='N'}">
-                                        <option value="sell">판매중</option>
-                                        <option value="out">품절</option>
+                    <c:choose>
+                        <c:when test="${}">
+                            <tr>
+                                <th colspan="8">판매 상품이 존재하지 않습니다.</th>
+                            </tr>
+                        </c:when>
+
+                        <c:otherwise>
+                            <c:forEach items="${productList}" var="product">
+                                <tr class="table-row">
+                                    <td class="product-code">
+                                        <span>farm-${product.productNo}</span>
+                                        <span>(${product.regDate})</span>
+                                    </td>
+                                    <td class="product-title">
+                                        <a href="/product/${product.productNo}" class="product-url">
+                                            <div class="product-img">
+                                                <img src="${product.productImgAddress}">
+                                            </div>
+                                            <span class="product-name">${product.productName}</span>
+                                        </a>
+                                        <div class="product-btn">
+                                            <button class="update-btn" id="${product.productNo}">수정</button>
+                                            <button class="delete-btn" id="${product.productNo}">삭제</button>
+                                        </div>
+                                    </td>
+                                    <td class="stock">${product.stock}</td>
+                                    <td>7</td>
+                                    <td>93</td>
+                                    <td>
+                                        <input type="number" max="999"  class="stock-input" placeholder="0">
+                                        <c:if test="${product.soldoutFl=='N'}">
+                                            <button class="change-btn input-btn" id="${product.productNo}">수정</button>
+                                        </c:if>
+                                        <c:if test="${product.soldoutFl=='Y'}">
+                                            <button class="change-btn disabled-btn" disabled>수정</button>
+                                        </c:if>
+                                    </td>
+                                    <td>
+                                        <input type="number" max="999" class="stock-output" placeholder="0">
+                                        <c:if test="${product.stock != 0 && product.soldoutFl=='N'}">
+                                            <button class="change-btn output-btn" id="${product.productNo}">수정</button>
+                                        </c:if>
+                                        <c:if test="${product.stock == 0 || product.soldoutFl=='Y'}">
+                                            <button class="change-btn disabled-btn" disabled>
+                                            수정</button>
+                                        </c:if>
+                                    </td>
+                                    <td>
+                                        <select name="soldoutFl" class="soldout-fl" id="${product.productNo}">
+                                            <c:if test="${product.soldoutFl=='N'}">
+                                                <option value="sell">판매중</option>
+                                                <option value="out">품절</option>
+                                            </c:if>
+                                            <c:if test="${product.soldoutFl=='Y'}">
+                                                <option value="out">품절</option>
+                                                <option value="sell">판매중</option>
+                                            </c:if>
+                                        </select>
+                                    </td>
+
+                                    <%-- <c:if test="${product.soldoutFl=='N'}">
+                                        <td>판매중</td>
                                     </c:if>
                                     <c:if test="${product.soldoutFl=='Y'}">
-                                        <option value="out">품절</option>
-                                        <option value="sell">판매중</option>
-                                    </c:if>
-                                </select>
-                            </td>
+                                        <td>판매완료</td>
+                                    </c:if> --%>
+                                </tr>
+                            </c:forEach>
+                        
+                        </c:otherwise>
 
-                            <%-- <c:if test="${product.soldoutFl=='N'}">
-                                <td>판매중</td>
-                            </c:if>
-                            <c:if test="${product.soldoutFl=='Y'}">
-                                <td>판매완료</td>
-                            </c:if> --%>
-                        </tr>
-                    </c:forEach>
+                    </c:choose>
                 </table>
             </div>
             
             <div class="pagination-area">
                 <div class="page-box">
-                    <a href="/admin/stock">
+                    <a href="/admin/stock?cp=1${sURL}">
                         <i class="fa-solid fa-angles-left"></i>
                     </a>
                 </div>
                 <div class="page-box">
-                    <a href="/admin/stock?cp=${pagination.prevPage}">
+                    <a href="/admin/stock?cp=${pagination.prevPage}${sURL}">
                         <i class="fa-solid fa-angle-left"></i>
                     </a>
                 </div>
@@ -151,18 +168,18 @@
                         </c:when>
                         <c:otherwise>
                             <div class="page-box">
-                                <a href="/admin/stock?cp=${i}">${i}</a>
+                                <a href="/admin/stock?cp=${i}${sURL}">${i}</a>
                             </div>
                         </c:otherwise>
                     </c:choose>
                 </c:forEach>
                 <div class="page-box">
-                    <a href="/admin/stock?cp=${pagination.nextPage}">
+                    <a href="/admin/stock?cp=${pagination.nextPage}${sURL}">
                         <i class="fa-solid fa-angle-right"></i>
                     </a>
                 </div>
                 <div class="page-box">
-                    <a href="/admin/stock?cp=${pagination.maxPage}">
+                    <a href="/admin/stock?cp=${pagination.maxPage}${sURL}">
                         <i class="fa-solid fa-angles-right"></i>
                     </a>
                 </div>
