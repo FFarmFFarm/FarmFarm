@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="/resources/css/common/footer-style.css">
         <link rel="stylesheet" href="/resources/css/admin/adminNav-style.css">
         <link rel="stylesheet" href="/resources/css/admin/dashboard-style.css" />
-        <link rel="stylesheet" href="/resources/css/report/report-style.css" />
+        <link rel="stylesheet" href="/resources/css/report/report-modal-style.css" />
 
         <script src="https://kit.fontawesome.com/d4fbceca97.js" crossorigin="anonymous"></script>
     </head>
