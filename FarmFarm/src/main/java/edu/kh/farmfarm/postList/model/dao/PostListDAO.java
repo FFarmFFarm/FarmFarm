@@ -50,7 +50,7 @@ public class PostListDAO {
 	/** 모든 상품 목록 가져오기
 	 * @return
 	 */
-	public List<Post> getPostListAll(Pagination pagination, String keyword, String sort) {
+	public List<Post> getPostListAll(Pagination pagination, String keyword, String sort, int soldOutFl) {
 		
 		int offset = ( pagination.getCurrentPage() - 1 ) * pagination.getLimit();
 		
@@ -60,7 +60,7 @@ public class PostListDAO {
 		SearchItem searchItem = new SearchItem();
 		searchItem.setKeyword(keyword);
 		searchItem.setSort(sort);
-		
+		searchItem.setSoldOutFl(soldOutFl);
 		
 		return sqlSession.selectList("postListMapper.getPostList_all", searchItem, rowBounds);
 	}
@@ -68,11 +68,12 @@ public class PostListDAO {
 	/** 모든 상품 목록의 개수를 가져오기
 	 * @return
 	 */
-	public int getCountAll(String keyword) {
+	public int getCountAll(String keyword, int soldOutFl) {
 		
 		// 검색어 객체 생성
 		SearchItem searchItem = new SearchItem();
 		searchItem.setKeyword(keyword);
+		searchItem.setSoldOutFl(soldOutFl);
 		
 		return sqlSession.selectOne("postListMapper.getCount_all", searchItem);
 	}
@@ -81,7 +82,7 @@ public class PostListDAO {
 	 * @param category
 	 * @return
 	 */
-	public List<Post> getPostListChecked(Pagination pagination, String keyword, int category, String sort) {
+	public List<Post> getPostListChecked(Pagination pagination, String keyword, int category, String sort, int soldOutFl) {
 		
 		int offset = ( pagination.getCurrentPage() - 1 ) * pagination.getLimit();
 		
@@ -92,7 +93,7 @@ public class PostListDAO {
 		searchItem.setKeyword(keyword);
 		searchItem.setCategory(category);
 		searchItem.setSort(sort);
-		
+		searchItem.setSoldOutFl(soldOutFl);
 		
 		return sqlSession.selectList("postListMapper.getPostList_checked", searchItem, rowBounds);
 		
@@ -101,12 +102,13 @@ public class PostListDAO {
 	/** 선택된 상품 목록의 개수를 가져오기
 	 * @return
 	 */
-	public int getCountChecked(String keyword, int category) {
+	public int getCountChecked(String keyword, int category, int soldOutFl) {
 		
 		// 검색어 객체 생성
 		SearchItem searchItem = new SearchItem();
 		searchItem.setKeyword(keyword);
 		searchItem.setCategory(category);
+		searchItem.setSoldOutFl(soldOutFl);
 		
 		return sqlSession.selectOne("postListMapper.getCount_checked", searchItem);
 	}

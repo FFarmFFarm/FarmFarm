@@ -14,13 +14,14 @@
 	      <result property="thumbnailImg" column="THUMBNAIL_IMG" />
 	      <result property="rates" column="RATES" />
 	      <result property="productDelFl" column="PRODUCT_DEL_FL" />
+	      <result property="stock" column="STOCK" />
 	 </resultMap>
 
 
 
 	<!-- 모든 상품 목록을 불러오는 SQL -->
 	<select id="getProductList_all" parameterType="SearchItem" resultMap="productList_rm">
-		SELECT PRODUCT_NO, PRODUCT_NAME,
+		SELECT PRODUCT_NO, PRODUCT_NAME, STOCK,
 			   TO_CHAR(PRODUCT_PRICE, 'FM999,999,999,999') PRODUCT_PRICE, 
 		       CATEGORY_NO, PRODUCT_MESSAGE,
 			   (SELECT PRODUCT_IMG_ADDRESS
@@ -35,19 +36,22 @@
 		<if test=' keyword != null '>
 			AND PRODUCT_NAME LIKE '%${keyword}%' 
 		</if>
+		<if test=' stockOutFl.equals("Y") '>
+			AND STOCK > 0  
+		</if>
 		<if test=' sort != null'>
 			<choose>
 				<when test=' sort == "rates" '>
-					ORDER BY RATES DESC
+					ORDER BY RATES DESC, PRODUCT_NO DESC
 				</when>
 				<when test=' sort == "newest" '>
-					ORDER BY PRODUCT_NO DESC
+					ORDER BY PRODUCT_NO DESC, PRODUCT_NO DESC
 				</when>
 				<when test=' sort == "priceLowToHigh" '>
-					ORDER BY TO_NUMBER(PRODUCT_PRICE,'999999999999')
+					ORDER BY TO_NUMBER(PRODUCT_PRICE,'999999999999'), PRODUCT_NO DESC
 				</when>
 				<when test=' sort == "priceHighToLow" '>
-					ORDER BY TO_NUMBER(PRODUCT_PRICE,'999999999999') DESC
+					ORDER BY TO_NUMBER(PRODUCT_PRICE,'999999999999') DESC, PRODUCT_NO DESC
 				</when>
 			</choose>
 		</if>
@@ -62,11 +66,14 @@
 		<if test=' #{keyword} != null '>
 			AND PRODUCT_NAME LIKE '%' || #{keyword} || '%'
 		</if>
+		<if test=' stockOutFl.equals("Y") '>
+			AND STOCK > 0  
+		</if>
 	</select>
 	
 	<!-- 선택한 상품의 카테고리 목록을 불러오는 SQL -->
 	<select id="getProductList_checked" parameterType="SearchItem" resultMap="productList_rm">
-		SELECT PRODUCT_NO, PRODUCT_NAME, 
+		SELECT PRODUCT_NO, PRODUCT_NAME, STOCK,
 			   TO_CHAR(PRODUCT_PRICE, 'FM999,999,999,999') PRODUCT_PRICE, 
 			   CATEGORY_NO, PRODUCT_MESSAGE,
 			   (SELECT PRODUCT_IMG_ADDRESS
@@ -82,19 +89,22 @@
 		<if test=' keyword != null '>
 			AND PRODUCT_NAME LIKE '%${keyword}%' 
 		</if>
+		<if test=' stockOutFl.equals("Y") '>
+			AND STOCK > 0  
+		</if>
 		<if test=' sort != null'>
 			<choose>
 				<when test=' sort == "rates" '>
-					ORDER BY RATES DESC
+					ORDER BY RATES DESC, PRODUCT_NO DESC
 				</when>
 				<when test=' sort == "newest" '>
-					ORDER BY PRODUCT_NO DESC
+					ORDER BY PRODUCT_NO DESC, PRODUCT_NO DESC
 				</when>
 				<when test=' sort == "priceLowToHigh" '>
-					ORDER BY TO_NUMBER(PRODUCT_PRICE,'999999999999')
+					ORDER BY TO_NUMBER(PRODUCT_PRICE,'999999999999'), PRODUCT_NO DESC
 				</when>
 				<when test=' sort == "priceHighToLow" '>
-					ORDER BY TO_NUMBER(PRODUCT_PRICE,'999999999999') DESC
+					ORDER BY TO_NUMBER(PRODUCT_PRICE,'999999999999') DESC, PRODUCT_NO DESC
 				</when>
 			</choose>
 		</if>
@@ -110,6 +120,9 @@
 		<if test=' #{keyword} != null '>
 			AND PRODUCT_NAME LIKE '%' || #{keyword} || '%' 
 		</if>
+		<if test=' stockOutFl.equals("Y") '>
+			AND STOCK > 0  
+		</if>		
 	</select>
 
 

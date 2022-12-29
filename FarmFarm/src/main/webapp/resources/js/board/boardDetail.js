@@ -49,7 +49,7 @@ if(likeBtn != null){
         const likeCount = document.getElementById("likeCount")
     
         // 좋아요 취소하는 경우
-        if(heartIcon.classList.contains("fa-solid")){
+        if(heartIcon.classList.contains("checkLike")){
             $.ajax({
                 url : "/boardLikeDelete",
                 data : {"boardNo":boardNo, "memberNo":memberNo},

@@ -27,4 +27,16 @@ public class CommentDAO {
 		return sqlSession.insert("boardMapper.commentWrite", comment);
 	}
 
+
+	// 댓글 수정하기~~
+	public int commentUpdate(Comment comment) {
+		return sqlSession.update("boardMapper.commentUpdate", comment);
+	}
+
+
+	// 댓글 삭제하기~~~
+	public int commentDelete(Comment comment) {
+		return sqlSession.update("boardMapper.commentDelete", comment);
+	}
+
 }
