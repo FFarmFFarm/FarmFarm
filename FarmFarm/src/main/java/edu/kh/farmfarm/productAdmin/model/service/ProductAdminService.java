@@ -25,6 +25,14 @@ public interface ProductAdminService {
 	 * @return map
 	 */
 	Map<String, Object> selectProductList(int cp);
+	
+
+	/** 팜팜상품 검색결과
+	 * @param pm
+	 * @param cp
+	 * @return
+	 */
+	Map<String, Object> selectProductList(Map<String, Object> pm, int cp);
 
 	/** 판매자 재고 증가
 	 * @param map
@@ -67,5 +75,6 @@ public interface ProductAdminService {
 	 * @return result
 	 */
 	int soldoutProduct(Map<String, Object> map);
+
 
 }

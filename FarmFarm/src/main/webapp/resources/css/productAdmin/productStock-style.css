@@ -145,6 +145,11 @@ main{
 
 
 /* 검색창 */
+
+#searchKey{
+    outline: none;
+}
+
 .list-search{
     display: flex;
     margin-right: 2px;

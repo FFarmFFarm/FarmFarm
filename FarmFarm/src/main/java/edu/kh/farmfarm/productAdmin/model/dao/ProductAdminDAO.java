@@ -56,7 +56,7 @@ public class ProductAdminDAO {
 
 	/** 팜팜글 리스트 조회
 	 * @param pagination
-	 * @return map
+	 * @return productList
 	 */
 	public List<Product> selectProductList(Pagination pagination) {
 		int offset = (pagination.getCurrentPage()-1)*pagination.getLimit();
@@ -65,6 +65,27 @@ public class ProductAdminDAO {
 		
 		
 		return sqlSession.selectList("productAdmin.selectProductList", 0, rowBounds);
+	}
+	
+	/** 조회 결과 수
+	 * @param pm
+	 * @return listCount
+	 */
+	public int getListCount(Map<String, Object> pm) {
+		return sqlSession.selectOne("productAdmin.getListCount_search", pm);
+	}
+
+	/** 조회 결과 리스트 조회
+	 * @param pagination
+	 * @param pm
+	 * @return productList
+	 */
+	public List<Product> selectProductList(Pagination pagination, Map<String, Object> pm) {
+		int offset = (pagination.getCurrentPage()-1)*pagination.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		return sqlSession.selectList("productAdmin.selectProductList_search", pm, rowBounds);
 	}
 
 	/** 판매자 재고 증가
@@ -138,5 +159,6 @@ public class ProductAdminDAO {
 	public int soldoutProduct(Map<String, Object> map) {
 		return sqlSession.update("productAdmin.soldoutProduct", map);
 	}
+
 	
 }
