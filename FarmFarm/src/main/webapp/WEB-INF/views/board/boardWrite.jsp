@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="/resources/css/board/boardWrite-style.css">
     <link rel="stylesheet" href="/resources/css/common/header-style.css" />
     <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
+
+    <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
 </head>
 <body>
 
@@ -87,6 +89,7 @@
                 </div>
             </section>
         </form>
+        <jsp:include page="/WEB-INF/views/common/modal/loginConfirm.jsp"/>
     </main>
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
@@ -98,7 +101,11 @@
         <%-- message 1회 출력 후 모든 scope에서 삭제 --%>
         <c:remove var="message"/>
     </c:if>
+    <script>
+        loginMember = "${loginMember}"
+    </script>
     
+    <script src="/resources/js/common/common.js"></script>
     <script src="/resources/js/board/boardWrite.js"> </script>
 </body>
 </html>
