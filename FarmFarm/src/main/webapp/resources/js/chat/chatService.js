@@ -254,7 +254,11 @@ const makeChatRoom = (myMemberNo, chatHistory, profileImg2, memberNickname2, pos
 
     // 라벨 영역
     const postImg = document.getElementById('postImg');
-    postImg.innerHTML = "<img src=" + postInfo.thumbnailImg + ">";
+    if(postInfo.thumbnailImg == undefined) {
+        postImg.innerHTML = "<img src='/resources/images/member/user.png'>";
+    } else {
+        postImg.innerHTML = "<img src=" + postInfo.thumbnailImg + ">";
+    }
 
     const postTitle = document.getElementById('postTitle');
     postTitle.innerHTML = postInfo.postTitle;
