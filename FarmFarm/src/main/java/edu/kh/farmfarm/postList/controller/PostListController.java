@@ -32,6 +32,7 @@ public class PostListController {
 			
 			// 1. 입력받은 모든 파라미터에서 특수문자를 제거함
 			keyword = Util.replaceSpecialSymbol(keyword);
+			
 			sort = Util.replaceSpecialSymbol(sort);
 			
 			// 2. 모든 post 카테고리 리스트를 조회

@@ -44,10 +44,10 @@
 					POST_NO DESC
 				</when>
 				<when test=' sort == "priceLowToHigh" '>
-					UNIT_PRICE
+					TO_NUMBER(UNIT_PRICE,'999999999999')
 				</when>
 				<when test=' sort == "priceHighToLow" '>
-					UNIT_PRICE DESC
+					TO_NUMBER(UNIT_PRICE,'999999999999') DESC
 				</when>
 			</choose>
 		</if>
@@ -90,10 +90,10 @@
 					POST_NO DESC
 				</when>
 				<when test=' sort == "priceLowToHigh" '>
-					UNIT_PRICE
+					TO_NUMBER(UNIT_PRICE,'999999999999')
 				</when>
 				<when test=' sort == "priceHighToLow" '>
-					UNIT_PRICE DESC
+					TO_NUMBER(UNIT_PRICE,'999999999999') DESC
 				</when>
 			</choose>
 		</if>
