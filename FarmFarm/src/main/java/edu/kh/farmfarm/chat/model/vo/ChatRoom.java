@@ -36,4 +36,7 @@ public class ChatRoom {
 	
 	private String chatTimeOrder;
 	
+	private String postTitle;
+	private String thumbnailImg;
+	
 }
