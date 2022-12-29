@@ -162,7 +162,18 @@ public class ProductAdminController {
 		return "redirect:" + path;
 	}
 	
-	
+	@ResponseBody
+	@GetMapping("/admin/soldout")
+	public int soldoutProduct(
+			@RequestParam("pStatus") String pStatus,
+			@RequestParam("productNo") int productNo) {
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("pStatus", pStatus);
+			map.put("productNo", productNo);
+		
+		return service.soldoutProduct(map);
+	}
 	
 	
 	

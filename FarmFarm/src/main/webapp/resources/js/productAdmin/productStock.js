@@ -134,24 +134,27 @@ for(let i=0; i<soldOutBtn.length; i++){
   // 원래 체크된 옵션
   let origin = soldOutBtn[i].value;
   console.log(origin);
+  
+  const productNo = soldOutBtn[i].getAttribute("id");
 
   soldOutBtn[i].addEventListener("change",(e)=>{
 
     if(e.target.value != origin){
       console.log(e.target.value);
-
+      
       $.ajax({
-        url: "",
-        data: {"productNo" : productNo},
+        url: "/admin/soldout",
+        data: {"pStatus" : e.target.value,
+              "productNo" : productNo},
         type: "GET",
         success: (result)=>{
           if(result>0){
-            alert("상품이 삭제되었습니다.");
+            alert("상품 상태가 변경되었습니다.");
             window.location.reload();
           }
         },
         error: ()=>{
-          console.log("삭제처리 실패");
+          console.log("상태변경 실패");
         }
       })
 

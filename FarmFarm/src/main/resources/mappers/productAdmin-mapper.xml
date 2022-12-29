@@ -151,4 +151,19 @@
 		#{productNo}, #{productImgOrder})
 	</insert>
 	
+	<!-- 상품 상태 변경 -->
+	<update id="soldoutProduct">
+		UPDATE "PRODUCT" SET
+		<choose>
+			<when test='pStatus=="sell"'>
+				SOLDOUT_FL = 'N'		
+			</when>
+			<when test='pStatus=="out"'>
+				SOLDOUT_FL = 'Y'				
+			</when>
+		</choose>
+		WHERE PRODUCT_NO = #{productNo}
+	</update>
+	
+	
 </mapper>
