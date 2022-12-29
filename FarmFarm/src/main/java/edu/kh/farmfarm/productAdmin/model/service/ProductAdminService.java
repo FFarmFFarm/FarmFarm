@@ -62,4 +62,10 @@ public interface ProductAdminService {
 	int updateProduct(Product product, List<MultipartFile> productImgList, String webPath, String folderPath,
 			String deleteList) throws Exception;
 
+	/** 상품 상태 변경
+	 * @param map
+	 * @return result
+	 */
+	int soldoutProduct(Map<String, Object> map);
+
 }

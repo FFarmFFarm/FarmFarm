@@ -1,7 +1,6 @@
 package edu.kh.farmfarm.productAdmin.model.service;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -167,6 +166,13 @@ public class ProductAdminServiceImpl implements ProductAdminService{
 		}
 		
 		return result;
+	}
+
+	
+	// 상품 상태 변경
+	@Override
+	public int soldoutProduct(Map<String, Object> map) {
+		return dao.soldoutProduct(map);
 	}
 	
 }
