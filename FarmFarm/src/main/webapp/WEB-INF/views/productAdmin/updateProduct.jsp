@@ -75,16 +75,16 @@
                             <c:set var="thumbnail" value="${img.productImgAddress}"/>
                         </c:when>
                         <c:when test="${img.productImgOrder==1}">
-                            <c:set var="img1" value="${img.productImgAddress}"/>
+                            <c:set var="img1" value="${img.productImgOriginal}"/>
                         </c:when>
                         <c:when test="${img.productImgOrder==2}">
-                            <c:set var="img2" value="${img.productImgAddress}"/>
+                            <c:set var="img2" value="${img.productImgOriginal}"/>
                         </c:when>
                         <c:when test="${img.productImgOrder==3}">
-                            <c:set var="img3" value="${img.productImgAddress}"/>
+                            <c:set var="img3" value="${img.productImgOriginal}"/>
                         </c:when>
                         <c:when test="${img.productImgOrder==4}">
-                            <c:set var="img4" value="${img.productImgAddress}"/>
+                            <c:set var="img4" value="${img.productImgOriginal}"/>
                         </c:when>
                     </c:choose>
                 </c:forEach>
