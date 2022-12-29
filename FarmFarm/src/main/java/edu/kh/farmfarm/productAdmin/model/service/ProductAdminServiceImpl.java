@@ -116,5 +116,57 @@ public class ProductAdminServiceImpl implements ProductAdminService{
 	public Product selectProductDetail(int productNo) {
 		return dao.selectProductDetail(productNo);
 	}
+
+	// 상품 수정
+	@Override
+	public int updateProduct(Product product, List<MultipartFile> productImgList, String webPath, String folderPath,
+			String deleteList) throws Exception {
+		
+		product.setProductName(Util.XSSHandling(product.getProductName()));
+		product.setProductMessage(Util.XSSHandling(product.getProductMessage()));
+		
+		int result = dao.updateProduct(product);
+		
+		if(result>0) {
+			if(!deleteList.equals("")) {
+				
+				String condition = "WHERE PRODUCT_NO = " + product.getProductNo()
+								+ "AND PRODUCT_IMG_ORDER IN(" + deleteList + ")";
+				
+				result = dao.productImgDelete(condition);
+			}
+			
+			List<ProductImg> imgList = new ArrayList<ProductImg>();
+			List<String> renameList = new ArrayList<String>();
+			
+			for(int i=0; i<productImgList.size(); i++) {
+				if(productImgList.get(i).getSize()>0) {
+					ProductImg img = new ProductImg();
+					
+					String rename = Util.fileRename(productImgList.get(i).getOriginalFilename());
+					renameList.add(rename);
+					
+					img.setProductImgAddress(webPath+rename);
+					img.setProductImgOrder(i);
+					img.setProductNo(product.getProductNo());
+					
+					imgList.add(img);
+					result = dao.productImgUpdate(img);
+					
+					if(result==0) {
+						result = dao.productImgInsert(img);
+					}
+				}
+			}
+			if(!imgList.isEmpty()) {
+				for(int i=0; i<imgList.size(); i++) {
+					int index = imgList.get(i).getProductImgOrder();
+					productImgList.get(index).transferTo(new File(folderPath+renameList.get(i)));
+				}
+			}
+		}
+		
+		return result;
+	}
 	
 }
