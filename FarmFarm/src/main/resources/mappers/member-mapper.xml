@@ -90,5 +90,26 @@
 		WHERE MEMBER_NO = #{memberNo}
 	</select>
 
+	<!-- 아이디 찾기 -->
+	<select id="findId" resultMap="member_rm">
+		SELECT MEMBER_ID, TO_CHAR(SIGNUP_DATE, 'YYYY"년"MM"월"DD"일"') SIGNUP_DATE FROM "MEMBER" 
+		WHERE MEMBER_NAME = #{memberName}
+		AND MEMBER_TEL = #{to}
+	</select>
+
+	<!-- 비밀번호 찾기 -->
+	<select id="findPw" resultMap="member_rm">
+		SELECT MEMBER_PW, MEMBER_NO FROM "MEMBER" 
+		WHERE MEMBER_NAME = #{memberName}
+		AND MEMBER_TEL = #{to}
+		AND MEMBER_ID = #{memberId}
+	</select>
+	
+	<!-- 비밀번호 변경 -->
+	<update id="changePw">
+		UPDATE "MEMBER" SET
+		MEMBER_PW = #{newPw}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
 
 </mapper>

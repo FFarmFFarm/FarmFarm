@@ -84,7 +84,7 @@ const checkObj = {
     "agreeInput1"         : false, // 동의
     "agreeInput"         : false, // 동의
     "farmImg"         : false, // 사진
-    // "userNum" :false
+    "userNum" :false
 };
 
 // 회원 가입 양식이 제출 되었을 때
@@ -129,9 +129,6 @@ document.getElementById("signUpFrm").addEventListener("submit",function(event){
     }
 
 })
-
-const userNum = document.getElementById("userNum");
-// userNum.addEventListener("")
 
 // 체크박스 유효성 검사
 const agreeInput1 = document.getElementById("agreeInput1");

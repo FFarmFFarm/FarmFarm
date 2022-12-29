@@ -149,7 +149,7 @@
                         </div>
                     </div>
 
-                    <script src="/resources/js/member/signUp.js"></script>
+                    <script src="/resources/js/member/find.js"></script>
                     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
                     <script src="https://code.jquery.com/jquery-3.6.1.min.js"
                         integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
@@ -169,10 +169,10 @@
                         });
 
                         //휴대폰번호 인증번호 보내기 버튼 클릭 이벤트
-                        $('#send').click(function() {
-	
-                        const to = $('#to').val();
                         
+                        checkObj.userNum = false;
+                        $('#send').click(function() {
+                        const to = $('#to').val();
                         $.ajax ({
                             url: '/check/sendSMS',
                             type: 'GET',
@@ -188,9 +188,11 @@
                                     
                                     if(checkNum === userNum) {
                                         alert('인증 성공하였습니다.');
+                                        checkObj.userNum = true;
                                     }
                                     else {
                                         alert('인증 실패하였습니다. 다시 입력해주세요.');
+                                        checkObj.userNum = false;
                                     }
                                 });
                                 

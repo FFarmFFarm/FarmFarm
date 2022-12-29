@@ -283,48 +283,6 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public int updateImage(String webPath, String folderPath, Member loginMember, MultipartFile farmfarm) throws Exception {
 		
-//		Member img = new Member();
-//		int checkImg = dao.checkImg(loginMember);
-//		
-//		int result = 0;
-//		String rename = null;
-//		
-//		if(checkImg >0) { // 이미지 있으면 수정 
-//			String temp = loginMember.getProfileImg();
-//
-//			rename = Util.fileRename(farmfarm.getOriginalFilename());
-//			
-//			img.setProfileImg(webPath +rename);
-//			img.setMemberNo(loginMember.getMemberNo());
-//			
-//			result = dao.updateImg(img);
-//			
-//			if(result>0) { // 수정 성공 
-//				if(rename != null) {
-//					farmfarm.transferTo(new File(folderPath +rename));
-//				} else {
-//					loginMember.setProfileImg(temp);
-//					throw new Exception("이미지 업로드 실패");
-//				}
-//				
-//			}
-//			
-//		} else { // 이미지 없으면 추가 
-//			if(farmfarm.getSize() != 0) {
-//				rename = Util.fileRename(farmfarm.getOriginalFilename());
-//				
-//				img.setProfileImg(webPath + rename);
-//				
-//				result = dao.updateImg(img);
-//				
-//				if(result > 0) { // 추가 성공 
-//					farmfarm.transferTo(new File(folderPath + rename));
-//				}
-//			}
-//		}
-//		
-//		return result;
-		
 		String temp = loginMember.getProfileImg();
 		
 		String rename = null;
