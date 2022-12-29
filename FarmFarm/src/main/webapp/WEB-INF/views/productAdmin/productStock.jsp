@@ -70,7 +70,7 @@
                         <th>판매상태</th>
                     </tr>
                     <c:choose>
-                        <c:when test="${}">
+                        <c:when test="${productList}">
                             <tr>
                                 <th colspan="8">판매 상품이 존재하지 않습니다.</th>
                             </tr>
