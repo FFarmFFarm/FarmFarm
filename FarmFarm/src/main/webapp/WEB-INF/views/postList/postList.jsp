@@ -123,6 +123,11 @@
                     <span>개</span>
                 </div>
                 <div class="view-option">
+                    <label for="except">
+                        <input type="checkbox" id="except">
+                        품절상품 제외하기
+                    </label>
+                    <span>|</span>
                     <input type='radio' name='sorting' id='rates' value='views' checked>
                     <label for='rates' class="opt">조회순</label>
                     <span>|</span>

@@ -101,8 +101,7 @@
                             <p>판매가격</p>
                             <input type="text" name="productPrice" 
                             value="${product.productPrice}"
-                            placeholder=0
-                            onfocus="this.placeholder = ''">
+                            placeholder=0>
                             <p>원</p>
                         </li>
                         <li class="info-list">

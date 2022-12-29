@@ -119,7 +119,7 @@
                             <input type="text" name="unitPrice" 
                             value="${post.unitPrice}"
                             placeholder=0
-                            onfocus="this.placeholder = ''">
+                            >
                             <p>원</p>
                         </li>
                         <li class="info-list">

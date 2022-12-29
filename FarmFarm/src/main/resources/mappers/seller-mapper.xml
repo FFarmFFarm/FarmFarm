@@ -147,7 +147,9 @@
 	<update id="updatePost">
 		UPDATE POST SET
 		POST_TITLE = #{postTitle},
-		POST_CONTENT = #{postContent}
+		POST_CONTENT = #{postContent},
+		UNIT_PRICE = #{unitPrice},
+		CATEGORY_NO = #{categoryNo}
 		WHERE POST_NO = #{postNo}
 	</update>
 	
