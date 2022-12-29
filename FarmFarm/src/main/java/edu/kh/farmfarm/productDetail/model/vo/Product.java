@@ -9,7 +9,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Product {
+public class Product  implements Cloneable{
 	
 	private int productNo;
 	private String productName;
@@ -30,6 +30,7 @@ public class Product {
 	private String sortFl;
 	private int reviewCheck;
 	private int productStatus;
+	private int returnNo;
 	
 	private List<ProductImg> imgList;
 	
@@ -39,6 +40,13 @@ public class Product {
 	private String thumbnailImg;
 	// 판매량
 	private String rates;
+	
+	
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
+	
 	
 	
 }

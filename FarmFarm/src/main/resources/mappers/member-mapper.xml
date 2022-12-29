@@ -19,6 +19,7 @@
       <result property="profileImg" column="PROFILE_IMG" />
       <result property="mypageImg" column="MYPAGE_IMG" />
       <result property="memberAddress" column="MEMBER_ADDRESS" />
+      <result property="memberAddress2" column="MEMBER_ADDRESS2" />
       <result property="boardCount" column="BOARD_COUNT" />
       <result property="commentCount" column="COMMENT_COUNT" />
       <result property="orderCount" column="ORDER_COUNT" />
@@ -43,7 +44,8 @@
 			(SELECT COUNT(*) FROM BOARD b WHERE b.MEMBER_NO = m.MEMBER_NO) BOARD_COUNT,
 			(SELECT COUNT(*) FROM "COMMENT" c WHERE c.MEMBER_NO = m.MEMBER_NO) COMMENT_COUNT,
 			(SELECT COUNT(*) FROM "ORDER" o WHERE o.MEMBER_NO = m.MEMBER_NO) ORDER_COUNT,
-			(SELECT MEMBER_ADDRESS FROM ADDRESS a WHERE a.MEMBER_NO = m.MEMBER_NO AND DEFAULT_FL = 'Y') MEMBER_ADDRESS
+			(SELECT MEMBER_ADDRESS FROM ADDRESS a WHERE a.MEMBER_NO = m.MEMBER_NO AND DEFAULT_FL = 'Y') MEMBER_ADDRESS,
+			REPLACE((SELECT MEMBER_ADDRESS FROM ADDRESS a WHERE a.MEMBER_NO = m.MEMBER_NO AND DEFAULT_FL = 'Y'), ',,', ' ') MEMBER_ADDRESS2
 		FROM MEMBER m
 		WHERE MEMBER_DEL_FL = 'N'
 		AND MEMBER_ID = #{memberId}
