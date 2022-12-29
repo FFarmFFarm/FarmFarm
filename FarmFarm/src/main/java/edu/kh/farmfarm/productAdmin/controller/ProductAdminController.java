@@ -127,5 +127,54 @@ public class ProductAdminController {
 		return "productAdmin/updateProduct";
 	}
 	
+	// 상품 수정
+	@PostMapping("/admin/update/{productNo}")
+	public String updateProduct(Product product,
+			@PathVariable("productNo") int productNo,
+			@RequestParam(value="cp", required=false, defaultValue="1") int cp,
+			@RequestParam(value="deleteList", required=false) String deleteList,
+			@RequestParam(value="productImage", required=false) List<MultipartFile> productImgList,
+			@RequestHeader("referer") String referer,
+			RedirectAttributes ra,
+			HttpSession session) throws Exception {
+		
+		product.setProductNo(productNo);
+			
+		String webPath = "/resources/images/product/detail/";
+		
+		String folderPath = session.getServletContext().getRealPath(webPath);
+		
+		int result = service.updateProduct(product, productImgList, webPath, folderPath, deleteList);
+		
+		String path = null;
+		String message = null;
+		
+		if(result>0) {
+			message = "팜팜상품이 수정되었습니다.";
+			path = "/admin/update/"+ productNo + "?cp=" +cp;
+		}else {
+			message = "팜팜상품 수정 실패";
+			path = referer;
+		}
+		
+		ra.addFlashAttribute("message", message);
+		
+		return "redirect:" + path;
+	}
+	
+	@ResponseBody
+	@GetMapping("/admin/soldout")
+	public int soldoutProduct(
+			@RequestParam("pStatus") String pStatus,
+			@RequestParam("productNo") int productNo) {
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("pStatus", pStatus);
+			map.put("productNo", productNo);
+		
+		return service.soldoutProduct(map);
+	}
+	
+	
 	
 }

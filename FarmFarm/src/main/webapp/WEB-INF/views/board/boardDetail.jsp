@@ -76,11 +76,11 @@ ${board.boardContent}
                         </c:if>
                         <c:if test="${!empty likeCheck}">
                             <%-- 좋아요 눌러진 경우 --%>
-                            <i class="fa-solid fa-heart" id="boardLike"></i>
+                            <i class="fa-solid fa-heart checkLike" id="boardLike"></i>
                         </c:if>
                         &nbsp; 좋아요&nbsp;<span id="likeCount">${board.likeCount}</span>
                     </button>
-                    <button class="board-report">신고</button>
+                    <button class="board-report" id="reportBtn">신고</button>
                 </c:if>
                 <c:if test="${loginMember.memberNo == board.memberNo}">
                     <button type="button" id="boardUpdate">수정하기</button>

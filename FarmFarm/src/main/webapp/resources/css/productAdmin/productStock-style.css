@@ -261,6 +261,12 @@ td, tr{
     font-weight: bolder;
 }
 
+.product-url{
+    width: 83%;
+    display: flex;
+    align-items: center;
+}
+
 .product-img{
     width: 60px;
     height: 60px;
@@ -306,7 +312,7 @@ td, tr{
 
 /* 재고 수정 */
 
-.stock-input{
+.stock-input, .stock-output{
     margin: 0 auto;
     width: 45px;
     display: block;
@@ -333,6 +339,22 @@ input[type="number"]::-webkit-inner-spin-button {
     border-radius: 3px;
     font-weight: bolder;
 }
+
+.disabled-btn{
+    background-color: #d8d8d8;
+    border-color: #d8d8d8;
+}
+
+
+.soldout-fl{
+    border: none;
+    font-size: var(--small-font-size);
+    color: var(--main-font-color);
+    /* width: 50px; */
+    text-align: center;
+    outline: none;
+}
+
 
 
 /* 페이지네이션 영역 */
