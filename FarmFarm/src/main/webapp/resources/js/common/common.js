@@ -95,6 +95,7 @@ const messageModalOpen = (message) => {
   const messageContent = document.getElementById('messageContent');
   messageContent.innerText = "";
   messageContent.innerText = message;
+  console.log("모달");
 
   displayFlexNoLock(messageModal);
 
