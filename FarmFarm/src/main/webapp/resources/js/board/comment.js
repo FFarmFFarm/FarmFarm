@@ -1,13 +1,4 @@
 
-// const row = document.getElementById("commentRow")
-// const pro = document.querySelector("writer-profile");
-
-// if(row.classList.contains("comment-child")){
-//     pro.classList.add("child-img");
-// }else{
-//     pro.classList.add("parent-img");
-// }
-
 function selectCommentList(){
 
     $.ajax({
@@ -18,10 +9,6 @@ function selectCommentList(){
 
             console.log(coList);
 
-            // 화면에 나온 댓글들을 싹 지웁니다
-            const commentList = document.querySelector(".comment-list");
-            commentList.innerHTML="";
-
             // 댓글이 없다면!
             if(coList.length == 0){
                 commentWriter.classList.add("emptyComment");
@@ -29,9 +16,33 @@ function selectCommentList(){
                 
             }else{ // 댓글이 있따면!!
                 
+                
+                // 화면에 나온 댓글들을 싹 지웁니다
+                const commentArea1 = document.querySelector(".comment-area");
+                commentArea1.innerHTML="";
+
+                const commentCount = document.createElement("div");
+                commentCount.classList.add("comment-count");
+                
+                const commentWrite = document.createElement("div");
+                commentWrite.classList.add("comment-write");
+                
+                const writeComment = document.createElement("textarea");
+                writeComment.classList.add("write-comment");
+                writeComment.setAttribute("name", "commentContent");
+
+                const commentInsert = document.createElement("button"); 
+                commentInsert.classList.add("comment-insert"); 
+                commentInsert.setAttribute("type", "button");
+                commentInsert.setAttribute("onclick", "commentFunction()");
+                commentInsert.innerHTML = "댓글<br>등록";
+
+                const commentList = document.createElement("ul");
+                commentList.classList.add("comment-list");
                 // coList 요소들을 하나씩 꺼내볼까요~?
                 for(let comment of coList){
                     
+                    commentCount.innerText = "댓글 "+comment.commentCount;
                     // 댓글 li태그
                     const commentRow = document.createElement("li");
                     commentRow.classList.add("comment-row");
@@ -99,6 +110,10 @@ function selectCommentList(){
 
     
                     // 자~ append 해볼까
+
+                    
+                    commentWrite.append(writeComment, commentInsert)
+                    
                     commentList.append(commentRow);
                     commentRow.append(commentWriter, commentArea);
 
@@ -113,22 +128,23 @@ function selectCommentList(){
                     if(memberNo == comment.memberNo && comment.commentDelFl == 'N'){
                         const commentInsert = document.createElement("button");
                         const commentDelete = document.createElement("button");
-
+                        
                         commentInsert.classList.add("comment-reply");
                         commentDelete.classList.add("comment-reply");
 
                         commentInsert.innerHTML = "|&nbsp;&nbsp;수정&nbsp;&nbsp;";
                         commentDelete.innerHTML = "|&nbsp;&nbsp;삭제&nbsp;&nbsp;";
-
+                        
                         commentInsert.setAttribute("onclick", "showUpdateComment("+comment.commentNo+", this)");
                         commentDelete.setAttribute("onclick", "deleteComment("+comment.commentNo+")");
-
+                        
                         writeTimeReply.append(commentReply, commentInsert, commentDelete)
                     }else{
                         writeTimeReply.append(commentReply);
                     }
-
+                    
                 }
+                commentArea1.append(commentCount, commentWrite, commentList);
             }
         },
         error : (req, status, error)=>{
@@ -138,44 +154,47 @@ function selectCommentList(){
 }
 
 // 댓글 등록
-const commentInsert = document.querySelector(".comment-insert");
-const writeComment = document.querySelector(".write-comment");
+function commentFunction(){
 
-commentInsert.addEventListener("click", e=>{
-
-    // 1. 로그인이 되었는가
-
-    // 댓글 작성이 됐는지 확인을 해볼까요~?
-    if(writeComment.value.trim().length == 0){
-        alert("댓글을 작성해주세요");
-        writeComment.value="";
-        writeComment.focus();
-        e.preventDefault();
-    }
-
-    // ajax로 댓글을 삽입해봅시다!
-    $.ajax({
-        url : "/board/comment/insert",
-        data : {"boardNo" : boardNo,
-                "memberNo" : memberNo,
-                "commentContent" : writeComment.value},
-        type : "post",
-        success : result=>{
-
-            if(result>0){
-                alert("댓글이 등록되었습니다");
-                writeComment.value=""; // 작성한 댓글 없애주기
-                selectCommentList(); // 다시 ajax로 불러옵시다!
-            }else{
-                alert("댓글 등록에 실패했습니다...");
-            }
-        },
-        error : (req, status, error)=>{
-            alert("댓글 등록 ajax 통신오류...ㅜㅠ");
-            console.log("댓글 등록 ajax 통신오류...ㅜㅠ");
+    const commentInsert = document.querySelector(".comment-insert");
+    const writeComment = document.querySelector(".write-comment");
+    
+    commentInsert.addEventListener("click", e=>{
+    
+        // 1. 로그인이 되었는가
+    
+        // 댓글 작성이 됐는지 확인을 해볼까요~?
+        if(writeComment.value.trim().length == 0){
+            alert("댓글을 작성해주세요");
+            writeComment.value="";
+            writeComment.focus();
+            e.preventDefault();
         }
     });
-});
+    
+        // ajax로 댓글을 삽입해봅시다!
+        $.ajax({
+            url : "/board/comment/insert",
+            data : {"boardNo" : boardNo,
+                    "memberNo" : memberNo,
+                    "commentContent" : writeComment.value},
+            type : "post",
+            success : result=>{
+    
+                if(result>0){
+                    alert("댓글이 등록되었습니다");
+                    writeComment.value=""; // 작성한 댓글 없애주기
+                    selectCommentList(); // 다시 ajax로 불러옵시다!
+                }else{
+                    alert("댓글 등록에 실패했습니다...");
+                }
+            },
+            error : (req, status, error)=>{
+                alert("댓글 등록 ajax 통신오류...ㅜㅠ");
+                console.log("댓글 등록 ajax 통신오류...ㅜㅠ");
+            }
+        });
+}
 
 
 // 답글 달기 해보자!

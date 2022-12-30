@@ -1,3 +1,14 @@
+
+(e=>{
+    if(loginMember == ""){
+    loginConfirmOpen();
+    e.preventDefault();
+    // alert("로그인해라ㅡㅡ");
+}
+})();
+
+
+
 const inputImg = document.getElementsByClassName("board-input-img");
 const preview = document.getElementsByClassName("board-preview");
 const deleteImg = document.getElementsByClassName("board-img-delete");

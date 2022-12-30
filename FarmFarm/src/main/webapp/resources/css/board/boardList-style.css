@@ -200,3 +200,9 @@ input[type="text"]:focus{
     letter-spacing: 2px;
     padding-top: 8px;
 }
+
+/* 로그인 모달창 */
+.hide {
+    display: none;
+    opacity: 0;
+  }

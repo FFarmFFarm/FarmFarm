@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="/resources/css/board/boardList-style.css">
     <link rel="stylesheet" href="/resources/css/common/header-style.css" />
     <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
+
+    <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
 </head>
 <body>
     
@@ -90,7 +92,8 @@
                                         <span class="board-img"></span>
                                     </c:if>
                                     <span class="board-title">
-                                        <a href="/board/${boardTypeNo}/${board.boardNo}?cp=${pagination.currentPage}${sURL}">${board.boardTitle}&nbsp;(${board.commentCount})</a>
+                                        <a href="/board/${boardTypeNo}/${board.boardNo}?cp=${pagination.currentPage}${sURL}" class="goBoard">
+                                            ${board.boardTitle}&nbsp;(${board.commentCount})</a>
                                     </span>
                                     <span class="board-date">${board.boardDate}</span>
                                     <span class="board-view">${board.boardView}</span>
@@ -139,6 +142,11 @@
                 </div>
             </div>
         </section>
+
+    <%-- 로그인 모달창 --%>
+    <jsp:include page="/WEB-INF/views/common/modal/loginConfirm.jsp"/>
+    <%-- <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/> --%>
+
     </main>
     <script>
         let boardTypeNo = ${boardTypeNo};
@@ -148,8 +156,12 @@
 
         const inputQuery = document.getElementById("inputQuery");
         let query = inputQuery.value;
+
+        const loginYN = "${loginMember}";
     </script>
     <script src="/resources/js/board/boardList.js"> </script>
+    <script src="/resources/js/common/common.js"> </script>
+
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>

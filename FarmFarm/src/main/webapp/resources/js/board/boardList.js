@@ -49,6 +49,19 @@ const boardSelect = document.getElementById("boardSelect");
     boardSelect.setAttribute("value", value);
 });})()
 
+
+// 로그인안된 회원은 못가게 막아보자
+const goBoard = document.getElementsByClassName("goBoard");
+for(let go of goBoard){
+    go.addEventListener("click", e=>{
+        if(loginYN == ""){
+            loginConfirmOpen();
+            e.preventDefault();
+        }
+    })
+
+}
+
 // const boardSelect = document.getElementById("boardSelect");
 // boardSelect.addEventListener("change", ()=>{
 //     const value = boardSelect.options[boardSelect.selectedIndex].value;
