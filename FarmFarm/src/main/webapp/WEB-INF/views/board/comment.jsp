@@ -5,12 +5,14 @@
      <section class="comment-area">
             <div class="comment-count">댓글 ${board.commentCount}</div>
 
-            <form action="/comment/write/${boardNo}" class="comment-write">
+            <%-- <form action="/board/comment/insert" class="comment-write"> --%>
+            <div  class="comment-write">
                 <textarea class="write-comment" name="commentContent" id=""></textarea>
-                <button type="button" class="comment-insert">
+                <button onclick="commentFunction()" class="comment-insert">
                     댓글<br>등록
                 </button>
-            </form>
+            </div>
+            <%-- </form> --%>
 
             <ul class="comment-list">
                 <c:if test="${!empty board.commentList}">

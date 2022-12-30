@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import edu.kh.farmfarm.mypage.model.vo.Order;
 import edu.kh.farmfarm.order.model.dao.OrderDAO;
 import edu.kh.farmfarm.order.model.vo.Return;
 import edu.kh.farmfarm.productDetail.model.vo.Product;
@@ -51,5 +52,25 @@ public class OrderServiceImpl implements OrderService{
 		return returnNo;
 	}
 	
+	
+	/** 주문하기
+	 *
+	 */
+	@Override
+	public int orderProduct(Order order, List<Product> pList) {
+		
+		int orderNo = dao.insertOrder(order);
+		
+		if(orderNo > 0) {
+			
+			for(Product p : pList) {
+				p.setOrderNo(orderNo);
+			}
+			
+			orderNo = dao.insertProduct(pList);
+		}
+		
+		return orderNo;
+	}
 	
 }

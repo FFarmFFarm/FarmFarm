@@ -76,7 +76,7 @@
 	AND PRODUCT_STATUS = 0
 </select>
 
-
+<!-- 반품 등록 -->
 <insert id="insertReturn" useGeneratedKeys="true">
 	<selectKey keyProperty="returnNo" resultType="_int" order="BEFORE">
 		SELECT SEQ_RETURN_NO.NEXTVAL FROM DUAL
@@ -86,17 +86,37 @@
 	VALUES(#{returnNo}, #{orderNo}, DEFAULT, #{returnReason}, #{accountName}, #{accountNo})
 </insert>
 
-
+<!-- 반품 상품 등록 -->
 <insert id="insertReturnProduct">
        	INSERT INTO RETURN_PRODUCT
        	VALUES(#{returnNo}, #{productNo}, #{productAmount})
  </insert>
  
+ <!-- 상품 상태 변경 -->
  <update id="updateProductStatus">
  	UPDATE ORDER_PRODUCT SET
  	PRODUCT_STATUS = 1
  	WHERE PRODUCT_NO = #{productNo} 
  </update>
+ 
+ <insert id="insertOrder" useGeneratedKeys="true">
+	<selectKey keyProperty="orderNo" resultType="_int" order="BEFORE">
+		SELECT SEQ_ORDER_NO.NEXTVAL FROM DUAL
+	</selectKey>
+	
+ 	INSERT INTO "ORDER"
+ 	VALUES(#{orderNo}, DEFAULT, #{memberNo}, 0, NULL, #{orderPrice})
+ </insert>
+ 
+ <insert id="insertProduct">
+ 	INSERT INTO ORDER_PRODUCT
+ 	VALUES(#{orderNo}, #{productNo}, #{productAmount}, 0)
+ </insert>
+ 
+ <insert id="insertStockHistory">
+ 	INSERT INTO STOCK_HISTORY
+ 	VALUES(SEQ_STOCK_NO.NEXTVAL, #{productAmount}, DEFAULT, #{productNo},  1)
+ </insert>
   
   
 </mapper>
