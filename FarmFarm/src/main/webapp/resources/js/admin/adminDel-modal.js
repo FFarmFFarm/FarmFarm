@@ -1,9 +1,10 @@
 
-const adminDel = document.getElementById("adminDelContainer");
+var adminDel = document.getElementById("adminDelContainer");
 const adminDelBtn = document.getElementById("adminDelBtn");
 
 adminDel.style.display = 'none';
 
+// 회원 상세 정보에서 강제 탈퇴 버튼 누를 경우
 adminDelBtn.addEventListener('click', () => {
     adminDel.style.display = 'flex';
 })
@@ -18,50 +19,9 @@ window.addEventListener('click', (e) => {
 });
 
 
-
-//todo : 강제 탈퇴 시키기 (by 관리자)
-const targetNo = location.pathname.substring(location.pathname.lastIndexOf("/")+1);
-
-const reportType = document.getElementById("reportType");
-const reportTargetNo = document.getElementById("reportTargetNo");
-const reportReason = document.getElementById("reportReason");
-const processContent = document.getElementById("adminDelContent");
-
-
-processContent.addEventListener("focus", () => {
-    processContent.value = "";
+// 강제 탈퇴 모달창에서 취소
+document.getElementById("delCancelBtn").addEventListener('click', ()=>{
+    adminDel.style.display = "none";
 })
 
-
-
-// 신고하기 ajax
-const adminDelSubmitBtn = document.getElementById("adminDelSubmitBtn");
-
-adminDelSubmitBtn.addEventListener("click", () => {
-
-
-
-    $.ajax({
-        url: "/adminDel",
-        data: { "reportType" :reportType.value, 
-                "reportTargetNo" : reportTargetNo.value,
-                "reportReason" : reportReason.value,
-                "processContent": processContent.value},
-        type: "POST",
-        success: (result) => {
-            if(result > 0){
-                console.log("관리자 처리");
-                adminDel.style.display = 'none';
-                alert("강제 탈퇴 완료")
-            
-            } else {
-                console.log("처리 실패");
-            }
-        },
-        error: () => {
-            console.log("처리 오류");
-        }
-    });
-
-})
 

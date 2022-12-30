@@ -28,6 +28,9 @@
 
         <!-- 오른쪽 -->
         <section class="admin-content-section">
+            <div class="page-title" id="pageTitle">
+              <p>신고 관리</p>
+            </div>
 
             <div class="report-total-div">
                 <div class="title-div">

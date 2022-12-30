@@ -51,6 +51,7 @@ public class ProductAdminServiceImpl implements ProductAdminService{
 					img.setProductImgAddress(webPath+rename);
 					img.setProductImgOrder(i);
 					img.setProductNo(productNo);
+					img.setProductImgOriginal(productImgList.get(i).getOriginalFilename());
 							
 					imgList.add(img);
 				}
@@ -167,6 +168,7 @@ public class ProductAdminServiceImpl implements ProductAdminService{
 					img.setProductImgAddress(webPath+rename);
 					img.setProductImgOrder(i);
 					img.setProductNo(product.getProductNo());
+					img.setProductImgOriginal(productImgList.get(i).getOriginalFilename());
 					
 					imgList.add(img);
 					result = dao.productImgUpdate(img);
