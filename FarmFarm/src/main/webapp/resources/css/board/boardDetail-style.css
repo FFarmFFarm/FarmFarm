@@ -22,7 +22,6 @@ main{
 /* 커뮤니티 네브 */
 .board-nav{
     font-size: 20px;
-    border-top: 1px solid var(--line-color);
     border-bottom: 1px solid var(--line-color);
     height: 70px;
 }
@@ -33,20 +32,18 @@ main{
     margin: 0 160px;
     align-items: center;
 }
-.board-nav-area > span{
+.board-nav-area > a{
     height: 100%;
     width: 150px;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 }
-/* .board-nav-area >span:hover{
+.board-nav-area >a:hover{
     color: var(--point-color);
     cursor: pointer;
-    font-weight: bold;
-} */
+}
 .nowType{
-    height: 100%;
     border-bottom: 3px solid var(--point-color);
 }
 
@@ -60,12 +57,10 @@ main{
     flex-direction: column;
 }
 .writer-img{
-    width: 73px;
-    height: 73px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    /* border: 1px solid black; */
     overflow: hidden;
-    /* margin-left: 20px; */
     display: flex;
     align-items: center;
 }
@@ -78,9 +73,9 @@ main{
     height: 100%;
 }
 .writer-ect{
-    width: 141px;
+    width: 735px;
     margin: auto 15px;
-    font-size: var(--main-font-size);
+    font-size: 13px;
     color: var(--sub-font-color);
 }
 
@@ -89,16 +84,20 @@ main{
     width: 580px;
     font-weight: bold;
     margin-left: 15px;
+    font-size: var(--large-font-size);
+    height: 65px;
+    display: flex;
+    align-items: center;
 }
 .goList{
     width: 100px;
-    height: 40px;
+    height: 35px;
     border-radius: 5px;
     background-color: var(--point-color);
     color: white;
     border: none;
     letter-spacing: 2px;
-    font-size: var(--medium-font-size);
+    font-size: var(--main-font-size);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -433,6 +432,6 @@ main{
 
 .temptemp{
     display: flex;
-    /* justify-content: space-between; */
     width: 100%;
+    margin-left: 15px;
 }
