@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="/resources/css/board/boardWrite-style.css">
     <link rel="stylesheet" href="/resources/css/common/header-style.css" />
     <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
+
+    <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
 </head>
 <body>
 
@@ -35,8 +37,8 @@
                     <input type="radio" name="boardTypeNo"  class="boardTypeNo" id="question" value="3">
                     <label class="categoryLabel" for="question">질문</label>
 
-                    <input type="radio" name="boardTypeNo"  class="boardTypeNo" id="siwon" value="4">
-                    <label class="categoryLabel" for="siwon">시원이꺼</label>
+                    <input type="radio" name="boardTypeNo"  class="boardTypeNo" id="Cool" value="4">
+                    <label class="categoryLabel" for="Cool">시원이꼬</label>
 
                 </div>
                 <button class="board-submit">게시하기</button>
@@ -90,6 +92,7 @@
                 </div>
             </section>
         </form>
+        <jsp:include page="/WEB-INF/views/common/modal/loginConfirm.jsp"/>
     </main>
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
@@ -101,7 +104,11 @@
         <%-- message 1회 출력 후 모든 scope에서 삭제 --%>
         <c:remove var="message"/>
     </c:if>
+    <script>
+        loginMember = "${loginMember}"
+    </script>
     
+    <script src="/resources/js/common/common.js"></script>
     <script src="/resources/js/board/boardWrite.js"> </script>
 </body>
 </html>
