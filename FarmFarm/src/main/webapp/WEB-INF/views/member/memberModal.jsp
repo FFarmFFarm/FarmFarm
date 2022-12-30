@@ -11,9 +11,9 @@
               <span class="close-x" id="modal-close">&times;</span>
               <section class="profile-area">
                 <div class="profile-image" id="modalImgarea"></div>
-                <h3 class="memberNickname" name="memberNickname" id="memberNickname"></h3>
+                <h3 class="memberNickname" name="memberNickname" id="memberNickname">닉네임</h3>
                 <section class="member">
-                    <div class="signup-date" id="modalSignUpDate"></div>
+                    <div class="signup-date" id="modalSignUpDate">가입일</div>
                 </section>
               </section>
             </div>

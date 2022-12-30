@@ -83,7 +83,7 @@ label[for="saveId"]{
 }
 
 .inputbox input::placeholder{
-    padding-left: 12px;
+    /* padding-left: 12px; */
 }
 
 .inputbox{
