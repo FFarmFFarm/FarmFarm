@@ -139,7 +139,7 @@
 		WHERE pi3.PRODUCT_NO = op.PRODUCT_NO 
 		AND PRODUCT_IMG_ORDER = 0) PRODUCT_IMG,
 		(SELECT COUNT(*) FROM REVIEW r 
-		WHERE PRODUCT_NO = op.PRODUCT_NO AND MEMBER_NO = #{memberNo}) REVIEW_CHECK
+		WHERE PRODUCT_NO = op.PRODUCT_NO AND MEMBER_NO = #{memberNo} AND ORDER_NO = #{orderNo}) REVIEW_CHECK
 	FROM ORDER_PRODUCT op 
 	JOIN PRODUCT p ON (op.PRODUCT_NO = p.PRODUCT_NO)
 	WHERE ORDER_NO = #{orderNo}
@@ -228,7 +228,7 @@
 		</selectKey>
 		
 		INSERT INTO REVIEW
-		VALUES(#{reviewNo}, #{reviewContent}, DEFAULT, #{memberNo}, #{productNo}, DEFAULT)
+		VALUES(#{reviewNo}, #{reviewContent}, DEFAULT, #{memberNo}, #{productNo}, DEFAULT, #{orderNo})
 		
 	</insert>
 	
