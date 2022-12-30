@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="orderMapper">
+
+
+
+
+
+<!-- 반품 resultMap -->
+ <resultMap type="Return" id="return_rm">
+        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+     <id property = "returnNo" column="RETURN_NO"/>
+     <!-- 나머지 일반 컬럼 -->
+      <result property="orderNo" column="PRODUCT_AMOUNT" />
+      <result property="returnStatus" column="PRODUCT_AMOUNT" />
+      <result property="returnReason" column="PRODUCT_AMOUNT" />
+      <result property="accountName" column="PRODUCT_AMOUNT" />
+      <result property="accountNo" column="PRODUCT_AMOUNT" />
+      			  
+ </resultMap>
+ 
+    <resultMap type="Order" id="order_rm">
+        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+     <id property = "orderNo" column="ORDER_NO"/>
+     <!-- 나머지 일반 컬럼 -->
+      <result property="memberNo" column="MEMBER_NO" />
+      <result property="orderDate" column="ORDER_DATE" />
+      <result property="orderStatus" column="ORDER_STATUS" />
+      <result property="invoiceNo" column="INVOICE_NO" />
+      <result property="orderPrice" column="ORDER_PRICE" />
+      
+     <collection property="productList" 
+		  javaType="java.util.ArrayList" ofType="Product"
+		  select="selectProductList"
+		  column = "{orderNo=ORDER_NO, memberNo=MEMBER_NO}"/>
+  </resultMap>
+  
+  <!-- 팜팜 상품 resultMap -->
+ <resultMap type="Product" id="product_rm">
+        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+     <id property = "productNo" column="PRODUCT_NO"/>
+     <!-- 나머지 일반 컬럼 -->
+      <result property="productName" column="PRODUCT_NAME" />
+      <result property="productPrice" column="PRODUCT_PRICE" />
+      <result property="productAmount" column="PRODUCT_AMOUNT" />
+      <result property="productImg" column="PRODUCT_IMG" />       			  
+      <result property="wishDate" column="WISH_DATE" />       			  
+      <result property="reviewCheck" column="REVIEW_CHECK" />       			  
+      <result property="productStatus" column="PRODUCT_STATUS" />       			  
+      <result property="returnNo" column="RETURN_NO" />
+  </resultMap>
+  
+
+ 
+<!-- 주문 하나 조회 -->
+<select id="selectOrder" resultMap="order_rm">
+	SELECT DISTINCT ORDER_NO , ORDER_DATE , ORDER_STATUS , MEMBER_NO , INVOICE_NO, TO_CHAR(ORDER_PRICE, '999,999,999,999') ORDER_PRICE
+	FROM "ORDER"
+	JOIN ORDER_PRODUCT op USING(ORDER_NO)
+	WHERE ORDER_NO = #{orderNo}
+	ORDER BY ORDER_NO DESC
+</select>
+
+<!-- 주문한 상품 목록 조회 -->
+<select id="selectProductList" resultMap="product_rm">
+	SELECT op.PRODUCT_NO , op.PRODUCT_AMOUNT, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_STATUS,
+		(SELECT PRODUCT_IMG_ADDRESS 
+		FROM PRODUCT_IMG pi3 
+		WHERE pi3.PRODUCT_NO = op.PRODUCT_NO 
+		AND PRODUCT_IMG_ORDER = 0) PRODUCT_IMG,
+		(SELECT COUNT(*) FROM REVIEW r 
+		WHERE PRODUCT_NO = op.PRODUCT_NO AND MEMBER_NO = #{memberNo}) REVIEW_CHECK
+	FROM ORDER_PRODUCT op 
+	JOIN PRODUCT p ON (op.PRODUCT_NO = p.PRODUCT_NO)
+	WHERE ORDER_NO = #{orderNo}
+	AND PRODUCT_STATUS = 0
+</select>
+
+
+<insert id="insertReturn" useGeneratedKeys="true">
+	<selectKey keyProperty="returnNo" resultType="_int" order="BEFORE">
+		SELECT SEQ_RETURN_NO.NEXTVAL FROM DUAL
+	</selectKey>
+
+	INSERT INTO RETURN
+	VALUES(#{returnNo}, #{orderNo}, DEFAULT, #{returnReason}, #{accountName}, #{accountNo})
+</insert>
+
+
+<insert id="insertReturnProduct">
+       	INSERT INTO RETURN_PRODUCT
+       	VALUES(#{returnNo}, #{productNo}, #{productAmount})
+ </insert>
+ 
+ <update id="updateProductStatus">
+ 	UPDATE ORDER_PRODUCT SET
+ 	PRODUCT_STATUS = 1
+ 	WHERE PRODUCT_NO = #{productNo} 
+ </update>
+  
+  
+</mapper>
