@@ -100,6 +100,7 @@ document.getElementById('submitBtn').addEventListener('click', () => {
 
         if (result > 0) {
 
+          document.getElementById('reviewFrom').reset();
           displayNone(document.getElementById('reviewFormContainer'));
 
           let cp = selectCp();

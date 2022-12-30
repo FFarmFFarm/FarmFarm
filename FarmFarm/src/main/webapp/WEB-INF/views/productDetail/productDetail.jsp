@@ -108,7 +108,7 @@
                 <button type="button" id="addBtn" disabled>+</button>
               </c:if>
               <c:if test="${product.soldoutFl ne 'Y'}">
-                <c:if test="${product.stock lt 0}">
+                <c:if test="${product.stock lt 1}">
                 <button type="button" id="removeBtn" disabled>-</button>
                 <span id="productAmount">1</span>
                 <button type="button" id="addBtn" disabled>+</button>
@@ -129,7 +129,7 @@
               <span class="soldout">해당 상품은 현재 품절입니다. 구매하실 수 없습니다.</span>
             </c:if>
             <c:if test="${product.soldoutFl ne 'Y'}">
-              <c:if test="${product.stock == 0}">
+              <c:if test="${product.stock lt 1}">
               <span class="soldout">해당 상품은 현재 품절입니다. 구매하실 수 없습니다.</span>
               </c:if>
             </c:if>
@@ -142,12 +142,13 @@
               </button>
             </c:if>
 
+
             <c:if test="${product.soldoutFl eq 'Y'}">
                 <button type="button" class="cart-btn" disabled>장바구니 담기</button>
                 <button type="button" class="order-btn" disabled >주문하기</button>
             </c:if>
             <c:if test="${product.soldoutFl ne 'Y'}">
-              <c:if test="${product.stock lt 0}">
+              <c:if test="${product.stock lt 1}">
                 <button type="button" class="cart-btn" disabled>장바구니 담기</button>
                 <button type="button" class="order-btn" disabled>주문하기</button>
               </c:if>
