@@ -24,8 +24,8 @@
           <span>새로 추가하시겠습니까?</span>
         </div>
         <div class="login-confirm-btn">
-          <button type="button" id="goCartCalcelBtn">취소</button>
-          <button type="button" id="ㅁㅇㅇCartConfirmBtn">추가</button>
+          <button type="button" id="addCartCalcelBtn">취소</button>
+          <button type="button" id="addCartConfirmBtn">추가</button>
         </div>
       </div>
     </div>
