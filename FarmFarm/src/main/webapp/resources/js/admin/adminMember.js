@@ -12,8 +12,7 @@
 var numCount = 0;     // numCount : 게시판 번호 no
 var hiddenId = null;  // 상세 조회, 강제탈퇴 ajax에 사용
 var keyword;
-
-
+var memberSelectTable = document.getElementById("memberSelectTable");
 
 
 // optimize : 전체 회원 정보 조회 함수
@@ -25,7 +24,16 @@ const selectMemberList = (cp) => {
         dataType: "JSON",
         type: "GET",
         success: (map) => {
+
+            //fixme: 검색 결과가 없습니다.
+            // if(map.memberListCount == 0){
+            //     searchNoResult();
+            // } else {
+            // }
+            
             printMemberList(map.memberList, map.pagination);
+            
+
         }, 
             error: () => {
             console.log("cp 받아 회원 정보 조회 실패");
@@ -82,8 +90,8 @@ const printMemberList = (memberList, pagination) => {
     window.scrollTo({top: 'header', behavior: 'smooth'});
 
     // 이 위치 사수하기
-    document.getElementById("tbody").innerHTML = "";
-    document.getElementById("adminPaginationArea").innerHTML = "";
+    document.getElementById("tbody").innerText = "";
+    document.getElementById("adminPaginationArea").innerText = "";
 
     const middleBoard = document.getElementById("middleBoard");
     
@@ -870,6 +878,12 @@ const doSearch = () => {
     numCount = (cp-1)*15;  //순번 정렬
     keyword = document.getElementById("adminMemberkeyword").value; // 입력한 검색어 
     selectMemberList(cp);
+}
+
+const searchNoResult = () => {
+    memberSelectTable.innerText = "검색 결과가 없습니다.";
+    memberSelectTable.style.marginTop = "230px";
+    memberSelectTable.style.color = "#2b8c44";
 }
 
 
