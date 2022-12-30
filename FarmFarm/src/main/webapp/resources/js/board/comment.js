@@ -159,6 +159,9 @@ function commentFunction(){
 
     const commentInsert = document.querySelector(".comment-insert");
     const writeComment = document.querySelector(".write-comment");
+    
+    // commentInsert.addEventListener("click", e=>{
+    
 
     // commentInsert.addEventListener("click", e=>{
 
@@ -170,7 +173,7 @@ function commentFunction(){
             writeComment.value="";
             writeComment.focus();
             // e.preventDefault();
-        } else {
+        }else{
             // ajax로 댓글을 삽입해봅시다!
             $.ajax({
                 url : "/board/comment/insert",
@@ -198,10 +201,8 @@ function commentFunction(){
             });
 
         }
-    
     // });
-
-
+    
 }
 
 

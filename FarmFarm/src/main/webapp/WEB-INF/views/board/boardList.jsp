@@ -25,7 +25,7 @@
 
     <main>
         <section class="board-top">
-            <div class="board-top-title">와글와글 물물교환</div>
+            <div class="board-top-title">와글와글 물물교환 ${boardType.boardTypeNo}</div>
         </section>
         <section class="board-nav">
             <div class="board-nav-area">
@@ -43,11 +43,24 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </section>
-            <select class="board-select" name="boardSelectNVL" id="boardSelect">
+            <div class="board-select" name="boardSelectNVL" id="boardSelect">
+                <sapn class="board-now-sort">
+                    <span class="board-sort">최신순 &nbsp;</span>
+                    <span><i class="fa-solid fa-angle-down"></i></span>
+                </sapn>
+                <div class="board-select-sort">
+                    <ul class="board-select-area">
+                        <li class="new" id="new">최신순</li>
+                        <li class="view" id="view">조회수</li>
+                        <li class="like" id="like">좋아요</li>
+                    </ul>
+                </div>
+            </div>
+            <%-- <select class="board-select" name="boardSelectNVL" id="boardSelect">
                 <option value="new">최신순</option>
                 <option value="view">조회수</option>
                 <option value="like">좋아요</option>
-            </select>
+            </select> --%>
             <%-- <div class="board-select" name="boardSelectNVL" id="boardSelect">
                 <button value="new">최신순 <i class="fa-solid fa-angle-down"></i></button>
                 <button value="view">조회수 <i class="fa-solid fa-angle-down"></i></button>
@@ -109,38 +122,42 @@
                     </c:choose>
                 </ul>
                 <div class="board-write-bottom">
-                    <div class="board-pagination">
-                                <div class="pagination-area">
-                        <ul class="pagination">
 
-                            <%-- 첫 페이지 이동 --%>
-                            <li> <a href="/board/${boardTypeNo}?cp=1${sURL}"><i class="fa-solid fa-angles-left"></i>&nbsp;&nbsp;</a> </li>
+                    <div class="pagination-area">
+                        <!-- ajax로 만들어 보십시다 -->
+                        <div id="1" class="page-box">
+                            <i class="fa-solid fa-angles-left"></i>
+                        </div>
+                        <div id="${productMap.pagination.prevPage}" class="page-box">
+                            <i class="fa-solid fa-angle-left"></i>
+                        </div>
+                        <c:forEach var="i" 
+                                begin="${productMap.pagination.startPage}" 
+                                end="${productMap.pagination.endPage}"
+                                step="1">
+                            <c:choose>
+                                <c:when test="${i == productMap.pagination.currentPage}">
+                                    <div class="current-page-box">
+                                        ${i}
+                                    </div>
+                                </c:when>
+                            
+                                <c:otherwise>
+                                    <div id="${i}" class="page-box">
+                                        ${i}
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
 
-                            <%-- 이전 목록 마지막 번호로 이동 --%>
-                            <li> <a href="/board/${boardTypeNo}?cp=${pagination.prevPage}${sURL}"><i class="fa-solid fa-angle-left"></i>&nbsp;&nbsp;</a> </li>
-
-                            <%-- 페이지 번호 --%>
-                            <c:forEach var="i" begin="${pagination.startPage}" end="${pagination.endPage}" step="1">
-                                <c:choose>
-                                    <c:when test="${i == pagination.currentPage}">
-                                        <%-- 현재 페이지 --%>
-                                        <li><a class="current">${i}&nbsp;&nbsp;</a></li>
-                                    </c:when>
-
-                                    <c:otherwise>
-                                        <%-- 현재 페이지 제외 페이지 --%>
-                                        <li><a href="/board/${boardTypeNo}?cp=${i}${sURL}">${i}&nbsp;&nbsp;</a></li>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>
-
-                            <%-- 다음 목록 시작 페이지 이동 --%>
-                            <li> <a href="/board/${boardTypeNo}?cp=${pagination.nextPage}${sURL}"><i class="fa-solid fa-angle-right"></i>&nbsp;&nbsp;</a> </li>
-
-                            <%-- 끝 페이지로 이동 --%>
-                            <li> <a href="/board/${boardTypeNo}?cp=${pagination.maxPage}${sURL}"><i class="fa-solid fa-angles-right"></i>&nbsp;&nbsp;</a></li>
-                        </ul>
+                        <div id="${productMap.pagination.nextPage}" class="page-box">
+                            <i class="fa-solid fa-angle-right"></i>
+                        </div>
+                        <div id="${productMap.pagination.endPage}" class="page-box">
+                            <i class="fa-solid fa-angles-right"></i>
+                        </div>
                     </div>
+
                     <c:if test="${!empty loginMember}">
                         <a href="/board/write" class="board-write">글쓰기</a>
                     </c:if>
