@@ -132,10 +132,60 @@ if (document.getElementById('cartBtn') != undefined) {
   document.getElementById('cartBtn').addEventListener('click', () => {
     if (loginMember == '') {
       loginConfirmOpen();
+    } else {
+      const productNo = getProductNo();
+      const productAmount = document.getElementById("amountInput").value; 
+      
+      $.ajax({
+        url: '/addCart',
+        data: { productNo: productNo,
+              productAmount: productAmount,
+              memberNo: memberNo },
+        success: (result) => {
+          if(result>0){
+            
+            location.href="/cart";
+          }
+          console.log("장바구니 이동 성공");
+        },
+        error: () => {
+          console.log("장바구니 이동 실패");
+        },
+      });
+
+      goCart(productNo, productAmount);
     }
   })
 };
 
+const goCartConfirmOpen = () => {
+  const goCartConfirm = document.getElementById('goCartConfirm');
+  displayFlex(goCartConfirm);
+}
+
+const addCartConfirmOpen = () => {
+  const addCartConfirm = document.getElementById('addCartConfirm');
+  displayFlex(addCartConfirm);
+}
+
+
+
+const goCart = (productNo, productAmount) => {
+
+  $.ajax({
+    url: '/cart',
+    data: { productNo: productNo,
+          productAmount: productAmount,
+          memberNo: memberNo },
+    success: () => {
+      console.log("장바구니 이동 성공");
+    },
+    error: () => {
+      console.log("장바구니 이동 실패");
+    },
+  });
+
+}
 
 /* -------------------------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------------------------- */
