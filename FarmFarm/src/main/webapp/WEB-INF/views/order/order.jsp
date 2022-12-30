@@ -20,6 +20,8 @@
    
     <link rel="stylesheet" href="/resources/css/root-style.css" />
     <link rel="stylesheet" href="/resources/css/order/order-style.css" />
+    <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
+
     <script
       src="https://kit.fontawesome.com/1ce4f19a7a.js"
       crossorigin="anonymous"
@@ -27,7 +29,7 @@
   </head>
   <body>
     <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-    <form action="/order" method="POST">
+    <form action="/order" method="POST" id="orderForm">
       <div class="order-title">주문서</div>
       <section class="product-container">
         <ul>
@@ -157,7 +159,7 @@
         </div>
       </section>
       <section class="submit-container">
-        <button><fmt:formatNumber value="${resultPrice}" pattern="#,###" />원 결제하기</button>
+        <button type="button" id="btn"><fmt:formatNumber value="${resultPrice}" pattern="#,###" />원 결제하기</button>
         <div class="notice-container">
           <p class="notice notice-p">
             [주문완료] 상태일 경우에만 주문 취소 가능합니다. <br />
@@ -172,6 +174,9 @@
     <!-- footer -->
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
+    <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
+    
+    <script src="/resources/js/common/common.js"></script>
     <script src="resources/js/order/order.js"></script>
   </body>
 </html>

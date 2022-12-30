@@ -75,7 +75,6 @@
           <span class="product-category">${product.categoryName}</span>
           <span class="product-name" id="productName">${product.productName}</span>
           <span class="product-message">${product.productMessage}</span>
-
           <span class="product-price">${product.productPrice}<span>원</span></span>
           <!-- 로그인 x 일 때 -->
           <c:if test="${empty loginMember}">
@@ -109,7 +108,7 @@
                 <button type="button" id="addBtn" disabled>+</button>
               </c:if>
               <c:if test="${product.soldoutFl ne 'Y'}">
-                <c:if test="${product.stock lt 0}">
+                <c:if test="${product.stock lt 1}">
                 <button type="button" id="removeBtn" disabled>-</button>
                 <span id="productAmount">1</span>
                 <button type="button" id="addBtn" disabled>+</button>
@@ -130,7 +129,7 @@
               <span class="soldout">해당 상품은 현재 품절입니다. 구매하실 수 없습니다.</span>
             </c:if>
             <c:if test="${product.soldoutFl ne 'Y'}">
-              <c:if test="${product.stock == 0}">
+              <c:if test="${product.stock lt 1}">
               <span class="soldout">해당 상품은 현재 품절입니다. 구매하실 수 없습니다.</span>
               </c:if>
             </c:if>
@@ -143,12 +142,13 @@
               </button>
             </c:if>
 
+
             <c:if test="${product.soldoutFl eq 'Y'}">
                 <button type="button" class="cart-btn" disabled>장바구니 담기</button>
                 <button type="button" class="order-btn" disabled >주문하기</button>
             </c:if>
             <c:if test="${product.soldoutFl ne 'Y'}">
-              <c:if test="${product.stock lt 0}">
+              <c:if test="${product.stock lt 1}">
                 <button type="button" class="cart-btn" disabled>장바구니 담기</button>
                 <button type="button" class="order-btn" disabled>주문하기</button>
               </c:if>
@@ -182,6 +182,7 @@
             <img
             src="${productImg.productImgAddress}"
             alt=""
+            class="product-img"
             />
           </c:if>
         </c:forEach>
@@ -328,6 +329,7 @@
     <jsp:include page="/WEB-INF/views/common/modal/loginConfirm.jsp"/>
     <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
     <jsp:include page="/WEB-INF/views/myPage/modal/reviewForm.jsp"/>
+    <jsp:include page="/WEB-INF/views/order/modal/cartConfirm.jsp"/>
 
 
 

@@ -4,16 +4,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.catalina.tribes.MembershipListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+import com.google.gson.Gson;
 
 import edu.kh.farmfarm.board.model.service.BoardListService;
 import edu.kh.farmfarm.board.model.vo.Board;
+import edu.kh.farmfarm.member.model.VO.Member;
 
+@SessionAttributes({"loginMember"})
 @Controller
 public class BoardListController {
 	
@@ -81,7 +89,20 @@ public class BoardListController {
 	}
 	
 	
-	
+	// 프로필 클릭시 모달 
+	@GetMapping("/board/member/{memberNo}")
+	@ResponseBody
+	public String selectMemPro(
+			@SessionAttribute("loginMember") Member loginMember,
+			@PathVariable("memberNo") int memberNo
+			) {
+		Member member = new Member();
+		member.setMemberNo(memberNo);
+		
+		member = service.selectMember(memberNo);
+		
+		return new Gson().toJson(member);
+	}
 	
 	
 

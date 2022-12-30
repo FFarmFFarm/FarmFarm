@@ -67,7 +67,7 @@
                             </div>
 
                             <div class="signup-btn">
-                                <button class="inputbox input-button"><a href="/signUpStart">회원가입</a></button>
+                                <a href="/signUpStart"><button class="inputbox input-button">회원가입</button></a>
                             </div>
                         </section>
                     </div>

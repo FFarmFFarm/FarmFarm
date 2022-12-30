@@ -310,6 +310,10 @@ button:disabled:active {
   margin-bottom: 150px;
 }
 
+.product-img {
+  width: 1000px;
+}
+
 /* 상품 리뷰 */
 .product-review > span:first-child {
   display: block;

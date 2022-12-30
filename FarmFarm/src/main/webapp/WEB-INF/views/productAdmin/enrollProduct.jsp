@@ -74,7 +74,7 @@
                     <ul class="product-info">
                         <li class="info-list">
                             <p>상품명</p>
-                            <input type="text" name="productName" size="60" maxlength="20">
+                            <input type="text" name="productName" size="60" maxlength="30">
                         </li>
                         <li class="info-list">
                             <p>판매가격</p>

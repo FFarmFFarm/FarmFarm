@@ -32,6 +32,7 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private BCryptPasswordEncoder bcrypt;
 
+	// 로그인 
 	@Override
 	public Member login(Member inputMember) {
 		Member loginMember = dao.login(inputMember.getMemberId());
@@ -135,6 +136,7 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
+	// 문자 인증 
 	@Override
 	public String phoneNumberCheck(String to) throws CoolsmsException {
 		String api_key = "NCS5PXEAYWDXYENJ";
