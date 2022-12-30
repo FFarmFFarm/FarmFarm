@@ -48,7 +48,6 @@ public class AdminServiceImpl implements AdminService{
 		// 전체 회원 조회(정렬 포함)
 		List<Admin> memberList = dao.selectMember(paramMap, pagination);
 		
-		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("memberListCount", memberListCount);
 		map.put("pagination", pagination);

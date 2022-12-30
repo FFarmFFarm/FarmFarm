@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="/resources/css/admin/adminNav-style.css">
         <link rel="stylesheet" href="/resources/css/admin/adminMember-style.css" />
         <link rel="stylesheet" href="/resources/css/admin/adminDel-modal-style.css" />
-        <link rel="stylesheet" href="/resources/css/common/commonModal-style.css" />
+        <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
 
         <script src="https://kit.fontawesome.com/d4fbceca97.js" crossorigin="anonymous"></script>
 
