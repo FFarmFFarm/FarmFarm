@@ -51,6 +51,7 @@ public class ProductAdminServiceImpl implements ProductAdminService{
 					img.setProductImgAddress(webPath+rename);
 					img.setProductImgOrder(i);
 					img.setProductNo(productNo);
+					img.setProductImgOriginal(productImgList.get(i).getOriginalFilename());
 							
 					imgList.add(img);
 				}
@@ -81,6 +82,25 @@ public class ProductAdminServiceImpl implements ProductAdminService{
 		Pagination pagination = new Pagination(listCount, cp, 10, 10);
 		
 		List<Product> productList = dao.selectProductList(pagination);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("pagination", pagination);
+		map.put("productList", productList);
+		map.put("listCount", listCount);
+		
+		return map;
+	}
+	
+	// 검색 결과 리스트 조회
+	@Override
+	public Map<String, Object> selectProductList(Map<String, Object> pm, int cp) {
+		
+		int listCount = dao.getListCount(pm);
+		
+		Pagination pagination = new Pagination(listCount, cp, 10, 10);
+		
+		List<Product> productList = dao.selectProductList(pagination, pm);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -148,6 +168,7 @@ public class ProductAdminServiceImpl implements ProductAdminService{
 					img.setProductImgAddress(webPath+rename);
 					img.setProductImgOrder(i);
 					img.setProductNo(product.getProductNo());
+					img.setProductImgOriginal(productImgList.get(i).getOriginalFilename());
 					
 					imgList.add(img);
 					result = dao.productImgUpdate(img);
@@ -174,5 +195,7 @@ public class ProductAdminServiceImpl implements ProductAdminService{
 	public int soldoutProduct(Map<String, Object> map) {
 		return dao.soldoutProduct(map);
 	}
+
+	
 	
 }

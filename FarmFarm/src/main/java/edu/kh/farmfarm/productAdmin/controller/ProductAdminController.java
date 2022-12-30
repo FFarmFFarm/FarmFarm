@@ -67,11 +67,21 @@ public class ProductAdminController {
 	// 팜팜상품 재고관리
 	@GetMapping("/admin/stock")
 	public String productStock(Model model,
-		@RequestParam(value="cp", required=false, defaultValue="1")int cp) {
+		@RequestParam(value="cp", required=false, defaultValue="1")int cp,
+		@RequestParam Map<String, Object> pm) {
 		
-		Map<String, Object> map = service.selectProductList(cp);
-		
-		model.addAttribute("map", map);
+		if(pm.get("key") == null) { // 검색 아닌 경우
+			
+			Map<String, Object> map = service.selectProductList(cp);
+			
+			model.addAttribute("map", map);
+			
+		} else { // 검색인 경우
+			
+			Map<String, Object> map = service.selectProductList(pm, cp);
+
+			model.addAttribute("map", map);
+		}
 		
 		return "productAdmin/productStock";
 	}
@@ -151,7 +161,7 @@ public class ProductAdminController {
 		
 		if(result>0) {
 			message = "팜팜상품이 수정되었습니다.";
-			path = "/admin/update/"+ productNo + "?cp=" +cp;
+			path = "/admin/stock/?cp=" +cp;
 		}else {
 			message = "팜팜상품 수정 실패";
 			path = referer;

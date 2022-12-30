@@ -145,6 +145,8 @@
 	WHERE ORDER_NO = #{orderNo}
 </select>
 
+
+
 <!-- 작성 게시글 수 조회 -->
 <select id="boardCount" resultType="_int">
 	SELECT COUNT(*) FROM BOARD WHERE MEMBER_NO = #{memberNo} AND BOARD_DEL_FL = 'N'

@@ -31,7 +31,6 @@ main{
 
 /** -------------------------------------- */
 
-
 /** 오른쪽 내용 부분 */
 .admin-content-section{
     width: 1000px;
@@ -45,6 +44,16 @@ main{
     align-items: center;
     align-content: center;
 }
+
+
+.page-title{
+    text-align: center;
+    font-size: var(--title-font-size);
+    font-weight: bold;
+    height: 80px;
+    padding-top: 48px;
+}
+
 
 
 .board-content{

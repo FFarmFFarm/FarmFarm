@@ -36,6 +36,7 @@
 	      <result property="productImgAddress" column="PRODUCT_IMG_ADDRESS" />
 	      <result property="productNo" column="PRODUCT_NO" />
 	      <result property="productImgOrder" column="PRODUCT_IMG_ORDER" />
+	      <result property="productImgOriginal" column="PRODUCT_IMG_ORIGINAL" />
 	  </resultMap>
   
 		
@@ -64,7 +65,8 @@
 			SELECT
 				#{img.productImgAddress} PRODUCT_IMG_ADDRESS,
 				#{img.productNo} PRODUCT_NO,
-				#{img.productImgOrder} PRODUCT_IMG_ORDER
+				#{img.productImgOrder} PRODUCT_IMG_ORDER,
+				#{img.productImgOriginal} PRODUCT_IMG_ORIGINAL
 			FROM DUAL
 		</foreach>
 	</insert>
@@ -73,8 +75,10 @@
 	<select id="getListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM PRODUCT
+		WHERE PRODUCT_DEL_FL = 'N'
 	</select>
 	
+	<!-- 팜팜상품 리스트 조회 -->
 	<select id="selectProductList" resultMap="product_rm">
 		SELECT PRODUCT_NO, PRODUCT_NAME, PRODUCT_IMG_ADDRESS,
 			STOCK, SOLDOUT_FL,
@@ -85,6 +89,46 @@
 		AND PRODUCT_DEL_FL='N'
 		ORDER BY PRODUCT_NO DESC
 	</select>
+	
+	<!-- 검색 조건 일치 상품 수 조회 -->
+	<select id="getListCount_search" resultType="_int">
+		SELECT COUNT(*)
+		FROM PRODUCT
+		WHERE PRODUCT_DEL_FL = 'N'
+		<if test='query != null and query != ""'>
+			<choose>
+				<when test='key=="pName"'>
+					AND PRODUCT_NAME LIKE '%${query}%'
+				</when>
+				<when test='key=="pCode"'>
+					AND PRODUCT_NO LIKE '%${query}%'
+				</when>
+			</choose>
+		</if>
+	</select>
+	
+	<!-- 검색한 팜팜상품 리스트 조회 -->
+	<select id="selectProductList_search" resultMap="product_rm">
+		SELECT PRODUCT_NO, PRODUCT_NAME, PRODUCT_IMG_ADDRESS,
+			STOCK, SOLDOUT_FL,
+			TO_CHAR(REG_DATE, 'YYYY-MM-DD') REG_DATE
+		FROM PRODUCT
+		JOIN PRODUCT_IMG USING(PRODUCT_NO)
+		WHERE PRODUCT_IMG_ORDER=0
+		AND PRODUCT_DEL_FL='N'
+		<if test='query != null and query != ""'>
+			<choose>
+				<when test='key=="pName"'>
+					AND PRODUCT_NAME LIKE '%${query}%'
+				</when>
+				<when test='key=="pCode"'>
+					AND PRODUCT_NO LIKE '%${query}%'
+				</when>
+			</choose>
+		</if>
+		ORDER BY PRODUCT_NO DESC
+	</select>
+	
 	
 	<!-- 판매자 재고 증가 -->
 	<insert id="stockUp">
@@ -139,7 +183,8 @@
 	<!-- 이미지 수정 -->
 	<update id="productImgUpdate">
 		UPDATE PRODUCT_IMG SET
-		PRODUCT_IMG_ADDRESS = #{productImgAddress}
+		PRODUCT_IMG_ADDRESS = #{productImgAddress},
+		PRODUCT_IMG_ORIGINAL = #{productImgOriginal}
 		WHERE PRODUCT_NO = #{productNo}
 		AND PRODUCT_IMG_ORDER = #{productImgOrder}
 	</update>
@@ -148,7 +193,7 @@
 	<insert id="productImgInsert">
 		INSERT INTO PRODUCT_IMG 
 		VALUES(SEQ_PRODUCT_IMG_NO.NEXTVAL, #{productImgAddress}, 
-		#{productNo}, #{productImgOrder})
+		#{productNo}, #{productImgOrder}, #{productImgOriginal})
 	</insert>
 	
 	<!-- 상품 상태 변경 -->

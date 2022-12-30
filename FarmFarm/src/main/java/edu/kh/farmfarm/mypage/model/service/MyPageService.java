@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.farmfarm.member.model.VO.Member;
 import edu.kh.farmfarm.mypage.model.vo.Comment;
+import edu.kh.farmfarm.mypage.model.vo.Order;
 import edu.kh.farmfarm.productDetail.model.vo.Review;
 
 public interface MyPageService {
@@ -112,6 +113,13 @@ public interface MyPageService {
 	 * @return
 	 */
 	int deleteWish(Map<String, Object> map);
+
+
+	/** 상품 하나 불러오기
+	 * @param orderNo
+	 * @return 
+	 */
+	Order selectOrder(int orderNo);
 
 
 

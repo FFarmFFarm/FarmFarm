@@ -128,7 +128,15 @@
                   </c:if>
                 </c:if>
                 <c:if test="${product.reviewCheck == 1}">
-                  <button type="button" class="write-review" disabled>후기완료</button>
+                  <c:if test="${product.productStatus == 0}">
+                    <button type="button" class="write-review" disabled>후기완료</button>
+                  </c:if>
+                  <c:if test="${product.productStatus == 1}">
+                    <button type="button" class="return" disabled>반품 진행중</button>
+                  </c:if>
+                  <c:if test="${product.productStatus == 2}">
+                    <button type="button" class="return" disabled>반품 완료</button>
+                  </c:if>
                 </c:if>
               </c:if>
             </div>

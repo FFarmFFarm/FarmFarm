@@ -479,10 +479,24 @@ const printOrderList = (orderList, pagination) => {
         }
 
         if (product.reviewCheck == 1) {
-          button1.setAttribute('type', 'button');
-          button1.innerText = '후기완료';
-          button1.classList.add('write-review');
-          button1.setAttribute('disabled', true);
+          if (product.productStatus == 0) {
+            button1.setAttribute('type', 'button');
+            button1.innerText = '후기완료';
+            button1.classList.add('write-review');
+            button1.setAttribute('disabled', true);
+          }
+          if (product.productStatus == 1) {
+            button1.setAttribute('type', 'button');
+            button1.innerText = '반품 진행중';
+            button1.classList.add('return');
+            button1.setAttribute('disabled', true);
+          }
+          if (product.productStatus == 2) {
+            button1.setAttribute('type', 'button');
+            button1.innerText = '반품 완료';
+            button1.classList.add('return');
+            button1.setAttribute('disabled', true);
+          }
         }
 
         buttonArea.append(button1);

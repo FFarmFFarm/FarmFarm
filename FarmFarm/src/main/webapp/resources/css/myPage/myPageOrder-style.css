@@ -217,6 +217,14 @@ a.ordered > i {
   border: 1px solid var(--line-color);
   margin: 2px 0;
   cursor: pointer;
+  font-size: var(--main-font-size);
+}
+
+a.return {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--main-font-size);
 }
 
 .button-area > *:disabled {

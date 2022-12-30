@@ -68,7 +68,7 @@
           </c:if>
           </c:forEach>
         </div>
-        <div class="summary-area">
+        <form action="/orderPage" method="POST" class="summary-area">
           <span class="product-category">${product.categoryName}</span>
           <span class="product-name" id="productName">${product.productName}</span>
           <span class="product-message">${product.productMessage}</span>
@@ -149,12 +149,12 @@
               </c:if>
               <c:if test="${product.stock > 0}">
                 <button type="button" class="cart-btn" id="cartBtn">장바구니 담기</button>
-                <button type="button" class="order-btn" id="orderBtn">주문하기</button>
+                <button class="order-btn" id="orderBtn">주문하기</button>
               </c:if>
             </c:if>
 
           </div>
-        </div>
+        </form>
         <button type="button" class="share-btn" id="shareBtn">
           <i class="fa-solid fa-share"></i>
         </button>
@@ -313,6 +313,8 @@
       </section>
     </main>
 
+    <!-- footer -->
+    <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
 
     <!-- modal -->
@@ -324,8 +326,6 @@
 
 
 
-    <!-- footer -->
-    <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
 
   </body>
