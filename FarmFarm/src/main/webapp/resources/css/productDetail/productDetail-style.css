@@ -81,6 +81,7 @@ button:disabled:active {
 .thumbnail-area > img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 
 /* 상품 요약 설명 */
@@ -307,6 +308,10 @@ button:disabled:active {
 
 .product-detail > * {
   margin-bottom: 150px;
+}
+
+.product-img {
+  width: 1000px;
 }
 
 /* 상품 리뷰 */

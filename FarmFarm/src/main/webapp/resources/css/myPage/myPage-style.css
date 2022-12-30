@@ -5,6 +5,7 @@ a {
 }
 
 body {
+  min-height: 100vh;
   color: var(--main-font-color);
   display: flex;
   flex-direction: column;
@@ -42,6 +43,8 @@ button {
 
 .member-bg-img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .bg-change-btn {
