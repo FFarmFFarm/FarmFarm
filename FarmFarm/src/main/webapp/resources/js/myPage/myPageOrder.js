@@ -315,7 +315,7 @@ const printOrderList = (orderList, pagination) => {
       orderPrice.classList.add('order-price');
 
       const span = document.createElement('span');
-      span.innerText = product.productPrice;
+      span.innerHTML = Number(product.productPrice).toLocaleString('ko-KR');
 
       const span1 = document.createElement('span');
       span1.innerText = '원';
@@ -475,31 +475,36 @@ const printOrderList = (orderList, pagination) => {
             button1.innerText = '후기작성';
             button1.classList.add('write-review');
             button1.id = order.orderNo;
+            buttonArea.append(button1);
           }
         }
 
-        if (product.reviewCheck == 1) {
+        if (product.reviewCheck > 0) {
           if (product.productStatus == 0) {
             button1.setAttribute('type', 'button');
             button1.innerText = '후기완료';
             button1.classList.add('write-review');
             button1.setAttribute('disabled', true);
+            buttonArea.append(button1);
           }
+
           if (product.productStatus == 1) {
             button1.setAttribute('type', 'button');
             button1.innerText = '반품 진행중';
             button1.classList.add('return');
             button1.setAttribute('disabled', true);
+            buttonArea.append(button1);
           }
+
           if (product.productStatus == 2) {
             button1.setAttribute('type', 'button');
             button1.innerText = '반품 완료';
             button1.classList.add('return');
             button1.setAttribute('disabled', true);
+            buttonArea.append(button1);
           }
         }
 
-        buttonArea.append(button1);
 
         button1.addEventListener('click', () => {
           const reviewFormContainer = document.getElementById('reviewFormContainer');

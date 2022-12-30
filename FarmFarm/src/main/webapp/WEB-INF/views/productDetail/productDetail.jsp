@@ -109,7 +109,7 @@
                 <button type="button" id="addBtn" disabled>+</button>
               </c:if>
               <c:if test="${product.soldoutFl ne 'Y'}">
-                <c:if test="${product.stock == 0}">
+                <c:if test="${product.stock lt 0}">
                 <button type="button" id="removeBtn" disabled>-</button>
                 <span id="productAmount">1</span>
                 <button type="button" id="addBtn" disabled>+</button>
@@ -117,8 +117,8 @@
                 <c:if test="${product.stock > 0}">
                 <button type="button" id="removeBtn">-</button>
                 <span id="productAmount">1</span>
-                <input type="hidden" name="pList[0].productAmount" value="1" id="amountInput"/>
                 <button type="button" id="addBtn">+</button>
+                <input type="hidden" name="pList[0].productAmount" value="1" id="amountInput"/>
                 </c:if>
               </c:if>
             </div>
@@ -148,7 +148,7 @@
                 <button type="button" class="order-btn" disabled >주문하기</button>
             </c:if>
             <c:if test="${product.soldoutFl ne 'Y'}">
-              <c:if test="${product.stock == 0}">
+              <c:if test="${product.stock lt 0}">
                 <button type="button" class="cart-btn" disabled>장바구니 담기</button>
                 <button type="button" class="order-btn" disabled>주문하기</button>
               </c:if>
