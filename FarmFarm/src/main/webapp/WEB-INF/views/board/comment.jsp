@@ -5,15 +5,17 @@
      <section class="comment-area">
             <div class="comment-count">댓글 ${board.commentCount}</div>
 
-            <form action="/comment/write/${boardNo}" class="comment-write">
+            <%-- <form action="/comment/write/${boardNo}" class="comment-write"> --%>
+            <div class="comment-write">
                 <div class="comment-form">
                     <textarea class="write-comment" name="commentContent" id=""></textarea>
                     <div class="comment-side">
                         <div class="comment-caution">※댓글 작성시 상대방에 대한 배려와 책임을 담아 깨끗한 댓글 환경에 동참에 주세요.</div>
-                        <button type="button" class="comment-insert">등록</button>
+                        <button onclick="commentFunction()" class="comment-insert">등록</button>
                     </div>
                 </div>
-            </form>
+            </div>
+            <%-- </form> --%>
 
             <ul class="comment-list">
                 <c:if test="${!empty board.commentList}">

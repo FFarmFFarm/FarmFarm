@@ -22,7 +22,6 @@ main{
 /* 커뮤니티 네브 */
 .board-nav{
     font-size: 20px;
-    border-top: 1px solid var(--line-color);
     border-bottom: 1px solid var(--line-color);
     height: 70px;
 }
@@ -33,20 +32,18 @@ main{
     margin: 0 160px;
     align-items: center;
 }
-.board-nav-area > span{
+.board-nav-area > a{
     height: 100%;
     width: 150px;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 }
-/* .board-nav-area >span:hover{
+.board-nav-area >a:hover{
     color: var(--point-color);
     cursor: pointer;
-    font-weight: bold;
-} */
+}
 .nowType{
-    height: 100%;
     border-bottom: 3px solid var(--point-color);
 }
 
@@ -54,17 +51,16 @@ main{
 .board-title-area{
     height: 130px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     border-bottom: 1px solid var(--line-color);
     padding: 0 30px;
+    flex-direction: column;
 }
 .writer-img{
-    width: 73px;
-    height: 73px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    /* border: 1px solid black; */
     overflow: hidden;
-    /* margin-left: 20px; */
     display: flex;
     align-items: center;
 }
@@ -77,9 +73,9 @@ main{
     height: 100%;
 }
 .writer-ect{
-    width: 141px;
+    width: 735px;
     margin: auto 15px;
-    font-size: var(--main-font-size);
+    font-size: 13px;
     color: var(--sub-font-color);
 }
 
@@ -88,16 +84,20 @@ main{
     width: 580px;
     font-weight: bold;
     margin-left: 15px;
+    font-size: var(--large-font-size);
+    height: 65px;
+    display: flex;
+    align-items: center;
 }
 .goList{
     width: 100px;
-    height: 40px;
+    height: 35px;
     border-radius: 5px;
     background-color: var(--point-color);
     color: white;
     border: none;
     letter-spacing: 2px;
-    font-size: var(--medium-font-size);
+    font-size: var(--main-font-size);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -236,6 +236,8 @@ main{
 .comment-row{
     border-bottom: 1px solid var(--point-color);
     padding: 20px 0;
+    /* background-color: #2b8c430f; */
+
 }
 .comment-writer{
     display: flex;
@@ -266,7 +268,8 @@ main{
     padding: 10px 20px;
 }
 .comment-child{
-    padding-left: 50px;
+    padding-left: 65px;
+    background-color: white;
 }
 .writer-time-reply{
     font-size: var(--main-font-size);
@@ -425,4 +428,10 @@ main{
     background: #ddd;
     border-top-right-radius: 9px;
     border-bottom-right-radius: 9px;
+}
+
+.temptemp{
+    display: flex;
+    width: 100%;
+    margin-left: 15px;
 }

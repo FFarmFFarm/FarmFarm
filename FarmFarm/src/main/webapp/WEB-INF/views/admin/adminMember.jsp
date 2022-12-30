@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="/resources/css/admin/adminNav-style.css">
         <link rel="stylesheet" href="/resources/css/admin/adminMember-style.css" />
         <link rel="stylesheet" href="/resources/css/admin/adminDel-modal-style.css" />
-        <link rel="stylesheet" href="/resources/css/common/commonModal-style.css" />
+        <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
 
         <script src="https://kit.fontawesome.com/d4fbceca97.js" crossorigin="anonymous"></script>
 
@@ -242,8 +242,8 @@
                                     <td>2022-12-14</td>
                                     <td>계정 정지</td>
                                     <td>불법 사기 계좌 운용</td> 
-                                </tr>--%>
-                                </tbody>
+                                </tr>
+                                </tbody>--%>
                             </table>
                         </span>
                         <button id="adminDelBtn">강제 탈퇴</button>

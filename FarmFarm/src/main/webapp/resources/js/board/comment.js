@@ -27,15 +27,24 @@ function selectCommentList(){
                 const commentWrite = document.createElement("div");
                 commentWrite.classList.add("comment-write");
                 
+                const commentForm = document.createElement("div");
+                commentForm.classList.add("comment-form");
+                
                 const writeComment = document.createElement("textarea");
                 writeComment.classList.add("write-comment");
                 writeComment.setAttribute("name", "commentContent");
 
+                const commentSide = document.createElement("div");
+                commentSide.classList.add("comment-side");
+
+                const commentCaution = document.createElement("div");
+                commentCaution.classList.add("comment-caution");
+                commentCaution.innerText="※댓글 작성시 상대방에 대한 배려와 책임을 담아 깨끗한 댓글 환경에 동참에 주세요.";
+
                 const commentInsert = document.createElement("button"); 
                 commentInsert.classList.add("comment-insert"); 
-                commentInsert.setAttribute("type", "button");
                 commentInsert.setAttribute("onclick", "commentFunction()");
-                commentInsert.innerHTML = "댓글<br>등록";
+                commentInsert.innerHTML = "등록";
 
                 const commentList = document.createElement("ul");
                 commentList.classList.add("comment-list");
@@ -113,7 +122,10 @@ function selectCommentList(){
                     // 자~ append 해볼까
 
                     
-                    commentWrite.append(writeComment, commentInsert)
+                    // commentWrite.append(writeComment, commentInsert)
+                    commentWrite.append(commentForm);
+                    commentForm.append(writeComment, commentSide);
+                    commentSide.append(commentCaution, commentInsert);
                     
                     commentList.append(commentRow);
                     commentRow.append(commentWriter, commentArea);
@@ -159,6 +171,9 @@ function commentFunction(){
 
     const commentInsert = document.querySelector(".comment-insert");
     const writeComment = document.querySelector(".write-comment");
+    
+    // commentInsert.addEventListener("click", e=>{
+    
 
     // commentInsert.addEventListener("click", e=>{
 
@@ -170,7 +185,7 @@ function commentFunction(){
             writeComment.value="";
             writeComment.focus();
             // e.preventDefault();
-        } else {
+        }else{
             // ajax로 댓글을 삽입해봅시다!
             $.ajax({
                 url : "/board/comment/insert",
@@ -198,16 +213,14 @@ function commentFunction(){
             });
 
         }
-    
     // });
-
-
+    
 }
 
 
 // 답글 달기 해보자!
 // 답글 달기를 누르면 답글 다는 박스가 새로 생겨야 돼.
-function showReply(parentNo, btn){
+const showReply = (parentNo, btn)=>{
 
     // 답글 작성 중 다른 답글을 작성하고자 할 때
     // 임시로 하나 만들어준거야
@@ -261,6 +274,7 @@ function showReply(parentNo, btn){
         }else{
             textarea.classList.add("pa-textarea");
         }
+        textarea.focus();
 }
 
 // 답글 취소를 누르면 없어지게 만들어보아요~~
