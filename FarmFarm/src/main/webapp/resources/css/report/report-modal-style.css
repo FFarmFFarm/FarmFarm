@@ -1,0 +1,123 @@
+@import "../root-style.css";
+
+#reportContainer{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--modal-background-color);
+
+    z-index: 2000;
+    
+    /* //todo */
+    display: none;
+}
+
+
+.report-modal{
+    background-color: white;
+    width: 400px;
+    /* height: 460px; */
+    height: 500px;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+
+}
+
+
+.report-modal i{
+    font-size: 18px;
+    margin-right: 3px;
+}
+
+
+.report-title{
+    width: 100%;
+    font-weight: bold;
+    text-align: center;
+    /* margin-bottom: 10px; */
+}
+
+.report-form-div{
+    height: 380px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.report-form{
+    font-size: var(--main-font-size);
+
+    display: flex;
+    flex-direction: column;
+}
+
+.report-form input{
+    margin-bottom: 10px;
+    margin-right: 20px; 
+}
+
+.report-form textarea{
+    width: 200px;
+    margin-left: 10px;
+    resize: none;
+    border:none;
+    border: 1px solid lightgray;
+}
+
+.report-form textarea:focus{
+    outline: none;
+}
+
+input[type=radio]{
+    accent-color: #fa2601;
+    cursor: pointer;
+}
+
+[name=report], label {
+    cursor: pointer;
+}
+
+
+#reportSubmitBtn{
+    width: 150px;
+    height: 30px;
+    background-color: #fa2601;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-left: 30px;
+    
+}
+
+
+/* 반짝이는 효과 */
+@keyframes blink-effect{
+    50% {
+        opacity: 0;
+    }
+}
+
+#reportSubmitBtn:active{
+    animation: blink-effect 0.3s step-start;
+    animation-timing-function: ease;
+    scale: 0.99;
+}
+
+
+.scrollLock {
+    overflow: hidden;
+}

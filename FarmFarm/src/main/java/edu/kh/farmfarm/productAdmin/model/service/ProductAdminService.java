@@ -25,6 +25,14 @@ public interface ProductAdminService {
 	 * @return map
 	 */
 	Map<String, Object> selectProductList(int cp);
+	
+
+	/** 팜팜상품 검색결과
+	 * @param pm
+	 * @param cp
+	 * @return
+	 */
+	Map<String, Object> selectProductList(Map<String, Object> pm, int cp);
 
 	/** 판매자 재고 증가
 	 * @param map
@@ -49,5 +57,24 @@ public interface ProductAdminService {
 	 * @return product
 	 */
 	Product selectProductDetail(int productNo);
+
+	/** 상품 수정
+	 * @param product
+	 * @param productImgList
+	 * @param webPath
+	 * @param folderPath
+	 * @param deleteList
+	 * @return result
+	 * @throws Exception 
+	 */
+	int updateProduct(Product product, List<MultipartFile> productImgList, String webPath, String folderPath,
+			String deleteList) throws Exception;
+
+	/** 상품 상태 변경
+	 * @param map
+	 * @return result
+	 */
+	int soldoutProduct(Map<String, Object> map);
+
 
 }

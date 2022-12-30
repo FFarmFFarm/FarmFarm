@@ -75,16 +75,16 @@
                             <c:set var="thumbnail" value="${img.productImgAddress}"/>
                         </c:when>
                         <c:when test="${img.productImgOrder==1}">
-                            <c:set var="img1" value="${img.productImgAddress}"/>
+                            <c:set var="img1" value="${img.productImgOriginal}"/>
                         </c:when>
                         <c:when test="${img.productImgOrder==2}">
-                            <c:set var="img2" value="${img.productImgAddress}"/>
+                            <c:set var="img2" value="${img.productImgOriginal}"/>
                         </c:when>
                         <c:when test="${img.productImgOrder==3}">
-                            <c:set var="img3" value="${img.productImgAddress}"/>
+                            <c:set var="img3" value="${img.productImgOriginal}"/>
                         </c:when>
                         <c:when test="${img.productImgOrder==4}">
-                            <c:set var="img4" value="${img.productImgAddress}"/>
+                            <c:set var="img4" value="${img.productImgOriginal}"/>
                         </c:when>
                     </c:choose>
                 </c:forEach>
@@ -101,8 +101,7 @@
                             <p>판매가격</p>
                             <input type="text" name="productPrice" 
                             value="${product.productPrice}"
-                            placeholder=0
-                            onfocus="this.placeholder = ''">
+                            placeholder=0>
                             <p>원</p>
                         </li>
                         <li class="info-list">
@@ -121,68 +120,80 @@
                             <p>상품이미지 1</p>
                             <label>
                                 <span class="select-img">파일 선택</span>
+                                <input type="file" name="productImage" class="input-img"
+                                id="img1" accept="image/*">
                                 <c:if test="${img1!=null}">
                                     <span class="img-address">${img1}</span>
                                 </c:if>
                                 <c:if test="${img1==null}">
                                     <span class="img-address">선택된 파일 없음</span>
                                 </c:if>
-                                <input type="file" name="productImage" class="input-img"
-                                id="img1" accept="image/*">
                             </label>
                             <c:if test="${img1!=null}">
                                 <span class="delete-img">&times;</span>
+                            </c:if>
+                            <c:if test="${img1==null}">
+                                <span class="delete-img"></span>
                             </c:if>
                         </li>
                         <li class="info-list">
                             <p>상품이미지 2</p>
                             <label>
                                 <span class="select-img">파일 선택</span>
+                                <input type="file" name="productImage" class="input-img"
+                                id="img2" accept="image/*">
                                 <c:if test="${img2!=null}">
                                     <span class="img-address">${img2}</span>
                                 </c:if>
                                 <c:if test="${img2==null}">
                                     <span class="img-address">선택된 파일 없음</span>
                                 </c:if>
-                                <input type="file" name="productImage" class="input-img"
-                                id="img1" accept="image/*">
                             </label>
                             <c:if test="${img2!=null}">
                                 <span class="delete-img">&times;</span>
+                            </c:if>
+                            <c:if test="${img2==null}">
+                                <span class="delete-img"></span>
                             </c:if>
                         </li>
                         <li class="info-list">
                             <p>상품이미지 3</p>
                             <label>
                                 <span class="select-img">파일 선택</span>
+                                <input type="file" name="productImage" class="input-img"
+                                id="img3" accept="image/*">
                                 <c:if test="${img3!=null}">
                                     <span class="img-address">${img3}</span>
                                 </c:if>
                                 <c:if test="${img3==null}">
                                     <span class="img-address">선택된 파일 없음</span>
                                 </c:if>
-                                <input type="file" name="productImage" class="input-img"
-                                id="img1" accept="image/*">
                             </label>
                             <c:if test="${img3!=null}">
                                 <span class="delete-img">&times;</span>
+                            </c:if>
+                            <c:if test="${img3==null}">
+                                <span class="delete-img"></span>
                             </c:if>
                         </li>
                         <li class="info-list">
                             <p>상품이미지 4</p>
                             <label>
                                 <span class="select-img">파일 선택</span>
+                                <input type="file" name="productImage" class="input-img"
+                                id="img4" accept="image/*">
                                 <c:if test="${img4!=null}">
                                     <span class="img-address">${img4}</span>
                                 </c:if>
                                 <c:if test="${img4==null}">
                                     <span class="img-address">선택된 파일 없음</span>
                                 </c:if>
-                                <input type="file" name="productImage" class="input-img"
-                                id="img1" accept="image/*">
                             </label>
                             <c:if test="${img4!=null}">
                                 <span class="delete-img">&times;</span>
+                            </c:if>
+                            <c:if test="${img4==null}">
+                                <span class="delete-img"></span>
                             </c:if>
                         </li>
                     </ul>

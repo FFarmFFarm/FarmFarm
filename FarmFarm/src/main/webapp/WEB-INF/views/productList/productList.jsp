@@ -101,6 +101,11 @@
                     <span>개</span>
                 </div>
                 <div class="view-option">
+                    <label for="except">
+                        <input type="checkbox" id="except">
+                        품절상품 제외하기
+                    </label>                    
+                    <span>|</span>
                     <input type='radio' name='sorting' id='rates' value='rates' checked>
                     <label for='rates' class="opt" >판매량순</label>
                     <span>|</span>
@@ -134,6 +139,11 @@
                     <c:forEach items="${productMap.productList}" var="map" >
     
                         <a href="/product/${map.productNo}" class="product-box">
+                            <c:if test="${map.stock==0}">
+                                <div class="sold-out-blind">
+                                    <img src="/resources/images/postList/out-of-stock.png">
+                                </div>
+                            </c:if>
                             <div class="product-content">
                                 <img src="${map.thumbnailImg}">
                             </div>

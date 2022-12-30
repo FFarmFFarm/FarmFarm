@@ -32,7 +32,31 @@ main {
   font-weight: bold;
 }
 
+.select-all {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 20px;
+}
 
+.select-all > input {
+  margin-right: 5px;
+  accent-color: var(--point-color);
+}
+
+.return-product {
+  width: 100%;
+}
+
+.sub-title {
+  display: block;
+  font-size : var(--large-font-size);
+  font-weight: bold;
+  padding: 0 20px;
+  margin-top: 20px;
+}
 .order {
   display: flex;
   flex-direction: column;
@@ -41,6 +65,12 @@ main {
   padding: 15px 0;
   margin-bottom: 20px;
   font-size: var(--medium-font-size);
+}
+
+input#productNoInput {
+  width: 20px; 
+  margin-right: 15px;
+  accent-color: var(--point-color);
 }
 
 .order-no {
@@ -177,56 +207,71 @@ main {
   color: var(--sub-font-color);
 }
 
-.order-status > * {
-  font-size: var(--small-font-size);
-  color: var(--sub-font-color);
+.return-reason {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 200px;
 }
 
-.order-shipping {
-  color: var(--point-color);
-}
-
-.button-area {
-  width: 15%;
+.return-reason > * {
+  height: 100px;
+  margin: 0;
 
   display: flex;
-  justify-content: center;
   align-items: center;
-  flex-direction: column;
+  margin-right: 5px;
 }
 
-.button-area > * {
-  width: 100px;
-  height: 30px;
-  color: var(--main-font-color);
-  background-color: var(--background-color);
-  border: 1px solid var(--line-color);
-  margin: 2px 0;
-  cursor: pointer;
+.return-reason > input {
+  accent-color: var(--point-color);
 }
 
-.button-area > *:disabled {
-  color: white;
-  background-color: rgba(0, 0, 0, 0.4);
-  cursor: default;
-
+.return-reason > label {
+  margin-right: 30px;
 }
 
-.write-review:disabled {
+.return-reason > span {
+  margin-right: 40px;
 }
 
-.total-price {
+.return-account {
   width: 100%;
-  text-align: end;
-  margin-bottom: 20px;
-  padding-right: 60px;
+  height: 300px;
 }
 
-.total-price > span {
+.account-info {
+  margin-left: 20px;
+  height: 150px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+}
+
+.account-info > div {
+  height: 70px;
+  display: flex;
+  align-items: center;
+}
+
+.account-info > div > label {
+  width: 80px;
   font-weight: bold;
 }
+.notice {
+  color: red;
+  margin-left: 20px;
+  font-size: var(--main-font-size);
+}
 
-.pagination {
-  display: flex;
-  margin-top: 10px;
+.return-btn {
+  width: 250px;
+  background-color: var(--point-color);
+  font-size: var(--large-font-size);
+  color: white;
+  border:none;
+  border-radius: 3px;
+  height: 40px;
 }

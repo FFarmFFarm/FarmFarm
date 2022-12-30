@@ -68,7 +68,7 @@ main{
 .member-select-title{
     color: var(--icon-button-color);
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 10px
 }
 
 .upper-board{
@@ -355,10 +355,12 @@ main{
     background-color: #e2e2e2;
 }
 
-#memberSearchInput{
+#adminMemberkeyword{
     width: 160px;
+    padding: 1px 0;
     border: none;
     background-color: #e2e2e2;
+    font-size: var(--small-font-size);
 }
 
 #memberSearchBtn{
@@ -389,11 +391,10 @@ main{
 /* 계정 상태 타이틀 */
 .member-history-title{
     width: 100%;
-    height: 30px;
+    /* height: 30px; */
     color: var(--icon-button-color);
     font-weight: bold;
     margin-top: 70px;
-    margin-bottom: 10px;
     text-align: center;
     padding: 0 350px;
 }
@@ -443,10 +444,11 @@ main{
 /* //optimize 회원 상세 정보 */
 .middle-detail{
     width: 900px;
-    height: 800px;
+    /* height: 800px; */
+    height: auto;
 
     margin-top: 50px;
-    margin-right: 10px;
+    padding-bottom: 30px;
 
     border-radius: 10px;
 
@@ -471,6 +473,7 @@ main{
     border-radius: 50%;
     width: 200px;
     height: 200px;
+    border: 10px solid #eef4ed;
 }
 
 
@@ -495,7 +498,10 @@ main{
     font-weight: bold;
 }
 
-
+.hidden-td{
+    width: 0;
+    height: 0;
+}
 
 
 
@@ -503,41 +509,47 @@ main{
 /* //optimize 계정 상태 */
 .member-history{
     width: 900px;
-    height: 240px;
+    height: auto;
     border-radius: 10px;
     background-color: white;
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    overflow: auto;
 }
-
-.member-history-div{
-    width: 900px;
-    height: 240px;
-    border: 1px solid black;
-}
-
 
 
 .member-history-table{
     width: 600px;
+    height: 120px;
     padding: 20px 0;
     margin-top: 30px;
     border-collapse: collapse;
 }
 
+.member-history-table tbody{
+    height: fit-content;
+}
+
 
 .member-history-table th{
+    height: 40px;
     padding-bottom: 10px;
     font-size: var(--main-font-size);
     color: var(--point-color);
     /* border: 1px solid black; */
 }
 
-.member-history-table td{
+.member-history-table tr td{
     text-align: center;
+    height: 40px;
     padding: 10px;
     font-size: var(--main-font-size);
+}
+
+
+.row2{
+    height: fit-content;
 }
 
 
@@ -546,10 +558,9 @@ main{
     width: 150px;
     height: 30px;
     border-radius: 5px;  
-    margin-top: 20px;
+    margin-top: 45px;
     background-color: #C43819;
     color: white;
     border: none;
 }
-
 

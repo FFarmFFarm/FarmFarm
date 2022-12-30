@@ -229,6 +229,15 @@ public class MyPageDAO {
 	}
 
 
+	/** 주문 조회
+	 * @param orderNo
+	 * @return
+	 */
+	public Order selectOrder(int orderNo) {
+		return sqlSession.selectOne("orderMapper.selectOrder", orderNo);
+	}
+
+
 
 
 

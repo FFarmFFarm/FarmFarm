@@ -33,63 +33,126 @@ for(let i=0; i<category.length; i++){
   });
 }
 
-// 썸네일 이미지 미리보기
-const inputImg = document.getElementsByClassName("productImage");
+  
+// 상품 설명 이미지 파일명 보기
+const productImage = document.getElementsByName("productImage");
 const preview = document.getElementsByClassName("preview")[0];
 const deleteImg = document.getElementsByClassName("delete-img");
 
 const deleteSet = new Set();
 
-for(let i=0; i<inputImg.length; i++){
+for(let i=0; i<productImage.length; i++){
 
-  // 썸네일 이미지일 경우
-  if(i==0){
-    inputImg[i].addEventListener("change", (e)=>{
-      console.log("되나?");
-      if(e.target.files[0] != undefined){
-        const reader = new FileReader();
-        reader.readAsDataURL(e.target.files[0]);
+  productImage[i].addEventListener("change", (e)=>{
+    // 파일이 있으면
+    if(e.target.files[0] != undefined){
+      const reader = new FileReader();
+      reader.readAsDataURL(e.target.files[0]);
+      
+      // 읽어오기 성공하면
+      reader.onload = e =>{
 
-        reader.onload = e =>{
+        if(i==0){
+          // 썸네일 이미지일 경우 미리보기
           preview.setAttribute("src", e.target.result);
-
-          deleteSet.delete(i);
-
           preview.nextElementSibling.remove();
+        } else{
+          // input 다음에 있는 요소 비우고
+          productImage[i].nextElementSibling.innerHTML="";
+          productImage[i].parentElement.nextElementSibling.innerHTML = "";
+
+          // span태그 만들어서 파일 이름 넣기
+          const imgAddress = document.createElement("span");
+          imgAddress.classList.add("img-address");
+          imgAddress.innerText = productImage[i].files[0].name;
+          
+          productImage[i].after(imgAddress);
+
+          // 삭제버튼 만들기
+          const deleteImgBtn = document.createElement("span");
+          deleteImgBtn.classList.add("delete-img");
+          deleteImgBtn.innerHTML = "&times;";
+
+          productImage[i].parentElement.after(deleteImgBtn);
+
+          // 만들어진 삭제버튼에 이미지 추가 (이미지x->삽입->삭제시)
+          deleteImgBtn.addEventListener("click", () => {
+            productImage[i].nextElementSibling.innerHTML="";
+  
+            const imgAddress = document.createElement("span");
+            imgAddress.classList.add("img-address");
+            imgAddress.innerText = "선택된 파일 없음";
+              
+            productImage[i].after(imgAddress);
+
+            productImage[i].parentElement.nextElementSibling.innerHTML = "";
+          })
+  
+          // deleteSet에서 해당 인덱스 삭제
+          deleteSet.delete(i);
         }
-      }else{
+      }
+    }else{
+      // 취소 누른 경우
+      if(i==0){ // 썸네일
         preview.removeAttribute("src");
         if(preview.nextElementSibling==null){
+
           const addPhoto = document.createElement("i");
           addPhoto.classList.add("fa-solid", "fa-plus");
+    
           preview.after(addPhoto);
         }
+      }else{ // 상세 이미지
+        productImage[i].nextElementSibling.innerHTML="";
+  
+        const imgAddress = document.createElement("span");
+        imgAddress.classList.add("img-address");
+        imgAddress.innerText = "선택된 파일 없음";
+          
+        productImage[i].after(imgAddress);
       }
-    })
-  }else{
-    
 
-  }
-
+    }
+  })
 
   deleteImg[i].addEventListener("click",()=>{
-    if(preview[i].getAttribute("src")!=""){
-      preview[i].removeAttribute("src");
-      inputImg[i].value="";
-      
-      deleteSet.add(i)
 
-      if(preview[i].nextElementSibling==null){
-        const addPhoto = document.createElement("p");
-        addPhoto.innerText = "사진추가";
-  
-        preview[i].after(addPhoto);
-      }
+    if(i==0 && preview.getAttribute("src")!=""){
+      preview.removeAttribute("src");
+      productImage[i].value="";
+      deleteSet.add(i);
+
+      const addPhoto = document.createElement("i");
+      addPhoto.classList.add("fa-solid", "fa-plus");
+
+      preview.after(addPhoto);
+
+    } else {
+      productImage[i].nextElementSibling.innerHTML="";
+      productImage[i].value="";
+      deleteSet.add(i);
+
+      const imgAddress = document.createElement("span");
+      imgAddress.classList.add("img-address");
+      imgAddress.innerText = "선택된 파일 없음";
+      
+      productImage[i].after(imgAddress);
+
+      productImage[i].parentElement.nextElementSibling.innerHTML = "";
+
     }
-  });
-}
+  })
+};
 
 const productPrice = document.querySelector("[name='productPrice']");
+
+productPrice.addEventListener("focus",()=>{
+  productPrice.setAttribute("placeholder", "");
+})
+productPrice.addEventListener("focusout",()=>{
+  productPrice.setAttribute("placeholder", "0");
+})
 
 productPrice.addEventListener('keyup', (e)=>{
   if((e.keyCode < 48 || e.keyCode > 57)&& e.keyCode!=8){
@@ -143,15 +206,13 @@ enrollproductForm.addEventListener("submit", (event)=>{
     return;
   }
 
-  const thumbnail = document.getElementById("img0");
-  if(thumbnail.value.length==0){
+  const thumbnail = document.getElementsByClassName("thumbnail-preview")[0];
+  if(thumbnail.getAttribute("src")==null){
     alert("대표 이미지를 설정해주세요.");
     thumbnail.value="";
     event.preventDefault();
     return;
   }
-
-
 
   const productMessage = document.querySelector("[name='productMessage']");
   if(productMessage.value.trim().length==0){
