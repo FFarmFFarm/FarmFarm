@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import edu.kh.farmfarm.mypage.model.vo.Order;
 import edu.kh.farmfarm.order.model.vo.Return;
 import edu.kh.farmfarm.productDetail.model.vo.Product;
 
@@ -48,6 +49,35 @@ public class OrderDAO {
 		}
 	
 		return result;
+	}
+
+	/** 주문정보 삽입
+	 * @param order
+	 * @return
+	 */
+	public int insertOrder(Order order) {
+		int orderNo = sqlSession.insert("orderMapper.insertOrder", order);
+		
+		orderNo = order.getOrderNo();
+		
+		return orderNo;	
+	}
+
+	/** 주문 상품 삽입
+	 * @param pList
+	 * @return
+	 */
+	public int insertProduct(List<Product> pList) {
+
+		int result = 0;
+		
+		for(Product p : pList) {
+			
+			result = sqlSession.insert("orderMapper.insertProduct", p);
+		}
+		
+		return result;	 
+	 
 	}
 
 
