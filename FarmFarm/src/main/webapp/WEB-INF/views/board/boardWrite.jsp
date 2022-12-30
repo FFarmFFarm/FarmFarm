@@ -37,6 +37,9 @@
                     <input type="radio" name="boardTypeNo"  class="boardTypeNo" id="question" value="3">
                     <label class="categoryLabel" for="question">질문</label>
 
+                    <input type="radio" name="boardTypeNo"  class="boardTypeNo" id="Cool" value="4">
+                    <label class="categoryLabel" for="Cool">시원이꼬</label>
+
                 </div>
                 <button class="board-submit">게시하기</button>
             </section>
