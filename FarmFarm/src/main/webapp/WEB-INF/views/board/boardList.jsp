@@ -121,43 +121,42 @@
                     </c:choose>
                 </ul>
                 <div class="board-write-bottom">
-                
-                    <div class="pagination-area">
-                <!-- ajax로 만들어 보십시다 -->
-                <div id="1" class="page-box">
-                    <i class="fa-solid fa-angles-left"></i>
-                </div>
-                <div id="${productMap.pagination.prevPage}" class="page-box">
-                    <i class="fa-solid fa-angle-left"></i>
-                </div>
-                <c:forEach var="i" 
-                           begin="${productMap.pagination.startPage}" 
-                           end="${productMap.pagination.endPage}"
-                           step="1">
-                    <c:choose>
-                        <c:when test="${i == productMap.pagination.currentPage}">
-                            <div class="current-page-box">
-                                ${i}
-                            </div>
-                        </c:when>
-                    
-                        <c:otherwise>
-                            <div id="${i}" class="page-box">
-                                ${i}
-                            </div>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
 
-                <div id="${productMap.pagination.nextPage}" class="page-box">
-                    <i class="fa-solid fa-angle-right"></i>
-                </div>
-                <div id="${productMap.pagination.endPage}" class="page-box">
-                    <i class="fa-solid fa-angles-right"></i>
-                </div>
-            </div>
-                    
-                    
+                    <div class="pagination-area">
+                        <!-- ajax로 만들어 보십시다 -->
+                        <div id="1" class="page-box">
+                            <i class="fa-solid fa-angles-left"></i>
+                        </div>
+                        <div id="${productMap.pagination.prevPage}" class="page-box">
+                            <i class="fa-solid fa-angle-left"></i>
+                        </div>
+                        <c:forEach var="i" 
+                                begin="${productMap.pagination.startPage}" 
+                                end="${productMap.pagination.endPage}"
+                                step="1">
+                            <c:choose>
+                                <c:when test="${i == productMap.pagination.currentPage}">
+                                    <div class="current-page-box">
+                                        ${i}
+                                    </div>
+                                </c:when>
+                            
+                                <c:otherwise>
+                                    <div id="${i}" class="page-box">
+                                        ${i}
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+
+                        <div id="${productMap.pagination.nextPage}" class="page-box">
+                            <i class="fa-solid fa-angle-right"></i>
+                        </div>
+                        <div id="${productMap.pagination.endPage}" class="page-box">
+                            <i class="fa-solid fa-angles-right"></i>
+                        </div>
+                    </div>
+
                     <c:if test="${!empty loginMember}">
                         <a href="/board/write" class="board-write">글쓰기</a>
                     </c:if>

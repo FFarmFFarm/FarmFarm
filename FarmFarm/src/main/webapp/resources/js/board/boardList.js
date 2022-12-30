@@ -89,7 +89,10 @@ boardNowSort.addEventListener("click", ()=>{
 
 // board-list-title의 원래 모양을 저장해둬볼까요?
 let beforeBoardListTitle;
-const printBoardList=(boardList, pagination)=>{
+const printBoardList=(boardMap)=>{
+
+    const boardList = boardMap.boardList;
+    const pagination = boardMap.pagination;
 
     const boardListTop = document.querySelector(".board-list-top");
     
@@ -102,6 +105,9 @@ const printBoardList=(boardList, pagination)=>{
     const boardListArea = document.createElement("ul");
     boardListArea.classList.add(".board-list-area");
 
+    // 페이지네이션 영역
+    const paginationArea = document.querySelector('.pagination-area');
+    paginationArea.innerHTML = "";
 
     if(boardList.length == 0){
         const emptyList = document.createElement("div");
@@ -143,8 +149,83 @@ const printBoardList=(boardList, pagination)=>{
             li.append(boardNo, boardTitle, boardWriter, boardDate, boardView);
             boardTitle.append(boardA);
         }
+
+        // 이전 페이지
+        const firstPage = document.createElement('div');
+        const prevPage = document.createElement('div');
+        makePageBox(firstPage, '<i class="fa-solid fa-angles-left"></i>', 1, 'page-box');
+        makePageBox(prevPage, '<i class="fa-solid fa-angle-left"></i>', pagination.prevPage, 'page-box');
+        
+        paginationArea.append(firstPage, prevPage);
+
+        // 번호 페이지 제작
+        for(let i=pagination.startPage; i<=pagination.endPage; i++) {
+            const numPage = document.createElement('div');
+            if(i == pagination.currentPage) {
+                makePageBox(numPage, i, i, 'current-page-box');
+            } else {
+                makePageBox(numPage, i, i, 'page-box');
+            }
+            paginationArea.append(numPage);
+        }
+        
+        // 이후 페이지 제작
+        const nextPage = document.createElement('div');
+        const maxPage = document.createElement('div');
+        makePageBox(nextPage, '<i class="fa-solid fa-angle-right"></i>', pagination.nextPage, 'page-box');
+        makePageBox(maxPage, '<i class="fa-solid fa-angles-right"></i>', pagination.maxPage, 'page-box');
+
+        paginationArea.append(nextPage, maxPage);
+
+        // 페이지 이벤트 생성
+        makePageBoxEvent();
     }
 
+}
+
+
+/* 페이지 선택 이벤트 추가 함수 */
+const makePageBoxEvent = () => {
+    const pageBoxList = document.getElementsByClassName('page-box');
+
+    for (let pageBox of pageBoxList) {
+        pageBox.addEventListener('click', () => {
+            const url = location.search;
+            const isKeyword = url.indexOf('?keyword=', 0);
+
+            if(isKeyword == -1) { // 주소창에 키워드가 없는 경우(키워드 유지X)
+                // 카테고리 선택   
+                let category = getCheckedCategory();
+
+                // 페이지 선택
+                let cp = pageBox.id;
+    
+                // 선택한 정보로 페이지를 생성
+                getCustomList(category, cp);
+    
+                // history에 저장
+                makeHistory1(category, cp);
+            } else { // 주소창에 키워드가 있는 경우(키워드 유지)
+                // 첫 번째 = 의 위치
+                const firstEqualSign = url.indexOf('=', 1);
+
+                // 첫 번째 & 의 위치
+                const firstAndSign = url.indexOf('&', firstEqualSign);
+
+                // 주소창에서 검색어를 잘라냄
+                let keywordEncoded = url.substring(firstEqualSign + 1, firstAndSign)
+        
+                // 주소창 인코딩
+                let keyword = decodeURIComponent(keywordEncoded);
+
+                // 페이지 생성
+                getCustomList2(beforeKeyword, beforeCategoryNo, beforePageNo);
+
+                // history에 저장
+                makeHistory2(keyword, category, cp);
+            }
+        })
+    }
 }
 
 
