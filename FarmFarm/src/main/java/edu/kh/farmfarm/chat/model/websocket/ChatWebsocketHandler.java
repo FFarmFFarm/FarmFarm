@@ -76,10 +76,14 @@ public class ChatWebsocketHandler extends TextWebSocketHandler {
 	        if(hour >= 12) {
 	        	hour-= 12;
 	        	meridiem = "오후";
-	        	strHour = "0" + hour;
-	        } else {
-	        	strHour = "" + hour;
 	        }
+	        if(hour >=10) {
+	        	strHour = "" + hour;
+	        } else {
+	        	strHour = "0" + hour;
+	        }
+	        
+	        System.out.println("시간 : " + strHour);
 	        
 	        if(minute < 10) {
 	        	strMin = "0" + minute;
