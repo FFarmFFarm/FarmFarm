@@ -1,5 +1,8 @@
-
 const selectOne = document.getElementsByClassName("select-one");
+const selectAll = document.getElementById("selectAll");
+
+const totalPrice = document.getElementById("totalPrice");
+const orderPrice = document.getElementById("orderPrice");
 
 for(let i=0; i<selectOne.length; i++){
   
@@ -17,8 +20,6 @@ for(let i=0; i<selectOne.length; i++){
       
   })
 }
-
-const selectAll = document.getElementById("selectAll");
 
 selectAll.addEventListener("change", (e) => {
   const checkAll = document.querySelector(".check-all>i");

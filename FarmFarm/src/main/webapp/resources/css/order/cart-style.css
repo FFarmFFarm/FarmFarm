@@ -259,7 +259,7 @@ input[type="number"]::-webkit-inner-spin-button {
   border-top: 1px solid rgb(244, 244, 244);
 }
 
-.result-price {
+#orderPrice {
   font-family: "NotoSansKR-Bold";
 }
 

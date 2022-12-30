@@ -97,7 +97,7 @@
                     <div class="price-container">
                         <div class="price-one-line">
                             <span>상품금액</span>
-                            <span>30,000원</span>
+                            <span id="totalPrice">30,000원</span>
                         </div>
                         <div class="price-one-line">
                             <span>배송비</span>
@@ -105,7 +105,7 @@
                         </div>
                         <div class="price-one-line">
                             <span>결제예정금액</span>
-                            <span class="result-price">33,000원</span>
+                            <span id="orderPrice">33,000원</span>
                         </div>
                     </div>
                     <div class="submit-container">
