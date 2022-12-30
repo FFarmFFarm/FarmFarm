@@ -54,24 +54,25 @@ section {
 
 }
 
-#selectAll{
-  display: none;
+input[type="checkbox"]{
+  /* display: none; */
 }
 
-.check-icon{
+
+/* 체크아이콘 */
+.check-icon, .check-all{
   font-size: 26px;
   display: inline-block;
   margin-right: 10px;
 }
 
-.check-icon>i:nth-child(1){
+
+.fa-regular{
   color : #ddd;
-  /* display: none; */
 }
 
-.check-icon>i:nth-child(2){
+.fa-solid{
   color : var(--point-color);
-  /* display: none; */
 }
 
 
@@ -163,6 +164,13 @@ section {
 .product-amount{
   text-align: center;
   line-height: 28px;
+  border: none;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .product-price {

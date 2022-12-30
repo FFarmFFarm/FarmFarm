@@ -31,17 +31,20 @@
         <div class="cart-title">장바구니</div>
 
         <section class="cart-container">
-
+            <form action="/orderPage" method="POST">
+            
+            
+            </form>
             <!-- 상품 목록 -->
             <div class="product-container">
                 <div class="cart-headline">
                     <label for="selectAll" class="check-label">
-                    <input type="checkbox" id="selectAll">
-                    <div class="check-icon">
-                        <i class="fa-regular fa-circle-check"></i>
-                        <i class="fa-solid fa-circle-check"></i>
-                    </div>
-                    <span class="check-title">전체선택(5/5)</span>
+                        <input type="checkbox" class="select-all" id="selectAll" checked="checked">
+                        <div class="check-all">
+                            <%-- <i class="fa-regular fa-circle-check"></i> --%>
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                        <span class="check-title">전체선택(5/5)</span>
                     </label>
                     <span class="bar">|</span>
                     <button class="check-title delete-check">선택삭제</button>
@@ -49,10 +52,13 @@
 
                 <ul class="product-list">
                     <li class="product-item">
-                        <div class="check-icon">
-                            <i class="fa-regular fa-circle-check"></i>
-                            <i class="fa-solid fa-circle-check"></i>
-                        </div>
+                        <label for="selectOne" class="check-label">
+                            <input type="checkbox" class="select-one" id="selectOne" checked="checked">
+                            <div class="check-icon">
+                                <%-- <i class="fa-regular fa-circle-check"></i> --%>
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                        </label>
                         <a href="#" class="cart-thumbnail">
                             <img
                             src="../../images/product/thumbnail/productThumbnail.png"
@@ -67,7 +73,8 @@
                         </div>
                         <div class="product-amount-btn">
                             <button><i class="fa-solid fa-minus"></i></button>
-                            <div class="product-amount">2</div>
+                            <input type="number" min="1" class="product-amount"
+                            value=2>
                             <button><i class="fa-solid fa-plus"></i></button>
                         </div>
                         <span class="product-price">9,900원</span>
@@ -125,7 +132,7 @@
         <c:remove var="message"/>
     </c:if>
 
-    <script src="/resources/js/seller/sellerPage.js"></script>
+    <script src="/resources/js/order/cart.js"></script>ß
 
     <!-- ajax -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
