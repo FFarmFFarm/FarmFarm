@@ -180,14 +180,6 @@
                             success: function(data) {
                                 const checkNum = data;
                                 const memberTel = $('#to');
-
-
-
-
-                                if(memberTel == null){
-                                    checkObj.memberTel = false;
-                                    alert('전화번호를 작성해주세요.');
-                                }else{
                                   alert('인증번호가 전송되었습니다.');
                                 
                                   $('#enterBtn').click(function() {	
@@ -202,7 +194,7 @@
                                         checkObj.userNum = false;
                                     }
                                 });
-                            }
+                            
                                 
                             }
                         });
