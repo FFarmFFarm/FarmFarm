@@ -100,6 +100,11 @@ input[type="text"]:focus{
     text-align: center;
     font-size: var(--main-font-size);
     border-radius: 5px;
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--point-color);
+    /* flex-direction: column; */
 }
 
 /* 커뮤니티 목록 */
@@ -214,3 +219,43 @@ input[type="text"]:focus{
 
 
 
+
+
+.board-now-sort{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.board-sort{
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.fa-angle-down{
+    height: 100%;
+}
+.board-select-sort{
+    width: 100px;
+    /* border: 1px solid red; */
+    background-color: white;
+    border-radius: 10px;
+    z-index: 500;
+    position: absolute;
+    top: 443px;
+    box-shadow: 3px 3px 14px -7px grey;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+.board-select-area > li{
+    margin: 3px 0;
+    cursor: pointer;
+}
+.board-select-area > li:hover{
+    color: var(--point-color);
+}
+
+.toggle{
+    display: flex;
+}

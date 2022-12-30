@@ -1,4 +1,5 @@
 
+
 // 와글와글 게시판 이름 바꿔주기 + 현재 게시판 알려주기
 const boardTitle = document.querySelector(".board-top-title");
 const boardAdd = location.pathname;
@@ -73,33 +74,20 @@ for(let go of goBoard){
 
 }
 
-// const boardSelect = document.getElementById("boardSelect");
-// boardSelect.addEventListener("change", ()=>{
-//     const value = boardSelect.options[boardSelect.selectedIndex].value;
-//     console.log(value);
-//     boardSelect.setAttribute("value", value);
 
-//     $.ajax({
-//         url: "board/${boardTypeNo}",
-//         data : {"query" : query, "NVL" : NVL, "query" : query},
-//         dataType : "JSON",
-//         success : ()=>{
-
-//             const boardListArea = document.querySelector(".board-list-area");
-//             boardListArea.innerHTML="";
-//             boardListArea.classList.add(".board-list-area");
-
-//             if(  )
+// 정렬을 누르면 밑에 정렬이 뜨게 만들어 볼까~~?
+const boardNowSort = document.querySelector(".board-now-sort");
+const boardSelectSort = document.querySelector(".board-select-sort");
+boardNowSort.addEventListener("click", ()=>{
+    boardSelectSort.classList.toggle("toggle");
+})
 
 
-//         },
-//         error : ()=>{
-//             alert("리스트 불러오기 ajax 통신 오류");
-//             console.log("리스트 불러오기 ajax 통신 오류");
-//         }
-//     })
 
-// })
+
+
+
+
 
 
 

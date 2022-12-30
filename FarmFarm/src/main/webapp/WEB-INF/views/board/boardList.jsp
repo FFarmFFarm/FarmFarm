@@ -24,7 +24,7 @@
 
     <main>
         <section class="board-top">
-            <div class="board-top-title">와글와글 물물교환</div>
+            <div class="board-top-title">와글와글 물물교환 ${boardType.boardTypeNo}</div>
         </section>
         <section class="board-nav">
             <div class="board-nav-area">
@@ -42,11 +42,24 @@
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </section>
-            <select class="board-select" name="boardSelectNVL" id="boardSelect">
+            <div class="board-select" name="boardSelectNVL" id="boardSelect">
+                <sapn class="board-now-sort">
+                    <span class="board-sort">최신순 &nbsp;</span>
+                    <span><i class="fa-solid fa-angle-down"></i></span>
+                </sapn>
+                <div class="board-select-sort">
+                    <ul class="board-select-area">
+                        <li class="new">최신순</li>
+                        <li class="view">조회수</li>
+                        <li class="like">좋아요</li>
+                    </ul>
+                </div>
+            </div>
+            <%-- <select class="board-select" name="boardSelectNVL" id="boardSelect">
                 <option value="new">최신순</option>
                 <option value="view">조회수</option>
                 <option value="like">좋아요</option>
-            </select>
+            </select> --%>
             <%-- <div class="board-select" name="boardSelectNVL" id="boardSelect">
                 <button value="new">최신순 <i class="fa-solid fa-angle-down"></i></button>
                 <button value="view">조회수 <i class="fa-solid fa-angle-down"></i></button>
