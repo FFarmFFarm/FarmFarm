@@ -125,7 +125,7 @@
               <c:if test="${order.orderStatus == 3}">
                 <c:if test="${product.reviewCheck == 0}">
                   <c:if test="${product.productStatus == 0}">
-                    <button type="button" class="write-review" id="${order.orderNo}">후기작성</button>
+                    <button type="button" class="write-review" id="${product.productNo}">후기작성</button>
                   </c:if>
                 </c:if>
                 <c:if test="${product.reviewCheck > 0}">
