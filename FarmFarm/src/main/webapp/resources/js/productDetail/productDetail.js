@@ -142,50 +142,74 @@ if (document.getElementById('cartBtn') != undefined) {
               productAmount: productAmount,
               memberNo: memberNo },
         success: (result) => {
-          if(result>0){
-            
-            location.href="/cart";
+          if(result == 0){
+            messageModalOpen("장바구니 추가 실패");
+
+          } else if(result == 1){ // 장바구니 추가 성공
+            goCartConfirmOpen();
+
+          } else if(result == 2){ // 기존에 장바구니에 있는 경우
+            // 장바구니 추가? confirm
+            addCartConfirmOpen();
           }
-          console.log("장바구니 이동 성공");
         },
         error: () => {
           console.log("장바구니 이동 실패");
         },
       });
-
-      goCart(productNo, productAmount);
     }
   })
 };
 
+// 장바구니 이동하시겠습니까? confirm
 const goCartConfirmOpen = () => {
   const goCartConfirm = document.getElementById('goCartConfirm');
   displayFlex(goCartConfirm);
 }
 
+// 장바구니 이동하시겠습니까? confirm 닫기
+if (document.getElementById('goCartCalcelBtn') != undefined) {
+
+  document.getElementById('goCartCalcelBtn').addEventListener('click', function () {
+    const goCartConfirm = document.getElementById('goCartConfirm');
+    displayNone(goCartConfirm);
+  })
+
+  document.getElementById('goCartConfirmBtn').addEventListener('click', function () {
+    location.href = "/cart";
+  })
+}
+
+
+// 기존에 장바구니에 있을 때 confirm
 const addCartConfirmOpen = () => {
   const addCartConfirm = document.getElementById('addCartConfirm');
   displayFlex(addCartConfirm);
 }
 
+if (document.getElementById('addCartCalcelBtn') != undefined) {
+  // 추가 취소
+  document.getElementById('addCartCalcelBtn').addEventListener('click', function () {
+    const addCartConfirm = document.getElementById('addCartConfirm');
+    displayNone(addCartConfirm);
+  })
 
-
-const goCart = (productNo, productAmount) => {
-
-  $.ajax({
-    url: '/cart',
-    data: { productNo: productNo,
-          productAmount: productAmount,
-          memberNo: memberNo },
-    success: () => {
-      console.log("장바구니 이동 성공");
-    },
-    error: () => {
-      console.log("장바구니 이동 실패");
-    },
-  });
-
+  // 추가 하겠다
+  document.getElementById('addCartConfirmBtn').addEventListener('click', function () {
+    
+    // 추가하는 ajax
+    $.ajax({
+      url: '/addCart',
+      data: { memberNo: memberNo },
+      success: (result) => {
+        if(result == 0){}}
+    
+    })
+      goCartConfirmOpen();
+  }
 }
+
+
 
 /* -------------------------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------------------------- */
