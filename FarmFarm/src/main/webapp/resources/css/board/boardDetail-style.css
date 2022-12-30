@@ -54,9 +54,10 @@ main{
 .board-title-area{
     height: 130px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     border-bottom: 1px solid var(--line-color);
     padding: 0 30px;
+    flex-direction: column;
 }
 .writer-img{
     width: 73px;
@@ -222,6 +223,8 @@ main{
     /* margin-bottom: 20px; */
     border-bottom: 1px solid var(--point-color);
     padding: 20px 0;
+    /* background-color: #2b8c430f; */
+
 }
 .comment-writer{
     display: flex;
@@ -254,7 +257,8 @@ main{
     padding: 10px 20px;
 }
 .comment-child{
-    padding-left: 50px;
+    padding-left: 65px;
+    background-color: white;
 }
 .writer-time-reply{
     font-size: var(--main-font-size);
@@ -413,4 +417,10 @@ main{
     background: #ddd;
     border-top-right-radius: 9px;
     border-bottom-right-radius: 9px;
+}
+
+.temptemp{
+    display: flex;
+    /* justify-content: space-between; */
+    width: 100%;
 }
