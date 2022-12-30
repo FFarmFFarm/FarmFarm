@@ -26,16 +26,16 @@ if(boardTypeNo == 3){
     boardTopTitle.innerText = "와글와글 질문";
 }
 
-// 목록으로 가기 버튼~
-const goList = document.querySelector(".goList");
-goList.addEventListener("click", ()=>{
-    const pathname = location.pathname;
-    const queryString = location.search;
+// // 목록으로 가기 버튼~
+// const goList = document.querySelector(".goList");
+// goList.addEventListener("click", ()=>{
+//     const pathname = location.pathname;
+//     const queryString = location.search;
 
-    const url = pathname.substring(0, pathname.lastIndexOf("/"))+queryString;
+//     const url = pathname.substring(0, pathname.lastIndexOf("/"))+queryString;
 
-    location.href = url;
-})
+//     location.href = url;
+// })
 
 
 
