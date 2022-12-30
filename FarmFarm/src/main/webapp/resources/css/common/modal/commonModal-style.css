@@ -1,3 +1,5 @@
+
+
 .login-confirm-container{
   width: 100vw;
   height: 100vh;
@@ -59,9 +61,9 @@
 /* 메세지 모달창 관련 */
 
 .message-container {
-  position: absolute;
-  left: 50%;
-  bottom: 10%;
+  position: fixed;
+  left: 45%;
+  bottom: 15%;
 
   display: flex;
   justify-content: center;

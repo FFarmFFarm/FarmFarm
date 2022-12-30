@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import edu.kh.farmfarm.board.model.vo.Board;
 import edu.kh.farmfarm.common.Pagination;
+import edu.kh.farmfarm.member.model.VO.Member;
 
 @Repository
 public class BoardListDAO {
@@ -53,6 +54,12 @@ public class BoardListDAO {
 		RowBounds rowbounds = new RowBounds(offset, pagination.getLimit());
 		
 		return sqlSession.selectList("boardMapper.selecBoardtListSearch", searchMap, rowbounds);
+	}
+	
+
+	// 프로필 클릭시 모달 
+	public Member selectMember(int memberNo) {
+		return sqlSession.selectOne("memberMapper.selectMember", memberNo);
 	}
 
 }

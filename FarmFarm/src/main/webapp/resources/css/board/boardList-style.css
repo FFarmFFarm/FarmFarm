@@ -141,6 +141,7 @@ input[type="text"]:focus{
 .board-writer{
     /* border: 1px solid black; */
     width: 180px;
+    cursor: pointer;
     /* height: 100%; */
   }
 .board-date{
