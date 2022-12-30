@@ -9,6 +9,34 @@
 		<result property="productAmount" column="PRODUCT_AMOUNT" />
 	</resultMap>
   
-
+	<!-- 장바구니 확인 -->
+	<select id="checkCart" resultType="_int">
+		SELECT COUNT(*)
+		FROM CART
+		WHERE MEMBER_NO = #{memberNo}
+		AND PRODUCT_NO = #{productNo}
+	</select>
+	
+	<!-- 장바구니 추가 -->
+	<insert id="addCart">
+		INSERT INTO CART VALUES
+		(#{memberNo}, #{productNo}, #{productAmount})
+	</insert>
+	
+	<!-- 장바구니 수량 확인 -->
+	<select id="addCartAmount" resultType="_int">
+		SELECT PRODUCT_AMOUNT
+		FROM CART
+		WHERE MEMBER_NO = #{memberNo}
+		AND PRODUCT_NO = #{productNo}
+	</select>
+	
+	<!-- 장바구니 수량 업데이트 -->
+	<update id="addCartUp">
+		UPDATE CART SET 
+		PRODUCT_AMOUNT = #{productAmount}
+		WHERE MEMBER_NO = #{memberNo}
+		AND PRODUCT_NO = #{productNo}
+	</update>
   
 </mapper>
