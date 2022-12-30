@@ -901,7 +901,7 @@ const searchNoResult = () => {
 닉네임 10자 
 */
 
-// jsp 첫 페이지
+// jsp 첫 페이지  글자 자르기
 const mId = document.getElementById("mId");
 if(mId.innerText.length > 10){
     mId.innerText = mId.innerText.substring(0, 9) + '...';

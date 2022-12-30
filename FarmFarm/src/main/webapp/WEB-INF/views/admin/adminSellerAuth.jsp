@@ -67,11 +67,11 @@
                                 <tr class="auth-list-row">
                                     <td>${i}</td>
                                     <td>${seller.memberNo}</td>
-                                    <td>${seller.memberId}</td>
-                                    <td>${seller.memberNickname}</td>
+                                    <td id="sId">${seller.memberId}</td>
+                                    <td id="sNickname">${seller.memberNickname}</td>
                                     <td>${seller.memberName}</td>
-                                    <td>${seller.memberAddress}</td>
-                                    <td>${seller.signUpDate}/td>
+                                    <td id="sAddress">${seller.memberAddress}</td>
+                                    <td>${seller.signUpDate}</td>
                                     
                                     <c:if test="${not empty seller.authority}">
                                         <c:if test="${seller.authority == 3}">
@@ -196,5 +196,6 @@
     <%-- jquery --%>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
+    <script src="/resources/js/admin/adminSellerAuth.js"></script> 
 </body>
 </html>

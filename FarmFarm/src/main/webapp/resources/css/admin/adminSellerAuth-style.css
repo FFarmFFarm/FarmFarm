@@ -125,6 +125,7 @@ main{
     align-items: flex-start;
     
     padding: 15px 20px;
+    overflow: hidden;
 }
 
 /* 인증 신청 테이블 */
