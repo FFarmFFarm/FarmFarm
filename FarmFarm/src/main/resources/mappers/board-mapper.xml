@@ -350,7 +350,7 @@
 	
 	
 	<!-- 댓글 등록을 해봅시다 -->
-	<insert id="commentWrite">
+	<insert id="commentWrite" useGeneratedKeys="true">
 		INSERT INTO "COMMENT"
 		VALUES(SEQ_COMMENT_NO.NEXTVAL, #{commentContent},
 			<if test='commentParent == 0'>
@@ -360,6 +360,9 @@
 				#{commentParent},
 			</if>
 			 DEFAULT, #{memberNo}, #{boardNo}, DEFAULT)
+		<selectKey keyProperty="commentNo" resultType="int" order="AFTER">
+			SELECT SEQ_COMMENT_NO.CURRVAL FROM DUAL
+		</selectKey>
 	</insert>
 	
 	
@@ -378,5 +381,22 @@
 		COMMENT_CONTENT = '삭제된 댓글입니다.'
 		WHERE COMMENT_NO = #{commentNo}
 	</update>
+	
+	<!-- 알림에 사용되는 SQL문입니다! -->
+		
+		<!-- 게시글의 작성자 번호 찾기 -->
+		<select id="selectBoardWriterNo" parameterType="_int" resultType="_int">
+			SELECT MEMBER_NO
+			FROM "BOARD"
+			WHERE BOARD_NO = #{boardNo}
+		</select>
+	
+		<select id="selectCommentWriterNo" parameterType="_int" resultType="_int">
+			SELECT MEMBER_NO
+			FROM "COMMENT"
+			WHERE COMMENT_NO = #{commentNo}
+		</select>
+	
+	<!-- END 알림 SQL -->
 
 </mapper>

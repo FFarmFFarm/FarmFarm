@@ -30,7 +30,13 @@ public class CommentServiceImpl implements CommentService{
 		comment.setCommentContent(Util.XSSHandling(comment.getCommentContent()));
 		comment.setCommentContent(Util.newLineHandling(comment.getCommentContent()));
 		
-		return dao.commentWrite(comment);
+		int result = dao.commentWrite(comment);
+		
+		if(result > 0) {
+			result = comment.getCommentNo();
+		}
+		
+		return result; 
 	}
 
 

@@ -17,6 +17,8 @@
                     <i class="fa-solid fa-arrow-up go-to-top-icon"></i>
                 </button>
             </a>
+            <!-- 알림 메시지 -->
+            <jsp:include page="/WEB-INF/views/alarm/alarmReceiver.jsp" />
         </div>
 
         <footer>
