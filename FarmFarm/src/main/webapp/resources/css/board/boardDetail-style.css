@@ -184,17 +184,21 @@ main{
     display: flex;
     margin-bottom: 30px;
 }
+
+.comment-form{
+    border: 1px solid var(--sub-font-color);
+}
+
 .write-comment{
     resize: none;
-    width: 850px;
+    width: 920px;
     height: 95px;
     margin: auto;
     line-height: 1.5;
     letter-spacing: 1px;
-    border: 1px solid var(--sub-font-color);
     padding: 8px;
-    border-radius: 10px;
     cursor: auto;
+    border: none;
 }
 .write-comment:focus{
     border: none;
@@ -203,23 +207,33 @@ main{
 .comment-content > div{
     width: 100%;
 }
+
+.comment-side{
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid var(--sub-font-color);
+    margin-top: -5px;
+}
+
+.comment-caution{
+    padding-left: 20px;
+    padding-top: 10px;
+    color: var(--sub-font-color);
+}
+
 .comment-insert{
-    width: 75px;
-    height: 95px;
-    margin: auto;
-    border-radius: 10px;
-    /* border: 1px solid var(--point-color); */
-    background-color: white;
-    font-size: var(--main-font-size);
+    width: 135px;
+    height: 45px;
+    background-color: var(--point-color);
+    font-size: var(--medium-font-size);
     letter-spacing: 3px;
     line-height: 23px;
-    
+    color : var(--background-color);
     border: none;
-    background-color: #ddd;
+    font-family: "NotoSansKR-Bold";
 }
 /* 댓글 부분 */
 .comment-row{
-    /* margin-bottom: 20px; */
     border-bottom: 1px solid var(--point-color);
     padding: 20px 0;
 }
@@ -234,9 +248,7 @@ main{
     color: var(--sub-font-color);
 }
 .writer-profile{
-
     border-radius: 50%;
-    /* border: 1px solid black; */
     overflow: hidden;
     margin: auto 10px;
 }

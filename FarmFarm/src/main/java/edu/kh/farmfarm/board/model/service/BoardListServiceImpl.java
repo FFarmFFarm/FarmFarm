@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import edu.kh.farmfarm.board.model.dao.BoardListDAO;
 import edu.kh.farmfarm.board.model.vo.Board;
 import edu.kh.farmfarm.common.Pagination;
+import edu.kh.farmfarm.member.model.VO.Member;
 
 @Service
 public class BoardListServiceImpl implements  BoardListService{
@@ -72,6 +73,16 @@ public class BoardListServiceImpl implements  BoardListService{
 		
 		return boardMap;
 	}
+
+
+	// 프로필 클릭시 모달 
+	@Override
+	public Member selectMember(int memberNo) {
+		return dao.selectMember(memberNo);
+	}
+
+
+
 
 
 }

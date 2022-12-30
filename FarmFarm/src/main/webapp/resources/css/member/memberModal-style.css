@@ -1,0 +1,165 @@
+/* 모달 */
+.modal {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--modal-background-color);
+
+    z-index: 2000;
+    
+    /* //todo */
+    display: none;
+}
+
+.modal.show {
+    display: flex;
+    animation-name: show;
+    animation-duration: 0.5s;
+}
+
+.modal.hide{
+    animation-name: hide;
+    animation-duration: 0.5s;
+}
+
+
+#modal-image {
+    background-color: white;
+    margin: auto;
+    border-radius: 10px;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* @keyframes : 
+애니메이션 중간중간의 특정 지점들을 거칠 수 있는 키프레임들을 설정함으로써 CSS 애니메이션 과정의 중간 절차를 제어할 수 있게 합니다.  */
+/* display 변경 시 트랜지션이 적용되지 않으므로 애니메이션 사용 */
+@keyframes show {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes hide {
+    from {opacity: 1;}
+    to {opacity: 0;}
+}
+
+
+/* 닫기 버튼 꾸미기 */
+/* #modal-close {
+    position: absolute;
+    top: 615px;
+    right: 410px;
+
+    color: white;
+    font-size: 50px;
+    font-weight: bold;
+
+    transition-duration: 0.2s;
+    cursor: pointer;
+} */
+
+.close-x{
+    position: absolute;
+    top: 205px;
+    right: 720px;
+
+    color: var(--main-font-size);
+    font-size: 35px;
+    font-weight: bold;
+
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+
+#modal-close:hover{
+    transform: scale(1.1);
+}
+
+.container{
+    background-color: white;
+    width: 400px;
+    /* height: 460px; */
+    height: 500px;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.container-sub{
+    margin: 0 auto;
+    margin-top: 60px;
+}
+
+.modal-middle{
+    width: 795px;
+    margin: 0 auto;
+    margin-bottom: 33px;
+    font-size: 13px;
+}
+
+.h2{
+    margin-bottom: 20px;
+}
+
+.close-wrap{
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 615px;
+    right: 735px;
+
+    color: white;
+    font-size: 50px;
+    font-weight: bold;
+
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+
+.close-btn{
+    width: 320px;
+    height: 45px;
+    background-color: var(--point-color);
+    font-weight: 700;
+    text-align: center;
+    font-size: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 7px;
+}
+
+.close-wrap button {
+    border: none;
+    background-color: var(--point-color);
+
+    font-size: 20px;
+    font-family: "NotoSansKR-Medium";
+    color: var(--background-color);
+    letter-spacing :5px;
+
+    border-radius: 30px;
+}
+
+.success-btn a{
+    color: var(--background-color);
+    margin-bottom: 2px;
+    font-family: "NotoSansKR-Regular";
+}
+
+.scrollLock {
+    overflow: hidden;
+}
