@@ -41,6 +41,7 @@
 		<typeAlias type="edu.kh.farmfarm.seller.model.vo.Seller" alias="Seller"/>
 		<typeAlias type="edu.kh.farmfarm.admin.model.vo.Admin" alias="Admin"/>
 		<typeAlias type="edu.kh.farmfarm.order.model.vo.Return" alias="Return"/>
+		<typeAlias type="edu.kh.farmfarm.cart.model.vo.Cart" alias="Cart"/>
 	</typeAliases>
 	
 	<!-- mapper 파일(SQL 작성되는파일) 위치 등록 부분 -->
@@ -61,6 +62,7 @@
 		<mapper resource="/mappers/chat-mapper.xml"/>
 		<mapper resource="/mappers/chatWidget-mapper.xml"/>
 		<mapper resource="/mappers/order-mapper.xml"/>
+		<mapper resource="/mappers/cart-mapper.xml"/>
   	</mappers>
 	
 </configuration>

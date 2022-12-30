@@ -70,9 +70,9 @@
                         <th>판매상태</th>
                     </tr>
                     <c:choose>
-                        <c:when test="${}">
+                        <c:when test="${empty productList}">
                             <tr>
-                                <th colspan="8">판매 상품이 존재하지 않습니다.</th>
+                                <th colspan="8" class="no-result">판매 상품이 존재하지 않습니다.</th>
                             </tr>
                         </c:when>
 
@@ -144,46 +144,48 @@
                     </c:choose>
                 </table>
             </div>
+            <c:if test="${!empty productList}">
+                <div class="pagination-area">
+                    <div class="page-box">
+                        <a href="/admin/stock?cp=1${sURL}">
+                            <i class="fa-solid fa-angles-left"></i>
+                        </a>
+                    </div>
+                    <div class="page-box">
+                        <a href="/admin/stock?cp=${pagination.prevPage}${sURL}">
+                            <i class="fa-solid fa-angle-left"></i>
+                        </a>
+                    </div>
+                    <c:forEach var="i"
+                        begin="${pagination.startPage}"
+                        end="${pagination.endPage}"
+                        step="1">
+                        <c:choose>
+                            <c:when test="${i==pagination.currentPage}">
+                                <div class="page-box">
+                                    <a class="current">${i}</a>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="page-box">
+                                    <a href="/admin/stock?cp=${i}${sURL}">${i}</a>
+                                </div>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                    <div class="page-box">
+                        <a href="/admin/stock?cp=${pagination.nextPage}${sURL}">
+                            <i class="fa-solid fa-angle-right"></i>
+                        </a>
+                    </div>
+                    <div class="page-box">
+                        <a href="/admin/stock?cp=${pagination.maxPage}${sURL}">
+                            <i class="fa-solid fa-angles-right"></i>
+                        </a>
+                    </div>
+                </div>
             
-            <div class="pagination-area">
-                <div class="page-box">
-                    <a href="/admin/stock?cp=1${sURL}">
-                        <i class="fa-solid fa-angles-left"></i>
-                    </a>
-                </div>
-                <div class="page-box">
-                    <a href="/admin/stock?cp=${pagination.prevPage}${sURL}">
-                        <i class="fa-solid fa-angle-left"></i>
-                    </a>
-                </div>
-                <c:forEach var="i"
-                    begin="${pagination.startPage}"
-                    end="${pagination.endPage}"
-                    step="1">
-                    <c:choose>
-                        <c:when test="${i==pagination.currentPage}">
-                            <div class="page-box">
-                                <a class="current">${i}</a>
-                            </div>
-                        </c:when>
-                        <c:otherwise>
-                            <div class="page-box">
-                                <a href="/admin/stock?cp=${i}${sURL}">${i}</a>
-                            </div>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
-                <div class="page-box">
-                    <a href="/admin/stock?cp=${pagination.nextPage}${sURL}">
-                        <i class="fa-solid fa-angle-right"></i>
-                    </a>
-                </div>
-                <div class="page-box">
-                    <a href="/admin/stock?cp=${pagination.maxPage}${sURL}">
-                        <i class="fa-solid fa-angles-right"></i>
-                    </a>
-                </div>
-            </div>
+            </c:if>
         </section>
     </main>
 
