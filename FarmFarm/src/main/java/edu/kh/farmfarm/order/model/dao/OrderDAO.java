@@ -74,6 +74,7 @@ public class OrderDAO {
 		for(Product p : pList) {
 			
 			result = sqlSession.insert("orderMapper.insertProduct", p);
+			result = sqlSession.insert("orderMapper.insertStockHistory", p);
 		}
 		
 		return result;	 
