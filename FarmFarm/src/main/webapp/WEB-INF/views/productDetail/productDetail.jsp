@@ -329,6 +329,7 @@
     <jsp:include page="/WEB-INF/views/common/modal/loginConfirm.jsp"/>
     <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
     <jsp:include page="/WEB-INF/views/myPage/modal/reviewForm.jsp"/>
+    <jsp:include page="/WEB-INF/views/order/modal/cartConfirm.jsp"/>
 
 
 
