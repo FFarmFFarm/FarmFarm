@@ -49,9 +49,9 @@
                 </sapn>
                 <div class="board-select-sort">
                     <ul class="board-select-area">
-                        <li class="new">최신순</li>
-                        <li class="view">조회수</li>
-                        <li class="like">좋아요</li>
+                        <li class="new" id="new">최신순</li>
+                        <li class="view" id="view">조회수</li>
+                        <li class="like" id="like">좋아요</li>
                     </ul>
                 </div>
             </div>
