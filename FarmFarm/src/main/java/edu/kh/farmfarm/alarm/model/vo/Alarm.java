@@ -17,4 +17,5 @@ public class Alarm {
 	private int memberNo;
 	private String alarmContent;
 	private String alarmDate;
+	private String quickLink;
 }

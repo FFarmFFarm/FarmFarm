@@ -17,7 +17,8 @@
             <ul class="comment-list">
                 <c:if test="${!empty board.commentList}">
                     <c:forEach var="comment" items="${board.commentList}">
-                        <li id="commentRow" class="comment-row  <c:if test="${comment.commentParent != 0 }"> comment-child </c:if>">
+                        <%-- <li id="commentRow" class="comment-row  <c:if test="${comment.commentParent != 0 }"> comment-child </c:if>"> --%>
+                        <li id="co${comment.commentNo}" class="comment-row  <c:if test="${comment.commentParent != 0 }"> comment-child </c:if>">
 
                             <div class="comment-writer">
 

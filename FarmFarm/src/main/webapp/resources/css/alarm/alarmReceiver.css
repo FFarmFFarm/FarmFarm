@@ -4,7 +4,7 @@
 .alarm-receiver-container{
     position: fixed;
     z-index: 30000;
-    bottom: -100px;
+    bottom: 50px;
     right: 130px;
     border-radius: 5px;
     box-shadow: 2px 2px 10px 0px #bcbcbc;
@@ -15,6 +15,7 @@
     height: 0px;
 
     display: flex;
+    opacity: 0;
     /* justify-content: center; */
     align-items: center;
     flex-direction: column;
@@ -25,14 +26,14 @@
     overflow: hidden;
     word-break: break-all;
 
-    transition-duration: 0.7s;
+    transition-duration: 0.5s;
 }
 /* 알림 헤더 */
 .alarm-receiver-header{
     border-radius: 5px;
     background-color:var(--point-color);
 
-    height: 30px;
+    height: 40px;
     width: 290px;
 
     display: flex;

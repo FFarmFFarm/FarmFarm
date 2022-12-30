@@ -16,5 +16,5 @@ public interface AlarmService {
 	 * @param targetNo
 	 * @return
 	 */
-	int selectTargetNo(String type, int targetNo);
+	int selectTargetNo(String type, int inputNo);
 }	

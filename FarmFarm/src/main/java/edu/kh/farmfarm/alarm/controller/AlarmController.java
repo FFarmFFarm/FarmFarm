@@ -25,7 +25,7 @@ public class AlarmController {
 	// 게시글 또는 댓글의 작성자 찾기
 	@PostMapping("/alarm/select/targetNo")
 	@ResponseBody
-	public String selectTargetNo(String type, int targetNo) {
-		return new Gson().toJson(service.selectTargetNo(type, targetNo));
+	public String selectTargetNo(String type, int inputNo) {
+		return new Gson().toJson(service.selectTargetNo(type, inputNo));
 	}
 }

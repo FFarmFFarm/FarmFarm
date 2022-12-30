@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="/resources/css/alarm/alarmReceiver.css">
 <script src="https://kit.fontawesome.com/d449774bd8.js" crossorigin="anonymous"></script>
 
-<div class="alarm-receiver-container">
+<a class="alarm-receiver-container">
 
     <div class="alarm-receiver-header">
     
@@ -26,7 +26,7 @@
             4번째 줄에는 무슨 내용을 넣어야 할까요..? 뭐 2줄까지 나오게 할 거지만 테스트를 위해서 추가할거에요. 
         </div> <!-- end alarm-receiver-content -->
 
-</div> <!-- end alarm-reveiver-container -->
+</a> <!-- end alarm-reveiver-container -->
 
 <!-- https://github.com/sockjs/sockjs-client -->
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>

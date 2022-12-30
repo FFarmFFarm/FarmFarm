@@ -12,13 +12,13 @@
 	      <result property="alarmContent" column="ALARM_CONTENT" />
 	      <result property="alarmDate" column="ALARM_DATE" />
 	      <result property="memberNo" column="MEMBER_NO" />
-
+	      <result property="quickLink" column="QUICK_LINK" />
 	 </resultMap>
 	 
 	 <!-- 알림을 DB에 저장 -->
 	 <insert id="insertNewAlarm" useGeneratedKeys="true">
 	 	INSERT INTO ALARM
-	 	VALUES(SEQ_ALARM_NO.NEXTVAL, #{alarmTypeNo}, #{memberNo}, #{alarmContent}, DEFAULT)
+	 	VALUES(SEQ_ALARM_NO.NEXTVAL, #{alarmTypeNo}, #{memberNo}, #{alarmContent}, DEFAULT, #{quickLink})
 	 	<selectKey keyProperty="alarmTitle" resultType="string" order="AFTER">
 	 		SELECT ALARM_TITLE FROM ALARM_TYPE WHERE ALARM_TYPE_NO = #{alarmTypeNo}
 	 	</selectKey>
