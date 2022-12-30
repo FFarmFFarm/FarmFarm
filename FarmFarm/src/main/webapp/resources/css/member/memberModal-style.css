@@ -99,11 +99,10 @@
 
 .container-sub{
     margin: 0 auto;
-    margin-top: 60px;
+    width: 400px;
 }
 
 .modal-middle{
-    width: 795px;
     margin: 0 auto;
     margin-bottom: 33px;
     font-size: 13px;
@@ -149,8 +148,6 @@
     font-size: 20px;
     font-family: "NotoSansKR-Medium";
     color: var(--background-color);
-    letter-spacing :5px;
-
     border-radius: 30px;
 }
 
@@ -162,4 +159,25 @@
 
 .scrollLock {
     overflow: hidden;
+}
+
+.profile-image{
+    margin-bottom: 40px;
+}
+
+.profile-image img{
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+
+    display: flex;
+    margin: 0 auto;
+}
+
+.memberNickname{
+    text-align: center;
+}
+
+.signup-date{
+    text-align: center;
 }
