@@ -1,4 +1,4 @@
-// 수정하기 버튼 클릭 시 후기 수정 form 모달창 출력
+// 후기 작성 버튼 클릭 시 후기 작성 form 모달창 출력
 const writeReviewBtn = document.getElementsByClassName('write-review');
 if (writeReviewBtn != undefined) {
   for (let btn of writeReviewBtn) {
@@ -8,16 +8,13 @@ if (writeReviewBtn != undefined) {
       const productName = btn.parentElement.previousElementSibling.firstElementChild.innerText;
       const productThumbnail = btn.parentElement.previousElementSibling.
         previousElementSibling.firstElementChild.getAttribute('src');
-
+      const orderNo = btn.parentElement.parentElement.previousElementSibling.firstElementChild.firstElementChild.id;
       /* 상품 링크 경로 */
       const href = btn.parentElement.previousElementSibling.firstElementChild.href;
 
-      /* 상품 번호 구하기 */
-      const index = href.lastIndexOf('/');
 
-
-      document.getElementById('reviewNoInput').value = btn.id;
-
+      document.getElementById('productNoInput').value = btn.id;
+      document.getElementById('orderNoInput').value = orderNo;
 
       document.getElementById('modalProductThumbnail').setAttribute('src', productThumbnail);
       document.getElementById('modalProductName').innerHTML = productName;
@@ -103,6 +100,7 @@ document.getElementById('submitBtn').addEventListener('click', () => {
 
         if (result > 0) {
 
+          document.getElementById('reviewFrom').reset();
           displayNone(document.getElementById('reviewFormContainer'));
 
           let cp = selectCp();
@@ -169,10 +167,15 @@ document.getElementById('orderCalcelBtn').addEventListener('click', () => {
 
 /* 구매확정 확인 버튼 */
 document.getElementById('orderConfirmBtn').addEventListener('click', () => {
+
   orderConfirmation(confirmOrderNo);
+
   displayNone(document.getElementById('orderConfirmModal'));
 
   let cp = selectCp();
+  if (cp == "") {
+    cp = 1
+  }
 
   selectOrderList(cp);
 });
@@ -315,7 +318,7 @@ const printOrderList = (orderList, pagination) => {
       orderPrice.classList.add('order-price');
 
       const span = document.createElement('span');
-      span.innerText = product.productPrice;
+      span.innerHTML = Number(product.productPrice).toLocaleString('ko-KR');
 
       const span1 = document.createElement('span');
       span1.innerText = '원';
@@ -475,31 +478,36 @@ const printOrderList = (orderList, pagination) => {
             button1.innerText = '후기작성';
             button1.classList.add('write-review');
             button1.id = order.orderNo;
+            buttonArea.append(button1);
           }
         }
 
-        if (product.reviewCheck == 1) {
+        if (product.reviewCheck > 0) {
           if (product.productStatus == 0) {
             button1.setAttribute('type', 'button');
             button1.innerText = '후기완료';
             button1.classList.add('write-review');
             button1.setAttribute('disabled', true);
+            buttonArea.append(button1);
           }
+
           if (product.productStatus == 1) {
             button1.setAttribute('type', 'button');
             button1.innerText = '반품 진행중';
             button1.classList.add('return');
             button1.setAttribute('disabled', true);
+            buttonArea.append(button1);
           }
+
           if (product.productStatus == 2) {
             button1.setAttribute('type', 'button');
             button1.innerText = '반품 완료';
             button1.classList.add('return');
             button1.setAttribute('disabled', true);
+            buttonArea.append(button1);
           }
         }
 
-        buttonArea.append(button1);
 
         button1.addEventListener('click', () => {
           const reviewFormContainer = document.getElementById('reviewFormContainer');

@@ -112,6 +112,11 @@
  	INSERT INTO ORDER_PRODUCT
  	VALUES(#{orderNo}, #{productNo}, #{productAmount}, 0)
  </insert>
+ 
+ <insert id="insertStockHistory">
+ 	INSERT INTO STOCK_HISTORY
+ 	VALUES(SEQ_STOCK_NO.NEXTVAL, #{productAmount}, DEFAULT, #{productNo},  1)
+ </insert>
   
   
 </mapper>

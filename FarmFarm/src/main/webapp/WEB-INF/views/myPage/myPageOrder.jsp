@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set var="orderList" value="${map.orderList}"/>
 <c:set var="orderCount" value="${map.orderCount}"/>
@@ -67,7 +68,7 @@
             <div class="order-total">
               <a href="/product/${product.productNo}" class="product-title">${product.productName}</a>
               <div class="order-detail">
-                <div class="order-price"><span>${product.productPrice}</span>원</div>
+                <div class="order-price"><span><fmt:formatNumber value="${product.productPrice}" pattern="#,###" /></span>원</div>
                 <span class="or">|</span>
                 <div class="order-amount"><span> ${product.productAmount}</span>개</div>
               </div>
@@ -124,10 +125,10 @@
               <c:if test="${order.orderStatus == 3}">
                 <c:if test="${product.reviewCheck == 0}">
                   <c:if test="${product.productStatus == 0}">
-                    <button type="button" class="write-review" id="${order.orderNo}">후기작성</button>
+                    <button type="button" class="write-review" id="${product.productNo}">후기작성</button>
                   </c:if>
                 </c:if>
-                <c:if test="${product.reviewCheck == 1}">
+                <c:if test="${product.reviewCheck > 0}">
                   <c:if test="${product.productStatus == 0}">
                     <button type="button" class="write-review" disabled>후기완료</button>
                   </c:if>
