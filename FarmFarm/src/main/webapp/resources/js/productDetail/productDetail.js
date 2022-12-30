@@ -74,14 +74,21 @@ const removeBtn = document.getElementById('removeBtn');
 const productAmount = document.getElementById('productAmount');
 const totalPrice = document.getElementById('totalPrice');
 const temp = totalPrice.innerText;
+const amountInput = document.getElementById('amountInput');
+
 
 /* 상품 수량 + 버튼 */
 addBtn.addEventListener('click', () => {
   if (Number(productAmount.innerText) < Number(stock)) {
+
     productAmount.innerText = Number(productAmount.innerText) + 1;
+    amountInput.value = Number(productAmount.innerText);
+
     totalPrice.innerText =
       temp.replace(',', '') * Number(productAmount.innerText);
     totalPrice.innerText = Number(totalPrice.innerText).toLocaleString();
+    console.log(amountInput.value);
+
   } else {
     const span = document.getElementById('stock');
     span.innerText = '해당 상품의 재고량을 초과할 수 없습니다.';
@@ -91,7 +98,12 @@ addBtn.addEventListener('click', () => {
 /* 상품 수량 - 버튼  */
 removeBtn.addEventListener('click', () => {
   if (Number(productAmount.innerText) > 1) {
+
     productAmount.innerText = Number(productAmount.innerText) - 1;
+    amountInput.value = Number(productAmount.innerText);
+
+    console.log(amountInput.value);
+
     totalPrice.innerText =
       temp.replace(',', '') * Number(productAmount.innerText);
     totalPrice.innerText = Number(totalPrice.innerText).toLocaleString();
@@ -107,6 +119,9 @@ if (document.getElementById('orderBtn') != undefined) {
   document.getElementById('orderBtn').addEventListener('click', () => {
     if (loginMember == '') {
       loginConfirmOpen();
+    } else {
+      const form = document.getElementById('orderPage');
+      form.submit();
     }
   })
 };

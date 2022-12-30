@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<c:set var="totalPrice" value="0"/>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +27,7 @@
   </head>
   <body>
     <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-    <main>
+    <form action="/order" method="POST">
       <div class="order-title">주문서</div>
       <section class="product-container">
         <ul>
@@ -31,22 +36,29 @@
             <span><i class="fa-solid fa-chevron-down"></i></span>
           </div>
           <div class="order-content">
-            <span> 양념 소불고기 1kg(냉장)외 </span>
-            <span class="order-count"> 1개 </span>
+            <span> ${productList[0].productName} 외 </span>
+            <span class="order-count"> ${fn:length(productList)} 개 </span>
             <span> 상품을 주문합니다 </span>
           </div>
-          <li>
-            <div class="order-thumbnail">
-              <img
-                src="/resources/images/product/thumbnail/productThumbnail.png"
+          <c:forEach items="${productList}" var="product" varStatus="vs">
+            <c:set var="productPrice" value="${product.productPrice * product.productAmount}"/>
+            <input type="hidden" value="${product.productNo}" name="pList[${vs.index}].productNo">
+            <input type="hidden" value="${product.productAmount}" name="pList[${vs.index}].productAmount">
+            <li>
+              <div class="order-thumbnail">
+                <img
+                src="${product.productImg}"
                 alt=""
                 class="order-thumbnail-img"
-              />
-            </div>
-            <span class="order-product-name">상품 이름</span>
-            <span class="order-amount">수량</span>
-            <span class="order-price-info">가격</span>
+                />
+              </div>
+            <span class="order-product-name">${product.productName}</span>
+            <span class="order-amount">${product.productAmount}</span>
+            <span class="order-price-info"><fmt:formatNumber value="${productPrice}" pattern="#,###" /></span>
+            <c:set var="totalPrice" value="${totalPrice + product.productPrice * product.productAmount}"/>
+
           </li>
+        </c:forEach>
         </ul>
       </section>
       <section class="member-info-container">
@@ -55,14 +67,11 @@
           <div class="info-subject">
             <div class="member-name">보내는 분</div>
             <div class="member-tel">휴대폰</div>
-            <div class="member-email">이메일</div>
           </div>
           <div class="info-content">
-            <div class="member-name">신보경</div>
-            <div class="member-tel">01043394858</div>
-            <div class="member-email">
-              <span> bboya0518@naver.com </span>
-            </div>
+            <div class="member-name">${loginMember.memberName}</div>
+            <div class="member-tel">${loginMember.to}</div>
+
           </div>
         </div>
       </section>
@@ -71,17 +80,13 @@
         <div class="info-container">
           <div class="info-subject">
             <div class="member-address">배송지</div>
-            <div class="member-detail">상세 정보</div>
           </div>
           <div class="info-content">
             <div class="member-address">
-              <span>기본 배송지</span>
-              <span>서울시 도봉구 도봉로 ...</span>
+              <span></span>
+              <span>${loginMember.memberAddress2}</span>
             </div>
-            <div class="member-detail">
-              <span>이름, 휴대폰 번호</span>
-              <span>문앞 | 자유 출입 가능</span>
-            </div>
+
           </div>
         </div>
       </section>
@@ -91,9 +96,13 @@
           <div>
             <span class="select-payment">결제수단 선택</span>
             <div class="payment-list">
-              <button type="button" class="kakaopay-btn">
-                <i class="fa-solid fa-comment"></i>Pay
-              </button>
+              <label for="payment">
+                <div type="button" class="kakaopay-btn" id="kakaoBtn">
+                  <i class="fa-solid fa-comment"></i>
+                  Pay
+                </div>
+                <input type="checkbox" id="payment" name="payment"/>
+              </label>
             </div>
           </div>
           <span class="notice"
@@ -106,7 +115,10 @@
           <div>
             <div class="price-one-line">
               <span>주문 금액</span>
-              <span>30,000원</span>
+
+              <span>
+                <fmt:formatNumber value="${totalPrice}" pattern="#,###" />원
+              </span>
             </div>
             <div class="price-one-line">
               <span>배송비</span>
@@ -114,7 +126,9 @@
             </div>
             <div class="price-one-line">
               <span>최종결제금액</span>
-              <span class="result-price">33,000원</span>
+              <c:set var="resultPrice" value="${totalPrice + 3000}"/>
+              <span class="result-price"><fmt:formatNumber value="${resultPrice}" pattern="#,###" />원</span>
+              <input type="hidden" name="orderPrice" value="${resultPrice}">
             </div>
           </div>
         </div>
@@ -123,29 +137,27 @@
         <div class="order-headline">개인정보 수집/제공</div>
         <div>
           <div class="agree-all">
-            <label for=""></label>
-            <input type="checkbox" />
-            <span>결제 진행 필수 전체 동의</span>
+            <input type="checkbox" id="selectAll" onclick="selectAllCheckbox(this)" />
+            <label for="selectAll">
+              <span>결제 진행 필수 전체 동의</span>
+            </label>
           </div>
           <div>
-            <label for=""></label>
-            <input type="checkbox" />
+            <input type="checkbox" name="agreement"/>
             <span>(필수) 개인정보 수집/이용 및 처리 동의</span>
           </div>
           <div>
-            <label for=""></label>
-            <input type="checkbox" />
+            <input type="checkbox"  name="agreement"/>
             <span>(필수) 개인정보 제3자 제공 동의</span>
           </div>
           <div>
-            <label for=""></label>
-            <input type="checkbox" />
+            <input type="checkbox"  name="agreement"/>
             <span>(필수) 전자지급 결제대행 서비스 이용약관 동의</span>
           </div>
         </div>
       </section>
       <section class="submit-container">
-        <button type="button">33,000원 결제하기</button>
+        <button><fmt:formatNumber value="${resultPrice}" pattern="#,###" />원 결제하기</button>
         <div class="notice-container">
           <p class="notice notice-p">
             [주문완료] 상태일 경우에만 주문 취소 가능합니다. <br />
@@ -155,10 +167,11 @@
           </p>
         </div>
       </section>
-    </main>
+    </form>
 
     <!-- footer -->
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
+    <script src="resources/js/order/order.js"></script>
   </body>
 </html>

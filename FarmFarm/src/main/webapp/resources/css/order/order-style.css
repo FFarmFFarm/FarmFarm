@@ -90,8 +90,9 @@ section > * > * > * {
 }
 
 .order-thumbnail-img {
-  min-height: 100%;
+  height: 100%;
   width: 100%;
+  object-fit: cover;
 }
 
 .order-product-name {
@@ -170,6 +171,18 @@ section > * > * > * {
 
   font-size: var(--large-font-size);
   font-weight: bold;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.kakaopay-btn:active {
+  transform: scale(0.98);
+}
+
+#payment {
+  display: none;
 }
 
 .notice {
@@ -239,4 +252,12 @@ section > * > * > * {
 
 .notice-p {
   text-align: center;
+}
+
+
+.pay-clicked {
+
+  background-color: var(--line-color);
+  border:1px solid var(--line-color);
+
 }

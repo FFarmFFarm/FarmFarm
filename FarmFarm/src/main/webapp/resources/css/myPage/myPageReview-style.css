@@ -141,6 +141,7 @@ a.review-wrote > i {
 .review-img > img {
   width: 100px;
   height: 100px;
+  object-fit: cover;
 }
 
 .review-create-date {
