@@ -137,7 +137,7 @@
 
     <!-- modal -->
     <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
-    <jsp:include page="/WEB-INF/views/myPage/modal/reviewForm.jsp"/>
+    <jsp:include page="/WEB-INF/views/myPage/modal/reviewUpdateForm.jsp"/>
     <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
     <jsp:include page="/WEB-INF/views/myPage/modal/reviewDeleteConfirm.jsp"/>
 

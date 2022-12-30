@@ -85,7 +85,7 @@ addBtn.addEventListener('click', () => {
     amountInput.value = Number(productAmount.innerText);
 
     totalPrice.innerText =
-      temp.replace(',', '') * Number(productAmount.innerText);
+      Number(temp.replaceAll(',', '')) * Number(productAmount.innerText);
     totalPrice.innerText = Number(totalPrice.innerText).toLocaleString();
     console.log(amountInput.value);
 
@@ -105,7 +105,7 @@ removeBtn.addEventListener('click', () => {
     console.log(amountInput.value);
 
     totalPrice.innerText =
-      temp.replace(',', '') * Number(productAmount.innerText);
+      Number(temp.replaceAll(',', '')) * Number(productAmount.innerText);
     totalPrice.innerText = Number(totalPrice.innerText).toLocaleString();
 
     const span = document.getElementById('stock');

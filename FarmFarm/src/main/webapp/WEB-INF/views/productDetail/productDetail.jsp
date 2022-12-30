@@ -75,7 +75,6 @@
           <span class="product-category">${product.categoryName}</span>
           <span class="product-name" id="productName">${product.productName}</span>
           <span class="product-message">${product.productMessage}</span>
-
           <span class="product-price">${product.productPrice}<span>원</span></span>
           <!-- 로그인 x 일 때 -->
           <c:if test="${empty loginMember}">
@@ -182,6 +181,7 @@
             <img
             src="${productImg.productImgAddress}"
             alt=""
+            class="product-img"
             />
           </c:if>
         </c:forEach>
