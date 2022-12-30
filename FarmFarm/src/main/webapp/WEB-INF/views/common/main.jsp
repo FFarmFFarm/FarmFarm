@@ -126,12 +126,12 @@
 
       <div class="middle-product">
         <div class="middle-wrap">
-          <div class="middle-cover"><img src="resources/images/main/아오리사과.jpg"></div>
+          <div class="middle-cover"><img src="resources/images/product/detail/20221230143348_60504.jpg"></div>
           <a href="#">
             <div class="middle-text-wrap">
               <div class="middle-text">
-                <p>아오리 사과 1kg</p>
-                <p>15,900원</p>
+                <p>함께 하면 즐거운... </p>
+                <p>1,2000,000원</p>
               </div>
               <div class="middle-icon">
                 <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
@@ -141,12 +141,12 @@
         </div>
 
         <div class="middle-wrap">
-          <div class="middle-cover"><img src="resources/images/main/감자.jpg"></div>
+          <div class="middle-cover"><img src="resources/images/product/detail/20221230143348_60504.jpg"></div>
           <a href="#">
             <div class="middle-text-wrap">
               <div class="middle-text">
-                <p>감자 1kg</p>
-                <p>3,990원</p>
+                <p>외국인 일꾼 하...</p>
+                <p>20,000원</p>
               </div>
               <div class="middle-icon">
                 <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
@@ -156,12 +156,12 @@
         </div>
 
         <div class="middle-wrap">
-          <div class="middle-cover"><img src="resources/images/main/딸기.jpg"></div>
+          <div class="middle-cover"><img src="resources/images/product/detail/20221230142830_69171.jpg"></div>
           <a href="#">
             <div class="middle-text-wrap">
               <div class="middle-text">
-                <p>딸기 500g</p>
-                <p>10,900원</p>
+                <p>실한 일꾼 한 명...</p>
+                <p>1,000,000원</p>
               </div>
               <div class="middle-icon">
                 <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
@@ -171,12 +171,12 @@
         </div>
 
         <div class="middle-wrap">
-          <div class="middle-cover"><img src="resources/images/main/토마토.jpg"></div>
+          <div class="middle-cover"><img src="resources/images/product/detail/20221230143348_60504.jpg"></div>
           <a href="#">
             <div class="middle-text-wrap">
                 <div class="middle-text">
-                  <p>방울토마토 500g</p>
-                  <p>3,950원</p>
+                  <p>일꾼 구씨</p>
+                  <p>15,000원</p>
                 </div>
                 <div class="middle-icon">
                   <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
