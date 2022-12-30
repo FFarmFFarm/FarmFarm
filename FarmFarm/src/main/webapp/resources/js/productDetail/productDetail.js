@@ -141,6 +141,7 @@ if (document.getElementById('cartBtn') != undefined) {
         data: { productNo: productNo,
               productAmount: productAmount,
               memberNo: memberNo },
+        type: "GET",
         success: (result) => {
           if(result == 0){
             messageModalOpen("장바구니 추가 실패");
@@ -155,8 +156,8 @@ if (document.getElementById('cartBtn') != undefined) {
         },
         error: () => {
           console.log("장바구니 이동 실패");
-        },
-      });
+        }
+      })
     }
   })
 };
@@ -165,7 +166,7 @@ if (document.getElementById('cartBtn') != undefined) {
 const goCartConfirmOpen = () => {
   const goCartConfirm = document.getElementById('goCartConfirm');
   displayFlex(goCartConfirm);
-}
+};
 
 // 장바구니 이동하시겠습니까? confirm 닫기
 if (document.getElementById('goCartCalcelBtn') != undefined) {
@@ -178,36 +179,49 @@ if (document.getElementById('goCartCalcelBtn') != undefined) {
   document.getElementById('goCartConfirmBtn').addEventListener('click', function () {
     location.href = "/cart";
   })
-}
+};
 
 
 // 기존에 장바구니에 있을 때 confirm
 const addCartConfirmOpen = () => {
   const addCartConfirm = document.getElementById('addCartConfirm');
   displayFlex(addCartConfirm);
-}
+};
 
 if (document.getElementById('addCartCalcelBtn') != undefined) {
+  const addCartConfirm = document.getElementById('addCartConfirm');
   // 추가 취소
   document.getElementById('addCartCalcelBtn').addEventListener('click', function () {
-    const addCartConfirm = document.getElementById('addCartConfirm');
     displayNone(addCartConfirm);
   })
 
   // 추가 하겠다
   document.getElementById('addCartConfirmBtn').addEventListener('click', function () {
     
+    displayNone(addCartConfirm);
+
+    const productNo = getProductNo();
+    const productAmount = document.getElementById("amountInput").value; 
+
     // 추가하는 ajax
     $.ajax({
       url: '/addCart',
-      data: { memberNo: memberNo },
+      data: {productNo: productNo,
+          productAmount: productAmount,
+          memberNo: memberNo },
+      type: "POST",
       success: (result) => {
-        if(result == 0){}}
-    
+        if(result > 0){
+          goCartConfirmOpen();
+
+        }
+      },
+      error: () => {
+        console.log("장바구니 이동 실패");
+      }
     })
-      goCartConfirmOpen();
-  }
-}
+  })
+};
 
 
 
