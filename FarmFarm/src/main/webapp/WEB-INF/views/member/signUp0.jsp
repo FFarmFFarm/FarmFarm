@@ -179,12 +179,21 @@
                             },
                             success: function(data) {
                                 const checkNum = data;
-                                alert('인증번호가 전송되었습니다.');
+                                const memberTel = $('#to');
+
+
+
+
+                                if(memberTel == null){
+                                    checkObj.memberTel = false;
+                                    alert('전화번호를 작성해주세요.');
+                                }else{
+                                  alert('인증번호가 전송되었습니다.');
                                 
-                                $('#enterBtn').click(function() {	
-                                    const userNum = $('#userNum').val();
+                                  $('#enterBtn').click(function() {	
+                                      const userNum = $('#userNum').val();
                                     
-                                    if(checkNum === userNum) {
+                                      if(checkNum === userNum) {
                                         alert('인증 성공하였습니다.');
                                         checkObj.userNum = true;
                                     }
@@ -193,6 +202,7 @@
                                         checkObj.userNum = false;
                                     }
                                 });
+                            }
                                 
                             }
                         });
