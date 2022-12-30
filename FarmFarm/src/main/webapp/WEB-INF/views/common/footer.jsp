@@ -4,19 +4,31 @@
         <div class="footer-btn">
             <!-- <a id="chatWidget"> -->
                 <input type="checkbox" id="showChatWidget">
+                
                 <label for="showChatWidget" class="btn-chat">
                     <i class="fa-solid fa-comment-dots go-to-top-icon"></i>
                     <div id="chatAlarmDot">
                         <i class="fa-solid fa-circle"></i>
                     </div>
                 </label>
+
+                <%-- 
+                    알림 애니메이션 확인용입니다.
+                    주석 해제 시 탑버튼 위치가 이상해집니다.
+                    나중에 삭제 예정
+                --%>
+                <%-- <button type="button" id="boyeora">보이기</button>
+                <button type="button" id="soomeora">숨기기</button> --%>
+
                 <jsp:include page="/WEB-INF/views/chat/chatWidget.jsp"/>
             <!-- </a> -->
             <a href="#">
-                <button type="button" class="btn-go-to-top" id="top_btn">
+                <button type="button" class="btn-go-to-top" id="top_btn"></button>
                     <i class="fa-solid fa-arrow-up go-to-top-icon"></i>
                 </button>
             </a>
+            <!-- 알림 메시지 -->
+            <jsp:include page="/WEB-INF/views/alarm/alarmReceiver.jsp" />
         </div>
 
         <footer>

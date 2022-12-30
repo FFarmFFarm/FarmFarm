@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="alarmMapper">
+
+
+	 <resultMap type="alarm" id="alarm_rm">
+        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+	     <id property = "alarmNo" column="ALARM_NO"/>
+	     <!-- 나머지 일반 컬럼 -->
+	      <result property="alarmTypeNo" column="ALARM_TYPE_NO" />
+	      <result property="alarmTitle" column="ALARM_TITLE" />
+	      <result property="alarmContent" column="ALARM_CONTENT" />
+	      <result property="alarmDate" column="ALARM_DATE" />
+	      <result property="memberNo" column="MEMBER_NO" />
+
+	 </resultMap>
+	 
+	 <!-- 알림을 DB에 저장 -->
+	 <insert id="insertNewAlarm" useGeneratedKeys="true">
+	 	INSERT INTO ALARM
+	 	VALUES(SEQ_ALARM_NO.NEXTVAL, #{alarmTypeNo}, #{memberNo}, #{alarmContent}, DEFAULT)
+	 	<selectKey keyProperty="alarmTitle" resultType="string" order="AFTER">
+	 		SELECT ALARM_TITLE FROM ALARM_TYPE WHERE ALARM_TYPE_NO = #{alarmTypeNo}
+	 	</selectKey>
+	 </insert>
+	 
+	
+</mapper>
