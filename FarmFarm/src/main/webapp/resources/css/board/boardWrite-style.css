@@ -33,6 +33,7 @@ main{
     width: 650px;
     display: flex;
     margin-right: 140px;
+    height: 100%;
 }
 .category{
     width: 170px;
@@ -146,3 +147,9 @@ input[type="radio"]:checked + label{
     width: 100%;
     height: 100%;
 }
+
+/* 로그인 모달창 */
+.hide {
+    display: none;
+    opacity: 0;
+  }

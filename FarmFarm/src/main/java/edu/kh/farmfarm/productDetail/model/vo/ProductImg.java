@@ -12,6 +12,6 @@ public class ProductImg {
 	private String productImgAddress;
 	private int productNo;
 	private int productImgOrder;
-	
+	private String productImgOriginal;
 
 }

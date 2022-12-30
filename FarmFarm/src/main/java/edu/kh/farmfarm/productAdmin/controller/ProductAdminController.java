@@ -161,7 +161,7 @@ public class ProductAdminController {
 		
 		if(result>0) {
 			message = "팜팜상품이 수정되었습니다.";
-			path = "/admin/update/"+ productNo + "?cp=" +cp;
+			path = "/admin/stock/?cp=" +cp;
 		}else {
 			message = "팜팜상품 수정 실패";
 			path = referer;
