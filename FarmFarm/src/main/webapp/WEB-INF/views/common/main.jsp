@@ -66,7 +66,7 @@
                   </div>
                 </li>
                 <li class="widget-item">
-                  <a href="#">
+                  <a href="/cart">
                     <i class="fa-solid fa-cart-shopping"></i>
                   </a>
                 </li>

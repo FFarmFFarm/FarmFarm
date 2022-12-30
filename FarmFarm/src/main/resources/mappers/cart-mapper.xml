@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cartMapper">
+
+	<!-- 장바구니 resultMap -->
+	<resultMap type="Cart" id="cart_rm">
+		<result property="memberNo" column="MEMBER_NO" />
+		<result property="productNo" column="PRODUCT_NO" />
+		<result property="productAmount" column="PRODUCT_AMOUNT" />
+	</resultMap>
+  
+
+  
+</mapper>
