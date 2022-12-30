@@ -5,6 +5,7 @@ a {
 }
 
 body {
+  min-height: 100vh;
   color: var(--main-font-color);
   display: flex;
   flex-direction: column;
