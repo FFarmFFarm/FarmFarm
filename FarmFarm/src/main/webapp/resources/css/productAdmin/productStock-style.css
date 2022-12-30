@@ -198,6 +198,12 @@ main{
 
 
 /* 리스트 조회결과 */
+
+.no-result{
+    line-height: 300px;
+    font-size: var(--medium-font-size);
+}
+
 .product-list{
     margin: auto;
 }
