@@ -68,7 +68,10 @@
           </c:if>
           </c:forEach>
         </div>
-        <form action="/orderPage" method="POST" class="summary-area">
+        <form action="/orderPage" method="POST" class="summary-area" id="orderPage">
+          <input type="hidden" name="pList[0].productNo" value="${product.productNo}">
+          <input type="hidden" name="pList[0].productImg" value="${productImgList[0].productImgAddress}">
+          <input type="hidden" name="pList[0].productPrice" value="${fn:replace(product.productPrice, ',', '')}">
           <span class="product-category">${product.categoryName}</span>
           <span class="product-name" id="productName">${product.productName}</span>
           <span class="product-message">${product.productMessage}</span>
@@ -98,6 +101,7 @@
           </div>
           <div class="product-option" id="productOption">
             <span>${product.productName}</span>
+            <input type="hidden" name="pList[0].productName" value="${product.productName}">
             <div class="amount-area" >
               <c:if test="${product.soldoutFl eq 'Y'}">
                 <button type="button" id="removeBtn" disabled>-</button>
@@ -105,7 +109,7 @@
                 <button type="button" id="addBtn" disabled>+</button>
               </c:if>
               <c:if test="${product.soldoutFl ne 'Y'}">
-                <c:if test="${product.stock == 0}">
+                <c:if test="${product.stock lt 0}">
                 <button type="button" id="removeBtn" disabled>-</button>
                 <span id="productAmount">1</span>
                 <button type="button" id="addBtn" disabled>+</button>
@@ -114,6 +118,7 @@
                 <button type="button" id="removeBtn">-</button>
                 <span id="productAmount">1</span>
                 <button type="button" id="addBtn">+</button>
+                <input type="hidden" name="pList[0].productAmount" value="1" id="amountInput"/>
                 </c:if>
               </c:if>
             </div>
@@ -143,13 +148,13 @@
                 <button type="button" class="order-btn" disabled >주문하기</button>
             </c:if>
             <c:if test="${product.soldoutFl ne 'Y'}">
-              <c:if test="${product.stock == 0}">
+              <c:if test="${product.stock lt 0}">
                 <button type="button" class="cart-btn" disabled>장바구니 담기</button>
                 <button type="button" class="order-btn" disabled>주문하기</button>
               </c:if>
               <c:if test="${product.stock > 0}">
                 <button type="button" class="cart-btn" id="cartBtn">장바구니 담기</button>
-                <button class="order-btn" id="orderBtn">주문하기</button>
+                <button type="button" class="order-btn" id="orderBtn">주문하기</button>
               </c:if>
             </c:if>
 

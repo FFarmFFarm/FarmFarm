@@ -49,10 +49,12 @@ writeBtn.addEventListener("click", e=>{
     for(const category of categorys){
         if(!category.checked){
             console.log("카테고리를 선택해주세요.");
+            check = 0;
+        }else{
             check = check+1;
         }
     }
-    if(check>2){
+    if(check == 0){
         alert("카테고리를 선택해주세요.");
         e.preventDefault();
     }
