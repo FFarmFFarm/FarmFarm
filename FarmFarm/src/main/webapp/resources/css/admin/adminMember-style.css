@@ -126,48 +126,6 @@ main{
     padding-bottom: 10px;
     vertical-align: top;
     height: 20px;
-    
-}
-
-/* 전체조회 th width 정하기 */
-/* no */
-.member-first-row th:first-child{
-    width: 24px;
-}
-
-/* 회원번호 */
-.member-first-row th:nth-child(2){
-    width: 45px;
-}
-
-/* 아이디 */
-.member-first-row th:nth-child(3){
-    width: 95px;
-}
-
-/* 닉네임 */
-.member-first-row th:nth-child(4){
-    width: 95px;
-}
-
-/* 주소 */
-.member-first-row th:nth-child(5){
-    width: 250px;
-}
-
-/* 가입일 */
-.member-first-row th:nth-child(6){
-    width: 150px;
-}
-
-/* 판매자 인증 */
-.member-first-row th:nth-child(7){
-    width: 80px;
-}
-
-/* 상태 */
-.member-first-row th:nth-child(8){
-    width: 80px;
 }
 
 .member-select-table td{
@@ -186,13 +144,52 @@ main{
 }
 
 
-.select-filter{
-    background-color: none;
-    padding-left: 0;
-    margin-left: 0;
+
+/* 전체조회 th width 정하기 */
+/* no */
+.member-first-row th:first-child{
+    /* width: 24px; */
+    width: 30px;
+}
+
+/* 회원번호 */
+.member-first-row th:nth-child(2){
+    width: 55px;
+}
+
+/* 아이디 */
+.member-first-row th:nth-child(3){
+    width: 100px;
+}
+
+/* 닉네임 */
+.member-first-row th:nth-child(4){
+    width: 100px;
+}
+
+/* 주소 */
+.member-first-row th:nth-child(5){
+    width: 250px;
+}
+
+/* 가입일 */
+.member-first-row th:nth-child(6){
+    width: 155px;
+}
+
+/* 판매자 인증 */
+.member-first-row th:nth-child(7){
+    width: 85px;
+}
+
+/* 상태 */
+.member-first-row th:nth-child(8){
+    width: 85px;
 }
 
 
+
+/* no 색 변경 */
 .report-member-seq{
     color: var(--point-color);
     opacity: 50%;
@@ -200,11 +197,21 @@ main{
 
 
 
+/* 필터 */
+.select-filter{
+    background-color: none;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+
+/* 판매자인증 필터 */
 #sellerAuth{
     cursor: pointer;
     position: relative;
 }
 
+/* 상태 필터 */
 #memberStatus{
     cursor: pointer;
     position: relative;

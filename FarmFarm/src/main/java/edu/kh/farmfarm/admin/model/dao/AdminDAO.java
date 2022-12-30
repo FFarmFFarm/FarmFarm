@@ -75,6 +75,7 @@ public class AdminDAO {
 	 */
 	public List<Admin> selectMember(Map<String, Object> paramMap, Pagination pagination) {
 		
+		// RowBounds 객체(마이바티스) : 여러 행 조회 결과 중 특정 위치부터 지정된 행의 개수만 조회하는 객체
 		int offset = (pagination.getCurrentPage() -1) * 15;
 		RowBounds rowBounds = new RowBounds(offset, 15);
 		
@@ -108,6 +109,31 @@ public class AdminDAO {
 	 */
 	public int memberKickout(String hiddenId) {
 		return sqlSession.update("adminMapper.memberKickout", hiddenId);
+	}
+
+
+
+	/** 판매자 수
+	 * @param preSellerFilter
+	 * @return sellerListCount
+	 */
+	public int sellerListCount(int preSellerFilter) {
+		return sqlSession.selectOne("adminMapper.sellerListCount", preSellerFilter);
+	}
+
+
+
+	/** 판매자 조회 (인증대기 포함)  +정렬
+	 * @param preSellerFilter
+	 * @param pagination
+	 * @return sellerList
+	 */
+	public List<Admin> selectSeller(int preSellerFilter, Pagination pagination) {
+		
+		int offset = (pagination.getCurrentPage() -1) * pagination.getLimit();  // limit = 10
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		return sqlSession.selectList("adminMapper.selectSeller", preSellerFilter, rowBounds);
 	}
 
 

@@ -46,6 +46,7 @@ function selectCommentList(){
                     // 댓글 li태그
                     const commentRow = document.createElement("li");
                     commentRow.classList.add("comment-row");
+                    commentRow.setAttribute("id", "co" + comment.commentNo);
         
                     
                     // 댓글 작성자의 인적사항
@@ -159,8 +160,11 @@ function commentFunction(){
     const commentInsert = document.querySelector(".comment-insert");
     const writeComment = document.querySelector(".write-comment");
     
-    commentInsert.addEventListener("click", e=>{
+    // commentInsert.addEventListener("click", e=>{
     
+
+    // commentInsert.addEventListener("click", e=>{
+
         // 1. 로그인이 되었는가
     
         // 댓글 작성이 됐는지 확인을 해볼까요~?
@@ -168,32 +172,37 @@ function commentFunction(){
             alert("댓글을 작성해주세요");
             writeComment.value="";
             writeComment.focus();
-            e.preventDefault();
-        }
-    });
-    
-        // ajax로 댓글을 삽입해봅시다!
-        $.ajax({
-            url : "/board/comment/insert",
-            data : {"boardNo" : boardNo,
-                    "memberNo" : memberNo,
-                    "commentContent" : writeComment.value},
-            type : "post",
-            success : result=>{
-    
-                if(result>0){
-                    alert("댓글이 등록되었습니다");
-                    writeComment.value=""; // 작성한 댓글 없애주기
-                    selectCommentList(); // 다시 ajax로 불러옵시다!
-                }else{
-                    alert("댓글 등록에 실패했습니다...");
+            // e.preventDefault();
+        }else{
+            // ajax로 댓글을 삽입해봅시다!
+            $.ajax({
+                url : "/board/comment/insert",
+                data : {"boardNo" : boardNo,
+                        "memberNo" : memberNo,
+                        "commentContent" : writeComment.value},
+                type : "post",
+                success : result=>{
+        
+                    if(result>0){
+                        
+                        ringCommentAlarm('board', 201, boardNo, writeComment.value, result);
+                        
+                        alert("댓글이 등록되었습니다");
+                        writeComment.value=""; // 작성한 댓글 없애주기
+                        selectCommentList(); // 다시 ajax로 불러옵시다!
+                    }else{
+                        alert("댓글 등록에 실패했습니다...");
+                    }
+                },
+                error : (req, status, error)=>{
+                    alert("댓글 등록 ajax 통신오류...ㅜㅠ");
+                    console.log("댓글 등록 ajax 통신오류...ㅜㅠ");
                 }
-            },
-            error : (req, status, error)=>{
-                alert("댓글 등록 ajax 통신오류...ㅜㅠ");
-                console.log("댓글 등록 ajax 통신오류...ㅜㅠ");
-            }
-        });
+            });
+
+        }
+    // });
+    
 }
 
 
@@ -290,6 +299,9 @@ function sendCo(parentNo, btn){
         type : "post",
         success : result=>{
             if(result>0){
+
+                ringCommentAlarm('comment', 202, parentNo, commentContent, result);
+
                 alert("답글이 등록됐습니다.");
                 selectCommentList();
             }else{
@@ -444,4 +456,66 @@ function deleteComment(commentNo){
             }
         })
     }
+}
+
+
+
+
+
+
+/* 댓글 알림을 발생시킬 수 있는 함수입니다. */
+const ringCommentAlarm = (type, typeNo, inputNo, inputComment, commentNo) => {
+
+    /* 댓글 알림 */
+    /* 
+        * 댓글 알림 기능
+        1) boardNo를 이용해서, 상대방의 번호를 확인
+        2) 상대방의 번호를 받아오면, 댓글 내용(commentContent)와 대상 번호(memberNo), 알림 유형(alarmType)을 소켓으로 전달(send 사용)
+
+        * 파라미터
+        1) type : board(게시글에 댓글을 단 경우)
+                  comment(댓글에 대댓글을 단 경우)
+
+        2) targetNo : board인 경우 해당 게시글을 작성한 회원
+                      comment인 경우 '답글달기' 버튼을 눌렀을 때, 해당 버튼이 들어있는 댓글을 작성한 회원
+
+        3) inputNo : board인 경우 게시글 번호
+                     comment인 경우 대댓글이 달린 댓글의 번호
+        
+        4) inputComment : 댓글
+
+        5) commentNo : 작성된 댓글 번호
+
+        * 고려해볼만한 사항
+        1) 댓글 삽입의 결과로 상대방 회원의 번호를 받아오면 더 빠르게 처리할 수 있을 듯! -> 수정이 필요하니까 이야기해보기
+        2) 알림창을 눌렀을 때, 해당 페이지로 즉시 이동하게 하려면? -> location.href를 사용해서 해결!
+
+    */
+    // 1) 상대방의 번호 확인
+    $.ajax({
+        url: "/alarm/select/targetNo",
+        data: {
+            "type":type,
+            "inputNo":inputNo
+        },
+        type: "post",
+        success : result =>{
+            console.log('알림 전송에 성공하였습니다.')
+
+            // 받은 targetNo로 json객체 만들기
+            let obj = {
+                "alarmTypeNo":typeNo,
+                "memberNo":result,
+                "alarmContent":inputComment,
+                "quickLink":location.href+"#co"+commentNo
+            }
+
+            alarmSock.send(JSON.stringify(obj));
+
+        },
+        error : ()=>{
+            console.log('알림 전송에 실패하였습니다.')
+        }
+    })
+
 }

@@ -37,12 +37,24 @@ public interface AdminService {
 
 	
 	
-	
 	/** 회원 강제 탈퇴
 	 * @param inputMemberId
 	 * @return result
 	 */
 	int memberKickout(String hiddenId);
+
+
+	
+	
+	
+	/** 판매자 인증 조회
+	 * @param preSellerFilter
+	 * @param cp
+	 * @return map
+	 */
+	Map<String, Object> selectSeller(int preSellerFilter, int cp);
+
+
 
 
 

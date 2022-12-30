@@ -1,9 +1,13 @@
 @import "../root-style.css";
 
+.header-container{
+    z-index: 50;
+}
+
 
 body{
     width: 100vw;
-    height:auto;
+    height: 100vh;
     /* background-color: #eef4ed; */
 
     display: flex;
@@ -36,7 +40,7 @@ main{
     width: 1000px;
     min-height: 1000px;
     height: auto;
-    padding: 20px;
+    padding-bottom: 20px;
     background-color: #eef4ed;
 
     display: flex;
@@ -57,7 +61,7 @@ main{
 
 
 .board-content{
-    width: 880px;
+    width: 900px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -66,32 +70,68 @@ main{
 }
 
 
+.board-div{
+    width: 100%;
+}
+
 
 .board-title{
     width: 100%;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     margin-bottom: 8px;
     margin-top: 20px;
     font-weight: bold;
 }
 
-/* 인증 신청 목록 */
+
+#allSellerBtn{
+    width: 85px;
+    height: 18px;
+    margin-top: 5px;
+    color: white;
+    background-color: var(--point-color);
+    font-size: 10px;
+    border: none;
+}
+
+#watingSellerBtn{
+    width: 85px;
+    height: 18px;
+    margin-top: 5px;
+    color: var(--point-color);
+    background-color: white;
+    font-size: 10px;
+    border: 1px solid var(--point-color);
+    
+    display: none;
+}
+
+
+
+
+
+
+
+
+/* * 인증 신청 목록 * */
 .seller-auth{
-    width: 880px;
+    width: 900px;
     height: 300px;
     background-color: white;
     border-radius: 10px;
     
     display: flex;
     align-items: flex-start;
+    
+    padding: 15px 20px;
+    overflow: hidden;
 }
 
-
+/* 인증 신청 테이블 */
 .auth-list-table{
-    width: 880px;
-    padding: 10px;
-    margin: 15px 20px;
+    width: 900px;
+    height: fit-content;
     font-size: var(--small-font-size);
     text-align: center;
     border-collapse: collapse;
@@ -101,16 +141,66 @@ main{
 .auth-list-table th{
     color: var(--point-color);
     padding-bottom: 10px;
+    vertical-align: top;
+    height: 20px;
 }
 
 .auth-list-table td{
     padding-bottom: 7px;
+    height: 31px;
 }
 
 .auth-list-row:hover{
     background-color: #eef4ed;
     transition-duration: 0.1s;
+    cursor: pointer;
 }
+
+
+/* 전체조회 th width 정하기 */
+/* no */
+.auth-list-header th:first-of-type{
+    width: 30px;
+}
+
+/* 회원번호 */
+.auth-list-header th:nth-of-type(2){
+    width: 70px;
+}
+
+/* 아이디 */
+.auth-list-header th:nth-of-type(3){
+    width: 90px;
+}
+
+/* 닉네임 */
+.auth-list-header th:nth-of-type(4){
+    width: 90px;
+}
+
+/* 성명 */
+.auth-list-header th:nth-of-type(5){
+    width: 90px;
+}
+
+/* 주소 */
+.auth-list-header th:nth-of-type(6){
+    width: 250px;
+}
+
+/* 신청일자 */
+.auth-list-header th:nth-of-type(7){
+    width: 155px;
+}
+
+/* 판매자 인증 상태 */
+.auth-list-header th:nth-of-type(8){
+    width: 85px;
+}
+
+
+
+
 
 
 /* 페이지네이션 */
@@ -124,17 +214,25 @@ main{
     font-size: var(--small-font-size);
 }
 
-.admin-pagination li{
-    width: 20px;
+.current-page-box{
     margin: 0 5px;
     text-align: center;
+
+    display: block;
+    /* width: 100%; */
+    height: 100%;
+    color: var(--point-color);
 }
 
-.admin-pagination a{
+.page-box{
+    margin: 0 5px;
+    text-align: center;
+
     display: block;
-    width: 100%;
+    /* width: 100%; */
     height: 100%;
-    color: lightgray;
+    color: rgb(129, 129, 129);
+    cursor: pointer;
 }
 
 /* todo:현재 페이지색은 point-color로 */
@@ -144,7 +242,7 @@ main{
 /* 인증 신청서 조회 */
 .select-auth-paper{
     width: 880px;
-    height: 500px;
+    height: 530;
     background-color: white;
     border-radius: 10px;
 
@@ -152,6 +250,10 @@ main{
     justify-content: center;
 
     padding: 20px 30px;
+    margin-bottom: 50px;
+
+    display: flex;
+    justify-content: space-around;
 }
 
 /* 증빙 사진 */
@@ -173,6 +275,11 @@ main{
     height: 450px;
 }
 
+.auth-image > img{
+    width: 100%;
+    height: 100%;
+}
+
 /* 신청서 */
 .seller-auth-div{
     display: flex;
@@ -180,9 +287,9 @@ main{
     justify-content: space-around;
 }
 
-
+/* 신청서 내용 */
 .seller-auth-table{
-    width: 440px;
+    width: 400px;
     height: 400px;
     margin: 30px;
     font-size: var(--small-font-size);
@@ -198,9 +305,20 @@ main{
 }
 
 .detail-bold{
+    width: 150px;
     color: var(--point-color);
     font-weight: bold;
 }
+
+.detail-content{
+    width: 240px;
+}
+
+
+
+
+
+
 
 /* 버튼 */
 .auth-button-div{
