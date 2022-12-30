@@ -15,7 +15,8 @@
     <link rel="stylesheet" href="/resources/css/board/boardList-style.css">
     <link rel="stylesheet" href="/resources/css/common/header-style.css" />
     <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
-
+    
+    <link rel="stylesheet" href="/resources/css/member/memberModal-style.css" />
     <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
 </head>
 <body>
@@ -98,7 +99,7 @@
                                         <a href="/board/${boardTypeNo}/${board.boardNo}?cp=${pagination.currentPage}${sURL}" class="goBoard">
                                             ${board.boardTitle}&nbsp;(${board.commentCount})</a>
                                     </span>
-                                    <span class="board-writer">${board.memberNickname}</span>
+                                    <span class="board-writer" id="${board.memberNo}">${board.memberNickname}</span>
                                     <span class="board-date">${board.boardDate}</span>
                                     <span class="board-view">${board.boardView}</span>
                                 </li>
@@ -147,12 +148,20 @@
             </div>
         </section>
 
+    
+    <%-- 프로필 클릭시 모달창 --%>
+    <jsp:include page="/WEB-INF/views/member/memberModal.jsp"/>
+    
 
     <%-- 로그인 모달창 --%>
     <jsp:include page="/WEB-INF/views/common/modal/loginConfirm.jsp"/>
     <%-- <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/> --%>
 
     </main>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+    crossorigin="anonymous"></script>
     <script>
         let boardTypeNo = ${boardTypeNo};
 
@@ -166,6 +175,7 @@
     </script>
     <script src="/resources/js/board/boardList.js"> </script>
     <script src="/resources/js/common/common.js"> </script>
+    <script src="/resources/js/member/memberModal.js"> </script>
 
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>

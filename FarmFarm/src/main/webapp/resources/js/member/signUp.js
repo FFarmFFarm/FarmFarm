@@ -1,5 +1,3 @@
-// 썸네일 클릭 시 Modal창으로 출력하기
-
 // 즉시 실행되는 익명 함수
 (()=>{
     const agreeText = document.getElementsByClassName("agree-text");

@@ -114,4 +114,12 @@
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
 
+	<!-- 프로필 클릭시 모달  -->
+	<select id="selectMember" resultMap="member_rm">
+		SELECT MEMBER_NO,PROFILE_IMG, MEMBER_NICKNAME,
+       TO_CHAR(SIGNUP_DATE, ' YYYY"년" MM"월" DD"일" ') SIGNUP_DATE
+		FROM "MEMBER"
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+
 </mapper>
