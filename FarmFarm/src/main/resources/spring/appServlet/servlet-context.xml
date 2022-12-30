@@ -60,7 +60,7 @@
 	<!-- 스프링 스케쥴러 어노테이션 인식 -->
 	<task:annotation-driven/>
 	
-	<!-- 채팅(주고받기) -->
+	<!-- 채팅 -->
 	<beans:bean id="chatHandler" class="edu.kh.farmfarm.chat.model.websocket.ChatWebsocketHandler" />
 	<websocket:handlers>
 		<websocket:mapping handler="chatHandler" path="/echo/chat"/>
@@ -73,10 +73,10 @@
 		
 	</websocket:handlers>
 	
-	<!-- 채팅 알림(수신만) -->
-	<beans:bean id="chatListenHandler" class="edu.kh.farmfarm.chat.model.websocket.ChatWidgetWebsocketHandler" />
+	<!-- 알림 -->
+	<beans:bean id="AlarmHandler" class="edu.kh.farmfarm.alarm.model.websocket.AlarmWebsocketHandler" />
 	<websocket:handlers>
-		<websocket:mapping handler="chatListenHandler" path="/listen/chat"/>
+		<websocket:mapping handler="AlarmHandler" path="/echo/alarm"/>
 		
 		<websocket:handshake-interceptors> 
 			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>

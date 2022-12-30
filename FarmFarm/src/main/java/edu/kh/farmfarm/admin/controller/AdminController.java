@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -31,38 +32,17 @@ public class AdminController {
 	private AdminService service;
 	
 	
-	// 관리자페이지
 
-//	// nav 회원관리 페이지로 이동
-//	@GetMapping("/admin/member")
-//	public String adminMemberPage() {
-//		return "admin/adminMember";
-//	}
-	
-	
-	// 판매자 인증중인 회원이 로그인할 경우 이동
+
+	// 판매자 인증중인 회원이 로그인할 경우 이동_memberController와 연결
 	@GetMapping("/authenticating")
 	public String authenticating() {
 		return "member/authNotice";
 	}
 	
+	// 관리자페이지 --------------------------------------------------------
 	
-	// nav 판매자 인증 관리 페이지로 이동
-	@GetMapping("/admin/seller")
-	public String adminSellerAuthPage() {
-		return "admin/adminSellerAuth";
-	}
-	
-	
-	// nav 전체 신고 관리 페이지로 이동
-	@GetMapping("/admin/report")
-	public String adminReportPage() {
-		return "admin/adminReportTotal";
-	}
-	
-	
-	
-	// 대시보드
+	// 대시보드 -----------------------------------------------------------
 	// 통계 조회
 	@GetMapping("/admin")
 	public String dashboard(@SessionAttribute(value="loginMember") Member loginMember, Model model,
@@ -86,17 +66,6 @@ public class AdminController {
 		
 	}
 
-	
-	
-	
-	
-	// 전체 회원 조회 페이지로 이동
-//	@GetMapping("/admin/member")
-//	public String adminMemberPage() {
-//		return "admin/adminMember";
-//	}
-//	
-	
 	
 	// 전체 회원 조회 페이지로 이동
 	// JSP 
@@ -197,7 +166,6 @@ public class AdminController {
 	}
 	
 	
-	
 
 	
 	// 회원 강제 탈퇴
@@ -214,6 +182,59 @@ public class AdminController {
 		}
 		
 		return  result;
+	}
+	
+	
+	
+	// 판매자 인증 ------------------------------------------------------------------------------------
+	// nav 판매자 인증 관리 페이지로 이동
+//	@GetMapping("/admin/seller")
+//	public String adminSellerAuthPage() {
+//		return "admin/adminSellerAuth";
+//	}
+	
+	
+	//-- jsp
+	@GetMapping("/admin/seller")
+	public String adminSellerAuthPage(@SessionAttribute(value="loginMember") Member loginMember,
+										@RequestParam(value="cp", required=false, defaultValue="1") int cp,
+										@RequestParam(value="preSellerFilter", required=false, defaultValue="0") int preSellerFilter,
+										Model model) {
+		// 관리자인지 확인 (관리자면 result==1)
+		int result = service.checkAdmin();
+		
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if(result == 1 && loginMember != null) {
+
+			// 판매자 인증 조회 + 페이지네이션 + 정렬
+			map = service.selectSeller(preSellerFilter, cp);
+	
+		} else {
+			System.out.println("관리자만 접근 가능합니다.");
+		}
+
+		
+		model.addAttribute("map", map);
+		
+		return "admin/adminSellerAuth";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 신고 관리 -----------------------------------------------------------------------------------------
+	// nav 전체 신고 관리 페이지로 이동
+	@GetMapping("/admin/report")
+	public String adminReportPage() {
+		return "admin/adminReportTotal";
 	}
 	
 	

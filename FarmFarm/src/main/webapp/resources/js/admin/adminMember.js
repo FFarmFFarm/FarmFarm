@@ -12,8 +12,7 @@
 var numCount = 0;     // numCount : 게시판 번호 no
 var hiddenId = null;  // 상세 조회, 강제탈퇴 ajax에 사용
 var keyword;
-
-
+var memberSelectTable = document.getElementById("memberSelectTable");
 
 
 // optimize : 전체 회원 정보 조회 함수
@@ -25,7 +24,16 @@ const selectMemberList = (cp) => {
         dataType: "JSON",
         type: "GET",
         success: (map) => {
+
+            //fixme: 검색 결과가 없습니다.
+            // if(map.memberListCount == 0){
+            //     searchNoResult();
+            // } else {
+            // }
+            
             printMemberList(map.memberList, map.pagination);
+            
+
         }, 
             error: () => {
             console.log("cp 받아 회원 정보 조회 실패");
@@ -82,8 +90,8 @@ const printMemberList = (memberList, pagination) => {
     window.scrollTo({top: 'header', behavior: 'smooth'});
 
     // 이 위치 사수하기
-    document.getElementById("tbody").innerHTML = "";
-    document.getElementById("adminPaginationArea").innerHTML = "";
+    document.getElementById("tbody").innerText = "";
+    document.getElementById("adminPaginationArea").innerText = "";
 
     const middleBoard = document.getElementById("middleBoard");
     
@@ -130,18 +138,35 @@ const printMemberList = (memberList, pagination) => {
 
         // 아이디
         const td3 = document.createElement("td");
-        td3.innerText = member.memberId;  //fixme
+        
+        if(member.memberId.length > 10){
+            td3.innerText = member.memberId.substring(0, 9) + '...'; 
+        } else {
+            td3.innerText = member.memberId;
+        }
 
 
         // 닉네임
         const td4 = document.createElement("td");
-        td4.innerText = member.memberNickname;
+
+        if(member.memberNickname.length > 10){
+            td4.innerText = member.memberNickname.substring(0, 9) + '...';
+        } else {
+            td4.innerText = member.memberNickname;
+        }
+
+
+
 
         // 주소
         const td5 = document.createElement("td");
 
         if(member.memberAddress != null){
-            td5.innerText = member.memberAddress;
+            if(member.memberAddress.length > 25){
+                td5.innerText = member.memberAddress.substring(0, 24) + '...';
+            } else {
+                td5.innerText = member.memberAddress;
+            }
         } else {
             td5.innerText = "-";
         }
@@ -211,11 +236,10 @@ const printMemberList = (memberList, pagination) => {
 
         
         //todo : 회원 상세 조회
-        // fixme: 밑에 고치기
         // 한 줄 클릭하면 상세창 뜨면서 정보 조회.
         tr.addEventListener("click", () => {
         
-            // //  fix: ? ajax 쓸때는 이렇게
+            // fix: ? ajax 쓸때는 이렇게
             hiddenId = member.memberId;
 
             console.log(hiddenId);
@@ -245,8 +269,6 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
     // 다시 클릭할 때 텍스트 비우기
     detailTable.innerText = "";
     historyTable.innerText = "";
-
-    console.log("printMemberDetail 함수 호출 성공");
 
     
     // * 회원 상세 정보
@@ -304,7 +326,7 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
     // *아이디 가져오기
     // inputMemberId 강제 탈퇴할 때 사용함.
     // 상세 조회 시 값 전달할 때 필요 
-    // //  fix: ? ajax 쓸때는 이렇게?
+    // fix ? ajax 쓸때는 이렇게?
     hiddenId = memberDetailInfo.memberId;
 
 
@@ -668,7 +690,7 @@ for(let page of pageBox){
 }
 
 
-//fixme: 한 줄 클릭할 때, 회원 상세 정보 불러오는 함수 호출
+//todo: 한 줄 클릭할 때, 회원 상세 정보 불러오는 함수 호출
 const memberSelectRow = document.getElementsByClassName("member-select-row");
 var hiddenMemberId = document.getElementsByClassName('hidden-memberId');
 var hiddenId;
@@ -677,7 +699,7 @@ for(let i=0; i<memberSelectRow.length; i++){
     memberSelectRow[i].addEventListener('click', () => {
 
         hiddenId = hiddenMemberId[i].value;
-        console.log(hiddenId);
+        // console.log(hiddenId);
         selectMemberDetail(hiddenId);
     })
 }
@@ -819,7 +841,7 @@ document.getElementById("adminDelSubmitBtn").addEventListener('click', ()=>{
                 }          
                 
                 console.log("강제 탈퇴 완료!");
-                // messageModalOpen();
+                messageModalOpen("강제 탈퇴가 처리되었습니다.");
 
             
             } else {
@@ -858,6 +880,12 @@ const doSearch = () => {
     selectMemberList(cp);
 }
 
+const searchNoResult = () => {
+    memberSelectTable.innerText = "검색 결과가 없습니다.";
+    memberSelectTable.style.marginTop = "230px";
+    memberSelectTable.style.color = "#2b8c44";
+}
+
 
 // todo: 
 // 전체 조회 글자 자르기
@@ -872,3 +900,25 @@ const doSearch = () => {
 주소 25자
 닉네임 10자 
 */
+
+// jsp 첫 페이지  글자 자르기
+const mId = document.getElementById("mId");
+if(mId.innerText.length > 10){
+    mId.innerText = mId.innerText.substring(0, 9) + '...';
+} else {
+    mId.innerText = mId.innerText;
+}
+
+const mNickname = document.getElementById("mNickname");
+if(mNickname.innerText.length > 10){
+    mNickname.innerText = mNickname.innerText.substring(0,9) + '...';
+} else {
+    mNickname.innerText = mNickname.innerText;
+}
+
+const mAddress = document.getElementById("mAddress");
+if(mAddress.innerText.length > 25){
+    mAddress.innerText = mAddress.innerText.substring(0, 24) + '...';
+} else {
+    mAddress.innerText = mAddress.innerText;
+}

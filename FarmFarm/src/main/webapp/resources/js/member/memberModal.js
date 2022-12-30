@@ -46,8 +46,6 @@ const selectMember = (memberNo) => {
     url : "/board/member/" + memberNo,
     dataType : "JSON",
     success : (member)=>{
-      console.log(member.memberNickname);
-      console.log("ajax 통신");
 
       if(member.profileImage !=null) {
         img.setAttribute("src", member.profileImage);
@@ -57,8 +55,8 @@ const selectMember = (memberNo) => {
         modalImgarea;
       };
 
-      memberNickname.innerText = member.memberNickname;
-      modalSignUpDate.innerText = member.signUpDate;
+      memberNickname.innerText = "닉네임 :" + member.memberNickname;
+      modalSignUpDate.innerText = "가입일 :" + member.signUpDate;
 
     }, 
     error : ()=>{
