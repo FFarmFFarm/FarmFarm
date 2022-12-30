@@ -19,6 +19,23 @@ public class AlarmDAO {
 	public int insertNewAlarm(Alarm alarm) {
 		return sqlSession.insert("alarmMapper.insertNewAlarm", alarm);
 	}
+
+
+	/** 게시글의 작성자 번호를 찾는 서비스
+	 * @param targetNo
+	 * @return
+	 */
+	public int selectBoardWriterNo(int boardNo) {
+		return sqlSession.selectOne("boardMapper.selectBoardWriterNo", boardNo);
+	}
+	
+	/** 댓글의 작성자 번호를 찾는 서비스
+	 * @param targetNo
+	 * @return
+	 */
+	public int selectCommentWriterNo(int commentNo) {
+		return sqlSession.selectOne("boardMapper.selectCommentWriterNo", commentNo);
+	}
 	
 	
 }

@@ -15,10 +15,17 @@ addEventListener("DOMContentLoaded", ()=>{
         // 새 SockJS 객체 alarmSock 생성, 서버는 /echo/alarm과 연결
         alarmSock = new SockJS("/echo/alarm");
 
+        console.log('알림 서버에 연결을 시도합니다... ')
+        
         // alarmSock 객체가 생성되었을 때에만, 웹소켓 서버로부터 알림을 수신
         if(alarmSock != null) {
-            alarmSock.onmessage = function(e){
 
+            console.log('알림 서버와 연결되었습니다.')
+            
+            alarmSock.onmessage = function(e){
+            
+                console.log('새로운 알림이 있습니다.')
+            
                 // 받은 소켓 메시지를 역직렬화 한 후, 상수 alarm에 저장
                 const alarm = JSON.parse(e.data);
 

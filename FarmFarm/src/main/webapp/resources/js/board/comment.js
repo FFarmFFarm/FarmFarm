@@ -163,11 +163,45 @@ commentInsert.addEventListener("click", e=>{
         success : result=>{
 
             if(result>0){
+                /* 댓글 알림 */
+                /* 
+                    * 댓글 알림 기능
+                    1) boardNo를 이용해서, 상대방의 번호를 확인한다.
+                    2) 상대방의 번호를 받아오면, commentContent와 상대방 번호, 알림 유형 alarmType을 소켓으로 send
+
+                    * 고려해볼만한 사항
+                    댓글 삽입의 결과로 상대방 회원의 번호를 받아오면 더 빠르게 처리할 수 있을 듯! -> 이야기해보기
+                */
+                    // 1) 상대방의 번호 확인
+                    $.ajax({
+                        url: "/alarm/select/targetNo",
+                        data: {
+                            "type":"board",
+                            "targetNo":boardNo
+                        },
+                        type: "post",
+                        success : targetNo=>{
+                            // 받은 targetNo로 json객체 만들기
+                            let obj = {
+                                "alarmTypeNo":201,
+                                "memberNo":targetNo,
+                                "alarmContent":writeComment.value
+                            }
+                            alarmSock.send(JSON.stringify(obj));
+                        },
+                        error : ()=>{
+                            console.log('알림 전송에 실패하였습니다.')
+                        }
+                    })
+
+
                 alert("댓글이 등록되었습니다");
                 writeComment.value=""; // 작성한 댓글 없애주기
                 selectCommentList(); // 다시 ajax로 불러옵시다!
 
-                /* 댓글 알림 */
+                
+
+
             }else{
                 alert("댓글 등록에 실패했습니다...");
             }

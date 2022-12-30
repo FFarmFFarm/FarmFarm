@@ -18,4 +18,22 @@ public class AlarmServiceImpl implements AlarmService {
 	public int insertNewAlarm(Alarm alarm) {
 		return dao.insertNewAlarm(alarm);
 	}
+
+	// 게시글 또는 댓글의 작성자를 찾아주는 서비스
+	@Override
+	public int selectTargetNo(String type, int targetNo) {
+		int result = -1;
+		
+		if(type.equals("board")) { // 게시글인 경우 게시글의 작성자 번호를 찾는 dao 실행
+			int boardNo = targetNo;
+			result = dao.selectBoardWriterNo(boardNo);
+		} 
+		
+		if(type.equals("comment")) { // 댓글인 경우 댓글의 작성자 번호를 찾는 dao 실행
+			int commentNo = targetNo;
+			result = dao.selectCommentWriterNo(commentNo);
+		}
+		
+		return result;
+	}
 }
