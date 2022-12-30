@@ -32,3 +32,18 @@ selectAll.addEventListener("change", (e) => {
     checkAll.classList.add("fa-solid");
   }
 })
+
+// (()=>{
+
+//   const productPrice = document.getElementsByClassName("product-price");
+//   const totalPrice = document.getElementById("totalPrice");
+//   const orderPrice = document.getElementById("orderPrice");  
+
+//   for(let i=0; i<productPrice.length; i++){
+//     let total = 0;
+
+//     total += productPrice[i].
+//   }
+
+
+// })()

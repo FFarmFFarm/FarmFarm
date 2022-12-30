@@ -173,6 +173,11 @@ input[type="number"]::-webkit-inner-spin-button {
     margin: 0;
 }
 
+.price-box{
+  display: flex;
+  flex-direction: row;
+}
+
 .product-price {
   font-family: "NotoSansKR-Bold";
   width: 120px;

@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<c:set var="postList" value="${map.postList}"/>
-<c:set var="pagination" value="${map.pagination}"/>
+<c:set var="totalPrice" value="0"/>
 
 <!DOCTYPE html>
 <html lang="kr">
@@ -77,7 +77,10 @@
                             value=2>
                             <button><i class="fa-solid fa-plus"></i></button>
                         </div>
-                        <span class="product-price">9,900원</span>
+                        <div class="price-box">
+                            <span class="product-price">9,900</span>
+                            <span>원</span>
+                        </div>
                         <button class="cancel-item"><i class="fa-solid fa-xmark"></i></button>
                     </li>
                 </ul>
@@ -97,15 +100,21 @@
                     <div class="price-container">
                         <div class="price-one-line">
                             <span>상품금액</span>
-                            <span id="totalPrice">30,000원</span>
+                            <div>
+                                <span id="totalPrice">30,000</span>
+                                <span>원</span>
+                            </div>
                         </div>
                         <div class="price-one-line">
                             <span>배송비</span>
-                            <span>3,000원</span>
+                            <span>3,000 원</span>
                         </div>
                         <div class="price-one-line">
                             <span>결제예정금액</span>
-                            <span id="orderPrice">33,000원</span>
+                            <div>
+                                <span id="orderPrice">33,000</span>
+                                <span>원</span>
+                            </div>
                         </div>
                     </div>
                     <div class="submit-container">
