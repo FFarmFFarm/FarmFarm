@@ -188,8 +188,8 @@
                         });
 
                         //휴대폰번호 인증번호 보내기 버튼 클릭 이벤트
+                        checkObj.userNum = false;
                         $('#send').click(function() {
-	
                         const to = $('#to').val();
                         
                         $.ajax ({
@@ -207,9 +207,11 @@
                                     
                                     if(checkNum === userNum) {
                                         alert('인증 성공하였습니다.');
+                                        checkObj.userNum = true;
                                     }
                                     else {
                                         alert('인증 실패하였습니다. 다시 입력해주세요.');
+                                        checkObj.userNum = false;
                                     }
                                 });
                                 

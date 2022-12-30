@@ -34,6 +34,12 @@ if(boardAdd == '/board/4'){
     type3.classList.remove("nowType");
     type4.classList.add("nowType");
 }
+if(boardAdd == '/board/4'){
+    boardTitle.innerHTML="아무도 들어오지마 시원이꺼";
+    type1.classList.remove("nowType");
+    type2.classList.remove("nowType");
+    type3.classList.add("nowType");
+}
 
 
 // 검색 시 검색어 유지시키기
