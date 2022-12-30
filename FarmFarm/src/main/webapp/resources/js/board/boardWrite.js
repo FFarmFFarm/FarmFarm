@@ -40,7 +40,7 @@ for(let i=0; i<inputImg.length; i++){
 
 const inputTitle = document.querySelector(".input-write-title");
 const inputContent = document.querySelector(".write-content");
-const categorys = document.getElementsByClassName("boardTypeNo")
+const categorys = document.querySelector(".boardTypeNo")
 
 const writeBtn = document.querySelector(".board-submit");
 writeBtn.addEventListener("click", e=>{
@@ -49,10 +49,12 @@ writeBtn.addEventListener("click", e=>{
     for(const category of categorys){
         if(!category.checked){
             console.log("카테고리를 선택해주세요.");
+            check = 0;
+        }else{
             check = check+1;
         }
     }
-    if(check>2){
+    if(check == 0){
         alert("카테고리를 선택해주세요.");
         e.preventDefault();
     }

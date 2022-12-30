@@ -104,7 +104,7 @@ input[type="text"]:focus{
 
 /* 커뮤니티 목록 */
 .board-list{
-    width: 850px;
+    width: 900px;
     margin: auto;
 }
 
@@ -133,6 +133,12 @@ input[type="text"]:focus{
 .board-title{
     width: 520px;
 }
+.board-writer{
+    /* border: 1px solid black; */
+    width: 180px;
+    cursor: pointer;
+    /* height: 100%; */
+  }
 .board-date{
     width: 120px;
 }
@@ -206,3 +212,6 @@ input[type="text"]:focus{
     display: none;
     opacity: 0;
   }
+
+
+

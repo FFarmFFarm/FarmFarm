@@ -20,6 +20,7 @@ public class Review {
 	
 	private int likeCheck;
 	private int likeCount;
+	private int orderNo;
 	
 	private String memberNickname;
 	private String profileImg;

@@ -5,20 +5,37 @@ const boardAdd = location.pathname;
 const type1 = document.getElementById("type1");
 const type2 = document.getElementById("type2");
 const type3 = document.getElementById("type3");
+const type4 = document.getElementById("type4");
 if(boardAdd == '/board/1'){
     boardTitle.innerHTML = "와글와글 물물교환";
     type1.classList.add("nowType");
     type2.classList.remove("nowType");
     type3.classList.remove("nowType");
+    type4.classList.remove("nowType");
 }
 if(boardAdd == '/board/2'){
     boardTitle.innerHTML="와글와글 팁";
     type1.classList.remove("nowType");
     type2.classList.add("nowType");
     type3.classList.remove("nowType");
+    type4.classList.remove("nowType");
 }
 if(boardAdd == '/board/3'){
     boardTitle.innerHTML="와글와글 질문";
+    type1.classList.remove("nowType");
+    type2.classList.remove("nowType");
+    type3.classList.add("nowType");
+    type4.classList.remove("nowType");
+}
+if(boardAdd == '/board/4'){
+    boardTitle.innerHTML="CoolCool";
+    type1.classList.remove("nowType");
+    type2.classList.remove("nowType");
+    type3.classList.remove("nowType");
+    type4.classList.add("nowType");
+}
+if(boardAdd == '/board/4'){
+    boardTitle.innerHTML="아무도 들어오지마 시원이꺼";
     type1.classList.remove("nowType");
     type2.classList.remove("nowType");
     type3.classList.add("nowType");

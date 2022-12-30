@@ -15,7 +15,8 @@
     <link rel="stylesheet" href="/resources/css/board/boardList-style.css">
     <link rel="stylesheet" href="/resources/css/common/header-style.css" />
     <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
-
+    
+    <link rel="stylesheet" href="/resources/css/member/memberModal-style.css" />
     <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
 </head>
 <body>
@@ -31,6 +32,8 @@
                 <a id="type1" href="/board/${1}">물물교환</a>
                 <a id="type2" href="/board/${2}">팁</a>
                 <a id="type3" href="/board/${3}">질문</a>
+                
+                <a id="type4" href="/board/${4}">시원이꺼</a>
             </div>
         </section>
         <form action="/board/${boardTypeNo}" class="board-search">
@@ -68,8 +71,9 @@
             <div class="board-list-top">
                 <div class="board-List-title">
                     <span class="board-no">No.</span>
-                    <span class="board-img"></span>
+                    <%-- <span class="board-img"></span> --%>
                     <span class="board-title">게시글 제목</span>
+                    <span class="board-writer">작성자</span>
                     <span class="board-date">작성일</span>
                     <span class="board-view">조회수</span>
                 </div>
@@ -85,16 +89,17 @@
                             <c:forEach var="board" items="${boardList}">
                                 <li>
                                     <span class="board-no">${board.boardNo}</span>
-                                    <c:if test="${!empty board.thumbnail}">
+                                    <%-- <c:if test="${!empty board.thumbnail}">
                                         <span class="board-img"><img src="${board.thumbnail}" class="thumbImg"></span>
                                     </c:if>
                                     <c:if test="${empty board.thumbnail}">
                                         <span class="board-img"></span>
-                                    </c:if>
+                                    </c:if> --%>
                                     <span class="board-title">
                                         <a href="/board/${boardTypeNo}/${board.boardNo}?cp=${pagination.currentPage}${sURL}" class="goBoard">
                                             ${board.boardTitle}&nbsp;(${board.commentCount})</a>
                                     </span>
+                                    <span class="board-writer" id="${board.memberNo}">${board.memberNickname}</span>
                                     <span class="board-date">${board.boardDate}</span>
                                     <span class="board-view">${board.boardView}</span>
                                 </li>
@@ -143,11 +148,20 @@
             </div>
         </section>
 
+    
+    <%-- 프로필 클릭시 모달창 --%>
+    <jsp:include page="/WEB-INF/views/member/memberModal.jsp"/>
+    
+
     <%-- 로그인 모달창 --%>
     <jsp:include page="/WEB-INF/views/common/modal/loginConfirm.jsp"/>
     <%-- <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/> --%>
 
     </main>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+    crossorigin="anonymous"></script>
     <script>
         let boardTypeNo = ${boardTypeNo};
 
@@ -161,6 +175,7 @@
     </script>
     <script src="/resources/js/board/boardList.js"> </script>
     <script src="/resources/js/common/common.js"> </script>
+    <script src="/resources/js/member/memberModal.js"> </script>
 
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
