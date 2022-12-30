@@ -107,14 +107,3 @@ const hideAlarm = () => {
     alarmReceiverContainer.style.opacity='0';
     alarmReceiverContainer.style.height = '0px';
 }
-
-/* 테스트용 */
-// document.getElementById("boyeora").addEventListener('click', ()=> {
-//     console.log('보여라')
-//     pushAlarm();
-// })
-
-// document.getElementById("soomeora").addEventListener('click', ()=> {
-//     console.log('숨어라')
-//     hideAlarm();
-// })

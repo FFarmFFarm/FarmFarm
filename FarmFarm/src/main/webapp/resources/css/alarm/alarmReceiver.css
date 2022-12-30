@@ -20,7 +20,7 @@
     align-items: center;
     flex-direction: column;
 
-    padding: 5px;
+    padding: 5px 5px 10px;
 
     text-overflow: ellipsis;
     overflow: hidden;
@@ -58,13 +58,12 @@
 /* 알림 내용 */
 .alarm-receiver-content{
     font-size: var(--medium-font-size);
-    height: 50px;
     width: 290px;
-    padding: 5px;
+    padding: 7px;
 
     
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     
     overflow: hidden;

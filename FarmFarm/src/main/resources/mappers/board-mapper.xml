@@ -350,7 +350,7 @@
 	
 	
 	<!-- 댓글 등록을 해봅시다 -->
-	<insert id="commentWrite">
+	<insert id="commentWrite" useGeneratedKeys="true">
 		INSERT INTO "COMMENT"
 		VALUES(SEQ_COMMENT_NO.NEXTVAL, #{commentContent},
 			<if test='commentParent == 0'>
@@ -360,6 +360,9 @@
 				#{commentParent},
 			</if>
 			 DEFAULT, #{memberNo}, #{boardNo}, DEFAULT)
+		<selectKey keyProperty="commentNo" resultType="int" order="AFTER">
+			SELECT SEQ_COMMENT_NO.CURRVAL FROM DUAL
+		</selectKey>
 	</insert>
 	
 	

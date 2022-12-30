@@ -182,7 +182,7 @@ function commentFunction(){
         
                     if(result>0){
                         
-                        ringCommentAlarm('board', 201, boardNo, writeComment.value);
+                        ringCommentAlarm('board', 201, boardNo, writeComment.value, result);
                         
                         alert("댓글이 등록되었습니다");
                         writeComment.value=""; // 작성한 댓글 없애주기
@@ -299,7 +299,7 @@ function sendCo(parentNo, btn){
         success : result=>{
             if(result>0){
 
-                ringCommentAlarm('comment', 202, parentNo, commentContent);
+                ringCommentAlarm('comment', 202, parentNo, commentContent, result);
 
                 alert("답글이 등록됐습니다.");
                 selectCommentList();
@@ -463,7 +463,7 @@ function deleteComment(commentNo){
 
 
 /* 댓글 알림을 발생시킬 수 있는 함수입니다. */
-const ringCommentAlarm = (type, typeNo, inputNo, inputComment) => {
+const ringCommentAlarm = (type, typeNo, inputNo, inputComment, commentNo) => {
 
     /* 댓글 알림 */
     /* 
@@ -477,6 +477,13 @@ const ringCommentAlarm = (type, typeNo, inputNo, inputComment) => {
 
         2) targetNo : board인 경우 해당 게시글을 작성한 회원
                       comment인 경우 '답글달기' 버튼을 눌렀을 때, 해당 버튼이 들어있는 댓글을 작성한 회원
+
+        3) inputNo : board인 경우 게시글 번호
+                     comment인 경우 대댓글이 달린 댓글의 번호
+        
+        4) inputComment : 댓글
+
+        5) commentNo : 작성된 댓글 번호
 
         * 고려해볼만한 사항
         1) 댓글 삽입의 결과로 상대방 회원의 번호를 받아오면 더 빠르게 처리할 수 있을 듯! -> 수정이 필요하니까 이야기해보기
@@ -497,9 +504,9 @@ const ringCommentAlarm = (type, typeNo, inputNo, inputComment) => {
             // 받은 targetNo로 json객체 만들기
             let obj = {
                 "alarmTypeNo":typeNo,
-                "memberNo":result.targetNo,
+                "memberNo":result,
                 "alarmContent":inputComment,
-                "quickLink":location.href+"#co"+result.commentNo
+                "quickLink":location.href+"#co"+commentNo
             }
 
             alarmSock.send(JSON.stringify(obj));
