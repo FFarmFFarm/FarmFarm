@@ -40,6 +40,7 @@
 
 })();
 
+
 // 주소
 function sample6_execDaumPostcode() {
     new daum.Postcode({
@@ -66,8 +67,6 @@ function sample6_execDaumPostcode() {
         }
     }).open();
 }
-
-
 
 
 // JS 객체를 이용한 유효성 검사 결과 저장 객체
@@ -125,12 +124,13 @@ if(document.getElementById("signUpFrm") != null){
                 event.preventDefault(); // 제출 이벤트 제거
                 return; // 함수 종료
 
+                
             }
         }
-
     });
 }
 
+// 전화번호 인증
 if(document.getElementById("signUpFrm") != null){
     document.getElementById("signUpFrm").addEventListener("submit",(e)=>{
 
