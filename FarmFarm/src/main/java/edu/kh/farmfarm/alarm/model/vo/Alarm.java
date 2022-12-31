@@ -18,4 +18,5 @@ public class Alarm {
 	private String alarmContent;
 	private String alarmDate;
 	private String quickLink;
+	private String readFl;
 }

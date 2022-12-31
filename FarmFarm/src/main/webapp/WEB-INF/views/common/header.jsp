@@ -167,8 +167,15 @@
 
                   const alarmList = response.data.alarmList;
 
+                  // 반복문 숫자
+                  let iteratorFl = 0;
+
                   for(let alarm of alarmList) {
 
+                    // 반복 횟수 제한 : 6회
+                    if(iteratorFl == 6) break;
+                    else iteratorFl += 1;
+                    
                     // 1. 재료 준비
                     const alarmWidgetBox = document.createElement('div');
                     const alarmWidgetHeader = document.createElement('div');
