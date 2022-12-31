@@ -23,23 +23,9 @@
     
                     <div id="myDropdown1" class="dropdown-message">
                       <div class="notice"><p>알림</p></div>
-                      <ul>
-                        <li>
-                          <div class="message-box">
-                            <a href="">배송이 시작되었습니다.</a>
-                          </div>
-                        </li>
-                        <li>
-                          <div class="message-box">
-                            <a href="">辛팜팜님이 신고했습니다..</a>
-                          </div>
-                        </li>
-                        <li>
-                          <div class="message-box">
-                            <a href="">정팜팜님이 신고를 거부하셨습니다.</a>
-                          </div>
-                        </li>
-                      </ul>
+                      <!-- 알림 위젯 -->
+                      <jsp:include page="/WEB-INF/views/alarm/alarmWidget.jsp" />
+
                     </div>
                   </div>
                 </li>
@@ -104,6 +90,17 @@
     </div>
     
     <script>
+      // 요소에 클래스, 값을 넣어서 반환하는 함수
+      const packupElement = (element, classname, inputValue) => {
+        element.classList.add(classname);
+
+        if(inputValue != -1) {
+          element.innerHTML = inputValue;
+        }
+
+      }
+
+
       // 프로필 드롭다운
       const dropbtn = document.querySelector('.dropbtn');
       if(dropbtn != null) {
@@ -158,7 +155,80 @@
             myDropdown1.style.display == 'none' ||
             myDropdown1.style.display == ''
           ) {
-            myDropdown1.style.display = 'block';
+
+            axios.post('/alarm/list' // 연결
+              ).then(function (response){
+
+                if(response.data != undefined) { // 받아온 데이터가 있을 때에만 실행
+                  
+                  const alarmDropdown = document.getElementById('alarmDropdown');
+
+                  alarmDropdown.innerHTML = '';
+
+                  const alarmList = response.data.alarmList;
+
+                  for(let alarm of alarmList) {
+
+                    // 1. 재료 준비
+                    const alarmWidgetBox = document.createElement('div');
+                    const alarmWidgetHeader = document.createElement('div');
+                    const alarmWidgetIcon = document.createElement('div');
+                    const alarmWidgetTitle = document.createElement('div');
+                    const alarmWidgetDate = document.createElement('div');
+                    const alarmWidgetDelBtn = document.createElement('div');
+                    const alarmWidgetContent = document.createElement('div');
+
+                    // 2. 재료 손질
+                    packupElement(alarmWidgetBox, 'alarm-widget-box', -1);
+                    packupElement(alarmWidgetHeader, 'alarm-widget-header', -1);
+                    
+                    // 알림 유형 아이콘
+                    let icon;
+                    
+                    switch(alarm.alarmTypeNo){
+                      case 201 : icon = '<i class="fa-regular fa-comment-dots"></i>'; break;
+                      case 202 : icon = '<i class="fa-regular fa-comment-dots"></i>'; break;
+                    }
+
+                    packupElement(alarmWidgetIcon, 'alarm-widget-icon', icon);
+                    
+                    // 알림 유형 제목(단축버전)
+                    let title;
+                    
+                    switch (alarm.alarmTypeNo) {
+                      case 201: title = '댓글 알림'; break;
+                      case 202: title = '댓글 알림'; break;
+                    }
+
+                    packupElement(alarmWidgetTitle, 'alarm-widget-title', title);
+
+                    // 알림 시간
+                    packupElement(alarmWidgetDate, 'alarm-widget-date', alarm.alarmDate);
+
+                    // 알림 삭제 버튼
+                    packupElement(alarmWidgetDelBtn, 'alarm-widget-delBtn', '<i class="fa-solid fa-xmark"></i>');
+
+                    // 알림 내용
+                    packupElement(alarmWidgetContent, 'alarm-widget-content', alarm.alarmContent);
+
+                    // 3. 조리
+                    alarmWidgetHeader.append(alarmWidgetIcon, alarmWidgetTitle, alarmWidgetDate, alarmWidgetDelBtn);
+                    alarmWidgetBox.append(alarmWidgetHeader, alarmWidgetContent);
+
+                    // 4. 플레이팅
+                    alarmDropdown.append(alarmWidgetBox);
+                  }
+
+                }
+
+                myDropdown1.style.display = 'block';
+
+              }).catch(function (error){
+                console.log(error)
+              }) 
+
+
+
           } else {
             myDropdown1.style.display = 'none';
           }

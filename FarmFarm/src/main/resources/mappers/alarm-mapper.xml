@@ -24,5 +24,14 @@
 	 	</selectKey>
 	 </insert>
 	 
+	 <!-- 내 알림 조회 -->
+	 <select id="selectAlarmList" parameterType="_int" resultMap="alarm_rm">
+	 	SELECT ALARM_NO, ALARM_TYPE_NO, ALARM_CONTENT, QUICK_LINK,
+	 		   CASE WHEN TO_CHAR(ALARM_DATE, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD') THEN TO_CHAR(ALARM_DATE, 'AM HH"시" MI"분"')
+	 		   ELSE TO_CHAR(ALARM_DATE, 'YYYY-MM-DD') END ALARM_DATE,
+	 	       (SELECT ALARM_TITLE FROM ALARM_TYPE ALAT WHERE ALAT.ALARM_TYPE_NO = ALA.ALARM_TYPE_NO) AS ALARM_TITLE 
+	 	FROM ALARM ALA
+	 	WHERE MEMBER_NO = #{memberNo}
+	 </select>
 	
 </mapper>
