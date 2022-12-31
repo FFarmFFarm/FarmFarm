@@ -146,8 +146,8 @@
 	<select id="getListCountSearch" resultType="_int">
 		SELECT COUNT(*) FROM "BOARD"
 		WHERE BOARD_TYPE_NO = #{boardTypeNo}
-		OR BOARD_TITLE LIKE '%${query}%'
-		OR BOARD_CONTENT LIKE '%${query}%'
+		AND (BOARD_TITLE LIKE '%${query}%'
+			OR BOARD_CONTENT LIKE '%${query}%')
 	</select>
 	
 	<!-- 와글와글 게시판 검색 조건에 맞는 게시글 불러오기 -->

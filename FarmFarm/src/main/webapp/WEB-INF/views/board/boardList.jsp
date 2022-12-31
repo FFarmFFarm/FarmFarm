@@ -23,9 +23,15 @@
     
     <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
+        <c:if test="${not empty param.query}">
+        <%-- <c:if test="${not empty param.key}"> --%>
+            <%-- /board/1?cp=3&key=t&query=테스트 --%>
+            <c:set var="sURL" value="&query=${param.query}"/>
+        </c:if>
+
     <main>
         <section class="board-top">
-            <div class="board-top-title">와글와글 물물교환 ${boardType.boardTypeNo}</div>
+            <div class="board-top-title">와글와글 물물교환</div>
         </section>
         <section class="board-nav">
             <div class="board-nav-area">
@@ -123,43 +129,44 @@
                 </ul>
                 <div class="board-write-bottom">
 
-                    <div class="pagination-area">
-                        <!-- ajax로 만들어 보십시다 -->
-                        <div id="1" class="page-box">
-                            <i class="fa-solid fa-angles-left"></i>
-                        </div>
-                        <div id="${productMap.pagination.prevPage}" class="page-box">
-                            <i class="fa-solid fa-angle-left"></i>
-                        </div>
-                        <c:forEach var="i" 
-                                begin="${productMap.pagination.startPage}" 
-                                end="${productMap.pagination.endPage}"
-                                step="1">
+                    <ul class="board-pagination">
+                    
+                        <!-- 첫 페이지로 이동 -->    <!-- 검색 안하면 그냥 빈칸으로 나옴 -->
+                        <li><a href="/board/${boardTypeNo}?cp=1${sURL}">&lt;&lt;</a></li>
+
+                        <!-- 이전 목록 마지막 번호로 이동 -->
+                        <li><a href="/board/${boardTypeNo}?cp=${pagination.prevPage}${sURL}">&lt;</a></li>
+                                                    <!-- qusert string 형식으로 적어야된데 -->
+
+                        <c:forEach var="i" begin="${pagination.startPage}" 
+                            end="${pagination.endPage}" step="1">
+
                             <c:choose>
-                                <c:when test="${i == productMap.pagination.currentPage}">
-                                    <div class="current-page-box">
-                                        ${i}
-                                    </div>
+                                <c:when test="${i == pagination.currentPage}">
+                                    <%-- 현재 페이지인 경우 --%>
+                                    <li><a class="current">${i}</a></li>
                                 </c:when>
-                            
+
                                 <c:otherwise>
-                                    <div id="${i}" class="page-box">
-                                        ${i}
-                                    </div>
+                                    <!-- 현재 페이지를 제외한 나머지 -->
+                                    <li><a href="/board/${boardTypeNo}?cp=${i}${sURL}">${i}</a></li>
                                 </c:otherwise>
                             </c:choose>
-                        </c:forEach>
 
-                        <div id="${productMap.pagination.nextPage}" class="page-box">
-                            <i class="fa-solid fa-angle-right"></i>
-                        </div>
-                        <div id="${productMap.pagination.endPage}" class="page-box">
-                            <i class="fa-solid fa-angles-right"></i>
-                        </div>
-                    </div>
+                        </c:forEach>
+                        
+                        <!-- 특정 페이지로 이동 -->
+                        
+                        <!-- 다음 목록 시작 번호로 이동 -->
+                        <li><a href="/board/${boardTypeNo}?cp=${pagination.nextPage}${sURL}">&gt;</a></li>
+
+                        <!-- 끝 페이지로 이동 -->
+                        <li><a href="/board/${boardTypeNo}?cp=${pagination.maxPage}${sURL}">&gt;&gt;</a></li>
+
+                    </ul>
 
                     <c:if test="${!empty loginMember}">
-                        <a href="/board/write" class="board-write">글쓰기</a>
+                        <a href="/board/write/${boardTypeNo}" class="board-write">글쓰기</a>
                     </c:if>
                 </div>
             </div>

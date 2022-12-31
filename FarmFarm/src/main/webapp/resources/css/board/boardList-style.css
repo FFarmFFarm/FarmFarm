@@ -179,24 +179,23 @@ input[type="text"]:focus{
     height: 100%;
 }
 /* 목록 페이지 번호 */
-/* .board-pagination{
-    width: 900px;
+.board-pagination{
+    width: 800px;
     height: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
     padding-left: 100px;
 }
-.pagination{
-    display: flex;
-    justify-content: center;
+.board-pagination>li{
+    width: 30px;
 }
 .pagination-area{
     width: 630px;
 }
 .current{
     color: var(--point-color);
-} */
+}
 /* 페이지네이션 영역 */
 .pagination-area{
     display: flex;
@@ -226,22 +225,6 @@ input[type="text"]:focus{
     transition-duration: 0.1s;
 }
 
-/* 현재 페이지 */
-.current-page-box{
-    font-weight: 600;
-    color: white;
-    background-color: var(--point-color);
-    border: 1px solid var(--line-color);
-    width: 30px;
-    height: 30px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    font: var(--sub-font-color);
-}
-
 /* 글쓰기 버튼 */
 .board-write{
     width: 110px;
@@ -251,9 +234,10 @@ input[type="text"]:focus{
     border-radius: 5px;
     text-align: center;
     color: white;
-    /* font-weight: bold; */
     letter-spacing: 2px;
     padding-top: 8px;
+    font-weight: 600;
+    font-size: var(--main-font-size);
 }
 
 /* 로그인 모달창 */
