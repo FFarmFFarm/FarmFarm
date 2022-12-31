@@ -24,7 +24,7 @@
                     <div id="myDropdown1" class="dropdown-message">
                       <div class="notice"><p>알림</p></div>
                       <!-- 알림 위젯 -->
-                      <jsp:include page="/WEB/INF/views/alarm/alarmWidget.jsp" />
+                      <jsp:include page="/WEB-INF/views/alarm/alarmWidget.jsp" />
 
                     </div>
                   </div>

@@ -36,5 +36,11 @@
             </div>
         </div>
     </li> 
-    
+
 */
+
+/* 알림 팝업 버튼을 누를 때마다, 자신의 알림 목록을 받아올 예정 */
+/* axios.post 방식을 사용함 */
+/* dropdown-btn[0] */
+
+document.getElementById('dropdown-btn'[0])
