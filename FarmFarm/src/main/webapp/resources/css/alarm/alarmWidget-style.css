@@ -1,0 +1,53 @@
+
+/* 알림 하나 */
+.alarm-widget-box{
+    border-radius: 5px;
+    width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 5px;
+}
+
+/* 알림 헤더(아이콘, 제목, 시간, x버튼) */
+.alarm-widget-header{
+    display: flex;
+    width: 100%;
+    position: relative;
+    background-color: var(--point-color);
+    border-radius: 5px;
+    height: 25px;
+}
+
+/* 아이콘 */
+.alarm-widget-icon{
+    color: white;
+    width: 10%;
+    text-align: center;
+}
+
+/* 알림 유형 제목 */
+.alarm-widget-title{
+    color: white;
+    width: 53%;
+
+}
+
+/* 알림 시간 */
+.alarm-widget-date{
+    color: white;
+    width: 30%;
+}
+
+/* 알림 지우기 버튼 */
+.alarm-widget-delBtn{
+    width: 7%;
+    text-align: center;
+    color: white;
+}
+
+.alarm-widget-content{
+    width: 100%;
+    border-bottom: 1px solid var(--line-color);
+}

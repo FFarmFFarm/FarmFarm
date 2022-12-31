@@ -2,8 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<link rel="stylesheet" href="/resources/css/alarm/alarmReceiver.css">
-<script src="https://kit.fontawesome.com/d449774bd8.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/resources/css/alarm/alarmReceiver-style.css">
+<!-- <script src="https://kit.fontawesome.com/d449774bd8.js" crossorigin="anonymous"></script> -->
 
 
 <!-- <a id="alarmReceiverArea"> -->

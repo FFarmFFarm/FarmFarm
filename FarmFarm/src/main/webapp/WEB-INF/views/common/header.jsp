@@ -23,23 +23,9 @@
     
                     <div id="myDropdown1" class="dropdown-message">
                       <div class="notice"><p>알림</p></div>
-                      <ul>
-                        <li>
-                          <div class="message-box">
-                            <a href="">배송이 시작되었습니다.</a>
-                          </div>
-                        </li>
-                        <li>
-                          <div class="message-box">
-                            <a href="">辛팜팜님이 신고했습니다..</a>
-                          </div>
-                        </li>
-                        <li>
-                          <div class="message-box">
-                            <a href="">정팜팜님이 신고를 거부하셨습니다.</a>
-                          </div>
-                        </li>
-                      </ul>
+                      <!-- 알림 위젯 -->
+                      <jsp:include page="/WEB/INF/views/alarm/alarmWidget.jsp" />
+
                     </div>
                   </div>
                 </li>
