@@ -90,6 +90,17 @@
     </div>
     
     <script>
+      // 요소에 클래스, 값을 넣어서 반환하는 함수
+      const packupElement = (element, classname, inputValue) => {
+        element.classList.add(classname);
+
+        if(inputValue != -1) {
+          element.innerText = inputValue;
+        }
+
+      }
+
+
       // 프로필 드롭다운
       const dropbtn = document.querySelector('.dropbtn');
       if(dropbtn != null) {
@@ -144,7 +155,40 @@
             myDropdown1.style.display == 'none' ||
             myDropdown1.style.display == ''
           ) {
+
+            axios.post('/alarm/list' // 연결
+              ).then(function (response){
+
+                if(reponse.data != null) { // 받아온 데이터가 있을 때에만 실행
+
+                  const alarmDropdown = document.getElementById('alarmDropdown');
+
+                  const alarmList = response.data.alarmList;
+
+                  for(alarm of alarmList) {
+                    // 1. 재료 준비
+                    const alarmWidgetBox = document.createElement('div');
+                    const alarmWidgetHeader = document.createElement('alarm-widget-header');
+                    const alarmWidgetIcon = document.createElement('alarm-widget-header');
+                    const alarmWidgetTitle = document.createElement('alarm-widget-header');
+                    const alarmWidgetDate = document.createElement('alarm-widget-header');
+                    const alarmWidgetDelBtn = document.createElement('alarm-widget-header');
+                    const alarmWidgetContent = document.createElement('alarm-widget-header');
+
+                    // 2. 재료 손질
+                    packupElement(alarmWidgetBox, 'alarm-widget-box', -1);
+                  }
+
+                }
+
+
+              }).catch(function (error){
+
+              }) 
+
             myDropdown1.style.display = 'block';
+
+
           } else {
             myDropdown1.style.display = 'none';
           }

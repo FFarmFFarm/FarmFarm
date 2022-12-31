@@ -43,4 +43,6 @@
 /* axios.post 방식을 사용함 */
 /* dropdown-btn[0] */
 
-document.getElementById('dropdown-btn'[0])
+document.getElementById('dropdown-btn').addEventListener('click',()=>{
+    
+})
