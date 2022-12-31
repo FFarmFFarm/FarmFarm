@@ -12,23 +12,33 @@ header {
   width: 1000px;
   height: 120px;
   margin: auto;
-  display: flex;
-  align-items: center;
+  position: relative;
+  /* display: flex;
+  align-items: center; */
 }
 
-.home-logo {
+/* .home-logo {
   width: 80%;
   margin-left: 500px;
+} */
+
+.home-logo {
+  display: flex;
+  justify-content: center;
 }
 
 .home-logo img {
   width: 110px;
-  padding-top: 4px;
+  padding-top: 30px;
 }
 
 /* Widget */
 .header-widget-area {
-  width: 20%;
+  position: absolute;
+  width: 160px;
+  height: 25px;
+  top: 55px;
+  right: 45px;
 }
 
 .widget-list {
@@ -36,6 +46,7 @@ header {
   display: flex;
   margin-right: 20px;
   align-items: center;
+  width: 100%;
 }
 
 .widget-item {
@@ -62,9 +73,16 @@ header {
 }
 
 .login-list {
+  /* display: flex;
+  margin-right: 15px;
+  align-items: center; */
+
   display: flex;
   margin-right: 15px;
   align-items: center;
+  position: absolute;
+  top: 50px;
+  right: 380px;
 }
 
 .login-item {

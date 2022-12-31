@@ -24,29 +24,31 @@
             </section>
             <section class="board-nav">
                 <div class="board-nav-area">
-                    <span id="type1">물물교환</span>
-                    <span id="type2">팁</span>
-                    <span id="type3">질문</span>
+                    <a href="/board/${1}" id="type1">물물교환</a>
+                    <a href="/board/${2}" id="type2">팁</a>
+                    <a href="/board/${3}" id="type3">질문</a>
                 </div>
             </section>
             <section class="board-title-content">
                 <div class="board-title-area">
-                    <div class="writer-img">
-                        <c:if test="${empty board.profileImg}">
-                            <img src="/resources/images/myPage/profile/profileImg.png" alt=""><%-- 기본 이미지 주소 넣기 --%>
-                        </c:if>
-                        <c:if test="${!empty board.profileImg}">
-                            <img src="${board.profileImg}" alt="">
-                        </c:if>
-                    </div>
-                    <div class="writer-ect">
-                        <div class="writer-name">${board.memberNickname}</div>
-                        <div class="writer-date-view">${board.boardDate}&nbsp; 조회&nbsp; ${board.boardView}</div>
-                    </div>
                     <div class="board-title">
                         ${board.boardTitle}
                     </div>
-                    <div class="goList">목록으로</div>
+                    <div class="temptemp">
+                        <div class="writer-img">
+                            <c:if test="${empty board.profileImg}">
+                                <img src="/resources/images/myPage/profile/profileImg.png" alt=""><%-- 기본 이미지 주소 넣기 --%>
+                            </c:if>
+                            <c:if test="${!empty board.profileImg}">
+                                <img src="${board.profileImg}" alt="">
+                            </c:if>
+                        </div>
+                        <div class="writer-ect">
+                            <div class="writer-name">${board.memberNickname}</div>
+                            <div class="writer-date-view">${board.boardDate}&nbsp; 조회&nbsp; ${board.boardView}</div>
+                        </div>
+                        <div class="goList">목록으로</div>
+                    </div>
                 </div>
                 <div class="board-content-area">
                     <div class="board-content">

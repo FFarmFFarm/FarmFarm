@@ -3,7 +3,7 @@
 
 
   <!-- 장바구니 이동 모달창 -->
-    <div class="goto-cart hide" id="goCartConfirm">
+    <div class="login-confirm-container hide" id="goCartConfirm">
       <div>
         <div class="login-confirm-message">
           <span>장바구니에 추가되었습니다.</span>
@@ -17,15 +17,15 @@
     </div>
 
   <!-- 장바구니 이동 모달창 -->
-    <div class="add-cart hide" id="addCartConfirm">
+    <div class="login-confirm-container hide" id="addCartConfirm">
       <div>
         <div class="login-confirm-message">
           <span>이미 추가된 상품입니다.</span>
           <span>새로 추가하시겠습니까?</span>
         </div>
         <div class="login-confirm-btn">
-          <button type="button" id="goCartCalcelBtn">취소</button>
-          <button type="button" id="ㅁㅇㅇCartConfirmBtn">추가</button>
+          <button type="button" id="addCartCalcelBtn">취소</button>
+          <button type="button" id="addCartConfirmBtn">추가</button>
         </div>
       </div>
     </div>

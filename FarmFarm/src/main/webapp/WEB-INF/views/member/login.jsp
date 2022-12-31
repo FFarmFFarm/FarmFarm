@@ -28,10 +28,10 @@
                         <form action="/login" method="post" id="loginFrm">
                             <section class="inputbox">
                                 <input type="text" name="memberId" id="memberId" placeholder="아이디" autocomplete="off"
-                                    value="${cookie.saveId.value}">
+                                    value="${cookie.saveId.value}" onfocus="this.placeholder = ''" onblur="this.placeholder = '아이디'">
                             </section>
                             <section class="inputbox">
-                                <input type="password" name="memberPw" id="memberPw" placeholder="비밀번호">
+                                <input type="password" name="memberPw" id="memberPw" placeholder="비밀번호" onfocus="this.placeholder = ''" onblur="this.placeholder = '비밀번호'">
                             </section>
                             <div class="loginCheck" id="loginCheck"></div>
                             <div class="login-btn">
