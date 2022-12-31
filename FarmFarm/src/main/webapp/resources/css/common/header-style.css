@@ -12,6 +12,7 @@ header {
   width: 1000px;
   height: 120px;
   margin: auto;
+  position: relative;
   /* display: flex;
   align-items: center; */
 }
@@ -33,7 +34,11 @@ header {
 
 /* Widget */
 .header-widget-area {
-  width: 20%;
+  position: absolute;
+  width: 160px;
+  height: 25px;
+  top: 55px;
+  right: 45px;
 }
 
 .widget-list {
@@ -41,10 +46,7 @@ header {
   display: flex;
   margin-right: 20px;
   align-items: center;
-
-  position: absolute;
-  top: 50px;
-  right: 380px;
+  width: 100%;
 }
 
 .widget-item {

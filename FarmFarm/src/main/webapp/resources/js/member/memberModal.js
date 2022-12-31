@@ -18,10 +18,8 @@
       
       // x버튼 동작
       modalClose.addEventListener("click", () => {
-          
           // hide 클래스를 추가해서 0.5초 동안 투명해지는 애니메이션 수행
           modal.classList.toggle("hide");
-
           // 0.5초 후에 show, hide 클래스를 모두 제거
           setTimeout(() => {
               modal.classList.remove("show", "hide");
@@ -40,6 +38,7 @@ modalImgarea.append(img);
 
 const memberNickname = document.getElementById("memberNickname");
 const modalSignUpDate = document.getElementById("modalSignUpDate");
+const modal = document.querySelector(".modal");
 
 const selectMember = (memberNo) => {
   $.ajax({
@@ -47,7 +46,7 @@ const selectMember = (memberNo) => {
     dataType : "JSON",
     success : (member)=>{
 
-      if(member.profileImage !=null) {
+      if(member.profileImage != null) {
         img.setAttribute("src", member.profileImage);
         modalImgarea;
       }else {
@@ -61,6 +60,13 @@ const selectMember = (memberNo) => {
     }, 
     error : ()=>{
       console.log("ajax 통신 실패");
+      if(confirm("로그인 후 이용해주세요.") == true){
+        console.log("성공");
+        modal.classList.toggle("hide");
+        // 문제점 : alert창 확인 누르고 모달창 꺼지면 버튼 클릭이 안됨
+      } else{
+        console.log("실패");
+      }
     }
   })
 

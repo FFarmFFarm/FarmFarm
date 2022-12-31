@@ -128,27 +128,6 @@ if(document.getElementById("signUpFrm") != null){
     });
 }
 
-// 전화번호 인증
-if(document.getElementById("signUpFrm") != null){
-    document.getElementById("signUpFrm").addEventListener("submit",(e)=>{
-
-        const userNum = document.getElementById("userNum");
-        if(userNum.value.trim().length == 0){
-            alert("전화번호 인증을 해주세요.");
-            userNum.focus();
-            e.preventDefault();
-            return;
-        }
-        
-        if(!checkObj.userNum){
-            alert("인증 번호가 잘못되었습니다.");
-            userNum.focus();
-            e.preventDefault();
-            return;
-        }
-    });
-}
-
 // 체크박스 유효성 검사
 const agreeInput1 = document.getElementById("agreeInput1");
 const agreeInput = document.getElementById("agreeInput");
@@ -467,9 +446,36 @@ memberTel.addEventListener("input", function(){
 
 });
 
-// 전화번호 인증 유효성 
+// document.getElementById("send").addEventListener("click",(e)=>{
+//     if(memberTel.value.trim().length == 0){
+//         telMessage.innerText = "전화번호를 입력해주세요.(- 제외)";
+//         telMessage.classList.remove("confirm", "error");
+//         checkObj.memberTel = false;
+//         alert('전화번호를 작성해주세요.');
+//         return;
+//     } 
+// })
 
+// 전화번호 인증번호
+if(document.getElementById("signUpFrm") != null){
+    document.getElementById("signUpFrm").addEventListener("submit",(e)=>{
 
+        const userNum = document.getElementById("userNum");
+        if(userNum.value.trim().length == 0){
+            alert("전화번호 인증을 해주세요.");
+            userNum.focus();
+            e.preventDefault();
+            return;
+        }
+        
+        if(!checkObj.userNum){
+            alert("인증 번호가 잘못되었습니다.");
+            userNum.focus();
+            e.preventDefault();
+            return;
+        }
+    });
+}
 
 // 생일 유효성 검사
 const memberBirth = document.getElementById("memberBirth");
