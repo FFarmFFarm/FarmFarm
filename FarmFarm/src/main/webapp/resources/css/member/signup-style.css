@@ -96,13 +96,13 @@ main{
     border-radius: 20px;
 }
 
-.address-btn{
-    top: 950px;
-    left: 980px;
+.find-address{
+    position: relative;
 }
 
-.address-btn1{
-    top: 950px;
+.address-btn{
+    top: 17px;
+    left: 295px;
 }
 
 .tel-btn1{
@@ -285,10 +285,6 @@ main{
 
 /* 닫기 버튼 꾸미기 */
 #modal-close {
-    position: absolute;
-    top: 795px;
-    right: 520px;
-
     color: white;
     font-size: 50px;
     font-weight: bold;
@@ -356,6 +352,7 @@ main{
     letter-spacing :10px;
 
     border-radius: 30px;
+    position: absolute;
 }
 
 .success-btn a{

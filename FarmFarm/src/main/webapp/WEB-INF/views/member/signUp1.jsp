@@ -62,7 +62,7 @@
 
                                                 <section class="signup">
                                                     <div class="title">주소</div>
-                                                    <div>
+                                                    <div class="find-address">
                                                         <input type="text" name="memberAddress" id="sample6_postcode"
                                                             placeholder="우편번호" maxlength="6" value="${addr[0]}">
                                                         <button type="button" class="find-btn address-btn"
@@ -200,12 +200,13 @@
                             },
                             success: function(data) {
                                 const checkNum = data;
-                                alert('인증번호가 전송되었습니다.');
+                                const memberTel = $('#to');
+                                  alert('인증번호가 전송되었습니다.');
                                 
-                                $('#enterBtn').click(function() {	
-                                    const userNum = $('#userNum').val();
+                                  $('#enterBtn').click(function() {	
+                                      const userNum = $('#userNum').val();
                                     
-                                    if(checkNum === userNum) {
+                                      if(checkNum === userNum) {
                                         alert('인증 성공하였습니다.');
                                         checkObj.userNum = true;
                                     }
@@ -214,7 +215,6 @@
                                         checkObj.userNum = false;
                                     }
                                 });
-                                
                             }
                         });
                         
