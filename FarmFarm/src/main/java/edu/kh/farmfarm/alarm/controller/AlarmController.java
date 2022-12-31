@@ -1,5 +1,9 @@
 package edu.kh.farmfarm.alarm.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 
 import edu.kh.farmfarm.alarm.model.service.AlarmService;
+import edu.kh.farmfarm.alarm.model.vo.Alarm;
+import edu.kh.farmfarm.member.model.VO.Member;
 
 @Controller
 public class AlarmController {
@@ -42,5 +48,27 @@ public class AlarmController {
 	@ResponseBody
 	public String selectTargetNo(String type, int inputNo) {
 		return new Gson().toJson(service.selectTargetNo(type, inputNo));
+	}
+	
+	// 알림 목록 조회
+	@PostMapping("/alarm/list")
+	@ResponseBody
+	public String selectAlarmList(HttpSession session) {
+		
+		Map<String, Object> alarmMap = new HashMap<String, Object>();
+		
+		if(session.getAttribute("loginMember") != null) {
+			Member loginMember = (Member)session.getAttribute("loginMember");
+			
+			List<Alarm> alarmList = service.selectAlarmList(loginMember.getMemberNo());
+			
+			alarmMap .put("alarmList", alarmList);
+			
+		} else {
+			
+			alarmMap .put("message", "invalidate");
+		}
+		
+		return new Gson().toJson(alarmMap);
 	}
 }

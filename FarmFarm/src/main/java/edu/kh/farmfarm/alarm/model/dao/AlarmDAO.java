@@ -1,5 +1,8 @@
 package edu.kh.farmfarm.alarm.model.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -35,6 +38,15 @@ public class AlarmDAO {
 	 */
 	public int selectCommentWriterNo(int commentNo) {
 		return sqlSession.selectOne("boardMapper.selectCommentWriterNo", commentNo);
+	}
+
+	
+	/** 내 알림 목록 조회
+	 * @param memberNo
+	 * @return
+	 */
+	public List<Alarm> selectAlarmList(int memberNo) {
+		return sqlSession.selectList("alarmMapper.selectAlarmList", memberNo);
 	}
 	
 	

@@ -95,7 +95,7 @@
         element.classList.add(classname);
 
         if(inputValue != -1) {
-          element.innerText = inputValue;
+          element.innerHTML = inputValue;
         }
 
       }
@@ -159,34 +159,74 @@
             axios.post('/alarm/list' // 연결
               ).then(function (response){
 
-                if(reponse.data != null) { // 받아온 데이터가 있을 때에만 실행
-
+                if(response.data != undefined) { // 받아온 데이터가 있을 때에만 실행
+                  
                   const alarmDropdown = document.getElementById('alarmDropdown');
+
+                  alarmDropdown.innerHTML = '';
 
                   const alarmList = response.data.alarmList;
 
-                  for(alarm of alarmList) {
+                  for(let alarm of alarmList) {
+
                     // 1. 재료 준비
                     const alarmWidgetBox = document.createElement('div');
-                    const alarmWidgetHeader = document.createElement('alarm-widget-header');
-                    const alarmWidgetIcon = document.createElement('alarm-widget-header');
-                    const alarmWidgetTitle = document.createElement('alarm-widget-header');
-                    const alarmWidgetDate = document.createElement('alarm-widget-header');
-                    const alarmWidgetDelBtn = document.createElement('alarm-widget-header');
-                    const alarmWidgetContent = document.createElement('alarm-widget-header');
+                    const alarmWidgetHeader = document.createElement('div');
+                    const alarmWidgetIcon = document.createElement('div');
+                    const alarmWidgetTitle = document.createElement('div');
+                    const alarmWidgetDate = document.createElement('div');
+                    const alarmWidgetDelBtn = document.createElement('div');
+                    const alarmWidgetContent = document.createElement('div');
 
                     // 2. 재료 손질
                     packupElement(alarmWidgetBox, 'alarm-widget-box', -1);
+                    packupElement(alarmWidgetHeader, 'alarm-widget-header', -1);
+                    
+                    // 알림 유형 아이콘
+                    let icon;
+                    
+                    switch(alarm.alarmTypeNo){
+                      case 201 : icon = '<i class="fa-regular fa-comment-dots"></i>'; break;
+                      case 202 : icon = '<i class="fa-regular fa-comment-dots"></i>'; break;
+                    }
+
+                    packupElement(alarmWidgetIcon, 'alarm-widget-icon', icon);
+                    
+                    // 알림 유형 제목(단축버전)
+                    let title;
+                    
+                    switch (alarm.alarmTypeNo) {
+                      case 201: title = '댓글 알림'; break;
+                      case 202: title = '댓글 알림'; break;
+                    }
+
+                    packupElement(alarmWidgetTitle, 'alarm-widget-title', title);
+
+                    // 알림 시간
+                    packupElement(alarmWidgetDate, 'alarm-widget-date', alarm.alarmDate);
+
+                    // 알림 삭제 버튼
+                    packupElement(alarmWidgetDelBtn, 'alarm-widget-delBtn', '<i class="fa-solid fa-xmark"></i>');
+
+                    // 알림 내용
+                    packupElement(alarmWidgetContent, 'alarm-widget-content', alarm.alarmContent);
+
+                    // 3. 조리
+                    alarmWidgetHeader.append(alarmWidgetIcon, alarmWidgetTitle, alarmWidgetDate, alarmWidgetDelBtn);
+                    alarmWidgetBox.append(alarmWidgetHeader, alarmWidgetContent);
+
+                    // 4. 플레이팅
+                    alarmDropdown.append(alarmWidgetBox);
                   }
 
                 }
 
+                myDropdown1.style.display = 'block';
 
               }).catch(function (error){
-
+                console.log(error)
               }) 
 
-            myDropdown1.style.display = 'block';
 
 
           } else {

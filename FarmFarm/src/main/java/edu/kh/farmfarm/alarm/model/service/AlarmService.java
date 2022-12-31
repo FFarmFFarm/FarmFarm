@@ -1,5 +1,8 @@
 package edu.kh.farmfarm.alarm.model.service;
 
+import java.util.List;
+import java.util.Map;
+
 import edu.kh.farmfarm.alarm.model.vo.Alarm;
 
 public interface AlarmService {
@@ -17,4 +20,10 @@ public interface AlarmService {
 	 * @return
 	 */
 	int selectTargetNo(String type, int inputNo);
+
+	/** 내 알림 목록 조회
+	 * @param memberNo
+	 * @return
+	 */
+	List<Alarm> selectAlarmList(int memberNo);
 }	

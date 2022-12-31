@@ -165,6 +165,7 @@ header {
   box-shadow: 2px 2px 10px 0px #bcbcbc;
 }
 
+/* 알림 관련 */
 .dropdown-message {
   display: none;
   position: absolute;
