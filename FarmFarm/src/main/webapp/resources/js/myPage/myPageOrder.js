@@ -140,9 +140,38 @@ reviewBackBtn.addEventListener('click', () => {
 
 
 
+const orderCancelBtn = document.getElementsByClassName('cancel-order');
+
+for (let btn of orderCancelBtn) {
+  
+  btn.addEventListener('click', () => {
+    
+    const orderNo = btn.id;
+    
+    const cancelAmount = btn.parentElement.previousElementSibling.firstElementChild.nextElementSibling.
+    firstElementChild.nextElementSibling.nextElementSibling.firstElementChild.innerText;
+    
+    const cancelPrice = document.getElementById('productPrice').value;
+    
+    console.log(orderNo, cancelAmount, cancelPrice);
+    
+    // $.ajax({
+    //   url: "/order/cancel",
+    //   data: {"cancelAmount": cancelAmount, "orderNo": orderNo, 'cancelPrice': cancelPrice},
+    //   success: (data) => {
+    //     alert(data);
+    
+        
+    //   }
+    // });
+      
+    
+  });
+}
 
 
-// TODO 주문 취소 버튼 클릭 시 주문 취소
+
+
 
 // TODO 반품 신청 버튼 클릭 시 반품 신청 form 모달 출력
 
