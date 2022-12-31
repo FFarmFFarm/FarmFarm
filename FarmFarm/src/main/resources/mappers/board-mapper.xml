@@ -29,6 +29,8 @@
       
       <result property="profileImg" column="PROFILE_IMG" />
       
+      <result property="authority" column="AUTHORITY" />
+      
       <!-- 무조건 게시글에 있는 사진들을 쭉 보여줌 -->
       <collection property="imgList" javaType="java.util.ArrayList"
       	ofType="BoardImg" select="selectBoardImgList" column="BOARD_NO"/>
@@ -296,7 +298,7 @@
 					END COMMENT_DATE, 
 				]]>
 			 COMMENT_PARENT, COMMENT_DEL_FL,
-				MEMBER_NO, BOARD_NO, MEMBER_NICKNAME, PROFILE_IMG, 
+				MEMBER_NO, BOARD_NO, MEMBER_NICKNAME, PROFILE_IMG, AUTHORITY,
 			 (SELECT COUNT(*) FROM "COMMENT" WHERE BOARD_NO = C.BOARD_NO) COMMENT_COUNT
 			FROM "COMMENT" C
 			JOIN "MEMBER" USING(MEMBER_NO)
@@ -378,8 +380,7 @@
 	<update id="commentDelete">
 		UPDATE "COMMENT" SET
 		COMMENT_DEL_FL = 'Y',
-		COMMENT_CONTENT = '삭제된 댓글입니다.'
-		WHERE COMMENT_NO = #{commentNo}
+		${condition}
 	</update>
 	
 	<!-- 알림에 사용되는 SQL문입니다! -->

@@ -103,12 +103,7 @@ function selectCommentList(){
                     // 작성일
                     const writeTimeReply = document.createElement("div");
                     writeTimeReply.classList.add("writer-time-reply");
-                    writeTimeReply.innerHTML = comment.commentDate + '&nbsp; |';
-                    // 답글달기
-                    const commentReply = document.createElement("button");
-                    commentReply.classList.add("comment-reply");
-                    commentReply.setAttribute("onclick", "showReply("+comment.commentNo+", this)");
-                    commentReply.innerHTML = ' &nbsp;&nbsp;답글달기&nbsp;&nbsp;';
+                    writeTimeReply.innerHTML = comment.commentDate + '&nbsp; ';
                     
                     if(commentRow.classList.contains("comment-child")){
                         writerProfile.classList.add("child-img");
@@ -122,7 +117,6 @@ function selectCommentList(){
                     // 자~ append 해볼까
 
                     
-                    // commentWrite.append(writeComment, commentInsert)
                     commentWrite.append(commentForm);
                     commentForm.append(writeComment, commentSide);
                     commentSide.append(commentCaution, commentInsert);
@@ -135,27 +129,41 @@ function selectCommentList(){
                     commentWriter.append(writerProfile, writerName);
                     writerProfile.append(profileImage);
                     
-                    // commentContent.append(contentPre);
-                    
-                    
-                    if(memberNo == comment.memberNo && comment.commentDelFl == 'N'){
-                        const commentInsert = document.createElement("button");
-                        const commentDelete = document.createElement("button");
-                        
-                        commentInsert.classList.add("comment-reply");
-                        commentDelete.classList.add("comment-reply");
+                    // 답글달기 수정 삭제 
+                    const commentReply = document.createElement("button");
+                    const commentUpdate = document.createElement("button");
+                    const commentDelete = document.createElement("button");
 
-                        commentInsert.innerHTML = "|&nbsp;&nbsp;수정&nbsp;&nbsp;";
-                        commentDelete.innerHTML = "|&nbsp;&nbsp;삭제&nbsp;&nbsp;";
-                        
-                        commentInsert.setAttribute("onclick", "showUpdateComment("+comment.commentNo+", this)");
-                        commentDelete.setAttribute("onclick", "deleteComment("+comment.commentNo+")");
-                        
-                        writeTimeReply.append(commentReply, commentInsert, commentDelete)
-                    }else{
-                        writeTimeReply.append(commentReply);
-                    }
+                    commentReply.classList.add("comment-reply");
+                    commentUpdate.classList.add("comment-reply");
+                    commentDelete.classList.add("comment-reply");
+
+                    commentReply.setAttribute("onclick", "showReply("+comment.commentNo+", this)");
+                    commentReply.innerHTML = '| &nbsp;&nbsp;답글달기&nbsp;&nbsp;';
+                    commentUpdate.setAttribute("onclick", "showUpdateComment("+comment.commentNo+", this)");
+                    commentUpdate.innerHTML = "|&nbsp;&nbsp;수정&nbsp;&nbsp;";
+                    commentDelete.innerHTML = "|&nbsp;&nbsp;삭제&nbsp;&nbsp;";
                     
+
+                    if(loginAuth == 2){
+                        if(memberNo == comment.memberNo && comment.commentDelFl == 'N'){
+                            commentDelete.setAttribute("onclick", "deleteComment("+comment.commentNo+")")
+                            writeTimeReply.append(commentReply, commentUpdate, commentDelete);
+                        }
+                        if(memberNo != comment.memberNo && comment.commentDelFl == 'N'){
+                            commentDelete.setAttribute("onclick", "adDeleteComment("+comment.commentNo+")")
+                            writeTimeReply.append(commentReply, commentDelete);
+                        }
+                    }else{
+                        if(memberNo == comment.memberNo && comment.commentDelFl == 'N'){
+                            commentDelete.setAttribute("onclick", "deleteComment("+comment.commentNo+")")
+                            writeTimeReply.append(commentReply, commentUpdate, commentDelete);
+                        }
+                        if(memberNo != comment.memberNo && comment.commentDelFl == 'N'){
+                            writeTimeReply.append(commentReply);
+                        }
+                    }
+
                 }
                 commentArea1.append(commentCount, commentWrite, commentList);
             }
@@ -451,11 +459,34 @@ function updateComment(commentNo, btn){
 
 
 // 댓글 삭제를 해봅시다!! 
-function deleteComment(commentNo){
+const deleteComment = (commentNo)=>{
+    
     if(confirm("댓글을 삭제하시겠습니까?")){
         $.ajax({
             url : "/board/comment/delete",
-            data : {"commentNo" : commentNo},
+            data : {"commentNo" : commentNo,
+                    "authority" : loginAuth},
+            success : result=>{
+                if(result>0){
+                    alert("댓글이 삭제되었습니다.");
+                    selectCommentList();
+                }else{
+                    alert("댓글 삭제 시류ㅐㅜㅠ");
+                }
+            },
+            error : (req, status, error)=>{
+                alert("댓글 삭제 ajax 통신 실패")
+            }
+        })
+    }
+    
+}
+const adDeleteComment = (commentNo)=>{
+    if(confirm("관리자 권한으로 댓글을 삭제하시겠습니까?")){
+        $.ajax({
+            url : "/board/comment/delete",
+            data : {"commentNo" : commentNo,
+                    "authority" : loginAuth},
             success : result=>{
                 if(result>0){
                     alert("댓글이 삭제되었습니다.");

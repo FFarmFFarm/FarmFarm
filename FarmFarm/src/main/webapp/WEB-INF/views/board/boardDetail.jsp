@@ -70,6 +70,7 @@ ${board.boardContent}
                 </div>
             </section>
             <section class="board-like-report">
+            
                 <c:if test="${loginMember.memberNo != board.memberNo && loginMember.authority != 2}">
                     <button class="board-like">
                         <c:if test="${empty likeCheck}"> 
@@ -97,9 +98,10 @@ ${board.boardContent}
 
     </main>
     <script>
-        const boardTypeNo = "${board.boardTypeNo}";
-        const boardNo = "${board.boardNo}";
-        const memberNo = "${loginMember.memberNo}";
+        boardTypeNo = "${board.boardTypeNo}";
+        boardNo = "${board.boardNo}";
+        memberNo = "${loginMember.memberNo}";
+        loginAuth = "${loginMember.authority}";
     </script>
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>

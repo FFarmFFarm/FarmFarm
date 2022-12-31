@@ -35,8 +35,8 @@ public class CommentDAO {
 
 
 	// 댓글 삭제하기~~~
-	public int commentDelete(Comment comment) {
-		return sqlSession.update("boardMapper.commentDelete", comment);
+	public int commentDelete(String condition) {
+		return sqlSession.update("boardMapper.commentDelete", condition);
 	}
 
 }

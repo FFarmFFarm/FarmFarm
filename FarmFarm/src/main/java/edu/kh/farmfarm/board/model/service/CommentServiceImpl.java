@@ -54,7 +54,20 @@ public class CommentServiceImpl implements CommentService{
 	// 댓글 삭제하기~~~
 	@Override
 	public int commentDelete(Comment comment) {
-		return dao.commentDelete(comment);
+		
+		int commentNo = comment.getCommentNo();
+		
+		String condition;
+		
+		if(comment.getAuthority() == 2) {
+			condition = "COMMENT_CONTENT = '관리자 권한으로 삭제된 댓글입니다.'"
+					+ "WHERE COMMENT_NO =" + commentNo;
+		}else {
+			condition = "COMMENT_CONTENT = '삭제된 댓글입니다.'"
+					+ "WHERE COMMENT_NO =" + commentNo;
+		}
+		
+		return dao.commentDelete(condition);
 	}
 	
 
