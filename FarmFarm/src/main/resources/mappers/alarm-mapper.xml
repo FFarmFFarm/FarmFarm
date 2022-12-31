@@ -19,7 +19,7 @@
 	 <!-- 알림을 DB에 저장 -->
 	 <insert id="insertNewAlarm" useGeneratedKeys="true">
 	 	INSERT INTO ALARM
-	 	VALUES(SEQ_ALARM_NO.NEXTVAL, #{alarmTypeNo}, #{memberNo}, #{alarmContent}, DEFAULT, #{quickLink})
+	 	VALUES(SEQ_ALARM_NO.NEXTVAL, #{alarmTypeNo}, #{memberNo}, #{alarmContent}, DEFAULT, #{quickLink}, DEFAULT)
 	 	<selectKey keyProperty="alarmTitle" resultType="string" order="AFTER">
 	 		SELECT ALARM_TITLE FROM ALARM_TYPE WHERE ALARM_TYPE_NO = #{alarmTypeNo}
 	 	</selectKey>
