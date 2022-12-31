@@ -260,6 +260,7 @@ input[type="text"]:focus{
     height: 100%;
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 .fa-angle-down{
     height: 100%;
@@ -276,6 +277,7 @@ input[type="text"]:focus{
     display: none;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 .board-select-area > li{
     margin: 3px 0;

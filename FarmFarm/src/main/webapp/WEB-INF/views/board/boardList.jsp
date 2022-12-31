@@ -24,8 +24,6 @@
     <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
         <c:if test="${not empty param.query}">
-        <%-- <c:if test="${not empty param.key}"> --%>
-            <%-- /board/1?cp=3&key=t&query=테스트 --%>
             <c:set var="sURL" value="&query=${param.query}"/>
         </c:if>
 

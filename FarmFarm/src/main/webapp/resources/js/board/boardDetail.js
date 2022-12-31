@@ -101,17 +101,26 @@ if(likeBtn != null){
 // 모달으로 물어볼지 아님 컨펌으로 할지 잘 생각해보기
 // 그 다음에 댓글 수정 삭제 답글 하자!
 
-// 게시글 삭제하기~
+// 게시글 작성자가 삭제하기~
 const boardDelete = document.getElementById("boardDelete");
 if(boardDelete != null){
     boardDelete.addEventListener("click", ()=>{
-
+        
         if(confirm("게시글을 삭제하시겠습니까?")){
             location.href = location.pathname+"/delete";
         }
-
+        
     })
 };
+// 게시글 관리자가 삭제하기~
+const adminBoardDelete = document.getElementById("adminBoardDelete");
+if(adminBoardDelete != null){
+    adminBoardDelete.addEventListener("click", ()=>{
+        if(confirm("관리자 권한으로 게시글을 삭제하시겠습니까?")){
+            location.href = location.pathname+"/delete";
+        }
+    })
+}
 
 
 // 게시글 수정하기!

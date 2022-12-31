@@ -70,7 +70,7 @@ ${board.boardContent}
                 </div>
             </section>
             <section class="board-like-report">
-                <c:if test="${loginMember.memberNo != board.memberNo}">
+                <c:if test="${loginMember.memberNo != board.memberNo && loginMember.authority != 2}">
                     <button class="board-like">
                         <c:if test="${empty likeCheck}"> 
                             <%-- 좋아요 안눌러진 경우 --%>
@@ -87,6 +87,9 @@ ${board.boardContent}
                 <c:if test="${loginMember.memberNo == board.memberNo}">
                     <button type="button" id="boardUpdate">수정하기</button>
                     <button  type="button" id="boardDelete">삭제하기</button>
+                </c:if>
+                <c:if test="${loginMember.authority == 2}">
+                    <button  type="button" id="adminBoardDelete">삭제하기</button>
                 </c:if>
             </section>
 

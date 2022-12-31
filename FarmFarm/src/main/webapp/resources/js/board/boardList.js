@@ -45,7 +45,7 @@ if(boardAdd == '/board/4'){
 
 // 검색 시 검색어 유지시키기
 (()=>{
-    const boardSearch = document.querySelector(".board-search");
+    // const boardSearch = document.querySelector(".board-search");
     const inputQuery = document.getElementById("inputQuery");
     
     if(inputQuery != null){

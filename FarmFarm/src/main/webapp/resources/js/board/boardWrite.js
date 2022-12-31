@@ -70,12 +70,6 @@ writeBtn.addEventListener("click", e=>{
             check = check+1;
         }
     }
-    
-    // if(check == 0){
-    //     alert("카테고리를 선택해주세요.");
-    //     e.preventDefault();
-    // }
-    
     if(inputTitle.value.trim().length == 0){
         alert("제목을 입력해주세요");
         inputTitle.value="";
