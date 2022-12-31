@@ -128,12 +128,22 @@ public class AdminDAO {
 	 * @param pagination
 	 * @return sellerList
 	 */
-	public List<Admin> selectSeller(int preSellerFilter, Pagination pagination) {
+	public List<Admin> selectSeller(int sellerFilter, Pagination pagination) {
 		
 		int offset = (pagination.getCurrentPage() -1) * pagination.getLimit();  // limit = 10
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 		
-		return sqlSession.selectList("adminMapper.selectSeller", preSellerFilter, rowBounds);
+		return sqlSession.selectList("adminMapper.selectSeller", sellerFilter, rowBounds);
+	}
+
+
+
+	/** 판매자 인증신청서 조회
+	 * @param hiddenNo
+	 * @return authPaper
+	 */
+	public Admin selectAuthPaper(String hiddenId) {
+		return sqlSession.selectOne("adminMapper.selectAuthPaper", hiddenId);
 	}
 
 

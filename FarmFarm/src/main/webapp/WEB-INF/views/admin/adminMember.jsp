@@ -89,12 +89,12 @@
                                     <c:set var="i" value="${i+1}" />
                                     <tr class="member-select-row" id="memberSelectRow"> 
                                         
-                                        <td class="report-member-seq">${i}</td>
+                                        <td class="member-seq">${i}</td>
                                         <td>${member.memberNo}</td>
-                                        <td id="mId">${member.memberId}</td>
-                                        <td id="mNickname">${member.memberNickname}</td>
+                                        <td class="mId">${member.memberId}</td>
+                                        <td class="mNickname">${member.memberNickname}</td>
 
-                                        <td id="mAddress">${member.memberAddress}</td>
+                                        <td class="mAddress">${member.memberAddress}</td>
                                         <td>${member.signUpDate}</td> 
 
                                         <%-- 판매자 인증 --%>
@@ -276,7 +276,7 @@
         <script>
             var authFilter = 0;  /* 판매자등록 필터  0: 전체 조회 */
             var statFilter = 0;  /* 상태 필터 0: 전체 조회  */
-            var cp = 1;
+            // var cp = 1;
         </script>
 
         <%-- jquery --%>

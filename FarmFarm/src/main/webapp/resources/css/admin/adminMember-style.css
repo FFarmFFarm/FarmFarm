@@ -190,7 +190,7 @@ main{
 
 
 /* no 색 변경 */
-.report-member-seq{
+.member-seq{
     color: var(--point-color);
     opacity: 50%;
 }

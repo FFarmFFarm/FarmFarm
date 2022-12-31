@@ -117,7 +117,7 @@ main{
 /* * 인증 신청 목록 * */
 .seller-auth{
     width: 900px;
-    height: 300px;
+    height: 360px;
     background-color: white;
     border-radius: 10px;
     
@@ -200,6 +200,13 @@ main{
 
 
 
+/* no 색 변경 */
+.member-seq{
+    color: var(--point-color);
+    opacity: 50%;
+}
+
+
 
 
 
@@ -219,7 +226,6 @@ main{
     text-align: center;
 
     display: block;
-    /* width: 100%; */
     height: 100%;
     color: var(--point-color);
 }
@@ -229,19 +235,20 @@ main{
     text-align: center;
 
     display: block;
-    /* width: 100%; */
     height: 100%;
     color: rgb(129, 129, 129);
     cursor: pointer;
 }
 
-/* todo:현재 페이지색은 point-color로 */
-
 
 
 /* 인증 신청서 조회 */
+#selectAuthPaperDiv{
+    display: none;
+}
+
 .select-auth-paper{
-    width: 880px;
+    width: 900px;
     height: 530;
     background-color: white;
     border-radius: 10px;
@@ -291,13 +298,7 @@ main{
 .seller-auth-table{
     width: 400px;
     height: 400px;
-    margin: 30px;
-    font-size: var(--small-font-size);
-    margin-left: 30px;
-
-    display: flex;
-    align-content: flex-start;
-
+    margin: 15px 30px 30px;
 }
 
 .seller-auth-table tr{
@@ -305,13 +306,15 @@ main{
 }
 
 .detail-bold{
-    width: 150px;
+    width: 140px;
     color: var(--point-color);
     font-weight: bold;
+    font-size: var(--main-font-size);
 }
 
 .detail-content{
     width: 240px;
+    font-size: var(--main-font-size);
 }
 
 

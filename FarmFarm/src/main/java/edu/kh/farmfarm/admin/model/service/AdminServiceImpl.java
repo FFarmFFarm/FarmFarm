@@ -87,18 +87,18 @@ public class AdminServiceImpl implements AdminService{
 	
 	// 판매자 인증 조회
 	@Override
-	public Map<String, Object> selectSeller(int preSellerFilter, int cp) {
+	public Map<String, Object> selectSeller(int sellerFilter, int cp) {
 		
 		/* 페이지네이션 */
 		// 1. 전체 개수 가져오기
-		int sellerListCount = dao.sellerListCount(preSellerFilter);
+		int sellerListCount = dao.sellerListCount(sellerFilter);
 		
 		// 2. 가져온 개수와 현재 페이지를 이용하여 페이지네이션 객체 발생
 		Pagination pagination = new Pagination(sellerListCount, cp, 10);
 		
 		// 3. 페이지네이션 객체를 생성해 목록 불러오기
 		// 전체 판매자(인증대기포함) 조회 (정렬 포함)
-		List<Admin> sellerList = dao.selectSeller(preSellerFilter, pagination);
+		List<Admin> sellerList = dao.selectSeller(sellerFilter, pagination);
 		
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -111,5 +111,14 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	
+	// 인증 신청서 조회
+	@Override
+	public Admin selectAuthPaper(String hiddenId) {
+		
+		Admin authPaper = dao.selectAuthPaper(hiddenId);
+		
+		return authPaper;
+	}
+		
 
 }
