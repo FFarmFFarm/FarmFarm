@@ -62,7 +62,7 @@
 
                                                 <section class="signup">
                                                     <div class="title">주소</div>
-                                                    <div>
+                                                    <div class="find-address">
                                                         <input type="text" name="memberAddress" id="sample6_postcode"
                                                             placeholder="우편번호" maxlength="6" value="${addr[0]}">
                                                         <button type="button" class="find-btn address-btn address-btn1"
