@@ -60,10 +60,10 @@ input[type="checkbox"]{
 
 
 /* 체크아이콘 */
-.check-icon, .check-all{
+[name=checkIcon], [name=checkAll]{
   font-size: 26px;
   display: inline-block;
-  margin-right: 10px;
+  padding-right: 10px;
 }
 
 
@@ -106,12 +106,19 @@ input[type="checkbox"]{
   border-bottom: 1px solid var(--main-font-color);
 }
 
+.no-item{
+  text-align: center;
+    height: 200px;
+    line-height: 100%;
+    padding-top: 90px;
+}
+
 .product-list>li:not(:first-child){
   border-top: 1px solid #ddd;
 }
 
-.product-item>*:nth-child(1){width: 4%;}
-.product-item>*:nth-child(2){width: 8%;}
+.product-item>*:nth-child(1){width: 6%;}
+.product-item>*:nth-child(2){width: 9%;}
 .product-item>*:nth-child(3){width: 45%;}
 .product-item>*:nth-child(4){width: 12%;}
 .product-item>*:nth-child(5){width: 18%;}
@@ -123,7 +130,7 @@ input[type="checkbox"]{
 }
 
 .cart-thumbnail {
-  height: 78px;
+  height: 70px;
   overflow: hidden;
 
   display: flex;
@@ -146,15 +153,26 @@ input[type="checkbox"]{
 
 .product-amount-btn{
   display: inline-flex;
+  position: relative;
   flex-direction: row;
   -webkit-box-align: center;
   align-items: center;
+
   border: 1px solid rgb(221, 223, 225);
   width: 88px;
   border-radius: 3px;
 }
 
-.product-amount-btn>*{
+[name="stock"]{
+  position: absolute;
+  top: 40px;
+  left: -84px;
+  width: 260px;
+  color: red;
+  font-size: var(--main-font-size);
+}
+
+.product-amount-btn>*:not(span:nth-of-type(1)){
   width: 28px;
   height: 28px;
   text-align: center;
@@ -178,7 +196,7 @@ input[type="number"]::-webkit-inner-spin-button {
   flex-direction: row;
 }
 
-.product-price {
+.product-total-price {
   font-family: "NotoSansKR-Bold";
   width: 120px;
   text-align: end;

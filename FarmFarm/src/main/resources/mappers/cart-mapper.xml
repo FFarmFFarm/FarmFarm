@@ -7,7 +7,25 @@
 		<result property="memberNo" column="MEMBER_NO" />
 		<result property="productNo" column="PRODUCT_NO" />
 		<result property="productAmount" column="PRODUCT_AMOUNT" />
+		<result property="productPrice" column="PRODUCT_PRICE" />
+		<result property="productTotalPrice" column="PRODUCT_TOTAL_PRICE" />
+		<result property="productName" column="PRODUCT_NAME" />
+		<result property="productImg" column="PRODUCT_IMG" />
+		<result property="stock" column="STOCK" />
 	</resultMap>
+	
+	<!-- 장바구니 조회 -->
+	<select id="selectCartList" resultMap="cart_rm">
+		SELECT C.PRODUCT_NO, PRODUCT_NAME, PRODUCT_AMOUNT,STOCK,
+			TO_CHAR(PRODUCT_PRICE, 'FM999,999,999,999') PRODUCT_PRICE,
+			TO_CHAR(PRODUCT_PRICE*PRODUCT_AMOUNT, 'FM999,999,999,999') PRODUCT_TOTAL_PRICE,
+			(SELECT PRODUCT_IMG_ADDRESS FROM PRODUCT_IMG PI
+			WHERE PI.PRODUCT_NO = C.PRODUCT_NO
+			AND PRODUCT_IMG_ORDER=0) PRODUCT_IMG
+		FROM CART C
+		JOIN PRODUCT P ON(C.PRODUCT_NO = P.PRODUCT_NO)
+		AND MEMBER_NO = #{memberNo}
+	</select>
   
 	<!-- 장바구니 확인 -->
 	<select id="checkCart" resultType="_int">
@@ -38,5 +56,22 @@
 		WHERE MEMBER_NO = #{memberNo}
 		AND PRODUCT_NO = #{productNo}
 	</update>
+	
+	<!-- 장바구니에서 수량 추가 -->
+	<update id="plusCart">
+		UPDATE CART SET 
+		PRODUCT_AMOUNT = PRODUCT_AMOUNT +1
+		WHERE MEMBER_NO = #{memberNo}
+		AND PRODUCT_NO = #{productNo}
+	</update>
+	
+	<!-- 장바구니에서 수량 감소 -->
+	<update id="minusCart">
+		UPDATE CART SET 
+		PRODUCT_AMOUNT = PRODUCT_AMOUNT -1
+		WHERE MEMBER_NO = #{memberNo}
+		AND PRODUCT_NO = #{productNo}
+	</update>
+	
   
 </mapper>

@@ -38,51 +38,59 @@
             <!-- 상품 목록 -->
             <div class="product-container">
                 <div class="cart-headline">
-                    <label for="selectAll" class="check-label">
-                        <input type="checkbox" class="select-all" id="selectAll" checked="checked">
-                        <div class="check-all">
-                            <%-- <i class="fa-regular fa-circle-check"></i> --%>
-                            <i class="fa-solid fa-circle-check"></i>
-                        </div>
-                        <span class="check-title">전체선택(5/5)</span>
+                    <label class="check-label">
+                        <i class="fa-solid fa-circle-check" name="checkAll"></i>
+                        <input type="checkbox" class="select-all" name="selectAll" checked="checked">
+                        <span class="check-title">전체선택(<span class="count-check">${fn:length(cartList)}</span>/${fn:length(cartList)})
+                        </span>
                     </label>
                     <span class="bar">|</span>
                     <button class="check-title delete-check">선택삭제</button>
                 </div>
 
                 <ul class="product-list">
-                    <li class="product-item">
-                        <label for="selectOne" class="check-label">
-                            <input type="checkbox" class="select-one" id="selectOne" checked="checked">
-                            <div class="check-icon">
-                                <%-- <i class="fa-regular fa-circle-check"></i> --%>
-                                <i class="fa-solid fa-circle-check"></i>
-                            </div>
-                        </label>
-                        <a href="#" class="cart-thumbnail">
-                            <img
-                            src="../../images/product/thumbnail/productThumbnail.png"
-                            alt=""
-                            class="cart-thumbnail-img"
-                            />
-                        </a>
-                        <div class="cart-product-name">
-                            <a href="#">
-                            <p>모종모종 모종삽</p>
-                            </a>
-                        </div>
-                        <div class="product-amount-btn">
-                            <button><i class="fa-solid fa-minus"></i></button>
-                            <input type="number" min="1" class="product-amount"
-                            value=2>
-                            <button><i class="fa-solid fa-plus"></i></button>
-                        </div>
-                        <div class="price-box">
-                            <span class="product-price">9,900</span>
-                            <span>원</span>
-                        </div>
-                        <button class="cancel-item"><i class="fa-solid fa-xmark"></i></button>
-                    </li>
+
+                    <c:choose>
+                        <c:when test="${empty cartList}">
+                            <div class="no-item">추가된 상품이 없습니다.</div>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach var="cart" items="${cartList}">
+                                <li class="product-item" id="${cart.productNo}">
+                                    <label class="check-label">
+                                        <i class="fa-solid fa-circle-check" name="checkIcon"></i>
+                                        <input type="checkbox" class="select-one" name="selectOne"
+                                        checked="checked">
+                                    </label>
+                                    <a href="/product/${cart.productNo}" class="cart-thumbnail">
+                                        <img
+                                        src="${cart.productImg}"
+                                        alt=""
+                                        class="cart-thumbnail-img"
+                                        />
+                                    </a>
+                                    <div class="cart-product-name">
+                                        <a href="/product/${cart.productNo}">
+                                            <p>${cart.productName}</p>
+                                        </a>
+                                    </div>
+                                    <div class="product-amount-btn">
+                                        <button class="minus-btn"><i class="fa-solid fa-minus"></i></button>
+                                        <input type="number" min="1" class="product-amount"
+                                        value="${cart.productAmount}">
+                                        <button class="plus-btn"><i class="fa-solid fa-plus"></i></button>
+                                        <span id="${cart.stock}" name="stock"></span>
+                                    </div>
+                                    <div class="price-box">
+                                        <span class="product-total-price"
+                                        id="${cart.productPrice}">${cart.productTotalPrice}</span>
+                                        <span>원</span>
+                                    </div>
+                                    <button class="cancel-item"><i class="fa-solid fa-xmark"></i></button>
+                                </li>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
                 </ul>
             </div>
             
@@ -140,6 +148,10 @@
         </script>
         <c:remove var="message"/>
     </c:if>
+
+    <script>
+        memberNo = "${loginMember.memberNo}";
+    </script>
 
     <script src="/resources/js/order/cart.js"></script>ß
 

@@ -1,5 +1,8 @@
 package edu.kh.farmfarm.cart.model.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -13,6 +16,14 @@ public class CartDAO {
 	private SqlSessionTemplate sqlSession;
 
 	
+	/** 장바구니 리스트 조회
+	 * @param memberNo
+	 * @return cartList
+	 */
+	public List<Cart> selectCartList(int memberNo) {
+		return sqlSession.selectList("cartMapper.selectCartList", memberNo);
+	}
+
 	/** 장바구니 확인
 	 * @param cart
 	 * @return result
@@ -44,5 +55,22 @@ public class CartDAO {
 	public int addCartUp(Cart cart) {
 		return sqlSession.update("cartMapper.addCartUp", cart);
 	}
+
+	/** 장바구니에서 수량 추가
+	 * @param map
+	 * @return result
+	 */
+	public int plusCart(Map<String, Object> map) {
+		return sqlSession.update("cartMapper.plusCart", map);
+	}
+ 
+	/** 장바구니에서 수량 감소
+	 * @param map
+	 * @return result
+	 */
+	public int minusCart(Map<String, Object> map) {
+		return sqlSession.update("cartMapper.minusCart", map);
+	}
+
 	
 }

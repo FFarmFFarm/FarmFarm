@@ -1,5 +1,8 @@
 package edu.kh.farmfarm.cart.model.service;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +16,15 @@ public class CartServiceImpl implements CartService{
 	private CartDAO dao;
 
 	
+	// 장바구니 조회
+	@Override
+	public Object selectCartList(int memberNo) {
+		
+		List<Cart> cartList = dao.selectCartList(memberNo);
+		
+		return cartList;
+	}
+
 	// 장바구니 추가
 	@Override
 	public int addCart(Cart cart) {
@@ -47,6 +59,19 @@ public class CartServiceImpl implements CartService{
 		}
 		
 		return result;
+	}
+
+	// 장바구니에서 수량 추가
+	@Override
+	public int plusCart(Map<String, Object> map) {
+		return dao.plusCart(map);
+	}
+
+	
+	// 장바구니에서 수량 감소
+	@Override
+	public int minusCart(Map<String, Object> map) {
+		return dao.minusCart(map);
 	}
 	
 }
