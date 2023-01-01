@@ -163,6 +163,16 @@ const showBoardList = ()=>{
             }
             boardListTop.append(boardListTitle, boardListArea, boardWriteBottom);
             console.log("통신 성공");
+
+            const goBoard = document.getElementsByClassName("goBoard");
+            for(let go of goBoard){
+                go.addEventListener("click", e=>{
+                    if(loginYN == ""){
+                        loginConfirmOpen();
+                        e.preventDefault();
+                    }
+                })
+            }
         },
         error : ()=>{
             alert("리스트 조회 ajax 통신 시류ㅐㅠㅜㅠㅜ");
@@ -250,7 +260,6 @@ for(let go of goBoard){
             e.preventDefault();
         }
     })
-    
 }
 
 
