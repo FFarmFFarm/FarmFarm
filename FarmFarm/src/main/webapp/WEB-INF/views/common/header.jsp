@@ -238,12 +238,18 @@
           } else {
             myDropdown1.style.display = 'none';
           }
+
         });
-        
-        
 
       }
 
+      /* 외부 영역 클릭 시 클릭 해제 */
+      addEventListener('click', (e)=>{
+        const target = e.target;
+        if(!document.getElementById('myDropdown1').contains(e.target)){
+          document.getElementById('myDropdown1').style.display='';
+        }
+      })
 
 
     </script>
