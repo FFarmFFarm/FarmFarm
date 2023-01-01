@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+        <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-      <link rel="stylesheet" href="/resources/css/alarm/alarmWidget-style.css">
-      <script src="https://kit.fontawesome.com/d449774bd8.js" crossorigin="anonymous"></script>
+            <link rel="stylesheet" href="/resources/css/alarm/alarmWidget-style.css">
+            <script src="https://kit.fontawesome.com/d449774bd8.js" crossorigin="anonymous"></script>
 
-    <ul id="alarmDropdown">
-<!-- 
+            <ul id="alarmDropdown">
+
+                <!-- 
       <div class="alarm-widget-box">
         <div class="alarm-widget-header">
           <div class="alarm-widget-icon">
@@ -27,7 +28,7 @@
         </div>
       </div> -->
 
-    </ul>
+            </ul>
 
 
-<!-- <script src="/resources/js/alarm/alarmWidget.js"> </script> -->
+            <!-- <script src="/resources/js/alarm/alarmWidget.js"> </script> -->

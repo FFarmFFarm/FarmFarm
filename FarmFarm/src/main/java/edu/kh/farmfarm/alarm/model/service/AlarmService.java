@@ -21,9 +21,9 @@ public interface AlarmService {
 	 */
 	int selectTargetNo(String type, int inputNo);
 
-	/** 내 알림 목록 조회
+	/** 알림 목록 조회(for nav widget, 최신 6개까지만)
 	 * @param memberNo
 	 * @return
 	 */
-	List<Alarm> selectAlarmList(int memberNo);
+	List<Alarm> selectAlarmWidgetList(int memberNo);
 }	

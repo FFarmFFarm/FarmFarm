@@ -41,12 +41,12 @@ public class AlarmDAO {
 	}
 
 	
-	/** 내 알림 목록 조회
+	/** 알림 목록 조회(for nav widget, 최신 6개까지만)
 	 * @param memberNo
 	 * @return
 	 */
-	public List<Alarm> selectAlarmList(int memberNo) {
-		return sqlSession.selectList("alarmMapper.selectAlarmList", memberNo);
+	public List<Alarm> selectAlarmWidgetList(int memberNo) {
+		return sqlSession.selectList("alarmMapper.selectAlarmWidgetList", memberNo);
 	}
 	
 	

@@ -92,13 +92,40 @@
                                 </c:choose>
                                 <%-- <c:if test="${comment.commentParent != 0}">
                                 </c:if> --%>
-                                <div class="writer-time-reply"> ${comment.commentDate} &nbsp; | 
-                                    <button onclick="showReply(${comment.commentNo}, this)" class="comment-reply"> &nbsp;&nbsp;답글달기&nbsp;&nbsp;</button> 
-                                    <c:if test="${loginMember.memberNo == comment.memberNo && comment.commentDelFl == 'N'}">
-                                        <button onclick="showUpdateComment(${comment.commentNo}, this)" class="comment-reply"> |&nbsp;&nbsp;수정&nbsp;&nbsp;</button>
-                                        <button onclick="deleteComment(${comment.commentNo})" class="comment-reply"> |&nbsp;&nbsp;삭제</button>
+                                <div class="writer-time-reply"> ${comment.commentDate} &nbsp; 
 
-                                    </c:if>
+                                    <c:choose>
+                                        <%-- 관리자라면 --%>
+                                        <c:when test="${loginMember.authority == 2}">
+                                            <%-- 게시글 작성 O --%>
+                                            <c:if test="${loginMember.memberNo == comment.memberNo && comment.commentDelFl == 'N'}">
+                                                <button onclick="showReply(${comment.commentNo}, this)" class="comment-reply">| &nbsp;&nbsp;답글달기&nbsp;&nbsp;</button> 
+                                                <button onclick="showUpdateComment(${comment.commentNo}, this)" class="comment-reply"> |&nbsp;&nbsp;수정&nbsp;&nbsp;</button>
+                                                <button onclick="deleteComment(${comment.commentNo})" class="comment-reply"> |&nbsp;&nbsp;삭제</button>
+                                            </c:if>
+                                            <%-- 게시글 작성 X --%>
+                                            <c:if test="${loginMember.memberNo != comment.memberNo && comment.commentDelFl == 'N'}">
+                                                <%-- 삭제 시  --%>
+                                                <button onclick="showReply(${comment.commentNo}, this)" class="comment-reply">| &nbsp;&nbsp;답글달기&nbsp;&nbsp;</button> 
+                                                <button onclick="adDeleteComment(${comment.commentNo})" class="comment-reply"> |&nbsp;&nbsp;삭제</button>
+                                            </c:if>
+                                        </c:when>
+
+                                        <%-- 일반 회원이라면 --%>
+                                        <c:otherwise>
+                                            <%-- 게시글 작성 O --%>
+                                            <c:if test="${loginMember.memberNo == comment.memberNo && comment.commentDelFl == 'N'}">
+                                                <button onclick="showReply(${comment.commentNo}, this)" class="comment-reply">| &nbsp;&nbsp;답글달기&nbsp;&nbsp;</button> 
+                                                <button onclick="showUpdateComment(${comment.commentNo}, this)" class="comment-reply"> |&nbsp;&nbsp;수정&nbsp;&nbsp;</button>
+                                                <button onclick="deleteComment(${comment.commentNo})" class="comment-reply"> |&nbsp;&nbsp;삭제</button>
+                                            </c:if>
+                                            <%-- 게시글 작성 X --%>
+                                            <c:if test="${loginMember.memberNo != comment.memberNo && comment.commentDelFl == 'N'}">
+                                                <button onclick="showReply(${comment.commentNo}, this)" class="comment-reply">| &nbsp;&nbsp;답글달기&nbsp;&nbsp;</button> 
+                                            </c:if>
+                                        </c:otherwise>
+                                    </c:choose>
+
                                 </div>	
                             </div>
                         </li>	

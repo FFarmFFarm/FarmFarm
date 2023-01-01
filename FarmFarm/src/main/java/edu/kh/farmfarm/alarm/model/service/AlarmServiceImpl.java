@@ -40,9 +40,9 @@ public class AlarmServiceImpl implements AlarmService {
 		return result;
 	}
 
-	// 알림 목록 조회
+	// 알림 목록 조회(for nav widget, 최신 6개까지만)
 	@Override
-	public List<Alarm> selectAlarmList(int memberNo) {
-		return dao.selectAlarmList(memberNo);
+	public List<Alarm> selectAlarmWidgetList(int memberNo) {
+		return dao.selectAlarmWidgetList(memberNo);
 	}
 }
