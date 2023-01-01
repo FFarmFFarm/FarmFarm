@@ -22,9 +22,10 @@
                     </button>
     
                     <div id="myDropdown1" class="dropdown-message">
-                      <div class="notice"><p>알림</p></div>
+                      <div class="notice"><p>알림</p><a id="alarmListBtn" href="/alarm/list">더보기</a></div>
+
                       <!-- 알림 위젯 -->
-                      <jsp:include page="/WEB-INF/views/alarm/alarmWidget.jsp" />
+                      <jsp:include page="/WEB-INF/views/alarm/alarmWidget.jsp"/>
 
                     </div>
                   </div>
@@ -156,7 +157,7 @@
             myDropdown1.style.display == ''
           ) {
 
-            axios.post('/alarm/list' // 연결
+            axios.post('/alarm/widget/list' // 연결
               ).then(function (response){
 
                 if(response.data != undefined) { // 받아온 데이터가 있을 때에만 실행
@@ -240,12 +241,11 @@
             myDropdown1.style.display = 'none';
           }
         });
-  
-        dropbtn1.addEventListener('blur', () => {
-          const myDropdown1 = document.querySelector('.dropdown-message');
-  
-          myDropdown1.style.display = '';
-        });
+        
+        
+
       }
+
+
 
     </script>

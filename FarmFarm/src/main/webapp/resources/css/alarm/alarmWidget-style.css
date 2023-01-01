@@ -3,6 +3,10 @@
     overflow-y: scroll;
 }
 
+.dropdown-message::-webkit-scrollbar{
+    display: none;
+}
+
 /* 알림 하나 */
 .alarm-widget-box{
     border-radius: 5px;
@@ -38,12 +42,16 @@
 .alarm-widget-title{
     /* color: white; */
     width: 50%;
+    font-size: var(--medium-font-size);
+    font-weight: 600;
 }
 
 /* 알림 시간 */
 .alarm-widget-date{
     /* color: white; */
     width: 33%;
+    font-size: var(--small-font-size);
+    text-align: end;
 }
 
 /* 알림 지우기 버튼 */
@@ -55,6 +63,7 @@
 
 /* 알림 유형 */
 .alarm-widget-content{
+    font-size: var(--main-font-size);
     width: 100%;
     border-bottom: 1px solid var(--line-color);
     height: 30px;

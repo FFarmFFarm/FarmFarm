@@ -50,17 +50,17 @@ public class AlarmController {
 		return new Gson().toJson(service.selectTargetNo(type, inputNo));
 	}
 	
-	// 알림 목록 조회
-	@PostMapping("/alarm/list")
+	// 알림 목록 조회(for nav widget, 최신 6개까지만)
+	@PostMapping("/alarm/widget/list")
 	@ResponseBody
-	public String selectAlarmList(HttpSession session) {
+	public String selectAlarmWidgetList(HttpSession session) {
 		
 		Map<String, Object> alarmMap = new HashMap<String, Object>();
 		
 		if(session.getAttribute("loginMember") != null) {
 			Member loginMember = (Member)session.getAttribute("loginMember");
 			
-			List<Alarm> alarmList = service.selectAlarmList(loginMember.getMemberNo());
+			List<Alarm> alarmList = service.selectAlarmWidgetList(loginMember.getMemberNo());
 			
 			alarmMap .put("alarmList", alarmList);
 			
