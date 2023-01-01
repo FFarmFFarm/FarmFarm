@@ -259,7 +259,7 @@ main{
 /* 에러 사진, 내용이 담기는 컨테이너 */
 .error-container{
   width: 1000px;
-  min-height: 400px;
+  min-height: 540px;
 
   display: flex;
   justify-content: center;

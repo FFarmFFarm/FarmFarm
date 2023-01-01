@@ -1,0 +1,67 @@
+/* 알림 전체 */
+.dropdown-message {
+    overflow-y: scroll;
+}
+
+/* 알림 하나 */
+.alarm-widget-box{
+    border-radius: 5px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 5px 0px;
+    font-size: var(--medium-font-size);
+}
+
+/* 알림 헤더(아이콘, 제목, 시간, x버튼) */
+.alarm-widget-header{
+    display: flex;
+    width: 100%;
+    position: relative;
+    /* background-color: var(--point-color); */
+    border-radius: 5px;
+    height: 30px;
+    align-items: center;
+    padding: 0px 5px;
+}
+
+/* 아이콘 */
+.alarm-widget-icon{
+    /* color: white; */
+    width: 10%;
+    text-align: center;
+}
+
+/* 알림 유형 제목 */
+.alarm-widget-title{
+    /* color: white; */
+    width: 50%;
+}
+
+/* 알림 시간 */
+.alarm-widget-date{
+    /* color: white; */
+    width: 33%;
+}
+
+/* 알림 지우기 버튼 */
+.alarm-widget-delBtn{
+    width: 7%;
+    text-align: center;
+    /* color: white; */
+}
+
+/* 알림 유형 */
+.alarm-widget-content{
+    width: 100%;
+    border-bottom: 1px solid var(--line-color);
+    height: 30px;
+    padding: 0px 5px;
+    align-items: center;
+    line-height: 27px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}

@@ -15,13 +15,14 @@
 	      <result property="rates" column="RATES" />
 	      <result property="productDelFl" column="PRODUCT_DEL_FL" />
 	      <result property="stock" column="STOCK" />
+	      <result property="soldoutFl" column="SOLDOUT_FL" />
 	 </resultMap>
 
 
 
 	<!-- 모든 상품 목록을 불러오는 SQL -->
 	<select id="getProductList_all" parameterType="SearchItem" resultMap="productList_rm">
-		SELECT PRODUCT_NO, PRODUCT_NAME, STOCK,
+		SELECT PRODUCT_NO, PRODUCT_NAME, STOCK, SOLDOUT_FL,
 			   TO_CHAR(PRODUCT_PRICE, 'FM999,999,999,999') PRODUCT_PRICE, 
 		       CATEGORY_NO, PRODUCT_MESSAGE,
 			   (SELECT PRODUCT_IMG_ADDRESS
@@ -37,7 +38,7 @@
 			AND PRODUCT_NAME LIKE '%${keyword}%' 
 		</if>
 		<if test=' stockOutFl.equals("Y") '>
-			AND STOCK > 0  
+			AND (STOCK > 0 AND SOLDOUT_FL = 'N')  
 		</if>
 		<if test=' sort != null'>
 			<choose>
@@ -67,13 +68,13 @@
 			AND PRODUCT_NAME LIKE '%' || #{keyword} || '%'
 		</if>
 		<if test=' stockOutFl.equals("Y") '>
-			AND STOCK > 0  
+			AND (STOCK > 0 AND SOLDOUT_FL = 'N') 
 		</if>
 	</select>
 	
 	<!-- 선택한 상품의 카테고리 목록을 불러오는 SQL -->
 	<select id="getProductList_checked" parameterType="SearchItem" resultMap="productList_rm">
-		SELECT PRODUCT_NO, PRODUCT_NAME, STOCK,
+		SELECT PRODUCT_NO, PRODUCT_NAME, STOCK, SOLDOUT_FL,
 			   TO_CHAR(PRODUCT_PRICE, 'FM999,999,999,999') PRODUCT_PRICE, 
 			   CATEGORY_NO, PRODUCT_MESSAGE,
 			   (SELECT PRODUCT_IMG_ADDRESS
@@ -90,7 +91,7 @@
 			AND PRODUCT_NAME LIKE '%${keyword}%' 
 		</if>
 		<if test=' stockOutFl.equals("Y") '>
-			AND STOCK > 0  
+			AND (STOCK > 0 AND SOLDOUT_FL = 'N')  
 		</if>
 		<if test=' sort != null'>
 			<choose>
@@ -121,7 +122,7 @@
 			AND PRODUCT_NAME LIKE '%' || #{keyword} || '%' 
 		</if>
 		<if test=' stockOutFl.equals("Y") '>
-			AND STOCK > 0  
+			AND (STOCK > 0 AND SOLDOUT_FL = 'N')  
 		</if>		
 	</select>
 
