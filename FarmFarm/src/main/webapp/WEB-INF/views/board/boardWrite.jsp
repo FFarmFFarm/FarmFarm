@@ -106,6 +106,7 @@
     </c:if>
     <script>
         loginMember = "${loginMember}"
+        typeNo = ${boardTypeNo}
     </script>
     
     <script src="/resources/js/common/common.js"></script>
