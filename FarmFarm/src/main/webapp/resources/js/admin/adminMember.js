@@ -120,7 +120,7 @@ const printMemberList = (memberList, pagination) => {
         
         // no
         const td1 = document.createElement("td");
-        td1.classList.add("report-member-seq");
+        td1.classList.add("member-seq");
 
         numCount++;
         td1.innerText = numCount;
@@ -316,7 +316,7 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
 
 
     // *아이디 가져오기
-    // inputMemberId 강제 탈퇴할 때 사용함.
+    // hiddenId 강제 탈퇴할 때 사용함.
     // 상세 조회 시 값 전달할 때 필요 
     // fix ? ajax 쓸때는 이렇게?
     hiddenId = memberDetailInfo.memberId;
@@ -424,7 +424,7 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
     address.innerText = "주소";
 
     const tdAddress = document.createElement("td");
-    tdAddress.colSpan = "3";
+    tdAddress.colSpan = "2";
 
     const add = memberDetailInfo.memberAddress;
     tdAddress.innerText = add;
@@ -813,7 +813,16 @@ document.getElementById("s4").addEventListener("click", ()=>{
 
 // todo: 강제 탈퇴 시키기 (by 관리자)
 //fixme: 안 비워줘서 바로바로 적용이 안되는 것 같다..
-// fixme: member-detail-table 모두 ajax로 만들기!
+// 강제 탈퇴 버튼 클릭 시 모달 열리기
+const adminDelBtn = document.getElementById("adminDelBtn");
+
+// 회원 상세 정보에서 강제 탈퇴 버튼 누를 경우
+adminDelBtn.addEventListener('click', () => {
+    adminModalOpen();  //adminModal.js에 공통적인 부분 만들어놓음!
+})
+
+
+// 모달에서 강제 탈퇴 제출 버튼 클릭 시
 document.getElementById("adminDelSubmitBtn").addEventListener('click', ()=>{
 
     $.ajax({
@@ -822,15 +831,17 @@ document.getElementById("adminDelSubmitBtn").addEventListener('click', ()=>{
         type: "POST",
         success: (result) => {
             if(result > 0){
-                adminDel.style.display = "none";
+                adminModalClose();
 
-                if(adminDel.style.display == 'none'){
+                if(adminModal.style.display == 'none'){
                     selectMemberList(cp);
                     selectMemberDetail(hiddenId);
                 }          
                 
-                console.log("강제 탈퇴 완료!");
-                messageModalOpen("강제 탈퇴가 처리되었습니다.");
+                console.log("강제 탈퇴 완료");
+                messageModalOpen("강제 탈퇴 되었습니다.");
+
+                //fixme: 시간 남을 때 모달이랑, 스크롤 위치 수정
 
             
             } else {

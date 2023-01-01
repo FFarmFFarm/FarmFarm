@@ -8,20 +8,21 @@
 */
 
 var numCount = 0;
-//var hiddenNo = 0;  // 인증신청서, 승인, 거부에 사용
-var hiddenId = null;
+var hiddenNo = 0;  // 인증신청서, 승인, 거부에 사용
+// var hiddenId = null;
 
 
 // optimize: 판매자 정보 조회 함수 ajax
 const selectSellerList = (cp) => {
     $.ajax({
         url: "/admin/selectSellerList",
-        data: {"cp": cp, "sellerFilter": sellerFilter, "hiddenId":hiddenId},
+        data: {"cp": cp, "sellerFilter": sellerFilter},
         dataType: "JSON",
         type: "GET",
         success: (map) => {
             printSellerList(map.sellerList, map.pagination);
             console.log("판매자 정보 조회 성공");
+            console.log(sellerFilter);
         },
 
         error: () => { console.log("판매자 정보 조회 실패"); }
@@ -32,12 +33,10 @@ const selectSellerList = (cp) => {
 
 
 // optimize: 인증 신청서 조회 함수 ajax
-const selectAuthPaper = (hiddenId) => {
-console.log("인증서 조회 ajax");
-
+const selectAuthPaper = (hiddenNo) => {
     $.ajax({
         url: "/admin/selectAuthPaper",
-        data: {"hiddenId": hiddenId},
+        data: {"hiddenNo": hiddenNo},
         type: "POST",
         success: (authPaper) => {
             printSellerAuthPaper(authPaper);
@@ -90,13 +89,23 @@ const printSellerList = (sellerList, pagination) => {
         // 아이디
         const td3 = document.createElement("td");
         td3.className = 'sId';
-        //fixme :글자 자르기 해야할지, 아니면 밑에서 적용되느지 확인하기 // 안먹힘 해야함.
-        td3.innerText = seller.memberId;
+
+        if(seller.memberId.length > 10) {
+            td3.innerText = seller.memberId.substring(0, 9) + '...';
+        } else {
+            td3.innerText = seller.memberId;
+        }
 
         // 닉네임
         const td4 = document.createElement("td");
         td4.className = 'sNickname';
-        td4.innerText = seller.memberNickname;
+
+        if(seller.memberNickname.length > 10) {
+            td4.innerText = seller.memberNickname.substring(0, 9) + '...';
+        } else {
+            td4.innerText = seller.memberNickname;
+        }
+
 
         // 성명
         const td5 = document.createElement("td");
@@ -104,7 +113,12 @@ const printSellerList = (sellerList, pagination) => {
 
         // 주소
         const td6 = document.createElement("td");
-        td6.innerText = seller.memberAddress; // sql에서 ,, 제거해서 가져옴
+        if(seller.memberAddress.length > 25){
+            // sql에서 ,, 제거해서 가져옴
+            td6.innerText = seller.memberAddress.substring(0,24) + '...';
+        } else {
+            td6.innerText = seller.memberAddress;
+        }
 
         // 신청일자 == 가입일
         const td7 = document.createElement("td");
@@ -123,9 +137,11 @@ const printSellerList = (sellerList, pagination) => {
 
         // 한 줄 클릭하면 인증신청서 출력
         tr.addEventListener("click", () => {
-            hiddenId = seller.memberId;
-            console.log(hiddenId);
-            selectAuthPaper(hiddenId);
+            // hiddenId = seller.memberId;
+            // console.log(hiddenId);
+            // selectAuthPaper(hiddenId);
+            hiddenNo = seller.memberNo;
+            selectAuthPaper(hiddenNo);
         })
     }
 
@@ -159,23 +175,30 @@ const printSellerAuthPaper = (authPaper) => {
     sellerAuthTable.innerText = "";
     
 
-    console.log(authPaper.memberNo);
-
     // * 인증신청서  --------------------
     // 증빙사진
     const img = document.createElement("img");
 
     // fixme: 인증 사진 저장 경로 확인하기!
     if(authPaper.farmImg != null) {
-        img.src = authPaper.farmImg;
+        img.src = '/resources/images/seller/' + authPaper.farmImg;
     } else {
         img.src = "/resources/images/logo-square.png";
     }
 
-    //fixme: 인증사진 클릭하면 모달로 확대하기
-
     //조립
-    authImage.append("img");    
+    authImage.append(img);    
+
+
+
+    //인증사진 클릭하면 원본 사진 보이기
+    img.addEventListener("click", (e) => {
+        window.open(e.target.src);
+    })
+
+
+
+
 
     
     // -- 신청서 내용 
@@ -302,6 +325,17 @@ const printSellerAuthPaper = (authPaper) => {
     } else {
         tdAuthDate2.innerText = "승인 대기중";
     }
+    
+    // 승인 버튼
+    const authApproveBtn = document.getElementById("authApproveBtn");
+
+    // 이미 승인되어 판매자인 회원은, 승인버튼 비활성화
+    if(authPaper.authDate != null && authPaper.authority == 1){
+        authApproveBtn.style.backgroundColor = 'lightgray';
+        authApproveBtn.style.cursor = 'default';
+        authApproveBtn.disabled = true;
+    }
+
 
     authTr9.append(tdAuthDate1, tdAuthDate2);
 
@@ -403,12 +437,10 @@ const hiddenMemberNo = document.getElementsByClassName('hidden-memberNo');
 
 for(let i=0; i<authListRow.length; i++){
     authListRow[i].addEventListener('click', () => {
-        console.log("여기문제인가?");
-        hiddenId = hiddenMemberId[i].value;
-        selectAuthPaper(hiddenId);
-        console.log(hiddenId);
-        // hiddenNo = hiddenMemberNo[i].value;
-        // selectAuthPaper(hiddenNo);
+        // hiddenId = hiddenMemberId[i].value;
+        // selectAuthPaper(hiddenId);
+        hiddenNo = hiddenMemberNo[i].value;
+        selectAuthPaper(hiddenNo);
     })
 }
 
@@ -416,6 +448,73 @@ for(let i=0; i<authListRow.length; i++){
 
 
 // todo: 필터링 옵션 별로 조회 + pagination
+const watingSellerBtn = document.getElementById('watingSellerBtn'); // 인증 대기중인 회원
+const allSellerBtn = document.getElementById('allSellerBtn'); // 전체 판매자 보기
+
+watingSellerBtn.addEventListener('click', () => {
+    numCount = (cp-1)*15;
+    sellerFilter = '0';
+    selectSellerList();
+
+    watingSellerBtn.style.display = 'none';
+    allSellerBtn.style.display = 'block'; 
+})
+
+
+allSellerBtn.addEventListener('click', () => { 
+    numCount = (cp-1)*15;
+    sellerFilter = '1';
+    selectSellerList();
+
+    allSellerBtn.style.display = 'none';
+    watingSellerBtn.style.display ='flex';
+})
+
+
+
+
+// todo: 판매자 승인 / 거부
+// 승인 
+document.getElementById('authApproveBtn').addEventListener('click', () => {
+    
+    $.ajax({
+        url: '/admin/sellerApprove',
+        data: {"hiddenNo": hiddenNo},
+        type: 'POST',
+        success: (result) => {
+
+            if(result > 0){
+                adminModalClose();
+
+                if(adminModal.style.display == 'none'){
+                    selectSellerList(cp);
+                    selectAuthPaper(hiddenNo);
+                }
+
+                console.log("승인 완료");
+                messageModalOpen("승인 처리되었습니다.");
+            }
+        },
+        error: () => {
+            console.log("승인 처리 실패");
+        }
+    })
+});
+
+
+
+// 거부
+document.getElementById('authDenyBtn').addEventListener('click', () => {
+
+    admin
+    
+
+
+
+})
+
+
+
 
 
 

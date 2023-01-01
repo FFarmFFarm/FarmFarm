@@ -117,8 +117,8 @@ public class AdminDAO {
 	 * @param preSellerFilter
 	 * @return sellerListCount
 	 */
-	public int sellerListCount(int preSellerFilter) {
-		return sqlSession.selectOne("adminMapper.sellerListCount", preSellerFilter);
+	public int sellerListCount(int sellerFilter) {
+		return sqlSession.selectOne("adminMapper.sellerListCount", sellerFilter);
 	}
 
 
@@ -142,8 +142,28 @@ public class AdminDAO {
 	 * @param hiddenNo
 	 * @return authPaper
 	 */
-	public Admin selectAuthPaper(String hiddenId) {
-		return sqlSession.selectOne("adminMapper.selectAuthPaper", hiddenId);
+	public Admin selectAuthPaper(int hiddenNo) {
+		return sqlSession.selectOne("adminMapper.selectAuthPaper", hiddenNo);
+	}
+
+
+
+	/** 판매자 인증 승인
+	 * @param hiddenNo
+	 * @return result
+	 */
+	public int sellerApprove(int hiddenNo) {
+		return sqlSession.update("adminMapper.sellerApprove", hiddenNo);
+	}
+
+
+
+	/** 판매자 인증 처리 일자 수정
+	 * @param hiddenNo
+	 * @return result
+	 */
+	public int updateAuthDate(int hiddenNo) {
+		return sqlSession.update("adminMapper.updateAuthDate", hiddenNo);
 	}
 
 

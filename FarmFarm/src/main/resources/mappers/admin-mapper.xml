@@ -20,6 +20,7 @@
       <result property="mypageImg" column="MYPAGE_IMG" />
       <result property="memberAddress" column="MEMBER_ADDRESS" />
       <result property="farmImg" column="FARM_IMG" />
+      <result property="authDate" column="AUTH_DATE" />
       <result property="postCount" column="POST_COUNT" />
       <result property="boardCount" column="BOARD_COUNT" />
       <result property="commentCount" column="COMMENT_COUNT" />
@@ -233,18 +234,22 @@
 		FROM "MEMBER" 
 		LEFT JOIN ADDRESS USING(MEMBER_NO)
 		LEFT JOIN "SELLER" USING(MEMBER_NO)
-		WHERE (AUTHORITY = 1 OR AUTHORITY = 3)
+		<if test="sellerFilter == 0">
+			WHERE AUTHORITY = 3
+		</if>
+		<if test="sellerFilter == 1">
+			WHERE (AUTHORITY = 1 OR AUTHORITY = 3)
+		</if>
 	</select>
 
 
 	<!-- 판매자+인증대기 조회 -->
 	<select id="selectSeller" resultMap="admin_rm">
-		SELECT MEMBER_NO, MEMBER_ID, MEMBER_NAME, MEMBER_NICKNAME, MEMBER_TEL, 
-				REPLACE(MEMBER_ADDRESS, ',,', ' ') MEMBER_ADDRESS, MEMBER_DEL_FL, SIGNUP_DATE, AUTHORITY, MEMBER_BIRTH, FARM_IMG, AUTH_DATE
+		SELECT MEMBER_NO, MEMBER_ID, MEMBER_NAME, MEMBER_NICKNAME, MEMBER_TEL, MEMBER_BIRTH,
+				REPLACE(MEMBER_ADDRESS, ',,', ' ') MEMBER_ADDRESS, MEMBER_DEL_FL, SIGNUP_DATE, AUTHORITY, FARM_IMG, AUTH_DATE
 		FROM "MEMBER" 
 		LEFT JOIN ADDRESS USING(MEMBER_NO)
 		LEFT JOIN "SELLER" USING(MEMBER_NO)
-		
 		<if test="sellerFilter == 0">
 			WHERE AUTHORITY = 3
 		</if>
@@ -256,16 +261,28 @@
 	
 	<!-- 판매자 인증신청서 조회 -->
 	<select id="selectAuthPaper" resultMap="admin_rm">
-		SELECT MEMBER_NO, MEMBER_ID, MEMBER_NAME, MEMBER_NICKNAME, MEMBER_TEL, 
-		REPLACE(MEMBER_ADDRESS, ',,', ' ') MEMBER_ADDRESS, MEMBER_DEL_FL, SIGNUP_DATE, AUTHORITY, MEMBER_BIRTH, FARM_IMG, AUTH_DATE
+		SELECT MEMBER_NO, MEMBER_ID, MEMBER_NAME, MEMBER_NICKNAME, MEMBER_TEL, MEMBER_BIRTH, 
+		REPLACE(MEMBER_ADDRESS, ',,', ' ') MEMBER_ADDRESS, MEMBER_DEL_FL, SIGNUP_DATE, AUTHORITY, FARM_IMG, AUTH_DATE
 		FROM "MEMBER" 
 		LEFT JOIN ADDRESS USING(MEMBER_NO)
 		LEFT JOIN "SELLER" USING(MEMBER_NO)
-		WHERE MEMBER_ID = #{hiddenId}
+		WHERE MEMBER_NO = #{hiddenNo}
 	</select>
 	
+	
+	<!-- 판매자 인증 승인 -->
+	<update id="sellerApprove">
+		UPDATE MEMBER SET
+		AUTHORITY = 1
+		WHERE MEMBER_NO = #{hiddenNo}
+	</update>
 
-
+	<!-- 판매자 인증 처리 시 처리 날짜 추가 -->
+	<update id="updateAuthDate">
+		UPDATE "SELLER" SET
+		AUTH_DATE = SYSDATE
+		WHERE MEMBER_NO = #{hiddenNo}
+	</update>
 
 
 

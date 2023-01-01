@@ -1,11 +1,11 @@
 
-const report = document.getElementById("reportContainer");
+const reportContainer = document.getElementById("reportContainer");
 const reportBtn = document.getElementById("reportBtn");
 
-report.style.display = 'none';
+reportContainer.style.display = 'none';
 
 reportBtn.addEventListener('click', () => {
-    report.style.display = 'flex';
+    reportContainer.style.display = 'flex';
     // console.log(targetNo);
     // console.log(pathname);
 })
@@ -16,7 +16,7 @@ reportBtn.addEventListener('click', () => {
 window.addEventListener('click', (e) => {
 
     // 신고창 밖 클릭 시 닫힘
-    e.target === report ? report.style.display = 'none' : false
+    e.target === reportContainer ? reportContainer.style.display = 'none' : false
     document.querySelector('body').classList.remove("scrollLock");
 });
 
@@ -99,7 +99,7 @@ reportSubmitBtn.addEventListener("click", () => {
 
 
 
-        // 연습 test
+    // 연습 test
     if(pathname == 'testPage'){
         reportType.value = 'T';
         reportTargetNo.value = targetNo; //4

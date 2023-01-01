@@ -59,7 +59,14 @@ public interface AdminService {
 	 * @param hiddenNo
 	 * @return authPaper
 	 */
-	Admin selectAuthPaper(String hiddenId);
+	Admin selectAuthPaper(int hiddenNo);
+
+
+	/** 판매자 인증 승인
+	 * @param hiddenNo
+	 * @return result
+	 */
+	int sellerApprove(int hiddenNo);
 
 
 

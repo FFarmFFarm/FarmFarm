@@ -15,15 +15,16 @@
     <title>판매자 인증 관리</title>
 
     <link rel="stylesheet" href="/resources/css/common/header-style.css">
-    <link rel="stylesheet" href="/resources/css/common/footer-style.css">
     <link rel="stylesheet" href="/resources/css/admin/adminNav-style.css">
     <link rel="stylesheet" href="/resources/css/admin/adminSellerAuth-style.css" />
+    <link rel="stylesheet" href="/resources/css/admin/adminModal-style.css" />
+    <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
 
     <script src="https://kit.fontawesome.com/d4fbceca97.js" crossorigin="anonymous"></script>
 </head>
     
 <body>
-    <jsp:include page="/WEB-INF/views/common/adminHeader.jsp"/>    
+    <jsp:include page="/WEB-INF/views/common/adminHeader.jsp"/>  
 
     <main>
 
@@ -39,8 +40,8 @@
                 <div class="board-div">
                     <span class="board-title">
                         인증 신청 목록 
+                        <button type="button" id="watingSellerBtn"><span class="sellerFilter" id="p0">인증 대기 회원 보기</span></button>
                         <button type="button" id="allSellerBtn"><span class="sellerFilter" id="p1">전체 판매자 보기</span></button>
-                        <button type="button" id="watingSellerBtn"><span class="sellerFilter" id="p0">인증 대기 중인 회원 보기</span></button>
                     </span>
                 </div>
 
@@ -81,7 +82,8 @@
                                             <td>인증 완료</td>
                                         </c:if>
                                     </c:if>
-                                    <input type="hidden" class="hidden-memberId" name="hiddenId" value="${seller.memberId}">
+                                    <!-- <input type="hidden" class="hidden-memberId" name="hiddenId" value="${seller.memberId}"> -->
+                                    <input type="hidden" class="hidden-memberNo" name="hiddenNo" value="${seller.memberNo}">
                                 </tr>
                             </c:forEach>
 
@@ -131,9 +133,9 @@
                     <!-- todo: el쓰는부분 ajax로 -->
 
                     <div class="seller-auth-image">
-                        <span class="auth-image-title" id="authImageTitle">증빙 자료 (인증 사진_확대 가능하게)</span>
+                        <span class="auth-image-title" id="authImageTitle">증빙 자료(인증사진)</span>
                         <span class="auth-image" id="authImage">
-                            <!-- <img src="/resources/images/myPage/background/bgImg2.jpg"> -->
+                            <!-- <img src="/resources/images/myPage/background/bgImg2.jpg" class="aImg"> -->
                         </span>
                     </div>
 
@@ -180,7 +182,7 @@
                     
                         <div class="auth-button-div">
                             <button id="authApproveBtn">승인</button>
-                            <button id="authDenyBtn">거부</button>
+                            <button id="authDenyBtn">반려</button>
                         </div>
                     </div>
                 </div>
@@ -188,14 +190,47 @@
         </section>
     </main>
 
+
+    <!-- 거부 모달 -->
+    <div class="adminModal-container" id="adminModalContainer">
+        <div class="admin-modal-deny">
+
+            <span class="adminModal-title"> 
+                판매자 인증을 반려하시겠습니까?
+            </span>
+
+            <textarea name="denyReason" id="denyReason" cols="30" rows="10"></textarea>
+            
+            <div class="adminModal-form-div">
+                <div class="adminModal-form">
+                    <button id="cancelBtn">취소</button>
+                    <button id="denyBtn">반려</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- 증빙사진 모달 //  팝업창 열리는 것으로 대체-->
+    <!-- <div class="authImg-modal" id="authImgModal">
+        <span class="authImg-span">
+                <img class="authImg">
+        </span>
+    </div> -->
+
+
+
     <script>
         var sellerFilter = 0;
-        // var cp = 1;
+        var cp = 1;
     </script>
 
     <%-- jquery --%>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
     <script src="/resources/js/admin/adminSellerAuth.js"></script> 
+    <script src="/resources/js/admin/adminModal.js"></script> 
+    <script src="/resources/js/common/common.js"></script> 
 </body>
 </html>

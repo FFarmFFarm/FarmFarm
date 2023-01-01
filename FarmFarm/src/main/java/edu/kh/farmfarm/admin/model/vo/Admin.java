@@ -21,6 +21,7 @@ public class Admin {
 	private String profileImg;
 	private String mypageImg;
 	private String farmImg;
+	private String authDate;
 	private int postCount;
 	private String memberAddress;
 	private int boardCount;

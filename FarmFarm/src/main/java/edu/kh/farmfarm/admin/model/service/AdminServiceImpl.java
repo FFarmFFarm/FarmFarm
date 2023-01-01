@@ -1,5 +1,6 @@
 package edu.kh.farmfarm.admin.model.service;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +11,9 @@ import org.springframework.stereotype.Service;
 import edu.kh.farmfarm.admin.model.dao.AdminDAO;
 import edu.kh.farmfarm.admin.model.vo.Admin;
 import edu.kh.farmfarm.common.Pagination;
+import edu.kh.farmfarm.common.Util;
 import edu.kh.farmfarm.member.model.VO.Member;
+import edu.kh.farmfarm.seller.model.vo.Seller;
 
 @Service
 public class AdminServiceImpl implements AdminService{
@@ -113,11 +116,27 @@ public class AdminServiceImpl implements AdminService{
 	
 	// 인증 신청서 조회
 	@Override
-	public Admin selectAuthPaper(String hiddenId) {
+	public Admin selectAuthPaper(int hiddenNo) {
 		
-		Admin authPaper = dao.selectAuthPaper(hiddenId);
+		Admin authPaper = dao.selectAuthPaper(hiddenNo);
 		
 		return authPaper;
+	}
+	
+	
+	// 판매자 인증 승인
+	@Override
+	public int sellerApprove(int hiddenNo) {
+		
+		// 회원 권한을 판매자로 변경
+		int result = dao.sellerApprove(hiddenNo);
+		
+		if(result > 0) {
+			// 판매자 인증 처리 일자 수정
+			result = dao.updateAuthDate(hiddenNo);
+		}
+		
+		return result;
 	}
 		
 

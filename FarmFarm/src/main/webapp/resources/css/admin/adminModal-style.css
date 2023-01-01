@@ -1,6 +1,6 @@
 @import "../root-style.css";
 
-#adminDelContainer{
+#adminModalContainer{
     width: 100vw;
     height: 100vh;
     position: fixed;
@@ -15,12 +15,10 @@
 
     z-index: 2000;
     
-    /* //todo */
-    display: none;
+    /* display: none; */
 }
 
-
-.adminDel-modal{
+.admin-modal{
     background-color: white;
     width: 380px;
     /* height: 460px; */
@@ -33,11 +31,36 @@
     align-items: center;
 
     padding: 20px;
-
 }
 
 
-.adminDel-title{
+/* 판매자인증 반려 모달 내용 부분 */
+.admin-modal-deny{
+    background-color: white;
+    width: 380px;
+    height: 260px;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+}
+
+#denyReason{
+    resize: none;
+    width: 300px;
+    height: 600px;
+    margin-top: 20px;
+
+    font-size: var(--medium-font-size);
+}
+
+
+.adminModal-title{
     width: 380px;
     margin: 5px 0;
     font-weight: bold;
@@ -45,7 +68,8 @@
     font-size: var(--medium-font-size);
 }
 
-.adminDel-form-div{
+
+.adminModal-form-div{
     height: 380px;
     margin-top: 10px;
     display: flex;
@@ -55,7 +79,7 @@
 }
 
 
-#delCancelBtn{
+#cancelBtn{
     width: 100px;
     height: 30px;
     background-color: var(--sub-font-color);
@@ -66,7 +90,7 @@
 
 
 
-
+/* 강제탈퇴 */
 #adminDelSubmitBtn{
     width: 100px;
     height: 30px;
@@ -74,6 +98,27 @@
     color: white;
     border: none;
     border-radius: 5px;
+}
+
+/* 판매자 인증 승인 */
+#approveBtn{
+    width: 100px;
+    height: 30px;
+    background-color: var(--point-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+/* 판매자 인증 반려 */
+#denyBtn{
+    width: 100px;
+    height: 30px;
+    background-color: #C43819;
+    color: white;
+    border: none;
+    border-radius: 5px;
+
 }
 
 
@@ -84,17 +129,12 @@
     }
 }
 
-#delCancelBtn:active{
+#cancelBtn:active, #adminDelSubmitBtn:active, #approveBtn:active, #denyBtn:active{
     animation: blink-effect 0.3s step-start;
     animation-timing-function: ease;
     scale: 0.99;
 }
 
-#adminDelSubmitBtn:active{
-    animation: blink-effect 0.3s step-start;
-    animation-timing-function: ease;
-    scale: 0.99;
-}
 
 
 .scrollLock {

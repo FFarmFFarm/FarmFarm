@@ -229,7 +229,7 @@ public class AdminController {
 	@ResponseBody
 	public String adminSellerAuthPage(@SessionAttribute(value="loginMember") Member loginMember,
 										@RequestParam(value="cp", required=false, defaultValue="1") int cp,
-										@RequestParam(value="preSellerFilter", required=false, defaultValue="0") int sellerFilter
+										@RequestParam(value="sellerFilter", required=false, defaultValue="0") int sellerFilter
 									   ) {
 		// 관리자인지 확인 (관리자면 result==1)
 		int result = service.checkAdmin();
@@ -256,7 +256,7 @@ public class AdminController {
 	@PostMapping("/admin/selectAuthPaper")
 	@ResponseBody
 	public Admin selectAuthPaper(@SessionAttribute(value = "loginMember") Member loginMember,
-									String hiddenId) {
+									int hiddenNo) {
 		// 관리자인지 확인 (관리자면 result==1)
 		int result = service.checkAdmin();
 		
@@ -265,7 +265,7 @@ public class AdminController {
 		if(result == 1 && loginMember != null) {
 
 			// 해당 회원번호의 인증신청서 조회
-			authPaper = service.selectAuthPaper(hiddenId);
+			authPaper = service.selectAuthPaper(hiddenNo);
 	
 		} else {
 			System.out.println("관리자만 접근 가능합니다.");
@@ -273,6 +273,32 @@ public class AdminController {
 		
 		return authPaper;
 	}
+	
+	
+	
+	// 판매자 승인
+	@PostMapping("/admin/sellerApprove")
+	@ResponseBody
+	public int sellerApprove(@SessionAttribute(value = "loginMember") Member loginMember, int hiddenNo) {
+		
+		// 관리자인지 확인 (관리자면 result==1)
+		int result = service.checkAdmin();
+		
+		
+		if(result == 1 && loginMember != null) {
+
+			// 해당 회원번호의 인증신청서 조회
+			result = service.sellerApprove(hiddenNo);
+	
+		} else {
+			System.out.println("관리자만 접근 가능합니다.");
+		}
+		
+		return result;
+
+	}
+	
+	
 	
 	
 	
