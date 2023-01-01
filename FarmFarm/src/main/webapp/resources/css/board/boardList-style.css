@@ -290,3 +290,7 @@ input[type="text"]:focus{
 .toggle{
     display: flex;
 }
+.tempLi{
+    display: flex;
+    width: 100%;
+}

@@ -163,9 +163,13 @@ function selectCommentList(){
                             writeTimeReply.append(commentReply);
                         }
                     }
-
+                    // console.log(comment.commentParent);
+                    // if(comment.commentParent == 0){
+                    //     window.scrollTo(0, document.querySelector('body').scrollHeight)
+                    // }
                 }
                 commentArea1.append(commentCount, commentWrite, commentList);
+
             }
         },
         error : (req, status, error)=>{
@@ -173,6 +177,7 @@ function selectCommentList(){
         }
     });
 }
+
 
 // 댓글 등록
 function commentFunction(){
@@ -206,10 +211,12 @@ function commentFunction(){
                     if(result>0){
                         
                         ringCommentAlarm('board', 201, boardNo, writeComment.value, result);
-                        
+
                         alert("댓글이 등록되었습니다");
                         writeComment.value=""; // 작성한 댓글 없애주기
                         selectCommentList(); // 다시 ajax로 불러옵시다!
+                        window.scrollTo(0, document.querySelector('body').scrollHeight);
+
                     }else{
                         alert("댓글 등록에 실패했습니다...");
                     }
@@ -501,9 +508,6 @@ const adDeleteComment = (commentNo)=>{
         })
     }
 }
-
-
-
 
 
 
