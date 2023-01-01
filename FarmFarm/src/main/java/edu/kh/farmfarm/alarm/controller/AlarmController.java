@@ -62,11 +62,11 @@ public class AlarmController {
 			
 			List<Alarm> alarmList = service.selectAlarmWidgetList(loginMember.getMemberNo());
 			
-			alarmMap .put("alarmList", alarmList);
+			alarmMap.put("alarmList", alarmList);
 			
 		} else {
 			
-			alarmMap .put("message", "invalidate");
+			alarmMap.put("message", "invalidate");
 		}
 		
 		return new Gson().toJson(alarmMap);

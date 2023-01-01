@@ -235,8 +235,6 @@
                 console.log(error)
               }) 
 
-
-
           } else {
             myDropdown1.style.display = 'none';
           }
