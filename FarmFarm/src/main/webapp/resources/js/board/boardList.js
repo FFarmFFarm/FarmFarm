@@ -1,5 +1,177 @@
 
 
+
+// 게시글 목록을 ajax로 불러와봅시다!
+// 불러오는 부분을 만들어서 appen 시켜주기
+
+// board-list-title의 원래 모양을 저장을 위한 변수선언
+let beforeBoardListTitle;
+
+const showBoardList = ()=>{
+
+    // board-list-title의 원래 모양을 저장
+    const boardListTitle = document.querySelector(".board-List-title");
+    // beforeBoardListTitle = boardListTitle.innerHTML;
+
+    $.ajax({
+        url : "/board/list/"+boardTypeNo,
+        data : {"boardTypeNo" : boardTypeNo,
+                "cp" : cp,
+                "query" : query,
+                "sort" : sort
+                },
+        dataType : "JSON",
+        success : boardMap=>{
+
+            const boardList = boardMap.boardList;
+            const pagination = boardMap.pagination;
+            const query = boardMap.query;
+            const sort = boardMap.sort;
+
+            console.log(query);
+            console.log("ok");
+
+            let sURL;
+            if(query != ""){
+                sURL = "&query="+query;
+            }else{
+                sURL = "";
+            }
+
+            let soURL;
+            if(sort != ""){
+                soURL = "&sort="+sort;
+            }else{
+                soURL = "";
+            }
+
+            // 리스트들을 감싸고 있는거 없애주기
+            const boardListTop = document.querySelector(".board-list-top");
+            boardListTop.innerHTML = "";
+
+            // ul태그 부분을 만들어봅시당~
+            const boardListArea = document.createElement("ul");
+            boardListArea.classList.add("board-list-area")
+        
+            if(boardList.length == 0){
+                const emptyList = document.createElement("div");
+                emptyList.classList.add("empty-list");
+                emptyList.innerText="등록된 게시글이 없습니다. 첫 게시물의 주인공이 되어보세요!";
+                boardListArea.append(emptyList);
+            }else{
+                for(let board of boardList){
+                    const li = document.createElement("li");
+
+                    const boardNo = document.createElement("span");
+                    boardNo.classList.add("board-no");
+                    boardNo.innerText = board.boardNo;
+
+                    const boardTitle = document.createElement("span");
+                    boardTitle.classList.add("board-title");
+                    const goBoard = document.createElement("a");
+                    goBoard.classList.add("goBoard");
+                    goBoard.setAttribute("href", "/board/"+boardTypeNo+"/"+board.boardNo+"?cp="+pagination.currentPage+sURL+soURL);
+                    goBoard.innerHTML = board.boardTitle+"&nbsp;("+board.commentCount+")";
+                    boardTitle.append(goBoard);
+
+                    const boardWriter = document.createElement("span");
+                    boardWriter.classList.add("board-writer");
+                    boardWriter.setAttribute("id", board.memberNo);
+                    boardWriter.innerText = board.memberNickname;
+                    
+                    const boardDate = document.createElement("span");
+                    boardDate.classList.add("board-date");
+                    boardDate.innerText = board.boardDate;
+                    
+                    const boardView = document.createElement("span");
+                    boardView.classList.add("board-view");
+                    boardView.innerText = board.boardView;
+
+                    boardListArea.append(li);
+                    li.append(boardNo, boardTitle, boardWriter, boardDate, boardView);
+                }
+            }
+
+            // 페이지네이션 부분임돵
+            const boardWriteBottom = document.createElement("div");
+            boardWriteBottom.classList.add("board-write-bottom");
+
+            const boardPagination = document.createElement("ul");
+            boardPagination.classList.add("board-pagination");
+
+            // 첫 페이지
+            const firstLi = document.createElement("li");
+            const firstA = document.createElement("a");
+            firstA.setAttribute("href", "/board/"+boardTypeNo+"?cp=1"+sURL+soURL);
+            firstA.innerHTML = "&lt;&lt;";
+            firstLi.append(firstA);
+
+            // 이전 목록 마지막 번호이동
+            const prevLi = document.createElement("li");
+            const prevA = document.createElement("a");
+            prevA.setAttribute("href", "/board/"+boardTypeNo+"?cp="+pagination.prevPage+sURL+soURL);
+            prevA.innerHTML = "&lt;";
+            prevLi.append(prevA);
+            
+            // 다음 시작 페이지 이동동
+            const nextLi = document.createElement("li");
+            const nextA = document.createElement("a");
+            nextA.setAttribute("href", "/board/"+boardTypeNo+"?cp="+pagination.nextPage+sURL+soURL);
+            nextA.innerHTML = "&gt;";
+            nextLi.append(nextA);
+            
+            // 끝 페이지로 이동동동
+            const maxLi = document.createElement("li");
+            const maxA = document.createElement("a");
+            maxA.setAttribute("href", "/board/"+boardTypeNo+"?cp="+pagination.maxPage+sURL+soURL);
+            maxA.innerHTML = "&gt;&gt;";
+            maxLi.append(maxA);
+            
+            // 숫자가 나올 부분들임돵
+            const tempLi = document.createElement("li");
+            tempLi.classList.add("tempLi");
+            
+            boardPagination.append(firstLi, prevLi, nextLi, maxLi);
+            
+            for(let i = pagination.startPage; i<=pagination.endPage; i++){
+                const pageNumLi = document.createElement("li");
+                const pageNumA = document.createElement("a");
+                if(i == pagination.currentPage){
+                    pageNumA.classList.add("current");
+                    pageNumA.innerText=i;
+                    pageNumLi.append(pageNumA);
+                    
+                }else{
+                    pageNumA.setAttribute("href", "/board/"+boardTypeNo+"?cp="+i+sURL+soURL)
+                    pageNumA.innerText=i;
+                    pageNumLi.append(pageNumA);
+                }
+                nextLi.before(pageNumLi);
+            }
+            
+            if(loginYN != ""){
+                const writeA = document.createElement("a");
+                writeA.classList.add("board-write");
+                writeA.setAttribute("href", "/board/write/"+boardTypeNo);
+                writeA.innerText="글쓰기";
+                boardWriteBottom.append(boardPagination, writeA);
+                
+                // boardListTop.append(boardListTitle, boardListArea, boardWriteBottom, writeA);
+            }else{
+                boardWriteBottom.append(boardPagination);
+
+            }
+            boardListTop.append(boardListTitle, boardListArea, boardWriteBottom);
+            console.log("통신 성공");
+        },
+        error : ()=>{
+            alert("리스트 조회 ajax 통신 시류ㅐㅠㅜㅠㅜ");
+        }
+    })
+
+}
+
+
 // 와글와글 게시판 이름 바꿔주기 + 현재 게시판 알려주기
 const boardTitle = document.querySelector(".board-top-title");
 const boardAdd = location.pathname;
@@ -45,10 +217,11 @@ if(boardAdd == '/board/4'){
 
 // 검색 시 검색어 유지시키기
 (()=>{
-    const boardSearch = document.querySelector(".board-search");
+    // const boardSearch = document.querySelector(".board-search");
     const inputQuery = document.getElementById("inputQuery");
     
-    if(boardSearch != null){
+    if(inputQuery != null){
+    // if(boardSearch != null){
         const params = new URL(location.href).searchParams
         
         const query = params.get("query");
@@ -60,12 +233,12 @@ if(boardAdd == '/board/4'){
 
 // 이건.... value값 확인해본건데 spring으로 넘어가려나....
 // 최신순, 조회수, 좋아요
-const boardSelect = document.getElementById("boardSelect");
-(()=>{boardSelect.addEventListener("change",()=>{
-    const value = boardSelect.options[boardSelect.selectedIndex].value;
-    console.log(value);
-    boardSelect.setAttribute("value", value);
-});})()
+// const boardSelect = document.getElementById("boardSelect");
+// (()=>{boardSelect.addEventListener("change",()=>{
+//     const value = boardSelect.options[boardSelect.selectedIndex].value;
+//     console.log(value);
+//     boardSelect.setAttribute("value", value);
+// });})()
 
 
 // 로그인안된 회원은 못가게 막아보자
@@ -77,7 +250,7 @@ for(let go of goBoard){
             e.preventDefault();
         }
     })
-
+    
 }
 
 
@@ -87,171 +260,28 @@ const boardSelectSort = document.querySelector(".board-select-sort");
 boardNowSort.addEventListener("click", ()=>{
     boardSelectSort.classList.toggle("toggle");
 });
+boardSelectSort.addEventListener("click", ()=>{
+    boardSelectSort.classList.toggle("toggle");
+})
 
 
 
-// 게시글 목록을 ajax로 불러와봅시다!
-// 불러오는 부분을 만들어서 appen 시켜주기
+// 정렬 선택 시 
 
-// board-list-title의 원래 모양을 저장해둬볼까요?
-let beforeBoardListTitle;
-const printBoardList=(boardMap)=>{
+const boardSort = document.querySelector(".board-sort");
 
-    const boardList = boardMap.boardList;
-    const pagination = boardMap.pagination;
-
-    const boardListTop = document.querySelector(".board-list-top");
-    
-    const boardListTitle = document.querySelector(".board-List-title");
-    beforeBoardListTitle = boardListTitle.innerHTML;
-
-    boardListTop.innerHTML = "";
-
-    // 게시글 리스트가 나오는 부분입니당~
-    const boardListArea = document.createElement("ul");
-    boardListArea.classList.add(".board-list-area");
-
-    // 페이지네이션 영역
-    const paginationArea = document.querySelector('.pagination-area');
-    paginationArea.innerHTML = "";
-
-    if(boardList.length == 0){
-        const emptyList = document.createElement("div");
-        emptyList.classList.add("empty-list");
-        emptyList.innerHTML = "등록된 게시글이 업습니다.<br>첫 게시물의 주인공이 되어보세요!";
-    }else{
-        for(let board of boardList){
-            const li = document.createElement("li");
-            
-            // 게시글 번호
-            const boardNo = document.createElement("span");
-            boardNo.classList.add("board-no");
-            boardNo.innerText = board.boardNo;
-
-            // 게시글 제목
-            const boardTitle = document.createElement("span");
-            boardTitle.classList.add("board-title");
-            const boardA = document.createElement("a");
-            boardA.classList.add("goBoard");
-            boardA.setAttribute("href", "/board/"+boardTypeNo+"/"+board.boardNo+"?cp="+pagination.currentPage+sURL);
-            boardA.innerHTML = board.boardTitle+"&nbsp;("+board.commentCount+")";
-
-            // 게시글 작성자 닉네임
-            const boardWriter = document.createElement("span");
-            boardWriter.classList.add("board-writer");
-            boardWriter.innerText = board.memberNickname;
-
-            // 게시글 작성일
-            const boardDate = document.createElement("span");
-            boardDate.classList.add("board-date");
-            boardDate.innerText = board.boardDate;
-
-            // 게시글 조회수
-            const boardView = document.createElement("span");
-            boardView.classList.add("board-view");
-            boardView.innerText = board.boardView;
-
-            // appen 합니당
-            li.append(boardNo, boardTitle, boardWriter, boardDate, boardView);
-            boardTitle.append(boardA);
-        }
-
-        // 이전 페이지
-        const firstPage = document.createElement('div');
-        const prevPage = document.createElement('div');
-        makePageBox(firstPage, '<i class="fa-solid fa-angles-left"></i>', 1, 'page-box');
-        makePageBox(prevPage, '<i class="fa-solid fa-angle-left"></i>', pagination.prevPage, 'page-box');
-        
-        paginationArea.append(firstPage, prevPage);
-
-        // 번호 페이지 제작
-        for(let i=pagination.startPage; i<=pagination.endPage; i++) {
-            const numPage = document.createElement('div');
-            if(i == pagination.currentPage) {
-                makePageBox(numPage, i, i, 'current-page-box');
-            } else {
-                makePageBox(numPage, i, i, 'page-box');
-            }
-            paginationArea.append(numPage);
-        }
-        
-        // 이후 페이지 제작
-        const nextPage = document.createElement('div');
-        const maxPage = document.createElement('div');
-        makePageBox(nextPage, '<i class="fa-solid fa-angle-right"></i>', pagination.nextPage, 'page-box');
-        makePageBox(maxPage, '<i class="fa-solid fa-angles-right"></i>', pagination.maxPage, 'page-box');
-
-        paginationArea.append(nextPage, maxPage);
-
-        // 페이지 이벤트 생성
-        makePageBoxEvent();
-    }
-
-}
-
-
-/* 페이지 선택 이벤트 추가 함수 */
-const makePageBoxEvent = () => {
-    const pageBoxList = document.getElementsByClassName('page-box');
-
-    for (let pageBox of pageBoxList) {
-        pageBox.addEventListener('click', () => {
-            const url = location.search;
-            const isKeyword = url.indexOf('?keyword=', 0);
-
-            if(isKeyword == -1) { // 주소창에 키워드가 없는 경우(키워드 유지X)
-                // 카테고리 선택   
-                let category = getCheckedCategory();
-
-                // 페이지 선택
-                let cp = pageBox.id;
-    
-                // 선택한 정보로 페이지를 생성
-                getCustomList(category, cp);
-    
-                // history에 저장
-                makeHistory1(category, cp);
-            } else { // 주소창에 키워드가 있는 경우(키워드 유지)
-                // 첫 번째 = 의 위치
-                const firstEqualSign = url.indexOf('=', 1);
-
-                // 첫 번째 & 의 위치
-                const firstAndSign = url.indexOf('&', firstEqualSign);
-
-                // 주소창에서 검색어를 잘라냄
-                let keywordEncoded = url.substring(firstEqualSign + 1, firstAndSign)
-        
-                // 주소창 인코딩
-                let keyword = decodeURIComponent(keywordEncoded);
-
-                // 페이지 생성
-                getCustomList2(beforeKeyword, beforeCategoryNo, beforePageNo);
-
-                // history에 저장
-                makeHistory2(keyword, category, cp);
-            }
-        })
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-// 글쓰기를 누르면 그 보드타입넘버가 저장되서 글쓰기에 있었으면 좋겠는데 그게 되려나...?
-// (()=>{
-//     const boardSubmit = document.querySelector(".board-write");
-
-//     if(boardSubmit != null){
-//         boardSubmit.addEventListener("click", ()=>{
-//             location.href = "/board/write"+boardTypeNo;
-//         })
-//     }
-// })
-
+document.getElementById("new").addEventListener("click", ()=>{
+    sort = "new";
+    boardSort.innerHTML = "최신순 &nbsp;";
+    showBoardList();
+})
+document.getElementById("view").addEventListener("click", ()=>{
+    sort = "view";
+    boardSort.innerHTML = "조회수 &nbsp;";
+    showBoardList();
+})
+document.getElementById("like").addEventListener("click", ()=>{
+    sort = "like";
+    boardSort.innerHTML = "좋아요 &nbsp;";
+    showBoardList();
+})

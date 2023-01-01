@@ -144,6 +144,7 @@ main{
     align-items: center;
     color: var(--sub-font-color);
     padding: 0 160px;
+    justify-content: center;
 }
 .board-like-report>button{
     width: 40%;
@@ -202,7 +203,7 @@ main{
 }
 .write-comment:focus{
     border: none;
-    outline: 2px solid var(--point-color);
+    outline: 1.5px solid var(--point-color);
 }
 .comment-content > div{
     width: 100%;
@@ -213,6 +214,7 @@ main{
     justify-content: space-between;
     border-top: 1px solid var(--sub-font-color);
     margin-top: -5px;
+    height: 45px;
 }
 
 .comment-caution{
@@ -223,7 +225,7 @@ main{
 
 .comment-insert{
     width: 135px;
-    height: 45px;
+    height: 46px;
     background-color: var(--point-color);
     font-size: var(--medium-font-size);
     letter-spacing: 3px;
@@ -231,6 +233,8 @@ main{
     color : var(--background-color);
     border: none;
     font-family: "NotoSansKR-Bold";
+    margin-right: -1px;
+    margin-top: -1px;
 }
 /* 댓글 부분 */
 .comment-row{
@@ -398,8 +402,6 @@ main{
 }
 .write-comment::-webkit-scrollbar-track{
     background: #ddd;
-    border-top-right-radius: 9px;
-    border-bottom-right-radius: 9px;
 }
 
 .comment-co-content::-webkit-scrollbar{
