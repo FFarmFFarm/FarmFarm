@@ -180,7 +180,7 @@ function selectCommentList(){
 
 
 // 댓글 등록
-function commentFunction(){
+const commentFunction=()=>{
 
     const commentInsert = document.querySelector(".comment-insert");
     const writeComment = document.querySelector(".write-comment");
@@ -194,7 +194,7 @@ function commentFunction(){
     
         // 댓글 작성이 됐는지 확인을 해볼까요~?
         if(writeComment.value.trim().length == 0){
-            alert("댓글을 작성해주세요");
+            messageModalOpen("댓글을 작성해주세요.");
             writeComment.value="";
             writeComment.focus();
             // e.preventDefault();
@@ -212,9 +212,10 @@ function commentFunction(){
                         
                         ringCommentAlarm('board', 201, boardNo, writeComment.value, result);
 
-                        alert("댓글이 등록되었습니다");
+                        messageModalOpen("댓글이 등록되었습니다.");
                         writeComment.value=""; // 작성한 댓글 없애주기
                         selectCommentList(); // 다시 ajax로 불러옵시다!
+                        // 댓글을 등록 시 스크롤 이동!! 
                         window.scrollTo(0, document.querySelector('body').scrollHeight);
 
                     }else{
@@ -311,7 +312,8 @@ function sendCo(parentNo, btn){
     console.log(commentContent);
 
     if(commentContent.trim().length == 0){
-        alert("답글이 작성되지 않았어요. 답글을 작성해주세요");
+        messageModalOpen("답글이 작성되지 않았어요. 답글을 작성해주세요.");
+        // alert("답글이 작성되지 않았어요. 답글을 작성해주세요");
         commentContent.value="";
         commentContent.focus();
         return;
@@ -330,7 +332,8 @@ function sendCo(parentNo, btn){
 
                 ringCommentAlarm('comment', 202, parentNo, commentContent, result);
 
-                alert("답글이 등록됐습니다.");
+                messageModalOpen("답글이 등록됐습니다.");
+                // alert("답글이 등록됐습니다.");
                 selectCommentList();
             }else{
                 alert("답글 등록 시류ㅐㅠㅠㅠㅜㅠㅜ");
@@ -452,7 +455,8 @@ function updateComment(commentNo, btn){
         success : result=>{
 
             if(result>0){
-                alert("댓글이 수정되었습니다.");
+                messageModalOpen("댓글이 수정되었습니다.");
+                // alert("댓글이 수정되었습니다.");
                 selectCommentList();
             }else{
                 alert("댓글 수정 실패ㅜㅠ");
@@ -472,10 +476,11 @@ const deleteComment = (commentNo)=>{
         $.ajax({
             url : "/board/comment/delete",
             data : {"commentNo" : commentNo,
-                    "authority" : loginAuth},
+            "authority" : loginAuth},
             success : result=>{
                 if(result>0){
-                    alert("댓글이 삭제되었습니다.");
+                    messageModalOpen("댓글이 삭제되었습니다.");
+                    // alert("댓글이 삭제되었습니다.");
                     selectCommentList();
                 }else{
                     alert("댓글 삭제 시류ㅐㅜㅠ");
@@ -493,10 +498,11 @@ const adDeleteComment = (commentNo)=>{
         $.ajax({
             url : "/board/comment/delete",
             data : {"commentNo" : commentNo,
-                    "authority" : loginAuth},
+            "authority" : loginAuth},
             success : result=>{
                 if(result>0){
-                    alert("댓글이 삭제되었습니다.");
+                    messageModalOpen("댓글이 삭제되었습니다.");
+                    // alert("댓글이 삭제되었습니다.");
                     selectCommentList();
                 }else{
                     alert("댓글 삭제 시류ㅐㅜㅠ");

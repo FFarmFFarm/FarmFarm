@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="/resources/css/board/boardDetail-style.css">
     <link rel="stylesheet" href="/resources/css/common/header-style.css" />
     <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
+
+    <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
+    
     <script src="https://kit.fontawesome.com/345198b845.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -104,8 +107,13 @@ ${board.boardContent}
         loginAuth = "${loginMember.authority}";
     </script>
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+    <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/> 
+
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
     <script src="/resources/js/board/boardDetail.js"> </script>
     <script src="/resources/js/board/comment.js"> </script>
+
+    <script src="/resources/js/common/common.js"></script> 
 </body>
 </html>
