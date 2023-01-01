@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.catalina.tribes.MembershipListener;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,58 +26,21 @@ import edu.kh.farmfarm.member.model.VO.Member;
 @SessionAttributes({"loginMember"})
 @Controller
 public class BoardListController {
-	
+
 	@Autowired
 	private BoardListService service;
-	
-	
+
+
 	// 와글와글 게시판으로 이동 - 물물교환 페이지
 	@GetMapping("/board")
 	private String boardListPage(Model model) {
-		
+
 		// 와글와글 게시판의 네브 불러오기
 		List<Map<String, Object>> boardTypeList = service.boardTypeList();
 		model.addAttribute("boardTypeList", boardTypeList);
-		
+
 		return "/board/boardList";
 	}
-//	@GetMapping("/board")
-//	private String boardListPage(@PathVariable("boardTypeNo") int boardTypeNo,
-//			Model model,
-//			@RequestParam(value="cp", required = false, defaultValue = "1") int cp,
-//			@RequestParam(value="sort", required = false, defaultValue = "new") String sort,
-//			@RequestParam(value="query", required = false) String query) {
-//		
-//		// 와글와글 게시판의 네브 불러오기
-////		List<Map<String, Object>> boardTypeList = service.boardTypeList();
-////		model.addAttribute("boardTypeList", boardTypeList);
-//		
-//		// 검색을 한 경우
-//			if(query != null) {
-////					
-//				Map<String, Object> searchMap = new HashMap<String, Object>();
-//				searchMap.put("query", query);
-//				searchMap.put("boardTypeNo", boardTypeNo);
-//				searchMap.put("sort", sort);
-//				
-//				Map<String, Object> boardMap = service.selectBoardList(searchMap, cp);
-//				model.addAttribute("boardMap", boardMap);
-//				
-//			}else {
-//				Map<String, Object> searchMap = new HashMap<String, Object>();
-//				searchMap.put("boardTypeNo", boardTypeNo);
-//				searchMap.put("sort", sort);
-//				
-//				// 검색을 안한 경우
-//				Map<String, Object> boardMap = service.selectBoardList(searchMap, cp);
-//				boardMap.put("query", query);
-//				model.addAttribute("boardMap", boardMap);
-//				
-//			}
-//		
-//		return "/board/boardList";
-//	}
-	
 	// 와글와글 게시판의 목록 불러오기
 		@GetMapping("/board/{boardTypeNo}")
 		public String boardList (
@@ -139,7 +102,7 @@ public class BoardListController {
 			boardMap.put("query", query);
 			boardMap.put("sort", sort);
 			model.addAttribute("boardMap", boardMap);
-			
+
 		}else {
 			Map<String, Object> searchMap = new HashMap<String, Object>();
 			searchMap.put("boardTypeNo", boardTypeNo);
@@ -150,14 +113,14 @@ public class BoardListController {
 			boardMap.put("query", query);
 			boardMap.put("sort", sort);
 			model.addAttribute("boardMap", boardMap);
-			
+
 		}
 		
 		return new Gson().toJson(boardMap);
 	}
-	
-	
-	// 프로필 클릭시 모달 
+
+
+	// 프로필 클릭시 모달
 	@GetMapping("/board/member/{memberNo}")
 	@ResponseBody
 	public String selectMemPro(
@@ -166,12 +129,12 @@ public class BoardListController {
 			) {
 		Member member = new Member();
 		member.setMemberNo(memberNo);
-		
+
 		member = service.selectMember(memberNo);
-		
+
 		return new Gson().toJson(member);
 	}
-	
-	
+
+
 
 }

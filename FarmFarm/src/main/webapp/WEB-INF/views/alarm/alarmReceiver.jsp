@@ -2,29 +2,35 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<link rel="stylesheet" href="/resources/css/alarm/alarmReceiver.css">
-<script src="https://kit.fontawesome.com/d449774bd8.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/resources/css/alarm/alarmReceiver-style.css">
+<!-- <script src="https://kit.fontawesome.com/d449774bd8.js" crossorigin="anonymous"></script> -->
+
+
+<!-- <a id="alarmReceiverArea"> -->
 
 <a class="alarm-receiver-container">
 
     <div class="alarm-receiver-header">
     
         <div class="alarm-receiver-icon">
-            <i class="fa-solid fa-bell"></i>
+            <!-- <i class="fa-solid fa-bell"></i> -->
         </div> <!-- end alarm-icon -->
 
         <div class="alarm-receiver-title">
-            <!-- 댓글 유형 제목 영역(예:새로운 댓글이 달렸어요) --> 
+            <!-- 알림 유형 제목 영역 -->
+            <!-- 예 : 새로운 댓글이 달렸어요 --> 
         </div> <!-- end alarm-title -->
     
     </div> <!-- end alarm-receiver-header -->
 
         <div class="alarm-receiver-content">
-            <!-- 댓글 영역 -->
+            <!-- 알림 유형 상세내용 영역 -->
+            <!-- 예 : 댓글 내용 -->
         </div> <!-- end alarm-receiver-content -->
 
 </a> <!-- end alarm-reveiver-container -->
 
+<!-- </a> -->
 <!-- https://github.com/sockjs/sockjs-client -->
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 

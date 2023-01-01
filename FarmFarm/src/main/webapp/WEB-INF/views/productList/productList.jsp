@@ -139,7 +139,7 @@
                     <c:forEach items="${productMap.productList}" var="map" >
     
                         <a href="/product/${map.productNo}" class="product-box">
-                            <c:if test="${map.stock==0}">
+                            <c:if test="${map.stock==0 || map.soldoutFl.equals('Y')}">
                                 <div class="sold-out-blind">
                                     <img src="/resources/images/postList/out-of-stock.png">
                                 </div>
