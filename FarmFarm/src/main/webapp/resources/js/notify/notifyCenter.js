@@ -123,12 +123,13 @@ const selectNotifyList = () => {
                     const notifyContent = document.createElement("div");    // 알림 내용
                     const notifyTitle = document.createElement("div");      // 알림 제목
                     const notifyDate = document.createElement("div");       // 알림 날짜
-                    const notifyDelBtn = document.createElement("span");     // 삭제 버튼
-    
+                    const notifyDelBtn = document.createElement("span");    // 삭제 버튼
+                    const notifyNo = document.createElement("input");       // 번호를 담을 input
+
                     // 2-2. 요소에 클래스, 내용을 세팅하는 함수
                     // (1) 알림 목록 하나의 최상위 부모를 만들고 링크 부여
                     packupElement(notifyBox, 'notify-box', null);
-                    notifyBox.setAttribute('href', notify.quickLink);
+                    // notifyBox.setAttribute('href', notify.quickLink);
 
                     // (2) 정렬을 위해서 class값을 추가 + (3) 알림 아이콘
                     let icon;
@@ -183,11 +184,22 @@ const selectNotifyList = () => {
                     // (8) 삭제버튼
                     packupElement(notifyDelBtn, 'notify-del-btn', "<i class='fa-solid fa-xmark'></i>");
 
+                    // (9) 번호
+                    notifyNo.setAttribute('value', notify.notifyNo);
+                    notifyNo.hidden = true;
+
                     // 6. 준비된 요소를 포장
                     notifyMain.append(notifyTitle, notifyContent);
-                    notifyBox.append(notifyIcon, notifyMain, notifyDate, notifyDelBtn);
+                    notifyBox.append(notifyNo, notifyIcon, notifyMain, notifyDate, notifyDelBtn);
 
-                    // 7. 목록 페이지에 세팅
+                    // 7. 준비된 notifyBox에 이벤트:클릭 시 읽음처리 부여
+                    notifyBox.addEventListener('click', (e)=>{
+                        readThisNotify(e.currentTarget);
+                    })
+
+                    // 8. 준비된 notifyBox에 이벤트:클릭 시 삭제 부여
+
+                    // 9. 목록 페이지에 세팅
                     notifyViewArea.append(notifyBox);
 
                 }
@@ -270,7 +282,25 @@ document.getElementById('categoryInquiry').addEventListener('click', (e)=>{
     if(e.target.checked) typeFilter('inquiry');
 })
 
-/* 알림 삭제 (읽음 처리) 함수 */
+/* --------------------------------------- 알림 카테고리 끝 -------------------------------- */
+
+
+/* ------------------------------------- 알림 선택 관련 기능 ------------------------------- */
+
+/* 알림 읽음처리 */
+const readThisNotify = (currentTarget) => {
+    let notifyNo = currentTarget.children[0].value;
+    // 번호를 서버로 보내 읽음처리함
+    axios.post('/notify/delete',
+        ).then( function(response){
+
+        }).catch( function(response){
+            currentTarget.preventDefault;
+        })
+
+}
+
+/* 알림 삭제 */
 const deleteNotify = () => {
-    
+
 }
