@@ -41,6 +41,16 @@ function selectCommentList(){
                 commentCaution.classList.add("comment-caution");
                 commentCaution.innerText="※댓글 작성시 상대방에 대한 배려와 책임을 담아 깨끗한 댓글 환경에 동참에 주세요.";
 
+                const secreteCo = document.createElement("span");
+                secreteCo.classList.add("secrete-co");
+                const lockCheck = document.createElement("input");
+                lockCheck.classList.add("lockCheck");
+                lockCheck.setAttribute("type", "checkbox");
+                const labelCheck = document.createElement("label");
+                labelCheck.setAttribute("for", "lockCheck");
+                labelCheck.innerHTML="&nbsp;비밀댓글";
+                secreteCo.append(lockCheck, labelCheck);
+
                 const commentInsert = document.createElement("button"); 
                 commentInsert.classList.add("comment-insert"); 
                 commentInsert.setAttribute("onclick", "commentFunction()");
@@ -94,10 +104,28 @@ function selectCommentList(){
 
                     const commentContent = document.createElement("div");
                     commentContent.classList.add("comment-content");
-                    // 댓글 내용
-                    // const contentPre = document.createElement("div");
-                    // contentPre.innerHTML = comment.commentContent;
-                    commentContent.innerHTML = comment.commentContent;
+                    const lockIcon = document.createElement("i");
+                    lockIcon.classList.add("fa-solid");
+                    lockIcon.classList.add("fa-lock");
+
+                    if(memberNo == comment.memberNo && comment.commentDelFl == 'S'){
+                        commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;'+comment.commentContent;
+                        // lockIcon.innerHTML="&nbsp;"+comment.commentContent;
+                        // commentContent.append(lockIcon);
+                    }else if (comment.memberNo == comment.parentNo && comment.commentDelFl == 'S') {
+                        commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;'+comment.commentContent;
+                        // lockIcon.innerHTML="&nbsp;"+comment.commentContent;
+                        // commentContent.append(lockIcon);
+                    }else if (memberNo == boardMemNo && comment.commentDelFl == 'S') {
+                        commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;'+comment.commentContent;
+                        // lockIcon.innerHTML="&nbsp;"+comment.commentContent;
+                        // commentContent.append(lockIcon);
+                    }else if (comment.commentDelFl == 'S' && comment.memberNo != comment.parentNo) {
+                        commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;비밀댓글입니다.';
+                    }else {
+                        commentContent.innerHTML = comment.commentContent;
+                    }
+                    
 
                     // 작성일 + 답글달기
                     // 작성일
@@ -119,7 +147,7 @@ function selectCommentList(){
                     
                     commentWrite.append(commentForm);
                     commentForm.append(writeComment, commentSide);
-                    commentSide.append(commentCaution, commentInsert);
+                    commentSide.append(commentCaution, secreteCo,commentInsert);
                     
                     commentList.append(commentRow);
                     commentRow.append(commentWriter, commentArea);
@@ -146,20 +174,20 @@ function selectCommentList(){
                     
 
                     if(loginAuth == 2){
-                        if(memberNo == comment.memberNo && comment.commentDelFl == 'N'){
+                        if(memberNo == comment.memberNo && comment.commentDelFl != 'Y'){
                             commentDelete.setAttribute("onclick", "deleteComment("+comment.commentNo+")")
                             writeTimeReply.append(commentReply, commentUpdate, commentDelete);
                         }
-                        if(memberNo != comment.memberNo && comment.commentDelFl == 'N'){
+                        if(memberNo != comment.memberNo && comment.commentDelFl != 'Y'){
                             commentDelete.setAttribute("onclick", "adDeleteComment("+comment.commentNo+")")
                             writeTimeReply.append(commentReply, commentDelete);
                         }
                     }else{
-                        if(memberNo == comment.memberNo && comment.commentDelFl == 'N'){
+                        if(memberNo == comment.memberNo && comment.commentDelFl != 'Y'){
                             commentDelete.setAttribute("onclick", "deleteComment("+comment.commentNo+")")
                             writeTimeReply.append(commentReply, commentUpdate, commentDelete);
                         }
-                        if(memberNo != comment.memberNo && comment.commentDelFl == 'N'){
+                        if(memberNo != comment.memberNo && comment.commentDelFl != 'Y'){
                             writeTimeReply.append(commentReply);
                         }
                     }
@@ -204,7 +232,8 @@ const commentFunction=()=>{
                 url : "/board/comment/insert",
                 data : {"boardNo" : boardNo,
                         "memberNo" : memberNo,
-                        "commentContent" : writeComment.value},
+                        "commentContent" : writeComment.value,
+                        "checkok" : checkok},
                 type : "post",
                 success : result=>{
         
@@ -578,10 +607,14 @@ const ringCommentNotify = (type, typeNo, inputNo, inputComment, commentNo) => {
 
 const lockCheck = document.querySelector(".lockCheck");
 let checkok;
-lockCheck.addEventListener("change", ()=>{
-    if(this.checked){
+lockCheck.addEventListener("change", (e)=>{
+    if(e.target.checked){
+        checkok = 1
         console.log("성공");
+        console.log(checkok);
     }else{
+        checkok = 0
         console.log("실패");
+        console.log(checkok);
     }
 })

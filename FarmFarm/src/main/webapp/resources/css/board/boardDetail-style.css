@@ -457,3 +457,9 @@ main{
     width: 100%;
     margin-left: 15px;
 }
+
+
+/* 비밀댓글 자물쇠 아이콘 색 */
+.fa-lock{
+    color: var(--point-color);
+}
