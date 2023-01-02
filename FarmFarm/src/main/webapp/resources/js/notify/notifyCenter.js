@@ -54,22 +54,44 @@ new 댓글 : <i class="fa-solid fa-comment-dots"></i>
 window.addEventListener('DOMContentLoaded', ()=>{
     // 페이지가 이동했을 때, 목록을 요청함
     selectNotifyList();
+
+    /* 소켓에 메세지가 오면, 동기화하기 */
+    // 로그인 여부 확인을 위해, axios 이용해서 회원 번호를 요청
+    // axios.post('/check/login'
+    // ).then(function (response){
+
+    //     // 회원 정보가 있을 때에만 웹소켓에 연결
+    //     if(response.data == 0) {
+            
+    //         // 새 SockJS 객체 notifySock 생성, 서버는 /echo/notify과 연결
+    //         notifySock = new SockJS("/echo/notify");
+    
+    //         // notifySock 객체가 null이 아닐 때에만, 웹소켓 서버로부터 알림을 수신
+    //         if(notifySock != null) {
+    //             notifySock.onmessage = function(e){
+    //                 selectNotifyList();
+    //             }
+    //         }
+    //     }
+
+    // }). catch(function (error){
+    //     console.log('로그인 여부 확인 중 오류 발생')
+    // })
 })
-
-
 
 
 /* ---------------------------------------------------- 함수 목록 --------------------------------------------------- */
 
 /* 요소에 클래스와 내용을 세팅하는 함수 */
-const packupElement = (element, className, elementContent) => {
-    element.classList.add(className); // 클래스 이름 지정
-    if(elementContent != null) { // 내용이 null이 아닌 경우
-        element.innerHTML = elementContent; // 내용을 집어넣음
-    }
-}
+/* notifyWidget에 들어있음 */
+// const packupElement = (element, className, elementContent) => {
+//     element.classList.add(className); // 클래스 이름 지정
+//     if(elementContent != null) { // 내용이 null이 아닌 경우
+//         element.innerHTML = elementContent; // 내용을 집어넣음
+//     }
+// }
 
-/* 내 알림 목록을 요청하는 함수 */
+/* --------------------------------- 내 알림 목록을 요청하는 함수 ----------------------------------- */
 const selectNotifyList = () => {
     axios.post('/notify/center/select'
         ).then( function(response){
@@ -95,12 +117,13 @@ const selectNotifyList = () => {
                 for(let notify of notifyList) {
 
                     // 2-1. 사용할 요소를 준비
-                    const notifyBox = document.createElement("a");        // 알림 목록 하나의 최상위 부모
+                    const notifyBox = document.createElement("a");          // 알림 목록 하나의 최상위 부모
                     const notifyIcon = document.createElement("div");       // 알림 아이콘
                     const notifyMain = document.createElement("div");       // 알림 제목과 내용의 부모
                     const notifyContent = document.createElement("div");    // 알림 내용
                     const notifyTitle = document.createElement("div");      // 알림 제목
                     const notifyDate = document.createElement("div");       // 알림 날짜
+                    const notifyDelBtn = document.createElement("span");     // 삭제 버튼
     
                     // 2-2. 요소에 클래스, 내용을 세팅하는 함수
                     // (1) 알림 목록 하나의 최상위 부모를 만들고 링크 부여
@@ -157,9 +180,12 @@ const selectNotifyList = () => {
                     // (7) 날짜
                     packupElement(notifyDate, 'notify-date', notify.notifyDate);
 
+                    // (8) 삭제버튼
+                    packupElement(notifyDelBtn, 'notify-del-btn', "<i class='fa-solid fa-xmark'></i>");
+
                     // 6. 준비된 요소를 포장
-                    notifyMain.append(notifyContent, notifyTitle);
-                    notifyBox.append(notifyIcon, notifyMain, notifyDate);
+                    notifyMain.append(notifyTitle, notifyContent);
+                    notifyBox.append(notifyIcon, notifyMain, notifyDate, notifyDelBtn);
 
                     // 7. 목록 페이지에 세팅
                     notifyViewArea.append(notifyBox);
@@ -179,7 +205,7 @@ const selectNotifyList = () => {
         }); 
 }
 
-/* 알림 카테고리 필터링 */
+/* ----------------------------------- 알림 카테고리 필터링  ----------------------------------------*/
 
 /* 라디오 버튼을 눌렀을 때 특정한 요소만 남기는 함수 */
 const typeFilter = (option) => {
@@ -243,3 +269,8 @@ document.getElementById('categoryBoard').addEventListener('click', (e)=>{
 document.getElementById('categoryInquiry').addEventListener('click', (e)=>{
     if(e.target.checked) typeFilter('inquiry');
 })
+
+/* 알림 삭제 (읽음 처리) 함수 */
+const deleteNotify = () => {
+    
+}

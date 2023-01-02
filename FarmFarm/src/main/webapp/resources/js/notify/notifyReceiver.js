@@ -41,6 +41,11 @@ addEventListener("DOMContentLoaded", ()=>{
                         // 수신 알림 처리 함수인 fillNotifyContainer 실행해서 받은 데이터를 전송
                         fillNotifyReceiverContainer(notify);
                     }
+
+                    // 알림 센터에서만 사용되는 조건문
+                    if(document.querySelector('.notify-list-body')) {
+                        selectNotifyList();
+                    }
                 }
             }
         }
