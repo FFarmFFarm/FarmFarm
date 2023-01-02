@@ -301,16 +301,54 @@ public class AdminController {
 	
 	
 	
+	// 판매자 거절 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
 	// 신고 관리 -----------------------------------------------------------------------------------------
 	// nav 전체 신고 관리 페이지로 이동
-	@GetMapping("/admin/report")
-	public String adminReportPage() {
-		return "admin/adminReportTotal";
-	}
+//	@GetMapping("/admin/report")
+//	public String adminReportPage() {
+//		return "admin/adminReport";
+//	}
 	
+	
+	// jsp
+	// 미처리 신고 조회
+	@GetMapping("/admin/report")
+	public String adminReportPage(@SessionAttribute(value = "loginMember") Member loginMember,
+									@RequestParam(value="cp", required=false, defaultValue="1") int cp,	
+									@RequestParam(value = "up", required=false, defaultValue = "down") String sortFilter,
+									Model model) {
+		
+		// 관리자인지 확인 (관리자면 result==1)
+		int result = service.checkAdmin();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if(result == 1 && loginMember != null) {
+
+			// 미처리 신고 조회 + 페이지네이션 + 정렬
+			map = service.selectNewReport(sortFilter, cp);
+	
+		} else {
+			System.out.println("관리자만 접근 가능합니다.");
+		}
+		
+		model.addAttribute("map", map);
+		
+		return "admin/adminReport";
+	}
 	
 	
 

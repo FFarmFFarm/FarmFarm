@@ -503,7 +503,7 @@ document.getElementById('authApproveBtn').addEventListener('click', () => {
 
 
 
-// 거부
+// fixme: 거부
 document.getElementById('authDenyBtn').addEventListener('click', () => {
 
     admin

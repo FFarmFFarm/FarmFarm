@@ -135,8 +135,42 @@ public class AdminServiceImpl implements AdminService{
 			// 판매자 인증 처리 일자 수정
 			result = dao.updateAuthDate(hiddenNo);
 		}
-		
 		return result;
+	}
+	
+	
+	// 판매자 인증 거절
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 미처리 신고 조회
+	@Override
+	public Map<String, Object> selectNewReport(String sortFilter, int cp) {
+		
+		/* 페이지네이션 */
+		// 1. 전체 개수 가져오기
+		int reportListCount = dao.reportListCount(sortFilter);
+		
+		// 2. 가져온 개수와 현재 페이지를 이용하여 페이지네이션 객체 발생
+		Pagination pagination = new Pagination(reportListCount, cp, 15);
+		
+		// 3. 페이지네이션 객체를 생성해 목록 불러오기
+		// 전체 판매자(인증대기포함) 조회 (정렬 포함)
+		List<Admin> newReportList = dao.selectNewReport(sortFilter, pagination);
+		
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("reportListCount", reportListCount);
+		map.put("newReportList", newReportList);
+		map.put("pagination", pagination);
+		
+		return map;
 	}
 		
 

@@ -167,6 +167,43 @@ public class AdminDAO {
 	}
 
 
+	
+	// 판매자 인증 거절
+	
+	
+	
+	
+	
+	
+	
+	
+	/** 미처리 신고 개수
+	 * @param sortFilter
+	 * @return reportListCount
+	 */
+	public int reportListCount(String sortFilter) {
+		return sqlSession.selectOne("adminMapper.reportListCount", sortFilter);
+	}
+
+	
+
+	/** 미처리 신고 조회
+	 * @param sortFilter
+	 * @param pagination
+	 * @return newReportList
+	 */
+	public List<Admin> selectNewReport(String sortFilter, Pagination pagination) {
+		
+		int offset = (pagination.getCurrentPage() -1) * 15;
+		RowBounds rowBounds = new RowBounds(offset, 15);
+		
+		return sqlSession.selectList("adminMapper.selectNewReport", sortFilter, rowBounds);
+	}
+
+
+
+
+
 
 
 

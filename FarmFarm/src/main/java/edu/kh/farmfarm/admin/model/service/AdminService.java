@@ -68,6 +68,24 @@ public interface AdminService {
 	 */
 	int sellerApprove(int hiddenNo);
 
+	
+	// 판매자 인증 거절
+	
+	
+	
+	
+	
+	
+	
+	
+
+	/** 미처리 신고 조회
+	 * @param sortFilter
+	 * @param cp
+	 * @return map
+	 */
+	Map<String, Object> selectNewReport(String sortFilter, int cp);
+
 
 
 

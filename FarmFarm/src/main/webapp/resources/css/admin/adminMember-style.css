@@ -290,6 +290,7 @@ main{
     /* background-color: #d1f8ca; */
     font-weight: bold;
     transition-duration: 0.1s;
+    cursor: pointer;
 }
 
 

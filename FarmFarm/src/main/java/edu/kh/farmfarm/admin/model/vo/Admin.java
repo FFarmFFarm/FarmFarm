@@ -41,5 +41,19 @@ public class Admin {
 	private String processDate;
 	private String reportContent;
 	
-
+	
+	private int boardNo; // 게시글 번호
+	private String boardTitle; // 게시글 제목
+	private String boardContent; // 게시글 내용
+	private String boardDelFlag; // 게시글 삭제여부
+	
+	
+	private int postNo;
+	private String postTitle;
+	private String postContent;
+	private String postDelFl;
+	
+	
+	private String title;  //게시글 
+	private int reportVolume;  // 한 타겟당 누적 신고 횟수
 }

@@ -62,6 +62,7 @@ main{
     margin-bottom: 7px;
     display: flex;
     justify-content: space-between;
+    padding-right: 10px;
 }
 
 .report-title{
@@ -69,21 +70,9 @@ main{
 }
 
 
-.caret-icon{
-    padding-left: 2px;
-    margin: 0;
-    color: var(--point-color);
-}
-
-.report-list-type span{
-    padding-left: 10px;
-}
-
-
-
 .report-select{
     width: 920px;
-    height: 800px;
+    height: 610px;
     border-radius: 10px;
     background-color: white;
     overflow: auto;
@@ -122,6 +111,79 @@ main{
 }
 
 
+/* 전체조회 th width 정하기 */
+/* 신고번호 */
+.report-list-header th:first-of-type{
+    width: 55px;
+}
+
+/* 유형 */
+.report-list-header th:nth-of-type(2){
+    width: 110px;
+}
+
+/* 신고 대상 아이디/게시글 */
+.report-list-header th:nth-of-type(3){
+    width: 210px;
+}
+
+/* 신고 사유 */
+.report-list-header th:nth-of-type(4){
+    width: 160px;
+}
+
+
+/* 신고 일자 */
+.report-list-header th:nth-of-type(5){
+    width: 150px;
+}
+
+/* 처리 일자 */
+/* .report-list-header th:nth-of-type(6){
+    width: 135px;
+} */
+
+/* 누적 신고 */
+.report-list-header th:nth-of-type(7){
+    width: 80px;
+}
+
+/* 누적 정지 */
+/* .report-list-header th:nth-of-type(8){
+    width: 70px;
+} */
+
+/* 처리 상태 */
+.report-list-header th:nth-of-type(9){
+    width: 95px;
+}
+
+
+
+/* 유형 왼쪽에 간격 */
+#typeText{
+    padding-left: 10px;
+}
+
+
+
+/* 신고 정렬 아이콘 */
+.caret-icon{
+    padding-left: 0px;
+    margin: 0;
+    color: var(--point-color);
+}
+
+/* //todo */
+.caret-icon:first-of-type{
+    display: none;
+}
+
+
+
+
+
+
 /* 페이지네이션 */
 .admin-pagination{
     list-style: none;
@@ -133,7 +195,7 @@ main{
     font-size: var(--small-font-size);
 }
 
-.admin-pagination li{
+.admin-paginasearchtion li{
     width: 20px;
     margin: 0 5px;
     text-align: center;
@@ -150,7 +212,7 @@ main{
 
 
 /* 회원 조회 - 검색 */
-.report-search{
+/* .report-search{
     width: 200px;
     height: auto;
     padding: 1px 15px;
@@ -166,7 +228,7 @@ main{
     background-color: #e2e2e2;
 }
 
-#reportSearchInput{
+#reportSearchKeyword{
     width: 160px;
     border: none;
     background-color: #e2e2e2;
@@ -176,5 +238,5 @@ main{
     background-color: #e2e2e2;
     border: none;
     cursor: pointer;
-}
+} */
 
