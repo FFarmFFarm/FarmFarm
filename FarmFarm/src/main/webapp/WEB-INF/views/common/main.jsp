@@ -126,12 +126,13 @@
 
       <div class="middle-product">
         <div class="middle-wrap">
-          <div class="middle-cover"><img src="resources/images/product/detail/20221230143348_60504.jpg"></div>
+          <%-- <div class="middle-cover"><img src="resources/images/product/detail/20221230143348_60504.jpg"></div> --%>
+          <div class="middle-cover"><img src="resources/images/product/detail/chipmunk.jpg"></div>
           <a href="#">
             <div class="middle-text-wrap">
               <div class="middle-text">
-                <p>함께 하면 즐거운... </p>
-                <p>1,2000,000원</p>
+                <p>함께 하면 귀여운... </p>
+                <p>12,000,000원</p>
               </div>
               <div class="middle-icon">
                 <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
@@ -141,11 +142,12 @@
         </div>
 
         <div class="middle-wrap">
-          <div class="middle-cover"><img src="resources/images/product/detail/20221230142911_36173.jpeg"></div>
+          <%-- <div class="middle-cover"><img src="resources/images/product/detail/20221230142911_36173.jpeg"></div> --%>
+          <div class="middle-cover"><img src="resources/images/product/detail/lion.jpg"></div>
           <a href="#">
             <div class="middle-text-wrap">
               <div class="middle-text">
-                <p>외국인 일꾼 하...</p>
+                <p>사바나 일꾼 심...</p>
                 <p>20,000원</p>
               </div>
               <div class="middle-icon">
@@ -156,11 +158,11 @@
         </div>
 
         <div class="middle-wrap">
-          <div class="middle-cover"><img src="resources/images/product/detail/20221230142830_69171.jpg"></div>
+          <div class="middle-cover"><img src="resources/images/product/detail/alpaca.jpg"></div>
           <a href="#">
             <div class="middle-text-wrap">
               <div class="middle-text">
-                <p>실한 일꾼 한 명...</p>
+                <p>실한 일꾼 알파...</p>
                 <p>1,000,000원</p>
               </div>
               <div class="middle-icon">
@@ -171,11 +173,11 @@
         </div>
 
         <div class="middle-wrap">
-          <div class="middle-cover"><img src="resources/images/product/detail/20221230142802_15542.jpeg"></div>
+          <div class="middle-cover"><img src="resources/images/product/detail/hedgehog.jpg"></div>
           <a href="#">
             <div class="middle-text-wrap">
                 <div class="middle-text">
-                  <p>일꾼 구씨</p>
+                  <p>일꾼 고씨</p>
                   <p>15,000원</p>
                 </div>
                 <div class="middle-icon">
