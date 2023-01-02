@@ -62,13 +62,12 @@ window.addEventListener('DOMContentLoaded', ()=>{
 /* ---------------------------------------------------- 함수 목록 --------------------------------------------------- */
 
 /* 요소에 클래스와 내용을 세팅하는 함수 */
-// const packupElement = (element, className, elementContent) => {
-//     element.classList.add = className; // 클래스 이름 지정
-//     if(elementContent != null) { // 내용이 null이 아닌 경우
-//         element.innerHTML = elementContent; // 내용을 집어넣음
-//     }
-// }
-
+const packupElement = (element, className, elementContent) => {
+    element.classList.add(className); // 클래스 이름 지정
+    if(elementContent != null) { // 내용이 null이 아닌 경우
+        element.innerHTML = elementContent; // 내용을 집어넣음
+    }
+}
 
 /* 내 알림 목록을 요청하는 함수 */
 const selectNotifyList = () => {
@@ -78,20 +77,25 @@ const selectNotifyList = () => {
             // 1. 응답에서 알림 목록 꺼내기
             const notifyList = response.data.notifyList;
 
+            // 2. 응답을 넣을 알림 목록 비우고
+            const notifyViewArea = document.querySelector('.notify-view-area');
+            notifyViewArea.innerHTML = '';
+
+            // 3. 비어있을 때에만 출력할 default 요소 추가
+            const notifyEmpty = document.createElement('div');
+            packupElement(notifyEmpty, 'notify-empty', '알림이 없어요~!')
+            notifyViewArea.append(notifyEmpty);
+
             console.log(notifyList);
 
-            // 2. 응답이 있을 때에만 알림 목록 생성 구문을 실행하기
+            // 4-A. 응답이 있을 때에만 알림 목록 생성 구문을 실행하기
             if(notifyList.length > 0){
-
-                // 3. 목록이 들어갈 영역을 비움
-                const notifyViewArea = document.querySelector('.notify-view-area');
-                notifyViewArea.innerHTML = '';
-
+                
+                // 5. 받아온 목록에서 요소 추가
                 for(let notify of notifyList) {
-                    console.log('목록')
 
                     // 2-1. 사용할 요소를 준비
-                    const notifyBox = document.createElement("div");        // 알림 목록 하나의 최상위 부모
+                    const notifyBox = document.createElement("a");        // 알림 목록 하나의 최상위 부모
                     const notifyIcon = document.createElement("div");       // 알림 아이콘
                     const notifyMain = document.createElement("div");       // 알림 제목과 내용의 부모
                     const notifyContent = document.createElement("div");    // 알림 내용
@@ -99,47 +103,72 @@ const selectNotifyList = () => {
                     const notifyDate = document.createElement("div");       // 알림 날짜
     
                     // 2-2. 요소에 클래스, 내용을 세팅하는 함수
-                    // (1) 알림 목록 하나의 최상위 부모
+                    // (1) 알림 목록 하나의 최상위 부모를 만들고 링크 부여
                     packupElement(notifyBox, 'notify-box', null);
-                    
-                    // (2) 알림 아이콘
+                    notifyBox.setAttribute('href', notify.quickLink);
+
+                    // (2) 정렬을 위해서 class값을 추가 + (3) 알림 아이콘
                     let icon;
 
                     switch(notify.notifyTypeNo) {
-                        case 201: icon = '<i class="fa-solid fa-comment-dots"></i>'; break;         // 댓글
-                        case 202: icon = '<i class="fa-solid fa-comment-dots"></i>'; break;         // 답글
-                        case 301: icon = '<i class="fa-solid fa-envelope-open-text"></i>'; break;   // 주문 완료
-                        case 302: icon = '<i class="fa-solid fa-box"></i>'; break;                  // 구매 확정 요청
-                        case 303: icon = '<i class="fa-solid fa-pen"></i>'; break;                  // 후기 요청
-                        case 401: icon = '<i class="fa-solid fa-circle-exclamation"></i>'; break;   // 문의 답변
+                        case 201: { // 댓글
+                            packupElement(notifyBox, 'board', null);
+                            icon = '<i class="fa-solid fa-comment-dots"></i>';
+                            break; 
+                        }       
+                        case 202: { // 답글
+                            packupElement(notifyBox, 'board', null);
+                            icon = '<i class="fa-solid fa-comment-dots"></i>'; 
+                            break;
+                        }            
+                        case 301: { // 주문 완료
+                            packupElement(notifyBox, 'shop', null);
+                            icon = '<i class="fa-solid fa-envelope-open-text"></i>'; 
+                            break;   
+                        }
+                        case 302: { // 구매 확정 요청
+                            packupElement(notifyBox, 'shop', null);
+                            icon = '<i class="fa-solid fa-box"></i>';
+                             break;                  
+                        }
+                        case 303: { // 후기 요청
+                            packupElement(notifyBox, 'shop', null);
+                            icon = '<i class="fa-solid fa-pen"></i>'; 
+                            break;                  
+                        }
+                        case 401: { // 문의 답변
+                            packupElement(notifyBox, 'inquiry', null);
+                            icon = '<i class="fa-solid fa-circle-exclamation"></i>';
+                            break;   
+                        }
                     }
 
                     packupElement(notifyIcon, 'notify-icon', icon);
 
-                    // (3) 내용, 제목, 날짜가 들어가는 notify-main
+                    // (4) 내용, 제목, 날짜가 들어가는 notify-main
                     packupElement(notifyMain, 'notify-main', null);
 
-                    // (4) 내용
+                    // (5) 내용
                     packupElement(notifyContent, 'notify-content', notify.notifyContent);
 
-                    // (5) 제목
+                    // (6) 제목
                     packupElement(notifyTitle, 'notify-title', notify.notifyTitle);
 
-                    // (6) 날짜
+                    // (7) 날짜
                     packupElement(notifyDate, 'notify-date', notify.notifyDate);
 
-                    // 3. 준비된 요소를 포장
+                    // 6. 준비된 요소를 포장
                     notifyMain.append(notifyContent, notifyTitle);
                     notifyBox.append(notifyIcon, notifyMain, notifyDate);
 
-                    // 4. 목록 페이지에 세팅
+                    // 7. 목록 페이지에 세팅
                     notifyViewArea.append(notifyBox);
+
                 }
 
 
             } else { // 만약 응답이 비어있는 경우, 비어있다는 문구를 띄움
-                const notifyEmpty = document.createElement('div');
-                packupElement(notifyEmpty, 'notify-empty', '알림이 없어요~');
+                notifyEmpty.style.display='flex';
             }
 
         }).catch(function(error){
@@ -147,7 +176,70 @@ const selectNotifyList = () => {
             console.log('알림 목록 요청에 실패하였습니다.');
             console.log(error);
 
-
         }); 
 }
 
+/* 알림 카테고리 필터링 */
+
+/* 라디오 버튼을 눌렀을 때 특정한 요소만 남기는 함수 */
+const typeFilter = (option) => {
+    const typeList = document.getElementsByClassName('notify-box');
+
+    let boxExist = false;
+
+    document.querySelector('.notify-empty').style.display="none";
+
+    for(let type of typeList){
+        if(!type.classList.contains(option)){
+            type.style.display="none";
+            document.querySelector('.notify-empty').style.display="flex";
+        } else {
+            type.style.display="flex";
+            boxExist = true;
+        }
+    }
+
+    // 만약 요소가 하나도 없으면...
+    if(!boxExist){
+        document.querySelector('.notify-empty').style.display="flex";
+    }
+}
+
+/* 필터링을 해제하는 함수 */
+const typeFilterRemove = () => {
+    // 필터로 사용되는 타입 리스트
+    const typeList = document.getElementsByClassName('notify-box');
+
+    // 알림이 존재하는지 점검하는 변수
+    let boxExist = false;
+
+    // empty 박스 비우기
+    document.querySelector('.notify-empty').style.display="none";
+
+    for(let type of typeList){
+        type.style.display="flex";
+        boxExist = true;
+    }
+
+    // 만약 요소가 하나도 없으면...
+    if(!boxExist){
+        document.querySelector('.notify-empty').style.display="flex";
+    }
+}
+
+/* 필터 버튼에 필터링 부여 */
+document.getElementById('categoryAll').addEventListener('click', (e)=>{
+    if(e.target.checked) typeFilterRemove();
+})
+
+document.getElementById('categoryShop').addEventListener('click', (e)=>{
+    if(e.target.checked) typeFilter('shop');
+})
+
+document.getElementById('categoryBoard').addEventListener('click', (e)=>{
+    if(e.target.checked) typeFilter('board');
+})
+
+document.getElementById('categoryInquiry').addEventListener('click', (e)=>{
+    if(e.target.checked) typeFilter('inquiry');
+})

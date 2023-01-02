@@ -18,7 +18,7 @@
   </head>
 
   <body>
-    <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+    <%-- <jsp:include page="/WEB-INF/views/common/header.jsp"/> --%>
 
     <main>
       <jsp:include page="/WEB-INF/views/myPage/myPage.jsp"/>
@@ -37,7 +37,7 @@
 
             <div class="notify-category">
 
-                <input type="radio" id="categoryAll" name="notifyCategory"> 
+                <input type="radio" id="categoryAll" name="notifyCategory" checked> 
                 <label for="categoryAll" class="category-item">
                   <div class="category-img">
                     <i class="fa-solid fa-rectangle-list"></i>
@@ -47,8 +47,8 @@
                   </div>
                 </label>
 
-                <input type="radio" id="categoryProduct" name="notifyCategory"> 
-                <label for="categoryProduct" class="category-item">
+                <input type="radio" id="categoryShop" name="notifyCategory"> 
+                <label for="categoryShop" class="category-item">
                   <div class="category-img">
                     <i class="fa-solid fa-cart-shopping"></i>
                   </div>
@@ -67,8 +67,8 @@
                   </div>
                 </label>
 
-                <input type="radio" id="categoryAsk" name="notifyCategory"> 
-                <label for="categoryAsk" class="category-item">
+                <input type="radio" id="categoryInquiry" name="notifyCategory"> 
+                <label for="categoryInquiry" class="category-item">
                   <div class="category-img">
                     <i class="fa-solid fa-circle-question"></i>
                   </div>
