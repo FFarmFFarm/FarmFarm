@@ -308,10 +308,15 @@ main{
 .comment-co-content:focus{
     outline: none;
 }
-.co-btn-area{
+.co-btn-area-p{
     display: flex;
     justify-content: end;
     padding-right: 50px;
+}
+.co-btn-area-c{
+    display: flex;
+    justify-content: end;
+    padding-right: 35px;
 }
 .send-co, .cancle-co, .pa-update, .pa-cancle{
     font-size: var(--small-font-size);

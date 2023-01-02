@@ -263,32 +263,34 @@ const showReply = (parentNo, btn)=>{
 
         // 버튼들을 감쌀 div태그를 만들어볼게요
         const btnArea = document.createElement("div");
-        btnArea.classList.add("co-btn-area");
-
+        // btnArea.classList.add("co-btn-area");
+        
         // 답글 보내기 버튼~
         const sendCo  = document.createElement("button");
         sendCo.classList.add("send-co");
         sendCo.innerText = "답글 보내기";
         sendCo.setAttribute("onclick", "sendCo("+parentNo+", this)");
-
+        
         // 답글 취소 버튼~
         const cancleCo = document.createElement("button");
         cancleCo.classList.add("cancle-co");
         cancleCo.innerText = "취소";
         cancleCo.setAttribute("onclick", "cancleCo(this)");
-
+        
         // 버튼 공간에 버튼들을 넣어줄까요?
         btnArea.append(sendCo, cancleCo);
-
+        
         // 버튼 공간을 textarea다음에 넣어줘요~
         textarea.after(btnArea);
-
+        
         // 자식인지 부모인지 확인을 해보고 textarea 크기를 따로 지정을 해주자~
-        const commentRow = btn.parentElement.parentElement;
-        if(commentRow.classList.contains("comment-child")){
+        const commentRow = btn.parentElement.previousElementSibling;
+        if(commentRow.classList.contains("child-content")){
             textarea.classList.add("ch-textarea");
+            btnArea.classList.add("co-btn-area-c");
         }else{
             textarea.classList.add("pa-textarea");
+            btnArea.classList.add("co-btn-area-p");
         }
         textarea.focus();
 }
