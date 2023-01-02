@@ -22,10 +22,10 @@
                     </button>
     
                     <div id="myDropdown1" class="dropdown-message">
-                      <div class="notice"><p>알림</p><a id="alarmListBtn" href="/alarm/list">더보기</a></div>
+                      <div class="notice"><p>알림</p><a id="notifyListBtn" href="/notify/center">더보기</a></div>
 
                       <!-- 알림 위젯 -->
-                      <jsp:include page="/WEB-INF/views/alarm/alarmWidget.jsp"/>
+                      <jsp:include page="/WEB-INF/views/notify/notifyWidget.jsp"/>
 
                     </div>
                   </div>
@@ -157,74 +157,83 @@
             myDropdown1.style.display == ''
           ) {
 
-            axios.post('/alarm/widget/list' // 연결
+            axios.post('/notify/widget/list' // 연결
               ).then(function (response){
 
                 if(response.data != undefined) { // 받아온 데이터가 있을 때에만 실행
                   
-                  const alarmDropdown = document.getElementById('alarmDropdown');
+                  const notifyDropdown = document.getElementById('notifyDropdown');
 
-                  alarmDropdown.innerHTML = '';
+                  notifyDropdown.innerHTML = '';
 
-                  const alarmList = response.data.alarmList;
+                  const notifyList = response.data.notifyList;
 
                   // 반복문 숫자
                   let iteratorFl = 0;
 
-                  for(let alarm of alarmList) {
+                  for(let notify of notifyList) {
 
                     // 반복 횟수 제한 : 6회
                     if(iteratorFl == 6) break;
                     else iteratorFl += 1;
                     
                     // 1. 재료 준비
-                    const alarmWidgetBox = document.createElement('div');
-                    const alarmWidgetHeader = document.createElement('div');
-                    const alarmWidgetIcon = document.createElement('div');
-                    const alarmWidgetTitle = document.createElement('div');
-                    const alarmWidgetDate = document.createElement('div');
-                    const alarmWidgetDelBtn = document.createElement('div');
-                    const alarmWidgetContent = document.createElement('div');
+                    const notifyWidgetBox = document.createElement('div');
+
+                    const notifyWidgetIcon = document.createElement('div');
+
+                    const notifyWidgetMain = document.createElement('div');
+
+                    const notifyWidgetHeader = document.createElement('div');
+                    const notifyWidgetTitle = document.createElement('div');
+                    const notifyWidgetDate = document.createElement('div');
+                    const notifyWidgetDelBtn = document.createElement('div');
+
+                    const notifyWidgetContent = document.createElement('div');
 
                     // 2. 재료 손질
-                    packupElement(alarmWidgetBox, 'alarm-widget-box', -1);
-                    packupElement(alarmWidgetHeader, 'alarm-widget-header', -1);
+                    packupElement(notifyWidgetBox, 'notify-widget-box', -1);
                     
                     // 알림 유형 아이콘
                     let icon;
-                    
-                    switch(alarm.alarmTypeNo){
-                      case 201 : icon = '<i class="fa-regular fa-comment-dots"></i>'; break;
-                      case 202 : icon = '<i class="fa-regular fa-comment-dots"></i>'; break;
+                    switch(notify.notifyTypeNo){
+                      case 201 : icon = '<i class="fa-solid fa-comment-dots"></i>'; break;
+                      case 202 : icon = '<i class="fa-solid fa-comment-dots"></i>'; break;
                     }
+                    
+                    packupElement(notifyWidgetIcon, 'notify-widget-icon', icon);
 
-                    packupElement(alarmWidgetIcon, 'alarm-widget-icon', icon);
+                    packupElement(notifyWidgetMain, 'notify-widget-main', -1);
+                    packupElement(notifyWidgetHeader, 'notify-widget-header', -1);
+                    
                     
                     // 알림 유형 제목(단축버전)
                     let title;
                     
-                    switch (alarm.alarmTypeNo) {
-                      case 201: title = '댓글 알림'; break;
-                      case 202: title = '댓글 알림'; break;
-                    }
+                    // switch (notify.notifyTypeNo) {
+                    //   case 201: title = '댓글 알림'; break;
+                    //   case 202: title = '댓글 알림'; break;
+                    // }
 
-                    packupElement(alarmWidgetTitle, 'alarm-widget-title', title);
+                    // packupElement(notifyWidgetTitle, 'notify-widget-title', title);
+                    packupElement(notifyWidgetTitle, 'notify-widget-title', notify.notifyTitle);
 
                     // 알림 시간
-                    packupElement(alarmWidgetDate, 'alarm-widget-date', alarm.alarmDate);
+                    packupElement(notifyWidgetDate, 'notify-widget-date', notify.notifyDate);
 
                     // 알림 삭제 버튼
-                    packupElement(alarmWidgetDelBtn, 'alarm-widget-delBtn', '<i class="fa-solid fa-xmark"></i>');
+                    packupElement(notifyWidgetDelBtn, 'notify-widget-delBtn', '<i class="fa-solid fa-xmark"></i>');
 
                     // 알림 내용
-                    packupElement(alarmWidgetContent, 'alarm-widget-content', alarm.alarmContent);
+                    packupElement(notifyWidgetContent, 'notify-widget-content', notify.notifyContent);
 
                     // 3. 조리
-                    alarmWidgetHeader.append(alarmWidgetIcon, alarmWidgetTitle, alarmWidgetDate, alarmWidgetDelBtn);
-                    alarmWidgetBox.append(alarmWidgetHeader, alarmWidgetContent);
+                    notifyWidgetHeader.append(notifyWidgetTitle, notifyWidgetDate, notifyWidgetDelBtn);
+                    notifyWidgetMain.append(notifyWidgetHeader, notifyWidgetContent);
+                    notifyWidgetBox.append(notifyWidgetIcon, notifyWidgetMain);
 
                     // 4. 플레이팅
-                    alarmDropdown.append(alarmWidgetBox);
+                    notifyDropdown.append(notifyWidgetBox);
                   }
 
                 }
@@ -238,12 +247,18 @@
           } else {
             myDropdown1.style.display = 'none';
           }
+
         });
-        
-        
 
       }
 
+      /* 외부 영역 클릭 시 클릭 해제 */
+      addEventListener('click', (e)=>{
+        const target = e.target;
+        if(!document.getElementById('myDropdown1').contains(e.target)){
+          document.getElementById('myDropdown1').style.display='';
+        }
+      })
 
 
     </script>

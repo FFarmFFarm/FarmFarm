@@ -218,7 +218,7 @@ button {
 
 button:hover,
 a:hover,
-a:hover > span,
+a:hover > span:not(.notify-box > span),
 button:hover > span {
   color: var(--point-color);
 }
