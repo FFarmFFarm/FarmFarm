@@ -1,6 +1,4 @@
 
-
-
 // 게시글 목록을 ajax로 불러와봅시다!
 // 불러오는 부분을 만들어서 appen 시켜주기
 
@@ -11,7 +9,6 @@ const showBoardList = (cp, sort)=>{
 
     // board-list-title의 원래 모양을 저장
     const boardListTitle = document.querySelector(".board-List-title");
-    // beforeBoardListTitle = boardListTitle.innerHTML;
 
     $.ajax({
         url : "/board/list/"+boardTypeNo,
@@ -136,8 +133,6 @@ const showBoardList = (cp, sort)=>{
             maxLi.append(maxA);
             
             // 숫자가 나올 부분들임돵
-            const tempLi = document.createElement("li");
-            tempLi.classList.add("tempLi");
             
             boardPagination.append(firstLi, prevLi, nextLi, maxLi);
             
@@ -167,7 +162,6 @@ const showBoardList = (cp, sort)=>{
                 writeA.innerText="글쓰기";
                 boardWriteBottom.append(boardPagination, writeA);
                 
-                // boardListTop.append(boardListTitle, boardListArea, boardWriteBottom, writeA);
             }else{
                 boardWriteBottom.append(boardPagination);
 
@@ -192,8 +186,6 @@ const showBoardList = (cp, sort)=>{
                 a.addEventListener("click", (e)=>{
                     
                     const cp = a.parentElement.id;
-                    // const sort = params.get("sort");
-                    // const cp = params.get("cp");
 
                     if(sort == 'view'){
                         const boardSort = document.querySelector(".board-sort");
@@ -214,8 +206,9 @@ const showBoardList = (cp, sort)=>{
                     console.log(sort);
 
                     e.preventDefault();
-
+                    
                 })
+                urlChange(cp, sort);
             }
         },
         error : ()=>{
@@ -271,11 +264,9 @@ if(boardAdd == '/board/4'){
 
 // 검색 시 검색어 유지시키기
 (()=>{
-    // const boardSearch = document.querySelector(".board-search");
     const inputQuery = document.getElementById("inputQuery");
     
     if(inputQuery != null){
-    // if(boardSearch != null){
         const params = new URL(location.href).searchParams
         
         const query = params.get("query");
@@ -283,17 +274,6 @@ if(boardAdd == '/board/4'){
         inputQuery.value = query;
     }
 })();
-
-
-// 이건.... value값 확인해본건데 spring으로 넘어가려나....
-// 최신순, 조회수, 좋아요
-// const boardSelect = document.getElementById("boardSelect");
-// (()=>{boardSelect.addEventListener("change",()=>{
-//     const value = boardSelect.options[boardSelect.selectedIndex].value;
-//     console.log(value);
-//     boardSelect.setAttribute("value", value);
-// });})()
-
 
 // 로그인안된 회원은 못가게 막아보자
 const goBoard = document.getElementsByClassName("goBoard");
@@ -320,14 +300,7 @@ boardSelectSort.addEventListener("click", ()=>{
 
 
 // 정렬 선택 시 
-// let sort;
 const params = new URL(location.href).searchParams
-
-// let cp = li.id;
-// let cp;
-// let sort;
-// let sort = params.get("sort");
-let cp = params.get("cp");
 
 // 정렬관련
 const boardSort = document.querySelector(".board-sort");
@@ -369,8 +342,6 @@ for(let a of pageLis){
 
         
         const cp = a.parentElement.id;
-        // const sort = params.get("sort");
-        // const cp = params.get("cp");
 
         if(sort == 'view'){
             const boardSort = document.querySelector(".board-sort");
@@ -393,4 +364,14 @@ for(let a of pageLis){
         e.preventDefault();
 
     })
+};
+
+
+// 주소 변경
+const urlChange = (cp, sort)=>{
+
+    const title = '';
+    const reUrl = "/board/"+boardTypeNo+"?cp="+cp+"&sort="+sort;
+
+    history.pushState(null, title, reUrl);
 }

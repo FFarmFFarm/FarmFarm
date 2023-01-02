@@ -175,6 +175,8 @@
         // let query = inputQuery.value;
         let query = "${param.query}";
 
+        let cp = 1;
+
         const loginYN = "${loginMember}";
 
     </script>
