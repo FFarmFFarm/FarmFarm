@@ -42,13 +42,14 @@ function requestPay() {
 
         msg = '결제가 완료되었습니다.';
         msg += '\n결제 금액 : ' + rsp.paid_amount;
-        console.log(rsp);
+        // msg += '\n결제 번호 : ' + rsp.imp_uid;
+
         alert(msg);
 
-        document.getElementById('tidNo').value = rsp.pg_tid;
+        console.log(rsp.imp_uid);
 
-
-        document.getElementById("orderForm").submit();
+        const impUid = rsp.imp_uid
+        confirmBuy(impUid);
 
       } else {
 
@@ -60,6 +61,25 @@ function requestPay() {
   });
 }
 
+
+/* 결제 검증 완료 시 주문서 Form 제출 및 DB 저장*/
+const confirmBuy = (impUid) => {
+
+  $.ajax({
+    url: '/order/confirmBuy',
+    data: { "orderPrice": orderPrice, 'impUid':impUid},
+    success: (result) => { 
+      if (result != '실패') {
+        document.getElementById('impUid').value = result;
+        console.log(result);
+        document.getElementById("orderForm").submit();
+      } else {
+        alert("결제 실패");
+      }
+    }
+  })
+
+}
 
 
 const form = document.getElementById('orderForm');
@@ -95,4 +115,18 @@ btn.addEventListener('click', (e) => {
 
 })
 
+
+/* 토큰 얻어오기 */
+const getToken = () => { 
+  $.ajax({
+    url: "/order/token",
+    data: { 'orderNo': confirmOrderNo },
+    dataType: 'json',
+    success: (data) => { 
+      console.log(data.response.access_token);
+      const access_token = data.response.access_token;
+      return access_token;
+    }
+  })
+}
 

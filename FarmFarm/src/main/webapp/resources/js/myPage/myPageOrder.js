@@ -139,8 +139,9 @@ reviewBackBtn.addEventListener('click', () => {
 })
 
 
-
+/* 주문 취소 버튼 클릭 시 */
 const orderCancelBtn = document.getElementsByClassName('cancel-order');
+const cancelConfirmModal = document.getElementById('cancelConfirmModal');
 
 for (let btn of orderCancelBtn) {
   
@@ -148,27 +149,59 @@ for (let btn of orderCancelBtn) {
     
     const orderNo = btn.id;
     
-    const cancelAmount = btn.parentElement.previousElementSibling.firstElementChild.nextElementSibling.
-    firstElementChild.nextElementSibling.nextElementSibling.firstElementChild.innerText;
+    // const cancelAmount = btn.parentElement.previousElementSibling.firstElementChild.nextElementSibling.
+    // firstElementChild.nextElementSibling.nextElementSibling.firstElementChild.innerText;
     
-    const cancelPrice = document.getElementById('productPrice').value;
+    // const cancelPrice = document.getElementById('productPrice').value;
     
-    console.log(orderNo, cancelAmount, cancelPrice);
-    
-    // $.ajax({
-    //   url: "/order/cancel",
-    //   data: {"cancelAmount": cancelAmount, "orderNo": orderNo, 'cancelPrice': cancelPrice},
-    //   success: (data) => {
-    //     alert(data);
-    
-        
-    //   }
-    // });
-      
+
+    displayFlex(cancelConfirmModal);
+
+    confirmOrderNo = orderNo;
     
   });
 }
 
+
+
+/* 주문 취소 컨펌창 취소 버튼 클릭 시 */
+document.getElementById('cancelCalcelBtn').addEventListener('click', () => { 
+
+  displayNone(cancelConfirmModal);
+  
+})
+
+
+/* 주문 취소 컨펌창 확인 버튼 클릭 시 주문 취소*/
+document.getElementById('cancelConfirmBtn').addEventListener('click', () => { 
+  
+  orderCancel();
+  displayNone(cancelConfirmModal);
+})
+
+
+/* 주문 취소 ajax */
+const orderCancel = (orderNo) => {
+
+  $.ajax({
+    url: "/order/cancel",
+    data: {"orderNo": confirmOrderNo},
+    success: (result) => {
+      if (result > 0) {
+
+        let cp = selectCp();
+        console.log(cp);
+
+        selectOrderList(cp);
+
+        messageModalOpen('주문이 취소되었습니다.');
+      }
+      
+    }
+  });
+
+
+}
 
 
 
@@ -450,6 +483,14 @@ const printOrderList = (orderList, pagination) => {
 
           confirmOrderNo = order.orderNo;
 
+        })
+
+        /* 주문 취소 버튼 클릭 시 주문 취소 */
+        button2.addEventListener('click', function () { 
+          const cancelConfirmModal = document.getElementById('cancelConfirmModal');
+
+          displayFlex(cancelConfirmModal);
+          confirmOrderNo = order.orderNo;
         })
 
 
