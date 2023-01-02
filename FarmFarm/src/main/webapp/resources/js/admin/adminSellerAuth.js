@@ -1,5 +1,4 @@
 /*
-
 판매자 정보 조회 (ajax) : selectSellerList(cp)
 
 판매자 정보 출력 함수: printSellerList(sellerList, pagination)
@@ -22,7 +21,6 @@ const selectSellerList = (cp) => {
         success: (map) => {
             printSellerList(map.sellerList, map.pagination);
             console.log("판매자 정보 조회 성공");
-            console.log(sellerFilter);
         },
 
         error: () => { console.log("판매자 정보 조회 실패"); }
@@ -51,7 +49,7 @@ const selectAuthPaper = (hiddenNo) => {
 
 
 
-// optimize : 판매자 정보 출력 함수 +인증신청서 조회 포함
+// optimize : 판매자 정보 출력 함수
 
 const printSellerList = (sellerList, pagination) => {
 

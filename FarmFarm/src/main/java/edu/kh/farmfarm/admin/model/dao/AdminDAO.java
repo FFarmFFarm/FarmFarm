@@ -194,7 +194,7 @@ public class AdminDAO {
 	 */
 	public List<Admin> selectNewReport(String sortFilter, Pagination pagination) {
 		
-		int offset = (pagination.getCurrentPage() -1) * 15;
+		int offset = (pagination.getCurrentPage() -1) * 15;  
 		RowBounds rowBounds = new RowBounds(offset, 15);
 		
 		return sqlSession.selectList("adminMapper.selectNewReport", sortFilter, rowBounds);

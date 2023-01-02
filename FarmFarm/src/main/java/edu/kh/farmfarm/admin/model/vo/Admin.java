@@ -54,6 +54,7 @@ public class Admin {
 	private String postDelFl;
 	
 	
-	private String title;  //게시글 
+	private String title;  //게시글 제목 (판매글, 커뮤니티게시글)
+	private String content; // 게시글 내용 (판매글, 커뮤니티게시글)
 	private int reportVolume;  // 한 타겟당 누적 신고 횟수
 }

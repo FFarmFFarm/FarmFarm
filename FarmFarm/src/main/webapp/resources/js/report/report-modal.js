@@ -86,7 +86,8 @@ reportSubmitBtn.addEventListener("click", () => {
 
 
     // 와글와글 게시글 신고 (카테고리 분류X)
-    if(pathname.contains("board") && !commentNo.contains("c")){
+    // if(pathname.contains('board') && !commentNo.contains("c")){
+    if(pathname.includes('board')){
         reportType.value = "B";
         reportTargetNo.value = targetNo;  //boardNo
     }
@@ -112,10 +113,10 @@ reportSubmitBtn.addEventListener("click", () => {
 
 
     // 댓글 신고 - 
-    if(pathname.contains("board") && commentNo.contains("c")){
-        reportType.value = "C";
-        reportTargetNo.value = commentNo;
-    }
+    // if(pathname.includes("board") && commentNo.contains("c")){
+    //     reportType.value = "C";
+    //     reportTargetNo.value = commentNo;
+    // }
 
 
 
@@ -136,7 +137,9 @@ reportSubmitBtn.addEventListener("click", () => {
     for(var i=0; i<reportReasonList.length; i++){
         
         if(reportReasonList[i].checked){
-            radioResult = reportLabel[i].innerText;
+
+            //fixme: 왜,, 하나씩 밀리는 거지. 일단 임시방편으로 +1함.
+            radioResult = reportLabel[i+1].innerText;
             console.log(radioResult);
         }
     }
@@ -152,8 +155,9 @@ reportSubmitBtn.addEventListener("click", () => {
         success: (result) => {
             if(result > 0){
                 console.log("신고 접수");
-                report.style.display = 'none';
-                alert("신고가 접수되었습니다.")
+                reportContainer.style.display = 'none';
+                messageModalOpen('신고가 접수되었습니다.');
+                // fixme: 글 삭제하는 함수 넣기 
             
             } else {
                 console.log("신고 실패");
