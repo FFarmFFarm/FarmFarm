@@ -61,7 +61,7 @@
     width: 70%;
     font-size: 13px;
     letter-spacing: -1px;
-    /* font-weight: 600; */
+    font-weight: 600;
     /* color: var(--point-color); */
 }
 
@@ -83,11 +83,13 @@
 
 /* 알림 유형 */
 .notify-widget-content{
-    font-size: var(--main-font-size);
+    font-size: var(--small-font-size);
     width: 100%;
 
     height: 30px;
     padding: 0px 5px;
+    letter-spacing: -1px;
+
     align-items: center;
     line-height: 27px;
     text-overflow: ellipsis;

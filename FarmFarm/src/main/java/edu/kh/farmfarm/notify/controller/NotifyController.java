@@ -74,7 +74,29 @@ public class NotifyController {
 	
 	// 알림 페이지 이동(초기 세팅)
 	@GetMapping("/notify/center")
+	public String forwardNotifyList(HttpSession session) {
+		return "notify/notifyCenter";
+	}
+	
+	// 내 알림 목록 요청(axios)
+	@PostMapping("/notify/center/select")
+	@ResponseBody
 	public String selectNotifyList(HttpSession session) {
-		return "notify/center";
+		
+		Map<String, Object> notifyMap = new HashMap<String, Object>();
+		
+		if(session.getAttribute("loginMember") != null) {
+			Member loginMember = (Member)session.getAttribute("loginMember");
+			
+			List<Notify> notifyList = service.selectNotifyList(loginMember.getMemberNo());
+			
+			notifyMap.put("notifyList", notifyList);
+			
+		} else {
+			
+			notifyMap.put("message", "invalidate");
+		}
+		
+		return new Gson().toJson(notifyMap);
 	}
 }

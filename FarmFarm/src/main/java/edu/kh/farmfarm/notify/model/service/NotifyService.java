@@ -26,4 +26,10 @@ public interface NotifyService {
 	 * @return
 	 */
 	List<Notify> selectNotifyWidgetList(int memberNo);
+	
+	/** 알림 목록 조회(for notify center)
+	 * @param memberNo
+	 * @return
+	 */
+	List<Notify> selectNotifyList(int memberNo);
 }	

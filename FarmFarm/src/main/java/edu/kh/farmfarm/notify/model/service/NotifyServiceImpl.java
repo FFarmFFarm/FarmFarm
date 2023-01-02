@@ -45,4 +45,10 @@ public class NotifyServiceImpl implements NotifyService {
 	public List<Notify> selectNotifyWidgetList(int memberNo) {
 		return dao.selectNotifyWidgetList(memberNo);
 	}
+	
+	// 알림 목록 조회(for notify center)
+	@Override
+	public List<Notify> selectNotifyList(int memberNo) {
+		return dao.selectNotifyWidgetList(memberNo);
+	}
 }

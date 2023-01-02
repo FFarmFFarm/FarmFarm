@@ -127,7 +127,7 @@ input[name='notifyCategory']:checked + label > .category-name{
 }
 
 /* 알림 아이콘 */
-.notify-type-icon{
+.notify-icon{
     flex-basis: 15%;
     font-size: 40px;
     color: var(--point-color);
@@ -139,11 +139,15 @@ input[name='notifyCategory']:checked + label > .category-name{
 }
 
 /* 알림 내용, 알림 종류 설명 */
-.notify-label{
+.notify-main{
     flex-basis: 70%;
-
+    height: 100%;
     overflow: hidden;
     white-space: nowrap;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 /* 알림 내용 */
@@ -152,7 +156,7 @@ input[name='notifyCategory']:checked + label > .category-name{
     color: var(--main-font-color);
     font-weight: 600;
 
-    padding-bottom: 5px;
+    padding-bottom: 10px;
     margin-bottom: 5px;
     border-bottom: 1px solid var(--line-color);
 
@@ -161,9 +165,10 @@ input[name='notifyCategory']:checked + label > .category-name{
 }
 
 /* 알림 종류 설명 */
-.notify-detail-mention{
+.notify-title{
     font-size: var(--small-font-size);
     color: var(--main-font-color);
+    padding-top : 10px;
 }
 
 /* 알림 내용 */
@@ -183,4 +188,13 @@ input[name='notifyCategory']:checked + label > .category-name{
     transform: translateY(-2px);
     background-color: rgb(0,0,0,0.05);
     opacity: 0.9;
+}
+
+/* 알림이 비어있는 경우 만들어줄 요소 */
+.notify-empty{
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

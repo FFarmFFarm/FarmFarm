@@ -19,7 +19,7 @@
 	 <!-- 알림을 DB에 저장 -->
 	 <insert id="insertNewNotify" useGeneratedKeys="true">
 	 	INSERT INTO NOTIFY
-	 	VALUES(SEQ_NOTIFY_NO.NEXTVAL, #{notifyTypeNo}, #{memberNo}, #{notifyContent}, DEFAULT, #{quickLink}, DEFAULT)
+	 	VALUES(SEQ_NOTIFY_NO.NEXTVAL, #{notifyTypeNo}, #{memberNo}, #{notifyContent}, DEFAULT, DEFAULT, #{quickLink})
 	 	<selectKey keyProperty="notifyTitle" resultType="string" order="AFTER">
 	 		SELECT NOTIFY_TITLE FROM NOTIFY_TYPE WHERE NOTIFY_TYPE_NO = #{notifyTypeNo}
 	 	</selectKey>
@@ -29,7 +29,7 @@
 	 <select id="selectNotifyWidgetList" parameterType="_int" resultMap="notify_rm">
 	 	SELECT * FROM
 	 	(SELECT NOTIFY_NO, NOTIFY_TYPE_NO, NOTIFY_CONTENT, READ_FL,
-	 		   CASE WHEN TO_CHAR(NOTIFY_DATE, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD') THEN TO_CHAR(NOTIFY_DATE, 'AM HH"시" MI"분"')
+	 		   CASE WHEN TO_CHAR(NOTIFY_DATE, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD') THEN TO_CHAR(NOTIFY_DATE, 'AM HH" : "MI')
 	 		   ELSE TO_CHAR(NOTIFY_DATE, 'YYYY-MM-DD') END NOTIFY_DATE,
 	 	       (SELECT NOTIFY_TITLE FROM NOTIFY_TYPE ALAT WHERE ALAT.NOTIFY_TYPE_NO = ALA.NOTIFY_TYPE_NO) AS NOTIFY_TITLE 
 	 	FROM NOTIFY ALA
@@ -40,7 +40,7 @@
 	 	]]>
 	 </select>
 	 
-	 <!-- 내 알림 조회 -->
+	 <!-- 내 알림 조회(for notify center) -->
 	 <select id="selectNotifyList" parameterType="_int" resultMap="notify_rm">
 	 	SELECT NOTIFY_NO, NOTIFY_TYPE_NO, NOTIFY_CONTENT, QUICK_LINK, READ_FL,
 	 		   CASE WHEN TO_CHAR(NOTIFY_DATE, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD') THEN TO_CHAR(NOTIFY_DATE, 'AM HH"시" MI"분"')

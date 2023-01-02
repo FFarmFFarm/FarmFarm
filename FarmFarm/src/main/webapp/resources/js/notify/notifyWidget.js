@@ -11,28 +11,30 @@
 
 /*     
     * 형식 예시
-    header.jsp의 < div class='myDropdown1' > 의 자손 요소 < ul id = 'alarmDropdown' ></ul > 에 추가
+    header.jsp의 < div class='myDropdown1' > 의 자손 요소 < ul id = 'notifyDropdown' ></ul > 에 추가
 
     * 추가 방법
 
     < li >
-        <div class="alarm-widget-box">
-            <div class="alarm-widget-header">
-                <div class="alarm-widget-icon">
-                    <i class="..."></i> 원하는 아이콘 추가
-                </div>
-                <div class="alarm-widget-title">
-                    새로운 댓글이 달렸어요
-                </div>
-                <div class="alarm-widget-date">
-                    오후 12:30
-                </div>
-                <div class="alarm-widget-delBtn">
-                    x
-                </div>
+        <div class="notify-widget-box">
+            <div class="notify-widget-icon">
+                <i class="..."></i> 원하는 아이콘 추가
             </div>
-            <div class="alarm-widget-content">
-                "안녕안녕.."
+            <div class="notify-widget-main">
+                <div class="notify-widget-header">
+                    <div class="notify-widget-title">
+                        새로운 댓글이 달렸어요
+                    </div>
+                    <div class="notify-widget-date">
+                        오후 12:30
+                    </div>
+                    <div class="notify-widget-delBtn">
+                        x
+                    </div>
+                </div>
+                <div class="notify-widget-content">
+                    "안녕안녕.."
+                </div>
             </div>
         </div>
     </li> 
