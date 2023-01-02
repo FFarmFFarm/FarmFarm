@@ -8,9 +8,13 @@
             <%-- <form action="/comment/write/${boardNo}" class="comment-write"> --%>
             <div class="comment-write">
                 <div class="comment-form">
-                    <textarea class="write-comment" name="commentContent" id=""></textarea>
+                    <textarea class="write-comment" name="commentContent" spellcheck="false" id=""></textarea>
                     <div class="comment-side">
                         <div class="comment-caution">※댓글 작성시 상대방에 대한 배려와 책임을 담아 깨끗한 댓글 환경에 동참에 주세요.</div>
+                        <span class="secrete-co">
+                            <input type="checkbox" class="lockCheck" id="lockCheck"></input> 
+                            <label for="lockCheck">&nbsp;비밀댓글</label>
+                        </span>
                         <button onclick="commentFunction()" class="comment-insert">등록</button>
                     </div>
                 </div>
@@ -80,7 +84,35 @@
                                         </div> --%>
                                     </c:when>
                                     <c:otherwise>
-                                        <div class="comment-content">${comment.commentContent}</div>
+
+                                        <c:choose>
+                                            <c:when test="${loginMember.memberNo == comment.memberNo && comment.commentDelFl == 'S'}">
+                                                <div class="comment-content"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
+                                                <%-- <div class="comment-content"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div> --%>
+                                            </c:when>
+                                            <c:when test="${comment.memberNo == comment.parentNo && comment.commentDelFl == 'S'}">
+                                                <div class="comment-content"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
+                                            </c:when>
+                                            <c:when test="${loginMember.memberNo == board.memberNo && comment.commentDelFl == 'S'}">
+                                                <div class="comment-content"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
+                                            </c:when>
+                                            <c:when test="${loginMember.authority == 2 && comment.commentDelFl == 'S'}">
+                                                <div class="comment-content"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
+                                            </c:when>
+                                            <c:when test="${comment.commentDelFl == 'S' && comment.memberNo != comment.parentNo}">
+                                                <div class="comment-content"><i class="fa-solid fa-lock"></i>&nbsp;비밀댓글 입니다.</div>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div class="comment-content">${comment.commentContent}</div>
+                                            </c:otherwise>
+                                        </c:choose>
+
+                                        <%-- <c:if test="${loginMember.memberNo == comment.memberNo && comment.commentDelFl == 'S'}">
+                                            <div class="comment-content"><i class="fa-solid fa-lock"></i>${comment.commentContent}</div>
+                                        </c:if>
+                                        <c:if test="${comment.memberNo == comment.parentNo && comment.commentDelFl == 'S'}">
+                                            <div class="comment-content"><i class="fa-solid fa-lock"></i>${comment.commentContent}</div>
+                                        </c:if> --%>
                                         <%-- <div class="comment-content">
                                             <textarea name="boardContent" class="update-parent"></textarea>
                                             <div class="update-parent-btn">
@@ -98,13 +130,13 @@
                                         <%-- 관리자라면 --%>
                                         <c:when test="${loginMember.authority == 2}">
                                             <%-- 게시글 작성 O --%>
-                                            <c:if test="${loginMember.memberNo == comment.memberNo && comment.commentDelFl == 'N'}">
+                                            <c:if test="${loginMember.memberNo == comment.memberNo && comment.commentDelFl != 'Y'}">
                                                 <button onclick="showReply(${comment.commentNo}, this)" class="comment-reply">| &nbsp;&nbsp;답글달기&nbsp;&nbsp;</button> 
                                                 <button onclick="showUpdateComment(${comment.commentNo}, this)" class="comment-reply"> |&nbsp;&nbsp;수정&nbsp;&nbsp;</button>
                                                 <button onclick="deleteComment(${comment.commentNo})" class="comment-reply"> |&nbsp;&nbsp;삭제</button>
                                             </c:if>
                                             <%-- 게시글 작성 X --%>
-                                            <c:if test="${loginMember.memberNo != comment.memberNo && comment.commentDelFl == 'N'}">
+                                            <c:if test="${loginMember.memberNo != comment.memberNo && comment.commentDelFl != 'Y'}">
                                                 <%-- 삭제 시  --%>
                                                 <button onclick="showReply(${comment.commentNo}, this)" class="comment-reply">| &nbsp;&nbsp;답글달기&nbsp;&nbsp;</button> 
                                                 <button onclick="adDeleteComment(${comment.commentNo})" class="comment-reply"> |&nbsp;&nbsp;삭제</button>
@@ -114,13 +146,13 @@
                                         <%-- 일반 회원이라면 --%>
                                         <c:otherwise>
                                             <%-- 게시글 작성 O --%>
-                                            <c:if test="${loginMember.memberNo == comment.memberNo && comment.commentDelFl == 'N'}">
+                                            <c:if test="${loginMember.memberNo == comment.memberNo && comment.commentDelFl != 'Y'}">
                                                 <button onclick="showReply(${comment.commentNo}, this)" class="comment-reply">| &nbsp;&nbsp;답글달기&nbsp;&nbsp;</button> 
                                                 <button onclick="showUpdateComment(${comment.commentNo}, this)" class="comment-reply"> |&nbsp;&nbsp;수정&nbsp;&nbsp;</button>
                                                 <button onclick="deleteComment(${comment.commentNo})" class="comment-reply"> |&nbsp;&nbsp;삭제</button>
                                             </c:if>
                                             <%-- 게시글 작성 X --%>
-                                            <c:if test="${loginMember.memberNo != comment.memberNo && comment.commentDelFl == 'N'}">
+                                            <c:if test="${loginMember.memberNo != comment.memberNo && comment.commentDelFl != 'Y'}">
                                                 <button onclick="showReply(${comment.commentNo}, this)" class="comment-reply">| &nbsp;&nbsp;답글달기&nbsp;&nbsp;</button> 
                                             </c:if>
                                         </c:otherwise>
