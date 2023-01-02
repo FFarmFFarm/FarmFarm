@@ -28,11 +28,22 @@
       <result property="orderStatus" column="ORDER_STATUS" />
       <result property="invoiceNo" column="INVOICE_NO" />
       <result property="orderPrice" column="ORDER_PRICE" />
+      <result property="impUid" column="IMP_UID" />
+      
       
      <collection property="productList" 
 		  javaType="java.util.ArrayList" ofType="Product"
 		  select="selectProductList"
 		  column = "{orderNo=ORDER_NO, memberNo=MEMBER_NO}"/>
+  </resultMap>
+  
+    <resultMap type="Order" id="order_rm2">
+        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+     <id property = "orderNo" column="ORDER_NO"/>
+     <!-- 나머지 일반 컬럼 -->
+      <result property="orderPrice" column="ORDER_PRICE" />
+      <result property="impUid" column="IMP_UID" />
+      
   </resultMap>
   
   <!-- 팜팜 상품 resultMap -->
@@ -99,6 +110,7 @@
  	WHERE PRODUCT_NO = #{productNo} 
  </update>
  
+ <!-- 주문 등록 -->
  <insert id="insertOrder" useGeneratedKeys="true">
 	<selectKey keyProperty="orderNo" resultType="_int" order="BEFORE">
 		SELECT SEQ_ORDER_NO.NEXTVAL FROM DUAL
@@ -108,15 +120,37 @@
  	VALUES(#{orderNo}, DEFAULT, #{memberNo}, 0, NULL, #{orderPrice})
  </insert>
  
+ <!-- 주문 결제 정보 등록 -->
+ <insert id="insertOrderPayment">
+ 	INSERT INTO ORDER_PAYMENT
+ 	VALUES(#{orderNo}, #{impUid})
+ </insert>
+ 
+ <!-- 주문 상품 등록 -->
  <insert id="insertProduct">
  	INSERT INTO ORDER_PRODUCT
  	VALUES(#{orderNo}, #{productNo}, #{productAmount}, 0)
  </insert>
  
+ <!-- 재고 변동 히스토리 등록 -->
  <insert id="insertStockHistory">
  	INSERT INTO STOCK_HISTORY
  	VALUES(SEQ_STOCK_NO.NEXTVAL, #{productAmount}, DEFAULT, #{productNo},  1)
  </insert>
+ 
+ <!-- 주문 취소 -->
+ <update id="orderCancel">
+ 	UPDATE "ORDER" SET
+ 	ORDER_STATUS = 2
+ 	WHERE ORDER_NO = #{orderNo}
+ </update>
+ 
+ <select id="selectImpUid" parameterType="_int" resultMap="order_rm2">
+ 	SELECT ORDER_NO, IMP_UID, ORDER_PRICE
+	FROM ORDER_PAYMENT
+	JOIN "ORDER" USING(ORDER_NO)
+ 	WHERE ORDER_NO = #{orderNo}
+ </select>
   
   
 </mapper>

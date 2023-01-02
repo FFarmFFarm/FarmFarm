@@ -18,6 +18,7 @@ public class Order {
 	private int orderStatus;
 	private String invoiceNo;
 	private String orderPrice;
+	private String impUid;
 	
 	private List<Product> productList;
 	

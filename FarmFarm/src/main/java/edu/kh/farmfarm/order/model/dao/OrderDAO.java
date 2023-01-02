@@ -58,6 +58,10 @@ public class OrderDAO {
 	public int insertOrder(Order order) {
 		int orderNo = sqlSession.insert("orderMapper.insertOrder", order);
 		
+		if(orderNo > 0) {
+			sqlSession.insert("orderMapper.insertOrderPayment", order);
+		}
+		
 		orderNo = order.getOrderNo();
 		
 		return orderNo;	
@@ -79,6 +83,14 @@ public class OrderDAO {
 		
 		return result;	 
 	 
+	}
+
+	public int orderCancel(int orderNo) {
+		return sqlSession.update("orderMapper.orderCancel", orderNo);
+	}
+
+	public Order selectImpUid(int orderNo) {
+		return sqlSession.selectOne("orderMapper.selectImpUid", orderNo);
 	}
 
 

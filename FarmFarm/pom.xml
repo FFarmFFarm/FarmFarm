@@ -15,6 +15,13 @@
 		<org.slf4j-version>1.7.25</org.slf4j-version>
 	</properties>
 	<dependencies>
+	
+		<dependency>
+		    <groupId>com.googlecode.json-simple</groupId>
+		    <artifactId>json-simple</artifactId>
+		    <version>1.1.1</version>
+		</dependency>
+	
 
 		<!-- lombok 라이브러리 -->
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
@@ -128,7 +135,7 @@
 			<artifactId>gson</artifactId>
 			<version>2.10</version>
 		</dependency>
-
+		
 		<!-- 파일 업로드 관련 라이브러리 -->
 		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
 		<dependency>
