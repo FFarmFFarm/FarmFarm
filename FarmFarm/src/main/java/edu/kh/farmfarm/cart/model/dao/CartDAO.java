@@ -72,5 +72,13 @@ public class CartDAO {
 		return sqlSession.update("cartMapper.minusCart", map);
 	}
 
+	/** 장바구니 삭제
+	 * @param map
+	 * @return result
+	 */
+	public int deleteCart(Map<String, Object> map) {
+		return sqlSession.delete("cartMapper.deleteCart", map);
+	}
+
 	
 }

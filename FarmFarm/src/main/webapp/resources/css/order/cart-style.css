@@ -20,6 +20,11 @@ section {
   min-height: 200px;
 }
 
+button {
+  border: none;
+  background-color: white;
+}
+
 .cart-container{
   display: flex;
   justify-content: space-between;

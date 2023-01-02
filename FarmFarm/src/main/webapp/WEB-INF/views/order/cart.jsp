@@ -19,7 +19,8 @@
     <link rel="stylesheet" href="/resources/css/order/cart-style.css">
     <link rel="stylesheet" href="/resources/css/common/header-style.css">
     <link rel="stylesheet" href="/resources/css/common/footer-style.css">
-
+    
+    <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
 
     <script src="https://kit.fontawesome.com/d449774bd8.js" crossorigin="anonymous"></script>
 </head>
@@ -109,18 +110,21 @@
                         <div class="price-one-line">
                             <span>상품금액</span>
                             <div>
-                                <span id="totalPrice">30,000</span>
+                                <span id="totalPrice"></span>
                                 <span>원</span>
                             </div>
                         </div>
                         <div class="price-one-line">
                             <span>배송비</span>
-                            <span>3,000 원</span>
+                            <div>
+                                <span id="postPrice">3,000</span>
+                                <span>원</span>
+                            </div>
                         </div>
                         <div class="price-one-line">
                             <span>결제예정금액</span>
                             <div>
-                                <span id="orderPrice">33,000</span>
+                                <span id="orderPrice"></span>
                                 <span>원</span>
                             </div>
                         </div>
@@ -141,6 +145,7 @@
 
     <!-- footer -->
     <jsp:include page='/WEB-INF/views/common/footer.jsp' />
+    <jsp:include page="/WEB-INF/views/order/modal/cartConfirm.jsp"/>
 
     <c:if test="${!empty message}">
         <script>
@@ -153,7 +158,8 @@
         memberNo = "${loginMember.memberNo}";
     </script>
 
-    <script src="/resources/js/order/cart.js"></script>ß
+    <script src="/resources/js/common/common.js"></script>
+    <script src="/resources/js/order/cart.js"></script>
 
     <!-- ajax -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>

@@ -88,19 +88,37 @@ public class CartController {
 	}
 	
 	// 장바구니에서 수량 감소
-		@ResponseBody
-		@GetMapping("/minusCart")
-		public int minusCart(
-				@RequestParam("productNo") int productNo,
-				@RequestParam("memberNo") int memberNo		) {
-			
-			Map<String, Object> map = new HashMap<String, Object>();
-			
-			map.put("productNo", productNo);
-			map.put("memberNo", memberNo);
+	@ResponseBody
+	@GetMapping("/minusCart")
+	public int minusCart(
+			@RequestParam("productNo") int productNo,
+			@RequestParam("memberNo") int memberNo		) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("productNo", productNo);
+		map.put("memberNo", memberNo);
 
-			return service.minusCart(map);
-		}
+		return service.minusCart(map);
+	}
+	
+	// 장바구니 삭제
+	@ResponseBody
+	@GetMapping("/deleteCart")
+	public int deleteCart(
+		@RequestParam("productNo") int productNo,
+		@RequestParam("memberNo") int memberNo) {
+			
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("productNo", productNo);
+		map.put("memberNo", memberNo);
+
+		return service.deleteCart(map);
+		
+		
+	}
+	
 	
 	
 }

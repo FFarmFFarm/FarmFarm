@@ -73,5 +73,11 @@
 		AND PRODUCT_NO = #{productNo}
 	</update>
 	
+	<delete id="deleteCart">
+		DELETE FROM CART
+		WHERE MEMBER_NO = #{memberNo}
+		AND PRODUCT_NO = #{productNo}
+	</delete>
+	
   
 </mapper>

@@ -36,5 +36,11 @@ public interface CartService {
 	 */
 	int minusCart(Map<String, Object> map);
 
+	/** 장바구니 삭제
+	 * @param map
+	 * @return result
+	 */
+	int deleteCart(Map<String, Object> map);
+
 
 }

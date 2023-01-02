@@ -73,5 +73,11 @@ public class CartServiceImpl implements CartService{
 	public int minusCart(Map<String, Object> map) {
 		return dao.minusCart(map);
 	}
+
+	// 장바구니 삭제
+	@Override
+	public int deleteCart(Map<String, Object> map) {
+		return dao.deleteCart(map);
+	}
 	
 }
