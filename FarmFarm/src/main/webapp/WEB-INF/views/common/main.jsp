@@ -131,8 +131,8 @@
           <a href="#">
             <div class="middle-text-wrap">
               <div class="middle-text">
-                <p>함께 하면 즐거운... </p>
-                <p>1,2000,000원</p>
+                <p>함께 하면 귀여운... </p>
+                <p>12,000,000원</p>
               </div>
               <div class="middle-icon">
                 <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
@@ -147,7 +147,7 @@
           <a href="#">
             <div class="middle-text-wrap">
               <div class="middle-text">
-                <p>외국인 일꾼 하...</p>
+                <p>사바나 일꾼 심...</p>
                 <p>20,000원</p>
               </div>
               <div class="middle-icon">
@@ -162,7 +162,7 @@
           <a href="#">
             <div class="middle-text-wrap">
               <div class="middle-text">
-                <p>실한 일꾼 한 명...</p>
+                <p>실한 일꾼 알파...</p>
                 <p>1,000,000원</p>
               </div>
               <div class="middle-icon">
@@ -177,7 +177,7 @@
           <a href="#">
             <div class="middle-text-wrap">
                 <div class="middle-text">
-                  <p>일꾼 구씨</p>
+                  <p>일꾼 고씨</p>
                   <p>15,000원</p>
                 </div>
                 <div class="middle-icon">

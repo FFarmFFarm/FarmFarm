@@ -18,7 +18,7 @@
   </head>
 
   <body>
-    <%-- <jsp:include page="/WEB-INF/views/common/header.jsp"/> --%>
+    <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
     <main>
       <jsp:include page="/WEB-INF/views/myPage/myPage.jsp"/>
@@ -90,7 +90,7 @@
       </section> <!-- end list-container -->
 
     </main>
-
+    <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
     <!-- https://github.com/sockjs/sockjs-client -->
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
