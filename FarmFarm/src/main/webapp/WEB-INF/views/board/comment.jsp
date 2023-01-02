@@ -8,7 +8,7 @@
             <%-- <form action="/comment/write/${boardNo}" class="comment-write"> --%>
             <div class="comment-write">
                 <div class="comment-form">
-                    <textarea class="write-comment" name="commentContent" id=""></textarea>
+                    <textarea class="write-comment" name="commentContent" spellcheck="false" id=""></textarea>
                     <div class="comment-side">
                         <div class="comment-caution">※댓글 작성시 상대방에 대한 배려와 책임을 담아 깨끗한 댓글 환경에 동참에 주세요.</div>
                         <span class="secrete-co">
@@ -94,6 +94,9 @@
                                                 <div class="comment-content"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
                                             </c:when>
                                             <c:when test="${loginMember.memberNo == board.memberNo && comment.commentDelFl == 'S'}">
+                                                <div class="comment-content"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
+                                            </c:when>
+                                            <c:when test="${loginMember.authority == 2 && comment.commentDelFl == 'S'}">
                                                 <div class="comment-content"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
                                             </c:when>
                                             <c:when test="${comment.commentDelFl == 'S' && comment.memberNo != comment.parentNo}">
