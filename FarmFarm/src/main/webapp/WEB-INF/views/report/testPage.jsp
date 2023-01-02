@@ -11,8 +11,6 @@
 
         <link rel="stylesheet" href="/resources/css/common/header-style.css">
         <link rel="stylesheet" href="/resources/css/common/footer-style.css">
-        <link rel="stylesheet" href="/resources/css/admin/adminNav-style.css">
-        <link rel="stylesheet" href="/resources/css/admin/dashboard-style.css" />
         <link rel="stylesheet" href="/resources/css/report/report-modal-style.css" />
 
         <script src="https://kit.fontawesome.com/d4fbceca97.js" crossorigin="anonymous"></script>
@@ -21,7 +19,7 @@
         <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
         <main>
-            test 페이지입니다.
+            test 페이지입니다. test.
             <button id="reportBtn">님 신고</button>
 
         </main>

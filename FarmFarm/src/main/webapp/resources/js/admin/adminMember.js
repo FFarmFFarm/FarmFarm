@@ -1,12 +1,11 @@
 /*
 
-전체 회원 정보 조회 (ajax) : selectMemberList()
-전체 회원 정보 조회 & 상세 정보 조회 생성 : printMemberList()
-페이지네이션 박스 생성 : printPagination()
+전체 회원 정보 조회 (ajax) : selectMemberList(cp)
+상세 정보 조회 함수(ajax) : printMemberDetail(memberList, pagination)
+전체 회원 정보 조회 함수: printMemberList(adminPagination, pagination)  -- ajax에 사용
+페이지네이션 박스 생성 : printPagination(element,cp)
 
 */
-
-
 
 
 var numCount = 0;     // numCount : 게시판 번호 no
@@ -82,24 +81,19 @@ const selectMemberDetail = (hiddenId) => {
 
 
 
-// 조회해온 회원 목록을 화면에 출력하는 함수
+// optimize 조회해온 회원 목록을 화면에 출력하는 함수
 const printMemberList = (memberList, pagination) => {
 
     console.log("회원 전체 조회");
 
-    window.scrollTo({top: 'header', behavior: 'smooth'});
+    window.scrollTo({top: 0, behavior: 'smooth'});
 
     // 이 위치 사수하기
-    document.getElementById("tbody").innerText = "";
+    const tbody = document.getElementById('tbody');
+    tbody.innerText = "";   
     document.getElementById("adminPaginationArea").innerText = "";
 
-    const middleBoard = document.getElementById("middleBoard");
-    
-    const detailTable = document.getElementsByClassName("member-detail-table")[0];
-    const historyTable = document.getElementsByClassName("member-history-table")[0];
-    
     const adminPaginationArea = document.getElementById("adminPaginationArea");
-
 
 
     // 페이지네이션 박스
@@ -115,8 +109,8 @@ const printMemberList = (memberList, pagination) => {
     for(let member of memberList){
 
         /*아이디 10자
-        주소 25자
-        닉네임 10자*/ 
+        닉네임 10자
+        주소 25자*/ 
 
                 
         const tr = document.createElement("tr");
@@ -126,7 +120,7 @@ const printMemberList = (memberList, pagination) => {
         
         // no
         const td1 = document.createElement("td");
-        td1.classList.add("report-member-seq");
+        td1.classList.add("member-seq");
 
         numCount++;
         td1.innerText = numCount;
@@ -241,9 +235,7 @@ const printMemberList = (memberList, pagination) => {
         
             // fix: ? ajax 쓸때는 이렇게
             hiddenId = member.memberId;
-
             console.log(hiddenId);
-
             selectMemberDetail(hiddenId);
         })
     }
@@ -324,7 +316,7 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
 
 
     // *아이디 가져오기
-    // inputMemberId 강제 탈퇴할 때 사용함.
+    // hiddenId 강제 탈퇴할 때 사용함.
     // 상세 조회 시 값 전달할 때 필요 
     // fix ? ajax 쓸때는 이렇게?
     hiddenId = memberDetailInfo.memberId;
@@ -432,7 +424,7 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
     address.innerText = "주소";
 
     const tdAddress = document.createElement("td");
-    tdAddress.colSpan = "3";
+    tdAddress.colSpan = "2";
 
     const add = memberDetailInfo.memberAddress;
     tdAddress.innerText = add;
@@ -450,7 +442,7 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
 
     
 
-    // // todo: 계정 상태
+    // todo: 계정 상태
     // 1) 타이틀
     const theadHistory = document.createElement("thead");
     
@@ -488,7 +480,7 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
     // td6.innerText = "";
     
 
-    // review 반복문 시작
+    // * 반복문 시작
     const tbodyHistory = document.createElement("tbody");
     
     for(let history of memberHistoryList){
@@ -573,7 +565,7 @@ const makePageBox = (elementName, inputHtml, inputId, className) => {
 }
 
 
-// todo: 페이지네이션 박스 화면에 출력
+// optimize: 페이지네이션 박스 화면에 출력
 const printPagination = (adminPagination, pagination) => {
 
     // 이전 페이지
@@ -654,46 +646,43 @@ dropUl2.addEventListener("click", () => {
 // 바로 selectMemberList() 호출
 // 반대로하면 읽지 못함.
 
-// todo: 전체 회원정보 조회
-// 첫 페이지 불러오기
+// 첫 페이지 불러오기  (전체회원정보)
 // document.addEventListener("DOMContentLoaded", () => {
 //     selectMemberList();
 // });
 
-// -- ajax
-// 2페이지 이후에 불러오기
-/* 페이지네이션 박스에 클릭 이벤트 추가 */
-const selectMemberListEvent = (element, cp) => {
-    element.addEventListener('click', () => {
-        window.scrollTo({top: 0, behavior: 'smooth'});
-        numCount = (cp-1)*15;
-        selectMemberList(cp);
-    });
-}
-
-// 2페이지 이후 상세조회 불러오기
-
-
-
-
-
 
 // -- jsp
-// todo: ajax 페이지네이션 cp 정하기 +  회원전체목록 불러오는 함수 호출
+// 첫 페이지에서 다른 페이지로 이동하기 위해, cp값 부여!
+// optimize: 페이지박스 각각에 cp 값 추가 + 전체 회원 조회
+// 없으면 cp 값이 적용이 안 되어서 이동이 안됨. 
 const pageBox = document.getElementsByClassName('page-box');
 for(let page of pageBox){
     page.addEventListener('click', () => { 
-        window.scrollTo({top: 0, behavior: 'smooth'});
         let cp = page.id;
         selectMemberList(cp);
     })
 }
 
 
+// -- ajax
+// 2페이지 이후, ajax로 조회할 때 다른 페이지로 이동하기 위해! -> printPagination() 에서 사용
+//optimize: 페이지네이션 박스 클릭하면, 전체 회원 조회  
+// 없으면 다음 페이지로 이동은 가능하나, 목록 조회가 되지 않음.
+const selectMemberListEvent = (element, cp) => {
+    element.addEventListener('click', () => {
+        numCount = (cp-1)*15;  // 전체조회화면 no 변경
+        selectMemberList(cp);
+    });
+}
+
+
+
+
+
 //todo: 한 줄 클릭할 때, 회원 상세 정보 불러오는 함수 호출
 const memberSelectRow = document.getElementsByClassName("member-select-row");
 var hiddenMemberId = document.getElementsByClassName('hidden-memberId');
-var hiddenId;
 
 for(let i=0; i<memberSelectRow.length; i++){
     memberSelectRow[i].addEventListener('click', () => {
@@ -824,7 +813,16 @@ document.getElementById("s4").addEventListener("click", ()=>{
 
 // todo: 강제 탈퇴 시키기 (by 관리자)
 //fixme: 안 비워줘서 바로바로 적용이 안되는 것 같다..
-// fixme: member-detail-table 모두 ajax로 만들기!
+// 강제 탈퇴 버튼 클릭 시 모달 열리기
+const adminDelBtn = document.getElementById("adminDelBtn");
+
+// 회원 상세 정보에서 강제 탈퇴 버튼 누를 경우
+adminDelBtn.addEventListener('click', () => {
+    adminModalOpen();  //adminModal.js에 공통적인 부분 만들어놓음!
+})
+
+
+// 모달에서 강제 탈퇴 제출 버튼 클릭 시
 document.getElementById("adminDelSubmitBtn").addEventListener('click', ()=>{
 
     $.ajax({
@@ -833,15 +831,17 @@ document.getElementById("adminDelSubmitBtn").addEventListener('click', ()=>{
         type: "POST",
         success: (result) => {
             if(result > 0){
-                adminDel.style.display = "none";
+                adminModalClose();
 
-                if(adminDel.style.display == 'none'){
+                if(adminModal.style.display == 'none'){
                     selectMemberList(cp);
                     selectMemberDetail(hiddenId);
                 }          
                 
-                console.log("강제 탈퇴 완료!");
-                messageModalOpen("강제 탈퇴가 처리되었습니다.");
+                console.log("강제 탈퇴 완료");
+                messageModalOpen("강제 탈퇴 되었습니다.");
+
+                //fixme: 시간 남을 때 모달이랑, 스크롤 위치 수정
 
             
             } else {
@@ -887,8 +887,7 @@ const searchNoResult = () => {
 }
 
 
-// todo: 
-// 전체 조회 글자 자르기
+// todo: 전체 조회 글자 자르기
 /*
 유효성
 아이디 6~20자
@@ -901,24 +900,30 @@ const searchNoResult = () => {
 닉네임 10자 
 */
 
-// jsp 첫 페이지  글자 자르기
-const mId = document.getElementById("mId");
-if(mId.innerText.length > 10){
-    mId.innerText = mId.innerText.substring(0, 9) + '...';
-} else {
-    mId.innerText = mId.innerText;
+// jsp 첫 페이지 글자 자르기
+const mId = document.getElementsByClassName("mId");
+for(let i=0; i<mId.length; i++){
+    if(mId[i].innerText.length > 10){
+        mId[i].innerText = mId[i].innerText.substring(0, 9) + '...';
+    } else {
+        mId[i].innerText;
+    }
 }
 
-const mNickname = document.getElementById("mNickname");
-if(mNickname.innerText.length > 10){
-    mNickname.innerText = mNickname.innerText.substring(0,9) + '...';
-} else {
-    mNickname.innerText = mNickname.innerText;
+const mNickname = document.getElementsByClassName("mNickname");
+for(let i=0; i<mId.length; i++){
+    if(mNickname[i].innerText.length > 10){
+        mNickname[i].innerText = mNickname[i].innerText.substring(0, 9) + '...';
+    } else {
+        mNickname[i].innerText;
+    }
 }
 
-const mAddress = document.getElementById("mAddress");
-if(mAddress.innerText.length > 25){
-    mAddress.innerText = mAddress.innerText.substring(0, 24) + '...';
-} else {
-    mAddress.innerText = mAddress.innerText;
+const mAddress = document.getElementsByClassName("mAddress");
+for(let i=0; i<mAddress.length; i++){
+    if(mAddress[i].innerText.length > 25){
+        mAddress[i].innerText = mAddress[i].innerText.substring(0, 24) + '...';
+    } else {
+        mAddress[i].innerText;
+    }
 }

@@ -14,10 +14,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>회원 관리</title>
         <link rel="stylesheet" href="/resources/css/common/header-style.css">
-        <link rel="stylesheet" href="/resources/css/common/footer-style.css">
         <link rel="stylesheet" href="/resources/css/admin/adminNav-style.css">
         <link rel="stylesheet" href="/resources/css/admin/adminMember-style.css" />
-        <link rel="stylesheet" href="/resources/css/admin/adminDel-modal-style.css" />
+        <link rel="stylesheet" href="/resources/css/admin/adminModal-style.css" />
         <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
 
         <script src="https://kit.fontawesome.com/d4fbceca97.js" crossorigin="anonymous"></script>
@@ -89,12 +88,12 @@
                                     <c:set var="i" value="${i+1}" />
                                     <tr class="member-select-row" id="memberSelectRow"> 
                                         
-                                        <td class="report-member-seq">${i}</td>
+                                        <td class="member-seq">${i}</td>
                                         <td>${member.memberNo}</td>
-                                        <td id="mId">${member.memberId}</td>
-                                        <td id="mNickname">${member.memberNickname}</td>
+                                        <td class="mId">${member.memberId}</td>
+                                        <td class="mNickname">${member.memberNickname}</td>
 
-                                        <td id="mAddress">${member.memberAddress}</td>
+                                        <td class="mAddress">${member.memberAddress}</td>
                                         <td>${member.signUpDate}</td> 
 
                                         <%-- 판매자 인증 --%>
@@ -254,16 +253,16 @@
 
 
         <!-- //TODO: 강제 탈퇴 모달 -->
-        <div class="adminDel-container" id="adminDelContainer">
-            <div class="adminDel-modal">
+        <div class="adminModal-container" id="adminModalContainer">
+            <div class="admin-modal">
     
-                <span class="adminDel-title"> 
-                    정말로 탈퇴시키겠습니까? 
+                <span class="adminModal-title"> 
+                    정말 탈퇴시키겠습니까?
                 </span>
                 
-                <div class="adminDel-form-div">
-                    <div class="adminDel-form">
-                        <button id="delCancelBtn">취소</button>
+                <div class="adminModal-form-div">
+                    <div class="adminModal-form">
+                        <button id="cancelBtn">취소</button>
                         <button id="adminDelSubmitBtn">강제 탈퇴</button>
                     </div>
                 </div>
@@ -276,14 +275,14 @@
         <script>
             var authFilter = 0;  /* 판매자등록 필터  0: 전체 조회 */
             var statFilter = 0;  /* 상태 필터 0: 전체 조회  */
-            var cp = 1;
+            var cp = 1;  // cp 선언해야 필터 가능
         </script>
 
         <%-- jquery --%>
         <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
         
         <script src="/resources/js/admin/adminMember.js"></script> 
-        <script src="/resources/js/admin/adminDel-modal.js"></script> 
+        <script src="/resources/js/admin/adminModal.js"></script> 
         <script src="/resources/js/common/common.js"></script> 
     </body>
 </html>

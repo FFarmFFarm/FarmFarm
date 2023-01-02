@@ -1,11 +1,11 @@
 
-const report = document.getElementById("reportContainer");
+const reportContainer = document.getElementById("reportContainer");
 const reportBtn = document.getElementById("reportBtn");
 
-report.style.display = 'none';
+reportContainer.style.display = 'none';
 
 reportBtn.addEventListener('click', () => {
-    report.style.display = 'flex';
+    reportContainer.style.display = 'flex';
     // console.log(targetNo);
     // console.log(pathname);
 })
@@ -16,7 +16,7 @@ reportBtn.addEventListener('click', () => {
 window.addEventListener('click', (e) => {
 
     // 신고창 밖 클릭 시 닫힘
-    e.target === report ? report.style.display = 'none' : false
+    e.target === reportContainer ? reportContainer.style.display = 'none' : false
     document.querySelector('body').classList.remove("scrollLock");
 });
 
@@ -35,7 +35,7 @@ window.addEventListener('click', (e) => {
 /*
     1) 주소창 주소에 따라서 reportType을 다르게.  -> pathname
 
-    회원 신고 : /member /chat /myPage /seller
+    회원 신고 : /member /chat (/myPage) /seller
     게시글 신고 : /board/{boardCode}/{boardNo}  /post/{postNo}
     댓글 신고 : /board/{boardCode}/{boardNo}
 
@@ -49,7 +49,8 @@ window.addEventListener('click', (e) => {
 // * pathname: 각 기능 메인 주소
 const pathname = location.pathname.substring(1, location.pathname.lastIndexOf("/"));
 
-//boardNo, postNo, reviewNo의 번호
+//boardNo(와글와글), postNo(판매글), reviewNo의 번호  -> lastIndexOf("/")로 자름
+// seller에서 memberNo(판매자)
 //location.pathname.substring(location.pathname.lastIndexOf("/")+1)
 const targetNo = location.pathname.substring(location.pathname.lastIndexOf("/")+1);
 
@@ -65,8 +66,8 @@ reportSubmitBtn.addEventListener("click", () => {
 
     // 회원 신고
     if(pathname == "seller") {
-        reportType.value = "M";
-        reportTargetNo.value = memberNo;
+        reportType.value = "S";
+        reportTargetNo.value = targetNo;
     }
 
 
@@ -77,29 +78,49 @@ reportSubmitBtn.addEventListener("click", () => {
     }
 
 
-    // 판매 게시글 신고
+    // 판매 게시글 신고 (사고팔고)
     if(pathname == "post"){
-        reportType.value = "B";
+        reportType.value = "P";
         reportTargetNo.value = targetNo;  //postNo
     }
 
 
-    // 와글와글 게시글 신고
-    if(pathname == "board" && !commentNo.contains("c")){
+    // 와글와글 게시글 신고 (카테고리 분류X)
+    // if(pathname.contains('board') && !commentNo.contains("c")){
+    if(pathname.includes('board')){
         reportType.value = "B";
         reportTargetNo.value = targetNo;  //boardNo
     }
 
 
+    // // 와글와글 게시글 신고 - 물물교환
+    // if(pathname.contains("board/1") && !commentNo.contains("c")){
+    //     reportType.value = "B1";
+    //     reportTargetNo.value = targetNo;  //boardNo
+    // }
+
+    // // 와글와글 게시글 신고 - 팁
+    // if(pathname.contains("board/2") && !commentNo.contains("c")){
+    //     reportType.value = "B2";
+    //     reportTargetNo.value = targetNo;  //boardNo
+    // }
+
+    // // 와글와글 게시글 신고 - 질문
+    // if(pathname.contains("board/3") && !commentNo.contains("c")){
+    //     reportType.value = "B3";
+    //     reportTargetNo.value = targetNo;  //boardNo
+    // }
+
+
     // 댓글 신고 - 
-    if(pathname == "board" && commentNo.contains("c")){
-        reportType.value = "C";
-        reportTargetNo.value = commentNo;
-    }
+    // if(pathname.includes("board") && commentNo.contains("c")){
+    //     reportType.value = "C";
+    //     reportTargetNo.value = commentNo;
+    // }
 
 
 
-        // 연습 test
+    // 연습 test
     if(pathname == 'testPage'){
         reportType.value = 'T';
         reportTargetNo.value = targetNo; //4
@@ -116,7 +137,9 @@ reportSubmitBtn.addEventListener("click", () => {
     for(var i=0; i<reportReasonList.length; i++){
         
         if(reportReasonList[i].checked){
-            radioResult = reportLabel[i].innerText;
+
+            //fixme: 왜,, 하나씩 밀리는 거지. 일단 임시방편으로 +1함.
+            radioResult = reportLabel[i+1].innerText;
             console.log(radioResult);
         }
     }
@@ -132,8 +155,9 @@ reportSubmitBtn.addEventListener("click", () => {
         success: (result) => {
             if(result > 0){
                 console.log("신고 접수");
-                report.style.display = 'none';
-                alert("신고가 접수되었습니다.")
+                reportContainer.style.display = 'none';
+                messageModalOpen('신고가 접수되었습니다.');
+                // fixme: 글 삭제하는 함수 넣기 
             
             } else {
                 console.log("신고 실패");

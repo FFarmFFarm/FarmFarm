@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,9 +11,8 @@
     <title>전체 신고 내역</title>
 
     <link rel="stylesheet" href="/resources/css/common/header-style.css">
-    <link rel="stylesheet" href="/resources/css/common/footer-style.css">
     <link rel="stylesheet" href="/resources/css/admin/adminNav-style.css">
-    <link rel="stylesheet" href="/resources/css/admin/adminReportTotal-style.css" />
+    <link rel="stylesheet" href="/resources/css/admin/adminReport-style.css" />
     <link rel="stylesheet" href="/resources/css/admin/adminReportDetail-modal-style.css" />
 
     <script src="https://kit.fontawesome.com/d4fbceca97.js" crossorigin="anonymous"></script>
@@ -29,37 +29,38 @@
         <!-- 오른쪽 -->
         <section class="admin-content-section">
             <div class="page-title" id="pageTitle">
-              <p>신고 관리</p>
+              <p>미처리 신고</p>
             </div>
 
             <div class="report-total-div">
                 <div class="title-div">
-                    <span class="report-title">전체 신고 관리</span>
+                    <span class="report-title">신고 접수 내역 (총 15건)</span>
                     <span class="report-search"> 
-                        <input type="text" name="reportSearch" id="reportSearchInput" placeholder="검색">
+                        <input type="text" name="reportSearchKeyword" id="reportSearchKeyword" placeholder="검색">
                         <button type="button" id="reportSearchBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </span>
                 </div>
 
                 <div class="report-select">
                     <table class="report-list-table">
-                        <tr>
+                        <tr class="report-list-header">
                             <th>신고번호</th>
                             <th class="report-list-type">
                               <span>유형</span>
                               <i class="fa-solid fa-caret-down caret-icon"></i>
                             </th>
-                            <th>타이틀</th>
+                            <th>제목</th>
                             <th>신고 대상 아이디</th>
-                            <th>신고 일자
-                              <i class="fa-solid fa-sort"></i>
+                            <th>신고 일자</i>
                             </th>
                             <th>처리 일자</th>
                             <th>누적 신고
-                              <i class="fa-solid fa-sort"></i>
+                              <i class="fa-solid fa-caret-up caret-icon"></i> <!-- 오름차순 -->
+                              <i class="fa-solid fa-caret-down caret-icon"></i> <!-- 내림차순 -->
                             </th>
                             <th>누적 정지
-                              <i class="fa-solid fa-sort"></i>
+                              <i class="fa-solid fa-caret-up caret-icon"></i> <!-- 오름차순 -->
+                              <i class="fa-solid fa-caret-down caret-icon"></i> <!-- 내림차순 -->
                             </th>
                             <th>처리 상태</th>
                         </tr>
@@ -74,7 +75,7 @@
                             <td>2022-12-14 23:22:12</td>
                             <td>10</td>
                             <td>0</td>
-                            <td>반려</td>
+                            <td>접수</td>
                         </tr>
 
 
@@ -92,7 +93,7 @@
                         </tr>
                         <tr class="report-list-row">
                           <td>3</td>
-                          <td>후기</td>
+                          <td>판매자 신고</td>
                           <td>토마토는거꾸로토마토..</td>
                           <td>longideneti12</td>
                           <td>2022-12-10 12:01:05</td>
@@ -325,10 +326,8 @@
         </section>
     </main>
 
-    <!-- <jsp:include page="/WEB-INF/views/common/footer.jsp"/>  -->
-
     <!-- 신고 상세페이지 모달 -->
-    <div class="report-detail-container">
+    <div class="report-detail-container" id="adminModalContainer">
       <div class="report-detail-modal">
         <span class="report-modal-title">신고 상세 정보</span>
 
@@ -379,6 +378,14 @@
         </div>
       </div>
     </div>  
+
+
+
+    <%-- jquery --%>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+    <script src="/resources/js/admin/adminReport.js"></script> 
+    <script src="/resources/js/admin/adminModal.js"></script> 
 
 </body>
 </html>

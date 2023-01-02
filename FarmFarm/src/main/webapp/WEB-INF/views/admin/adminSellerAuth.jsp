@@ -15,15 +15,16 @@
     <title>판매자 인증 관리</title>
 
     <link rel="stylesheet" href="/resources/css/common/header-style.css">
-    <link rel="stylesheet" href="/resources/css/common/footer-style.css">
     <link rel="stylesheet" href="/resources/css/admin/adminNav-style.css">
     <link rel="stylesheet" href="/resources/css/admin/adminSellerAuth-style.css" />
+    <link rel="stylesheet" href="/resources/css/admin/adminModal-style.css" />
+    <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
 
     <script src="https://kit.fontawesome.com/d4fbceca97.js" crossorigin="anonymous"></script>
 </head>
     
 <body>
-    <jsp:include page="/WEB-INF/views/common/adminHeader.jsp"/>    
+    <jsp:include page="/WEB-INF/views/common/adminHeader.jsp"/>  
 
     <main>
 
@@ -39,8 +40,8 @@
                 <div class="board-div">
                     <span class="board-title">
                         인증 신청 목록 
-                        <button type="button" id="allSellerBtn"><span class="preSellerFitler" id="p1">전체 판매자 보기</span></button>
-                        <button type="button" id="watingSellerBtn"><span class="preSellerFitler" id="p0">인증 대기 중인 회원 보기</span></button>
+                        <button type="button" id="watingSellerBtn"><span class="sellerFilter" id="p0">인증 대기 회원 보기</span></button>
+                        <button type="button" id="allSellerBtn"><span class="sellerFilter" id="p1">전체 판매자 보기</span></button>
                     </span>
                 </div>
 
@@ -61,16 +62,16 @@
 
                         <!-- todo: ajax로 해서 신청 완료 되면 바로바로 목록에서 없어지도록! -->
                         <!-- 한 행 반복 -->
-                        <tbody>
+                        <tbody id="tbody">
                             <c:forEach var="seller" items="${sellerList}">
                                 <c:set var="i" value="${i+1}" />
                                 <tr class="auth-list-row">
-                                    <td>${i}</td>
+                                    <td class="member-seq">${i}</td>
                                     <td>${seller.memberNo}</td>
-                                    <td id="sId">${seller.memberId}</td>
-                                    <td id="sNickname">${seller.memberNickname}</td>
+                                    <td class="sId">${seller.memberId}</td>
+                                    <td class="sNickname">${seller.memberNickname}</td>
                                     <td>${seller.memberName}</td>
-                                    <td id="sAddress">${seller.memberAddress}</td>
+                                    <td class="sAddress">${seller.memberAddress}</td>
                                     <td>${seller.signUpDate}</td>
                                     
                                     <c:if test="${not empty seller.authority}">
@@ -81,6 +82,8 @@
                                             <td>인증 완료</td>
                                         </c:if>
                                     </c:if>
+                                    <!-- <input type="hidden" class="hidden-memberId" name="hiddenId" value="${seller.memberId}"> -->
+                                    <input type="hidden" class="hidden-memberNo" name="hiddenNo" value="${seller.memberNo}">
                                 </tr>
                             </c:forEach>
 
@@ -89,7 +92,7 @@
                 </div>
 
                 <!-- todo: 페이지네이션 반복문 -->
-                <div class="admin-pagination-area">
+                <div class="admin-pagination-area" id="adminPaginationArea">
                     <ul class="admin-pagination">
                         <li id="1" class="page-box">
                             <i class="fa-solid fa-angles-left"></i>
@@ -123,64 +126,63 @@
                 </div>
             </div>
 
-            <div class="board-content">
+            <div class="board-content" id="selectAuthPaperDiv">
                 <span class="board-title">인증 신청서 조회</span>
 
-                <div class="select-auth-paper">
+                <div class="select-auth-paper" id="authPaper">
                     <!-- todo: el쓰는부분 ajax로 -->
 
                     <div class="seller-auth-image">
-                        <span class="auth-image-title">증빙 자료 (인증 사진_확대 가능하게)</span>
-                        <span class="auth-image">
-                            <img src="/resources/images/myPage/background/bgImg2.jpg">
+                        <span class="auth-image-title" id="authImageTitle">증빙 자료(인증사진)</span>
+                        <span class="auth-image" id="authImage">
+                            <!-- <img src="/resources/images/myPage/background/bgImg2.jpg" class="aImg"> -->
                         </span>
                     </div>
 
                     <div class="seller-auth-div">
-                        <table class="seller-auth-table">
-                            <tbody>
-                                <tr>
-                                    <td class="detail-bold">회원번호</td>
-                                    <td class="detail-content">12345</td>
-                                </tr>
-                                <tr>
-                                    <td class="detail-bold">아이디</td>
-                                    <td class="detail-content">USER01</td>
-                                </tr>
-                                <tr>
-                                    <td class="detail-bold">닉네임</td>
-                                    <td class="detail-content">유저일</td>
-                                </tr>
-                                <tr>
-                                    <td class="detail-bold">성명</td>
-                                    <td class="detail-content">홍길동</td>
-                                </tr>
-                                <tr>
-                                    <td class="detail-bold">생년월일</td>
-                                    <td class="detail-content">1980년 1월 1일</td>
-                                </tr>
-                                <tr>
-                                    <td class="detail-bold">연락처</td>
-                                    <td class="detail-content">010-1234-5678</td>
-                                </tr>
-                                <tr>
-                                    <td class="detail-bold">주소</td>
-                                    <td colspan="3" class="detail-content">서울 중구 남대문로 120 무슨빌딩 2층 2000호 kh정보교육원 어쩌구저쩌구 주소 길게</td>
-                                </tr>
-                                <tr>
-                                    <td class="detail-bold">가입일</td>
-                                    <td class="detail-content">2022-12-10 14:27:20</td>
-                                </tr>
-                                <tr>
-                                    <td class="detail-bold">판매자 승인 일자</td>
-                                    <td class="detail-content">2022-12-10 18:27:20</td>
-                                </tr>
-                            </tbody>
+                        <table class="seller-auth-table" id="sellerAuthTable">
+                            <!-- sellerMemberNo가 맞지만 길어서 member생략함. 따로 sellerNo가 있는건 아님! -->
+                            <!-- <tr>
+                                <td class="detail-bold" id="sellerNo">회원번호</td>
+                                <td class="detail-content">12345</td>
+                            </tr>
+                            <tr>
+                                <td class="detail-bold" id="sellerId">아이디</td>
+                                <td class="detail-content">USER01</td>
+                            </tr>
+                            <tr>
+                                <td class="detail-bold" id="sellerNickname">닉네임</td>
+                                <td class="detail-content">유저일</td>
+                            </tr>
+                            <tr>
+                                <td class="detail-bold" id="sellerName">성명</td>
+                                <td class="detail-content">홍길동</td>
+                            </tr>
+                            <tr>
+                                <td class="detail-bold" id="sellerBirth">생년월일</td>
+                                <td class="detail-content">1980년 1월 1일</td>
+                            </tr>
+                            <tr>
+                                <td class="detail-bold" id="sellerTel">연락처</td>
+                                <td class="detail-content">010-1234-5678</td>
+                            </tr>
+                            <tr>
+                                <td class="detail-bold" id="sellerAddress">주소</td>
+                                <td colspan="3" class="detail-content">서울 중구 남대문로 120 무슨빌딩 2층 2000호 kh정보교육원 어쩌구저쩌구 주소 길게</td>
+                            </tr>
+                            <tr>
+                                <td class="detail-bold" id="sellerSignUpDate">가입일</td>
+                                <td class="detail-content">2022-12-10 14:27:20</td>
+                            </tr>
+                            <tr>
+                                <td class="detail-bold" id="sellerAuthDate">판매자 승인 일자</td>
+                                <td class="detail-content">2022-12-10 18:27:20</td>
+                            </tr> -->
                         </table>
                     
                         <div class="auth-button-div">
                             <button id="authApproveBtn">승인</button>
-                            <button id="authDenyBtn">거부</button>
+                            <button id="authDenyBtn">반려</button>
                         </div>
                     </div>
                 </div>
@@ -188,8 +190,39 @@
         </section>
     </main>
 
+
+    <!-- 거부 모달 -->
+    <div class="adminModal-container" id="adminModalContainer">
+        <div class="admin-modal-deny">
+
+            <span class="adminModal-title"> 
+                판매자 인증을 반려하시겠습니까?
+            </span>
+
+            <textarea name="denyReason" id="denyReason" cols="30" rows="10"></textarea>
+            
+            <div class="adminModal-form-div">
+                <div class="adminModal-form">
+                    <button id="cancelBtn">취소</button>
+                    <button id="denyBtn">반려</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- 증빙사진 모달 //  팝업창 열리는 것으로 대체-->
+    <!-- <div class="authImg-modal" id="authImgModal">
+        <span class="authImg-span">
+                <img class="authImg">
+        </span>
+    </div> -->
+
+
+
     <script>
-        var preSellerFitler = 0;
+        var sellerFilter = 0;
         var cp = 1;
     </script>
 
@@ -197,5 +230,7 @@
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
     <script src="/resources/js/admin/adminSellerAuth.js"></script> 
+    <script src="/resources/js/admin/adminModal.js"></script> 
+    <script src="/resources/js/common/common.js"></script> 
 </body>
 </html>
