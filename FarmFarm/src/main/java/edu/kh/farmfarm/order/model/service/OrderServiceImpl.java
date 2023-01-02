@@ -1,17 +1,43 @@
 package edu.kh.farmfarm.order.model.service;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.lang.annotation.Annotation;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.RequestEntity.BodyBuilder;
+import org.springframework.http.StreamingHttpOutputMessage.Body;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.client.RestTemplate;
+
+import com.google.gson.JsonObject;
 
 import edu.kh.farmfarm.mypage.model.vo.Order;
 import edu.kh.farmfarm.order.model.dao.OrderDAO;
+import edu.kh.farmfarm.order.model.vo.BuyerInfo;
+import edu.kh.farmfarm.order.model.vo.ImpToken;
 import edu.kh.farmfarm.order.model.vo.Return;
 import edu.kh.farmfarm.productDetail.model.vo.Product;
 
@@ -20,6 +46,11 @@ public class OrderServiceImpl implements OrderService{
 	
 	@Autowired
 	private OrderDAO dao;
+	
+	private HttpHeaders headers = new HttpHeaders();
+	
+	
+	private RestTemplate restTemplate = new RestTemplate();
 
 	@Override
 	@Transactional
@@ -71,6 +102,116 @@ public class OrderServiceImpl implements OrderService{
 		}
 		
 		return orderNo;
+	}
+	
+	
+	/** 주문 취소하기
+	 *
+	 */
+	@Override
+	public int orderCancel(int orderNo) {
+		return dao.orderCancel(orderNo);
+	}
+	
+	
+	/** 결제 토큰 얻어오기
+	 *
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public String getToken() throws IOException {
+
+
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		
+		JSONObject body = new JSONObject();
+		body.put("imp_key", "6512320408078822");
+		body.put("imp_secret", "GCLUvY1ctKJUvFio3IOUoY42wMDMwrbSE1nfpJVkVvbvsYZWoTTnLLBAyQxcqsyWzWAXphVDEgbNy1Na");
+		
+		String token = null;
+		
+		try {
+			HttpEntity<JSONObject> entity = new HttpEntity<>(body , headers);
+			ImpToken impToken = restTemplate.postForObject("https://api.iamport.kr/users/getToken", entity, ImpToken.class);
+
+			
+			token = impToken.getResponse().get("access_token").toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("getTokenError");
+		} finally {
+			headers.clear();
+			body.clear();
+		}
+		
+		return token;
+	}
+	
+	
+	/** 결제 정보 불러오기
+	 *
+	 */
+	@Override
+	public JSONObject getBuyerInfo(String token, String impId) throws IOException {
+		
+		URL url = new URL("https://api.iamport.kr/payments/");
+		
+		headers.add("Authorization", token);
+		HttpEntity<JSONObject>entity= new HttpEntity<JSONObject>(headers);
+		
+		try {
+			BuyerInfo buyerInfo = restTemplate.postForObject(url+impId, entity, BuyerInfo.class);
+			return buyerInfo.getResponse();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("getBuyerInfo Error");
+			
+			throw new RuntimeException("결제 정보 불러오기 실패");
+		}
+	}
+	
+	/** 결제 id 얻어오기
+	 *
+	 */
+	@Override
+	public Order selectImpUid(int orderNo) {
+		return dao.selectImpUid(orderNo);
+	}
+	
+	/** 아임포트에 환불 요청
+	 * @throws IOException 
+	 *
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public int paymentCancel(String token, Order order) throws IOException {
+		
+		
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.add("Authorization", token);
+		
+		JSONObject body = new JSONObject();
+		body.put("reason", "주문 취소");
+		body.put("imp_uid", order.getImpUid());
+		body.put("amount", order.getOrderPrice());
+		body.put("checksum", order.getOrderPrice());
+		
+		try {
+			HttpEntity<JSONObject> entity = new HttpEntity<>(body , headers);
+			ImpToken impToken = restTemplate.postForObject("https://api.iamport.kr/payments/cancel", entity, ImpToken.class);
+			
+			System.out.println(impToken.toString());
+			return 1;
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("getBuyerInfo Error");
+			
+			throw new RuntimeException("환불 실패");
+		}
+		
+		
 	}
 	
 }

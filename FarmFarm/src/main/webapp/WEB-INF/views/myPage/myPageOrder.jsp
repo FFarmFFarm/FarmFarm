@@ -201,6 +201,7 @@
 
     <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
     <jsp:include page="/WEB-INF/views/myPage/modal/orderConfirm.jsp"/>
+    <jsp:include page="/WEB-INF/views/myPage/modal/cancelConfirm.jsp"/>
     <jsp:include page="/WEB-INF/views/myPage/modal/reviewForm.jsp"/>
 
     <script>
@@ -209,7 +210,7 @@
       var confirmOrderNo;
 
       var imgOrder = 1;
-
+    
       
     </script>
 
