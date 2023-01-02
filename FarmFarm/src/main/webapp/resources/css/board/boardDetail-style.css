@@ -22,7 +22,6 @@ main{
 /* 커뮤니티 네브 */
 .board-nav{
     font-size: 20px;
-    border-top: 1px solid var(--line-color);
     border-bottom: 1px solid var(--line-color);
     height: 70px;
 }
@@ -33,20 +32,18 @@ main{
     margin: 0 160px;
     align-items: center;
 }
-.board-nav-area > span{
+.board-nav-area > a{
     height: 100%;
     width: 150px;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 }
-/* .board-nav-area >span:hover{
+.board-nav-area >a:hover{
     color: var(--point-color);
     cursor: pointer;
-    font-weight: bold;
-} */
+}
 .nowType{
-    height: 100%;
     border-bottom: 3px solid var(--point-color);
 }
 
@@ -60,12 +57,10 @@ main{
     flex-direction: column;
 }
 .writer-img{
-    width: 73px;
-    height: 73px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    /* border: 1px solid black; */
     overflow: hidden;
-    /* margin-left: 20px; */
     display: flex;
     align-items: center;
 }
@@ -78,9 +73,9 @@ main{
     height: 100%;
 }
 .writer-ect{
-    width: 141px;
+    width: 735px;
     margin: auto 15px;
-    font-size: var(--main-font-size);
+    font-size: 13px;
     color: var(--sub-font-color);
 }
 
@@ -89,16 +84,20 @@ main{
     width: 580px;
     font-weight: bold;
     margin-left: 15px;
+    font-size: var(--large-font-size);
+    height: 65px;
+    display: flex;
+    align-items: center;
 }
 .goList{
     width: 100px;
-    height: 40px;
+    height: 35px;
     border-radius: 5px;
     background-color: var(--point-color);
     color: white;
     border: none;
     letter-spacing: 2px;
-    font-size: var(--medium-font-size);
+    font-size: var(--main-font-size);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -145,6 +144,7 @@ main{
     align-items: center;
     color: var(--sub-font-color);
     padding: 0 160px;
+    justify-content: center;
 }
 .board-like-report>button{
     width: 40%;
@@ -203,7 +203,7 @@ main{
 }
 .write-comment:focus{
     border: none;
-    outline: 2px solid var(--point-color);
+    outline: 1.5px solid var(--point-color);
 }
 .comment-content > div{
     width: 100%;
@@ -214,6 +214,7 @@ main{
     justify-content: space-between;
     border-top: 1px solid var(--sub-font-color);
     margin-top: -5px;
+    height: 45px;
 }
 
 .comment-caution{
@@ -224,7 +225,7 @@ main{
 
 .comment-insert{
     width: 135px;
-    height: 45px;
+    height: 46px;
     background-color: var(--point-color);
     font-size: var(--medium-font-size);
     letter-spacing: 3px;
@@ -232,6 +233,8 @@ main{
     color : var(--background-color);
     border: none;
     font-family: "NotoSansKR-Bold";
+    margin-right: -1px;
+    margin-top: -1px;
 }
 /* 댓글 부분 */
 .comment-row{
@@ -399,8 +402,6 @@ main{
 }
 .write-comment::-webkit-scrollbar-track{
     background: #ddd;
-    border-top-right-radius: 9px;
-    border-bottom-right-radius: 9px;
 }
 
 .comment-co-content::-webkit-scrollbar{
@@ -433,6 +434,6 @@ main{
 
 .temptemp{
     display: flex;
-    /* justify-content: space-between; */
     width: 100%;
+    margin-left: 15px;
 }

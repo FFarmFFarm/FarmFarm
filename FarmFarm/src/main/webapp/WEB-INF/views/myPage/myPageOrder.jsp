@@ -58,6 +58,7 @@
 
           <c:forEach var="product" items="${order.productList}">
           <div class="order-one">
+          <input type="hidden" id="productPrice" value="${product.productPrice}"/>
             <a href="/product/${product.productNo}" class="order-thumbnail">
               <img
                 src="${product.productImg}"
@@ -208,9 +209,13 @@
       var confirmOrderNo;
 
       var imgOrder = 1;
-      
 
+      
     </script>
+
+   
+
+
 
 
 
@@ -220,6 +225,14 @@
     <script src="/resources/js/common/common.js"></script>
     <script src="/resources/js/myPage/myPage.js"></script>
     <script src="/resources/js/myPage/myPageOrder.js"></script>
+
+    <c:if test="${! empty message}">
+    <script>
+
+      messageModalOpen("${message}");
+      
+    </script>
+    </c:if>
   </body>
 
 </html>

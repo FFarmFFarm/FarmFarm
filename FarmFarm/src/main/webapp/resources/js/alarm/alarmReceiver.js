@@ -8,36 +8,47 @@ let pushtimer;
 // HTML이 완성되면 소켓에 연결을 시도함
 addEventListener("DOMContentLoaded", ()=>{
     
-    // 임시 회원 정보, 나중에 수정하기
-    let memberNo =  1
+    console.log('로그인 여부 확인중...')
+    
+    // 로그인 여부 확인을 위해, axios 이용해서 회원 번호를 요청
+    axios.post('/check/login'
+    ).then(function (response){
 
-    // 회원 정보가 있을 때에만 소켓 연결
-    if(memberNo != null) {
-        // 새 SockJS 객체 alarmSock 생성, 서버는 /echo/alarm과 연결
-        alarmSock = new SockJS("/echo/alarm");
-
-        console.log('알림 서버에 연결을 시도합니다... ')
-
-        // alarmSock 객체가 생성되었을 때에만, 웹소켓 서버로부터 알림을 수신
-        if(alarmSock != null) {
-
-            console.log('알림 서버와 연결되었습니다.')
+        // 회원 정보가 있을 때에만 웹소켓에 연결
+        if(response.data == 0) {
             
-            alarmSock.onmessage = function(e){
-            
-                console.log('새로운 알림이 있습니다.')
-            
-                // 받은 소켓 메시지를 역직렬화 한 후, 상수 alarm에 저장
-                const alarm = JSON.parse(e.data);
+            console.log('로그인되었습니다.')
 
-                // 알림 내용이 있을 때에만, 수신 알림 처리 함수를 선언
-                if(alarm != null) {
-                    // 수신 알림 처리 함수인 fillAlarmContainer 실행해서 받은 데이터를 전송
-                    fillAlarmReceiverContainer(alarm);
+            // 새 SockJS 객체 alarmSock 생성, 서버는 /echo/alarm과 연결
+            alarmSock = new SockJS("/echo/alarm");
+    
+            console.log('알림 서버에 연결을 시도합니다... ')
+    
+            // alarmSock 객체가 null이 아닐 때에만, 웹소켓 서버로부터 알림을 수신
+            if(alarmSock != null) {
+    
+                console.log('알림 서버와 연결되었습니다.')
+                
+                alarmSock.onmessage = function(e){
+                
+                    console.log('새로운 알림이 있습니다.')
+                
+                    // 받은 JSON 유형의 소켓 메시지를 역직렬화 한 후, 상수 alarm을 선언해 대입
+                    const alarm = JSON.parse(e.data);
+    
+                    // 알림 내용이 있을 때에만, 수신 알림 처리 함수를 선언
+                    if(alarm != null) {
+                        // 수신 알림 처리 함수인 fillAlarmContainer 실행해서 받은 데이터를 전송
+                        fillAlarmReceiverContainer(alarm);
+                    }
                 }
             }
         }
-    }
+
+    }). catch(function (error){
+        console.log('로그인 여부 확인 중 오류 발생')
+    })
+
 
 })
 
@@ -52,58 +63,63 @@ addEventListener("DOMContentLoaded", ()=>{
     1) 알림이 여러 개 왔을 때, 어떻게 처리할 것인지
 */
 
+/*   
+    * 방식 : JSP에 미리 준비해둔 요소를 채우고 노출시키는 방식
+    - 예상되는 장점 : 빠름
+    - 예상되는 단점 : 알림이 여러 개 왔을 때, 노출되고 있던 알림 내용이 갑자기 바뀌는 등 깔끔하게 처리되지 않을 수 있음
+*/
 const fillAlarmReceiverContainer = (alarm) => {
-
-    // 알림 전, 만약 노출된 alarm-conatiner가 있는 경우 노출된 alarm-container를 다시 숨김
-    clearTimeout(hidetimer);
-
+    // 알림을 받았을 때, alarm-receiver-conatiner를 한 번 숨김
+    clearTimeout(hidetimer); // hidetimer에 설정된 setTimeOut 이벤트 제거
     hideAlarm(); // 즉시 숨김
 
-    // alarm-receiver-container의 요소
+    // alarm-receiver-container의 요소 선택
     const alarmReceiverIcon = document.querySelector('.alarm-receiver-icon'); // 알림 아이콘
     const alarmReceiverTitle = document.querySelector('.alarm-receiver-title'); // 알림 제목(== 알림 유형)
     const alarmReceiverContent = document.querySelector('.alarm-receiver-content'); // 알림 상세 내용
 
-    // 모든 요소 비우기
+    // alarm-receiver-container의 요소 비우기
     alarmReceiverIcon.innerHTML = "";
     alarmReceiverTitle.innerHTML = "";
     alarmReceiverContent.innerHTML = "";
 
-    console.log(alarm.alarmTypeNo);
-
     // 알림 아이콘 채우기
-    switch(alarm.alarmTypeNo){
+    switch(alarm.alarmTypeNo){ // 필요 시 아이콘 추가
         case 201:  alarmReceiverIcon.innerHTML = "<i class='fa-regular fa-comment-dots'></i>"; break;
         case 202:  alarmReceiverIcon.innerHTML = "<i class='fa-regular fa-comment-dots'></i>"; break;
+        // case (원하는 alarmTypeNo) : alarmReceiverIcon.innerHTML = (원하는 아이콘); break
     }
 
-    // 알림 제목 채우기
+    // 알림 유형 제목(alarmTitle) 채우기
     alarmReceiverTitle.innerText = alarm.alarmTitle;
 
-    // 알림 내용 채우기
+    // 알림 내용(alarmContent) 채우기
     alarmReceiverContent.innerText = alarm.alarmContent;
 
     // 알림 컨테이너에 링크(quickLink) 세팅하기
     document.querySelector('.alarm-receiver-container').setAttribute('href', alarm.quickLink);
 
-    // 내용을 채운 후, 잠시 딜레이 후, 숨어있던 alarm-container를 노출
+    // 1000ms동안 딜레이 후, 숨어있던 alarm-receiver-container를 노출
     pushtimer = setTimeout(pushAlarm, 1000) // 1초 후 노출
-    
-    // 노출 후, 잠시 딜레이 후, 노출된 alarm-container를 다시 숨김
-    hidetimer = setTimeout(hideAlarm, 5000) // 5초 후 숨김
 
+    // 8000ms동안 노출 후, 노출된 alarm-receiver-container를 다시 숨김
+    hidetimer = setTimeout(hideAlarm, 8000) // 8초 후 숨김
 }
 
-/* alarm-container를 숨김 해제하는 함수 */
+/* alarm-receiver-container를 숨김 해제하는 함수 */
 const pushAlarm = () => {
     const alarmReceiverContainer = document.querySelector('.alarm-receiver-container');
-    alarmReceiverContainer.style.opacity='1';
-    alarmReceiverContainer.style.height = '150px';
+    if(alarmReceiverContainer != null) {  // 요소가 있으면
+        alarmReceiverContainer.style.opacity='1'; // 투명도 1
+        alarmReceiverContainer.style.height = '150px'; // 높이는 150으로 변경
+    }
 }
 
-/* alarm-container를 숨기는 함수 */
+/* alarm-receiver-container를 숨기는 함수 */
 const hideAlarm = () => {
     const alarmReceiverContainer = document.querySelector('.alarm-receiver-container');
-    alarmReceiverContainer.style.opacity='0';
-    alarmReceiverContainer.style.height = '0px';
+    if(alarmReceiverContainer != null) { // 요소가 있으면
+        alarmReceiverContainer.style.opacity='0'; // 투명도 0
+        alarmReceiverContainer.style.height = '0px'; // 높이도 0
+    }
 }

@@ -130,7 +130,7 @@
               <span>최종결제금액</span>
               <c:set var="resultPrice" value="${totalPrice + 3000}"/>
               <span class="result-price"><fmt:formatNumber value="${resultPrice}" pattern="#,###" />원</span>
-              <input type="hidden" name="orderPrice" value="${resultPrice}">
+              <input type="hidden" name="orderPrice" value="${resultPrice}" id="resultPrice">
             </div>
           </div>
         </div>
@@ -169,14 +169,54 @@
           </p>
         </div>
       </section>
+      <input type="hidden" id="tidNo" />
     </form>
 
     <!-- footer -->
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
     <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
+
+    <script>
+      var memberName = '${loginMeber.memberName}';
+      var memberNo = '${loginMeber.memberNo}';
+      var memberTel = '${loginMember.to}';
+      var memberAddress = '${loginMember.memberAddress2}';
+      var orderAmount = '${fn:length(productList)}';
+      var orderPrice = '${resultPrice}';
+
+      var itemName;
+
+      if(orderAmount > 1) {
+
+      itemName = '${productList[0].productName} 외 ${fn:length(productList) - 1}개'
+      }
+
+      if(orderAmount == 1) {
+      itemName = '${productList[0].productName}'
+      }
+
+      console.log(itemName);
+
+
+
+
+    </script>
+
+    
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+    <!-- iamport.payment.js -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
     
     <script src="/resources/js/common/common.js"></script>
     <script src="resources/js/order/order.js"></script>
+
+    <script>
+    
+      
+    </script>
+
   </body>
 </html>

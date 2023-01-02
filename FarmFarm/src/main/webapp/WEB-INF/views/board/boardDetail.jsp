@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="/resources/css/board/boardDetail-style.css">
     <link rel="stylesheet" href="/resources/css/common/header-style.css" />
     <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
+
+    <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
+    
     <script src="https://kit.fontawesome.com/345198b845.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -24,9 +27,9 @@
             </section>
             <section class="board-nav">
                 <div class="board-nav-area">
-                    <span id="type1">물물교환</span>
-                    <span id="type2">팁</span>
-                    <span id="type3">질문</span>
+                    <a href="/board/${1}" id="type1">물물교환</a>
+                    <a href="/board/${2}" id="type2">팁</a>
+                    <a href="/board/${3}" id="type3">질문</a>
                 </div>
             </section>
             <section class="board-title-content">
@@ -47,8 +50,8 @@
                             <div class="writer-name">${board.memberNickname}</div>
                             <div class="writer-date-view">${board.boardDate}&nbsp; 조회&nbsp; ${board.boardView}</div>
                         </div>
+                        <div class="goList">목록으로</div>
                     </div>
-                        <%-- <div class="goList">목록으로</div> --%>
                 </div>
                 <div class="board-content-area">
                     <div class="board-content">
@@ -70,7 +73,8 @@ ${board.boardContent}
                 </div>
             </section>
             <section class="board-like-report">
-                <c:if test="${loginMember.memberNo != board.memberNo}">
+            
+                <c:if test="${loginMember.memberNo != board.memberNo && loginMember.authority != 2}">
                     <button class="board-like">
                         <c:if test="${empty likeCheck}"> 
                             <%-- 좋아요 안눌러진 경우 --%>
@@ -88,19 +92,28 @@ ${board.boardContent}
                     <button type="button" id="boardUpdate">수정하기</button>
                     <button  type="button" id="boardDelete">삭제하기</button>
                 </c:if>
+                <c:if test="${loginMember.authority == 2}">
+                    <button  type="button" id="adminBoardDelete">삭제하기</button>
+                </c:if>
             </section>
 
             <jsp:include page="/WEB-INF/views/board/comment.jsp"/>
 
     </main>
     <script>
-        const boardTypeNo = "${board.boardTypeNo}";
-        const boardNo = "${board.boardNo}";
-        const memberNo = "${loginMember.memberNo}";
+        boardTypeNo = "${board.boardTypeNo}";
+        boardNo = "${board.boardNo}";
+        memberNo = "${loginMember.memberNo}";
+        loginAuth = "${loginMember.authority}";
     </script>
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+    <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/> 
+
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
     <script src="/resources/js/board/boardDetail.js"> </script>
     <script src="/resources/js/board/comment.js"> </script>
+
+    <script src="/resources/js/common/common.js"></script> 
 </body>
 </html>
