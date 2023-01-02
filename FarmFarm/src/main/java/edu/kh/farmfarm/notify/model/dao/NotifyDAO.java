@@ -1,4 +1,4 @@
-package edu.kh.farmfarm.alarm.model.dao;
+package edu.kh.farmfarm.notify.model.dao;
 
 import java.util.List;
 import java.util.Map;
@@ -7,10 +7,10 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import edu.kh.farmfarm.alarm.model.vo.Alarm;
+import edu.kh.farmfarm.notify.model.vo.Notify;
 
 @Repository
-public class AlarmDAO {
+public class NotifyDAO {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
@@ -19,8 +19,8 @@ public class AlarmDAO {
 	/** 알림을 DB에 저장
 	 * @return
 	 */
-	public int insertNewAlarm(Alarm alarm) {
-		return sqlSession.insert("alarmMapper.insertNewAlarm", alarm);
+	public int insertNewNotify(Notify notify) {
+		return sqlSession.insert("notifyMapper.insertNewNotify", notify);
 	}
 
 
@@ -45,8 +45,8 @@ public class AlarmDAO {
 	 * @param memberNo
 	 * @return
 	 */
-	public List<Alarm> selectAlarmWidgetList(int memberNo) {
-		return sqlSession.selectList("alarmMapper.selectAlarmWidgetList", memberNo);
+	public List<Notify> selectNotifyWidgetList(int memberNo) {
+		return sqlSession.selectList("notifyMapper.selectNotifyWidgetList", memberNo);
 	}
 	
 	

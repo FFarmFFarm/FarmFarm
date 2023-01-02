@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notifyMapper">
+
+
+	 <resultMap type="notify" id="notify_rm">
+        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+	     <id property = "notifyNo" column="NOTIFY_NO"/>
+	     <!-- 나머지 일반 컬럼 -->
+	      <result property="notifyTypeNo" column="NOTIFY_TYPE_NO" />
+	      <result property="notifyTitle" column="NOTIFY_TITLE" />
+	      <result property="notifyContent" column="NOTIFY_CONTENT" />
+	      <result property="notifyDate" column="NOTIFY_DATE" />
+	      <result property="memberNo" column="MEMBER_NO" />
+	      <result property="quickLink" column="QUICK_LINK" />
+	      <result property="readFl" column="READ_FL" />
+	 </resultMap>
+	 
+	 <!-- 알림을 DB에 저장 -->
+	 <insert id="insertNewNotify" useGeneratedKeys="true">
+	 	INSERT INTO NOTIFY
+	 	VALUES(SEQ_NOTIFY_NO.NEXTVAL, #{notifyTypeNo}, #{memberNo}, #{notifyContent}, DEFAULT, #{quickLink}, DEFAULT)
+	 	<selectKey keyProperty="notifyTitle" resultType="string" order="AFTER">
+	 		SELECT NOTIFY_TITLE FROM NOTIFY_TYPE WHERE NOTIFY_TYPE_NO = #{notifyTypeNo}
+	 	</selectKey>
+	 </insert>
+	 
+	 <!-- 알림 목록 조회(for nav widget, 최신 6개까지만) -->
+	 <select id="selectNotifyWidgetList" parameterType="_int" resultMap="notify_rm">
+	 	SELECT * FROM
+	 	(SELECT NOTIFY_NO, NOTIFY_TYPE_NO, NOTIFY_CONTENT, READ_FL,
+	 		   CASE WHEN TO_CHAR(NOTIFY_DATE, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD') THEN TO_CHAR(NOTIFY_DATE, 'AM HH"시" MI"분"')
+	 		   ELSE TO_CHAR(NOTIFY_DATE, 'YYYY-MM-DD') END NOTIFY_DATE,
+	 	       (SELECT NOTIFY_TITLE FROM NOTIFY_TYPE ALAT WHERE ALAT.NOTIFY_TYPE_NO = ALA.NOTIFY_TYPE_NO) AS NOTIFY_TITLE 
+	 	FROM NOTIFY ALA
+	 	WHERE MEMBER_NO = #{memberNo}
+	 	ORDER BY NOTIFY_NO DESC)
+	 	<![CDATA[
+		 	WHERE ROWNUM < 7
+	 	]]>
+	 </select>
+	 
+	 <!-- 내 알림 조회 -->
+	 <select id="selectNotifyList" parameterType="_int" resultMap="notify_rm">
+	 	SELECT NOTIFY_NO, NOTIFY_TYPE_NO, NOTIFY_CONTENT, QUICK_LINK, READ_FL,
+	 		   CASE WHEN TO_CHAR(NOTIFY_DATE, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD') THEN TO_CHAR(NOTIFY_DATE, 'AM HH"시" MI"분"')
+	 		   ELSE TO_CHAR(NOTIFY_DATE, 'YYYY-MM-DD') END NOTIFY_DATE,
+	 	       (SELECT NOTIFY_TITLE FROM NOTIFY_TYPE ALAT WHERE ALAT.NOTIFY_TYPE_NO = ALA.NOTIFY_TYPE_NO) AS NOTIFY_TITLE 
+	 	FROM NOTIFY ALA
+	 	WHERE MEMBER_NO = #{memberNo}
+	 </select>
+	
+</mapper>

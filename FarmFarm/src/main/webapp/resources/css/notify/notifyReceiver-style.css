@@ -1,7 +1,7 @@
 @import '../root-style.css';
 
 /* 알림 컨테이너 */
-#alarmReceiverArea{
+#notifyReceiverArea{
     position: fixed;
     z-index: 30000;
     bottom: 50px;
@@ -29,7 +29,7 @@
     transition-duration: 0.2s;
 }
 
-.alarm-receiver-container{
+.notify-receiver-container{
     position: fixed;
     z-index: 30000;
     bottom: 50px;
@@ -57,7 +57,7 @@
     transition-duration: 0.5s;
 }
 /* 알림 헤더 */
-.alarm-receiver-header{
+.notify-receiver-header{
     border-radius: 5px;
     background-color:var(--point-color);
 
@@ -69,7 +69,7 @@
 }
 
 /* 알림 아이콘 */
-.alarm-receiver-icon{
+.notify-receiver-icon{
     color: white;
 
     width: 10%;
@@ -77,14 +77,14 @@
 }
 
 /* 알림 제목 */
-.alarm-receiver-title{
+.notify-receiver-title{
     color: white;
 
     width: 90%;
 }
 
 /* 알림 내용 */
-.alarm-receiver-content{
+.notify-receiver-content{
     font-size: var(--medium-font-size);
     width: 290px;
     padding: 7px;

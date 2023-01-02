@@ -2,33 +2,33 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<link rel="stylesheet" href="/resources/css/alarm/alarmReceiver-style.css">
+<link rel="stylesheet" href="/resources/css/notify/notifyReceiver-style.css">
 <!-- <script src="https://kit.fontawesome.com/d449774bd8.js" crossorigin="anonymous"></script> -->
 
 
-<!-- <a id="alarmReceiverArea"> -->
+<!-- <a id="notifyReceiverArea"> -->
 
-<a class="alarm-receiver-container">
+<a class="notify-receiver-container">
 
-    <div class="alarm-receiver-header">
+    <div class="notify-receiver-header">
     
-        <div class="alarm-receiver-icon">
+        <div class="notify-receiver-icon">
             <!-- <i class="fa-solid fa-bell"></i> -->
-        </div> <!-- end alarm-icon -->
+        </div> <!-- end notify-icon -->
 
-        <div class="alarm-receiver-title">
+        <div class="notify-receiver-title">
             <!-- 알림 유형 제목 영역 -->
             <!-- 예 : 새로운 댓글이 달렸어요 --> 
-        </div> <!-- end alarm-title -->
+        </div> <!-- end notify-title -->
     
-    </div> <!-- end alarm-receiver-header -->
+    </div> <!-- end notify-receiver-header -->
 
-        <div class="alarm-receiver-content">
+        <div class="notify-receiver-content">
             <!-- 알림 유형 상세내용 영역 -->
             <!-- 예 : 댓글 내용 -->
-        </div> <!-- end alarm-receiver-content -->
+        </div> <!-- end notify-receiver-content -->
 
-</a> <!-- end alarm-reveiver-container -->
+</a> <!-- end notify-reveiver-container -->
 
 <!-- </a> -->
 <!-- https://github.com/sockjs/sockjs-client -->
@@ -38,4 +38,4 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <!-- JS -->
-<script src="/resources/js/alarm/alarmReceiver.js"></script>
+<script src="/resources/js/notify/notifyReceiver.js"></script>

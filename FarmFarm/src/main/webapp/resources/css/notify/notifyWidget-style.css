@@ -8,64 +8,84 @@
 }
 
 /* 알림 하나 */
-.alarm-widget-box{
+.notify-widget-box{
     border-radius: 5px;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
+
     padding: 5px 0px;
     font-size: var(--medium-font-size);
+
+
 }
 
+.notify-widget-box:not(#notifyDropdown:last-child) {
+    border-bottom: 1px solid var(--line-color);
+}
+
+
 /* 알림 헤더(아이콘, 제목, 시간, x버튼) */
-.alarm-widget-header{
+
+/* 아이콘 */
+.notify-widget-icon{
+    width: 15%;
+    text-align: center;
+    color: #4AA8D8;
+    font-size: 25px;
+}
+
+.notify-widget-main{
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 헤더 */
+.notify-widget-header{
     display: flex;
     width: 100%;
     position: relative;
     /* background-color: var(--point-color); */
-    border-radius: 5px;
+    /* border-radius: 5px; */
     height: 30px;
     align-items: center;
     padding: 0px 5px;
 }
 
-/* 아이콘 */
-.alarm-widget-icon{
-    /* color: white; */
-    width: 10%;
-    text-align: center;
-}
 
 /* 알림 유형 제목 */
-.alarm-widget-title{
+.notify-widget-title{
     /* color: white; */
-    width: 50%;
-    font-size: var(--medium-font-size);
-    font-weight: 600;
+    width: 70%;
+    font-size: 13px;
+    letter-spacing: -1px;
+    /* font-weight: 600; */
+    /* color: var(--point-color); */
 }
 
 /* 알림 시간 */
-.alarm-widget-date{
+.notify-widget-date{
     /* color: white; */
-    width: 33%;
+    width: 25%;
     font-size: var(--small-font-size);
-    text-align: end;
+    text-align: center;
+    letter-spacing: -1px;
 }
 
 /* 알림 지우기 버튼 */
-.alarm-widget-delBtn{
-    width: 7%;
+.notify-widget-delBtn{
+    width: 5%;
     text-align: center;
     /* color: white; */
 }
 
 /* 알림 유형 */
-.alarm-widget-content{
+.notify-widget-content{
     font-size: var(--main-font-size);
     width: 100%;
-    border-bottom: 1px solid var(--line-color);
+
     height: 30px;
     padding: 0px 5px;
     align-items: center;
