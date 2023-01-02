@@ -210,7 +210,7 @@ const commentFunction=()=>{
         
                     if(result>0){
                         
-                        ringCommentAlarm('board', 201, boardNo, writeComment.value, result);
+                        ringCommentNotify('board', 201, boardNo, writeComment.value, result);
 
                         messageModalOpen("댓글이 등록되었습니다.");
                         writeComment.value=""; // 작성한 댓글 없애주기
@@ -332,7 +332,7 @@ function sendCo(parentNo, btn){
         success : result=>{
             if(result>0){
 
-                ringCommentAlarm('comment', 202, parentNo, commentContent, result);
+                ringCommentNotify('comment', 202, parentNo, commentContent, result);
 
                 messageModalOpen("답글이 등록됐습니다.");
                 // alert("답글이 등록됐습니다.");
@@ -520,13 +520,13 @@ const adDeleteComment = (commentNo)=>{
 
 
 /* 댓글 알림을 발생시킬 수 있는 함수입니다. */
-const ringCommentAlarm = (type, typeNo, inputNo, inputComment, commentNo) => {
+const ringCommentNotify = (type, typeNo, inputNo, inputComment, commentNo) => {
 
     /* 댓글 알림 */
     /* 
         * 댓글 알림 기능
         1) boardNo를 이용해서, 상대방의 번호를 확인
-        2) 상대방의 번호를 받아오면, 댓글 내용(commentContent)와 대상 번호(memberNo), 알림 유형(alarmType)을 소켓으로 전달(send 사용)
+        2) 상대방의 번호를 받아오면, 댓글 내용(commentContent)와 대상 번호(memberNo), 알림 유형(notifyType)을 소켓으로 전달(send 사용)
 
         * 파라미터
         1) type : board(게시글에 댓글을 단 경우)
@@ -549,7 +549,7 @@ const ringCommentAlarm = (type, typeNo, inputNo, inputComment, commentNo) => {
     */
     // 1) 상대방의 번호 확인
     $.ajax({
-        url: "/alarm/select/targetNo",
+        url: "/notify/select/targetNo",
         data: {
             "type":type,
             "inputNo":inputNo
@@ -560,13 +560,13 @@ const ringCommentAlarm = (type, typeNo, inputNo, inputComment, commentNo) => {
 
             // 받은 targetNo로 json객체 만들기
             let obj = {
-                "alarmTypeNo":typeNo,
+                "notifyTypeNo":typeNo,
                 "memberNo":result,
-                "alarmContent":inputComment,
+                "notifyContent":inputComment,
                 "quickLink":location.href+"#co"+commentNo
             }
 
-            alarmSock.send(JSON.stringify(obj));
+            notifySock.send(JSON.stringify(obj));
 
         },
         error : ()=>{

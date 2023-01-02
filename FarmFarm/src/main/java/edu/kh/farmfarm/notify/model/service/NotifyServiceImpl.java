@@ -1,4 +1,4 @@
-package edu.kh.farmfarm.alarm.model.service;
+package edu.kh.farmfarm.notify.model.service;
 
 import java.util.List;
 import java.util.Map;
@@ -6,20 +6,20 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import edu.kh.farmfarm.alarm.model.dao.AlarmDAO;
-import edu.kh.farmfarm.alarm.model.vo.Alarm;
+import edu.kh.farmfarm.notify.model.dao.NotifyDAO;
+import edu.kh.farmfarm.notify.model.vo.Notify;
 
 @Service
-public class AlarmServiceImpl implements AlarmService {
+public class NotifyServiceImpl implements NotifyService {
 	
 	@Autowired
-	private AlarmDAO dao;
+	private NotifyDAO dao;
 	
 	
 	// 알림을 DB에 저장하는 서비스
 	@Override
-	public int insertNewAlarm(Alarm alarm) {
-		return dao.insertNewAlarm(alarm);
+	public int insertNewNotify(Notify alarm) {
+		return dao.insertNewNotify(alarm);
 	}
 
 	// 게시글 또는 댓글의 작성자를 찾아주는 서비스
@@ -42,7 +42,13 @@ public class AlarmServiceImpl implements AlarmService {
 
 	// 알림 목록 조회(for nav widget, 최신 6개까지만)
 	@Override
-	public List<Alarm> selectAlarmWidgetList(int memberNo) {
-		return dao.selectAlarmWidgetList(memberNo);
+	public List<Notify> selectNotifyWidgetList(int memberNo) {
+		return dao.selectNotifyWidgetList(memberNo);
+	}
+	
+	// 알림 목록 조회(for notify center)
+	@Override
+	public List<Notify> selectNotifyList(int memberNo) {
+		return dao.selectNotifyList(memberNo);
 	}
 }

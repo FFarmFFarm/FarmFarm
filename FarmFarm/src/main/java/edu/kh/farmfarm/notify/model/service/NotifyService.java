@@ -1,18 +1,18 @@
-package edu.kh.farmfarm.alarm.model.service;
+package edu.kh.farmfarm.notify.model.service;
 
 import java.util.List;
 import java.util.Map;
 
-import edu.kh.farmfarm.alarm.model.vo.Alarm;
+import edu.kh.farmfarm.notify.model.vo.Notify;
 
-public interface AlarmService {
+public interface NotifyService {
 
 	
 	/** 알림을 DB에 저장하는 서비스
-	 * @param alarm
+	 * @param notify
 	 * @return
 	 */
-	int insertNewAlarm(Alarm alarm);
+	int insertNewNotify(Notify notify);
 
 	/** 게시글 또는 댓글의 작성자를 찾는 서비스
 	 * @param type
@@ -25,5 +25,11 @@ public interface AlarmService {
 	 * @param memberNo
 	 * @return
 	 */
-	List<Alarm> selectAlarmWidgetList(int memberNo);
+	List<Notify> selectNotifyWidgetList(int memberNo);
+	
+	/** 알림 목록 조회(for notify center)
+	 * @param memberNo
+	 * @return
+	 */
+	List<Notify> selectNotifyList(int memberNo);
 }	

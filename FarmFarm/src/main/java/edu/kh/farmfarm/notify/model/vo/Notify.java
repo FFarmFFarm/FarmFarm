@@ -1,4 +1,4 @@
-package edu.kh.farmfarm.alarm.model.vo;
+package edu.kh.farmfarm.notify.model.vo;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,14 +9,14 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class Alarm {
+public class Notify {
 	
-	private int alarmNo;
-	private int alarmTypeNo;
-	private String alarmTitle;
+	private int notifyNo;
+	private int notifyTypeNo;
+	private String notifyTitle;
 	private int memberNo;
-	private String alarmContent;
-	private String alarmDate;
+	private String notifyContent;
+	private String notifyDate;
 	private String quickLink;
 	private String readFl;
 }
