@@ -190,13 +190,12 @@
 			<!-- 최신순, 조회수, 좋아요 -->
 				<choose>
 						<when test='sort == "view"'>
-							ORDER BY BOARD_VIEW DESC
+							ORDER BY BOARD_VIEW DESC, BOARD_NO DESC
 						</when>
 						<when test='sort == "like"'>
-							ORDER BY LIKE_COUNT DESC
+							ORDER BY LIKE_COUNT DESC, BOARD_NO DESC
 						</when>
 						<when test='sort == "new"'>
-							<!-- ORDER BY BOARD_DATE DESC -->
 							ORDER BY BOARD_NO DESC
 						</when>
 				</choose>

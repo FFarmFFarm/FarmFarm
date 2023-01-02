@@ -67,8 +67,8 @@ public class BoardListController {
 	@GetMapping("/board/list/{boardTypeNo}")
 	@ResponseBody
 	public String boardList (
-			@PathVariable("boardTypeNo") int boardTypeNo,
 			Model model,
+			@PathVariable("boardTypeNo") int boardTypeNo,
 			@RequestParam(value="cp", required = false, defaultValue = "1") int cp,
 			@RequestParam(value="sort", required = false, defaultValue = "new") String sort,
 			@RequestParam(value="query", required = false) String query) {
