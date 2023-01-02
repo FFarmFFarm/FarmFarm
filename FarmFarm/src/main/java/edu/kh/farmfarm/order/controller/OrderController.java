@@ -2,15 +2,24 @@ package edu.kh.farmfarm.order.controller;
 
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
+import java.util.List;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,12 +29,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import edu.kh.farmfarm.member.model.VO.Member;
 import edu.kh.farmfarm.mypage.model.vo.Order;
 import edu.kh.farmfarm.order.model.service.OrderService;
+import edu.kh.farmfarm.order.model.vo.ImpToken;
 import edu.kh.farmfarm.order.model.vo.Return;
 import edu.kh.farmfarm.productDetail.model.vo.ProductList;
 
@@ -71,10 +82,24 @@ public class OrderController {
 		return "order/order";
 	}
 	
+	
+	
+	/** 주문하기
+	 * @param order
+	 * @param pList
+	 * @param referer
+	 * @param loginMember
+	 * @param ra
+	 * @param impUid
+	 * @return
+	 * @throws IOException
+	 */
 	@PostMapping("/order")
 	public String order(Order order, ProductList pList, @RequestHeader("referer")String referer,
 			@SessionAttribute("loginMember")Member loginMember,
-			RedirectAttributes ra) {
+			RedirectAttributes ra) throws IOException {
+		
+
 		
 		order.setMemberNo(loginMember.getMemberNo());
 		
@@ -97,89 +122,63 @@ public class OrderController {
 	}
 	
 	
+	/** 주문 검증
+	 * @return
+	 * @throws IOException
+	 */
+	@GetMapping("/order/confirmBuy")
+	@ResponseBody
+	public String confirmBuy(int orderPrice, String impUid) throws IOException {
+		
+		String token = service.getToken();
+		System.out.println(token);
+		
+		JSONObject buyerInfo = service.getBuyerInfo(token, impUid);
+		
+		System.out.println(buyerInfo.toString());
+		
+		int amount = (int)buyerInfo.get("amount");
+		String status = (String)buyerInfo.get("status");
+		
+		System.out.println(amount + status);
+		
+		if(orderPrice == amount && status.equals("paid")) {
+			return impUid;
+		} else {
+			System.out.println("결제 검증 실패");
+			return "실패";
+		}
+	}
+	
+	
 	
 
-//	
-//	
-//	/** 카카오페이 연결
-//	 * @return
-//	 * @throws IOException
-//	 */
-//	@GetMapping("/order/cancel")
-//	@ResponseBody
-//	public String payCancel(
-//				@RequestParam(name = "cancelAmount")int cancelAmount, 
-//				@RequestParam(name = "cancelPrice")String cancelPrice, 
-//				@SessionAttribute("loginMember") Member loginMember,
-//				Order order, Model model
-//				) throws IOException {
-//		
-//		
-////		요청을 보낼 주소
-//		URL url = new URL("https://kapi.kakao.com/v1/payment/cancel");
-//		
-////		서버와 서버를 연결해주는 변수 선언
-//		HttpURLConnection huc = (HttpURLConnection)url.openConnection();
-//		
-////		요청 방식
-//		huc.setRequestMethod("POST");
-//		
-////		요청시 설정해 주어야하는 요소
-//		huc.setRequestProperty("Authorization", "KakaoAK 0bbb7293d9eb723d98daa4bc6b680b2c");
-//		huc.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-//		
-////		전달할 인자가 있을 경우 = true
-//		huc.setDoOutput(true);
-//		
-////		요청시 전달할 파라미터
-//		String parameters = "cid=TC0ONETIME"
-//				+ "&tid=T3b008e54a466e29faf2"
-//				+ "&cancel_amount=" + String.valueOf(cancelAmount)
-//				+ "&cancel_tax_free_amount=0"
-//				+ "&cancel_vat_amount=200"
-//				+ "&cancel_available_amount=4000"
-//				+ "&totalAmount=4000";
-//
-//		
-////		파라미터를 전달해주는 요소
-//		OutputStream os = huc.getOutputStream();
-//		
-////		데이터를 주는 요소
-//		DataOutputStream dos = new DataOutputStream(os);
-//		
-////		DataOutputStream은 data를 byte형식으로 전달해야 함.
-//		
-////		data를 byte형식으로 형변환
-//		dos.writeBytes(parameters);
-//		
-////		dos.flush(); = 가지고있는 data를 전송하고 비움
-//		
-////		close 시 flush() 자동 실행 후 닫힘(전송됨)
-//		dos.close();
-//		
-////		연결 성공 시결과 코드 반환
-//		int resultCode = huc.getResponseCode();
-//		
-////		연결된 서버에서 반환되는 데이터를 받아오는 클래스 선언
-//		InputStream is;
-//		
-////		Http 코드에서 정상 통신을 뜻하는 숫자 == 200 그 외 숫자는 모두 오류
-//		if(resultCode == 200) {
-//			is = huc.getInputStream();
-//		} else {
-//			is = huc.getErrorStream();
-//		}
-//		
-////		전달받은 data를 읽어주는 요소
-//		InputStreamReader isr = new InputStreamReader(is);
-//		
-////		byte로 된 data를 읽어주는 요소
-//		BufferedReader br = new BufferedReader(isr);
-//		
-//		String result =  br.readLine();
-//		
-//		
-//		return result;
-//	}
+	
+	@GetMapping("/order/cancel")
+	@ResponseBody
+	public int orderCancel(int orderNo) throws IOException {
+		
+		
+//		주문 결제 IMP_UID 얻어오기
+		Order order = service.selectImpUid(orderNo);
+		
+		
+		String token = service.getToken();
+		System.out.println(token);
+		
+		
+//		imp_uid 이용해서 환불 요청하기
+		int result = service.paymentCancel(token, order);
+		
+		if(result > 0) {
+			
+			result = service.orderCancel(orderNo);
+		}
+		
+		
+		return result;
+	}
+	
+
 
 }

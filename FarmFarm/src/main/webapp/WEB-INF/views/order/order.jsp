@@ -169,7 +169,7 @@
           </p>
         </div>
       </section>
-      <input type="hidden" id="tidNo" />
+      <input type="hidden" id="impUid" name="impUid" />
     </form>
 
     <!-- footer -->
