@@ -193,13 +193,13 @@ header {
 
 .notice p {
   margin-left: 13px;
-  font-size: 20px;
+  font-size: var(--large-font-size);
   font-weight: 700;
   text-align: left;
 }
 
 /* 알림 더보기  */
-#alarmListBtn{
+#notifyListBtn{
   color: white;
   width: 50px;
   background-color: var(--point-color);

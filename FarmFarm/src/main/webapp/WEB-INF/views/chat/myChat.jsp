@@ -28,9 +28,9 @@
         <!-- 좌측 사이드바 채팅방 목록 -->
         <section class="chat-sidebar">
             <div class="chat-sidebar-header">
-              <div class="title">
+              <a class="title" href="/notify/center">
                 <i class="fa-solid fa-bell"></i>&nbsp;&nbsp;알림 센터
-              </div>
+              </a>
               <div class="search-area">
                   <input id="searchBar" placeholder="채팅방 검색">
                   <button id="resetRoomSearch">

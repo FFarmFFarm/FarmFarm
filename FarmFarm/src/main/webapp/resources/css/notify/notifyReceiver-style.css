@@ -1,0 +1,98 @@
+@import '../root-style.css';
+
+/* 알림 컨테이너 */
+#notifyReceiverArea{
+    position: fixed;
+    z-index: 30000;
+    bottom: 50px;
+    right: 130px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px 0px #bcbcbc;
+    background-color: white;
+
+    width: 300px;
+    /* height: 200px; */
+    height: 0px;
+
+    display: flex;
+    opacity: 0;
+    /* justify-content: center; */
+    align-items: center;
+    flex-direction: column;
+
+    padding: 5px 5px 10px;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-break: break-all;
+
+    transition-duration: 0.2s;
+}
+
+.notify-receiver-container{
+    position: fixed;
+    z-index: 30000;
+    bottom: 50px;
+    right: 130px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px 0px #bcbcbc;
+    background-color: white;
+
+    width: 300px;
+    /* height: 200px; */
+    height: 0px;
+
+    display: flex;
+    opacity: 0;
+    /* justify-content: center; */
+    align-items: center;
+    flex-direction: column;
+
+    padding: 5px 5px 10px;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-break: break-all;
+
+    transition-duration: 0.5s;
+}
+/* 알림 헤더 */
+.notify-receiver-header{
+    border-radius: 5px;
+    background-color:var(--point-color);
+
+    height: 40px;
+    width: 290px;
+
+    display: flex;
+    align-items: center;
+}
+
+/* 알림 아이콘 */
+.notify-receiver-icon{
+    color: white;
+
+    width: 10%;
+    text-align: center;
+}
+
+/* 알림 제목 */
+.notify-receiver-title{
+    color: white;
+
+    width: 90%;
+}
+
+/* 알림 내용 */
+.notify-receiver-content{
+    font-size: var(--medium-font-size);
+    width: 290px;
+    padding: 7px;
+
+    
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    
+    overflow: hidden;
+}

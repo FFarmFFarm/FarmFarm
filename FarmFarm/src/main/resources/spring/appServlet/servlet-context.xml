@@ -74,9 +74,9 @@
 	</websocket:handlers>
 	
 	<!-- 알림 -->
-	<beans:bean id="AlarmHandler" class="edu.kh.farmfarm.alarm.model.websocket.AlarmWebsocketHandler" />
+	<beans:bean id="NofityHandler" class="edu.kh.farmfarm.notify.model.websocket.NotifyWebsocketHandler" />
 	<websocket:handlers>
-		<websocket:mapping handler="AlarmHandler" path="/echo/alarm"/>
+		<websocket:mapping handler="NofityHandler" path="/echo/notify"/>
 		
 		<websocket:handshake-interceptors> 
 			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
