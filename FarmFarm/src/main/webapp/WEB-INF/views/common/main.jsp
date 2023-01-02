@@ -126,7 +126,8 @@
 
       <div class="middle-product">
         <div class="middle-wrap">
-          <div class="middle-cover"><img src="resources/images/product/detail/20221230143348_60504.jpg"></div>
+          <%-- <div class="middle-cover"><img src="resources/images/product/detail/20221230143348_60504.jpg"></div> --%>
+          <div class="middle-cover"><img src="resources/images/product/detail/chipmunk.jpg"></div>
           <a href="#">
             <div class="middle-text-wrap">
               <div class="middle-text">
@@ -141,7 +142,8 @@
         </div>
 
         <div class="middle-wrap">
-          <div class="middle-cover"><img src="resources/images/product/detail/20221230142911_36173.jpeg"></div>
+          <%-- <div class="middle-cover"><img src="resources/images/product/detail/20221230142911_36173.jpeg"></div> --%>
+          <div class="middle-cover"><img src="resources/images/product/detail/lion.jpg"></div>
           <a href="#">
             <div class="middle-text-wrap">
               <div class="middle-text">
@@ -156,7 +158,7 @@
         </div>
 
         <div class="middle-wrap">
-          <div class="middle-cover"><img src="resources/images/product/detail/20221230142830_69171.jpg"></div>
+          <div class="middle-cover"><img src="resources/images/product/detail/alpaca.jpg"></div>
           <a href="#">
             <div class="middle-text-wrap">
               <div class="middle-text">
@@ -171,7 +173,7 @@
         </div>
 
         <div class="middle-wrap">
-          <div class="middle-cover"><img src="resources/images/product/detail/20221230142802_15542.jpeg"></div>
+          <div class="middle-cover"><img src="resources/images/product/detail/hedgehog.jpg"></div>
           <a href="#">
             <div class="middle-text-wrap">
                 <div class="middle-text">
