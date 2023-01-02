@@ -18,7 +18,7 @@
                 </button>
             </a>
             <!-- 알림 메시지 -->
-            <jsp:include page="/WEB-INF/views/alarm/alarmReceiver.jsp" />
+            <jsp:include page="/WEB-INF/views/notify/notifyReceiver.jsp" />
         </div>
 
         <footer>

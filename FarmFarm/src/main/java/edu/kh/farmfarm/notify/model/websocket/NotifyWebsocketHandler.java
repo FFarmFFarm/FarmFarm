@@ -1,4 +1,4 @@
-package edu.kh.farmfarm.alarm.model.websocket;
+package edu.kh.farmfarm.notify.model.websocket;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -17,16 +17,16 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
-import edu.kh.farmfarm.alarm.model.service.AlarmService;
-import edu.kh.farmfarm.alarm.model.vo.Alarm;
 import edu.kh.farmfarm.member.model.VO.Member;
+import edu.kh.farmfarm.notify.model.service.NotifyService;
+import edu.kh.farmfarm.notify.model.vo.Notify;
 
 
-public class AlarmWebsocketHandler extends TextWebSocketHandler {
+public class NotifyWebsocketHandler extends TextWebSocketHandler {
 
 	
 	@Autowired
-	private AlarmService service;
+	private NotifyService service;
 	
 	private Set<WebSocketSession> sessions = Collections.synchronizedSet(new HashSet<WebSocketSession>());
 	
@@ -37,20 +37,20 @@ public class AlarmWebsocketHandler extends TextWebSocketHandler {
 
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		ObjectMapper alarmMapper = new ObjectMapper();
+		ObjectMapper notifyMapper = new ObjectMapper();
 		
 		// 연결된 페이지로부터 메세지를 받음
-		Alarm alarm = alarmMapper.readValue(message.getPayload(), Alarm.class);
+		Notify notify = notifyMapper.readValue(message.getPayload(), Notify.class);
 		
 		// 알림을 해석해서 DB에 저장
-		int result = service.insertNewAlarm(alarm);
+		int result = service.insertNewNotify(notify);
 		
 		// DB에 잘 저장되었으면... 알림을 반환
 		if(result > 0) {
 			
 			
 			// 알림을 수신할 회원의 번호, 즉 대상 회원의 번호 targetNo
-			int targetNo = alarm.getMemberNo();
+			int targetNo = notify.getMemberNo();
 
 			// 세션을 전부 확인
 			for(WebSocketSession s : sessions) {
@@ -60,7 +60,7 @@ public class AlarmWebsocketHandler extends TextWebSocketHandler {
 				
 				// 해당 세션의 회원 번호 loginMemberNo가, 알림을 수신할 targetNo와 일치 시 알림을 전달
 				if(loginMemberNo == targetNo) {
-					s.sendMessage(new TextMessage(new Gson().toJson(alarm)));
+					s.sendMessage(new TextMessage(new Gson().toJson(notify)));
 				}
 			}
 		}
