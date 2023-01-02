@@ -24,5 +24,7 @@ public class Comment {
 	private String profileImg; // 회원 프로필 이미지
 	
 	private int authority; // 권한 
+	
+	private int parentNo; // 부모댓글의 회원번호
 
 }

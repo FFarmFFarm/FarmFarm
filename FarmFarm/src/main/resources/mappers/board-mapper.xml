@@ -78,6 +78,7 @@
 		  <result property="memberNickname" column="MEMBER_NICKNAME"/>
 		  <result property="profileImg" column="PROFILE_IMG"/>
 			<result property="commentDelFl" column="COMMENT_DEL_FL"/>
+			<result property="parentNo" column="PARENT_NO"/>
   </resultMap>
 
 
@@ -265,7 +266,7 @@
 	<!-- 댓글 불러오기~~~~ -->
 	<select id="commentList" resultMap="comment_rm">
 		SELECT LEVEL, C.* FROM
-			(SELECT COMMENT_NO, COMMENT_CONTENT,
+			(SELECT C.COMMENT_NO, COMMENT_CONTENT,
 			 TO_CHAR(COMMENT_DATE, 'YYYY-MM-DD ') || 
 				<![CDATA[
 					CASE
@@ -277,9 +278,10 @@
 							THEN FLOOR((SYSDATE - COMMENT_DATE) *24) || '시간 전'
 					END COMMENT_DATE, 
 				]]>
-			 COMMENT_PARENT, COMMENT_DEL_FL,
+			 C.COMMENT_PARENT, COMMENT_DEL_FL,
 				MEMBER_NO, BOARD_NO, MEMBER_NICKNAME, PROFILE_IMG, AUTHORITY,
-			 (SELECT COUNT(*) FROM "COMMENT" WHERE BOARD_NO = C.BOARD_NO) COMMENT_COUNT
+			 (SELECT COUNT(*) FROM "COMMENT" WHERE BOARD_NO = C.BOARD_NO) COMMENT_COUNT,
+			 (SELECT MEMBER_NO FROM "COMMENT" WHERE COMMENT_NO = C.COMMENT_PARENT) PARENT_NO
 			FROM "COMMENT" C
 			JOIN "MEMBER" USING(MEMBER_NO)
 			WHERE BOARD_NO = #{boardNo}) C
@@ -341,7 +343,15 @@
 			<if test='commentParent != 0'>
 				#{commentParent},
 			</if>
-			 DEFAULT, #{memberNo}, #{boardNo}, DEFAULT)
+			<choose>
+				<when test='commentDelFl.equals("S")'>
+					#{commentDelFl},
+				</when>
+				<otherwise>
+					DEFAULT,
+				</otherwise>
+			</choose>
+			 #{memberNo}, #{boardNo}, DEFAULT)
 		<selectKey keyProperty="commentNo" resultType="int" order="AFTER">
 			SELECT SEQ_COMMENT_NO.CURRVAL FROM DUAL
 		</selectKey>

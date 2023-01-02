@@ -103,6 +103,7 @@ ${board.boardContent}
     <script>
         boardTypeNo = "${board.boardTypeNo}";
         boardNo = "${board.boardNo}";
+        boardMemNo = "${board.memberNo}";
         memberNo = "${loginMember.memberNo}";
         loginAuth = "${loginMember.authority}";
     </script>
