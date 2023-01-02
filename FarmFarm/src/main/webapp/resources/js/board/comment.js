@@ -573,5 +573,15 @@ const ringCommentAlarm = (type, typeNo, inputNo, inputComment, commentNo) => {
             console.log('알림 전송에 실패하였습니다.')
         }
     })
-
 }
+
+
+const lockCheck = document.querySelector(".lockCheck");
+let checkok;
+lockCheck.addEventListener("change", ()=>{
+    if(this.checked){
+        console.log("성공");
+    }else{
+        console.log("실패");
+    }
+})

@@ -11,6 +11,10 @@
                     <textarea class="write-comment" name="commentContent" id=""></textarea>
                     <div class="comment-side">
                         <div class="comment-caution">※댓글 작성시 상대방에 대한 배려와 책임을 담아 깨끗한 댓글 환경에 동참에 주세요.</div>
+                        <span class="secrete-co">
+                            <input type="checkbox" class="lockCheck" id="lockCheck"></input> 
+                            <label for="lockCheck">&nbsp;비밀댓글</label>
+                        </span>
                         <button onclick="commentFunction()" class="comment-insert">등록</button>
                     </div>
                 </div>

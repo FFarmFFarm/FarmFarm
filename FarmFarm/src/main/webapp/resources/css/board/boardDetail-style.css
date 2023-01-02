@@ -218,8 +218,23 @@ main{
 }
 
 .comment-caution{
+    width: 680px;
     padding-left: 20px;
     padding-top: 10px;
+    color: var(--sub-font-color);
+}
+.lockCheck{
+    accent-color: var(--point-color);
+    display: flex;
+    align-items: center;
+    margin-top: 2px;
+}
+
+.secrete-co{
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: var(--sub-font-color);
 }
 
