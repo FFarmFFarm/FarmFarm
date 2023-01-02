@@ -52,7 +52,39 @@ public interface AdminService {
 	 * @param cp
 	 * @return map
 	 */
-	Map<String, Object> selectSeller(int preSellerFilter, int cp);
+	Map<String, Object> selectSeller(int sellerFilter, int cp);
+
+
+	/** 판매자 인증 신청서 조회
+	 * @param hiddenNo
+	 * @return authPaper
+	 */
+	Admin selectAuthPaper(int hiddenNo);
+
+
+	/** 판매자 인증 승인
+	 * @param hiddenNo
+	 * @return result
+	 */
+	int sellerApprove(int hiddenNo);
+
+	
+	// 판매자 인증 거절
+	
+	
+	
+	
+	
+	
+	
+	
+
+	/** 미처리 신고 조회
+	 * @param sortFilter
+	 * @param cp
+	 * @return map
+	 */
+	Map<String, Object> selectNewReport(String sortFilter, int cp);
 
 
 

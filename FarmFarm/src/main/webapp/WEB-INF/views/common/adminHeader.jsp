@@ -86,8 +86,8 @@
         <div class="nav-head">
           <%-- <div class="nav-body">
             <div class="nav-list"> --%>
-                <span class="todayDate">
-                
+                <span class="todayDate" id="todayDate">
+                  
                 </span>
               <%-- </div>
           </div>--%>
@@ -156,4 +156,6 @@
       //     }
       // };
     </script>
+
+    <script src="/resources/js/admin/adminHeader.js"></script>
 

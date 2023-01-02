@@ -1,0 +1,387 @@
+@import "../root-style.css";
+
+.header-container{
+    z-index: 50;
+}
+
+body{
+    width: 100vw;
+    height:auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main{
+    width: 1200px;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+/* todo: 카테고리 선택 부분 _카테고리별로 다르게 표시! */
+.admin-nav-sub:nth-of-type(7){
+    height: 30px;
+    padding-top: 5px;
+    background-color: #eef4ed;;
+    font-weight: bold;
+}
+
+
+/** -------------------------------------- */
+
+
+/** 오른쪽 내용 부분 */
+.admin-content-section{
+    width: 1000px;
+    min-height: 950px;
+    height: auto;
+    padding-bottom: 20px;
+    background-color: #eef4ed;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.page-title{
+    text-align: center;
+    font-size: var(--title-font-size);
+    font-weight: bold;
+    height: 80px;
+    padding-top: 48px;
+}
+
+.title-div{
+    width: 100%;
+    height: 30px;
+    margin-top: 40px;
+    margin-bottom: 7px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.report-title{
+    font-weight: bold;
+}
+
+.report-title:nth-of-type(2){
+    padding-right: 5px;
+}
+
+
+.report-select{
+    width: 920px;
+    height: 615px;
+    border-radius: 10px;
+    background-color: white;
+    overflow: auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.report-list-table{
+    width: 860px;
+    height: auto;
+    padding: 10px;
+    margin: 10px 20px;
+    font-size: var(--small-font-size);
+    text-align: center;
+    border-collapse: collapse;
+}
+
+.report-list-table th{
+    color: var(--point-color);
+    padding: 10px 0;
+    /* background-color: #eef4ed; */
+    /* border-bottom: 1px solid #bdf0b4; */
+}
+
+.report-list-table td{
+    padding: 10px 0;
+    height: 31px;
+}
+
+.report-list-row:hover{
+    background-color: #eef4ed;
+    transition-duration: 0.1s;
+    cursor: pointer;
+}
+
+
+
+/* 전체조회 th width 정하기 */
+/* 신고번호 */
+.report-list-header th:first-of-type{
+    width: 40px;
+}
+
+.report-list-header th:nth-of-type(2){
+    width: 50px;
+}
+
+/* 유형 */
+.report-list-header th:nth-of-type(3){
+    width: 110px;
+}
+
+/* 신고 대상 아이디/게시글 */
+.report-list-header th:nth-of-type(4){
+    width: 200px;
+}
+
+/* 신고 사유 */
+.report-list-header th:nth-of-type(5){
+    width: 160px;
+}
+
+
+/* 신고 일자 */
+.report-list-header th:nth-of-type(6){
+    width: 150px;
+}
+
+/* 처리 일자 */
+/* .report-list-header th:nth-of-type(6){
+    width: 135px;
+} */
+
+/* 누적 횟수 */
+.report-list-header th:nth-of-type(7){
+    width: 75px;
+}
+
+/* 누적 정지 */
+/* .report-list-header th:nth-of-type(8){
+    width: 70px;
+} */
+
+/* 처리 상태 */
+.report-list-header th:nth-of-type(8){
+    width: 75px;
+}
+
+
+
+/* no 색 변경 */
+.report-seq{
+    color: var(--point-color);
+    opacity: 50%;
+}
+
+
+/* 유형 왼쪽에 간격 */
+#dropBtnText{
+    padding-left: 10px;
+}
+
+#thTypeFilter{
+    position: relative;
+}
+
+
+/* 유형 드롭다운 메뉴 */
+.drop-menu{
+    width: 95px;
+    height: auto;
+    background-color: white;
+    overflow: hidden;
+    box-shadow: 0px 2px 10px 0px #bcbcbc;
+    border-radius: 5px;
+
+    font-size: var(--small-font-size);
+    color: black;
+    font-weight: 500;
+
+    position: absolute;
+    z-index: 500;
+    top: 35px;
+    left: 10px;
+    padding: 2px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    display: none;
+
+}
+
+.drop-ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2px;
+    width: 85px;
+    display: block;
+
+}
+
+
+.drop-ul li:hover{
+    /* background-color: #d1f8ca; */
+    font-weight: bold;
+    transition-duration: 0.1s;
+    cursor: pointer;
+}
+
+.toggle{
+    display: flex;
+}
+
+/* ------------------------------------------- */
+
+
+
+
+/* 신고 정렬 아이콘 */
+.caret-icon{
+    padding-left: 0px;
+    margin: 0;
+    color: var(--point-color);
+}
+
+/* //todo */
+.sortFilter:first-of-type{
+    display: none;
+}
+
+
+.sortFilter{
+    cursor: pointer;
+}
+
+
+
+/* 페이지네이션 */
+.admin-pagination{
+    list-style: none;
+    width: 920px;
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+
+    font-size: var(--small-font-size);
+}
+
+.current-page-box{
+    margin: 0 5px;
+    text-align: center;
+
+    display: block;
+    height: 100%;
+    color: var(--point-color);
+}
+
+.page-box{
+    margin: 0 5px;
+    text-align: center;
+
+    display: block;
+    height: 100%;
+    color: rgb(129, 129, 129);
+    cursor: pointer;
+}
+
+
+
+
+/* 버튼 */
+.report-button-div{
+    width: 100%;
+    height: 50px;
+    padding-right: 30px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+#accountLeaveBtn{
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    background-color: #9E9E9E;
+    margin-right: 20px;
+}
+
+
+#accountBannedBtn{
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    background-color: #E3A914;
+    margin-right: 20px;
+}
+
+#accountKickOutBtn{
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;    
+    color: white;
+    border: none;
+    background-color: #C43819;
+}
+
+
+#contentLeaveBtn{
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    background-color: #9E9E9E;
+    margin-right: 20px;
+}
+
+#contentDeleteBtn{
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;    
+    color: white;
+    border: none;
+    background-color: #C43819;
+}
+
+
+
+
+
+/* 회원 조회 - 검색 */
+/* .report-search{
+    width: 200px;
+    height: auto;
+    padding: 1px 15px;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+
+    margin-right: 5px;
+    border-radius: 5px;
+
+    background-color: #e2e2e2;
+}
+
+#reportSearchKeyword{
+    width: 160px;
+    border: none;
+    background-color: #e2e2e2;
+}
+
+#reportSearchBtn{
+    background-color: #e2e2e2;
+    border: none;
+    cursor: pointer;
+} */
+

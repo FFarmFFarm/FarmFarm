@@ -190,7 +190,7 @@ main{
 
 
 /* no 색 변경 */
-.report-member-seq{
+.member-seq{
     color: var(--point-color);
     opacity: 50%;
 }
@@ -290,6 +290,7 @@ main{
     /* background-color: #d1f8ca; */
     font-weight: bold;
     transition-duration: 0.1s;
+    cursor: pointer;
 }
 
 
@@ -570,4 +571,7 @@ main{
     color: white;
     border: none;
 }
+
+
+
 

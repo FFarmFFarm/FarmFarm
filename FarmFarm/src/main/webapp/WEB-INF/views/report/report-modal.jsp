@@ -10,6 +10,7 @@
     <title>신고</title>
 
     <link rel="stylesheet" href="/resources/css/report/report-modal-style.css" />
+    <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
 
     <script src="https://kit.fontawesome.com/d4fbceca97.js" crossorigin="anonymous"></script>
 
@@ -38,7 +39,7 @@
                     <label for="7"><input type="radio" name="reportRadio" id="7">지식재산권 침해 </label>
                     <label for="8"><input type="radio" name="reportRadio" id="8">기타</label>
 
-                    <textarea id="reportContent" cols="50" rows="3"></textarea><br>
+                    <textarea id="reportContent" cols="50" rows="3" spellcheck="false"></textarea><br>
                     <button id="reportSubmitBtn">신고하기</button>
                 </div>
             </div>
@@ -46,6 +47,7 @@
     </div>
     
     <script src="/resources/js/report/report-modal.js"></script>
+    <script src="/resources/js/common/common.js"></script> 
     <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 
 </body>
