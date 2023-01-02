@@ -19,7 +19,7 @@
         <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
         <main>
-            test 페이지입니다.
+            test 페이지입니다. test.
             <button id="reportBtn">님 신고</button>
 
         </main>
