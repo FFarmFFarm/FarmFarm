@@ -41,80 +41,51 @@ public class BoardListController {
 
 		return "/board/boardList";
 	}
+	
 	// 와글와글 게시판의 목록 불러오기
-		@GetMapping("/board/{boardTypeNo}")
-		public String boardList (
-				@PathVariable("boardTypeNo") int boardTypeNo,
-				Model model,
-				@RequestParam(value="cp", required = false, defaultValue = "1") int cp,
-				@RequestParam(value="boardSelectNVL", required = false) List<String> boardSelectNVL,
-				@RequestParam(value="query", required = false) String query) {
+	@GetMapping("/board/{boardTypeNo}")
+	public String boardList (
+			@PathVariable("boardTypeNo") int boardTypeNo,
+			Model model,
+			@RequestParam(value="cp", required = false, defaultValue = "1") int cp,
+			@RequestParam(value="boardSelectNVL", required = false) List<String> boardSelectNVL,
+			@RequestParam(value="query", required = false) String query) {
+		
+		
+			Map<String, Object> searchMap = new HashMap<String, Object>();
+			searchMap.put("query", query);
+			searchMap.put("boardTypeNo", boardTypeNo);
+			
+			Map<String, Object> boardMap = service.selectBoardList(searchMap, cp);
+			model.addAttribute("boardMap", boardMap);
 
-			// 검색을 한 경우
-			if(query != null) {
-
-				Map<String, Object> searchMap = new HashMap<String, Object>();
-				searchMap.put("query", query);
-				searchMap.put("boardTypeNo", boardTypeNo);
-
-				if(boardSelectNVL != null) {
-					searchMap.put("boardSelectNVL", boardSelectNVL);
-				}
-
-				Map<String, Object> boardMap = service.selectBoardList(searchMap, cp);
-				model.addAttribute("boardMap", boardMap);
-
-			}else {
-
-				// 검색을 안한 경우
-				Map<String, Object> boardMap = service.selectBoardList(boardTypeNo, cp);
-				model.addAttribute("boardMap", boardMap);
-
-			}
-
-			return "board/boardList";
-		}
+		return "board/boardList";
+	}
 	
 	
 //	// 와글와글 게시판의 목록 불러오기
 	@GetMapping("/board/list/{boardTypeNo}")
 	@ResponseBody
 	public String boardList (
-			@PathVariable("boardTypeNo") int boardTypeNo,
 			Model model,
+			@PathVariable("boardTypeNo") int boardTypeNo,
 			@RequestParam(value="cp", required = false, defaultValue = "1") int cp,
 			@RequestParam(value="sort", required = false, defaultValue = "new") String sort,
 			@RequestParam(value="query", required = false) String query) {
 		
 		
+		Map<String, Object> searchMap = new HashMap<String, Object>();
+		
+		searchMap.put("query", query);
+		searchMap.put("boardTypeNo", boardTypeNo);
+		searchMap.put("sort", sort);
+		
 		Map<String, Object> boardMap = new HashMap<String, Object>();
 		
-		
-		// 검색을 한 경우
-		if(query != null) {
-		
-			Map<String, Object> searchMap = new HashMap<String, Object>();
-			searchMap.put("query", query);
-			searchMap.put("boardTypeNo", boardTypeNo);
-			searchMap.put("sort", sort);
-			
-			boardMap = service.selecBoardtListSearch(searchMap, cp);
-			boardMap.put("query", query);
-			boardMap.put("sort", sort);
-			model.addAttribute("boardMap", boardMap);
-
-		}else {
-			Map<String, Object> searchMap = new HashMap<String, Object>();
-			searchMap.put("boardTypeNo", boardTypeNo);
-			searchMap.put("sort", sort);
-			
-			// 검색을 안한 경우
-			boardMap = service.selecBoardtListSearch(searchMap, cp);
-			boardMap.put("query", query);
-			boardMap.put("sort", sort);
-			model.addAttribute("boardMap", boardMap);
-
-		}
+		boardMap = service.selecBoardtListSearch(searchMap, cp);
+		boardMap.put("query", query);
+		boardMap.put("sort", sort);
+		model.addAttribute("boardMap", boardMap);
 		
 		return new Gson().toJson(boardMap);
 	}

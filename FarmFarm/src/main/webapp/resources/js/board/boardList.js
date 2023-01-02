@@ -1,17 +1,14 @@
 
-
-
 // 게시글 목록을 ajax로 불러와봅시다!
 // 불러오는 부분을 만들어서 appen 시켜주기
 
 // board-list-title의 원래 모양을 저장을 위한 변수선언
 let beforeBoardListTitle;
 
-const showBoardList = ()=>{
+const showBoardList = (cp, sort)=>{
 
     // board-list-title의 원래 모양을 저장
     const boardListTitle = document.querySelector(".board-List-title");
-    // beforeBoardListTitle = boardListTitle.innerHTML;
 
     $.ajax({
         url : "/board/list/"+boardTypeNo,
@@ -101,13 +98,17 @@ const showBoardList = ()=>{
 
             // 첫 페이지
             const firstLi = document.createElement("li");
+            firstLi.setAttribute("id", 1);
+            firstLi.classList.add("pageLi");
             const firstA = document.createElement("a");
             firstA.setAttribute("href", "/board/"+boardTypeNo+"?cp=1"+sURL+soURL);
             firstA.innerHTML = "&lt;&lt;";
             firstLi.append(firstA);
-
+            
             // 이전 목록 마지막 번호이동
             const prevLi = document.createElement("li");
+            prevLi.setAttribute("id", pagination.prevPage);
+            prevLi.classList.add("pageLi");
             const prevA = document.createElement("a");
             prevA.setAttribute("href", "/board/"+boardTypeNo+"?cp="+pagination.prevPage+sURL+soURL);
             prevA.innerHTML = "&lt;";
@@ -115,6 +116,8 @@ const showBoardList = ()=>{
             
             // 다음 시작 페이지 이동동
             const nextLi = document.createElement("li");
+            nextLi.setAttribute("id", pagination.nextPage);
+            nextLi.classList.add("pageLi");
             const nextA = document.createElement("a");
             nextA.setAttribute("href", "/board/"+boardTypeNo+"?cp="+pagination.nextPage+sURL+soURL);
             nextA.innerHTML = "&gt;";
@@ -122,26 +125,29 @@ const showBoardList = ()=>{
             
             // 끝 페이지로 이동동동
             const maxLi = document.createElement("li");
+            maxLi.setAttribute("id", pagination.maxPage);
+            maxLi.classList.add("pageLi");
             const maxA = document.createElement("a");
             maxA.setAttribute("href", "/board/"+boardTypeNo+"?cp="+pagination.maxPage+sURL+soURL);
             maxA.innerHTML = "&gt;&gt;";
             maxLi.append(maxA);
             
             // 숫자가 나올 부분들임돵
-            const tempLi = document.createElement("li");
-            tempLi.classList.add("tempLi");
             
             boardPagination.append(firstLi, prevLi, nextLi, maxLi);
             
             for(let i = pagination.startPage; i<=pagination.endPage; i++){
                 const pageNumLi = document.createElement("li");
+                pageNumLi.classList.add("pageLi");
                 const pageNumA = document.createElement("a");
                 if(i == pagination.currentPage){
+                    pageNumLi.setAttribute("id", pagination.currentPage);
                     pageNumA.classList.add("current");
                     pageNumA.innerText=i;
                     pageNumLi.append(pageNumA);
                     
                 }else{
+                    pageNumLi.setAttribute("id", i);
                     pageNumA.setAttribute("href", "/board/"+boardTypeNo+"?cp="+i+sURL+soURL)
                     pageNumA.innerText=i;
                     pageNumLi.append(pageNumA);
@@ -156,13 +162,54 @@ const showBoardList = ()=>{
                 writeA.innerText="글쓰기";
                 boardWriteBottom.append(boardPagination, writeA);
                 
-                // boardListTop.append(boardListTitle, boardListArea, boardWriteBottom, writeA);
             }else{
                 boardWriteBottom.append(boardPagination);
 
             }
             boardListTop.append(boardListTitle, boardListArea, boardWriteBottom);
             console.log("통신 성공");
+
+            const goBoard = document.getElementsByClassName("goBoard");
+            for(let go of goBoard){
+                go.addEventListener("click", e=>{
+                    if(loginYN == ""){
+                        loginConfirmOpen();
+                        e.preventDefault();
+                    }
+                })
+            }
+
+            
+            // 페이지 선택 시
+            const pageLis = document.querySelectorAll(".pageLi > a");
+            for(let a of pageLis){
+                a.addEventListener("click", (e)=>{
+                    
+                    const cp = a.parentElement.id;
+
+                    if(sort == 'view'){
+                        const boardSort = document.querySelector(".board-sort");
+                        boardSort.innerHTML = "조회수 ";
+                        showBoardList(cp, sort);
+                    }
+                    if(sort == 'like'){
+                        const boardSort = document.querySelector(".board-sort");
+                        boardSort.innerHTML = "좋아요 ";
+                        showBoardList(cp, sort);
+                    }
+                    if(sort == 'new'){
+                        const boardSort = document.querySelector(".board-sort");
+                        boardSort.innerHTML = "최신순 ";
+                        showBoardList(cp, sort);
+                    }
+                    console.log(cp);
+                    console.log(sort);
+
+                    e.preventDefault();
+                    
+                })
+                urlChange(cp, sort);
+            }
         },
         error : ()=>{
             alert("리스트 조회 ajax 통신 시류ㅐㅠㅜㅠㅜ");
@@ -217,11 +264,9 @@ if(boardAdd == '/board/4'){
 
 // 검색 시 검색어 유지시키기
 (()=>{
-    // const boardSearch = document.querySelector(".board-search");
     const inputQuery = document.getElementById("inputQuery");
     
     if(inputQuery != null){
-    // if(boardSearch != null){
         const params = new URL(location.href).searchParams
         
         const query = params.get("query");
@@ -229,17 +274,6 @@ if(boardAdd == '/board/4'){
         inputQuery.value = query;
     }
 })();
-
-
-// 이건.... value값 확인해본건데 spring으로 넘어가려나....
-// 최신순, 조회수, 좋아요
-// const boardSelect = document.getElementById("boardSelect");
-// (()=>{boardSelect.addEventListener("change",()=>{
-//     const value = boardSelect.options[boardSelect.selectedIndex].value;
-//     console.log(value);
-//     boardSelect.setAttribute("value", value);
-// });})()
-
 
 // 로그인안된 회원은 못가게 막아보자
 const goBoard = document.getElementsByClassName("goBoard");
@@ -250,7 +284,6 @@ for(let go of goBoard){
             e.preventDefault();
         }
     })
-    
 }
 
 
@@ -267,21 +300,78 @@ boardSelectSort.addEventListener("click", ()=>{
 
 
 // 정렬 선택 시 
+const params = new URL(location.href).searchParams
 
+// 정렬관련
 const boardSort = document.querySelector(".board-sort");
+
+if(sort == 'view'){
+    const boardSort = document.querySelector(".board-sort");
+    boardSort.innerHTML = "조회수 ";
+}
+if(sort == 'like'){
+    const boardSort = document.querySelector(".board-sort");
+    boardSort.innerHTML = "좋아요 ";
+}
+if(sort == 'new'){
+    const boardSort = document.querySelector(".board-sort");
+    boardSort.innerHTML = "최신순 ";
+}
 
 document.getElementById("new").addEventListener("click", ()=>{
     sort = "new";
     boardSort.innerHTML = "최신순 &nbsp;";
-    showBoardList();
+    showBoardList(cp, sort);
 })
 document.getElementById("view").addEventListener("click", ()=>{
     sort = "view";
     boardSort.innerHTML = "조회수 &nbsp;";
-    showBoardList();
+    showBoardList(cp, sort);
 })
 document.getElementById("like").addEventListener("click", ()=>{
     sort = "like";
     boardSort.innerHTML = "좋아요 &nbsp;";
-    showBoardList();
+    showBoardList(cp, sort);
 })
+
+
+// 페이지 선택 시
+const pageLis = document.querySelectorAll(".pageLi > a");
+for(let a of pageLis){
+    a.addEventListener("click", (e)=>{
+
+        
+        const cp = a.parentElement.id;
+
+        if(sort == 'view'){
+            const boardSort = document.querySelector(".board-sort");
+            boardSort.innerHTML = "조회수 ";
+            showBoardList(cp, sort);
+        }
+        if(sort == 'like'){
+            const boardSort = document.querySelector(".board-sort");
+            boardSort.innerHTML = "좋아요 ";
+            showBoardList(cp, sort);
+        }
+        if(sort == 'new'){
+            const boardSort = document.querySelector(".board-sort");
+            boardSort.innerHTML = "최신순 ";
+            showBoardList(cp, sort);
+        }
+        console.log(cp);
+        console.log(sort);
+
+        e.preventDefault();
+
+    })
+};
+
+
+// 주소 변경
+const urlChange = (cp, sort)=>{
+
+    const title = '';
+    const reUrl = "/board/"+boardTypeNo+"?cp="+cp+"&sort="+sort;
+
+    history.pushState(null, title, reUrl);
+}
