@@ -255,6 +255,8 @@
       /* 외부 영역 클릭 시 클릭 해제 */
       addEventListener('click', (e)=>{
         const target = e.target;
+        console.log(target);
+        console.log(e.target);
         if(!document.getElementById('myDropdown1').contains(e.target)){
           document.getElementById('myDropdown1').style.display='';
         }

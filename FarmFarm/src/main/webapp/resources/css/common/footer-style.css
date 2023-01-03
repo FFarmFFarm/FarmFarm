@@ -1,6 +1,6 @@
 @import "../../css/root-style.css";
 
-/* 채팅, 탑버튼 */
+/* 탑버튼 */
 .btn-go-to-top {
   position: fixed;
   right: 40px;
@@ -17,19 +17,8 @@
   cursor: pointer;
 }
 
-#showChatWidget{
-  display: none;
-}
 
-#showChatWidget:checked + .btn-chat{
-  background-color: var(--point-color);
-}
-
-#showChatWidget:checked + .btn-chat > i{
-  color: white;
-}
-
-
+/* 채팅 버튼 */
 .btn-chat {
   position: fixed;
   right: 40px;
