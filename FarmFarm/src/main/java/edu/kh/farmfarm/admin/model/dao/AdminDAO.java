@@ -138,7 +138,7 @@ public class AdminDAO {
 
 
 
-	/** 판매자 인증신청서 조회
+	/** 판매자 인증신청서 상세 조회
 	 * @param hiddenNo
 	 * @return authPaper
 	 */
@@ -198,6 +198,16 @@ public class AdminDAO {
 		RowBounds rowBounds = new RowBounds(offset, 15);
 		
 		return sqlSession.selectList("adminMapper.selectNewReport", sortFilter, rowBounds);
+	}
+
+
+
+	/** 미처리 신고 상세 조회
+	 * @param hiddenNo
+	 * @return newReportDetail
+	 */
+	public Admin selectNewReportDetail(int hiddenNo) {
+		return sqlSession.selectOne("adminMapper.selectNewReportDetail", hiddenNo);
 	}
 
 

@@ -8,7 +8,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -21,6 +20,7 @@ import com.google.gson.Gson;
 
 import edu.kh.farmfarm.admin.model.service.AdminService;
 import edu.kh.farmfarm.admin.model.vo.Admin;
+import edu.kh.farmfarm.common.Util;
 import edu.kh.farmfarm.member.model.VO.Member;
 import lombok.ToString;
 
@@ -30,8 +30,6 @@ public class AdminController {
 	
 	@Autowired
 	private AdminService service;
-	
-	
 
 
 	// 판매자 인증중인 회원이 로그인할 경우 이동_memberController와 연결
@@ -39,6 +37,9 @@ public class AdminController {
 	public String authenticating() {
 		return "member/authNotice";
 	}
+	
+	
+	
 	
 	// 관리자페이지 --------------------------------------------------------
 	
@@ -377,7 +378,49 @@ public class AdminController {
 		
 		return new Gson().toJson(map);
 	}
+
+
 	
+	// ajax
+	// 미처리 신고 상세 조회(모달창 내부 내용)
+	@PostMapping("/admin/selectNewReportDetail")
+	@ResponseBody
+	public Admin adminNeweportDetail(@SessionAttribute(value="loginMember") Member loginMember, int hiddenNo) {
+		
+		// 관리자인지 확인 (관리자면 result==1)
+		int result = service.checkAdmin();
+		
+		Admin newReportDetail = new Admin();
+		
+		if(result == 1 && loginMember != null) {
+
+			// 미처리 신고 상세 조회
+			newReportDetail = service.selectNewReportDetail(hiddenNo);
+	
+		} else {
+			System.out.println("관리자만 접근 가능합니다.");
+		}
+		
+		return newReportDetail;
+	}
 	
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -127,6 +127,8 @@
                               <c:if test="${report.reportPenalty eq 'N'}">
                                 <td>접수</td>
                               </c:if>
+
+                              <input type="hidden" class="hidden-reportNo" name="hiddenNo" value="${report.reportNo}">
                           </tr>
                         </c:forEach>
                       </tbody>
@@ -178,32 +180,32 @@
         <table class="report-modal-table">
           <tbody id="tbodyDetail">
             <!-- <tr>
-              <td class="detail-bold">신고 번호</td>
-              <td>34</td>
-              <td class="detail-bold">처리 상태</td>
+              <td class="detail-bold left">신고 번호</td>
+              <td class="left-content">34</td>
+              <td class="detail-bold right">처리 상태</td>
               <td>접수</td>
             </tr>
             <tr>
-              <td class="detail-bold">유형</td>
-              <td>댓글</td>
-              <td class="detail-bold">누적 신고 횟수</td>
+              <td class="detail-bold left">유형</td>
+              <td class="left-content">댓글</td>
+              <td class="detail-bold right">누적 신고 횟수</td>
               <td>10</td>
             </tr>
             <tr>
-              <td class="detail-bold">신고 일자</td>
-              <td>2022-12-19 15:06:55</td>
+              <td class="detail-bold left">신고 일자</td>
+              <td class="left-content">2022-12-19 15:06:55</td>
             </tr>
             <tr>
-              <td class="detail-bold">신고 대상(아이디/게시글)</td>
+              <td class="detail-bold left">신고 대상(아이디/게시글)</td>
               <td colspan="4">[팜팜자체상품]오늘만이가격최대특가...</td>
             </tr>
             <tr></tr>
             <tr>
-              <td class="detail-bold">신고 사유</td>
+              <td class="detail-bold left">신고 사유</td>
               <td>댓글 도배</td>
             </tr>
             <tr>
-              <td class="detail-bold">내용</td>
+              <td class="detail-bold left">내용</td>
             </tr>
             <tr>
               <td colspan="4" rowspan="8">

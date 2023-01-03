@@ -87,6 +87,14 @@ public interface AdminService {
 	Map<String, Object> selectNewReport(String sortFilter, int cp);
 
 
+	/** 미처리 신고 상세 조회(모달)
+	 * @param hiddenNo
+	 * @return newReportDetail
+	 */
+	Admin selectNewReportDetail(int hiddenNo);
+
+
+
 
 
 

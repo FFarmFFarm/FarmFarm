@@ -161,9 +161,8 @@ public class AdminServiceImpl implements AdminService{
 		Pagination pagination = new Pagination(reportListCount, cp, 15);
 		
 		// 3. 페이지네이션 객체를 생성해 목록 불러오기
-		// 전체 판매자(인증대기포함) 조회 (정렬 포함)
+		// 미처리 신고 조회
 		List<Admin> newReportList = dao.selectNewReport(sortFilter, pagination);
-		
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("reportListCount", reportListCount);
@@ -174,4 +173,19 @@ public class AdminServiceImpl implements AdminService{
 	}
 		
 
+	
+	// 미처리 신고 상세 조회
+	@Override
+	public Admin selectNewReportDetail(int hiddenNo) {
+		return dao.selectNewReportDetail(hiddenNo);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
