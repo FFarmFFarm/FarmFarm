@@ -80,8 +80,7 @@
                 </c:if>
                 <c:if test="${order.orderStatus == 1}">
                   <c:if test="${product.productStatus == 0}">
-                    <span class="order-shipping" id="34558174092">배송중</span>
-                    <a href="https://tracker.delivery/#/kr.logen/34558174092" target="_blank">배송조회</a>
+                    <span class="order-shipping" id="${order.invoiceNo}">배송중</span>
                   </c:if>
                   <c:if test="${product.productStatus == 1}">
                     <span class="order-shipping">반품 진행중</span>
