@@ -1,0 +1,181 @@
+@import "../../css/root-style.css";
+
+.inquire-container {
+  width: 350px;
+  height: 500px;
+  background-color: white;
+
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
+
+  z-index: 1001;
+
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  font-size: var(--main-font-size);
+
+  box-shadow: 0 0 8px rgba(0,0,0,0.5);
+
+}
+
+.inquire-header {
+  width: 100%;
+  height: 50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: var(--large-font-size);
+  font-weight: bold;
+  color: var(--point-color);
+  position: relative;
+}
+
+#inquireClose {
+  font-size: var(--title-font-size);
+  position: absolute;
+  top: 5px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.inquire-content {
+  width: 95%;
+  height: 400px;
+
+  padding: 10px 5px;
+  background-color: hwb(41 81% 3%);
+  border-radius: 5px;
+
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.inquire-content::-webkit-scrollbar {
+  width: 8px;  /* 스크롤바의 너비 */
+}
+
+.inquire-content::-webkit-scrollbar-thumb {
+  height: 30%; /* 스크롤바의 길이 */
+  background: var(--point-color); /* 스크롤바의 색상 */
+  
+  border-radius: 10px;
+}
+
+.inquire-content::-webkit-scrollbar-track {
+  background: rgba(33, 122, 244, .1);  /*스크롤바 뒷 배경 색상*/
+}
+
+.receive {
+  width: 100%;
+
+  margin: 15px 5px;
+  
+}
+
+.receive > span {
+  display: block;
+  margin: 5px 5px;
+  width: fit-content;
+  max-width: 70%;
+  padding: 5px 5px;
+  border-radius: 5px;
+  background-color: hwb(259 69% 5%)
+  
+}
+
+.send  {
+  width: 100%;
+
+
+  margin: 15px 5px;
+  display: flex;
+  justify-content: end;
+}
+
+.send  > span{
+  display: block;
+  margin: 5px 5px;
+  width: fit-content;
+  max-width: 70%;
+  padding: 5px 5px;
+  
+  border-radius: 5px;
+  
+  background-color: #9df59d;
+}
+
+.input-area {
+  width: 100%;
+  height: 50px;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-area > textarea {
+  resize: none;
+  width: 90%;
+  height: 28px;
+  outline: none;
+  padding: 3px 5px;
+  border: 1px solid #acacac;
+  border-radius: 5px;
+}
+
+
+.hide-room {
+  display: none;
+  opacity: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.appear-room {
+  animation: fade-in-room 0.5s;
+  animation-fill-mode: forwards;
+  display: flex;
+}
+
+.disappear-room {
+  animation: fade-out-room 0.5s;
+  animation-fill-mode: forwards;
+}
+
+
+@keyframes fade-in-room {
+  from {
+    width: 50px;
+    height: 50px;
+    opacity: 0;
+    
+  }
+  to {
+    width: 350px;
+    height: 500px;
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out-room {
+  from {
+    width: 350px;
+    height: 500px;
+    opacity: 1;
+    
+  }
+  to {
+    width: 50px;
+    height: 50px;
+    opacity: 0;
+  }
+}
