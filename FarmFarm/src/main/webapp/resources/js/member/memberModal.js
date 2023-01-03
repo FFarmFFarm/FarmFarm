@@ -46,15 +46,16 @@ const selectMember = (memberNo) => {
     dataType : "JSON",
     success : (member)=>{
 
-      if(member.profileImage != null) {
-        img.setAttribute("src", member.profileImage);
+      console.log(member.profileImg);
+      if(member.profileImg != null) {
+        img.setAttribute("src", member.profileImg);
         modalImgarea;
       }else {
         img.setAttribute("src", "/resources/images/myPage/profile/profileImg.png");
         modalImgarea;
       };
 
-      memberNickname.innerText = "닉네임 :" + member.memberNickname;
+      memberNickname.innerText = member.memberNickname;
       modalSignUpDate.innerText = "가입일 :" + member.signUpDate;
 
     }, 
