@@ -200,7 +200,7 @@
           <p>팜팜에서 구매한 상품들을 자기만의 레시피로 요리하고 회원들과 공유해보세요.</p>
         </div>
         <div class="cooking-img">
-          <img src="resources/images/main/cooking.jpg">
+          <img src="resources/images/main/re.jpg">
         </div>
         <div class="cooking-a">
           <a href="/board/${1}">

@@ -10,6 +10,8 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Welcome to FarmFarm!!</title>
 
+            <script src="https://kit.fontawesome.com/785870d879.js" crossorigin="anonymous"></script>
+
             <!-- <link rel="stylesheet" href="/resources/css/member/login-style.css"> -->
             <link rel="stylesheet" href="/resources/css/member/login-style.css">
         </head>
@@ -37,19 +39,18 @@
                             <div class="login-btn">
                                 <button class="inputbox input-button">로그인</button>
                             </div>
+                            <input type="checkbox" name="saveId" id="saveId" ${temp}>
                         </form>
 
                         <section class="saveid-area">
-                            <!-- 쿠키에 svaeId 있을 때 -->
-                            <c:if test="${!empty cookie.saveId.value}">
-                                <c:set var="temp" value="checked" />
-                            </c:if>
-
                             <div class="save-find">
+                                <!-- 쿠키에 svaeId 있을 때 -->
+                                <c:if test="${!empty cookie.saveId.value}">
+                                    <c:set var="temp" value="checked"/>
+                                </c:if>
                                 <label for="saveId">
                                     <div class="saveIdArea" id="idCheck">
                                         <i class="fa-solid fa-check" id="idCheck2">
-                                            <input type="checkbox" name="saveId" id="saveId" ${temp}>
                                         </i>
                                     </div>아이디 저장
                                 </label>
@@ -81,5 +82,7 @@
                 <%-- message 1회 출력 후  모든 scope에서 삭제 --%>
                 <c:remove var="message"/>
             </c:if>
+
+            <script src="/resources/js/member/login.js"></script>
         </body>
         </html>
