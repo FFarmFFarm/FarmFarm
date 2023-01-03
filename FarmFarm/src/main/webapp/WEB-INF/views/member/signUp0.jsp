@@ -170,34 +170,41 @@
 
                         //휴대폰번호 인증번호 보내기 버튼 클릭 이벤트
                         $('#send').click(function() {
-                        const to = $('#to').val();
-                        $.ajax ({
-                            url: '/check/sendSMS',
-                            type: 'GET',
-                            data: {
-                                "to" : to
-                            },
-                            success: function(data) {
-                                const checkNum = data;
-                                const memberTel = $('#to');
-                                  alert('인증번호가 전송되었습니다.');
-                                
-                                  $('#enterBtn').click(function() {	
-                                      const userNum = $('#userNum').val();
+                            if(memberTel.value.trim().length == 0){
+                              checkObj.memberTel = false;
+                              alert('전화번호를 작성해주세요.');
+                              return;
+                            } else{
+                                const to = $('#to').val();
+                                $.ajax ({
+                                    url: '/check/sendSMS',
+                                    type: 'GET',
+                                    data: {
+                                        "to" : to
+                                    },
+                                    success: function(data) {
+                                        const checkNum = data;
+                                        const memberTel = $('#to');
+                                          alert('인증번호가 전송되었습니다.');
+                                        
+                                          $('#enterBtn').click(function() {	
+                                              const userNum = $('#userNum').val();
+                                            
+                                              if(checkNum === userNum) {
+                                                alert('인증 성공하였습니다.');
+                                                checkObj.userNum = true;
+                                            }
+                                            else {
+                                                alert('인증 실패하였습니다. 다시 입력해주세요.');
+                                                checkObj.userNum = false;
+                                            }
+                                        });
                                     
-                                      if(checkNum === userNum) {
-                                        alert('인증 성공하였습니다.');
-                                        checkObj.userNum = true;
-                                    }
-                                    else {
-                                        alert('인증 실패하였습니다. 다시 입력해주세요.');
-                                        checkObj.userNum = false;
+                                        
                                     }
                                 });
-                            
-                                
+
                             }
-                        });
                         
                     });
                     </script>
