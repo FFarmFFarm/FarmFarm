@@ -26,7 +26,7 @@ public class AdminProcessServiceImpl implements AdminProcessService{
 	}
 
 	
-	// 회원 강제 탈퇴 (신고내역 O)
+	// 신고된 회원 강제 탈퇴 (신고내역 O)
 	@Override
 	public int reportMemberKickout(int hiddenNo) {
 		
@@ -43,4 +43,12 @@ public class AdminProcessServiceImpl implements AdminProcessService{
 		
 		return result;
 	}
+	
+	
+	
+	// 신고 계정 - 반려
+	@Override
+	public int reportMemberLeave(int hiddenNo) {
+		return dao.reportMemberLeave(hiddenNo);
+	}	
 }

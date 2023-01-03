@@ -29,12 +29,21 @@ public class AdminProcessDAO {
 	}
 
 
-	/** 회원 강제 탈퇴(신고o)
+	/** 신고 회원 강제 탈퇴(신고o)
 	 * @param hiddenId
 	 * @return result
 	 */
 	public int changeReportStatus(int hiddenNo) {
 		return sqlSession.update("adminMapper.changeReportStatus", hiddenNo);
+	}
+
+
+	/** 신고 회원 반려
+	 * @param hiddenNo
+	 * @return
+	 */
+	public int reportMemberLeave(int hiddenNo) {
+		return sqlSession.update("adminMapper.reportMemberLeave", hiddenNo);
 	}
 
 	

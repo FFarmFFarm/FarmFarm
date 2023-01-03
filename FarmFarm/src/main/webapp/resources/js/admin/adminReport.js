@@ -9,6 +9,8 @@
 var numCount = 0;
 var hiddenReportNo = 0;  // reportNo
 var hiddenMemberNo = 0; // memberNo / reportType = "M"일떄 reportTargetNo
+var hiddenContentNo = 0;  // contentNo  / reportType = "B" boardNo / reportType = "P" postNo
+var hiddenReportType;
 
 
 //optimize: 미처리 신고 조회 함수 ajax
@@ -168,11 +170,17 @@ const printNewReportList = (newReportList, pagination, reportListCount) => {
         tr.addEventListener('click', () => {
             hiddenReportNo = report.reportNo;  // 상세조회용
             hiddenMemberNo = report.memberNo;  // 강제탈퇴용
+            hiddenContentNo = report.contentNo; // 신고게시글 반려용
+            hiddenReportType = report.reportType; 
+            
+            // 상세 모달 
             selectNewReportDetail(hiddenReportNo);
 
             console.log("한 행 클릭할 때 모달 열리는 부분---------");
             console.log("hiddenReportNo: " + hiddenReportNo);
             console.log("hiddenMemberNo: " + hiddenMemberNo);
+            console.log("hiddenContentNo: " + hiddenContentNo);
+            console.log("hiddenReportType: " + hiddenReportType);
         })
 
     }
@@ -187,16 +195,23 @@ const printNewReportList = (newReportList, pagination, reportListCount) => {
 const reportListRow = document.getElementsByClassName("report-list-row");
 const tempReportNo = document.getElementsByClassName("hidden-reportNo");
 const tempMemberNo = document.getElementsByClassName("hidden-memberNo");
+const tempContentNo = document.getElementsByClassName("hidden-contentNo");
+const tempReportType = document.getElementsByClassName("hidden-reportType");
 
 for(let i=0; i<reportListRow.length; i++){
     reportListRow[i].addEventListener('click', () => {
         hiddenReportNo = tempReportNo[i].value;
         hiddenMemberNo = tempMemberNo[i].value;
+        hiddenContentNo = tempContentNo[i].value;
+        hiddenReportType = tempReportType[i].value;
+
         selectNewReportDetail(hiddenReportNo);
 
         console.log("jsp에서 한 행 클릭했을때=====");
         console.log("hiddenReportNo: " + hiddenReportNo);
         console.log("hiddenMemberNo : " + hiddenMemberNo);
+        console.log("hiddenContentNo : " + hiddenContentNo);
+        console.log("hiddenReportType : " + hiddenReportType);
     })
 }
 
@@ -611,9 +626,8 @@ window.addEventListener('click', (e) => {
 
 // todo: 신고 처리 (반려,계정정지, 탈퇴, 삭제, 블라인드 등등)
 
-// * 계정 강제 탈퇴
+// * (계정) 강제 탈퇴
 accountKickOutBtn.addEventListener('click', () => {
-
     $.ajax({
         url: "/report/kickout",
         data: { "hiddenNo": hiddenMemberNo },
@@ -625,7 +639,7 @@ accountKickOutBtn.addEventListener('click', () => {
                 selectNewReportList(cp);
                 
                 console.log("강제 탈퇴 완료");
-                messageModalOpen("강제 탈퇴 되었습니다.");
+                messageModalOpen("신고된 계정이 강제 탈퇴되었습니다.");
 
                 //fixme: 시간 남을 때 모달이랑, 스크롤 위치 수정
 
@@ -639,3 +653,55 @@ accountKickOutBtn.addEventListener('click', () => {
         }
     });
 })
+
+
+// * (계정) 반려 
+accountLeaveBtn.addEventListener('click', () => {
+    $.ajax({
+        url: "/report/leaveAccount",
+        data: {"hiddenNo":hiddenMemberNo},
+        type: "POST",
+        success: (result) => {
+            if(result > 0){
+                reportDetailModalClose();
+                selectNewReportList(cp);
+
+                console.log("계정 반려");
+                messageModalOpen("신고된 계정이 활성화 상태를 유지합니다.");
+            }
+        }
+    })
+})
+
+
+// * (계정) 정지
+accountBannedBtn.addEventListener('click', () => {
+    $.ajax({
+        url: "/report/bannedAccount",
+        data: {"hiddenNo":hiddenMemberNo},
+        type: "POST",
+        success: (result) => {
+            if(result > 0){
+                reportDetailModalClose();
+                selectNewReportList(cp);
+
+                console.log("계정 정지");
+                messageModalOpen("신고된 계정이 정지되었습니다.")
+            }
+        }
+    })
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+// * (게시글) 삭제

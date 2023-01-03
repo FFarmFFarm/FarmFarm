@@ -21,4 +21,11 @@ public interface AdminProcessService {
 	 */
 	int reportMemberKickout(int hiddenNo);
 
+
+	/** 신고 계정 반려
+	 * @param hiddenNo
+	 * @return result
+	 */
+	int reportMemberLeave(int hiddenNo);
+
 }

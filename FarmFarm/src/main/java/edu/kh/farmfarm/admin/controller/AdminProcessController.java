@@ -40,7 +40,7 @@ public class AdminProcessController {
 	 */
 	
 	
-	// 회원 강제 탈퇴 (신고 접수된 경우) + REPORT 테이블 변경하기
+	// 신고 계정 - 강제탈퇴  // 신고된 회원 강제 탈퇴 + REPORT 테이블 변경하기
 	@PostMapping("/report/kickout")
 	@ResponseBody
 	public int reportMemberKickout(@SessionAttribute(value="loginMember") Member loginMember, int hiddenNo) {
@@ -56,7 +56,7 @@ public class AdminProcessController {
 	}
 	
 	
-	// 계정 - 정지
+	// 신고 계정 - 정지
 	
 	
 	
@@ -64,7 +64,21 @@ public class AdminProcessController {
 	
 	
 	
-	// 계정 - 반려
+	// 신고 계정 - 반려
+	@PostMapping("/report/leaveAccount")
+	@ResponseBody
+	public int reportMemberLeave(@SessionAttribute(value="loginMember") Member loginMember, int hiddenNo) {
+		
+		// 관리자인지 확인
+		int result = service.checkAdmin();
+		
+		if(result == 1  && loginMember != null) {
+			
+			result = service.reportMemberLeave(hiddenNo);
+		}
+		return result;
+		
+	}
 	
 	
 	
@@ -72,11 +86,16 @@ public class AdminProcessController {
 	
 	
 	
+	// 신고 게시글 - 삭제
 	
-	// 게시글 - 삭제
 	
 	
-	// 게시글 -반려
+	
+	
+	
+	
+	// 신고 게시글 - 반려
+	
 	
 	
 	

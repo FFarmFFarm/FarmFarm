@@ -126,6 +126,9 @@
 
                               <input type="hidden" class="hidden-reportNo" name="hiddenReportNo" value="${report.reportNo}">
                               <input type="hidden" class="hidden-memberNo" name="hiddenNo" value="${report.memberNo}">
+                              <input type="hidden" class="hidden-contentNo" name="hiddenContentNo" value="${report.contentNo}">
+                              <input type="hidden" class="hidden-reportType" name="hiddenReportType" value="${report.reportType}">
+
                           </tr>
                         </c:forEach>
                       </tbody>

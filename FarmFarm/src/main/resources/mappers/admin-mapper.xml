@@ -41,6 +41,7 @@
 	     <result property="title" column="TITLE" />
 	     <result property="content" column="CONTENT" />
 	     <result property="reportVolume" column="REPORT_VOLUME" />
+	     <result property="contentNo" column="CONTENT_NO" />
 	     
 	     <result property ="boardNo" column="BOARD_NO"/>
        <result property="boardTitle" column="BOARD_TITLE" />
@@ -334,6 +335,11 @@
 				RANK() OVER(PARTITION BY REPORT_TARGET_NO, REPORT_TYPE ORDER BY REPORT_NO) AS REPORT_VOLUME,
 				BOARD_NO, BOARD_DEL_FL, POST_NO, POST_DEL_FL, REPORT_TYPE,
 				(CASE
+					WHEN REPORT_TYPE = 'B' THEN BOARD_NO
+					WHEN REPORT_TYPE = 'P' THEN POST_NO
+				END 
+				) CONTENT_NO,
+				(CASE
 					WHEN REPORT_TYPE = 'B' THEN BOARD_TITLE
 					WHEN REPORT_TYPE = 'P' THEN POST_TITLE
 				END 
@@ -375,6 +381,11 @@
 				RANK() OVER(PARTITION BY REPORT_TARGET_NO, REPORT_TYPE ORDER BY REPORT_NO) AS REPORT_VOLUME,
 				BOARD_NO, BOARD_DEL_FL, POST_NO, POST_DEL_FL, REPORT_TYPE,
 				(CASE
+					WHEN REPORT_TYPE = 'B' THEN BOARD_NO
+					WHEN REPORT_TYPE = 'P' THEN POST_NO
+				END 
+				) CONTENT_NO,
+				(CASE
 					WHEN REPORT_TYPE = 'B' THEN BOARD_TITLE
 					WHEN REPORT_TYPE = 'P' THEN POST_TITLE
 				END 
@@ -405,10 +416,20 @@
 	</update>
 	
 	
-	<!-- 계정 : 신고 상태 변경, 신고 처리일자 추가 -->
+	<!-- 강제 탈퇴 계정 : 신고 상태 변경, 신고 처리일자 추가 -->
 	<update id = "changeReportStatus">
 		UPDATE REPORT SET
 		REPORT_PENALTY = 'Y',
+		PROCESS_DATE = SYSDATE
+		WHERE REPORT_TYPE = 'M'
+		AND REPORT_TARGET_NO = #{hiddenNo}
+	</update>
+	
+	
+	<!-- 신고 계정 반려 -->
+	<update id="reportMemberLeave">
+		UPDATE REPORT SET
+		REPORT_PENALTY = 'N',
 		PROCESS_DATE = SYSDATE
 		WHERE REPORT_TYPE = 'M'
 		AND REPORT_TARGET_NO = #{hiddenNo}
