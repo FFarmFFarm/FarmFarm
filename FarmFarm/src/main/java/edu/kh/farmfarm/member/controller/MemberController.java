@@ -86,7 +86,6 @@ public class MemberController {
 
 				if (loginMember.getAuthority() == 0 || loginMember.getAuthority() == 1) {
 					// 신고 여부 조회
-//					String checkReport = service.checkReport(loginMember.getMemberNo());
 					String checkReport = null;
 					checkReport = service.checkReport(loginMember.getMemberNo());
 
@@ -96,7 +95,7 @@ public class MemberController {
 
 						Cookie cookie = new Cookie("saveId", loginMember.getMemberId());
 						if (saveId != null) {
-							cookie.setMaxAge(60 * 60 * 24 * 90); // 90일 유지
+							cookie.setMaxAge(60*60*24*90); // 90일 유지
 						} else {
 							cookie.setMaxAge(0);
 						}

@@ -14,6 +14,7 @@ saveId.addEventListener("change",function(event){
             idCheck.classList.remove("idOk");
     }
 });
+
 if(saveId.checked) {idCheck.classList.add("idOk")};
 
 const loginFrm = document.getElementById("loginFrm");
