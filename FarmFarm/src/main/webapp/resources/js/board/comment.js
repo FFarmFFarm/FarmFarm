@@ -353,6 +353,15 @@ function sendCo(parentNo, btn){
     // textarea 값을 지정해줄까요?
     const textarea = btn.parentElement.previousElementSibling;
 
+    // 원 댓글의 비밀댓글
+    const secretCo = btn.parentElement.previousElementSibling.previousElementSibling.previousElementSibling;
+    console.log(secretCo);
+    if(secretCo.child != null){
+        console.log("존재하지 않아");
+    }else{
+        console.log("존재해");
+    }
+
     // textarea의 값을 저장합니다.
     const commentContent = textarea.value;
     console.log(commentContent);
