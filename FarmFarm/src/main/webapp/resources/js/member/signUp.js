@@ -412,7 +412,6 @@ memberNickname.addEventListener("input",function(){
 
 function tempFn(){
     console.log("닉네임 검사 완료");
-
 }
 
 
@@ -448,8 +447,6 @@ memberTel.addEventListener("input", function(){
 
 // document.getElementById("send").addEventListener("click",(e)=>{
 //     if(memberTel.value.trim().length == 0){
-//         telMessage.innerText = "전화번호를 입력해주세요.(- 제외)";
-//         telMessage.classList.remove("confirm", "error");
 //         checkObj.memberTel = false;
 //         alert('전화번호를 작성해주세요.');
 //         return;
@@ -459,6 +456,12 @@ memberTel.addEventListener("input", function(){
 // 전화번호 인증번호
 if(document.getElementById("signUpFrm") != null){
     document.getElementById("signUpFrm").addEventListener("submit",(e)=>{
+
+        if(memberTel.value.trim().length == 0){
+           checkObj.memberTel = false;
+           alert('전화번호를 작성해주세요.');
+           return;
+        } 
 
         const userNum = document.getElementById("userNum");
         if(userNum.value.trim().length == 0){
