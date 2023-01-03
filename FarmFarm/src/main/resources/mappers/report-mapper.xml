@@ -20,7 +20,7 @@
 
 	<insert id="insertReport">
 		INSERT INTO REPORT VALUES(SEQ_REPORT_NO.NEXTVAL, #{reportType}, #{memberNo}, #{reportTargetNo}, #{reportReason},
-			DEFAULT, DEFAULT, NULL, #{reportContent})
+			DEFAULT, NULL, NULL, #{reportContent})
 	</insert>
 
 

@@ -44,6 +44,15 @@
     font-size: var(--main-font-size);
 }
 
+.left{ width: 120px;}
+
+.right{ width: 120px;}
+
+.left-content{  /* 신고번호, 유형,신고일자 내용 */
+    width: 240px;
+}
+
+
 
 .report-modal-table{
     height: 500px;
@@ -51,44 +60,97 @@
     align-items: flex-start;
 }
 
+#tbodyDetail{
+    width: 100%;
+}
 
-.report-modal-table tr td{
+
+
+#tbodyDetail tr td{
     height: 30px;
     font-size: var(--main-font-size);
 }
 
 
+/* 누적 신고 기록 보기 */
+/* .span-count{
+    font-size: var(--small-font-size);
+    color: #C43819;
+    text-decoration: underline;
+    border: none;
+    margin-left: 85px;
+} */
+
+/* 누적 신고 옆에 아래 화살표 아이콘 */
+.filter-icon{
+    margin-left: 5px;
+}
+
+
+
+/* 버튼 */
 .button-div{
     display: flex;
     justify-content: flex-end;
+    margin-top: 15px
 }
 
-#stopAccountBtn{
+
+#accountLeaveBtn{
     width: 100px;
     height: 30px;
     border-radius: 5px;
     color: white;
     border: none;
-    background-color: var(--point-color);
+    background-color: #9E9E9E;
     margin-right: 10px;
 }
 
-#secessionAccountBtn{
+
+#accountBannedBtn{
     width: 100px;
     height: 30px;
     border-radius: 5px;
+    color: white;
+    border: none;
+    background-color: #E3A914;
+    margin-right: 10px;
+}
+
+#accountKickOutBtn{
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;    
     color: white;
     border: none;
     background-color: #C43819;
-    margin-right: 10px;
 }
 
-#passAccountBtn{
+
+#contentLeaveBtn{
     width: 100px;
     height: 30px;
     border-radius: 5px;
     color: white;
     border: none;
-    background-color: var(--icon-button-color);
+    background-color: #9E9E9E;
+    margin-right: 10px;
 }
 
+#contentDeleteBtn{
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;    
+    color: white;
+    border: none;
+    background-color: #C43819;
+}
+
+
+.show{
+    display: block;
+}
+
+.hide{
+    display: none;
+}
