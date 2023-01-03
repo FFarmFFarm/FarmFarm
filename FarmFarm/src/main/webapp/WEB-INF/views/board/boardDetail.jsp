@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/resources/css/common/header-style.css" />
     <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
 
+    <link rel="stylesheet" href="/resources/css/member/memberModal-style.css" />
     <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
     
     <script src="https://kit.fontawesome.com/345198b845.js" crossorigin="anonymous"></script>
@@ -107,8 +108,12 @@ ${board.boardContent}
         memberNo = "${loginMember.memberNo}";
         loginAuth = "${loginMember.authority}";
     </script>
+    
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
     <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/> 
+
+    <%-- 프로필 클릭시 모달창 --%>
+    <jsp:include page="/WEB-INF/views/member/memberModal.jsp"/>
 
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
@@ -116,5 +121,7 @@ ${board.boardContent}
     <script src="/resources/js/board/comment.js"> </script>
 
     <script src="/resources/js/common/common.js"></script> 
+
+    <script src="/resources/js/member/memberModal.js"> </script>
 </body>
 </html>
