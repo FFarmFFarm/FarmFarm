@@ -43,10 +43,40 @@ main{
 
 label[for="saveId"]{
     display: flex;
+    align-items: center;
 }
 
 #idCheck2{
     margin-right: 3px;
+}
+
+.saveId-area{
+    margin-bottom: 15px;
+}
+.saveIdArea{
+    display: inline-block;
+    border: 1px solid #777;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+}
+/* .fa-check{
+    font-size: 18px;
+    padding-left: 3px;
+    padding-top: 3px;
+} */
+
+.idOk{
+    background-color: var(--point-color);
+    color: white;
+    border: none;
+    padding-left: 1px;
+    padding-top: 1px;
+}
+
+#saveId{
+    display: none;
 }
 
 .find-area{
