@@ -9,7 +9,7 @@
 
 
 var numCount = 0;     // numCount : 게시판 번호 no
-var hiddenId = null;  // 상세 조회, 강제탈퇴 ajax에 사용
+var hiddenNo = 0;     // 상세 조회, 강제탈퇴 ajax에 사용
 var keyword;
 var memberSelectTable = document.getElementById("memberSelectTable");
 
@@ -42,10 +42,10 @@ const selectMemberList = (cp) => {
 
 
 //optimize: 상세 회원 정보 조회 함수
-const selectMemberDetail = (hiddenId) => {
+const selectMemberDetail = (hiddenNo) => {
     $.ajax({
         url: "/admin/selectMemberDetail",
-        data: {"hiddenId" : hiddenId},
+        data: {"hiddenNo" : hiddenNo},
         dataType: "JSON",
         type: "GET",
         success: (map) => { 
@@ -202,7 +202,6 @@ const printMemberList = (memberList, pagination) => {
         // 상태
         const td8 = document.createElement("td");
 
-        // if(member.reportPenalty != null & member.memberDelFl != null){
         if(member.memberDelFl != null){
 
             if(member.reportPenalty == 'N' || member.reportPenalty == null){
@@ -234,9 +233,9 @@ const printMemberList = (memberList, pagination) => {
         tr.addEventListener("click", () => {
         
             // fix: ? ajax 쓸때는 이렇게
-            hiddenId = member.memberId;
-            console.log(hiddenId);
-            selectMemberDetail(hiddenId);
+            hiddenNo = member.memberNo;
+            console.log(hiddenNo);
+            selectMemberDetail(hiddenNo);
         })
     }
 }
@@ -316,11 +315,10 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
 
 
     // *아이디 가져오기
-    // hiddenId 강제 탈퇴할 때 사용함.
+    //hiddenNo 강제 탈퇴할 때 사용함.
     // 상세 조회 시 값 전달할 때 필요 
     // fix ? ajax 쓸때는 이렇게?
-    hiddenId = memberDetailInfo.memberId;
-
+    hiddenNo = memberDetailInfo.memberNo;
 
     // 생년월일
     const memberBirth = document.createElement("td");
@@ -682,14 +680,13 @@ const selectMemberListEvent = (element, cp) => {
 
 //todo: 한 줄 클릭할 때, 회원 상세 정보 불러오는 함수 호출
 const memberSelectRow = document.getElementsByClassName("member-select-row");
-var hiddenMemberId = document.getElementsByClassName('hidden-memberId');
+// var hiddenMemberId = document.getElementsByClassName('hidden-memberId');
+var hiddenMemberNo = document.getElementsByClassName('hidden-memberNo');
 
 for(let i=0; i<memberSelectRow.length; i++){
     memberSelectRow[i].addEventListener('click', () => {
-
-        hiddenId = hiddenMemberId[i].value;
-        // console.log(hiddenId);
-        selectMemberDetail(hiddenId);
+        hiddenNo = hiddenMemberNo[i].value;
+        selectMemberDetail(hiddenNo);
     })
 }
 
@@ -827,16 +824,14 @@ document.getElementById("adminDelSubmitBtn").addEventListener('click', ()=>{
 
     $.ajax({
         url: "/admin/kickout",
-        data: { "hiddenId": hiddenId},
+        data: { "hiddenNo": hiddenNo},
         type: "POST",
         success: (result) => {
             if(result > 0){
                 adminModalClose();
 
-                if(adminModal.style.display == 'none'){
-                    selectMemberList(cp);
-                    selectMemberDetail(hiddenId);
-                }          
+                selectMemberList(cp);
+                selectMemberDetail(hiddenNo);
                 
                 console.log("강제 탈퇴 완료");
                 messageModalOpen("강제 탈퇴 되었습니다.");

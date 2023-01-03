@@ -87,8 +87,8 @@ public class AdminDAO {
 	 * @param inputMemberId
 	 * @return memberDetailList
 	 */
-	public Admin selectMemberDetail(String hiddenId) {
-		return sqlSession.selectOne("adminMapper.selectMemberDetail", hiddenId);
+	public Admin selectMemberDetail(int hiddenNo) {
+		return sqlSession.selectOne("adminMapper.selectMemberDetail", hiddenNo);
 	}
 
 	
@@ -97,21 +97,12 @@ public class AdminDAO {
 	 * @param inputMemberId
 	 * @return memberHistoryList
 	 */
-	public List<Admin> selectMemberHistory(String hiddenId) {
-		return sqlSession.selectList("adminMapper.selectMemberHistory", hiddenId);
+	public List<Admin> selectMemberHistory(int hiddenNo) {
+		return sqlSession.selectList("adminMapper.selectMemberHistory", hiddenNo);
 	}
 
 	
 	
-	/** 회원 강제 탈퇴
-	 * @param inputMemberId
-	 * @return result
-	 */
-	public int memberKickout(String hiddenId) {
-		return sqlSession.update("adminMapper.memberKickout", hiddenId);
-	}
-
-
 
 	/** 판매자 수
 	 * @param preSellerFilter
@@ -138,7 +129,7 @@ public class AdminDAO {
 
 
 
-	/** 판매자 인증신청서 조회
+	/** 판매자 인증신청서 상세 조회
 	 * @param hiddenNo
 	 * @return authPaper
 	 */
@@ -198,6 +189,16 @@ public class AdminDAO {
 		RowBounds rowBounds = new RowBounds(offset, 15);
 		
 		return sqlSession.selectList("adminMapper.selectNewReport", sortFilter, rowBounds);
+	}
+
+
+
+	/** 미처리 신고 상세 조회
+	 * @param hiddenNo
+	 * @return newReportDetail
+	 */
+	public Admin selectNewReportDetail(int hiddenReportNo) {
+		return sqlSession.selectOne("adminMapper.selectNewReportDetail", hiddenReportNo);
 	}
 
 
