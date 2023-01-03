@@ -80,5 +80,13 @@ public class CartDAO {
 		return sqlSession.delete("cartMapper.deleteCart", map);
 	}
 
+	/** selectAddressList
+	 * @param memberNo
+	 * @return addressList
+	 */
+	public Object selectAddressList(int memberNo) {
+		return sqlSession.selectList("cartMapper.selectAddressList", memberNo);
+	}
+
 	
 }
