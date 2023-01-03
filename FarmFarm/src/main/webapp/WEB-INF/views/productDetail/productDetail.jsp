@@ -345,7 +345,7 @@
     loginMember = "${loginMember}";
     cp = "${pagination.currentPage}"
     sortFl = 'R';
-
+    authority = "${loginMember.authority}"
 
   </script>
 

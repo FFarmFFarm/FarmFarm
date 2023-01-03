@@ -1,0 +1,148 @@
+.shipping-container {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: var(--modal-background-color);
+  color: var(--main-font-color);
+
+}
+
+.shipping-area {
+  width: 700px;
+  min-height: 300px;
+  background-color: white;
+
+  border-radius: 5px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+
+  font-size: var(--main-font-size);
+}
+
+.shipping-head {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  font-size: var(--large-font-size);
+}
+
+
+.back-btn,
+.empty {
+  width: 80px;
+}
+
+.back-btn {
+  text-align: left;
+  padding: 0 10px;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+}
+
+.shipping-content {
+  width: 98%;
+  padding:0 10px;
+  height: 350px;
+  overflow-y: scroll;
+
+  margin-top: 30px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.shipping-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 50px;
+
+  font-size: var(--large-font-size);
+  font-weight: bold;
+  color: var(--point-color);
+
+  border-bottom: 1px solid var(--line-color);
+}
+
+.date-shipping {
+  display: flex;
+  flex-direction: column;
+}
+
+.progress-date {
+  margin: 30px 0 10px;
+}
+
+.progress {
+  width: 100%;
+  display: flex;
+}
+
+.location-time {
+
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+}
+
+.status-description {
+
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.time, .description {
+  font-size: var(--small-font-size);
+  color: var(--sub-font-color);
+}
+
+/* 택배 기본 정보 */
+.shipping-info {
+  margin: 30px 0 20px;
+  padding: 10px 0;
+  width: 95%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.one-line {
+  
+  width: 100%;
+  display: flex;
+  margin: 5px 5px;
+}
+
+
+.first-line {
+  margin-top: 20px;
+}
+.subject {
+  display: inline-block;
+  width: 30%;
+}
+
+.content {
+  display: inline-block;
+  width: 70%;
+}

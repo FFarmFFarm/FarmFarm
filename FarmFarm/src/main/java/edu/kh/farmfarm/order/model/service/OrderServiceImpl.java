@@ -214,4 +214,12 @@ public class OrderServiceImpl implements OrderService{
 		
 	}
 	
+	/** 자정마다 주문한지 일주일 된 주문 구매 확정
+	 *
+	 */
+	@Override
+	public int orderConfirm() {
+		return dao.orderConfirm();
+	}
+	
 }

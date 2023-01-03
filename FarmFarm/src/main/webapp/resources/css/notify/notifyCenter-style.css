@@ -131,30 +131,34 @@ input[name='notifyCategory']:checked + label > .category-name{
 
     transition-duration: 0.2s;
     position: relative;
+
+    overflow: hidden;
 }
 
 /* 알림 아이콘 */
 .notify-icon{
-    flex-basis: 15%;
+    flex-basis: 10%;
     font-size: 40px;
     color: var(--point-color);
 
     text-align: center;
     padding: 10px;
-    margin-right: 20px;
-    margin-left: 20px;
 }
 
 /* 알림 내용, 알림 종류 설명 */
 .notify-main{
-    flex-basis: 70%;
+    flex-basis: 90%;
     height: 100%;
     overflow: hidden;
     white-space: nowrap;
 
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
     justify-content: center;
+    margin-right: 20px;
+
+    border-right: 3px dashed var(--point-color);
 }
 
 /* 알림 종류 설명 */
@@ -162,37 +166,34 @@ input[name='notifyCategory']:checked + label > .category-name{
     font-size: var(--medium-font-size);
     color: var(--main-font-color);
     font-weight: 600;
-    border-bottom: 1px solid var(--line-color);
-    padding-bottom : 10px;
+    width: 300px;
+    margin-bottom: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* 알림 내용 */
 .notify-content{
     font-size: var(--small-font-size);
     color: var(--main-font-color);
-
-    padding-top: 10px;
+    width: 300px;
     /* margin-bottom: 5px; */
 
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-bottom: 5px;
 }
-
-
 
 /* 알림 내용 */
 
 /* 시간 */
 .notify-date{
-    flex-basis: 20%;
     font-size: var(--small-font-size);
     color: var(--sub-font-color);
-
-    margin-right: 10px;
-    text-align: end;
+    width: 300px;
 }
 
-/* notify-box:hover */
+/* .notify-box:hover */
 .notify-box:hover{
     /* transform: translateY(-2px); */
     /* background-color: rgb(0,0,0,0.1); */
@@ -205,22 +206,40 @@ input[name='notifyCategory']:checked + label > .category-name{
 
 /* 삭제 버튼 */
 .notify-del-btn{
-    position:absolute;
-    top: 2px;
-    right: 8px;
+    font-size: var(--large-font-size);
+    flex-basis: 10%;
+    background-color: var(--point-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    height: 100%;
 }
 
 .notify-del-btn:hover{
-    color: var(--point-color);
+    color: black;
+    font-weight: 600;
+    font-size: 25px;
 }
 
 /* 알림이 비어있는 경우 만들어줄 요소 */
 .notify-empty{
     width: 100%;
     height: 200px;
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
     font-size: var(--medium-font-size);
     color: var(--sub-font-color);
+}
+
+/* 읽은 경우 */
+.read{
+    background-color: rgb(0,0,0,0.01);
+    opacity: 0.5;
+}
+
+/* 가린 경우 */
+.hide{
+    display: none;
 }

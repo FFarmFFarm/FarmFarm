@@ -18,5 +18,5 @@ public class Notify {
 	private String notifyContent;
 	private String notifyDate;
 	private String quickLink;
-	private String readFl;
+	private String notifyStatus;
 }
