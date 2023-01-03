@@ -109,10 +109,34 @@
                                     </c:when>
                                     <c:otherwise>
 
-                                        <c:choose>
-                                            <c:when test="${loginMember.memberNo == comment.memberNo && comment.commentDelFl == 'S'}">
+                                        <c:if test="${loginMember.authority == 2}">
+                                            <c:if test="${comment.commentDelFl == 'S'}">
                                                 <div class="comment-content secret"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
-                                                <%-- <div class="comment-content"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div> --%>
+                                            </c:if>
+                                            <c:if test="${comment.commentDelFl != 'S'}">
+                                                <div class="comment-content secret">${comment.commentContent}</div>
+                                            </c:if>
+                                        </c:if>
+                                        <c:if test="${loginMember.authority != 2}">
+                                            <c:if test="${comment.commentDelFl == 'S'}">
+                                                <c:if test="${loginMember.memberNo == comment.memberNo && loginMember.memberNo != board.memberNo}">
+                                                    <div class="comment-content secret"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
+                                                </c:if>
+                                                <c:if test="${loginMember.memberNo != comment.memberNo && loginMember.memberNo != board.memberNo}">
+                                                    <div class="comment-content secret"><i class="fa-solid fa-lock"></i>&nbsp;비밀댓글 입니다.</div>
+                                                </c:if>
+                                                <c:if test="${loginMember.memberNo == board.memberNo}">
+                                                    <div class="comment-content secret"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
+                                                </c:if>
+                                            </c:if>
+                                            <c:if test="${comment.commentDelFl != 'S'}">
+                                                <div class="comment-content">${comment.commentContent}</div>
+                                            </c:if>
+                                        
+                                        </c:if>
+
+                                        <%-- <c:choose>
+                                            <c:when test="${loginMember.memberNo == comment.memberNo && comment.commentDelFl == 'S'}">
                                             </c:when>
                                             <c:when test="${comment.memberNo == comment.parentNo && comment.commentDelFl == 'S'}">
                                                 <div class="comment-content secret"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
@@ -129,7 +153,7 @@
                                             <c:otherwise>
                                                 <div class="comment-content">${comment.commentContent}</div>
                                             </c:otherwise>
-                                        </c:choose>
+                                        </c:choose> --%>
 
                                         <%-- <c:if test="${loginMember.memberNo == comment.memberNo && comment.commentDelFl == 'S'}">
                                             <div class="comment-content"><i class="fa-solid fa-lock"></i>${comment.commentContent}</div>
@@ -169,28 +193,34 @@
 
                                         <%-- 일반 회원이라면 --%>
                                         <c:otherwise>
-                                        
-                                            <%-- 댓글 작성 O --%>
-                                            <c:if test="${loginMember.memberNo == comment.memberNo && comment.commentDelFl != 'Y'}">
-                                                <button onclick="showReply(${comment.commentNo}, this)" class="comment-reply">| &nbsp;&nbsp;답글달기&nbsp;&nbsp;</button> 
-                                                <button onclick="showUpdateComment(${comment.commentNo}, this)" class="comment-reply"> |&nbsp;&nbsp;수정&nbsp;&nbsp;</button>
-                                                <button onclick="deleteComment(${comment.commentNo})" class="comment-reply"> |&nbsp;&nbsp;삭제</button>
+
+                                            <%-- 비밀 댓글 --%>
+                                            <c:if test="${comment.commentDelFl == 'S'}">
+
+                                                <c:if test="${loginMember.memberNo == comment.memberNo}">
+                                                    <button onclick="showReply(${comment.commentNo}, this)" class="comment-reply">| &nbsp;&nbsp;답글달기&nbsp;&nbsp;</button> 
+                                                    <button onclick="showUpdateComment(${comment.commentNo}, this)" class="comment-reply"> |&nbsp;&nbsp;수정&nbsp;&nbsp;</button>
+                                                    <button onclick="deleteComment(${comment.commentNo})" class="comment-reply"> |&nbsp;&nbsp;삭제</button>
+                                                </c:if>
+                                                <c:if test="${loginMember.memberNo != comment.memberNo && loginMember.memberNo == board.memberNo}">
+                                                    <button onclick="showReply(${comment.commentNo}, this)" class="comment-reply">| &nbsp;&nbsp;답글달기&nbsp;&nbsp;</button> 
+                                                </c:if>
+                                                <c:if test="${loginMember.memberNo == comment.parentNo && loginMember.memberNo != board.memberNo}">
+                                                    <button onclick="showReply(${comment.commentNo}, this)" class="comment-reply">| &nbsp;&nbsp;답글달기&nbsp;&nbsp;</button> 
+                                                </c:if>
+                                            
                                             </c:if>
-                                            <%-- 댓글 작성 X --%>
-                                            <c:if test="${loginMember.memberNo != comment.memberNo && comment.commentDelFl != 'Y'}">
-                                                <c:if test="${loginMember.memberNo != comment.memberNo && comment.commentDelFl == 'S'}">
-                                                    <button onclick="showReply(${comment.commentNo}, this)" class="comment-reply"></button> 
-                                                </c:if>
-                                                <c:if test="${loginMember.memberNo == omment.memberNo && comment.memberNo == board.memberNo && comment.commentDelFl == 'S'}">
+                                            <c:if test="${comment.commentDelFl != 'S'}">
+                                                <c:if test="${loginMember.memberNo == comment.memberNo  && comment.commentDelFl == 'N'}">
                                                     <button onclick="showReply(${comment.commentNo}, this)" class="comment-reply">| &nbsp;&nbsp;답글달기&nbsp;&nbsp;</button> 
+                                                    <button onclick="showUpdateComment(${comment.commentNo}, this)" class="comment-reply"> |&nbsp;&nbsp;수정&nbsp;&nbsp;</button>
+                                                    <button onclick="deleteComment(${comment.commentNo})" class="comment-reply"> |&nbsp;&nbsp;삭제</button>
                                                 </c:if>
-                                                <c:if test="${loginMember.memberNo != comment.memberNo && comment.commentDelFl == 'N'}">
-                                                    <button onclick="showReply(${comment.commentNo}, this)" class="comment-reply">| &nbsp;&nbsp;답글달기&nbsp;&nbsp;</button> 
-                                                </c:if>
-                                                <c:if test="${loginMember.memberNo != comment.memberNo && comment.commentDelFl == 'S'}">
+                                                <c:if test="${loginMember.memberNo != comment.memberNo  && comment.commentDelFl == 'N'}">
                                                     <button onclick="showReply(${comment.commentNo}, this)" class="comment-reply">| &nbsp;&nbsp;답글달기&nbsp;&nbsp;</button> 
                                                 </c:if>
                                             </c:if>
+
                                         </c:otherwise>
                                     </c:choose>
 

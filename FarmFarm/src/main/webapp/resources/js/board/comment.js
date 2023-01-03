@@ -193,6 +193,7 @@ function selectCommentList(){
                     commentReply.innerHTML = '| &nbsp;&nbsp;답글달기&nbsp;&nbsp;';
                     commentUpdate.setAttribute("onclick", "showUpdateComment("+comment.commentNo+", this)");
                     commentUpdate.innerHTML = "|&nbsp;&nbsp;수정&nbsp;&nbsp;";
+                    commentDelete.setAttribute("onclick", "deleteComment("+comment.commentNo+")")
                     commentDelete.innerHTML = "|&nbsp;&nbsp;삭제&nbsp;&nbsp;";
                     
 
@@ -206,24 +207,26 @@ function selectCommentList(){
                             writeTimeReply.append(commentReply, commentDelete);
                         }
                     }else{
-                        if(memberNo == comment.memberNo && comment.commentDelFl != 'Y'){
-                            commentDelete.setAttribute("onclick", "deleteComment("+comment.commentNo+")")
-                            writeTimeReply.append(commentReply, commentUpdate, commentDelete);
-                        }
-                        if(memberNo != comment.memberNo && comment.commentDelFl != 'Y'){
-                            if(memberNo != comment.parentNo && comment.commentDelFl == 'S'){
+
+                        if(comment.commentDelFl == 'S'){
+                            if(memberNo == comment.memberNo){
+                                writeTimeReply.append(commentReply, commentUpdate, commentDelete);
+                            }
+                            if(memberNo != comment.memberNo && memberNo == boardMemNo){
                                 writeTimeReply.append(commentReply);
                             }
-                            if(memberNo == comment.memberNo && boardMemNo == comment.memberNo && comment.commentDelFl == 'S'){
+                            if(memberNo == comment.parentNo){
                                 writeTimeReply.append(commentReply);
-                            }
-                            if(memberNo != comment.memberNo && comment.commentDelFl == 'N'){
-                                writeTimeReply.append(commentReply);
-                            }
-                            if(memberNo != comment.memberNo && comment.commentDelFl == 'S'){
-                                // writeTimeReply.append(commentReply);
                             }
                         }
+                        if(comment.commentDelFl != 'S'){
+                            if(memberNo == comment.memberNo && comment.commentDelFl == 'N'){
+                                writeTimeReply.append(commentReply, commentUpdate, commentDelete);
+                            }if(memberNo != comment.memberNo && comment.commentDelFl == 'N'){
+                                writeTimeReply.append(commentReply);
+                            }
+                        }
+
                     }
                     // console.log(comment.commentParent);
                     // if(comment.commentParent == 0){
@@ -457,6 +460,7 @@ function showUpdateComment(commentNo, btn){
 
     // 댓글에 작성 되었떤 내용을을 얻어와볼까
     let beforeContent  = btn.parentElement.previousElementSibling.innerHTML;
+    let beforeContentDiv  = btn.parentElement.previousElementSibling;
 
     // 댓글 부분을 싹 지워줍니다.
     commentArea.innerHTML = "";
@@ -485,6 +489,13 @@ function showUpdateComment(commentNo, btn){
     
     // 개행문자 처리 해제
     beforeContent =  beforeContent.replaceAll("<br>", "\n");
+
+    console.log(beforeContent.substring(38));
+    
+    if(beforeContentDiv.classList.contains("secret")){
+        beforeContent = beforeContent.substring(38)
+        console.log("이거 맞는디");
+    }
 
     paTextarea.value = beforeContent;
 
