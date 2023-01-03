@@ -34,12 +34,12 @@
                                         <%-- 자식이라면~ --%>
                                         <c:when test="${comment.commentParent != 0}">
                                             <div class="writer-profile  child-img">
-                                                <img class="proImg" src="/resources/images/myPage/profile/profileImg.png" alt="">	
+                                                <img class="proImg" id="${comment.memberNo}" src="/resources/images/myPage/profile/profileImg.png" alt="">	
                                             </div>
                                         </c:when>
                                         <c:otherwise>
-                                            <div class="writer-profile  parent-img">
-                                                <img class="proImg" src="/resources/images/myPage/profile/profileImg.png" alt="">	
+                                            <div class="writer-profile  parent-img" >
+                                                <img class="proImg" id="${comment.memberNo}" src="/resources/images/myPage/profile/profileImg.png" alt="">	
                                             </div>
                                         </c:otherwise>
                                     </c:choose>
@@ -49,12 +49,12 @@
                                         <%-- 자식이라면~ --%>
                                         <c:when test="${comment.commentParent != 0}">
                                             <div class="writer-profile  child-img">
-                                                <img class="proImg" src="${comment.profileImg}" alt="">	
+                                                <img class="proImg" id="${comment.memberNo}" src="${comment.profileImg}" alt="">	
                                             </div>
                                         </c:when>
                                         <c:otherwise>
-                                            <div class="writer-profile  parent-img">
-                                                <img class="proImg" src="${comment.profileImg}" alt="">	
+                                            <div class="writer-profile  parent-img" >
+                                                <img class="proImg"  id="${comment.memberNo}" src="${comment.profileImg}" alt="">	
                                             </div>
                                         </c:otherwise>
                                     </c:choose>
