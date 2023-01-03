@@ -74,41 +74,46 @@ public class MemberController {
 		String path = null;
 
 		if (loginMember != null) {
-			if (loginMember.getAuthority() == 2) { // 관리자
-				path = "/admin";
-				model.addAttribute("loginMember", loginMember);
-			}
-
-			if (loginMember.getAuthority() == 0 || loginMember.getAuthority() == 1) {
-				// 신고 여부 조회
-//				String checkReport = service.checkReport(loginMember.getMemberNo());
-				String checkReport = null;
-				checkReport = service.checkReport(loginMember.getMemberNo());
-
-				if (checkReport == null) { // 신고 기록이 없으면
-					path = "/";
+			
+			if(loginMember.getMemberDelFl().equals("Y")) {
+				ra.addFlashAttribute("message", "탈퇴 된 회원입니다.");
+				path = referer;
+			} else {
+				if (loginMember.getAuthority() == 2) { // 관리자
+					path = "/admin";
 					model.addAttribute("loginMember", loginMember);
+				}
 
-					Cookie cookie = new Cookie("saveId", loginMember.getMemberId());
-					if (saveId != null) {
-						cookie.setMaxAge(60 * 60 * 24 * 90); // 90일 유지
-					} else {
-						cookie.setMaxAge(0);
+				if (loginMember.getAuthority() == 0 || loginMember.getAuthority() == 1) {
+					// 신고 여부 조회
+					String checkReport = null;
+					checkReport = service.checkReport(loginMember.getMemberNo());
+
+					if (checkReport == null) { // 신고 기록이 없으면
+						path = "/";
+						model.addAttribute("loginMember", loginMember);
+
+						Cookie cookie = new Cookie("saveId", loginMember.getMemberId());
+						if (saveId != null) {
+							cookie.setMaxAge(60*60*24*90); // 90일 유지
+						} else {
+							cookie.setMaxAge(0);
+						}
+						cookie.setPath("/");
+						resp.addCookie(cookie);
+					} else { // 신고 기록이 있으면
+						path = referer;
+						String notice = "계정 사용이 중지됨" + "(기간 : " + checkReport + ") 자세한 사항은 고객센터(help@farmfarm)으로 문의 바랍니다.";
+						ra.addFlashAttribute("message", notice);
 					}
-					cookie.setPath("/");
-					resp.addCookie(cookie);
-				} else { // 신고 기록이 있으면
-					path = referer;
-					String notice = "계정 사용이 중지됨" + "(기간 : " + checkReport + ") 자세한 사항은 고객센터(help@farmfarm)으로 문의 바랍니다.";
-					ra.addFlashAttribute("message", notice);
+					}
+				if (loginMember.getAuthority() == 3) {
+					path = "/authenticating";
 				}
-				}
-			if (loginMember.getAuthority() == 3) {
-				path = "/authenticating";
 			}
 		} else {
-			path = referer;
-			ra.addFlashAttribute("message", "아이디, 비번을 확인해주세요.");
+				path = referer;
+				ra.addFlashAttribute("message", "아이디, 비번을 확인해주세요.");
 		}
 
 		return "redirect:" + path;

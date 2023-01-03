@@ -194,21 +194,83 @@
         <a href="/post/detail">게시글상세조회</a>
       </div> -->
 
+      <div class="ad-wrap">
+        <div class="ad-img">
+            <img src="resources/images/main/duck.png">
+        </div>
+      </div>
+
+
+      <h3 class="product-title">지금 가장 핫한 상품</h3>
+      <div class="product-wrap">
+        <a href="/">
+            <div class="product">
+                <div class="product-img">
+                    <img src="resources/images/product/detail/hedgehog.jpg">
+                </div>
+                <div class="product-text">
+                    <p>[특가] 고소한 고슴도치 가시 50gX2봉</p>
+                    <p>42,000원</p>
+                </div>
+            </div>
+        </a>
+        <a href="/">
+            <div class="product">
+                <div class="product-img">
+                    <img src="resources/images/main/gireffe.jpg">
+                </div>
+                <div class="product-text">
+                    <p>[할인] 기린이 먹다 뱉은 풀때기 1kg</p>
+                    <p>16,000원</p>
+                </div>
+            </div>
+        </a>
+        <a href="/">
+            <div class="product">
+                <div class="product-img">
+                    <img src="resources/images/main/squirrel.jpg">
+                </div>
+                <div class="product-text">
+                    <p>[할인] 다람쥐가 까준 도토리 2kg</p>
+                    <p>22,900원</p>
+                </div>
+            </div>
+        </a>
+        <a href="/">
+            <div class="product">
+                <div class="product-img">
+                    <img src="resources/images/main/kang.jpg">
+                </div>
+                <div class="product-text">
+                    <p>[특가] 캥거루가 다진 마늘 500g</p>
+                    <p>9,900원</p>
+                </div>
+            </div>
+        </a>
+      </div>
+
+
       <div class="cooking-part">
         <div class="cooking-text">
           <p>와글와글에서 더 건강하게 즐겨요!</p>
           <p>팜팜에서 구매한 상품들을 자기만의 레시피로 요리하고 회원들과 공유해보세요.</p>
         </div>
         <div class="cooking-img">
-          <img src="resources/images/main/cooking.jpg">
+          <img src="resources/images/main/re.jpg">
         </div>
         <div class="cooking-a">
           <a href="/board/${1}">
             <div class="cooking">
-              <p>레시피 보러가기 </p>
+              <p>와글와글로 가기 </p>
               <i class="fa-solid fa-arrow-right cooking-arrow"></i>
             </div>
           </a>
+        </div>
+      </div>
+
+      <div class="ad-wrap">
+        <div class="ad-img">
+            <img src="resources/images/main/animal.png">
         </div>
       </div>
 

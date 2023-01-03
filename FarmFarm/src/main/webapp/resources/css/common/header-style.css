@@ -73,16 +73,12 @@ header {
 }
 
 .login-list {
-  /* display: flex;
-  margin-right: 15px;
-  align-items: center; */
-
   display: flex;
   margin-right: 15px;
   align-items: center;
-  position: absolute;
+  /* position: absolute;
   top: 50px;
-  right: 380px;
+  right: 380px; */
 }
 
 .login-item {
