@@ -56,6 +56,24 @@ public class NotifyDAO {
 	public List<Notify> selectNotifyList(int memberNo) {
 		return sqlSession.selectList("notifyMapper.selectNotifyList", memberNo);
 	}
+
+
+	/** 알림 읽음 처리
+	 * @param notifyNo
+	 * @return
+	 */
+	public int updateNotify(int notifyNo) {
+		return sqlSession.update("notifyMapper.updateNotify", notifyNo);
+	}
+
+
+	/** 알림 삭제 처리
+	 * @param notifyNo
+	 * @return
+	 */
+	public int deleteNotify(int notifyNo) {
+		return sqlSession.delete("notifyMapper.deleteNotify", notifyNo);
+	}
 	
 	
 }
