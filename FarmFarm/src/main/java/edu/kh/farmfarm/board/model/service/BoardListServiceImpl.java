@@ -27,43 +27,22 @@ public class BoardListServiceImpl implements  BoardListService{
 	
 	// 와글와글 게시판 목록
 	@Override
-	public Map<String, Object> selectBoardList(int boardTypeNo, int cp) {
-		
-		// 와글와글 게시판 수 조회
-		int listCount = dao.getListCount(boardTypeNo);
+	public Map<String, Object> selectBoardList(Map<String, Object> searchMap, int cp) {
+		// 검색 결과에 맞는 게시글 수 조회
+		int listCount = dao.getListCount(searchMap);
 		
 		// 페이지네이션 객체 생성
 		Pagination pagination = new Pagination(listCount, cp);
 		
-		// 게시판 리스트 가져오기
-		List<Board> boardList = dao.seleteBoardList(pagination, boardTypeNo);
+		// 검색 조건에 맞는 리스트 가져오기
+		List<Board> boardList = dao.selecBoardtList(pagination, searchMap);
 		
-		Map<String, Object> boardtMap = new HashMap<String, Object>();
-		boardtMap.put("boardList", boardList);
-		boardtMap.put("pagination", pagination);
+		Map<String, Object> boardMap = new HashMap<String, Object>();
+		boardMap.put("boardList", boardList);
+		boardMap.put("pagination", pagination);
 		
-		return boardtMap;
+		return boardMap;
 	}
-	
-
-	@Override
-	public Map<String, Object> selectBoardList(Map<String, Object> searchMap, int cp) {
-		// 검색 결과에 맞는 게시글 수 조회
-				int listCount = dao.getListCount(searchMap);
-				
-				// 페이지네이션 객체 생성
-				Pagination pagination = new Pagination(listCount, cp);
-				
-				// 검색 조건에 맞는 리스트 가져오기
-				List<Board> boardList = dao.selecBoardtList(pagination, searchMap);
-				
-				Map<String, Object> boardMap = new HashMap<String, Object>();
-				boardMap.put("boardList", boardList);
-				boardMap.put("pagination", pagination);
-				
-				return boardMap;
-	}
-
 
 
 
@@ -76,17 +55,7 @@ public class BoardListServiceImpl implements  BoardListService{
 		
 		// 페이지네이션 객체 생성
 		Pagination pagination = new Pagination(listCount, cp);
-		
-//		if(searchMap.get(boardSelectNVL) != null) {
-//			
-//			
-//			
-//		}else {
-			
-			// 검색 조건에 맞는 리스트 가져오기
-			List<Board> boardList = dao.selecBoardtListSearch(pagination, searchMap);
-//		}
-		
+		List<Board> boardList = dao.selecBoardtListSearch(pagination, searchMap);
 		
 		Map<String, Object> boardMap = new HashMap<String, Object>();
 		boardMap.put("boardList", boardList);

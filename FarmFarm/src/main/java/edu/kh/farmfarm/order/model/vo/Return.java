@@ -17,6 +17,7 @@ public class Return {
 	private String accountNo;
 	private String accountName;
 	private String returnReason;
+	private String returnStatus;
 	
 	private List<Product> productList;
 

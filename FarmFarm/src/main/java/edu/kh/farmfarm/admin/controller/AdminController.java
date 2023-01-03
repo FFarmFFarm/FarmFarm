@@ -181,7 +181,7 @@ public class AdminController {
 			result = service.memberKickout(hiddenId);
 		}
 		
-		return  result;
+		return result;
 	}
 	
 	
@@ -194,11 +194,12 @@ public class AdminController {
 //	}
 	
 	
-	//-- jsp
+	//-- jsp (첫페이지)
+	// 판매자 정보 조회
 	@GetMapping("/admin/seller")
 	public String adminSellerAuthPage(@SessionAttribute(value="loginMember") Member loginMember,
 										@RequestParam(value="cp", required=false, defaultValue="1") int cp,
-										@RequestParam(value="preSellerFilter", required=false, defaultValue="0") int preSellerFilter,
+										@RequestParam(value="preSellerFilter", required=false, defaultValue="0") int sellerFilter,
 										Model model) {
 		// 관리자인지 확인 (관리자면 result==1)
 		int result = service.checkAdmin();
@@ -209,7 +210,7 @@ public class AdminController {
 		if(result == 1 && loginMember != null) {
 
 			// 판매자 인증 조회 + 페이지네이션 + 정렬
-			map = service.selectSeller(preSellerFilter, cp);
+			map = service.selectSeller(sellerFilter, cp);
 	
 		} else {
 			System.out.println("관리자만 접근 가능합니다.");
@@ -222,6 +223,90 @@ public class AdminController {
 	}
 	
 	
+	// ajax(2페이지부터)
+	// 판매자 정보 조회
+	@GetMapping("/admin/selectSellerList")
+	@ResponseBody
+	public String adminSellerAuthPage(@SessionAttribute(value="loginMember") Member loginMember,
+										@RequestParam(value="cp", required=false, defaultValue="1") int cp,
+										@RequestParam(value="sellerFilter", required=false, defaultValue="0") int sellerFilter
+									   ) {
+		// 관리자인지 확인 (관리자면 result==1)
+		int result = service.checkAdmin();
+		
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if(result == 1 && loginMember != null) {
+
+			// 판매자 인증 조회 + 페이지네이션 + 정렬
+			map = service.selectSeller(sellerFilter, cp);
+			
+	
+		} else {
+			System.out.println("관리자만 접근 가능합니다.");
+		}
+
+		return new Gson().toJson(map);
+	}
+	
+	
+	
+	// 판매자인증 신청서 조회
+	@PostMapping("/admin/selectAuthPaper")
+	@ResponseBody
+	public Admin selectAuthPaper(@SessionAttribute(value = "loginMember") Member loginMember,
+									int hiddenNo) {
+		// 관리자인지 확인 (관리자면 result==1)
+		int result = service.checkAdmin();
+		
+		Admin authPaper = new Admin();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+		
+		if(result == 1 && loginMember != null) {
+
+			// 해당 회원번호의 인증신청서 조회
+			authPaper = service.selectAuthPaper(hiddenNo);
+	
+		} else {
+			System.out.println("관리자만 접근 가능합니다.");
+		}
+		
+		return authPaper;
+	}
+	
+	
+	
+	// 판매자 승인
+	@PostMapping("/admin/sellerApprove")
+	@ResponseBody
+	public int sellerApprove(@SessionAttribute(value = "loginMember") Member loginMember, int hiddenNo) {
+		
+		// 관리자인지 확인 (관리자면 result==1)
+		int result = service.checkAdmin();
+		
+		
+		if(result == 1 && loginMember != null) {
+
+			// 해당 회원번호의 인증신청서 조회
+			result = service.sellerApprove(hiddenNo);
+	
+		} else {
+			System.out.println("관리자만 접근 가능합니다.");
+		}
+		
+		return result;
+
+	}
+	
+	
+	
+	
+	// 판매자 거절 
+	
+	
+	
+	
+	
 	
 	
 	
@@ -232,11 +317,66 @@ public class AdminController {
 	
 	// 신고 관리 -----------------------------------------------------------------------------------------
 	// nav 전체 신고 관리 페이지로 이동
+//	@GetMapping("/admin/report")
+//	public String adminReportPage() {
+//		return "admin/adminReport";
+//	}
+	
+	
+	// jsp
+	// 미처리 신고 조회
 	@GetMapping("/admin/report")
-	public String adminReportPage() {
-		return "admin/adminReportTotal";
+	public String adminReportPage(@SessionAttribute(value = "loginMember") Member loginMember,
+									@RequestParam(value="cp", required=false, defaultValue="1") int cp,	
+									@RequestParam(value = "up", required=false, defaultValue = "down") String sortFilter,
+									Model model) {
+		
+		// 관리자인지 확인 (관리자면 result==1)
+		int result = service.checkAdmin();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if(result == 1 && loginMember != null) {
+
+			// 미처리 신고 조회 + 페이지네이션 + 정렬
+			map = service.selectNewReport(sortFilter, cp);
+	
+		} else {
+			System.out.println("관리자만 접근 가능합니다.");
+		}
+		
+		model.addAttribute("map", map);
+		
+		return "admin/adminReport";
 	}
 	
+	
+	
+	// ajax
+	// 미처리 신고 내역 조회 
+	@GetMapping("/admin/selectNewReportList")
+	@ResponseBody
+	public String adminReportPage(@SessionAttribute(value = "loginMember") Member loginMember,
+									@RequestParam(value="cp", required=false, defaultValue="1") int cp,	
+									@RequestParam(value = "up", required=false, defaultValue = "default") String sortFilter) 
+									{
+		
+		// 관리자인지 확인 (관리자면 result==1)
+		int result = service.checkAdmin();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if(result == 1 && loginMember != null) {
+
+			// 미처리 신고 조회 + 페이지네이션 + 정렬
+			map = service.selectNewReport(sortFilter, cp);
+	
+		} else {
+			System.out.println("관리자만 접근 가능합니다.");
+		}
+		
+		return new Gson().toJson(map);
+	}
 	
 	
 

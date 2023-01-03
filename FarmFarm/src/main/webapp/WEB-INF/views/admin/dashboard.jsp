@@ -54,11 +54,11 @@
                 </div>
 
                 <div class="board-graph">
-                    그래프
+                    <canvas id="sellChart"></canvas>
                 </div>
 
                 <div class="board-graph">
-                    그래프
+                    <canvas id="signUpChart"></canvas>
                 </div>
             </section>
 
@@ -69,12 +69,13 @@
 
     <!-- <jsp:include page="/WEB-INF/views/common/footer.jsp"/>  -->
         
+    <jsp:include page="/WEB-INF/views/report/report-modal.jsp"/> 
+    <script src="/resources/js/report/report-modal.js"></script>
+    
+    <!-- chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
         
-        <jsp:include page="/WEB-INF/views/report/report-modal.jsp"/> 
-        <script src="/resources/js/report/report-modal.js"></script>
-        
-        
-
+    <script src="/resources/js/admin/dashboard.js"></script>
 
     </body>
 

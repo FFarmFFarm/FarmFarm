@@ -107,6 +107,48 @@ input[type="text"]:focus{
     /* flex-direction: column; */
 }
 
+.board-now-sort{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.board-sort{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.fa-angle-down{
+    height: 100%;
+}
+.board-select-sort{
+    width: 100px;
+    /* border: 1px solid red; */
+    background-color: white;
+    border-radius: 10px;
+    z-index: 500;
+    position: absolute;
+    top: 443px;
+    box-shadow: 3px 3px 14px -7px grey;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.board-select-area > li{
+    margin: 3px 0;
+    cursor: pointer;
+}
+.board-select-area > li:hover{
+    color: var(--point-color);
+}
+
+.toggle{
+    display: flex;
+}
+
+
 /* 커뮤니티 목록 */
 .board-list{
     width: 900px;
@@ -178,6 +220,7 @@ input[type="text"]:focus{
     width: 100%;
     height: 100%;
 }
+
 /* 목록 페이지 번호 */
 .board-pagination{
     width: 800px;
@@ -201,6 +244,10 @@ input[type="text"]:focus{
     display: flex;
     justify-content: center;
     width: 800px;
+}
+
+.pageLi>a{
+    cursor: pointer;
 }
 
 /* 페이지 박스 */
@@ -246,51 +293,3 @@ input[type="text"]:focus{
     opacity: 0;
   }
 
-
-
-
-
-.board-now-sort{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-}
-.board-sort{
-    height: 100%;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-}
-.fa-angle-down{
-    height: 100%;
-}
-.board-select-sort{
-    width: 100px;
-    /* border: 1px solid red; */
-    background-color: white;
-    border-radius: 10px;
-    z-index: 500;
-    position: absolute;
-    top: 443px;
-    box-shadow: 3px 3px 14px -7px grey;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-.board-select-area > li{
-    margin: 3px 0;
-    cursor: pointer;
-}
-.board-select-area > li:hover{
-    color: var(--point-color);
-}
-
-.toggle{
-    display: flex;
-}
-.tempLi{
-    display: flex;
-    width: 100%;
-}

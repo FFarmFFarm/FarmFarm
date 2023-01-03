@@ -33,6 +33,7 @@ function selectCommentList(){
                 const writeComment = document.createElement("textarea");
                 writeComment.classList.add("write-comment");
                 writeComment.setAttribute("name", "commentContent");
+                writeComment.setAttribute("spellcheck", "false");
 
                 const commentSide = document.createElement("div");
                 commentSide.classList.add("comment-side");
@@ -41,10 +42,35 @@ function selectCommentList(){
                 commentCaution.classList.add("comment-caution");
                 commentCaution.innerText="※댓글 작성시 상대방에 대한 배려와 책임을 담아 깨끗한 댓글 환경에 동참에 주세요.";
 
+                const secreteCo = document.createElement("span");
+                secreteCo.classList.add("secrete-co");
+                const lockCheck = document.createElement("input");
+                lockCheck.classList.add("lockCheck");
+                lockCheck.setAttribute("type", "checkbox");
+                const labelCheck = document.createElement("label");
+                labelCheck.setAttribute("for", "lockCheck");
+                labelCheck.innerHTML="&nbsp;비밀댓글";
+                secreteCo.append(lockCheck, labelCheck);
+                
+                let checkok;
+                lockCheck.addEventListener("change", (e)=>{
+                    if(e.target.checked){
+                        
+                        checkok = 1;
+                        commentInsert.setAttribute("onclick", "commentFunction("+checkok+")");
+                        console.log("선택됨");
+                    }else{
+                        checkok = 0;
+                        commentInsert.setAttribute("onclick", "commentFunction("+checkok+")");
+                        console.log("선택취소");
+                    }
+                });
+
                 const commentInsert = document.createElement("button"); 
                 commentInsert.classList.add("comment-insert"); 
-                commentInsert.setAttribute("onclick", "commentFunction()");
+                commentInsert.setAttribute("onclick", "commentFunction("+checkok+")");
                 commentInsert.innerHTML = "등록";
+                
 
                 const commentList = document.createElement("ul");
                 commentList.classList.add("comment-list");
@@ -94,10 +120,30 @@ function selectCommentList(){
 
                     const commentContent = document.createElement("div");
                     commentContent.classList.add("comment-content");
-                    // 댓글 내용
-                    // const contentPre = document.createElement("div");
-                    // contentPre.innerHTML = comment.commentContent;
-                    commentContent.innerHTML = comment.commentContent;
+                    const lockIcon = document.createElement("i");
+                    lockIcon.classList.add("fa-solid");
+                    lockIcon.classList.add("fa-lock");
+
+                    if(memberNo == comment.memberNo && comment.commentDelFl == 'S'){
+                        commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;'+comment.commentContent;
+                        // lockIcon.innerHTML="&nbsp;"+comment.commentContent;
+                        // commentContent.append(lockIcon);
+                    }else if (comment.memberNo == comment.parentNo && comment.commentDelFl == 'S') {
+                        commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;'+comment.commentContent;
+                        // lockIcon.innerHTML="&nbsp;"+comment.commentContent;
+                        // commentContent.append(lockIcon);
+                    }else if (memberNo == boardMemNo && comment.commentDelFl == 'S') {
+                        commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;'+comment.commentContent;
+                        // lockIcon.innerHTML="&nbsp;"+comment.commentContent;
+                        // commentContent.append(lockIcon);
+                    }else if (comment.commentDelFl == 'S' && comment.memberNo != comment.parentNo) {
+                        commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;비밀댓글입니다.';
+                    }else if (loginAuth == 2 && comment.commentDelFl == 'S') {
+                        commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;'+comment.commentContent;
+                    } else {
+                        commentContent.innerHTML = comment.commentContent;
+                    }
+                    
 
                     // 작성일 + 답글달기
                     // 작성일
@@ -119,7 +165,7 @@ function selectCommentList(){
                     
                     commentWrite.append(commentForm);
                     commentForm.append(writeComment, commentSide);
-                    commentSide.append(commentCaution, commentInsert);
+                    commentSide.append(commentCaution, secreteCo,commentInsert);
                     
                     commentList.append(commentRow);
                     commentRow.append(commentWriter, commentArea);
@@ -146,20 +192,20 @@ function selectCommentList(){
                     
 
                     if(loginAuth == 2){
-                        if(memberNo == comment.memberNo && comment.commentDelFl == 'N'){
+                        if(memberNo == comment.memberNo && comment.commentDelFl != 'Y'){
                             commentDelete.setAttribute("onclick", "deleteComment("+comment.commentNo+")")
                             writeTimeReply.append(commentReply, commentUpdate, commentDelete);
                         }
-                        if(memberNo != comment.memberNo && comment.commentDelFl == 'N'){
+                        if(memberNo != comment.memberNo && comment.commentDelFl != 'Y'){
                             commentDelete.setAttribute("onclick", "adDeleteComment("+comment.commentNo+")")
                             writeTimeReply.append(commentReply, commentDelete);
                         }
                     }else{
-                        if(memberNo == comment.memberNo && comment.commentDelFl == 'N'){
+                        if(memberNo == comment.memberNo && comment.commentDelFl != 'Y'){
                             commentDelete.setAttribute("onclick", "deleteComment("+comment.commentNo+")")
                             writeTimeReply.append(commentReply, commentUpdate, commentDelete);
                         }
-                        if(memberNo != comment.memberNo && comment.commentDelFl == 'N'){
+                        if(memberNo != comment.memberNo && comment.commentDelFl != 'Y'){
                             writeTimeReply.append(commentReply);
                         }
                     }
@@ -180,15 +226,11 @@ function selectCommentList(){
 
 
 // 댓글 등록
-const commentFunction=()=>{
+const commentFunction=(checkok)=>{
 
-    const commentInsert = document.querySelector(".comment-insert");
     const writeComment = document.querySelector(".write-comment");
-    
-    // commentInsert.addEventListener("click", e=>{
-    
 
-    // commentInsert.addEventListener("click", e=>{
+
 
         // 1. 로그인이 되었는가
     
@@ -204,13 +246,14 @@ const commentFunction=()=>{
                 url : "/board/comment/insert",
                 data : {"boardNo" : boardNo,
                         "memberNo" : memberNo,
-                        "commentContent" : writeComment.value},
+                        "commentContent" : writeComment.value,
+                        "checkok" : checkok},
                 type : "post",
                 success : result=>{
         
                     if(result>0){
                         
-                        ringCommentAlarm('board', 201, boardNo, writeComment.value, result);
+                        ringCommentNotify('board', 201, boardNo, writeComment.value, result);
 
                         messageModalOpen("댓글이 등록되었습니다.");
                         writeComment.value=""; // 작성한 댓글 없애주기
@@ -257,38 +300,41 @@ const showReply = (parentNo, btn)=>{
         // textarea를 만들어볼게요~
         const textarea = document.createElement("textarea");
         textarea.classList.add("comment-co-content");
+        textarea.setAttribute("spellcheck", "false");
 
         // btn의 부모 요소 다음에 추가 해볼까요?
         btn.parentElement.after(textarea);
 
         // 버튼들을 감쌀 div태그를 만들어볼게요
         const btnArea = document.createElement("div");
-        btnArea.classList.add("co-btn-area");
-
+        // btnArea.classList.add("co-btn-area");
+        
         // 답글 보내기 버튼~
         const sendCo  = document.createElement("button");
         sendCo.classList.add("send-co");
         sendCo.innerText = "답글 보내기";
         sendCo.setAttribute("onclick", "sendCo("+parentNo+", this)");
-
+        
         // 답글 취소 버튼~
         const cancleCo = document.createElement("button");
         cancleCo.classList.add("cancle-co");
         cancleCo.innerText = "취소";
         cancleCo.setAttribute("onclick", "cancleCo(this)");
-
+        
         // 버튼 공간에 버튼들을 넣어줄까요?
         btnArea.append(sendCo, cancleCo);
-
+        
         // 버튼 공간을 textarea다음에 넣어줘요~
         textarea.after(btnArea);
-
+        
         // 자식인지 부모인지 확인을 해보고 textarea 크기를 따로 지정을 해주자~
-        const commentRow = btn.parentElement.parentElement;
-        if(commentRow.classList.contains("comment-child")){
+        const commentRow = btn.parentElement.previousElementSibling;
+        if(commentRow.classList.contains("child-content")){
             textarea.classList.add("ch-textarea");
+            btnArea.classList.add("co-btn-area-c");
         }else{
             textarea.classList.add("pa-textarea");
+            btnArea.classList.add("co-btn-area-p");
         }
         textarea.focus();
 }
@@ -330,7 +376,7 @@ function sendCo(parentNo, btn){
         success : result=>{
             if(result>0){
 
-                ringCommentAlarm('comment', 202, parentNo, commentContent, result);
+                ringCommentNotify('comment', 202, parentNo, commentContent, result);
 
                 messageModalOpen("답글이 등록됐습니다.");
                 // alert("답글이 등록됐습니다.");
@@ -387,6 +433,7 @@ function showUpdateComment(commentNo, btn){
 
     // textarea 만들어주고 클래스도 추가해주자
     const paTextarea  = document.createElement("textarea");
+    paTextarea.setAttribute("spellcheck", "false");
     // paTextarea.classList.add("update-textarea");
     // 자식이면
     if(commentRow.classList.contains("comment-child")){
@@ -518,13 +565,13 @@ const adDeleteComment = (commentNo)=>{
 
 
 /* 댓글 알림을 발생시킬 수 있는 함수입니다. */
-const ringCommentAlarm = (type, typeNo, inputNo, inputComment, commentNo) => {
+const ringCommentNotify = (type, typeNo, inputNo, inputComment, commentNo) => {
 
     /* 댓글 알림 */
     /* 
         * 댓글 알림 기능
         1) boardNo를 이용해서, 상대방의 번호를 확인
-        2) 상대방의 번호를 받아오면, 댓글 내용(commentContent)와 대상 번호(memberNo), 알림 유형(alarmType)을 소켓으로 전달(send 사용)
+        2) 상대방의 번호를 받아오면, 댓글 내용(commentContent)와 대상 번호(memberNo), 알림 유형(notifyType)을 소켓으로 전달(send 사용)
 
         * 파라미터
         1) type : board(게시글에 댓글을 단 경우)
@@ -547,7 +594,7 @@ const ringCommentAlarm = (type, typeNo, inputNo, inputComment, commentNo) => {
     */
     // 1) 상대방의 번호 확인
     $.ajax({
-        url: "/alarm/select/targetNo",
+        url: "/notify/select/targetNo",
         data: {
             "type":type,
             "inputNo":inputNo
@@ -558,18 +605,33 @@ const ringCommentAlarm = (type, typeNo, inputNo, inputComment, commentNo) => {
 
             // 받은 targetNo로 json객체 만들기
             let obj = {
-                "alarmTypeNo":typeNo,
+                "notifyTypeNo":typeNo,
                 "memberNo":result,
-                "alarmContent":inputComment,
+                "notifyContent":inputComment,
                 "quickLink":location.href+"#co"+commentNo
             }
 
-            alarmSock.send(JSON.stringify(obj));
+            notifySock.send(JSON.stringify(obj));
 
         },
         error : ()=>{
             console.log('알림 전송에 실패하였습니다.')
         }
-    })
+    });
+};
 
-}
+
+const lockCheck = document.querySelector(".lockCheck");
+const commentInsert = document.querySelector(".comment-insert");
+let checkok;
+lockCheck.addEventListener("change", (e)=>{
+    if(e.target.checked){
+        checkok = 1;
+        commentInsert.setAttribute("onclick", "commentFunction("+checkok+")");
+        console.log("ok");
+    }else{
+        checkok = 0;
+        commentInsert.setAttribute("onclick", "commentFunction("+checkok+")");
+        console.log("no");
+    }
+});

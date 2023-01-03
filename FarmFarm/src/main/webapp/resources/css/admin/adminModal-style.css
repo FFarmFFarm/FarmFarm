@@ -1,0 +1,142 @@
+@import "../root-style.css";
+
+#adminModalContainer{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--modal-background-color);
+
+    z-index: 2000;
+    
+    /* display: none; */
+}
+
+.admin-modal{
+    background-color: white;
+    width: 380px;
+    /* height: 460px; */
+    height: 120px;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+}
+
+
+/* 판매자인증 반려 모달 내용 부분 */
+.admin-modal-deny{
+    background-color: white;
+    width: 380px;
+    height: 260px;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+
+}
+
+#denyReason{
+    resize: none;
+    width: 300px;
+    height: 600px;
+    margin-top: 20px;
+
+    font-size: var(--medium-font-size);
+}
+
+
+.adminModal-title{
+    width: 380px;
+    margin: 5px 0;
+    font-weight: bold;
+    text-align: center;
+    font-size: var(--medium-font-size);
+}
+
+
+.adminModal-form-div{
+    height: 380px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#cancelBtn{
+    width: 100px;
+    height: 30px;
+    background-color: var(--sub-font-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+
+
+/* 강제탈퇴 */
+#adminDelSubmitBtn{
+    width: 100px;
+    height: 30px;
+    background-color: #C43819;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+/* 판매자 인증 승인 */
+#approveBtn{
+    width: 100px;
+    height: 30px;
+    background-color: var(--point-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+/* 판매자 인증 반려 */
+#denyBtn{
+    width: 100px;
+    height: 30px;
+    background-color: #C43819;
+    color: white;
+    border: none;
+    border-radius: 5px;
+
+}
+
+
+/* 반짝이는 효과 */
+@keyframes blink-effect{
+    50% {
+        opacity: 0;
+    }
+}
+
+#cancelBtn:active, #adminDelSubmitBtn:active, #approveBtn:active, #denyBtn:active{
+    animation: blink-effect 0.3s step-start;
+    animation-timing-function: ease;
+    scale: 0.99;
+}
+
+
+
+.scrollLock {
+    overflow: hidden;
+}

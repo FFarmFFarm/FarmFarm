@@ -7,7 +7,7 @@
 
 body{
     width: 100vw;
-    height: 100vh;
+    /* height: 100vh; */
     /* background-color: #eef4ed; */
 
     display: flex;
@@ -89,25 +89,35 @@ main{
     width: 85px;
     height: 18px;
     margin-top: 5px;
-    color: white;
-    background-color: var(--point-color);
-    font-size: 10px;
+    color: var(--point-color);
+    /* color: white;
+    background-color: var(--point-color); */
+    font-size: var(--small-font-size);
+    text-decoration: underline;
     border: none;
 }
 
+#allSellerBtn:hover{
+    color: white
+}
+
+
+
 #watingSellerBtn{
-    width: 85px;
+    width: 97px;
     height: 18px;
     margin-top: 5px;
     color: var(--point-color);
-    background-color: white;
-    font-size: 10px;
-    border: 1px solid var(--point-color);
+    font-size: var(--small-font-size);
+    text-decoration: underline;
+    border: none;
     
     display: none;
 }
 
-
+#watingSellerBtn:hover{
+    color:white;
+}
 
 
 
@@ -117,7 +127,7 @@ main{
 /* * 인증 신청 목록 * */
 .seller-auth{
     width: 900px;
-    height: 300px;
+    height: 360px;
     background-color: white;
     border-radius: 10px;
     
@@ -200,6 +210,13 @@ main{
 
 
 
+/* no 색 변경 */
+.member-seq{
+    color: var(--point-color);
+    opacity: 50%;
+}
+
+
 
 
 
@@ -219,7 +236,6 @@ main{
     text-align: center;
 
     display: block;
-    /* width: 100%; */
     height: 100%;
     color: var(--point-color);
 }
@@ -229,19 +245,20 @@ main{
     text-align: center;
 
     display: block;
-    /* width: 100%; */
     height: 100%;
     color: rgb(129, 129, 129);
     cursor: pointer;
 }
 
-/* todo:현재 페이지색은 point-color로 */
-
 
 
 /* 인증 신청서 조회 */
+#selectAuthPaperDiv{
+    display: none;
+}
+
 .select-auth-paper{
-    width: 880px;
+    width: 900px;
     height: 530;
     background-color: white;
     border-radius: 10px;
@@ -278,6 +295,7 @@ main{
 .auth-image > img{
     width: 100%;
     height: 100%;
+    cursor: pointer;
 }
 
 /* 신청서 */
@@ -291,13 +309,7 @@ main{
 .seller-auth-table{
     width: 400px;
     height: 400px;
-    margin: 30px;
-    font-size: var(--small-font-size);
-    margin-left: 30px;
-
-    display: flex;
-    align-content: flex-start;
-
+    margin: 15px 30px 30px;
 }
 
 .seller-auth-table tr{
@@ -305,13 +317,15 @@ main{
 }
 
 .detail-bold{
-    width: 150px;
+    width: 140px;
     color: var(--point-color);
     font-weight: bold;
+    font-size: var(--main-font-size);
 }
 
 .detail-content{
     width: 240px;
+    font-size: var(--main-font-size);
 }
 
 
@@ -347,3 +361,65 @@ main{
     border: none;
     background-color: #C43819;
 }
+
+
+/* 인증신청서 승인/거부 모달 
+adminModal-style.css------------------------------- */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 증빙사진 모달 */
+/* .authImg-modal{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--modal-background-color);
+
+    z-index: 2000;
+    
+    display: none;
+}
+
+.authImg{
+    width: auto;
+    height: auto;
+} */
+
+

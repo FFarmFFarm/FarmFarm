@@ -63,30 +63,7 @@
                     </ul>
                 </div>
             </div>
-            <%-- <select class="board-select" name="boardSelectNVL" id="boardSelect">
-                <option value="new">최신순</option>
-                <option value="view">조회수</option>
-                <option value="like">좋아요</option>
-            </select> --%>
-            <%-- <div class="board-select" name="boardSelectNVL" id="boardSelect">
-                <button value="new">최신순 <i class="fa-solid fa-angle-down"></i></button>
-                <button value="view">조회수 <i class="fa-solid fa-angle-down"></i></button>
-                <button value="like">좋아요 <i class="fa-solid fa-angle-down"></i></button>
-            </div> --%>
         </form>
-        <%-- <section class="board-search">
-            <form action="/board/${boardTypeNo}" class="board-search-area">
-                <input type="text" id="query" name="query" placeholder="검색어를 입력해주세요">
-                <button class="board-search-btn">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-            </form>
-            <select class="board-select" name="boardSelectNVL" id="boardSelect">
-                <option value="new">최신순</option>
-                <option value="view">조회수</option>
-                <option value="like">좋아요</option>
-            </select>
-        </section> --%>
         <section class="board-list">
             <div class="board-list-top">
                 <div class="board-List-title">
@@ -135,10 +112,10 @@
                     <ul class="board-pagination">
                     
                         <!-- 첫 페이지로 이동 -->    <!-- 검색 안하면 그냥 빈칸으로 나옴 -->
-                        <li><a href="/board/${boardTypeNo}?cp=1${sURL}">&lt;&lt;</a></li>
+                        <li id="1" class="pageLi"><a>&lt;&lt;</a></li>
 
                         <!-- 이전 목록 마지막 번호로 이동 -->
-                        <li><a href="/board/${boardTypeNo}?cp=${pagination.prevPage}${sURL}">&lt;</a></li>
+                        <li id="${pagination.prevPage}" class="pageLi"><a>&lt;</a></li>
                                                     <!-- qusert string 형식으로 적어야된데 -->
 
                         <c:forEach var="i" begin="${pagination.startPage}" 
@@ -147,12 +124,12 @@
                             <c:choose>
                                 <c:when test="${i == pagination.currentPage}">
                                     <%-- 현재 페이지인 경우 --%>
-                                    <li><a class="current">${i}</a></li>
+                                    <li id="${i}" class="pageLi"><a class="current">${i}</a></li>
                                 </c:when>
 
                                 <c:otherwise>
                                     <!-- 현재 페이지를 제외한 나머지 -->
-                                    <li><a href="/board/${boardTypeNo}?cp=${i}${sURL}${soURL}">${i}</a></li>
+                                    <li id="${i}" class="pageLi"><a>${i}</a></li>
                                 </c:otherwise>
                             </c:choose>
 
@@ -161,10 +138,10 @@
                         <!-- 특정 페이지로 이동 -->
                         
                         <!-- 다음 목록 시작 번호로 이동 -->
-                        <li><a href="/board/${boardTypeNo}?cp=${pagination.nextPage}${sURL}${soURL}">&gt;</a></li>
+                        <li id="${pagination.nextPage}" class="pageLi"><a>&gt;</a></li>
 
                         <!-- 끝 페이지로 이동 -->
-                        <li><a href="/board/${boardTypeNo}?cp=${pagination.maxPage}${sURL}${soURL}">&gt;&gt;</a></li>
+                        <li id="${pagination.maxPage}" class="pageLi"><a>&gt;&gt;</a></li>
 
                     </ul>
 
@@ -192,15 +169,15 @@
     <script>
         let boardTypeNo = ${boardTypeNo};
 
-        sort = "new";
+        let sort = "new";
 
         const inputQuery = document.getElementById("inputQuery");
         // let query = inputQuery.value;
         let query = "${param.query}";
 
-        const loginYN = "${loginMember}";
+        let cp = 1;
 
-        let cp = "${pagination.currentPage}";
+        const loginYN = "${loginMember}";
 
     </script>
     <script src="/resources/js/board/boardList.js"> </script>

@@ -78,6 +78,7 @@
 		  <result property="memberNickname" column="MEMBER_NICKNAME"/>
 		  <result property="profileImg" column="PROFILE_IMG"/>
 			<result property="commentDelFl" column="COMMENT_DEL_FL"/>
+			<result property="parentNo" column="PARENT_NO"/>
   </resultMap>
 
 
@@ -118,33 +119,7 @@
 	</select>
 	
 	<!-- 와글와글 게시판 리스트 조회 -->
-	<select id="selecBoardtList" resultMap="board_rm">
-		SELECT BOARD_TYPE_NO, BOARD_NO, BOARD_TITLE, MEMBER_NICKNAME, BOARD_VIEW, MEMBER_NO,
-		<![CDATA[
-			CASE
-					WHEN SYSDATE - BOARD_DATE < 1/24/60
-					THEN FLOOR((SYSDATE - BOARD_DATE) *24*60*60) || '초 전'
-					WHEN SYSDATE - BOARD_DATE < 1/24
-					THEN FLOOR((SYSDATE - BOARD_DATE) *24*60) || '분 전'
-					WHEN SYSDATE - BOARD_DATE < 1
-					THEN FLOOR((SYSDATE - BOARD_DATE) *24) || '시간 전'
-					ELSE TO_CHAR(BOARD_DATE, 'YYYY-MM-DD')
-			END BOARD_DATE,
-		]]>
-		(SELECT COUNT(*) FROM "COMMENT" C 
-			WHERE C.BOARD_NO = B.BOARD_NO) COMMENT_COUNT,
-		(SELECT COUNT(*) FROM "BOARD_LIKE" L 
-			WHERE L.BOARD_NO2 = B.BOARD_NO) LIKE_COUNT,
-		(SELECT BOARD_IMG_ADDRESS FROM "BOARD_IMG" I 
-			WHERE BOARD_IMG_ORDER = 0 AND I.BOARD_NO = B.BOARD_NO) THUMBNAIL
-		FROM BOARD B
-		JOIN "MEMBER" USING (MEMBER_NO)
-		WHERE BOARD_TYPE_NO = #{boardTypeNo}
-		AND BOARD_DEL_FL = 'N'
-		ORDER BY BOARD_NO DESC
-	</select>
-	
-		<select id="selecBoardtLists" resultMap="board_rm">
+		<select id="selecBoardtList" resultMap="board_rm">
 			SELECT BOARD_TYPE_NO, BOARD_NO, BOARD_TITLE, MEMBER_NICKNAME, BOARD_VIEW,
 			<![CDATA[
 				CASE
@@ -172,6 +147,7 @@
 				AND (BOARD_TITLE LIKE '%${query}%'
 				OR BOARD_CONTENT LIKE '%${query}%')
 			</if>
+			ORDER BY BOARD_NO DESC
 	</select>
 	
 	<!-- 와글와글 게시판 검색 조건에 맞는 게시글 수 조회 -->
@@ -215,13 +191,12 @@
 			<!-- 최신순, 조회수, 좋아요 -->
 				<choose>
 						<when test='sort == "view"'>
-							ORDER BY BOARD_VIEW DESC
+							ORDER BY BOARD_VIEW DESC, BOARD_NO DESC
 						</when>
 						<when test='sort == "like"'>
-							ORDER BY LIKE_COUNT DESC
+							ORDER BY LIKE_COUNT DESC, BOARD_NO DESC
 						</when>
 						<when test='sort == "new"'>
-							<!-- ORDER BY BOARD_DATE DESC -->
 							ORDER BY BOARD_NO DESC
 						</when>
 				</choose>
@@ -291,7 +266,7 @@
 	<!-- 댓글 불러오기~~~~ -->
 	<select id="commentList" resultMap="comment_rm">
 		SELECT LEVEL, C.* FROM
-			(SELECT COMMENT_NO, COMMENT_CONTENT,
+			(SELECT C.COMMENT_NO, COMMENT_CONTENT,
 			 TO_CHAR(COMMENT_DATE, 'YYYY-MM-DD ') || 
 				<![CDATA[
 					CASE
@@ -303,9 +278,10 @@
 							THEN FLOOR((SYSDATE - COMMENT_DATE) *24) || '시간 전'
 					END COMMENT_DATE, 
 				]]>
-			 COMMENT_PARENT, COMMENT_DEL_FL,
+			 C.COMMENT_PARENT, COMMENT_DEL_FL,
 				MEMBER_NO, BOARD_NO, MEMBER_NICKNAME, PROFILE_IMG, AUTHORITY,
-			 (SELECT COUNT(*) FROM "COMMENT" WHERE BOARD_NO = C.BOARD_NO) COMMENT_COUNT
+			 (SELECT COUNT(*) FROM "COMMENT" WHERE BOARD_NO = C.BOARD_NO) COMMENT_COUNT,
+			 (SELECT MEMBER_NO FROM "COMMENT" WHERE COMMENT_NO = C.COMMENT_PARENT) PARENT_NO
 			FROM "COMMENT" C
 			JOIN "MEMBER" USING(MEMBER_NO)
 			WHERE BOARD_NO = #{boardNo}) C
@@ -367,7 +343,15 @@
 			<if test='commentParent != 0'>
 				#{commentParent},
 			</if>
-			 DEFAULT, #{memberNo}, #{boardNo}, DEFAULT)
+			<choose>
+				<when test='commentDelFl.equals("S")'>
+					#{commentDelFl},
+				</when>
+				<otherwise>
+					DEFAULT,
+				</otherwise>
+			</choose>
+			 #{memberNo}, #{boardNo}, DEFAULT)
 		<selectKey keyProperty="commentNo" resultType="int" order="AFTER">
 			SELECT SEQ_COMMENT_NO.CURRVAL FROM DUAL
 		</selectKey>

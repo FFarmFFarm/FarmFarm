@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,7 +33,15 @@ public class CommentController {
 	
 	// 댓글 추가하기~
 	@PostMapping("/board/comment/insert")
-	public int commentWrite(Comment comment) {
+	public int commentWrite(Comment comment,
+			@RequestParam(value="checkok", required = false, defaultValue="0") int checkok) {
+		
+		if(checkok != 0) { // 비밀 댓글인 경우
+			comment.setCommentDelFl("S");
+		}else {
+			comment.setCommentDelFl("N");
+		}
+		
 		return serivce.commentWrite(comment);
 	}
 	

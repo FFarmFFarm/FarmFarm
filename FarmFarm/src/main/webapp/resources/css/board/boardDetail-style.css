@@ -218,8 +218,23 @@ main{
 }
 
 .comment-caution{
+    width: 680px;
     padding-left: 20px;
     padding-top: 10px;
+    color: var(--sub-font-color);
+}
+.lockCheck{
+    accent-color: var(--point-color);
+    display: flex;
+    align-items: center;
+    margin-top: 2px;
+}
+
+.secrete-co{
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: var(--sub-font-color);
 }
 
@@ -308,10 +323,15 @@ main{
 .comment-co-content:focus{
     outline: none;
 }
-.co-btn-area{
+.co-btn-area-p{
     display: flex;
     justify-content: end;
     padding-right: 50px;
+}
+.co-btn-area-c{
+    display: flex;
+    justify-content: end;
+    padding-right: 35px;
 }
 .send-co, .cancle-co, .pa-update, .pa-cancle{
     font-size: var(--small-font-size);
@@ -436,4 +456,10 @@ main{
     display: flex;
     width: 100%;
     margin-left: 15px;
+}
+
+
+/* 비밀댓글 자물쇠 아이콘 색 */
+.fa-lock{
+    color: var(--point-color);
 }
