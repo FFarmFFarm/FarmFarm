@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.kh.farmfarm.notify.model.dao.NotifyDAO;
 import edu.kh.farmfarm.notify.model.vo.Notify;
@@ -18,6 +19,7 @@ public class NotifyServiceImpl implements NotifyService {
 	
 	// 알림을 DB에 저장하는 서비스
 	@Override
+	@Transactional(rollbackFor =  Exception.class)
 	public int insertNewNotify(Notify alarm) {
 		return dao.insertNewNotify(alarm);
 	}
@@ -50,5 +52,19 @@ public class NotifyServiceImpl implements NotifyService {
 	@Override
 	public List<Notify> selectNotifyList(int memberNo) {
 		return dao.selectNotifyList(memberNo);
+	}
+	
+	// 알림 읽음 처리(update)
+	@Override
+	@Transactional(rollbackFor =  Exception.class)
+	public int updateNotify(int notifyNo) {
+		return dao.updateNotify(notifyNo);
+	}
+
+	// 알림 삭제 처리(delete)
+	@Override
+	@Transactional(rollbackFor =  Exception.class)
+	public int deleteNotify(int notifyNo) {
+		return dao.deleteNotify(notifyNo);
 	}
 }

@@ -106,9 +106,8 @@ const selectNotifyList = () => {
             // 3. 비어있을 때에만 출력할 default 요소 추가
             const notifyEmpty = document.createElement('div');
             packupElement(notifyEmpty, 'notify-empty', '알림이 없어요~!')
+            notifyEmpty.classList.add('hide');
             notifyViewArea.append(notifyEmpty);
-
-            console.log(notifyList);
 
             // 4-A. 응답이 있을 때에만 알림 목록 생성 구문을 실행하기
             if(notifyList.length > 0){
@@ -116,16 +115,17 @@ const selectNotifyList = () => {
                 // 5. 받아온 목록에서 요소 추가
                 for(let notify of notifyList) {
 
-                    // 2-1. 사용할 요소를 준비
+                    // 5-1. 사용할 요소를 준비
                     const notifyBox = document.createElement("a");          // 알림 목록 하나의 최상위 부모
                     const notifyIcon = document.createElement("div");       // 알림 아이콘
                     const notifyMain = document.createElement("div");       // 알림 제목과 내용의 부모
                     const notifyContent = document.createElement("div");    // 알림 내용
                     const notifyTitle = document.createElement("div");      // 알림 제목
                     const notifyDate = document.createElement("div");       // 알림 날짜
-                    const notifyDelBtn = document.createElement("span");     // 삭제 버튼
-    
-                    // 2-2. 요소에 클래스, 내용을 세팅하는 함수
+                    const notifyDelBtn = document.createElement("div");    // 삭제 버튼
+                    const notifyNo = document.createElement("input");       // 번호를 담을 input
+
+                    // 5-2. 요소에 클래스, 내용을 세팅하는 함수
                     // (1) 알림 목록 하나의 최상위 부모를 만들고 링크 부여
                     packupElement(notifyBox, 'notify-box', null);
                     notifyBox.setAttribute('href', notify.quickLink);
@@ -183,22 +183,43 @@ const selectNotifyList = () => {
                     // (8) 삭제버튼
                     packupElement(notifyDelBtn, 'notify-del-btn', "<i class='fa-solid fa-xmark'></i>");
 
-                    // 6. 준비된 요소를 포장
-                    notifyMain.append(notifyTitle, notifyContent);
-                    notifyBox.append(notifyIcon, notifyMain, notifyDate, notifyDelBtn);
+                    // (9) 번호
+                    notifyNo.setAttribute('value', notify.notifyNo);
+                    notifyNo.setAttribute('type', "input");
+                    notifyNo.hidden = true;
 
-                    // 7. 목록 페이지에 세팅
+                    // 5-3. 요소 읽음 여부 확인
+                    if(notify.notifyStatus < 1){
+                        notifyBox.classList.add('read');
+                        notifyBox.addEventListener('click', (e)=>{
+                        readThisNotify(e.currentTarget);
+                        })
+                    }
+
+                    // 5-4. 준비된 요소를 포장
+                    notifyMain.append(notifyIcon, notifyTitle, notifyContent, notifyDate);
+                    notifyBox.append(notifyNo, notifyMain, notifyDelBtn);
+
+                    // 5-5. 준비된 notifyBox에 이벤트:클릭 시 읽음처리 부여
+                    notifyMain.addEventListener('click', (e)=>{
+                        readThisNotify(e.currentTarget.parentElement);
+                    })
+
+                    // 5-6. 준비된 notifyBox에 이벤트:클릭 시 삭제 부여
+                    notifyDelBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        deleteNotify(e.currentTarget.parentElement);
+                    })
+
+                    // 9. 목록 페이지에 세팅
                     notifyViewArea.append(notifyBox);
-
                 }
 
-
             } else { // 만약 응답이 비어있는 경우, 비어있다는 문구를 띄움
-                notifyEmpty.style.display='flex';
+                notifyEmpty.classList.remove('hide');
             }
 
         }).catch(function(error){
-            
             console.log('알림 목록 요청에 실패하였습니다.');
             console.log(error);
 
@@ -213,21 +234,21 @@ const typeFilter = (option) => {
 
     let boxExist = false;
 
-    document.querySelector('.notify-empty').style.display="none";
+    document.querySelector('.notify-empty').classList.add('hide');
 
     for(let type of typeList){
         if(!type.classList.contains(option)){
-            type.style.display="none";
-            document.querySelector('.notify-empty').style.display="flex";
+            type.style.classList.add('hide');
+            document.querySelector('.notify-empty').classList.add('hide');
         } else {
-            type.style.display="flex";
+            type.style.classList.remove('hide');
             boxExist = true;
         }
     }
 
     // 만약 요소가 하나도 없으면...
     if(!boxExist){
-        document.querySelector('.notify-empty').style.display="flex";
+        document.querySelector('.notify-empty').classList.add('hide');
     }
 }
 
@@ -240,16 +261,16 @@ const typeFilterRemove = () => {
     let boxExist = false;
 
     // empty 박스 비우기
-    document.querySelector('.notify-empty').style.display="none";
+    document.querySelector('.notify-empty').classList.add('hide');
 
     for(let type of typeList){
-        type.style.display="flex";
+        type.style.classList.remove('hide');
         boxExist = true;
     }
 
     // 만약 요소가 하나도 없으면...
     if(!boxExist){
-        document.querySelector('.notify-empty').style.display="flex";
+        document.querySelector('.notify-empty').classList.add('hide');
     }
 }
 
@@ -270,7 +291,83 @@ document.getElementById('categoryInquiry').addEventListener('click', (e)=>{
     if(e.target.checked) typeFilter('inquiry');
 })
 
-/* 알림 삭제 (읽음 처리) 함수 */
-const deleteNotify = () => {
-    
+/* --------------------------------------- 알림 카테고리 끝 -------------------------------- */
+
+
+/* ------------------------------------- 알림 선택 관련 기능 ------------------------------- */
+
+/* 알림 읽음처리 */
+const readThisNotify = (parent) => {
+
+    let notifyNo = parent.children[0].value;
+    let formData = new FormData;
+    formData.append("notifyNo", notifyNo);
+
+    // 번호를 서버로 보내 읽음처리함
+    axios.post('/notify/update', formData
+        ).then( function(response){
+            console.log('알림이 읽음 처리 되었습니다.')
+        }).catch( function(error){
+            console.log('읽음 처리 과정에서 오류가 발생했습니다.')
+            console.log(error)
+        })
+
+    // 동기화하기
+    parent.classList.add('read');
 }
+
+/* 알림 삭제 */
+const deleteNotify = (parent) => {
+
+    let notifyNo = parent.children[0].value;
+    let formData = new FormData;
+    formData.append("notifyNo", notifyNo);
+
+    // 번호를 서버로 보내 읽음처리함
+    axios.post('/notify/delete', formData
+    ).then(function (response) {
+        console.log('알림이 삭제 되었습니다.')
+    }).catch(function (error) {
+        console.log('읽음 처리 과정에서 오류가 발생했습니다.')
+        console.log(error)
+    })
+
+    // 동기화하기
+    parent.classList.add('hide');
+
+    // 요소가 없는지 확인해서 없으면 empty-box 노출
+    checkEmpty();
+}
+
+/* 요소가 없는지 확인하는 함수 */
+const checkEmpty = () => {
+    // notify box 목록
+    const typeList = document.getElementsByClassName('notify-box');
+
+    // 알림이 존재하는지 점검하는 변수
+    let boxExist = false;
+
+    // empty 박스 비우기
+    document.querySelector('.notify-empty').classList.add('hide');
+
+    // notify box 확인
+    for (let type of typeList) {
+        console.log('자 반복문 돌아갑니다잉')
+
+        if(!type.classList.contains('hide')) {
+            boxExist = true;
+            console.log('있는데요?');
+            break;
+        }
+    }
+
+    console.log(boxExist);
+    
+    // 만약 요소가 하나도 없으면...
+    if (!boxExist) {
+        document.querySelector('.notify-empty').classList.remove('hide');
+    }
+}
+
+/* ------------------------------------- 알림 선택 관련 기능 끝 ------------------------------- */
+

@@ -93,6 +93,10 @@ public class OrderDAO {
 		return sqlSession.selectOne("orderMapper.selectImpUid", orderNo);
 	}
 
+	public int orderConfirm() {
+		return sqlSession.update("orderMapper.orderConfirm");
+	}
+
 
 	
 

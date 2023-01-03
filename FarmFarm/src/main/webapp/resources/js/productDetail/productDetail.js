@@ -27,13 +27,21 @@ if (document.getElementById('wishBtn') != null) {
   /* 찜 버튼 클릭 이벤트*/
   const wishBtn = document.getElementById('wishBtn');
   wishBtn.addEventListener('click', (e) => {
-
-    const productNo = getProductNo();
-
-    if (wishBtn.classList.contains('wish-clicked')) {
-      removeWish(productNo, wishBtn);
-    } else {
-      addWish(productNo, wishBtn);
+    if(authority == 0) {
+      // 구매자
+      const productNo = getProductNo();
+      
+      if (wishBtn.classList.contains('wish-clicked')) {
+        removeWish(productNo, wishBtn);
+      } else {
+        addWish(productNo, wishBtn);
+      }
+    } else if (authority == 1) {
+      // 판매자
+      alert("일반 회원 계정으로 로그인해주세요.");
+    } else if(authority == 2) {
+      // 관리자
+      alert("관리자 계정입니다.");
     }
   });
 }
@@ -120,8 +128,15 @@ if (document.getElementById('orderBtn') != undefined) {
     if (loginMember == '') {
       loginConfirmOpen();
     } else {
-      const form = document.getElementById('orderPage');
-      form.submit();
+      if(authority == 0) {
+
+        const form = document.getElementById('orderPage');
+        form.submit();
+      } else if(authority ==1) {
+        alert('일반 회원 계정으로 로그인해주세요');
+      } else if (authority == 2) {
+        alert('관리자 계정입니다.');
+      }
     }
   })
 };
@@ -133,31 +148,38 @@ if (document.getElementById('cartBtn') != undefined) {
     if (loginMember == '') {
       loginConfirmOpen();
     } else {
-      const productNo = getProductNo();
-      const productAmount = document.getElementById("amountInput").value; 
-      
-      $.ajax({
-        url: '/addCart',
-        data: { productNo: productNo,
-              productAmount: productAmount,
-              memberNo: memberNo },
-        type: "GET",
-        success: (result) => {
-          if(result == 0){
-            messageModalOpen("장바구니 추가 실패");
+      if(authority == 0) {
 
-          } else if(result == 1){ // 장바구니 추가 성공
-            goCartConfirmOpen();
+        const productNo = getProductNo();
+        const productAmount = document.getElementById("amountInput").value; 
+        
+        $.ajax({
+          url: '/addCart',
+          data: { productNo: productNo,
+                productAmount: productAmount,
+                memberNo: memberNo },
+          type: "GET",
+          success: (result) => {
+            if(result == 0){
+              messageModalOpen("장바구니 추가 실패");
 
-          } else if(result == 2){ // 기존에 장바구니에 있는 경우
-            // 장바구니 추가? confirm
-            addCartConfirmOpen();
+            } else if(result == 1){ // 장바구니 추가 성공
+              goCartConfirmOpen();
+              
+            } else if(result == 2){ // 기존에 장바구니에 있는 경우
+              // 장바구니 추가? confirm
+              addCartConfirmOpen();
+            }
+          },
+          error: () => {
+            console.log("장바구니 이동 실패");
           }
-        },
-        error: () => {
-          console.log("장바구니 이동 실패");
-        }
-      })
+        })
+      } else if (authority == 1) {
+        alert('일반 회원 계정으로 로그인해주세요');
+      } else if (authority == 2) {
+        alert('관리자 계정입니다.');
+      }
     }
   })
 };
@@ -547,15 +569,22 @@ const newReview = (review) => {
     createDate.append(dateSpan, btn);
 
     btn.addEventListener('click', (e) => {
+      if(authority == 0) {
+        const helpedBtn = document.getElementById("R" + review.reviewNo);
+  
+        helpedClick(btn, review.reviewNo);
+  
+        if (helpedBtn != undefined) {
+          helpedBtn.classList.toggle("unclicked");
+          helpedBtn.classList.toggle("clicked");
+        }
 
-      const helpedBtn = document.getElementById("R" + review.reviewNo);
-
-      helpedClick(btn, review.reviewNo);
-
-      if (helpedBtn != undefined) {
-        helpedBtn.classList.toggle("unclicked");
-        helpedBtn.classList.toggle("clicked");
+      } else if(authority == 1) {
+        alert('일반 회원으로 로그인해주세요.');
+      } else if (authority == 2) {
+        alert('관리자 계정입니다.');
       }
+
     })
   } else {
     const span1 = document.createElement("span");
@@ -608,8 +637,16 @@ const newReview = (review) => {
 const helpedBtn = document.getElementsByClassName('helped-btn');
 for (let btn of helpedBtn) {
   btn.addEventListener('click', () => {
-    const reviewNo = btn.parentElement.parentElement.parentElement.id;
-    helpedClick(btn, reviewNo);
+
+    if(authority == 0) {
+      const reviewNo = btn.parentElement.parentElement.parentElement.id;
+      helpedClick(btn, reviewNo);
+
+    } else if(authority == 1) {
+      alert('일반 회원으로 로그인해주세요.');
+    } else if (authority == 2) {
+      alert('관리자 계정입니다.');
+    }
 
   })
 }
@@ -625,14 +662,22 @@ const helpedClick = (helpedBtn, reviewNo) => {
 
   } else {
 
-    if (helpedBtn.classList.contains('clicked')) {
-      /* 이미 도움돼요 버튼을 누른 경우 */
-      removeHelp(reviewNo, helpedBtn);
+    if(authority == 0) {
 
-    } else if (helpedBtn.classList.contains('unclicked')) {
-      /* 도움돼요 버튼을 누르지 않은 경우 */
-      addHelp(reviewNo, helpedBtn);
+      if (helpedBtn.classList.contains('clicked')) {
+        /* 이미 도움돼요 버튼을 누른 경우 */
+        removeHelp(reviewNo, helpedBtn);
+  
+      } else if (helpedBtn.classList.contains('unclicked')) {
+        /* 도움돼요 버튼을 누르지 않은 경우 */
+        addHelp(reviewNo, helpedBtn);
+      }
+    } else if(authority == 1) {
+      alert('일반 회원으로 로그인해주세요.');
+    } else if (authority == 2) {
+      alert('관리자 계정입니다.');
     }
+
 
   }
 }
@@ -851,7 +896,14 @@ const printReviewList = (reviewList, pagination, sortFL) => {
 
       /* 도움돼요 버튼 */
       btn.addEventListener('click', () => {
-        helpedClick(btn, review.reviewNo);
+        if(authority == 0) {
+
+          helpedClick(btn, review.reviewNo);
+        } else if(authority == 1) {
+          alert('일반 회원으로 로그인해주세요.');
+        } else if (authority == 2) {
+          alert('관리자 계정입니다.');
+        }
 
       })
     } else {

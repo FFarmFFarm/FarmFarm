@@ -57,6 +57,11 @@ public interface OrderService {
 	 */
 	int paymentCancel(String token, Order order) throws IOException;
 
+	/** 자정마다 주문한지 7일 지난 주문 구매 확정
+	 * 
+	 */
+	int orderConfirm();
+
 	
 
 }

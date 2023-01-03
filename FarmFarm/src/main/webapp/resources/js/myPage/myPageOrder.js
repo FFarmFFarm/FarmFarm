@@ -266,6 +266,39 @@ const orderConfirmation = (orderNo) => {
 }
 
 
+
+/* 배송 조회 버튼 클릭 시 배송 조회 */
+const shippingBtn = document.getElementsByClassName('order-shipping');
+if(shippingBtn != undefined) {
+  for(let btn of shippingBtn) {
+    btn.addEventListener('click', () => {
+      
+      // 배송 조회 api 요청
+      $.ajax({
+        url: "https://apis.tracker.delivery/carriers/kr.logen/tracks/" + btn.id,
+        dataType: 'json',
+        success: (data) => {
+          fillShipping(data);
+          displayFlex(document.getElementById('shippingContainer'));
+        },
+        error: (error) => {
+          console.log('Error: ' + error);
+        }
+      })
+
+    });
+  }
+}
+
+
+document.getElementById('shippingBackBtn').addEventListener('click', () => { 
+  displayNone(document.getElementById('shippingContainer'));
+})
+
+const fillShipping = (data) => { 
+
+};
+
 //  주문 목록 AJAX 페이지네이션
 const pageBox = document.getElementsByClassName('page-box');
 for (let page of pageBox) {

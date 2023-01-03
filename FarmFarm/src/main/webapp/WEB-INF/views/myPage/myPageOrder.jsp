@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="/resources/css/myPage/myPage-style.css" />
     <link rel="stylesheet" href="/resources/css/myPage/myPageOrder-style.css" />
     <link rel="stylesheet" href="/resources/css/modal/reviewForm-style.css" />
+    <link rel="stylesheet" href="/resources/css/modal/shipping-style.css" />
     <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
   </head>
 
@@ -79,7 +80,8 @@
                 </c:if>
                 <c:if test="${order.orderStatus == 1}">
                   <c:if test="${product.productStatus == 0}">
-                    <span class="order-shipping">배송중</span>
+                    <span class="order-shipping" id="34558174092">배송중</span>
+                    <a href="https://tracker.delivery/#/kr.logen/34558174092" target="_blank">배송조회</a>
                   </c:if>
                   <c:if test="${product.productStatus == 1}">
                     <span class="order-shipping">반품 진행중</span>
@@ -203,6 +205,7 @@
     <jsp:include page="/WEB-INF/views/myPage/modal/orderConfirm.jsp"/>
     <jsp:include page="/WEB-INF/views/myPage/modal/cancelConfirm.jsp"/>
     <jsp:include page="/WEB-INF/views/myPage/modal/reviewForm.jsp"/>
+    <jsp:include page="/WEB-INF/views/myPage/modal/shipping.jsp"/>
 
     <script>
       var cp = "${pagination.currentPage}";
