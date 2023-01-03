@@ -288,5 +288,18 @@ if (document.getElementById('deleteCartCalcelBtn') != undefined) {
     displayNone(deleteCartConfirm);
   })
 
-  
 };
+
+
+// 배송지 목록 모달
+document.getElementById("changeAddress").addEventListener("click",()=>{
+  var popupWidth = 500;
+  var popupHeight = 600;
+
+  var popupX = Math.ceil(( window.screen.width - popupWidth )/2);
+  // 만들 팝업창 width 크기의 1/2 만큼 보정값으로 빼주었음
+  var popupY= Math.ceil(( window.screen.height - popupHeight )/2);
+
+  const options = "scrollbars=yes, height=600, width=500, left="+popupX+", top="+popupY
+  window.open("/address", "popupWindow", options);
+})

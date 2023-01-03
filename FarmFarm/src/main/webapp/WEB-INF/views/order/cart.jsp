@@ -13,8 +13,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>팜팜 | 장바구니</title>
 
-    <!-- swiper-style -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
 
     <link rel="stylesheet" href="/resources/css/order/cart-style.css">
     <link rel="stylesheet" href="/resources/css/common/header-style.css">
@@ -104,7 +102,7 @@
                             <span>배송지</span>
                         </div>
                         <span class="address-detail">서울 노원구 한글비석로 46가길 16 2동 101호</span>
-                        <button class="change-address">배송지 변경</button>
+                        <button id="changeAddress">배송지 변경</button>
                     </div>
                     <div class="price-container">
                         <div class="price-one-line">

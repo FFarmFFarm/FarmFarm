@@ -119,6 +119,10 @@ public class CartController {
 		
 	}
 	
-	
+	@GetMapping("/address")
+	public String addressList() {
+		
+		return "order/deliveryInfo";
+	}
 	
 }
