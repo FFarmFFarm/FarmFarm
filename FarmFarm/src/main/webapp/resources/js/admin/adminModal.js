@@ -20,8 +20,12 @@ window.addEventListener('click', (e) => {
 
 
 // 모달창에서 취소 버튼 클릭 시 모달창 닫기
-document.getElementById('cancelBtn').addEventListener('click', () => {
-    adminModal.style.display = 'none';
-})
+const cancelBtn = document.getElementById('cancelBtn');
+
+if(cancelBtn != null) {
+    cancelBtn.addEventListener('click', () => {
+        adminModal.style.display = 'none';
+    })
+}
 
 

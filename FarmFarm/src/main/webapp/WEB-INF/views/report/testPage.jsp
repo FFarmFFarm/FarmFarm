@@ -11,7 +11,10 @@
 
         <link rel="stylesheet" href="/resources/css/common/header-style.css">
         <link rel="stylesheet" href="/resources/css/common/footer-style.css">
+
+        <!-- 이거 넣어주세요 -->
         <link rel="stylesheet" href="/resources/css/report/report-modal-style.css" />
+
 
         <script src="https://kit.fontawesome.com/d4fbceca97.js" crossorigin="anonymous"></script>
     </head>
@@ -25,9 +28,10 @@
         </main>
 
 
-    <!-- <jsp:include page="/WEB-INF/views/common/footer.jsp"/>  -->
-        
         <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+        
+
+        <!-- 아래 두개 넣어주세요 -->
         <jsp:include page="/WEB-INF/views/report/report-modal.jsp"/> 
         <script src="/resources/js/report/report-modal.js"></script>
         
