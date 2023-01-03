@@ -87,4 +87,16 @@
 	</websocket:handlers>
 	
 	
+	<!-- 채팅 -->
+	<beans:bean id="inquireHandler" class="edu.kh.farmfarm.inquire.model.websocket.InquireWebsocketHandler" />
+	<websocket:handlers>
+		<websocket:mapping handler="inquireHandler" path="/inquireSock"/>
+		
+		<websocket:handshake-interceptors> 
+			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+		</websocket:handshake-interceptors>
+		
+		<websocket:sockjs />
+		
+	</websocket:handlers>
 </beans:beans>

@@ -79,5 +79,11 @@ public class CartServiceImpl implements CartService{
 	public int deleteCart(Map<String, Object> map) {
 		return dao.deleteCart(map);
 	}
+
+	// 배송지 정보 가져오기
+	@Override
+	public Object selectAddressList(int memberNo) {
+		return dao.selectAddressList(memberNo);
+	}
 	
 }

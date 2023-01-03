@@ -12,4 +12,6 @@ public class MemberAddress {
 	private String memberAddress;
 	private String defaultFl;
 	private int memberNo;
+	private String memberName;
+	private String to;
 }

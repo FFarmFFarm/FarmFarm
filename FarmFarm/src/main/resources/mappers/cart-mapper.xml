@@ -12,19 +12,34 @@
 		<result property="productName" column="PRODUCT_NAME" />
 		<result property="productImg" column="PRODUCT_IMG" />
 		<result property="stock" column="STOCK" />
+		<result property="memberAddress" column="MEMBER_ADDRESS" />
 	</resultMap>
+	
+	<resultMap type="MemberAddress" id="memberAddress_rm">
+        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+     <id property = "addressNo" column="ADDRESS_NO"/>
+     <!-- 나머지 일반 컬럼 -->
+      <result property="memberAddress" column="MEMBER_ADDRESS" />
+      <result property="defaultFl" column="DEFAULT_FL" />
+      <result property="memberNo" column="MEMBER_NO" />
+      <result property="memberName" column="MEMBER_NAME" />
+      <result property="to" column="MEMBER_TEL" />
+  	</resultMap>
 	
 	<!-- 장바구니 조회 -->
 	<select id="selectCartList" resultMap="cart_rm">
-		SELECT C.PRODUCT_NO, PRODUCT_NAME, PRODUCT_AMOUNT,STOCK,
+		SELECT C.PRODUCT_NO, PRODUCT_NAME, PRODUCT_AMOUNT, STOCK,
 			TO_CHAR(PRODUCT_PRICE, 'FM999,999,999,999') PRODUCT_PRICE,
 			TO_CHAR(PRODUCT_PRICE*PRODUCT_AMOUNT, 'FM999,999,999,999') PRODUCT_TOTAL_PRICE,
 			(SELECT PRODUCT_IMG_ADDRESS FROM PRODUCT_IMG PI
 			WHERE PI.PRODUCT_NO = C.PRODUCT_NO
-			AND PRODUCT_IMG_ORDER=0) PRODUCT_IMG
+			AND PRODUCT_IMG_ORDER=0) PRODUCT_IMG,
+			MEMBER_ADDRESS
 		FROM CART C
 		JOIN PRODUCT P ON(C.PRODUCT_NO = P.PRODUCT_NO)
-		AND MEMBER_NO = #{memberNo}
+		JOIN ADDRESS A ON(C.MEMBER_NO = A.MEMBER_NO)
+		WHERE DEFAULT_FL = 'Y'
+		AND C.MEMBER_NO = #{memberNo}
 	</select>
   
 	<!-- 장바구니 확인 -->
@@ -78,6 +93,13 @@
 		WHERE MEMBER_NO = #{memberNo}
 		AND PRODUCT_NO = #{productNo}
 	</delete>
+	
+	<select id="selectAddressList" resultMap="memberAddress_rm">
+		SELECT ADDRESS_NO, MEMBER_ADDRESS, DEFAULT_FL, MEMBER_NAME, MEMBER_TEL 
+		FROM ADDRESS
+		JOIN MEMBER USING(MEMBER_NO)
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
 	
   
 </mapper>

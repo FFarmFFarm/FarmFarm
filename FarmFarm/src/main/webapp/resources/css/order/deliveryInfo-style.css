@@ -1,0 +1,195 @@
+@import "../root-style.css";
+
+body{
+  overflow-x:hidden; 
+  overflow-y:auto;
+}
+
+i{
+  cursor: pointer;
+}
+
+button{
+  background-color: var(--background-color);
+}
+
+.address-info{
+  padding: 135px 30px 60px;
+  letter-spacing: -0.5px;
+}
+
+.address-header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 21;
+  padding: 30px 30px 0;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+.address-title{
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 36px;
+}
+
+.column-name{
+  display: flex;
+  overflow: hidden;
+  margin-top: 18px;
+  padding: 15px 0 13px;
+  border-top: 2px solid #333;
+  border-bottom: 1px solid #333;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+}
+
+.column-name>span{
+  width: 64px;
+}
+
+.column-name>span:nth-of-type(2){
+  flex: 1;
+}
+
+
+/* 배송지 선택 영역 */
+/* .delivery-address-area{
+  width: 453px;
+} */
+
+.one-address{
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  width: 100%;
+  padding: 24px 0px 18px;
+}
+
+.one-address + div {
+  border-top: 1px solid rgb(244, 244, 244);
+}
+
+.check-address{
+  width: 64px;
+  text-align: center;
+}
+
+.check-address>label{
+  padding: 0;
+}
+
+[name=checkIcon]{
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  /* margin-right: 12px; */
+  font-size: 24px;
+  color: var(--point-color);
+}
+
+[name=unCheckIcon]{
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  /* margin-right: 12px; */
+  font-size: 24px;
+  color: #ddd;
+}
+
+.address-area{
+  flex: 1 1 0%;
+}
+
+.selected-address{
+  display: inline-block;
+  height: 22px;
+  padding: 0px 8px;
+  margin-bottom: 11px;
+  border-radius: 11px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 22px;
+  color: rgb(102, 102, 102);
+  background-color: rgb(247, 247, 247);
+  vertical-align: top;
+}
+
+.address-detail{
+  font-size: 16px;
+  line-height: 20px;
+  color: rgb(51, 51, 51);
+  word-break: break-all;
+}
+
+.member-info{
+  padding-top: 7px;
+  color: rgb(102, 102, 102);
+  font-size: var(--main-font-size);
+}
+
+.bar{
+  display: inline-block;
+  width: 1px;
+  height: 12px;
+  margin: 0px 8px;
+  background-color: rgb(221, 221, 221);
+}
+
+.edit-address{
+  width: 64px;
+  text-align: center;
+}
+
+[name="editBtn"]{
+  display: inline-flex;
+  width: 24px;
+  height: 24px;
+  border: 0px;
+  font-size: 24px;
+  color: rgb(221, 221, 221);
+}
+
+
+
+/* 새 배송지 선택 */
+.add-address{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.add-btn{
+  border: 0;
+  border-radius: 0;
+  border-top: 1px solid #f4f4f4;
+
+  display: block;
+  padding: 0 10px;
+  text-align: center;
+  overflow: hidden;
+  width: 100%;
+  height: 60px;
+  color: #333;
+  background-color: #fff;
+}
+
+.add-btn>span{
+  font-weight: 500;
+  line-height: 24px;
+  font-size: var(--medium-font-size);
+}
+
+.add-btn>i{
+  font-size: var(--medium-font-size);
+  margin: 5px 4px 0 0 ;
+}
+
+input{
+  display: none;
+}

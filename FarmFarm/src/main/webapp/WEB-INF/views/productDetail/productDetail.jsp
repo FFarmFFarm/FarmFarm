@@ -136,11 +136,13 @@
             <span class="stock" id="stock"></span>
           </div>
           <div class="product-btn-area">
+            <!-- 채팅방 입장 -->
             <c:if test="${! empty loginMember}">
-              <button type="button" class="chatting-btn">
+              <button type="button" class="chatting-btn" id="inquireBtn">
                 <i class="fa-regular fa-comment-dots"></i>
               </button>
             </c:if>
+
 
 
             <c:if test="${product.soldoutFl eq 'Y'}">
@@ -361,4 +363,5 @@
   <!-- script -->
   <script src="/resources/js/common/common.js"></script>
   <script src="/resources/js/productDetail/productDetail.js"></script>
+  <script src="/resources/js/inquire/inquire.js"></script>
 </html>

@@ -213,7 +213,7 @@
 
       var imgOrder = 1;
     
-      
+      var memberNo = '${loginMember.memberNo}'
     </script>
 
    
@@ -228,6 +228,7 @@
     <script src="/resources/js/common/common.js"></script>
     <script src="/resources/js/myPage/myPage.js"></script>
     <script src="/resources/js/myPage/myPageOrder.js"></script>
+    <script src="/resources/js/inquire/inquire.js"></script>
 
     <c:if test="${! empty message}">
     <script>

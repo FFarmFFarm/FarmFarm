@@ -219,7 +219,7 @@
         </span>
     </div> -->
 
-
+    <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/> 
 
     <script>
         var sellerFilter = 0;
