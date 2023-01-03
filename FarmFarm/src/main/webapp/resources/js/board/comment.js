@@ -126,20 +126,25 @@ function selectCommentList(){
 
                     if(memberNo == comment.memberNo && comment.commentDelFl == 'S'){
                         commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;'+comment.commentContent;
+                        commentContent.classList.add("secret");
                         // lockIcon.innerHTML="&nbsp;"+comment.commentContent;
                         // commentContent.append(lockIcon);
                     }else if (comment.memberNo == comment.parentNo && comment.commentDelFl == 'S') {
                         commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;'+comment.commentContent;
+                        commentContent.classList.add("secret");
                         // lockIcon.innerHTML="&nbsp;"+comment.commentContent;
                         // commentContent.append(lockIcon);
                     }else if (memberNo == boardMemNo && comment.commentDelFl == 'S') {
                         commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;'+comment.commentContent;
+                        commentContent.classList.add("secret");
                         // lockIcon.innerHTML="&nbsp;"+comment.commentContent;
                         // commentContent.append(lockIcon);
                     }else if (comment.commentDelFl == 'S' && comment.memberNo != comment.parentNo) {
                         commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;비밀댓글입니다.';
+                        commentContent.classList.add("secret");
                     }else if (loginAuth == 2 && comment.commentDelFl == 'S') {
                         commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;'+comment.commentContent;
+                        commentContent.classList.add("secret");
                     } else {
                         commentContent.innerHTML = comment.commentContent;
                     }
@@ -206,7 +211,18 @@ function selectCommentList(){
                             writeTimeReply.append(commentReply, commentUpdate, commentDelete);
                         }
                         if(memberNo != comment.memberNo && comment.commentDelFl != 'Y'){
-                            writeTimeReply.append(commentReply);
+                            if(memberNo != comment.parentNo && comment.commentDelFl == 'S'){
+                                writeTimeReply.append(commentReply);
+                            }
+                            if(memberNo == comment.memberNo && boardMemNo == comment.memberNo && comment.commentDelFl == 'S'){
+                                writeTimeReply.append(commentReply);
+                            }
+                            if(memberNo != comment.memberNo && comment.commentDelFl == 'N'){
+                                writeTimeReply.append(commentReply);
+                            }
+                            if(memberNo != comment.memberNo && comment.commentDelFl == 'S'){
+                                // writeTimeReply.append(commentReply);
+                            }
                         }
                     }
                     // console.log(comment.commentParent);
@@ -355,6 +371,14 @@ function sendCo(parentNo, btn){
 
     // 원 댓글의 비밀댓글
     const secretCo = btn.parentElement.previousElementSibling.previousElementSibling.previousElementSibling;
+    if(secretCo.classList.contains("secret")){
+        checkok = 1;
+        console.log(checkok);
+    }else{
+        checkok = 0;
+        console.log(checkok);
+    }
+
     console.log(secretCo);
     if(secretCo.child != null){
         console.log("존재하지 않아");
@@ -369,8 +393,8 @@ function sendCo(parentNo, btn){
     if(commentContent.trim().length == 0){
         messageModalOpen("답글이 작성되지 않았어요. 답글을 작성해주세요.");
         // alert("답글이 작성되지 않았어요. 답글을 작성해주세요");
-        commentContent.value="";
-        commentContent.focus();
+        textarea.value="";
+        textarea.focus();
         return;
     }
 
@@ -380,7 +404,8 @@ function sendCo(parentNo, btn){
         data : {"boardNo" : boardNo,
                 "memberNo" : memberNo,
                 "commentContent" : commentContent,
-                "commentParent" : parentNo},
+                "commentParent" : parentNo,
+                "checkok" : checkok},
         type : "post",
         success : result=>{
             if(result>0){
