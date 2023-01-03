@@ -157,7 +157,7 @@ const printSellerList = (sellerList, pagination) => {
 const printSellerAuthPaper = (authPaper) => {
 
     
-    // 한줄 클릭하면 인증신청서 보이기
+    // 인증신청서 보이기
     document.getElementById("selectAuthPaperDiv").style.display = "block";
     
     // 스크롤 위치
@@ -193,9 +193,6 @@ const printSellerAuthPaper = (authPaper) => {
     img.addEventListener("click", (e) => {
         window.open(e.target.src);
     })
-
-
-
 
 
     
@@ -430,7 +427,7 @@ const selectSellerListEvent = (element, cp) => {
 
 // todo: jsp 첫 페이지에서 한 줄 클릭시 인증신청서 조회
 const authListRow = document.getElementsByClassName('auth-list-row');
-const hiddenMemberId = document.getElementsByClassName('hidden-memberId');
+// const hiddenMemberId = document.getElementsByClassName('hidden-memberId');
 const hiddenMemberNo = document.getElementsByClassName('hidden-memberNo');
 
 for(let i=0; i<authListRow.length; i++){
@@ -445,7 +442,7 @@ for(let i=0; i<authListRow.length; i++){
 
 
 
-// todo: 필터링 옵션 별로 조회 + pagination
+// todo: 필터링 옵션 별로 조회
 const watingSellerBtn = document.getElementById('watingSellerBtn'); // 인증 대기중인 회원
 const allSellerBtn = document.getElementById('allSellerBtn'); // 전체 판매자 보기
 

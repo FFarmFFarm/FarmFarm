@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="/resources/css/admin/adminNav-style.css">
     <link rel="stylesheet" href="/resources/css/admin/adminReport-style.css" />
     <link rel="stylesheet" href="/resources/css/admin/adminReportDetail-modal-style.css" />
+    <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
 
     <script src="https://kit.fontawesome.com/d4fbceca97.js" crossorigin="anonymous"></script>
 
@@ -50,7 +51,7 @@
                             <th class="report-list-type" id="thTypeFilter">
                               <span id="dropBtn">
                                 <span id="dropBtnText">유형</span>
-                                <i class="fa-solid fa-caret-down filter-icon"></i>
+                                <!-- <i class="fa-solid fa-caret-down filter-icon"></i> -->
                               </span>
                               <div class="drop-menu" id="dropMenu">
                                 <ul class="drop-ul" id="dropUl">
@@ -66,16 +67,11 @@
 
                             <th>신고 대상 아이디/게시글</th>
                             <th>신고 사유</th>
-                            <th>신고 일자</i>
-                            </th>
+                            <th>신고 일자</th>
                             <!-- <th>처리 일자</th> -->
                             <th>누적 횟수
-                              <i class="fa-solid fa-arrow-up-short-wide caret-icon sortFilter" id="up"></i> <!-- 오름차순 -->
-                              <i class="fa-solid fa-arrow-down-wide-short caret-icon sortFilter" id="down"></i> <!-- 내림차순 -->
-                              <!-- <i class="fa-solid fa-arrow-up-1-9 caret-icon"></i>
-                              <i class="fa-solid fa-arrow-down-9-1 caret-icon"></i> -->
-                              <!-- <i class="fa-solid fa-caret-up caret-icon"></i> 오름차순 -->
-                              <!-- <i class="fa-solid fa-caret-down caret-icon"></i>  -->
+                              <i class="fa-solid fa-arrow-up-short-wide caret-icon sortFilter" id="down"></i> <!-- 오름차순 -->
+                              <i class="fa-solid fa-arrow-down-wide-short caret-icon sortFilter" id="up"></i> <!-- 내림차순 -->
                             </th>
                             <!-- <th>누적 정지
                               <i class="fa-solid fa-arrow-up-short-wide caret-icon"></i>
@@ -97,7 +93,7 @@
                                   <td>일반 회원</td>
                                 </c:if>
                                 <c:if test="${report.reportType eq 'M' && report.authority == 1}">
-                                   <td>판매자</td>
+                                    <td>판매자</td>
                                 </c:if>
                                 <c:if test="${report.reportType eq 'P'}">
                                    <td>판매 게시글</td>
@@ -124,9 +120,15 @@
                               <td>${report.reportDate}</td>
                               <td>${report.reportVolume}</td>
                               
-                              <c:if test="${report.reportPenalty eq 'N'}">
+                              <c:if test="${report.reportPenalty eq 'N' || empty report.reportPenalty}">
                                 <td>접수</td>
                               </c:if>
+
+                              <input type="hidden" class="hidden-reportNo" name="hiddenReportNo" value="${report.reportNo}">
+                              <input type="hidden" class="hidden-memberNo" name="hiddenNo" value="${report.memberNo}">
+                              <input type="hidden" class="hidden-contentNo" name="hiddenContentNo" value="${report.contentNo}">
+                              <input type="hidden" class="hidden-reportType" name="hiddenReportType" value="${report.reportType}">
+
                           </tr>
                         </c:forEach>
                       </tbody>
@@ -178,32 +180,32 @@
         <table class="report-modal-table">
           <tbody id="tbodyDetail">
             <!-- <tr>
-              <td class="detail-bold">신고 번호</td>
-              <td>34</td>
-              <td class="detail-bold">처리 상태</td>
+              <td class="detail-bold left">신고 번호</td>
+              <td class="left-content">34</td>
+              <td class="detail-bold right">처리 상태</td>
               <td>접수</td>
             </tr>
             <tr>
-              <td class="detail-bold">유형</td>
-              <td>댓글</td>
-              <td class="detail-bold">누적 신고 횟수</td>
+              <td class="detail-bold left">유형</td>
+              <td class="left-content">댓글</td>
+              <td class="detail-bold right">누적 신고 횟수</td>
               <td>10</td>
             </tr>
             <tr>
-              <td class="detail-bold">신고 일자</td>
-              <td>2022-12-19 15:06:55</td>
+              <td class="detail-bold left">신고 일자</td>
+              <td class="left-content">2022-12-19 15:06:55</td>
             </tr>
             <tr>
-              <td class="detail-bold">신고 대상(아이디/게시글)</td>
+              <td class="detail-bold left">신고 대상(아이디/게시글)</td>
               <td colspan="4">[팜팜자체상품]오늘만이가격최대특가...</td>
             </tr>
             <tr></tr>
             <tr>
-              <td class="detail-bold">신고 사유</td>
+              <td class="detail-bold left">신고 사유</td>
               <td>댓글 도배</td>
             </tr>
             <tr>
-              <td class="detail-bold">내용</td>
+              <td class="detail-bold left">내용</td>
             </tr>
             <tr>
               <td colspan="4" rowspan="8">
@@ -226,8 +228,10 @@
       </div>
     </div>  
 
+    <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/> 
+
     <script>
-      var typeFilter = 0;
+      // var typeFilter = 0;
       var sortFilter = 'default';
       var cp = 1;
     </script>
@@ -237,6 +241,7 @@
 
     <script src="/resources/js/admin/adminReport.js"></script> 
     <script src="/resources/js/admin/adminModal.js"></script> 
+    <script src="/resources/js/common/common.js"></script> 
 
 </body>
 </html>

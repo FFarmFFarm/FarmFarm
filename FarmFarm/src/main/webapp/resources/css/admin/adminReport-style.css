@@ -177,9 +177,9 @@ main{
 
 
 /* 유형 왼쪽에 간격 */
-#dropBtnText{
+/* #dropBtnText{
     padding-left: 10px;
-}
+} */
 
 #thTypeFilter{
     position: relative;
@@ -287,69 +287,6 @@ main{
     height: 100%;
     color: rgb(129, 129, 129);
     cursor: pointer;
-}
-
-
-
-
-/* 버튼 */
-.report-button-div{
-    width: 100%;
-    height: 50px;
-    padding-right: 30px;
-    display: flex;
-    justify-content: flex-end;
-}
-
-
-#accountLeaveBtn{
-    width: 100px;
-    height: 30px;
-    border-radius: 5px;
-    color: white;
-    border: none;
-    background-color: #9E9E9E;
-    margin-right: 20px;
-}
-
-
-#accountBannedBtn{
-    width: 100px;
-    height: 30px;
-    border-radius: 5px;
-    color: white;
-    border: none;
-    background-color: #E3A914;
-    margin-right: 20px;
-}
-
-#accountKickOutBtn{
-    width: 100px;
-    height: 30px;
-    border-radius: 5px;    
-    color: white;
-    border: none;
-    background-color: #C43819;
-}
-
-
-#contentLeaveBtn{
-    width: 100px;
-    height: 30px;
-    border-radius: 5px;
-    color: white;
-    border: none;
-    background-color: #9E9E9E;
-    margin-right: 20px;
-}
-
-#contentDeleteBtn{
-    width: 100px;
-    height: 30px;
-    border-radius: 5px;    
-    color: white;
-    border: none;
-    background-color: #C43819;
 }
 
 

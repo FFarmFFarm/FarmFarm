@@ -110,7 +110,6 @@
                                         </c:if> 
 
                                         <%-- 상태 --%>
-                                        <%-- <c:if test="${not empty report.reportPenalty && not empty member.memberDelFl}"> --%>
                                         <c:if test="${not empty member.memberDelFl}">
                                             <c:if test="${member.memberDelFl eq 'N'}">
                                                 <c:if test="${member.reportPenalty eq 'N' || empty member.reportPenalty || member.reportPenalty eq 'N'}">
@@ -125,7 +124,8 @@
                                             </c:if>
                                         </c:if> 
 
-                                        <input type="hidden" class="hidden-memberId" name="hiddenId" id="hiddenMemberId" value="${member.memberId}">
+                                        <!-- <input type="hidden" class="hidden-memberId" name="hiddenId" id="hiddenMemberId" value="${member.memberId}"> -->
+                                        <input type="hidden" class="hidden-memberNo" name="hiddenNo" id="hiddenMemberNo" value="${member.memberNo}">
                                     </tr>
                                     
                                 </c:forEach>
