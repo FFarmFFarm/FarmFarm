@@ -129,3 +129,5 @@ const replaceSpecialSymbols = (text) => {
 const scrollToTag = (tagName) => {
   tagName.scrollIntoView({ behavior: 'smooth' });
 };
+
+

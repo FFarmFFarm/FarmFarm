@@ -42,5 +42,11 @@ public interface CartService {
 	 */
 	int deleteCart(Map<String, Object> map);
 
+	/** 배송지 정보 가져오기
+	 * @param memberNo
+	 * @return addressList
+	 */
+	Object selectAddressList(int memberNo);
+
 
 }
