@@ -28,187 +28,37 @@
       <%-- 배송지 선택 --%>
       <div class="delivery-address-area">
 
-        <div class="one-address">
-          <div class="check-address">
-            <label>
-              <i class="fa-solid fa-circle-check" name="checkIcon"></i>
-              <input type="checkbox" checked>
-            </label>
-          </div>
-          <div class="address-area">
-            <span class="selected-address">기본 배송지</span>
-            <p class="address-detail">서울시 노원구 한글비석로 46가길 16</p>
-            <div class="member-info">
-              <span>정현재</span>
-              <span class="bar"></span>
-              <span>010-5441-4230</span>
+        <c:forEach var="address" items="${addressList}">
+          <div class="one-address">
+            <div class="check-address">
+              <label>
+                <c:if test="${address.defaultFl == 'Y'}">
+                  <i class="fa-solid fa-circle-check" name="checkIcon"></i>
+                  <input type="checkbox" value="${address.addressNo}" checked>
+                </c:if>
+                <c:if test="${address.defaultFl == 'N'}">
+                  <i class="fa-regular fa-circle-check" name="unCheckIcon"></i>
+                  <input type="checkbox" value="${address.addressNo}">
+                </c:if>
+              </label>
+            </div>
+            <div class="address-area">
+              <c:if test="${address.defaultFl == 'Y'}">
+                <span class="selected-address">기본 배송지</span>
+              </c:if>
+              <p class="address-detail">${address.memberAddress}</p>
+              <div class="member-info">
+                <span>${address.memberName}</span>
+                <span class="bar"></span>
+                <span>${address.to}</span>
+              </div>
+            </div>
+            <div class="edit-address">
+              <button class="fa-regular fa-pen-to-square" name="editBtn"></button>
             </div>
           </div>
-          <div class="edit-address">
-            <button class="fa-regular fa-pen-to-square" name="editBtn"></button>
-          </div>
-        </div>
+        </c:forEach>
 
-        <div class="one-address">
-          <div class="check-address">
-            <label>
-              <i class="fa-solid fa-circle-check" name="checkIcon"></i>
-              <input type="checkbox" checked>
-            </label>
-          </div>
-          <div class="address-area">
-            <p class="address-detail">서울시 노원구 한글비석로 46가길 16</p>
-            <div class="member-info">
-              <span>정현재</span>
-              <span class="bar"></span>
-              <span>010-5441-4230</span>
-            </div>
-          </div>
-          <div class="edit-address">
-            <button class="fa-regular fa-pen-to-square" name="editBtn"></button>
-          </div>
-        </div>
-
-        <div class="one-address">
-          <div class="check-address">
-            <label>
-              <i class="fa-solid fa-circle-check" name="checkIcon"></i>
-              <input type="checkbox" checked>
-            </label>
-          </div>
-          <div class="address-area">
-            <span class="selected-address">기본 배송지</span>
-            <p class="address-detail">서울시 노원구 한글비석로 46가길 16</p>
-            <div class="member-info">
-              <span>정현재</span>
-              <span class="bar"></span>
-              <span>010-5441-4230</span>
-            </div>
-          </div>
-          <div class="edit-address">
-            <button class="fa-regular fa-pen-to-square" name="editBtn"></button>
-          </div>
-        </div>
-        <div class="one-address">
-          <div class="check-address">
-            <label>
-              <i class="fa-solid fa-circle-check" name="checkIcon"></i>
-              <input type="checkbox" checked>
-            </label>
-          </div>
-          <div class="address-area">
-            <span class="selected-address">기본 배송지</span>
-            <p class="address-detail">서울시 노원구 한글비석로 46가길 16</p>
-            <div class="member-info">
-              <span>정현재</span>
-              <span class="bar"></span>
-              <span>010-5441-4230</span>
-            </div>
-          </div>
-          <div class="edit-address">
-            <button class="fa-regular fa-pen-to-square" name="editBtn"></button>
-          </div>
-        </div>
-        <div class="one-address">
-          <div class="check-address">
-            <label>
-              <i class="fa-solid fa-circle-check" name="checkIcon"></i>
-              <input type="checkbox" checked>
-            </label>
-          </div>
-          <div class="address-area">
-            <span class="selected-address">기본 배송지</span>
-            <p class="address-detail">서울시 노원구 한글비석로 46가길 16</p>
-            <div class="member-info">
-              <span>정현재</span>
-              <span class="bar"></span>
-              <span>010-5441-4230</span>
-            </div>
-          </div>
-          <div class="edit-address">
-            <button class="fa-regular fa-pen-to-square" name="editBtn"></button>
-          </div>
-        </div>
-        <div class="one-address">
-          <div class="check-address">
-            <label>
-              <i class="fa-solid fa-circle-check" name="checkIcon"></i>
-              <input type="checkbox" checked>
-            </label>
-          </div>
-          <div class="address-area">
-            <span class="selected-address">기본 배송지</span>
-            <p class="address-detail">서울시 노원구 한글비석로 46가길 16</p>
-            <div class="member-info">
-              <span>정현재</span>
-              <span class="bar"></span>
-              <span>010-5441-4230</span>
-            </div>
-          </div>
-          <div class="edit-address">
-            <button class="fa-regular fa-pen-to-square" name="editBtn"></button>
-          </div>
-        </div>
-        <div class="one-address">
-          <div class="check-address">
-            <label>
-              <i class="fa-solid fa-circle-check" name="checkIcon"></i>
-              <input type="checkbox" checked>
-            </label>
-          </div>
-          <div class="address-area">
-            <span class="selected-address">기본 배송지</span>
-            <p class="address-detail">서울시 노원구 한글비석로 46가길 16</p>
-            <div class="member-info">
-              <span>정현재</span>
-              <span class="bar"></span>
-              <span>010-5441-4230</span>
-            </div>
-          </div>
-          <div class="edit-address">
-            <button class="fa-regular fa-pen-to-square" name="editBtn"></button>
-          </div>
-        </div>
-        <div class="one-address">
-          <div class="check-address">
-            <label>
-              <i class="fa-solid fa-circle-check" name="checkIcon"></i>
-              <input type="checkbox" checked>
-            </label>
-          </div>
-          <div class="address-area">
-            <span class="selected-address">기본 배송지</span>
-            <p class="address-detail">서울시 노원구 한글비석로 46가길 16</p>
-            <div class="member-info">
-              <span>정현재</span>
-              <span class="bar"></span>
-              <span>010-5441-4230</span>
-            </div>
-          </div>
-          <div class="edit-address">
-            <button class="fa-regular fa-pen-to-square" name="editBtn"></button>
-          </div>
-        </div>
-        <div class="one-address">
-          <div class="check-address">
-            <label>
-              <i class="fa-solid fa-circle-check" name="checkIcon"></i>
-              <input type="checkbox" checked>
-            </label>
-          </div>
-          <div class="address-area">
-            <span class="selected-address">기본 배송지</span>
-            <p class="address-detail">서울시 노원구 한글비석로 46가길 16</p>
-            <div class="member-info">
-              <span>정현재</span>
-              <span class="bar"></span>
-              <span>010-5441-4230</span>
-            </div>
-          </div>
-          <div class="edit-address">
-            <button class="fa-regular fa-pen-to-square" name="editBtn"></button>
-          </div>
-        </div>
       </div>
 
       <%-- 배송지 추가 --%>

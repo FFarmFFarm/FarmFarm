@@ -119,8 +119,12 @@ public class CartController {
 		
 	}
 	
+	// 배송지 정보 가져오기
 	@GetMapping("/address")
-	public String addressList() {
+	public String addressList(Model model,
+		@SessionAttribute("loginMember") Member loginMember) {
+		
+		model.addAttribute("addressList", service.selectAddressList(loginMember.getMemberNo()));
 		
 		return "order/deliveryInfo";
 	}

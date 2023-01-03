@@ -5,12 +5,16 @@ body{
   overflow-y:auto;
 }
 
+i{
+  cursor: pointer;
+}
+
 button{
   background-color: var(--background-color);
 }
 
 .address-info{
-  padding: 135px 43px 60px 30px;
+  padding: 135px 30px 60px;
   letter-spacing: -0.5px;
 }
 
@@ -86,6 +90,15 @@ button{
   /* margin-right: 12px; */
   font-size: 24px;
   color: var(--point-color);
+}
+
+[name=unCheckIcon]{
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  /* margin-right: 12px; */
+  font-size: 24px;
+  color: #ddd;
 }
 
 .address-area{
