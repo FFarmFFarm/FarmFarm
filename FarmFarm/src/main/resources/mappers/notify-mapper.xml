@@ -13,7 +13,7 @@
 	      <result property="notifyDate" column="NOTIFY_DATE" />
 	      <result property="memberNo" column="MEMBER_NO" />
 	      <result property="quickLink" column="QUICK_LINK" />
-	      <result property="readFl" column="READ_FL" />
+	      <result property="notifyStatus" column="NOTIFY_STATUS" />
 	 </resultMap>
 	 
 	 <!-- 알림을 DB에 저장 -->
@@ -34,6 +34,7 @@
 	 	       (SELECT NOTIFY_TITLE FROM NOTIFY_TYPE ALAT WHERE ALAT.NOTIFY_TYPE_NO = ALA.NOTIFY_TYPE_NO) AS NOTIFY_TITLE 
 	 	FROM NOTIFY ALA
 	 	WHERE MEMBER_NO = #{memberNo}
+	 	AND NOTIFY_STATUS != -1
 	 	ORDER BY NOTIFY_NO DESC)
 	 	<![CDATA[
 		 	WHERE ROWNUM < 7
@@ -48,7 +49,18 @@
 	 	       (SELECT NOTIFY_TITLE FROM NOTIFY_TYPE ALAT WHERE ALAT.NOTIFY_TYPE_NO = ALA.NOTIFY_TYPE_NO) AS NOTIFY_TITLE 
 	 	FROM NOTIFY ALA
 	 	WHERE MEMBER_NO = #{memberNo}
+	 	AND NOTIFY_STATUS != -1
 	 	ORDER BY NOTIFY_NO DESC
 	 </select>
+	 
+	 <!-- 내 알림 업데이트 -->
+	<update id="updateNotify">
+		UPDATE NOTIFY SET NOTIFY_STATUS = 0 WHERE NOTIFY_NO = #{notifyNo}
+	</update>
+	
+	 <!-- 내 알림 삭제 -->
+	<update id="deleteNotify">
+		DELETE FROM NOTIFY WHERE NOTIFY_NO = #{notifyNo}
+	</update>
 	
 </mapper>

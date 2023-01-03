@@ -3,6 +3,8 @@ package edu.kh.farmfarm.notify.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.JsonElement;
+
 import edu.kh.farmfarm.notify.model.vo.Notify;
 
 public interface NotifyService {
@@ -32,4 +34,18 @@ public interface NotifyService {
 	 * @return
 	 */
 	List<Notify> selectNotifyList(int memberNo);
+
+	/** 알림 읽음 처리(update)
+	 * @param notifyNo
+	 * @return
+	 */
+	int updateNotify(int notifyNo);
+
+	/** 알림 삭제 처리(delete)
+	 * @param notifyNo
+	 * @return
+	 */
+	int deleteNotify(int notifyNo);
+	
+	
 }	

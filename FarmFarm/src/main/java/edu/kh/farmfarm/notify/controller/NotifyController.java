@@ -99,4 +99,18 @@ public class NotifyController {
 		
 		return new Gson().toJson(notifyMap);
 	}
+	
+	// 알림 읽음 처리(update)
+	@PostMapping("/notify/update")
+	@ResponseBody
+	public String updateNotify(int notifyNo) {
+		return new Gson().toJson(service.updateNotify(notifyNo));
+	}
+	
+	// 알림 삭제 처리(delete)
+	@PostMapping("/notify/delete")
+	@ResponseBody
+	public String deleteNotify(int notifyNo) {
+		return new Gson().toJson(service.deleteNotify(notifyNo));
+	}
 }
