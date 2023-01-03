@@ -201,7 +201,7 @@
       </div>
 
 
-      <h3 class="product-title">지금 가장 핫한 상품</h3>
+      <h3 class="product-title">BEST 상품</h3>
       <div class="product-wrap">
         <a href="/">
             <div class="product">
@@ -261,7 +261,7 @@
         <div class="cooking-a">
           <a href="/board/${1}">
             <div class="cooking">
-              <p>와글와글로 가기 </p>
+              <p>와글와글로 이동 </p>
               <i class="fa-solid fa-arrow-right cooking-arrow"></i>
             </div>
           </a>
