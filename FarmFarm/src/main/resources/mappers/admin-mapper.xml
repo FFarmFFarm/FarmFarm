@@ -212,7 +212,7 @@
 				WHERE MEMBER_ID != 'admin'
 				ORDER BY MEMBER_NO)
 			WHERE RANKING = 1
-			AND MEMBER_ID = #{hiddenId}
+			AND MEMBER_NO = #{hiddenNo}
 	</select>
 	
 	
@@ -229,19 +229,10 @@
 				LEFT JOIN REPORT ON (MEMBER_NO = REPORT_TARGET_NO)
 				WHERE MEMBER_ID != 'admin'
 				ORDER BY MEMBER_NO)
-			WHERE MEMBER_ID = #{hiddenId}
+			WHERE MEMBER_NO = #{hiddenNo}
 	</select>
 	
 	
-	<!-- 강제 탈퇴 -->	
-	<update id="memberKickout">
-		UPDATE MEMBER SET
-		MEMBER_DEL_FL = 'Y'
-		WHERE MEMBER_ID = #{hiddenId}
-	</update>
-
-
-
 
 	<!-- 판매자, 인증대기 수 -->
 	<select id="sellerListCount" resultType="_int">
@@ -249,10 +240,10 @@
 		FROM "MEMBER" 
 		LEFT JOIN ADDRESS USING(MEMBER_NO)
 		LEFT JOIN "SELLER" USING(MEMBER_NO)
-		<if test="sellerFilter == 0">
+		<if test='sellerFilter == 0'>
 			WHERE AUTHORITY = 3
 		</if>
-		<if test="sellerFilter == 1">
+		<if test='sellerFilter == 1'>
 			WHERE (AUTHORITY = 1 OR AUTHORITY = 3)
 		</if>
 	</select>
@@ -265,10 +256,10 @@
 		FROM "MEMBER" 
 		LEFT JOIN ADDRESS USING(MEMBER_NO)
 		LEFT JOIN "SELLER" USING(MEMBER_NO)
-		<if test="sellerFilter == 0">
+		<if test='sellerFilter == 0'>
 			WHERE AUTHORITY = 3
 		</if>
-		<if test="sellerFilter == 1">
+		<if test='sellerFilter == 1'>
 			WHERE (AUTHORITY = 1 OR AUTHORITY = 3)
 		</if>
 	</select>
@@ -328,14 +319,8 @@
 				LEFT JOIN BOARD ON(REPORT_TARGET_NO = BOARD_NO)
 				LEFT JOIN MEMBER M ON(REPORT_TARGET_NO = M.MEMBER_NO)
 				LEFT JOIN POST ON(REPORT_TARGET_NO = POST_NO))
-		WHERE REPORT_PENALTY = 'N'
+		WHERE (REPORT_PENALTY = 'N' OR REPORT_PENALTY IS NULL)
 		AND RANKING = 1
-		<if test="sortFilter eq 'up'">
-			ORDER BY REPORT_VOLUME ASC
-		</if>
-		<if test="sortFilter eq 'donw'">
-			ORDER BY REPORT_VOLUME DESC
-		</if>
 	</select>
 	
 	
@@ -362,16 +347,20 @@
 				LEFT JOIN BOARD ON(REPORT_TARGET_NO = BOARD_NO)
 				LEFT JOIN MEMBER M ON(REPORT_TARGET_NO = M.MEMBER_NO)
 				LEFT JOIN POST ON(REPORT_TARGET_NO = POST_NO))
-		WHERE REPORT_PENALTY = 'N'
+		WHERE (REPORT_PENALTY = 'N' OR REPORT_PENALTY IS NULL)
 		AND RANKING = 1
-		<if test="sortFiler eq 'default'">
-			ORDER BY REPORT_NO
-		</if>
-		<if test="sortFilter eq 'up'">
-			ORDER BY REPORT_VOLUME ASC
-		</if>
-		<if test="sortFilter eq 'donw'">
-			ORDER BY REPORT_VOLUME DESC
+		<if test='sortFilter != null and sortFilter != ""'>
+			<choose>
+				<when test='sortFilter == "up"'>
+					ORDER BY REPORT_VOLUME ASC
+				</when>
+				<when test='sortFilter == "down"'>
+					ORDER BY REPORT_VOLUME DESC
+				</when>
+				<when test='sortFilter == "default"'>
+						ORDER BY REPORT_NO
+				</when>
+			</choose>
 		</if>
 	</select>
 
@@ -399,12 +388,49 @@
 				LEFT JOIN BOARD ON(REPORT_TARGET_NO = BOARD_NO)
 				LEFT JOIN MEMBER M ON(REPORT_TARGET_NO = M.MEMBER_NO)
 				LEFT JOIN POST ON(REPORT_TARGET_NO = POST_NO))
-		WHERE REPORT_PENALTY = 'N'
+		WHERE (REPORT_PENALTY = 'N' OR REPORT_PENALTY IS NULL)
 		AND RANKING = 1
-		AND REPORT_NO = #{hiddenNo}
+		AND REPORT_NO = #{hiddenReportNo}
 	</select>
 
 
+
+
+
+	<!-- 강제 탈퇴 -->	
+	<update id="memberKickout">
+		UPDATE MEMBER SET
+		MEMBER_DEL_FL = 'Y'
+		WHERE MEMBER_NO = #{hiddenNo}
+	</update>
+	
+	
+	<!-- 계정 : 신고 상태 변경, 신고 처리일자 추가 -->
+	<update id = "changeReportStatus">
+		UPDATE REPORT SET
+		REPORT_PENALTY = 'Y',
+		PROCESS_DATE = SYSDATE
+		WHERE REPORT_TYPE = 'M'
+		AND REPORT_TARGET_NO = #{hiddenNo}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 </mapper>

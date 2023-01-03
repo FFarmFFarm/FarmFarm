@@ -177,9 +177,9 @@ main{
 
 
 /* 유형 왼쪽에 간격 */
-#dropBtnText{
+/* #dropBtnText{
     padding-left: 10px;
-}
+} */
 
 #thTypeFilter{
     position: relative;

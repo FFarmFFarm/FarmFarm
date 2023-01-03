@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="/resources/css/admin/adminNav-style.css">
     <link rel="stylesheet" href="/resources/css/admin/adminReport-style.css" />
     <link rel="stylesheet" href="/resources/css/admin/adminReportDetail-modal-style.css" />
+    <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
 
     <script src="https://kit.fontawesome.com/d4fbceca97.js" crossorigin="anonymous"></script>
 
@@ -50,7 +51,7 @@
                             <th class="report-list-type" id="thTypeFilter">
                               <span id="dropBtn">
                                 <span id="dropBtnText">유형</span>
-                                <i class="fa-solid fa-caret-down filter-icon"></i>
+                                <!-- <i class="fa-solid fa-caret-down filter-icon"></i> -->
                               </span>
                               <div class="drop-menu" id="dropMenu">
                                 <ul class="drop-ul" id="dropUl">
@@ -66,16 +67,11 @@
 
                             <th>신고 대상 아이디/게시글</th>
                             <th>신고 사유</th>
-                            <th>신고 일자</i>
-                            </th>
+                            <th>신고 일자</th>
                             <!-- <th>처리 일자</th> -->
                             <th>누적 횟수
-                              <i class="fa-solid fa-arrow-up-short-wide caret-icon sortFilter" id="up"></i> <!-- 오름차순 -->
-                              <i class="fa-solid fa-arrow-down-wide-short caret-icon sortFilter" id="down"></i> <!-- 내림차순 -->
-                              <!-- <i class="fa-solid fa-arrow-up-1-9 caret-icon"></i>
-                              <i class="fa-solid fa-arrow-down-9-1 caret-icon"></i> -->
-                              <!-- <i class="fa-solid fa-caret-up caret-icon"></i> 오름차순 -->
-                              <!-- <i class="fa-solid fa-caret-down caret-icon"></i>  -->
+                              <i class="fa-solid fa-arrow-up-short-wide caret-icon sortFilter" id="down"></i> <!-- 오름차순 -->
+                              <i class="fa-solid fa-arrow-down-wide-short caret-icon sortFilter" id="up"></i> <!-- 내림차순 -->
                             </th>
                             <!-- <th>누적 정지
                               <i class="fa-solid fa-arrow-up-short-wide caret-icon"></i>
@@ -97,7 +93,7 @@
                                   <td>일반 회원</td>
                                 </c:if>
                                 <c:if test="${report.reportType eq 'M' && report.authority == 1}">
-                                   <td>판매자</td>
+                                    <td>판매자</td>
                                 </c:if>
                                 <c:if test="${report.reportType eq 'P'}">
                                    <td>판매 게시글</td>
@@ -124,11 +120,12 @@
                               <td>${report.reportDate}</td>
                               <td>${report.reportVolume}</td>
                               
-                              <c:if test="${report.reportPenalty eq 'N'}">
+                              <c:if test="${report.reportPenalty eq 'N' || empty report.reportPenalty}">
                                 <td>접수</td>
                               </c:if>
 
-                              <input type="hidden" class="hidden-reportNo" name="hiddenNo" value="${report.reportNo}">
+                              <input type="hidden" class="hidden-reportNo" name="hiddenReportNo" value="${report.reportNo}">
+                              <input type="hidden" class="hidden-memberNo" name="hiddenNo" value="${report.memberNo}">
                           </tr>
                         </c:forEach>
                       </tbody>
@@ -228,8 +225,10 @@
       </div>
     </div>  
 
+    <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/> 
+
     <script>
-      var typeFilter = 0;
+      // var typeFilter = 0;
       var sortFilter = 'default';
       var cp = 1;
     </script>
@@ -239,6 +238,7 @@
 
     <script src="/resources/js/admin/adminReport.js"></script> 
     <script src="/resources/js/admin/adminModal.js"></script> 
+    <script src="/resources/js/common/common.js"></script> 
 
 </body>
 </html>

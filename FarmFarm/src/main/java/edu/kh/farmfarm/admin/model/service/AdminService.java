@@ -33,17 +33,9 @@ public interface AdminService {
 	 * @param inputMemberId
 	 * @return map
 	 */
-	Map<String, Object> selectMemberDetail(String hiddenId);
+	Map<String, Object> selectMemberDetail(int hiddenNo);
 
 	
-	
-	/** 회원 강제 탈퇴
-	 * @param inputMemberId
-	 * @return result
-	 */
-	int memberKickout(String hiddenId);
-
-
 	
 	
 	
@@ -91,7 +83,7 @@ public interface AdminService {
 	 * @param hiddenNo
 	 * @return newReportDetail
 	 */
-	Admin selectNewReportDetail(int hiddenNo);
+	Admin selectNewReportDetail(int hiddenReportNo);
 
 
 

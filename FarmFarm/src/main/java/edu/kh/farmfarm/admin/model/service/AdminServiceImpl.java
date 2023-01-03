@@ -63,13 +63,13 @@ public class AdminServiceImpl implements AdminService{
 	
 	// 회원 상세 조회
 	@Override
-	public Map<String, Object> selectMemberDetail(String hiddenId) {
+	public Map<String, Object> selectMemberDetail(int hiddenNo) {
 		
 		// 회원 상세 조회(회원 정보)
-		Admin memberDetailInfo = dao.selectMemberDetail(hiddenId);
+		Admin memberDetailInfo = dao.selectMemberDetail(hiddenNo);
 		
 		// 회원 상세 조회(계정상태 변경 내역)
-		List<Admin> memberHistoryList = dao.selectMemberHistory(hiddenId);
+		List<Admin> memberHistoryList = dao.selectMemberHistory(hiddenNo);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("memberDetailInfo", memberDetailInfo);
@@ -80,12 +80,7 @@ public class AdminServiceImpl implements AdminService{
 	
 	
 			
-	// 회원 강제 탈퇴
-	@Override
-	public int memberKickout(String hiddenId) {
-		return dao.memberKickout(hiddenId);
-	}
-	
+
 	
 	
 	// 판매자 인증 조회
@@ -176,8 +171,8 @@ public class AdminServiceImpl implements AdminService{
 	
 	// 미처리 신고 상세 조회
 	@Override
-	public Admin selectNewReportDetail(int hiddenNo) {
-		return dao.selectNewReportDetail(hiddenNo);
+	public Admin selectNewReportDetail(int hiddenReportNo) {
+		return dao.selectNewReportDetail(hiddenReportNo);
 	}
 	
 	

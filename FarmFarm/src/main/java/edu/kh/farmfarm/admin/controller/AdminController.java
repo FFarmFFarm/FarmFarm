@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 
@@ -75,13 +74,12 @@ public class AdminController {
 									Model model,
 									@RequestParam(value="cp", required=false, defaultValue="1") int cp,
 									@RequestParam(value="authFilter", required=false, defaultValue="0") String authFilter,
-									@RequestParam(value="statFilter", required=false, defaultValue="0") String statFilter,
-									@RequestParam(value="hiddenMemberId", required=false) String hiddenMemberId) {
+									@RequestParam(value="statFilter", required=false, defaultValue="0") String statFilter
+									) {
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("authFilter", authFilter);
 		paramMap.put("statFilter", statFilter);
-		paramMap.put("memberId", hiddenMemberId);
 		
 		// 관리자인지 확인 (관리자면 result==1)
 		int result = service.checkAdmin();
@@ -146,7 +144,7 @@ public class AdminController {
 	@GetMapping("/admin/selectMemberDetail")
 	@ResponseBody
 	public String selectMemberDetail(@SessionAttribute(value="loginMember") Member loginMember,
-										String hiddenId) {
+										int hiddenNo) {
 		// 관리자인지 확인 (관리자면 result==1)
 		int result = service.checkAdmin();
 		
@@ -155,7 +153,7 @@ public class AdminController {
 		if(result == 1 && loginMember != null) {
 
 			// 전체 회원 정보 조회 + 페이지네이션 + 정렬
-			map = service.selectMemberDetail(hiddenId);
+			map = service.selectMemberDetail(hiddenNo);
 	
 		} else {
 			System.out.println("관리자만 접근 가능합니다.");
@@ -168,22 +166,6 @@ public class AdminController {
 	
 	
 
-	
-	// 회원 강제 탈퇴
-	@PostMapping("/admin/kickout")
-	@ResponseBody
-	public int memberKickout(@SessionAttribute(value="loginMember") Member loginMember, String hiddenId) {
-		
-		// 관리자인지 확인
-		int result = service.checkAdmin();
-		
-		if(result == 1  && loginMember != null) {
-			
-			result = service.memberKickout(hiddenId);
-		}
-		
-		return result;
-	}
 	
 	
 	
@@ -329,7 +311,7 @@ public class AdminController {
 	@GetMapping("/admin/report")
 	public String adminReportPage(@SessionAttribute(value = "loginMember") Member loginMember,
 									@RequestParam(value="cp", required=false, defaultValue="1") int cp,	
-									@RequestParam(value = "up", required=false, defaultValue = "down") String sortFilter,
+									@RequestParam(value = "sortFilter", required=false, defaultValue = "default") String sortFilter,
 									Model model) {
 		
 		// 관리자인지 확인 (관리자면 result==1)
@@ -359,8 +341,9 @@ public class AdminController {
 	@ResponseBody
 	public String adminReportPage(@SessionAttribute(value = "loginMember") Member loginMember,
 									@RequestParam(value="cp", required=false, defaultValue="1") int cp,	
-									@RequestParam(value = "up", required=false, defaultValue = "default") String sortFilter) 
+									@RequestParam(value = "sortFilter", required=false, defaultValue = "default") String sortFilter) 
 									{
+		
 		
 		// 관리자인지 확인 (관리자면 result==1)
 		int result = service.checkAdmin();
@@ -371,7 +354,7 @@ public class AdminController {
 
 			// 미처리 신고 조회 + 페이지네이션 + 정렬
 			map = service.selectNewReport(sortFilter, cp);
-	
+			
 		} else {
 			System.out.println("관리자만 접근 가능합니다.");
 		}
@@ -385,7 +368,7 @@ public class AdminController {
 	// 미처리 신고 상세 조회(모달창 내부 내용)
 	@PostMapping("/admin/selectNewReportDetail")
 	@ResponseBody
-	public Admin adminNeweportDetail(@SessionAttribute(value="loginMember") Member loginMember, int hiddenNo) {
+	public Admin adminNeweportDetail(@SessionAttribute(value="loginMember") Member loginMember, int hiddenReportNo) {
 		
 		// 관리자인지 확인 (관리자면 result==1)
 		int result = service.checkAdmin();
@@ -395,7 +378,7 @@ public class AdminController {
 		if(result == 1 && loginMember != null) {
 
 			// 미처리 신고 상세 조회
-			newReportDetail = service.selectNewReportDetail(hiddenNo);
+			newReportDetail = service.selectNewReportDetail(hiddenReportNo);
 	
 		} else {
 			System.out.println("관리자만 접근 가능합니다.");
@@ -405,6 +388,10 @@ public class AdminController {
 	}
 	
 
+	
+	// 접수된 신고 처리는 ReportController에서 해결  -- REPORT테이블
+
+	
 	
 	
 	

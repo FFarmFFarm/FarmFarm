@@ -442,7 +442,7 @@ for(let i=0; i<authListRow.length; i++){
 
 
 
-// todo: 필터링 옵션 별로 조회 + pagination
+// todo: 필터링 옵션 별로 조회
 const watingSellerBtn = document.getElementById('watingSellerBtn'); // 인증 대기중인 회원
 const allSellerBtn = document.getElementById('allSellerBtn'); // 전체 판매자 보기
 

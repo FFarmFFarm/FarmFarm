@@ -72,6 +72,20 @@
 }
 
 
+/* 누적 신고 기록 보기 */
+/* .span-count{
+    font-size: var(--small-font-size);
+    color: #C43819;
+    text-decoration: underline;
+    border: none;
+    margin-left: 85px;
+} */
+
+/* 누적 신고 옆에 아래 화살표 아이콘 */
+.filter-icon{
+    margin-left: 5px;
+}
+
 
 
 /* 버튼 */

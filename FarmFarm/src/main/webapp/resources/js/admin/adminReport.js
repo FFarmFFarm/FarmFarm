@@ -6,21 +6,23 @@
 페이지네이션 박스 클릭이벤트 추가 : selectNewReportListEvent(element, cp)
 */
 
-
 var numCount = 0;
-var hiddenNo = 0;  // reportNo
+var hiddenReportNo = 0;  // reportNo
+var hiddenMemberNo = 0; // memberNo / reportType = "M"일떄 reportTargetNo
 
 
 //optimize: 미처리 신고 조회 함수 ajax
 const selectNewReportList = (cp) => {
+
     $.ajax({
         url: "/admin/selectNewReportList",
         data: {"cp": cp, "sortFilter": sortFilter},
         dataType: "JSON",
         type: "GET",
         success: (map) => {
-            printNewReportList(map.newReportList, map.pagination);
+            printNewReportList(map.newReportList, map.pagination, map.reportListCount);
             console.log("미처리 신고 내역 조회 성공");
+            console.log(sortFilter);
         },
         error: () => {
             console.log("미처리 신고 내역 조회 실패");
@@ -31,10 +33,10 @@ const selectNewReportList = (cp) => {
 
 
 //optimize: 미처리 신고 상세 모달창 함수 ajax
-const selectNewReportDetail = (hiddenNo) => {
+const selectNewReportDetail = (hiddenReportNo) => {
     $.ajax({
         url: "/admin/selectNewReportDetail",
-        data: {"hiddenNo": hiddenNo},
+        data: {"hiddenReportNo": hiddenReportNo},
         type: "POST",
         success: (newReportDetail) => {
 
@@ -59,11 +61,14 @@ const selectNewReportDetail = (hiddenNo) => {
 
 
 // optimize: 미처리 신고 내역 출력 함수 
-const printNewReportList = (newReportList, pagination) => {
+const printNewReportList = (newReportList, pagination, reportListCount) => {
 
     // 출력 전 내용 지우기
     //fixme: 확인해보고 내용 지우기!
-    const reportCount = document.getElementById("reportCount").innerText;
+    const reportCount = document.getElementById("reportCount");
+    reportCount.innerText = "";
+    reportCount.innerText = "총 " + reportListCount + "건";
+
 
     const tbody = document.getElementById("tbody");
     tbody.innerText = "";
@@ -151,7 +156,7 @@ const printNewReportList = (newReportList, pagination) => {
 
         // 처리 상태 
         const td7 = document.createElement('td');
-        if(report.reportPenalty == 'N'){
+        if(report.reportPenalty == 'N' || report.reportPenalty == null){
             td7.innerText = "접수";
         }
 
@@ -161,8 +166,13 @@ const printNewReportList = (newReportList, pagination) => {
 
         // 한 행 클릭하면상세 내용 모달 열리기
         tr.addEventListener('click', () => {
-            hiddenNo = report.reportNo;
-            selectNewReportDetail(hiddenNo);
+            hiddenReportNo = report.reportNo;  // 상세조회용
+            hiddenMemberNo = report.memberNo;  // 강제탈퇴용
+            selectNewReportDetail(hiddenReportNo);
+
+            console.log("한 행 클릭할 때 모달 열리는 부분---------");
+            console.log("hiddenReportNo: " + hiddenReportNo);
+            console.log("hiddenMemberNo: " + hiddenMemberNo);
         })
 
     }
@@ -175,15 +185,18 @@ const printNewReportList = (newReportList, pagination) => {
 
 // todo : jsp 첫페이지에서 모달 열기
 const reportListRow = document.getElementsByClassName("report-list-row");
-const hiddenReportNo = document.getElementsByClassName("hidden-reportNo");
+const tempReportNo = document.getElementsByClassName("hidden-reportNo");
+const tempMemberNo = document.getElementsByClassName("hidden-memberNo");
 
 for(let i=0; i<reportListRow.length; i++){
     reportListRow[i].addEventListener('click', () => {
-        console.log("jsp 클릭된다");
-        hiddenNo = hiddenReportNo[i].value;
-        selectNewReportDetail(hiddenNo);
+        hiddenReportNo = tempReportNo[i].value;
+        hiddenMemberNo = tempMemberNo[i].value;
+        selectNewReportDetail(hiddenReportNo);
 
-        console.log(hiddenNo);
+        console.log("jsp에서 한 행 클릭했을때=====");
+        console.log("hiddenReportNo: " + hiddenReportNo);
+        console.log("hiddenMemberNo : " + hiddenMemberNo);
     })
 }
 
@@ -200,16 +213,8 @@ const contentDeleteBtn = document.getElementById('contentDeleteBtn');
 
 // optimize: 상세모달 열기 함수
 const printNewReportDetail = (newReportDetail) => {
-
-    console.log("모달");
     
-    var reportDetailContainer = document.getElementsByClassName("report-detail-container");
-
-    // 모달 열리기
-    for(let i=0; i<reportDetailContainer.length; i++){
-        reportDetailContainer[i].style.display = 'flex';
-    }
-
+    reportDetailModalOpen();
 
     // 내용지우기
     const tbodyDetail = document.getElementById("tbodyDetail")
@@ -238,7 +243,7 @@ const printNewReportDetail = (newReportDetail) => {
 
     const td4Detail = document.createElement('td');
     
-    if(newReportDetail.reportPenalty == 'N'){
+    if(newReportDetail.reportPenalty == 'N' || newReportDetail.reportPenalty == null){
         td4Detail.innerText = "접수";
     }
 
@@ -276,14 +281,25 @@ const printNewReportDetail = (newReportDetail) => {
     }
 
     // 누적 신고 횟수
+
+    //fixme:라고 하기보다 add 누적신고기록 추가하기
+    const icon = document.createElement('i');
+    icon.innerHTML = '<i class="fa-solid fa-caret-down filter-icon"></i>';
+    icon.classList.add('filter-icon');
+
     const td7Detail = document.createElement('td');
     td7Detail.classList.add('detail-bold');
     td7Detail.classList.add('right');
-    td7Detail.innerText = "누적 신고 횟수";
+    td7Detail.innerHTML = "누적 신고 횟수" + icon.innerHTML;
 
     const td8Detail = document.createElement('td');
     td8Detail.innerText = newReportDetail.reportVolume;
 
+    // const spanCount = document.createElement('span');
+    // spanCount.innerText = "누적 신고 기록 보기";
+    // spanCount.classList.add('span-count');
+
+    // td8Detail.append(spanCount);
     tr2Detail.append(td5Detail, td6Detail, td7Detail, td8Detail);
 
 
@@ -323,20 +339,20 @@ const printNewReportDetail = (newReportDetail) => {
 
     const td12Detail = document.createElement('td');
     td12Detail.colSpan = "3";
+    td12Detail.style.fontWeight = "bold";
 
     if(newReportDetail.reportType != null){
         if(newReportDetail.reportType == 'M'){
             td12Detail.innerHTML = newReportDetail.memberId;
         }
         if(newReportDetail.reportType == 'B' || newReportDetail.reportType == 'P'){
-            td12Detail.innerHTML = newReportDetail.title;
+            td12Detail.innerHTML = "[ " + newReportDetail.title + " ]";
         }
     }
 
     tr4Detail.append(td11Detail, td12Detail);
 
 
-    // 여기 사이에 한 줄 더?
     // 5)
     const tr5Detail = document.createElement('tr');
 
@@ -354,32 +370,51 @@ const printNewReportDetail = (newReportDetail) => {
 
     // 6)
     const tr6Detail = document.createElement('tr');
-
-    // 내용
+    
+    // 신고 사유 추가 입력
     const td15Detail = document.createElement('td');
     td15Detail.classList.add('detail-bold');
     td15Detail.classList.add('left');
-    td15Detail.innerText = "내용";
+    td15Detail.innerText = "추가 신고 사유";
 
-    tr6Detail.append(td15Detail);
+    const td16Detail = document.createElement('td');
+    td16Detail.colSpan = "3";
+    td16Detail.innerHTML = newReportDetail.reportContent;
+
+
+    tr6Detail.append(td15Detail, td16Detail);
 
 
     // 7)
     const tr7Detail = document.createElement('tr');
 
-    // 상세 내용
-    const td16Detail = document.createElement('td');
-    td16Detail.colSpan = "4";
-    td16Detail.rowSpan = "8";
-    td16Detail.style.overflow = "auto";
-    td16Detail.innerHTML = newReportDetail.content;
+    // 내용
+    const td17Detail = document.createElement('td');
+    td17Detail.classList.add('detail-bold');
+    td17Detail.classList.add('left');
+    td17Detail.innerText = "내용";
 
-    tr7Detail.append(td16Detail);
-
-    tbodyDetail.append(tr1Detail, tr2Detail,  tr3Detail,tr4Detail, tr5Detail, tr6Detail, tr7Detail);
+    tr7Detail.append(td17Detail);
 
 
+    // 8)
+    const tr8Detail = document.createElement('tr');
 
+    // 내용
+    const td18Detail = document.createElement('td');
+    td18Detail.colSpan = "4";
+    td18Detail.rowSpan = "8";
+    td18Detail.style.overflow = "auto";
+    td18Detail.innerHTML = newReportDetail.content;
+
+    tr8Detail.append(td18Detail);
+
+    // tr4 순서 바꿈
+    tbodyDetail.append(tr1Detail, tr2Detail,  tr3Detail, tr5Detail, tr6Detail, tr4Detail, tr7Detail, tr8Detail);
+
+
+    // 강제탈퇴용 아이디 가져오기
+    hiddenMemberNo = newReportDetail.memberNo;
 
     // 버튼
     // 회원신고 -> 반려, 강제정지, 탈퇴
@@ -405,21 +440,9 @@ const printNewReportDetail = (newReportDetail) => {
         accountLeaveBtn.classList.add('hide');
         accountBannedBtn.classList.add('hide');
         accountKickOutBtn.classList.add('hide');
-
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -487,6 +510,7 @@ const printPagination = (adminPaginationArea, pagination) => {
 
 // HTML 문서가 모두 읽어진 후에 selectNewReportList() 호출!
 
+
 // --jsp
 // optimize : 페이지박스 각각에 cp 값 추가 + 전체 회원 조회
 const pageBox = document.getElementsByClassName("page-box");
@@ -503,23 +527,35 @@ for(let page of pageBox){
 //optimize: 페이지네이션 박스 클릭하면, 전체 회원 조회 
 const selectNewReportListEvent = (element, cp) => {
     element.addEventListener('click', () => {
-        numCount = (cp-1)*10;
+        numCount = (cp-1)*15;
         selectNewReportList(cp);
     })
 }
 
 
 
-// todo: 필터링 옵션 별로 조회 + pagination
+// todo: 필터링 옵션 별로 조회  - sortFilter
+const up = document.getElementById('up');
+const down = document.getElementById('down');
+
+up.addEventListener('click', () => {
+    numCount = (cp-1)*15;
+    sortFilter = 'up';
+    selectNewReportList();
+
+    up.style.display = 'none';
+    down.style.display = 'inline-block';
+})
 
 
+down.addEventListener('click', () => {
+    numCount = (cp-1)*15;
+    sortFilter = 'down';
+    selectNewReportList();
 
-
-
-
-// todo: 신고 처리 (반려,계정정지, 탈퇴, 삭제, 블라인드 등등)
-
-
+    down.style.display = 'none';
+    up.style.display = 'inline-block';
+})
 
 
 
@@ -536,8 +572,70 @@ for(let i=0; i<rTitle.length; i++){
 }
 
 
+
+
+// 모달 ---------------------------------------
+var reportDetailContainer = document.getElementsByClassName("report-detail-container");
+
+// 모달 열기
+const reportDetailModalOpen = () =>{
+    for(let i=0; i<reportDetailContainer.length; i++){
+        reportDetailContainer[i].style.display = 'flex';
+    }
+}
+
+// 모달 닫기
+const reportDetailModalClose = () => {
+    for(let i=0; i<reportDetailContainer.length; i++){
+        reportDetailContainer[i].style.display = 'none';
+    }
+}
+
+
+
 //todo: 모달창 바깥 클릭 시 모달창 꺼짐
+const detailModal = document.getElementById('reportDetailContainer');
 window.addEventListener('click', (e) => {
-    e.target === reportDetailContainer ? reportDetailContainer.style.display = 'none' : false
+    e.target === detailModal ? detailModal.style.display = 'none' : false
     document.querySelector('body').classList.remove("scrollLock");
 });
+
+//-------------------------------------------
+
+
+// 총 접수내역 가져오는 함수
+
+
+
+
+
+// todo: 신고 처리 (반려,계정정지, 탈퇴, 삭제, 블라인드 등등)
+
+// * 계정 강제 탈퇴
+accountKickOutBtn.addEventListener('click', () => {
+
+    $.ajax({
+        url: "/report/kickout",
+        data: { "hiddenNo": hiddenMemberNo },
+        type: "POST",
+        success: (result) => {
+            if(result > 0){
+                reportDetailModalClose();
+
+                selectNewReportList(cp);
+                
+                console.log("강제 탈퇴 완료");
+                messageModalOpen("강제 탈퇴 되었습니다.");
+
+                //fixme: 시간 남을 때 모달이랑, 스크롤 위치 수정
+
+            
+            } else {
+                console.log("강퇴 처리 실패");
+            }
+        },
+        error: () => {
+            console.log("강퇴 처리 오류");
+        }
+    });
+})
