@@ -65,10 +65,12 @@
  
 <!-- 주문 하나 조회 -->
 <select id="selectOrder" resultMap="order_rm">
-	SELECT DISTINCT ORDER_NO , ORDER_DATE , ORDER_STATUS , MEMBER_NO , INVOICE_NO, TO_CHAR(ORDER_PRICE, '999,999,999,999') ORDER_PRICE
-	FROM "ORDER"
-	JOIN ORDER_PRODUCT op USING(ORDER_NO)
-	WHERE ORDER_NO = #{orderNo}
+		SELECT DISTINCT o.ORDER_NO , o.ORDER_DATE , ORDER_STATUS, MEMBER_NO
+		,TO_CHAR(ORDER_PRICE, '999,999,999,999') ORDER_PRICE
+		,(SELECT INVOICE_NO FROM ORDER_SHIPPING os WHERE os.ORDER_NO = o.ORDER_NO) INVOICE_NO
+	FROM "ORDER" o
+	JOIN ORDER_PRODUCT op ON(o.ORDER_NO = op.ORDER_NO)
+	WHERE o.ORDER_NO = #{orderNo}
 	ORDER BY ORDER_NO DESC
 </select>
 
@@ -117,7 +119,7 @@
 	</selectKey>
 	
  	INSERT INTO "ORDER"
- 	VALUES(#{orderNo}, DEFAULT, #{memberNo}, 0, NULL, #{orderPrice})
+ 	VALUES(#{orderNo}, DEFAULT, #{memberNo}, 0, #{orderPrice})
  </insert>
  
  <!-- 주문 결제 정보 등록 -->
@@ -145,12 +147,22 @@
  	WHERE ORDER_NO = #{orderNo}
  </update>
  
+ <!-- 해당 주문 아이디, 가격 조회 -->
  <select id="selectImpUid" parameterType="_int" resultMap="order_rm2">
  	SELECT ORDER_NO, IMP_UID, ORDER_PRICE
 	FROM ORDER_PAYMENT
 	JOIN "ORDER" USING(ORDER_NO)
  	WHERE ORDER_NO = #{orderNo}
  </select>
+ 
+ <!-- 일주일이상 된 주문 구매 확정 -->
+ <update id="orderConfirm">
+ 	UPDATE "ORDER" 
+ 	SET ORDER_STATUS = 3 
+ 	WHERE ORDER_STATUS IN(0,1)
+ 	AND SYSDATE - ORDER_DATE >= 7
+ </update>
+ 
   
   
 </mapper>

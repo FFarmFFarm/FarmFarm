@@ -99,6 +99,8 @@ function selectCommentList(){
                     writerProfile.classList.add("writer-profile");
                     const profileImage = document.createElement("img");
                     profileImage.classList.add("proImg");
+                    // profileImage.setAttribute("onclick", "selectMember("+comment.memberNo+")");
+                    profileImage.setAttribute("id", comment.memberNo);
                     if(comment.profileImg != null){ // 등록된 프로필 이미지 있음
                         profileImage.setAttribute("src", comment.profileImg);
                     }else{
@@ -109,6 +111,7 @@ function selectCommentList(){
                     const writerName = document.createElement("div");
                     writerName.classList.add("writer-name");
                     writerName.innerText = comment.memberNickname;
+                    writerName.setAttribute("id", comment.memberNo);
     
                     // // 댓글 좋아용~
                     // const commentLike = document.createElement("div");
@@ -126,20 +129,25 @@ function selectCommentList(){
 
                     if(memberNo == comment.memberNo && comment.commentDelFl == 'S'){
                         commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;'+comment.commentContent;
+                        commentContent.classList.add("secret");
                         // lockIcon.innerHTML="&nbsp;"+comment.commentContent;
                         // commentContent.append(lockIcon);
                     }else if (comment.memberNo == comment.parentNo && comment.commentDelFl == 'S') {
                         commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;'+comment.commentContent;
+                        commentContent.classList.add("secret");
                         // lockIcon.innerHTML="&nbsp;"+comment.commentContent;
                         // commentContent.append(lockIcon);
                     }else if (memberNo == boardMemNo && comment.commentDelFl == 'S') {
                         commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;'+comment.commentContent;
+                        commentContent.classList.add("secret");
                         // lockIcon.innerHTML="&nbsp;"+comment.commentContent;
                         // commentContent.append(lockIcon);
                     }else if (comment.commentDelFl == 'S' && comment.memberNo != comment.parentNo) {
                         commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;비밀댓글입니다.';
+                        commentContent.classList.add("secret");
                     }else if (loginAuth == 2 && comment.commentDelFl == 'S') {
                         commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;'+comment.commentContent;
+                        commentContent.classList.add("secret");
                     } else {
                         commentContent.innerHTML = comment.commentContent;
                     }
@@ -188,6 +196,7 @@ function selectCommentList(){
                     commentReply.innerHTML = '| &nbsp;&nbsp;답글달기&nbsp;&nbsp;';
                     commentUpdate.setAttribute("onclick", "showUpdateComment("+comment.commentNo+", this)");
                     commentUpdate.innerHTML = "|&nbsp;&nbsp;수정&nbsp;&nbsp;";
+                    commentDelete.setAttribute("onclick", "deleteComment("+comment.commentNo+")")
                     commentDelete.innerHTML = "|&nbsp;&nbsp;삭제&nbsp;&nbsp;";
                     
 
@@ -201,18 +210,49 @@ function selectCommentList(){
                             writeTimeReply.append(commentReply, commentDelete);
                         }
                     }else{
-                        if(memberNo == comment.memberNo && comment.commentDelFl != 'Y'){
-                            commentDelete.setAttribute("onclick", "deleteComment("+comment.commentNo+")")
-                            writeTimeReply.append(commentReply, commentUpdate, commentDelete);
+
+                        if(comment.commentDelFl == 'S'){
+                            if(memberNo == comment.memberNo){
+                                writeTimeReply.append(commentReply, commentUpdate, commentDelete);
+                            }
+                            if(memberNo != comment.memberNo && memberNo == boardMemNo){
+                                writeTimeReply.append(commentReply);
+                            }
+                            if(memberNo == comment.parentNo){
+                                writeTimeReply.append(commentReply);
+                            }
                         }
-                        if(memberNo != comment.memberNo && comment.commentDelFl != 'Y'){
-                            writeTimeReply.append(commentReply);
+                        if(comment.commentDelFl != 'S'){
+                            if(memberNo == comment.memberNo && comment.commentDelFl == 'N'){
+                                writeTimeReply.append(commentReply, commentUpdate, commentDelete);
+                            }if(memberNo != comment.memberNo && comment.commentDelFl == 'N'){
+                                writeTimeReply.append(commentReply);
+                            }
                         }
+
                     }
-                    // console.log(comment.commentParent);
-                    // if(comment.commentParent == 0){
-                    //     window.scrollTo(0, document.querySelector('body').scrollHeight)
-                    // }
+
+                    // Modal 관련 요소 얻어오기
+                    const modal = document.querySelector(".modal");
+                    const modalClose = document.getElementById("modal-close");
+                    const modalImage = document.getElementById("modal-text");
+
+                    profileImage.addEventListener("click", ()=>{
+                        modal.classList.toggle("show");
+                        modalImage.setAttribute("src", profileImage.getAttribute("src"));
+                        selectMember(profileImage.id);
+                    });
+
+                    // x버튼 동작
+                    modalClose.addEventListener("click", () => {
+                        // hide 클래스를 추가해서 0.5초 동안 투명해지는 애니메이션 수행
+                        modal.classList.toggle("hide");
+                        // 0.5초 후에 show, hide 클래스를 모두 제거
+                        setTimeout(() => {
+                            modal.classList.remove("show", "hide");
+                        }, 500);
+                    });
+                    
                 }
                 commentArea1.append(commentCount, commentWrite, commentList);
 
@@ -353,6 +393,23 @@ function sendCo(parentNo, btn){
     // textarea 값을 지정해줄까요?
     const textarea = btn.parentElement.previousElementSibling;
 
+    // 원 댓글의 비밀댓글
+    const secretCo = btn.parentElement.previousElementSibling.previousElementSibling.previousElementSibling;
+    if(secretCo.classList.contains("secret")){
+        checkok = 1;
+        console.log(checkok);
+    }else{
+        checkok = 0;
+        console.log(checkok);
+    }
+
+    console.log(secretCo);
+    if(secretCo.child != null){
+        console.log("존재하지 않아");
+    }else{
+        console.log("존재해");
+    }
+
     // textarea의 값을 저장합니다.
     const commentContent = textarea.value;
     console.log(commentContent);
@@ -360,8 +417,8 @@ function sendCo(parentNo, btn){
     if(commentContent.trim().length == 0){
         messageModalOpen("답글이 작성되지 않았어요. 답글을 작성해주세요.");
         // alert("답글이 작성되지 않았어요. 답글을 작성해주세요");
-        commentContent.value="";
-        commentContent.focus();
+        textarea.value="";
+        textarea.focus();
         return;
     }
 
@@ -371,7 +428,8 @@ function sendCo(parentNo, btn){
         data : {"boardNo" : boardNo,
                 "memberNo" : memberNo,
                 "commentContent" : commentContent,
-                "commentParent" : parentNo},
+                "commentParent" : parentNo,
+                "checkok" : checkok},
         type : "post",
         success : result=>{
             if(result>0){
@@ -423,6 +481,7 @@ function showUpdateComment(commentNo, btn){
 
     // 댓글에 작성 되었떤 내용을을 얻어와볼까
     let beforeContent  = btn.parentElement.previousElementSibling.innerHTML;
+    let beforeContentDiv  = btn.parentElement.previousElementSibling;
 
     // 댓글 부분을 싹 지워줍니다.
     commentArea.innerHTML = "";
@@ -451,6 +510,13 @@ function showUpdateComment(commentNo, btn){
     
     // 개행문자 처리 해제
     beforeContent =  beforeContent.replaceAll("<br>", "\n");
+
+    console.log(beforeContent.substring(38));
+    
+    if(beforeContentDiv.classList.contains("secret")){
+        beforeContent = beforeContent.substring(38)
+        console.log("이거 맞는디");
+    }
 
     paTextarea.value = beforeContent;
 
@@ -635,3 +701,17 @@ lockCheck.addEventListener("change", (e)=>{
         console.log("no");
     }
 });
+
+
+// window.addEventListener("click", e=>{
+//     let target = e.target;
+//     console.log(target);
+//     // let temp = target.id;
+//     // console.log("temp:"+temp);
+
+//     // if(temp == "co"+570){
+//     //     console.log("yeah");
+//     // }else{
+//     //     console.log("oh NO");
+//     // }
+// })

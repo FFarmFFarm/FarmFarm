@@ -120,7 +120,7 @@
 	
 	<!-- 와글와글 게시판 리스트 조회 -->
 		<select id="selecBoardtList" resultMap="board_rm">
-			SELECT BOARD_TYPE_NO, BOARD_NO, BOARD_TITLE, MEMBER_NICKNAME, BOARD_VIEW,
+			SELECT BOARD_TYPE_NO, BOARD_NO, BOARD_TITLE, MEMBER_NICKNAME, BOARD_VIEW, MEMBER_NO,
 			<![CDATA[
 				CASE
 						WHEN SYSDATE - BOARD_DATE < 1/24/60
@@ -161,7 +161,7 @@
 
 	<!-- 와글와글 게시판 검색 조건에 맞는 게시글 불러오기 -->
 	<select id="selecBoardtListSearch" resultMap="board_rm">
-			SELECT BOARD_TYPE_NO, BOARD_NO, BOARD_TITLE, MEMBER_NICKNAME, BOARD_VIEW,
+			SELECT BOARD_TYPE_NO, BOARD_NO, BOARD_TITLE, MEMBER_NICKNAME, BOARD_VIEW, MEMBER_NO,
 			<![CDATA[
 				CASE
 						WHEN SYSDATE - BOARD_DATE < 1/24/60

@@ -17,6 +17,19 @@
                     <i class="fa-solid fa-arrow-up go-to-top-icon"></i>
                 </button>
             </a>
+            <!-- 1:1 상담 버튼 -->
+            <c:if test="${! empty loginMember}">
+            <c:if test="${loginMember.authority == 0 or loginMember.authority == 1}">
+            <button type="button" class="btn-inquire" id="inquireOpen">
+                1:1
+            <div id="inquireUnread">
+                <i class="fa-solid fa-circle"></i>
+            </div>
+            </button>
+            <jsp:include page="/WEB-INF/views/inquire/inquire.jsp"/>
+            </c:if>
+            </c:if>
+
             <!-- 알림 메시지 -->
             <jsp:include page="/WEB-INF/views/notify/notifyReceiver.jsp" />
         </div>
@@ -57,3 +70,5 @@
                 </div>
             </div>
         </footer>
+
+    

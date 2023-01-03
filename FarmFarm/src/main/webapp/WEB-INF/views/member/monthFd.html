@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<meta content="no-cache" http-equiv="pragma">
+<title>이달의음식 Open API Ajax 샘플 페이지</title>
+
+<!-- 공통 CSS, JS 선언 -->
+<link href="http://api.nongsaro.go.kr/css/api.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="http://api.nongsaro.go.kr/js/framework.js"></script>
+<script type="text/javascript" src="http://api.nongsaro.go.kr/js/openapi_nongsaro.js"></script>
+
+<script type="text/javascript">
+	nongsaroOpenApiRequest.apiKey = "202301039VATCH5GZIZDYEZNRIXX7W";//Api Key  - 발급받은 인증키로변경
+	nongsaroOpenApiRequest.serviceName = "monthFd";//서비스명
+	nongsaroOpenApiRequest.operationName = "monthFdYearLst";//오퍼레이션명 - nongsaroApiLoadingArea 영역에 로딩할 오퍼레이션
+	var dt = new Date();
+	nongsaroOpenApiRequest.thisYear = itoStr(dt.getFullYear());//초기값 현재년도 셋팅
+	nongsaroOpenApiRequest.thisMonth = itoStr(dt.getMonth()+1);//초기값 현재월 셋팅
+	nongsaroOpenApiRequest.htmlArea="nongsaroApiLoadingArea";//첫번째로 HTML을 로딩할영역
+	nongsaroOpenApiRequest.callback = "http://localhost/ajax_local_callback.jsp";//크로스 도메인 처리를 위한 콜백페이지 - 샘플소스에 있는 콜백페이지를 서버에 올리고 올린 경로로 수정
+function itoStr($num){
+	$num < 10 ? $num = '0'+$num : $num;
+	return $num.toString();
+}
+</script>
+</head>
+
+<body>
+<div id="nongsaroApiLoadingArea"></div><!-- 검색 HTML 로딩 영역 -->
+<div id="nongsaroApiLoadingAreaResult"></div><!-- 검색결과 HTML 로딩 영역 -->
+<div id="nongsaroApiLoadingAreaResult1"></div><!-- 검색결과 HTML 로딩 영역 -->
+</body>
+</html>

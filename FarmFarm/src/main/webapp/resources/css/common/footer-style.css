@@ -1,7 +1,7 @@
 @import "../../css/root-style.css";
 
-/* 탑버튼 */
-.btn-go-to-top {
+/* 채팅, 탑버튼 */
+.btn-go-to-top, .btn-inquire {
   position: fixed;
   right: 40px;
   bottom: 70px;
@@ -15,6 +15,25 @@
   border: none;
   background-color: var(--background-color);
   cursor: pointer;
+}
+
+/* 1:1 상담 버튼 */
+.btn-inquire {
+  bottom: 190px;
+  font-weight: bold;
+  font-size: var(--medium-font-size);
+}
+
+#showChatWidget{
+  display: none;
+}
+
+#showChatWidget:checked + .btn-chat{
+  background-color: var(--point-color);
+}
+
+#showChatWidget:checked + .btn-chat > i{
+  color: white;
 }
 
 
@@ -42,9 +61,20 @@
   display: none;
 }
 
-#chatAlarmDot > i{
+#chatAlarmDot > i,
+#inquireUnread > i{
   color: red;
 }
+
+#inquireUnread {
+  position: absolute;
+  right: 0;
+  top: -2px;
+  display: none;
+
+}
+
+
 
 .btn-chat:hover {
   background-color: var(--point-color);
@@ -53,6 +83,13 @@
 .btn-go-to-top:hover {
   background-color: var(--point-color);
 }
+
+.btn-inquire:hover {
+  background-color: var(--point-color);
+  color:white
+}
+
+
 
 .go-to-top-icon {
   font-size: 1.5em;
