@@ -21,7 +21,7 @@ public interface ChatService {
 	 * @param memberNo
 	 * @return
 	 */
-	List<ChatRoom> getChatRoomList(int myMemberNo);
+	List<ChatRoom> selectChatRoomList(int myMemberNo);
 
 	
 	/** 수신 채팅 읽음처리

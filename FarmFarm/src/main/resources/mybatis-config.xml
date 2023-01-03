@@ -43,6 +43,9 @@
 		<typeAlias type="edu.kh.farmfarm.admin.model.vo.Admin" alias="Admin"/>
 		<typeAlias type="edu.kh.farmfarm.order.model.vo.Return" alias="Return"/>
 		<typeAlias type="edu.kh.farmfarm.cart.model.vo.Cart" alias="Cart"/>
+		<typeAlias type="edu.kh.farmfarm.chat2.model.vo.Chat2" alias="Chat2"/>
+		<typeAlias type="edu.kh.farmfarm.chat2.model.vo.Chat2Room" alias="Chat2Room"/>
+		<typeAlias type="edu.kh.farmfarm.chat2.model.vo.Chat2Img" alias="Chat2Img"/>
 	</typeAliases>
 	
 	<!-- mapper 파일(SQL 작성되는파일) 위치 등록 부분 -->
@@ -65,6 +68,7 @@
 		<mapper resource="/mappers/notify-mapper.xml"/>
 		<mapper resource="/mappers/order-mapper.xml"/>
 		<mapper resource="/mappers/cart-mapper.xml"/>
+		<mapper resource="/mappers/chat2-mapper.xml"/>
   	</mappers>
 	
 </configuration>

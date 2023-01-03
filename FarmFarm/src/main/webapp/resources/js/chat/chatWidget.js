@@ -69,13 +69,6 @@ document.querySelector('.btn-chat').addEventListener('click', ()=>{
     }
 })
 
-/* 외부 영역 클릭 시 클릭 해제 */
-// addEventListener('click', (e) => {
-//     if (!document.querySelector('.chatWidget-container').contains(e.target)) {
-//         document.querySelector('.chatWidget-container').style.display = '';
-//     }
-// })
-
 /* 외부 영역을 클릭했을 때 */
 addEventListener('click', (e)=>{
     const chatWidgetContainer = document.querySelector('.chatWidget-container');
@@ -100,7 +93,8 @@ const requestAndFillMyChatWidget = () => {
     
             // 읽지 않은게 있으면...
             let unReadCountAll = response.data.unReadCountAll;
-    
+            
+            // 
             if (unReadCountAll > 0) {
                 document.getElementById('chatAlarmDot').style.display='block';
             }

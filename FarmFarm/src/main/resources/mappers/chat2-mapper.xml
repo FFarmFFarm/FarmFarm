@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="chat2Mapper">
+
+
+	 <resultMap type="Chat2Room" id="chat2Room_rm">
+	        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+	     <id property = "roomNo" column="ROOM_NO"/>
+	     <!-- 나머지 일반 컬럼 -->
+	      <result property="roomName" column="ROOM_NAME" />
+	      <result property="roomType" column="ROOM_TYPE" />
+	      <result property="roomStatus" column="ROOM_STATUS" />
+
+	      <result property="enterNo" column="ENTER_NO" />
+	      <result property="memberNo" column="MEMBER_NO" />
+	      <result property="enterStatus" column="ENTER_STATUS" />
+
+	      <result property="memberNickname" column="MEMBER_NICKNAME" />
+	      <result property="profileImg" column="PROFILE_IMG" />
+	      
+    	  <result property="thumbnailImg" column="THUMBNAIL_IMG" />
+	      <result property="postTitle" column="POST_TITLE" />
+	      
+	      <result property="lastChatTime" column="LAST_CHAT_TIME" />
+	      <result property="lastChatContent" column="LAST_CHAT_CONTENT" />
+	      <result property="lastChatType" column="LAST_CHAT_TYPE" />
+	      <result property="unreadChatCount" column="UNREAD_CHAT_COUNT" />
+	 </resultMap>
+	 
+	 <resultMap type="Chat2" id="chat2_rm">
+	        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+	     <id property = "chatNo" column="CHAT_NO"/>
+	     <!-- 나머지 일반 컬럼 -->
+	      <result property="roomNo" column="CHAT_NO" />
+	      <result property="memberNo" column="MEMBER_NO" />
+	      <result property="chatType" column="CHAT_TYPE" />
+	      <result property="chatContent" column="CHAT_CONTENT" />
+	      <result property="chatDate" column="CHAT_DATE" />
+	      <result property="chatTime" column="CHAT_TIME" />
+	      <result property="readFl" column="READ_FL" />
+	 </resultMap>
+
+	 <resultMap type="Chat2Img" id="chat2Img_rm">
+	        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+	     <id property = "chatImgNo" column="CHAT_IMG_NO"/>
+	     <!-- 나머지 일반 컬럼 -->
+	      <result property="chatNo" column="CHAT_NO" />
+	      <result property="chatImgOriginal" column="CHAT_IMG_ORIGINAL" />
+	      <result property="chatImgRename" column="CHAT_IMG_RENAME" />
+	      <result property="chatImgPath" column="CHAT_IMG_PATH" />
+	 </resultMap>
+	 
+	
+	<!-- 필요한 SQL문 -->
+	
+	<!-- 내 채팅방 목록 조회(SELECT) -->
+	<select id="selectChatRoomList" parameterType="_int" resultMap="chat2Room_rm">
+		SELECT * 
+		FROM (SELECT ROOM_NO, NVL(UNREAD_CHAT_COUNT, 0) AS UNREAD_CHAT_COUNT 
+	  	  	  FROM(SELECT COUNT(*) AS UNREAD_CHAT_COUNT, ROOM_NO
+		           FROM CHAT2 WHERE READ_FL = 'N' GROUP BY ROOM_NO)
+	          RIGHT JOIN (SELECT ROOM_NO FROM CHAT2_ROOM) USING (ROOM_NO))
+		------------------
+		JOIN (SELECT ROOM_NO, C.CHAT_NO, C.CHAT_CONTENT, C.CHAT_TIME, C.CHAT_TYPE
+	          FROM CHAT2 C
+	          JOIN (SELECT MAX(CHAT_NO) AS LAST_CHAT_NO
+	                FROM CHAT2
+	 	            GROUP BY ROOM_NO) C_SUB ON (C_SUB.LAST_CHAT_NO = C.CHAT_NO)) USING(ROOM_NO)
+		------------------
+		JOIN (SELECT ROOM_NO, ROOM_NAME, CR.ROOM_TYPE,
+		   		     CASE WHEN ROOM_TYPE > 0 THEN (SELECT POST_TITLE 
+		   		 							       FROM POST P 
+		   		 							       WHERE CR.ROOM_TYPE=P.POST_NO)
+		   		     ELSE NULL END POST_TITLE,
+		   		     CASE WHEN ROOM_TYPE > 0 THEN (SELECT POST_IMG_ADDRESS 
+		   						    	 	       FROM POST_IMG PIMG
+		   						    	 	       WHERE POST_IMG_ORDER = 0 AND CR.ROOM_TYPE=PIMG.POST_NO)
+		   		    ELSE NULL END THUMBNAIL_IMG 
+		      FROM CHAT2_ROOM CR) USING(ROOM_NO)
+		------------------
+		LEFT JOIN (SELECT ROOM_NO, MEMBER_NO
+		  		   FROM CHAT2_ENTER
+		  		   WHERE ENTER_STATUS = 'Y') USING(ROOM_NO)
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+
+	<!-- 선택한 채팅방의 대화내용 조회(SELECT) -->
+	<select id="selectChatList" parameterType="_int" resultMap="chat2_rm">
+		SELECT ROOM_NO, CHAT_NO, MEMBER_NO, CHAT_TYPE, CHAT_CONTENT, CHAT_TIME, READ_FL,
+	       	   CASE WHEN CHAT_TYPE='I' THEN (SELECT CHAT_IMG_PATH FROM CHAT2_IMG SUB WHERE MAIN.CHAT_NO = SUB.CHAT_NO)
+	           ELSE NULL END CHAT_IMG_PATH
+		FROM CHAT2 MAIN
+		WHERE ROOM_NO = #{roomNo}
+	</select>
+
+	
+	<!-- 새 채팅방 개설(INSERT) -->
+	<insert id="insertNewChatRoom" useGeneratedKeys="true">
+		INSERT INTO CHAT2_ROOM
+		VALUES(SEQ_ROOM_NO.NEXTVAL, #{roomName}, #{roomType}, DEFAULT)
+		<selectKey keyProperty="roomNo" resultType="_int" order="AFTER">
+			SELECT SEQ_ROOM_NO.CURRVAL AS ROOM_NO FROM DUAL
+		</selectKey>
+	</insert>
+
+	<!-- 채팅방 수정(UPDATE) -->
+	<update id="updateChatRoomName">
+		UPDATE CHAT2_ROOM SET ROOM_NAME = #{roomName}
+		WHERE ROOM_NO = #{roomNo}
+	</update>
+
+	<!-- 채팅방 삭제(UPDATE) -->
+	<update id="updateChatRoomStatus">
+		UPDATE CHAT2_ROOM SET ROOM_STATUS = 0
+		WHERE ROOM_NO = #{roomNo}
+	</update>
+
+
+
+	<!-- 채팅방 참가(INSERT) -->
+	<insert id="insertChatEnter">
+		INSERT INTO CHAT2_ENTER
+		VALUES(SEQ_ENTER_NO.NEXTVAL, #{roomNo}, #{memberNo}, DEFAULT)
+	</insert>
+	
+	<!-- 채팅방 탈퇴(UPDATE) -->
+	<update id="updateChatEnter">
+		UPDATE CHAT2_ENTER SET ENTER_STATUS = 'F'
+		WHERE ROOM_NO = #{roomNo}
+		AND MEMBER_NO = #{memberNo}
+	</update>
+
+
+	<!-- 채팅 전송(INSERT) -->
+	<insert id="insertNewChat" useGeneratedKeys="true">
+		INSERT INTO CHAT2
+		VALUES(SEQ_CHAT_NO.NEXTVAL, #{roomNo}, #{memberNo}, #{chatType},
+		       #{chatContent}, DEFAULT, DEFAULT)
+		<selectKey keyProperty="chatNo" resultType="_int" order="AFTER">
+			SELECT SEQ_CHAT_NO.CURRVAL AS CHAT_NO FROM DUAL
+		</selectKey> 
+	</insert>
+	
+	<!-- 채팅 이미지 저장(INSERT) -->
+	<insert id="insertNewChatImg">
+		INSERT INTO CHAT2_IMG
+		VALUES(SEQ_CHAT_IMG_NO.NEXTVAL, #{chatNo}, #{chatImgOriginal},
+		       #{chatImgRename}, #{chatImgPath})
+	</insert>
+		
+	<!-- 채팅 읽음 처리(UPDATE) -->
+	<update id="updateChatReadFl">
+		UPDATE CHAT2 SET READ_FL = 'Y'
+		WHERE ROOM_NO = #{roomNo}
+	</update>
+
+	<!-- 채팅 삭제 처리(UPDATE) -->
+	<update id="updateChatReadFl">
+		UPDATE CHAT2 SET READ_FL = 'B'
+		WHERE CHAT_NO = #{chatNo}
+	</update>
+	
+</mapper>

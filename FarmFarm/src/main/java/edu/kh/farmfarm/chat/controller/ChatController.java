@@ -63,29 +63,23 @@ public class ChatController {
 	}
 	
 	// 내 채팅방 목록 가져오기
-	@PostMapping("/chat/chatRoomList")
+	@PostMapping("/chat/select/room")
 	@ResponseBody
-	public String getChatRoomList(
-			HttpSession session
-//			@RequestParam(value = "memberNo", required = true) int memberNo
-			){
+	public String selectChatRoomList(
+			HttpSession session, int memberNo ) {
 		
-		int myMemberNo = -1;
-		String myMemberNickname = "";
-		
-		// 1. 세션에서 로그인 중인 회원의 정보가 담긴 객체를 가져옴
-		if(session.getAttribute("loginMember") != null) {
-			// 2. 회원 정보 객체에서 회원 번호를 꺼냄
-			Member loginMember = (Member)session.getAttribute("loginMember");
-			myMemberNo = loginMember.getMemberNo();
-			myMemberNickname = loginMember.getMemberNickname();
-
-			// 3. 회원 번호를 보내, 회원이 참가중인 모든 채팅방을 가져옴
-			List<ChatRoom> chatRoomList = service.getChatRoomList(myMemberNo);
-		
+		// 회원 번호가 -1이 아닐때만(회원 정보가 있을 때에만) 실행
+		if(memberNo != -1){
 			
-			// 4. 회원 정보를 재배치 : 내 이름, 내 정보는 MEMBER_NO, MEMBER_NICKNAME으로,
-			//                    상대 이름, 상대 정보는 MEMBER_NO2, MEMBER_NICKNAME2로 세팅
+			int myMemberNo = memberNo;
+			String myMemberNickname = "";
+				
+			// 회원 번호를 보내, 회원이 참가중인 모든 채팅방을 가져옴
+			List<ChatRoom> chatRoomList = service.selectChatRoomList(myMemberNo);
+				
+			// 회원 정보를 재배치!
+			// - 내 이름, 내 정보는 MEMBER_NO, MEMBER_NICKNAME으로,
+			// - 상대 이름, 상대 정보, 상대 이미지는 MEMBER_NO2, MEMBER_NICKNAME2, PROFILE_IMG2로 세팅
 			for(ChatRoom chatRoom : chatRoomList) {
 				if(chatRoom.getMemberNo2() == myMemberNo ) {
 					int tempNo = chatRoom.getMemberNo();
@@ -101,16 +95,17 @@ public class ChatController {
 					chatRoom.setProfileImg2(tempProfileImg);
 				}
 			}
-			
-			// 5. map에 ChatRoom의 정보를 담음
+				
+			// map에 ChatRoom의 정보를 담음
 			Map<String, Object> chatRoomMap = new HashMap<String, Object>();
-			
+				
 			chatRoomMap.put("chatRoomList", chatRoomList);
-			
-			// 6. Gson을 이용해 반환
+				
+			// Gson을 이용해 반환
 			return new Gson().toJson(chatRoomMap);
-			
+				
 		} else {
+			// 회원 정보가 없는 경우, "empty"를 반환
 			return new Gson().toJson("empty");
 		}
 		
@@ -120,14 +115,13 @@ public class ChatController {
 	@PostMapping("/chat/{roomNo}")
 	@ResponseBody
 	public String getChatHistory(
-			HttpSession session,
-			@PathVariable(value = "roomNo") int roomNo
+			@PathVariable(value = "roomNo") int roomNo,
+			int memberNo
 			){
 		// 1. 세션에서 로그인 중인 회원의 정보가 담긴 객체를 가져옴
-		Member loginMember = (Member)session.getAttribute("loginMember");
 		
 		// 2. 회원 정보 객체에서 회원 번호를 꺼냄
-		int myMemberNo = loginMember.getMemberNo();
+		int myMemberNo = memberNo;
 		
 		// 3. roomNo와 loginMemberNo를 보내 채팅 읽음 여부를 업데이트 함
 		Map<String, Object> updateInfo = new HashMap<String, Object>();
