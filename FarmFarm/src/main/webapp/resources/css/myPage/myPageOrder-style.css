@@ -199,6 +199,7 @@ a.ordered > i {
 
 .order-shipping {
   color: var(--point-color);
+  cursor: pointer;
 }
 
 .button-area {
