@@ -22,7 +22,7 @@ const selectNewReportList = (cp) => {
         dataType: "JSON",
         type: "GET",
         success: (map) => {
-            printNewReportList(map.newReportList, map.pagination, map.reportListCount);
+            printNewReportList(map.newReportList, map.pagination, map.reportListCount, map.reportAllListCount);
             console.log("미처리 신고 내역 조회 성공");
             console.log(sortFilter);
         },
@@ -63,13 +63,12 @@ const selectNewReportDetail = (hiddenReportNo) => {
 
 
 // optimize: 미처리 신고 내역 출력 함수 
-const printNewReportList = (newReportList, pagination, reportListCount) => {
+const printNewReportList = (newReportList, pagination, reportListCount, reportAllListCount) => {
 
     // 출력 전 내용 지우기
-    //fixme: 확인해보고 내용 지우기!
     const reportCount = document.getElementById("reportCount");
     reportCount.innerText = "";
-    reportCount.innerText = "총 " + reportListCount + "건";
+    reportCount.innerText = "전체 "+ reportAllListCount + "건 / "+" 실처리 " + reportListCount + "건";
 
 
     const tbody = document.getElementById("tbody");
@@ -618,10 +617,6 @@ window.addEventListener('click', (e) => {
 //-------------------------------------------
 
 
-// 총 접수내역 가져오는 함수
-
-
-
 
 
 // todo: 신고 처리 (반려,계정정지, 탈퇴, 삭제, 블라인드 등등)
@@ -686,7 +681,7 @@ accountBannedBtn.addEventListener('click', () => {
                 selectNewReportList(cp);
 
                 console.log("계정 정지");
-                messageModalOpen("신고된 계정이 정지되었습니다.")
+                messageModalOpen("신고된 계정이 7일간 정지됩니다.")
             }
         }
     })
@@ -694,14 +689,44 @@ accountBannedBtn.addEventListener('click', () => {
 
 
 
+// B, P 나눠야 함.
+// * (게시글) 삭제 : 판매글, 커뮤니티 게시글
+contentDeleteBtn.addEventListener('click', () => {
+    $.ajax({
+        url: "/report/deleteContent",
+        data: {"hiddenContentNo":hiddenContentNo, "reportType":reportType},
+        type: "GET",
+        success: (result) => {
+            if(result > 0){
+                reportDetailModalClose();
+                selectNewReportList(cp);
+
+                console.log("계정 정지");
+                messageModalOpen("신고된 계정이 7일간 정지됩니다.")
+            }
+        }
+    })
+})
 
 
 
+// * (게시글) 반려
+contentLeaveBtn.addEventListener('click', () => {
+    $.ajax({
+        url: "/report/LeaveContent",
+        data: {"hiddenContentNo":hiddenContentNo, "reportType":reportType},
+        type: "GET",
+        success: (result) => {
+            if(result > 0){
+                reportDetailModalClose();
+                selectNewReportList(cp);
+
+                console.log("계정 정지");
+                messageModalOpen("신고된 계정이 7일간 정지됩니다.")
+            }
+        }
+    })
+})
 
 
 
-
-
-
-
-// * (게시글) 삭제

@@ -20,6 +20,13 @@ public interface AdminProcessService {
 	 * @return result
 	 */
 	int reportMemberKickout(int hiddenNo);
+	
+	
+	/** 신고 계정 정지
+	 * @param hiddenNo
+	 * @return result
+	 */
+	int reportMemberBanned(int hiddenNo);
 
 
 	/** 신고 계정 반려
@@ -27,5 +34,16 @@ public interface AdminProcessService {
 	 * @return result
 	 */
 	int reportMemberLeave(int hiddenNo);
+
+
+	/** 신고 게시글 삭제
+	 * @param hiddenContentNo
+	 * @param reportType
+	 * @return
+	 */
+	int reportDeleteContent(int hiddenContentNo, String reportType);
+
+
+
 
 }

@@ -5,6 +5,7 @@
 <c:set var="reportListCount" value="${map.reportListCount}" />
 <c:set var="newReportList" value="${map.newReportList}" />
 <c:set var="pagination" value="${map.pagination}" />
+<c:set var="reportAllListCount" value="${map.reportAllListCount}" />
 
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +41,7 @@
             <div class="report-total-div">
                 <div class="title-div">
                     <span class="report-title">신고 접수 내역</span>
-                    <span class="report-title" id="reportCount">총 ${reportListCount}건</span>
+                    <span class="report-title" id="reportCount">전체 ${reportAllListCount}건 / 실처리 ${reportListCount}건</span>
                 </div>
 
                 <div class="report-select">

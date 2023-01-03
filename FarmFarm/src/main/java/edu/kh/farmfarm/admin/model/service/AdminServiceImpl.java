@@ -149,7 +149,7 @@ public class AdminServiceImpl implements AdminService{
 	public Map<String, Object> selectNewReport(String sortFilter, int cp) {
 		
 		/* 페이지네이션 */
-		// 1. 전체 개수 가져오기
+		// 1. 전체 개수 가져오기 (신고 중복 제거)
 		int reportListCount = dao.reportListCount(sortFilter);
 		
 		// 2. 가져온 개수와 현재 페이지를 이용하여 페이지네이션 객체 발생
@@ -159,10 +159,17 @@ public class AdminServiceImpl implements AdminService{
 		// 미처리 신고 조회
 		List<Admin> newReportList = dao.selectNewReport(sortFilter, pagination);
 		
+		
+		// 신고 중복 포함된 전체 개수
+		int reportAllListCount = dao.reportAllListCount();
+		
+		
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("reportListCount", reportListCount);
 		map.put("newReportList", newReportList);
 		map.put("pagination", pagination);
+		map.put("reportAllListCount", reportAllListCount);
 		
 		return map;
 	}

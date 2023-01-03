@@ -45,10 +45,41 @@ public class AdminProcessServiceImpl implements AdminProcessService{
 	}
 	
 	
+	// 신고된 회원 계정 정지
+	@Override
+	public int reportMemberBanned(int hiddenNo) {
+		return dao.reportMemberBanned(hiddenNo);
+	}
+	
 	
 	// 신고 계정 - 반려
 	@Override
 	public int reportMemberLeave(int hiddenNo) {
 		return dao.reportMemberLeave(hiddenNo);
 	}	
+	
+	
+	
+	// 신고 게시글 - 삭제
+	@Override
+	public int reportDeleteContent(int hiddenContentNo, String reportType) {
+		
+		int result = 0;
+		
+		// 커뮤니티 게시글 삭제
+		if(reportType.equals('B')) {
+			result = dao.reportDeleteBoard(hiddenContentNo, reportType);
+		
+		// 판매글 삭제
+		}else if(reportType.equals('P')) {
+			result = dao.reportDeletePost(hiddenContentNo, reportType);
+		}
+		
+		
+		if(result > 0) {
+			result = dao.changeContentStatus(hiddenContentNo, reportType);
+		}
+		
+		return result;
+	}
 }

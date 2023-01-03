@@ -20,7 +20,7 @@ public class AdminProcessDAO {
 	}
 	
 	
-	/** 회원 강제 탈퇴 (회원관리, 신고x)
+	/** 회원 강제 탈퇴
 	 * @param inputMemberId
 	 * @return result
 	 */
@@ -29,7 +29,7 @@ public class AdminProcessDAO {
 	}
 
 
-	/** 신고 회원 강제 탈퇴(신고o)
+	/** 신고 상태 변경, 신고 일자 업데이트
 	 * @param hiddenId
 	 * @return result
 	 */
@@ -38,6 +38,17 @@ public class AdminProcessDAO {
 	}
 
 
+	/** 신고 회원 계정 정지
+	 * @param hiddenNo
+	 * @return
+	 */
+	public int reportMemberBanned(int hiddenNo) {
+		// 위 신고 상태 변경과 같은 쿼리문 사용.
+		// 여기에 탈퇴까지 하면 -> 강퇴  // 여기서 멈추면 -> 정지
+		return sqlSession.update("adminMapper.changeReportStatus", hiddenNo);  
+	}
+
+	
 	/** 신고 회원 반려
 	 * @param hiddenNo
 	 * @return
@@ -45,6 +56,8 @@ public class AdminProcessDAO {
 	public int reportMemberLeave(int hiddenNo) {
 		return sqlSession.update("adminMapper.reportMemberLeave", hiddenNo);
 	}
+
+
 
 	
 	
