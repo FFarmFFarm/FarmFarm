@@ -293,7 +293,7 @@ if (document.getElementById('deleteCartCalcelBtn') != undefined) {
 
 // 배송지 목록 모달
 document.getElementById("changeAddress").addEventListener("click",()=>{
-  var popupWidth = 500;
+  var popupWidth = 515;
   var popupHeight = 600;
 
   var popupX = Math.ceil(( window.screen.width - popupWidth )/2);
