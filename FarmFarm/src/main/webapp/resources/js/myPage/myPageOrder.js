@@ -277,12 +277,14 @@ if(shippingBtn != undefined) {
       $.ajax({
         url: "https://apis.tracker.delivery/carriers/kr.logen/tracks/" + btn.id,
         dataType: 'json',
-        success: (data) => {
-          fillShipping(data);
+        success: (response) => {
+          console.log(response);
+          fillShipping(response);
           displayFlex(document.getElementById('shippingContainer'));
         },
-        error: (error) => {
-          console.log('Error: ' + error);
+        error: (response) => {
+          fillShippingError(response.responseJSON.message);
+          displayFlex(document.getElementById('shippingContainer'));
         }
       })
 
@@ -295,7 +297,136 @@ document.getElementById('shippingBackBtn').addEventListener('click', () => {
   displayNone(document.getElementById('shippingContainer'));
 })
 
-const fillShipping = (data) => { 
+const fillShipping = (res) => { 
+  const shippingContent = document.getElementById('shippingContent');
+  const shippingInfo = document.getElementById('shippingInfo');
+  shippingContent.innerHTML = '';
+  shippingInfo.innerHTML = '';
+
+  const shippingState = document.createElement('span');
+  shippingState.classList.add('shipping-state');
+  shippingState.innerHTML = res.state.text;
+
+  
+  
+  const dateShipping = document.createElement('div');
+  dateShipping.classList.add('date-shipping');
+  
+  const progresses = res.progresses;
+  const array = progresses.reverse();
+
+  for(let item of array) {
+
+    const progress = document.createElement('div');
+    progress.classList.add('progress');
+
+    dateShipping.append(progress);
+
+    const locationTime = document.createElement('div');
+    locationTime.classList.add('location-time');
+
+    
+    const locationName = document.createElement('span');
+    locationName.classList.add('location-name');
+    
+    locationName.innerHTML = item.location.name;
+    
+    const time = document.createElement('span');
+    time.classList.add('time');
+    time.innerHTML = item.time.substring(16, 0);
+    
+    locationTime.append(locationName, time);
+    
+    const statusDescription = document.createElement('div');
+    statusDescription.classList.add('status-description');
+    
+    const status = document.createElement('span');
+    status.classList.add('status');
+    status.innerHTML = item.status.text;
+    
+    const description = document.createElement('span');
+    description.classList.add('description');
+    description.innerHTML = item.description;
+    
+    statusDescription.append(status, description);
+    
+    progress.append(locationTime, statusDescription);
+  }
+
+
+  shippingContent.append(shippingState,dateShipping);
+  
+
+
+  const shippingInfoTitle = document.createElement('span');
+  shippingInfoTitle.classList.add('shipping-state', 'margin-bottom');
+
+  shippingInfoTitle.innerHTML = '기본 정보';
+
+  const oneLine1 = document.createElement('div');
+  oneLine1.classList.add('one-line');
+
+  const subject1 = document.createElement('span');
+  subject1.classList.add('subject');
+  subject1.innerHTML = '받는 사람';
+  
+  const content1 = document.createElement('span');
+  content1.classList.add('content');
+  content1.innerHTML = res.to.name;
+  
+  const oneLine2 = document.createElement('div');
+  oneLine2.classList.add('one-line');
+  
+  const subject2 = document.createElement('span');
+  subject2.classList.add('subject');
+  subject2.innerHTML = '택배사';
+  
+  const content2 = document.createElement('span');
+  content2.classList.add('content');
+  content2.innerHTML = res.carrier.name + '(' + res.carrier.tel + ')';
+
+  const oneLine3 = document.createElement('div');
+  oneLine3.classList.add('one-line');
+  
+  const subject3 = document.createElement('span');
+  subject3.classList.add('subject');
+  subject3.innerHTML = '송장번호';
+  
+  const content3 = document.createElement('span');
+  content3.classList.add('content');
+  content3.innerHTML = res.carrier.id;
+  
+  const oneLine4 = document.createElement('div');
+  oneLine4.classList.add('one-line');
+  
+  const subject4 = document.createElement('span');
+  subject4.classList.add('subject');
+  subject4.innerHTML = '보낸사람';
+
+  const content4 = document.createElement('span');
+  content4.classList.add('content');
+  content4.innerHTML = res.from.name;
+
+  oneLine1.append(subject1, content1);
+  oneLine2.append(subject2, content2);
+  oneLine3.append(subject3, content3);
+  oneLine4.append(subject4, content4);
+
+  shippingInfo.append(shippingInfoTitle, oneLine1, oneLine2, oneLine3, oneLine4);
+
+
+};
+
+const fillShippingError = (message) => { 
+  const container = document.getElementById('container');
+
+  container.innerHTML = '';
+
+  const span = document.createElement('span');
+  span.classList.add('no-result');
+  span.innerHTML = message;
+
+  container.append(span);
 
 };
 
