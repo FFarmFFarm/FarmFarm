@@ -52,10 +52,12 @@
 	
 	<!-- 신고 여부 조회 -->
 	<select id="checkReport" parameterType="_int" resultType="string">
-		SELECT TO_CHAR(REPORT_DATE, 'YYYY-MM-DD HH24:MI:SS') REPORT_DATE
+		SELECT TO_CHAR(REPORT_DATE +7, 'YYYY-MM-DD HH24:MI:SS') REPORT_DATE
 		FROM REPORT
 		WHERE REPORT_TARGET_NO = #{memberNo}
+		AND REPORT_TYPE = 'M'
 		AND REPORT_PENALTY = 'Y'
+		AND ROWNUM = 1
 		ORDER BY REPORT_DATE DESC
 	</select>
 	

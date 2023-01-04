@@ -93,23 +93,15 @@ reportSubmitBtn.addEventListener("click", () => {
     }
 
 
-    // // 와글와글 게시글 신고 - 물물교환
-    // if(pathname.contains("board/1") && !commentNo.contains("c")){
-    //     reportType.value = "B1";
-    //     reportTargetNo.value = targetNo;  //boardNo
-    // }
+    // 와글와글 게시글 - 회원 신고
 
-    // // 와글와글 게시글 신고 - 팁
-    // if(pathname.contains("board/2") && !commentNo.contains("c")){
-    //     reportType.value = "B2";
-    //     reportTargetNo.value = targetNo;  //boardNo
-    // }
+    const modal = document.getElementById("tempModal");
 
-    // // 와글와글 게시글 신고 - 질문
-    // if(pathname.contains("board/3") && !commentNo.contains("c")){
-    //     reportType.value = "B3";
-    //     reportTargetNo.value = targetNo;  //boardNo
-    // }
+    if(pathname.includes('board') && modal.classList.add('modal')){
+        reportType.value = "M";
+        reportTargetNo.value = targetMemberNo;  //boardNo
+    }
+
 
 
     // 댓글 신고 - 
@@ -129,22 +121,29 @@ reportSubmitBtn.addEventListener("click", () => {
 
     // 선택한 신고 사유 가져오기
     const reportReasonList = document.getElementsByName('reportRadio');
-    var radioResult;
+
     
     const reportLabel = document.getElementsByTagName("label");
-    const reportContent = document.getElementById("reportContent").value;
     
     for(var i=0; i<reportReasonList.length; i++){
         
         if(reportReasonList[i].checked){
 
             //fixme: 왜,, 하나씩 밀리는 거지. 일단 임시방편으로 +1함.
-            radioResult = reportLabel[i+1].innerText;
+            radioResult = reportLabel[i].innerText;
             console.log(radioResult);
         }
     }
 
+    report();
 
+})
+
+// 직접 작성한 신고 사유 내용
+const reportContent = document.getElementById("reportContent").value;
+
+// optimize: 신고하기
+const report = () => {
     $.ajax({
         url: "/report",
         data: { "reportType" :reportType.value, 
@@ -168,5 +167,4 @@ reportSubmitBtn.addEventListener("click", () => {
         }
     });
 
-})
-
+}

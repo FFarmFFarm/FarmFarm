@@ -1,5 +1,8 @@
 (()=>{
   
+  /* 여기 추가_ 신고 당하는 회원 번호 */
+  var targetMemberNo;
+
   /* 게시글 목록에서 실행됩니당~ */
   const boardWriter = document.getElementsByClassName("board-writer");
   if(boardWriter.length > 0){ 
@@ -16,6 +19,8 @@
                 modal.classList.toggle("show");
                 modalImage.setAttribute("src", th.getAttribute("src"));
                 selectMember(th.id);
+                /* 여기 추가 */
+                // targetMemberNo = th.id;
             });
         }
         
@@ -49,6 +54,9 @@
         modal.classList.toggle("show");
         modalImage.setAttribute("src", wPro.getAttribute("src"));
         selectMember(wPro.id);
+
+        /* 여기 추가 */
+        // targetMemberNo = wPro.id;
       });
     }
 
@@ -93,6 +101,9 @@ const selectMember = (memberNo) => {
 
       memberNickname.innerText = member.memberNickname;
       modalSignUpDate.innerText = "가입일 :" + member.signUpDate;
+
+      /* 여기 추가 */
+      targetMemberNo = member.memberNo;
 
     }, 
     error : ()=>{
