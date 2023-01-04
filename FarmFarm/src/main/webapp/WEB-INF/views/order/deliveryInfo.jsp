@@ -10,6 +10,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="/resources/css/order/deliveryInfo-style.css">
+  <link rel="stylesheet" href="/resources/css/order/modal/addressModal-style.css" />
+
+
+
   <script src="https://kit.fontawesome.com/d449774bd8.js" crossorigin="anonymous"></script>
   <title>팜팜 | 배송지변경</title>
 </head>
@@ -21,7 +25,7 @@
         <div class="column-name">
           <span>선택</span>
           <span>배송 정보</span>
-          <span>수정</span>
+          <span>삭제</span>
         </div>
       </div>
 
@@ -34,11 +38,12 @@
               <label>
                 <c:if test="${address.defaultFl == 'Y'}">
                   <i class="fa-solid fa-circle-check" name="checkIcon"></i>
-                  <input type="checkbox" value="${address.addressNo}" checked>
+                  <input type="checkbox"
+                  value="${address.addressNo}" checked disabled>
                 </c:if>
                 <c:if test="${address.defaultFl == 'N'}">
                   <i class="fa-regular fa-circle-check" name="unCheckIcon"></i>
-                  <input type="checkbox" value="${address.addressNo}">
+                  <input type="checkbox" class="select-address" value="${address.addressNo}">
                 </c:if>
               </label>
             </div>
@@ -46,16 +51,18 @@
               <c:if test="${address.defaultFl == 'Y'}">
                 <span class="selected-address">기본 배송지</span>
               </c:if>
-              <p class="address-detail">${address.memberAddress}</p>
+              <p class="address-detail">${address.memberAddress2}</p>
               <div class="member-info">
                 <span>${address.memberName}</span>
                 <span class="bar"></span>
-                <span>${address.to}</span>
+                <span class="phone-no">${address.to}</span>
               </div>
             </div>
-            <div class="edit-address">
-              <button class="fa-regular fa-pen-to-square" name="editBtn"></button>
-            </div>
+            <c:if test="${address.defaultFl == 'N'}">
+              <div class="delete-address">
+                <button class="fa-regular fa-circle-xmark" name="deleteBtn"></button>
+              </div>
+            </c:if>
           </div>
         </c:forEach>
 
@@ -73,6 +80,14 @@
   
   </div>
 
+  <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
+  <jsp:include page="/WEB-INF/views/order/modal/cartConfirm.jsp"/>
+
+  <script src="/resources/js/order/deliveryInfo.js"></script>
+  <script src="/resources/js/common/common.js"></script>
+
+  <!-- ajax -->
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
 
 </body>
