@@ -103,7 +103,7 @@ public class MemberController {
 						resp.addCookie(cookie);
 					} else { // 신고 기록이 있으면
 						path = referer;
-						String notice = "계정 사용이 중지됨" + "(기간 : ~ " + checkReport + "까지) 자세한 사항은 고객센터(help@farmfarm)으로 문의 바랍니다.";
+						String notice = "계정 사용이 중지됨" + "(기간 : " + checkReport + "까지) 자세한 사항은 고객센터(help@farmfarm)으로 문의 바랍니다.";
 						ra.addFlashAttribute("message", notice);
 					}
 					}
@@ -205,22 +205,4 @@ public class MemberController {
 		return "/member/signUpSuccess";
 	}
 	
-	
-	
-	
-	// 판매자 인증중 페이지 (판매자 인증중인 회원이 로그인할 경우)
-	@GetMapping("/authenticating")
-	public String authenticating() {
-		return "member/authNotice";
-	}
-	
-	
-	// 판매자 인증 거절 페이지 (판매자 인증 거절된 회원이 로그인할 경우)
-	@GetMapping("/authDeny")
-	public String authDeny() {
-		return "member/authNoticeDeny";
-	}
-	
-	
-
 }
