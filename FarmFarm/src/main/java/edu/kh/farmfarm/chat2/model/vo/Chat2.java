@@ -19,4 +19,8 @@ public class Chat2 {
 	private String chatContent;
 	private String chatTime;
 	private int readCount;
+	
+	// 추가 값
+	private String memberNickname;
+	private String profileImg;
 }

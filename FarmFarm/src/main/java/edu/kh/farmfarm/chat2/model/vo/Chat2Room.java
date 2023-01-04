@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-// 채팅 출입기록
+// 채팅방
 @Getter
 @Setter
 @ToString

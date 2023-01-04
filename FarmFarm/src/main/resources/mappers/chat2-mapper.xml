@@ -39,6 +39,9 @@
 	      <result property="chatDate" column="CHAT_DATE" />
 	      <result property="chatTime" column="CHAT_TIME" />
 	      <result property="readCount" column="READ_COUNT" />
+	      
+	      <result property="memberNickname" column="MEMBER_NICKNAME" />
+	      <result property="profileImg" column="PROFILE_IMG" />
 	 </resultMap>
 
 	 <resultMap type="Chat2Img" id="chat2Img_rm">
@@ -69,10 +72,15 @@
 		SELECT * 
 		FROM (SELECT ROOM_NO, NVL(UNREAD_CHAT_COUNT, 0) AS UNREAD_CHAT_COUNT 
 	  	  	  FROM(SELECT COUNT(*) AS UNREAD_CHAT_COUNT, ROOM_NO
-		           FROM CHAT2 WHERE READ_COUNT = 'N' GROUP BY ROOM_NO)
+		           FROM CHAT2 GROUP BY ROOM_NO)
 	          RIGHT JOIN (SELECT ROOM_NO FROM CHAT2_ROOM) USING (ROOM_NO))
 		------------------
-		JOIN (SELECT ROOM_NO, C.CHAT_NO, C.CHAT_CONTENT, C.CHAT_TIME, C.CHAT_TYPE
+		JOIN (SELECT ROOM_NO, C.CHAT_NO, C.CHAT_CONTENT AS LAST_CHAT_CONTENT, 
+		      CASE WHEN TO_CHAR(C.CHAT_TIME, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD') 
+	   			   THEN TO_CHAR(C.CHAT_TIME, 'AM HH"시" MI"분"')
+	   			   ELSE TO_CHAR(C.CHAT_TIME, 'YYYY-MM-DD')
+		   	  END LAST_CHAT_TIME, 
+		      C.CHAT_TYPE AS LAST_CHAT_TYPE
 	          FROM CHAT2 C
 	          JOIN (SELECT MAX(CHAT_NO) AS LAST_CHAT_NO
 	                FROM CHAT2
@@ -97,10 +105,12 @@
 
 	<!-- 선택한 채팅방의 대화내용 조회(SELECT) -->
 	<select id="selectChatList" parameterType="_int" resultMap="chat2_rm">
-		SELECT ROOM_NO, CHAT_NO, MEMBER_NO, CHAT_TYPE, CHAT_CONTENT, CHAT_TIME, READ_COUNT,
+		SELECT ROOM_NO, CHAT_NO, CHAT_TYPE, CHAT_CONTENT, CHAT_TIME, READ_COUNT,
+			   MEMBER_NO, MEMBER_NICKNAME, PROFILE_IMG,
 	       	   CASE WHEN CHAT_TYPE='I' THEN (SELECT CHAT_IMG_PATH FROM CHAT2_IMG SUB WHERE MAIN.CHAT_NO = SUB.CHAT_NO)
 	           ELSE NULL END CHAT_IMG_PATH
 		FROM CHAT2 MAIN
+		LEFT JOIN MEMBER USING(MEMBER_NO)
 		WHERE ROOM_NO = #{roomNo}
 	</select>
 
@@ -115,7 +125,7 @@
 	</insert>
 
 	<!-- 채팅방 참가자 조회(SELECT) -->
-	<select id="selectEnterMemberList" parameterType="_int" resultMap="chat2Enter_rm">
+	<select id="selectEnterMemberList" parameterType="_int" resultType="_int">
 		SELECT MEMBER_NO FROM CHAT2_ENTER
 		WHERE ROOM_NO = #{roomNo}
 		AND ENTER_STATUS = 'Y'

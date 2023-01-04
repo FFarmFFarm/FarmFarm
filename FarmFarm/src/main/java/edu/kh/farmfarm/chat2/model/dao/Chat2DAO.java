@@ -8,10 +8,11 @@ import org.springframework.stereotype.Repository;
 
 import edu.kh.farmfarm.chat2.model.vo.Chat2;
 import edu.kh.farmfarm.chat2.model.vo.Chat2Enter;
+import edu.kh.farmfarm.chat2.model.vo.Chat2Img;
 import edu.kh.farmfarm.chat2.model.vo.Chat2Room;
 
 @Repository
-public class ChatDAO {
+public class Chat2DAO {
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;
@@ -39,10 +40,10 @@ public class ChatDAO {
 	 * @param roomNo
 	 * @return List<Chat2Enter> enterMemberList
 	 */
-	public List<Chat2Enter> selectEnterMemberList(int roomNo) {
+	public List<Integer> selectEnterMemberList(int roomNo) {
 		
 		// 방 번호를 전달해서, 회원 목록을 조회
-		List<Chat2Enter> enterMemberList = sqlSession.selectList("chat2Mapper.selectEnterMemberList", roomNo);
+		List<Integer> enterMemberList = sqlSession.selectList("chat2Mapper.selectEnterMemberList", roomNo);
 		
 		// 반환
 		return enterMemberList;
@@ -57,11 +58,19 @@ public class ChatDAO {
 		return sqlSession.insert("chat2Mapper.insertNewChat", chat);
 	}
 	
+	/** 사진 형식 채팅 전송(INSERT) : 언제 실행되나요? 웹소켓에 채팅을 보냈을 때
+	 * @param newChatImg
+	 * @return
+	 */
+	public int insertNewChatImg(Chat2Img newChatImg) {
+		return sqlSession.insert("chat2Mapper.insertNewChatImg", newChatImg);
+	}
+	
 	/** 채팅방 정보 수정
 	 * @param roomNo
 	 * @return result
 	 */
-	public int updateChatRoom(Chat2Room chat2Room) {
+	public int updateChat2Room(Chat2Room chat2Room) {
 		return sqlSession.update("chat2Mapper.updateChatRoom", chat2Room);
 	}
 
@@ -69,7 +78,7 @@ public class ChatDAO {
 	 * @param chat2Enter
 	 * @return result
 	 */
-	public int insertChatEnter(Chat2Enter chat2Enter) {
+	public int insertChat2Enter(Chat2Enter chat2Enter) {
 		return sqlSession.insert("chat2Mapper.insertChatEnter", chat2Enter);
 	}
 
@@ -77,7 +86,7 @@ public class ChatDAO {
 	 * @param chat2Enter
 	 * @return result
 	 */
-	public int updateChatEnter(Chat2Enter chat2Enter) {
+	public int updateChat2Enter(Chat2Enter chat2Enter) {
 		return sqlSession.update("chat2Mapper.updateChatEnter", chat2Enter);
 	}
 	
@@ -93,6 +102,8 @@ public class ChatDAO {
 		// 방 번호를 전달 받아서, 해당 방을 수정함
 		return sqlSession.update("chat2Mapper.updateChatRoomStatus", roomNo);
 	}
+
+
 	
 
 
