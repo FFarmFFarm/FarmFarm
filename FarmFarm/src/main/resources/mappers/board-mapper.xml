@@ -285,7 +285,7 @@
 			FROM "COMMENT" C
 			JOIN "MEMBER" USING(MEMBER_NO)
 			WHERE BOARD_NO = #{boardNo}) C
-		START WITH COMMENT_PARENT IS NULL
+		START WITH COMMENT_PARENT = 0
 		CONNECT BY PRIOR COMMENT_NO = COMMENT_PARENT
 		ORDER SIBLINGS BY COMMENT_NO
 	</select>
@@ -338,7 +338,7 @@
 		INSERT INTO "COMMENT"
 		VALUES(SEQ_COMMENT_NO.NEXTVAL, #{commentContent},
 			<if test='commentParent == 0'>
-				NULL,
+				0,
 			</if>
 			<if test='commentParent != 0'>
 				#{commentParent},
@@ -372,6 +372,16 @@
 		COMMENT_DEL_FL = 'Y',
 		${condition}
 	</update>
+	
+	
+	<!-- 댓글의 부모댓글의 댓글번호를 찾아보아요 -->
+	<select id="selectParent" resultType="_int">
+		SELECT COMMENT_PARENT FROM "COMMENT"
+		WHERE COMMENT_NO = #{coParent}
+	</select>
+	
+	
+	
 	
 	<!-- 알림에 사용되는 SQL문입니다! -->
 		
