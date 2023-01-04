@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import edu.kh.farmfarm.cart.model.service.CartService;
 import edu.kh.farmfarm.cart.model.vo.Cart;
 import edu.kh.farmfarm.member.model.VO.Member;
+import edu.kh.farmfarm.member.model.VO.MemberAddress;
 
 @SessionAttributes("{loginMember}")
 @Controller
@@ -128,5 +129,40 @@ public class CartController {
 		
 		return "order/deliveryInfo";
 	}
+	
+	// 배송정보 변경
+	@ResponseBody
+	@GetMapping("/address/change")
+	public int changeAddress(
+		@RequestParam("addressNo") int addressNo,
+		@SessionAttribute("loginMember") Member loginMember) {
+		
+		MemberAddress add = new MemberAddress();
+		add.setMemberNo(loginMember.getMemberNo());
+		add.setAddressNo(addressNo);
+		
+		return service.changeAddress(add);
+	}
+	
+	// 배송지 삭제
+	@ResponseBody
+	@GetMapping("/address/delete")
+	public int deleteAddress(
+		@RequestParam("addressNo") int addressNo) {
+		
+		return service.deleteAddress(addressNo);
+	}
+
+	// 장바구니 리스트 삭
+	@ResponseBody
+	@GetMapping("/deleteCart/list")
+	public int deleteCartList(
+		@SessionAttribute("loginMember") Member loginMember,
+		@RequestParam("deleteList") String deleteList) {
+			
+		return service.deleteCartList(loginMember.getMemberNo(), deleteList);
+	}
+	
+	
 	
 }

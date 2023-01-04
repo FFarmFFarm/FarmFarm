@@ -17,6 +17,9 @@ body{
     justify-content: center;
 }
 
+.home-logo img {
+    width: 400px;
+}
 
 .notice-text{
     margin-top: 40px;
@@ -27,22 +30,66 @@ body{
 }
 
 .notice-text2{
-    margin-top: 40px;
+    margin-top: 30px;
     font-family: "S-CoreDream-4Legular";
     font-size: var(--medium-font-size);
     color: var(--point-color);
     font-weight: bolder;
 }
 
-.go-home{
+
+#buttonArea{
+    width: 210px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+
+.button{
     margin-top: 30px;
     text-decoration: none;
-    background-color: var(--point-color);
     border-radius: 5px;
     padding: 5px 10px;
 }
 
-.go-home a{
+.to-main{
+    background-color: var(--point-color);
+}
+
+.to-happy-center{
+    background-color: #edb72f;
+}
+
+
+.button a{
     font-family: NotoSansKR-Light;
     color:white;
+}
+
+/* 1:1 상담 버튼 */
+.btn-inquire {
+    width: 100%;
+    height: 100%;
+    font-weight: bold;
+    font-size: var(--medium-font-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    position: relative;
+}
+
+#inquireUnread > i{
+    color: red;
+}
+
+#inquireUnread {
+    position: absolute;
+    right: -15px;
+    top: -15px;
+    display: none;
 }

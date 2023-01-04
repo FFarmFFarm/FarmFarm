@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.farmfarm.cart.model.vo.Cart;
+import edu.kh.farmfarm.member.model.VO.MemberAddress;
 
 @Repository
 public class CartDAO {
@@ -84,9 +85,46 @@ public class CartDAO {
 	 * @param memberNo
 	 * @return addressList
 	 */
-	public Object selectAddressList(int memberNo) {
+	public List<MemberAddress> selectAddressList(int memberNo) {
 		return sqlSession.selectList("cartMapper.selectAddressList", memberNo);
 	}
+
+	/** 기존 배송지 default 변경
+	 * @param memberNo
+	 * @return result
+	 */
+	public int updateDefault(int memberNo) {
+		return sqlSession.update("cartMapper.updateDefault", memberNo);
+	}
+
+	/** 다른 배송지를 default로 변경
+	 * @param add
+	 * @return
+	 */
+	public int changeAddress(MemberAddress add) {
+		return sqlSession.update("cartMapper.changeAddress", add);
+	}
+
+	/** 배송지 삭제
+	 * @param addressNo
+	 * @return result
+	 */
+	public int deleteAddress(int addressNo) {
+		return sqlSession.delete("cartMapper.deleteAddress", addressNo);
+	}
+
+	/** 장바구니 리스트 삭제
+	 * @param condition
+	 * @return result
+	 */
+	public int deleteCartList(String condition) {
+		return sqlSession.delete("cartMapper.deleteCartList", condition);
+	}
+	
+	
+	
+	
+	
 
 	
 }

@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     },
     error: () => { }
-
   })
 })
 
@@ -62,6 +61,13 @@ const openInquire = (inquireContainer, inquireNo) => {
   inquireContainer.classList.remove('disappear-room');
   inquireContainer.classList.add('appear-room');
   inquireContainer.classList.remove('hide-room');
+
+  const inquireContent = document.getElementById('inquireContent');
+  
+  setTimeout(() => {
+    inquireContent.scrollTo(0, inquireContent.scrollHeight);
+  }, "1000");
+
       
 }
 
@@ -70,6 +76,7 @@ const inquireClose = document.getElementById('inquireClose');
 if (inquireClose != undefined) {
   inquireClose.addEventListener('click', function () { 
     closeInquire(inquireContainer);
+    memberInquireNo = null;
   })
 }
 
@@ -180,7 +187,7 @@ const fillInquireModal = (messageList) => {
           
         } else {
           const receive = document.createElement('div');
-          receive.classList.add('send');
+          receive.classList.add('receive');
   
           const div = document.createElement('div');
           div.classList.add('img-container');
@@ -316,7 +323,13 @@ inquireSock.onmessage = (e) => {
         inquireContent.append(receive);
       }
     }
-      inquireContent.scrollTop = inquireContent.scrollHeight;
+
+    inquireContent.scrollTop = inquireContent.scrollHeight;
+  } else {
+    const inquireUnread = document.getElementById('inquireUnread');
+    if (inquireUnread != undefined) {
+      inquireUnread.style.display = "block";
+    }
   }
 }
 

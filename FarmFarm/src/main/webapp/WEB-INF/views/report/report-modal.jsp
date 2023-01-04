@@ -45,6 +45,9 @@
             </div>
         </div>
     </div>
+    <script>
+        var radioResult;
+    </script>
     
     <script src="/resources/js/report/report-modal.js"></script>
     <script src="/resources/js/common/common.js"></script> 

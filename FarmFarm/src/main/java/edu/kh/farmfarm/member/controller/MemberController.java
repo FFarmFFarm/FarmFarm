@@ -70,7 +70,7 @@ public class MemberController {
 			@RequestHeader(value = "referer") String referer,
 			@RequestParam(value = "saveId", required = false) String saveId, HttpServletResponse resp) {
 		Member loginMember = service.login(inputMember);
-
+		
 		String path = null;
 
 		if (loginMember != null) {
@@ -85,7 +85,7 @@ public class MemberController {
 				}
 
 				if (loginMember.getAuthority() == 0 || loginMember.getAuthority() == 1) {
-					// 신고 여부 조회
+					// 신고 여부 조회 (계정 정지 후 7일 뒤 날짜 조회)
 					String checkReport = null;
 					checkReport = service.checkReport(loginMember.getMemberNo());
 
@@ -103,13 +103,19 @@ public class MemberController {
 						resp.addCookie(cookie);
 					} else { // 신고 기록이 있으면
 						path = referer;
-						String notice = "계정 사용이 중지됨" + "(기간 : " + checkReport + ") 자세한 사항은 고객센터(help@farmfarm)으로 문의 바랍니다.";
+						String notice = "계정 사용이 중지됨" + "(기간 : " + checkReport + "까지) 자세한 사항은 고객센터(help@farmfarm)으로 문의 바랍니다.";
 						ra.addFlashAttribute("message", notice);
 					}
 					}
-				if (loginMember.getAuthority() == 3) {
+				if (loginMember.getAuthority() == 3) { // 인증 대기
 					path = "/authenticating";
 				}
+				
+				if (loginMember.getAuthority() == 4) { // 인증 보류
+					path = "/authDeny";
+					model.addAttribute("loginMember", loginMember);
+				}
+				
 			}
 		} else {
 				path = referer;
@@ -199,5 +205,5 @@ public class MemberController {
 	public String signUpSuccessPage() {
 		return "/member/signUpSuccess";
 	}
-
+	
 }

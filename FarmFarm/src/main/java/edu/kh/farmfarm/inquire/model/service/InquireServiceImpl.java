@@ -61,6 +61,9 @@ public class InquireServiceImpl implements InquireService {
 	}
 	
 	
+	/** 메세지 읽음처리
+	 *
+	 */
 	@Override
 	public int updateMessageRead(Map<String, Object> paramMap) {
 		return dao.updateMessageRead(paramMap);

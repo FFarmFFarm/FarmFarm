@@ -19,6 +19,7 @@ public class Cart {
 	private String productImg;
 	private int stock;
 	private String memberAddress;
+	private String memberAddress2;
 	
 	private List<Cart> cartList;
 }

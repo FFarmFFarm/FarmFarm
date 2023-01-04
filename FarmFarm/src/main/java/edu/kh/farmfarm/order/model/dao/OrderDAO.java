@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import edu.kh.farmfarm.cart.model.vo.Cart;
 import edu.kh.farmfarm.mypage.model.vo.Order;
 import edu.kh.farmfarm.order.model.vo.Return;
 import edu.kh.farmfarm.productDetail.model.vo.Product;
@@ -95,6 +96,20 @@ public class OrderDAO {
 
 	public int orderConfirm() {
 		return sqlSession.update("orderMapper.orderConfirm");
+	}
+
+	/** 주문완료 시 장바구니 삭제
+	 * @param cartList
+	 * @return cartResult
+	 */
+	public int deleteCart(List<Cart> cartList) {
+		int cartResult = 0;
+		
+		for(Cart c : cartList) {
+			cartResult = sqlSession.delete("cartMapper.deleteCart", c);
+		}
+		
+		return cartResult;
 	}
 
 

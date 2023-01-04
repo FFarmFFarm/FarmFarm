@@ -40,7 +40,7 @@ for(let i=0; i<selectOne.length; i++){
       minusTotal(productPrice);
 
       // 체크된 목록이 1개 아래면 배송미 없애기
-      const selectChecked = document.querySelectorAll("[name='selectOne']:checked");
+      const selectChecked = document.querySelectorAll(".select-one:checked");
       
       if(selectChecked.length == 0){
         postPrice.innerText = 0;
@@ -60,7 +60,7 @@ for(let i=0; i<selectOne.length; i++){
       plusTotal(productPrice);
 
       // 선택된 체크와 전체 항목 수가 일치할 경우
-      const selectChecked = document.querySelectorAll("[name='selectOne']:checked");
+      const selectChecked = document.querySelectorAll(".select-one:checked")
       
       if(selectOne.length==selectChecked.length){
         selectAll.checked=true;
@@ -216,16 +216,21 @@ const sumTotal = ()=> {
     temp = temp + productPrice*productAmount[i].value;
   }
 
-  totalPrice.innerText = Number(temp).toLocaleString();
-  orderPrice.innerText = Number(temp+3000).toLocaleString();
+  if(Number(temp)==0){
+    totalPrice.innerText = 0;
+    orderPrice.innerText = 0;
+    postPrice.innerText =0;
+  }else{
+    totalPrice.innerText = Number(temp).toLocaleString();
+    orderPrice.innerText = Number(temp+3000).toLocaleString();
+  }
 }
 
 const minusTotal = (productPrice)=>{
   temp = Number(totalPrice.innerText.replaceAll(',', '')) - productPrice;
 
-  const selectChecked = document.querySelectorAll("[name='selectOne']:checked");
+  const selectChecked = document.querySelectorAll(".select-one:checked");
 
-  
   totalPrice.innerText = temp.toLocaleString();
   orderPrice.innerText = (temp+3000).toLocaleString();
 }
@@ -237,9 +242,31 @@ const plusTotal = (productPrice)=>{
   orderPrice.innerText = (temp+3000).toLocaleString();
 }
 
+// 배송정보 창 스크롤 따라서 이동
+const infoMove = () => {
 
+  let targetHeight = 290;  // 스크롤 위치 지정
+  const deliveryInfo = document.getElementById('deliveryInfo');
+
+  if (deliveryInfo.classList.contains('info-top')) {
+      if (window.scrollY >= targetHeight) {
+        deliveryInfo.classList.remove('info-top');
+        deliveryInfo.classList.add('info-sticky');
+      }
+  }
+
+  if (deliveryInfo.classList.contains('info-sticky')) {
+      if (window.scrollY < targetHeight) {
+        deliveryInfo.classList.remove('info-sticky');
+        deliveryInfo.classList.add('info-top');
+      }
+  }
+}
+
+// 즉시실행
 (()=>{
   sumTotal();
+  infoMove();
 })();
 
 
@@ -269,10 +296,49 @@ for(let i=0; i<cancelBtn.length; i++){
         }
       })
     })
-
-
   })
 }
+
+
+// 선택목록 삭제 버튼
+document.getElementById("deleteBtn").addEventListener("click", ()=>{
+
+  const selectChecked = document.querySelectorAll(".select-one:checked");
+
+  let deleteList= "";
+  
+  for(item of selectChecked){
+    deleteList += item.value + ',';
+  }
+
+  deleteList = deleteList.substring(0, deleteList.length-1);
+  console.log(deleteList);
+
+  deleteCartConfirmOpen();
+  document.getElementById('deleteCartConfirmBtn').addEventListener('click', function () {
+
+    $.ajax({
+      url: "/deleteCart/list",
+      data: {"deleteList" : deleteList},
+      type: "GET",
+      success: (result)=>{
+        if(result>0){
+          setTimeout(() => {
+            window.location.reload();
+          }, '200');
+        }
+      },
+      error: ()=>{
+        console.log("장바구니 리스트 삭제 실패");
+      }
+    })
+
+  });
+    
+
+})
+
+
 
 // 장바구니 삭제 하시겠습니까? confirm
 const deleteCartConfirmOpen = () => {
@@ -303,3 +369,14 @@ document.getElementById("changeAddress").addEventListener("click",()=>{
   const options = "scrollbars=yes, height=600, width=500, left="+popupX+", top="+popupY
   window.open("/address", "popupWindow", options);
 })
+
+// 주문하기 버튼
+document.getElementById('orderBtn').addEventListener('click', () => {
+
+  const form = document.getElementById('orderPage');
+  form.submit();
+})
+
+
+
+
