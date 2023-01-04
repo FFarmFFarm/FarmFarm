@@ -135,7 +135,19 @@ public class AdminServiceImpl implements AdminService{
 	
 	
 	// 판매자 인증 거절
-	
+	@Override
+	public int sellerDeny(int hiddenNo) {
+		
+		// 회원 권한을 인증 보류로 변경
+		int result = dao.sellerDeny(hiddenNo);
+		
+		if(result > 0) {
+			// 판매자 인증 처리 일자 수정
+			result = dao.updateAuthDate(hiddenNo);
+		}
+		
+		return result;
+	}
 	
 	
 	

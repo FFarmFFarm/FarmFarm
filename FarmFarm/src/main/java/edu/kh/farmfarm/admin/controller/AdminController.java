@@ -278,7 +278,7 @@ public class AdminController {
 		
 		if(result == 1 && loginMember != null) {
 
-			// 해당 회원번호의 인증신청서 조회
+			// 해당 회원번호의 인증 승인
 			result = service.sellerApprove(hiddenNo);
 	
 		} else {
@@ -292,8 +292,27 @@ public class AdminController {
 	
 	
 	
-	// 판매자 거절 
+	// 판매자 거절 (인증 보류)
+	@PostMapping("/admin/sellerDeny")
+	@ResponseBody
+	public int sellerDeny(@SessionAttribute(value = "loginMember") Member loginMember, int hiddenNo) {
+		
+		// 관리자인지 확인 (관리자면 result==1)
+		int result = service.checkAdmin();
+		
+		
+		if(result == 1 && loginMember != null) {
+
+			// 해당 회원번호의 인증 보류
+			result = service.sellerDeny(hiddenNo);
 	
+		} else {
+			System.out.println("관리자만 접근 가능합니다.");
+		}
+		
+		return result;
+
+	}
 	
 	
 	

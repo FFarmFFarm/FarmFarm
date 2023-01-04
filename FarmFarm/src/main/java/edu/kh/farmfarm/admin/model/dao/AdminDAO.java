@@ -159,9 +159,14 @@ public class AdminDAO {
 
 
 	
-	// 판매자 인증 거절
-	
-	
+	/** 판매자 인증 거절
+	 * @param hiddenNo
+	 * @return
+	 */
+	public int sellerDeny(int hiddenNo) {
+		return sqlSession.update("adminMapper.sellerDeny", hiddenNo);
+	}
+
 	
 	
 	
@@ -210,6 +215,9 @@ public class AdminDAO {
 	public Admin selectNewReportDetail(int hiddenReportNo) {
 		return sqlSession.selectOne("adminMapper.selectNewReportDetail", hiddenReportNo);
 	}
+
+
+
 
 
 

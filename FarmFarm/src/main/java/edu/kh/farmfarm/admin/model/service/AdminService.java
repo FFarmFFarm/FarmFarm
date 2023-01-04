@@ -61,13 +61,12 @@ public interface AdminService {
 	int sellerApprove(int hiddenNo);
 
 	
-	// 판매자 인증 거절
 	
-	
-	
-	
-	
-	
+	/** 판매자 인증 거절
+	 * @param hiddenNo
+	 * @return result
+	 */
+	int sellerDeny(int hiddenNo);
 	
 	
 
@@ -84,6 +83,9 @@ public interface AdminService {
 	 * @return newReportDetail
 	 */
 	Admin selectNewReportDetail(int hiddenReportNo);
+
+
+
 
 
 	
