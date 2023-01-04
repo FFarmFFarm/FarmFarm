@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import edu.kh.farmfarm.inquire.model.vo.InquireRoom;
 import edu.kh.farmfarm.inquire.model.vo.Message;
+import edu.kh.farmfarm.member.model.VO.Member;
 
 @Repository
 public class InquireDAO {
@@ -54,12 +55,37 @@ public class InquireDAO {
 	/** 상담방 메세지 읽음 처리
 	 * @param inquireNo
 	 */
-	public void messageRead(int inquireNo) {
-		sqlSession.update("inquireMapper.messageRead", inquireNo);
+	public int updateMessageRead(Map<String, Object> paramMap) {
+		return sqlSession.update("inquireMapper.messageRead", paramMap);
 	}
 
 	public int unreadCheck(int memberNo) {
 		return sqlSession.selectOne("inquireMapper.unreadCheck", memberNo);
+	}
+
+	/** 메세지 삽입
+	 * @param msg
+	 * @return
+	 */
+	public int insertMessage(Message msg) {
+		int messageNo = sqlSession.insert("inquireMapper.insertMessage", msg);
+		
+		if(messageNo > 0) {
+			messageNo = msg.getMessageNo();
+		}
+		return messageNo;
+	}
+
+	/** 상담방 회원 번호 조회
+	 * @param msg
+	 * @return
+	 */
+	public InquireRoom memberNoList(Message msg) {
+		return sqlSession.selectOne("inquireMapper.selectMemberNo", msg);
+	}
+
+	public Message selectMessage(int messageNo) {
+		return sqlSession.selectOne("inquireMapper.selectMessage", messageNo);
 	}
 
 	
