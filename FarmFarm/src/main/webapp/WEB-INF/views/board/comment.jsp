@@ -74,104 +74,57 @@
                                 <%-- 자식이라면~ --%>
                                 <c:choose>
                                     <%-- 자식이라면~ --%>
-                                    <c:when test="${comment.commentParent != 0}">
+                                    <c:when test="${comment.commentParent > 0}">
+
+
                                         <c:choose>
-                                            <c:when test="${loginMember.memberNo == comment.memberNo && comment.commentDelFl == 'S'}">
-                                                <div class="comment-content child-content secret"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
-                                                <%-- <div class="comment-content"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div> --%>
-                                            </c:when>
-                                            <c:when test="${loginMember.memberNo == comment.parentNo && comment.commentDelFl == 'S'}">
-                                                <div class="comment-content child-content secret"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
-                                            </c:when>
-                                            <c:when test="${loginMember.authority == 2 && comment.commentDelFl == 'S'}">
-                                                <div class="comment-conten child-contentt secret"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
-                                            </c:when>
-                                            <c:when test="${loginMember.memberNo == board.memberNo && comment.commentDelFl == 'S'}">
-                                                <div class="comment-conten child-contentt secret"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
-                                            </c:when>
-                                            <c:when test="${comment.commentDelFl == 'S' && comment.memberNo != comment.parentNo}">
-                                                <div class="comment-content child-content secret"><i class="fa-solid fa-lock"></i>&nbsp;비밀댓글 입니다.</div>
-                                            </c:when>
-                                            <c:when test="${comment.commentDelFl == 'S' && comment.memberNo != loginMember.memberNo}">
-                                                <div class="comment-content child-content secret"><i class="fa-solid fa-lock"></i>&nbsp;비밀댓글 입니다.</div>
+                                            <c:when test="${comment.commentDelFl == 'S'}">
+                                                <c:choose>
+                                                    <c:when test="${loginMember.authority == 2}">
+                                                        <div class="comment-content child-content secret"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
+                                                    </c:when>
+                                                    <c:when test="${loginMember.memberNo == comment.memberNo}">
+                                                        <div class="comment-content child-content secret"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
+                                                    </c:when>
+                                                    <c:when test="${loginMember.memberNo == board.memberNo}">
+                                                        <div class="comment-content child-content secret"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <div class="comment-content child-content secret"><i class="fa-solid fa-lock"></i>&nbsp;비밀댓글 입니다.</div>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </c:when>
                                             <c:otherwise>
                                                 <div class="comment-content child-content">${comment.commentContent}</div>
                                             </c:otherwise>
                                         </c:choose>
 
-                                        <%-- <div class="comment-content child-content">
-                                            <div class="update-parent-btn ">
-                                                <button class="pa-update">수정하기</button>
-                                                <button class="pa-cancle">취소</button>
-                                            </div>	
-                                        </div> --%>
                                     </c:when>
                                     <c:otherwise>
-
-                                        <c:if test="${loginMember.authority == 2}">
-                                            <c:if test="${comment.commentDelFl == 'S'}">
-                                                <div class="comment-content secret"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
-                                            </c:if>
-                                            <c:if test="${comment.commentDelFl != 'S'}">
-                                                <div class="comment-content secret">${comment.commentContent}</div>
-                                            </c:if>
-                                        </c:if>
-                                        <c:if test="${loginMember.authority != 2}">
-                                            <c:if test="${comment.commentDelFl == 'S'}">
-                                                <c:if test="${loginMember.memberNo == comment.memberNo && loginMember.memberNo != board.memberNo}">
-                                                    <div class="comment-content secret"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
-                                                </c:if>
-                                                <c:if test="${loginMember.memberNo != comment.memberNo && loginMember.memberNo != board.memberNo}">
-                                                    <div class="comment-content secret"><i class="fa-solid fa-lock"></i>&nbsp;비밀댓글 입니다.</div>
-                                                </c:if>
-                                                <c:if test="${loginMember.memberNo == board.memberNo}">
-                                                    <div class="comment-content secret"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
-                                                </c:if>
-                                            </c:if>
-                                            <c:if test="${comment.commentDelFl != 'S'}">
-                                                <div class="comment-content">${comment.commentContent}</div>
-                                            </c:if>
-                                        
-                                        </c:if>
-
-                                        <%-- <c:choose>
-                                            <c:when test="${loginMember.memberNo == comment.memberNo && comment.commentDelFl == 'S'}">
-                                            </c:when>
-                                            <c:when test="${comment.memberNo == comment.parentNo && comment.commentDelFl == 'S'}">
-                                                <div class="comment-content secret"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
-                                            </c:when>
-                                            <c:when test="${loginMember.memberNo == board.memberNo && comment.commentDelFl == 'S'}">
-                                                <div class="comment-content secret"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
-                                            </c:when>
-                                            <c:when test="${loginMember.authority == 2 && comment.commentDelFl == 'S'}">
-                                                <div class="comment-content secret"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
-                                            </c:when>
-                                            <c:when test="${comment.commentDelFl == 'S' && comment.memberNo != comment.parentNo}">
-                                                <div class="comment-content secret"><i class="fa-solid fa-lock"></i>&nbsp;비밀댓글 입니다.</div>
+                                        <c:choose>
+                                            <c:when test="${comment.commentDelFl == 'S'}">
+                                                <c:choose>
+                                                    <c:when test="${loginMember.authority == 2}">
+                                                        <div class="comment-content child-content secret"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
+                                                    </c:when>
+                                                    <c:when test="${loginMember.memberNo == comment.memberNo}">
+                                                        <div class="comment-content child-content secret"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
+                                                    </c:when>
+                                                    <c:when test="${loginMember.memberNo == board.memberNo}">
+                                                        <div class="comment-content child-content secret"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <div class="comment-content child-content secret"><i class="fa-solid fa-lock"></i>&nbsp;비밀댓글 입니다.</div>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </c:when>
                                             <c:otherwise>
-                                                <div class="comment-content">${comment.commentContent}</div>
+                                                <div class="comment-content child-content">${comment.commentContent}</div>
                                             </c:otherwise>
-                                        </c:choose> --%>
-
-                                        <%-- <c:if test="${loginMember.memberNo == comment.memberNo && comment.commentDelFl == 'S'}">
-                                            <div class="comment-content"><i class="fa-solid fa-lock"></i>${comment.commentContent}</div>
-                                        </c:if>
-                                        <c:if test="${comment.memberNo == comment.parentNo && comment.commentDelFl == 'S'}">
-                                            <div class="comment-content"><i class="fa-solid fa-lock"></i>${comment.commentContent}</div>
-                                        </c:if> --%>
-                                        <%-- <div class="comment-content">
-                                            <textarea name="boardContent" class="update-parent"></textarea>
-                                            <div class="update-parent-btn">
-                                                <button class="pa-update">수정하기</button>
-                                                <button class="pa-cancle">취소</button>
-                                            </div>
-                                        </div> --%>
+                                        </c:choose>
+                                        
                                     </c:otherwise>
                                 </c:choose>
-                                <%-- <c:if test="${comment.commentParent != 0}">
-                                </c:if> --%>
                                 <div class="writer-time-reply"> ${comment.commentDate} &nbsp; 
 
                                     <c:choose>
@@ -205,7 +158,8 @@
                                                 <c:if test="${loginMember.memberNo != comment.memberNo && loginMember.memberNo == board.memberNo}">
                                                     <button onclick="showReply(${comment.commentNo}, this)" class="comment-reply">| &nbsp;&nbsp;답글달기&nbsp;&nbsp;</button> 
                                                 </c:if>
-                                                <c:if test="${loginMember.memberNo == comment.parentNo && loginMember.memberNo != board.memberNo}">
+                                                <c:if test="${loginMember.memberNo == comment.parentNo && loginMember.memberNo != comment.memberNo}">
+                                                <%-- <c:if test="${loginMember.memberNo == comment.parentNo && loginMember.memberNo != board.memberNo}"> --%>
                                                     <button onclick="showReply(${comment.commentNo}, this)" class="comment-reply">| &nbsp;&nbsp;답글달기&nbsp;&nbsp;</button> 
                                                 </c:if>
                                             
