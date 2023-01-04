@@ -86,8 +86,9 @@ public interface AdminService {
 	Admin selectNewReportDetail(int hiddenReportNo);
 
 
-
-
+	
+	
+	
 
 
 

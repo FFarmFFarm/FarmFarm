@@ -17,5 +17,7 @@ public class Message {
     private String messageDelFl;
     private int roomNo;
     private String messageTime;
+    private String messageDate;
+    private String lastMessageDate;
     private String imgFl;
 }

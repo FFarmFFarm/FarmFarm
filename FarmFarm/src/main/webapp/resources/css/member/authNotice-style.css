@@ -17,6 +17,9 @@ body{
     justify-content: center;
 }
 
+.home-logo img {
+    width: 400px;
+}
 
 .notice-text{
     margin-top: 40px;
@@ -27,22 +30,39 @@ body{
 }
 
 .notice-text2{
-    margin-top: 40px;
+    margin-top: 30px;
     font-family: "S-CoreDream-4Legular";
     font-size: var(--medium-font-size);
     color: var(--point-color);
     font-weight: bolder;
 }
 
-.go-home{
+
+#buttonArea{
+    width: 210px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+.button{
     margin-top: 30px;
     text-decoration: none;
-    background-color: var(--point-color);
     border-radius: 5px;
     padding: 5px 10px;
 }
 
-.go-home a{
+.to-main{
+    background-color: var(--point-color);
+}
+
+.to-happy-center{
+    background-color: #edb72f;
+}
+
+
+.button a{
     font-family: NotoSansKR-Light;
     color:white;
 }

@@ -1,7 +1,11 @@
 package edu.kh.farmfarm.admin.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -56,7 +60,19 @@ public class AdminProcessController {
 	}
 	
 	
-	// 신고 계정 - 정지
+	// 신고 계정 - 정지   // 스케쥴러로 7일 뒤에 풀기
+	@PostMapping("/report/bannedAccount")
+	@ResponseBody
+	public int reportMemberBanned(@SessionAttribute(value="loginMember") Member loginMember, int hiddenNo) {
+		// 관리자인지 확인
+		int result = service.checkAdmin();
+		
+		if(result == 1  && loginMember != null) {
+			
+			result = service.reportMemberBanned(hiddenNo);
+		}
+		return result;
+	}
 	
 	
 	
@@ -83,19 +99,42 @@ public class AdminProcessController {
 	
 	
 	
+	// 신고 게시글(판매글, 커뮤니티 게시글) - 삭제
+	@GetMapping("/report/deleteContent")
+	@ResponseBody
+	public int reportDeleteContent(@SessionAttribute(value="loginMember") Member loginMember,
+									int hiddenContentNo, String reportType) {
+		// 관리자인지 확인
+		int result = service.checkAdmin();
+
+		
+		if(result == 1  && loginMember != null) {
+			
+			result = service.reportDeleteContent(hiddenContentNo, reportType);
+		}
+		return result;
+	}
 	
-	
-	
-	// 신고 게시글 - 삭제
-	
-	
-	
-	
-	
-	
+
 	
 	// 신고 게시글 - 반려
-	
+	@GetMapping("/report/LeaveContent")
+	@ResponseBody
+	public int reportLeaveContent(@SessionAttribute(value="loginMember") Member loginMember,
+									int hiddenContentNo, String reportType) {
+		// 관리자인지 확인
+		int result = service.checkAdmin();
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("hiddenContentNo", hiddenContentNo);
+		paramMap.put("reportType", reportType);
+		
+		if(result == 1  && loginMember != null) {
+			
+			result = service.reportLeaveContent(paramMap);
+		}
+		return result;
+	}
 	
 	
 	

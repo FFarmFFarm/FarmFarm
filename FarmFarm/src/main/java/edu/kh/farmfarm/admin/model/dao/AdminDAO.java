@@ -168,7 +168,7 @@ public class AdminDAO {
 	
 	
 	
-	/** 미처리 신고 개수
+	/** 미처리 신고 개수 (중복제거) _힌 아이디당 한 번씩 조회
 	 * @param sortFilter
 	 * @return reportListCount
 	 */
@@ -176,6 +176,16 @@ public class AdminDAO {
 		return sqlSession.selectOne("adminMapper.reportListCount", sortFilter);
 	}
 
+	
+	
+	/** 미처리 신고 개수 (중복포함) _ 한 아이디가 신고된 모든 개수 조회
+	 * @return reportAllListCount
+	 */
+	public int reportAllListCount() {
+		return sqlSession.selectOne("adminMapper.askReportStat");  // 대시보드 미처리 신고내역 통계와 같음.
+	}
+
+	
 	
 
 	/** 미처리 신고 조회
@@ -200,6 +210,9 @@ public class AdminDAO {
 	public Admin selectNewReportDetail(int hiddenReportNo) {
 		return sqlSession.selectOne("adminMapper.selectNewReportDetail", hiddenReportNo);
 	}
+
+
+
 
 
 

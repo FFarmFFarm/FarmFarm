@@ -18,6 +18,8 @@
     
     <link rel="stylesheet" href="/resources/css/member/memberModal-style.css" />
     <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
+
+    <link rel="stylesheet" href="/resources/css/report/report-modal-style.css" />
 </head>
 <body>
     
@@ -160,6 +162,10 @@
     <%-- <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/> --%>
 
     </main>
+
+    <!-- 신고 모달창 -->
+    <jsp:include page="/WEB-INF/views/report/report-modal.jsp"/> 
+    <script src="/resources/js/report/report-modal.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"
     integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
