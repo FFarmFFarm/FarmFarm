@@ -61,7 +61,7 @@
 	<task:annotation-driven/>
 	
 	<!-- 채팅 -->
-	<beans:bean id="chatHandler" class="edu.kh.farmfarm.chat.model.websocket.ChatWebsocketHandler" />
+	<beans:bean id="chatHandler" class="edu.kh.farmfarm.chat2.model.websocket.ChatWebsocketHandler" />
 	<websocket:handlers>
 		<websocket:mapping handler="chatHandler" path="/echo/chat"/>
 		

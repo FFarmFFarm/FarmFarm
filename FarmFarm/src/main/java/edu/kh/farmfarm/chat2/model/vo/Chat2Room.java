@@ -17,11 +17,13 @@ public class Chat2Room {
 	private int roomType;
 	private int roomStatus;
 	
+	// 추가 객체값
+	// 채팅방 가입/접속 기록
 	private int enterNo;
 	private int memberNo;
 	private String enterStatus;
+	private int lastReadChatNo;
 	
-	// 추가 객체값
 	// 이름, 프로필
 	private String memberNickname;
 	private String profileImg;

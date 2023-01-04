@@ -14,6 +14,7 @@
 	      <result property="enterNo" column="ENTER_NO" />
 	      <result property="memberNo" column="MEMBER_NO" />
 	      <result property="enterStatus" column="ENTER_STATUS" />
+   	      <result property="lastReadChatNo" column="LAST_READ_CHAT_NO" />
 
 	      <result property="memberNickname" column="MEMBER_NICKNAME" />
 	      <result property="profileImg" column="PROFILE_IMG" />
@@ -37,7 +38,7 @@
 	      <result property="chatContent" column="CHAT_CONTENT" />
 	      <result property="chatDate" column="CHAT_DATE" />
 	      <result property="chatTime" column="CHAT_TIME" />
-	      <result property="readFl" column="READ_FL" />
+	      <result property="readCount" column="READ_COUNT" />
 	 </resultMap>
 
 	 <resultMap type="Chat2Img" id="chat2Img_rm">
@@ -50,6 +51,16 @@
 	      <result property="chatImgPath" column="CHAT_IMG_PATH" />
 	 </resultMap>
 	 
+	 <resultMap type="Chat2Enter" id="chat2Enter_rm">
+	        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+	     <id property = "enterNo" column="ENTER_NO"/>
+	     <!-- 나머지 일반 컬럼 -->
+	      <result property="roomNo" column="ROOM_NO" />
+	      <result property="memberNo" column="MEMBER_NO" />
+	      <result property="enterStatus" column="ENTER_STATUS" />
+	      <result property="lastReadChatNo" column="LAST_READ_CHAT_NO" />
+	 </resultMap>
+	 
 	
 	<!-- 필요한 SQL문 -->
 	
@@ -58,7 +69,7 @@
 		SELECT * 
 		FROM (SELECT ROOM_NO, NVL(UNREAD_CHAT_COUNT, 0) AS UNREAD_CHAT_COUNT 
 	  	  	  FROM(SELECT COUNT(*) AS UNREAD_CHAT_COUNT, ROOM_NO
-		           FROM CHAT2 WHERE READ_FL = 'N' GROUP BY ROOM_NO)
+		           FROM CHAT2 WHERE READ_COUNT = 'N' GROUP BY ROOM_NO)
 	          RIGHT JOIN (SELECT ROOM_NO FROM CHAT2_ROOM) USING (ROOM_NO))
 		------------------
 		JOIN (SELECT ROOM_NO, C.CHAT_NO, C.CHAT_CONTENT, C.CHAT_TIME, C.CHAT_TYPE
@@ -86,7 +97,7 @@
 
 	<!-- 선택한 채팅방의 대화내용 조회(SELECT) -->
 	<select id="selectChatList" parameterType="_int" resultMap="chat2_rm">
-		SELECT ROOM_NO, CHAT_NO, MEMBER_NO, CHAT_TYPE, CHAT_CONTENT, CHAT_TIME, READ_FL,
+		SELECT ROOM_NO, CHAT_NO, MEMBER_NO, CHAT_TYPE, CHAT_CONTENT, CHAT_TIME, READ_COUNT,
 	       	   CASE WHEN CHAT_TYPE='I' THEN (SELECT CHAT_IMG_PATH FROM CHAT2_IMG SUB WHERE MAIN.CHAT_NO = SUB.CHAT_NO)
 	           ELSE NULL END CHAT_IMG_PATH
 		FROM CHAT2 MAIN
@@ -103,8 +114,15 @@
 		</selectKey>
 	</insert>
 
+	<!-- 채팅방 참가자 조회(SELECT) -->
+	<select id="selectEnterMemberList" parameterType="_int" resultMap="chat2Enter_rm">
+		SELECT MEMBER_NO FROM CHAT2_ENTER
+		WHERE ROOM_NO = #{roomNo}
+		AND ENTER_STATUS = 'Y'
+	</select>
+	
 	<!-- 채팅방 수정(UPDATE) -->
-	<update id="updateChatRoomName">
+	<update id="updateChatRoom">
 		UPDATE CHAT2_ROOM SET ROOM_NAME = #{roomName}
 		WHERE ROOM_NO = #{roomNo}
 	</update>
@@ -148,16 +166,39 @@
 		       #{chatImgRename}, #{chatImgPath})
 	</insert>
 		
-	<!-- 채팅 읽음 처리(UPDATE) -->
-	<update id="updateChatReadFl">
-		UPDATE CHAT2 SET READ_FL = 'Y'
+		
+	<!-- 채팅 조회 처리(1) : 마지막으로 읽은 채팅의 번호를 조회, 채팅 기록에 업데이트(UPDATE) -->
+	<update id="updateLastChatNo">
+		UPDATE LAST_READ_CHAT_NO SET (SELECT MAX(CHAT_NO)
+									 FROM (SELECT CHAT_NO 
+									  	   FROM CHAT2 
+									  	   WHERE ROOM_NO = {#roomNo}
+									  	   ORDER BY CHAT_NO DESC)
+									 WHERE ROWNUM = 1)
 		WHERE ROOM_NO = #{roomNo}
+		AND MEMBER_NO = #{memberNo}
+	</update>
+		
+	
+	<!-- 채팅 조회 처리(2) : 마지막으로 읽은 채팅 번호로 업데이트(UPDATE) -->
+	<update id="updateChatCount">
+		UPDATE CHAT2 SET READ_COUNT = READ_COUNT + 1
+		WHERE ROOM_NO = #{roomNo}
+		AND CHAT_NO > (SELECT LAST_READ_CHAT_NO 
+					   FROM CHAT2_ENTER
+					   WHERE ROOM_NO = #{roomNo}
+					   AND MEMBER_NO = #{memberNo} )
 	</update>
 
 	<!-- 채팅 삭제 처리(UPDATE) -->
 	<update id="updateChatReadFl">
-		UPDATE CHAT2 SET READ_FL = 'B'
+		UPDATE CHAT2 SET READ_COUNT = 'B'
 		WHERE CHAT_NO = #{chatNo}
 	</update>
+	
+	
+	
+	
+	
 	
 </mapper>
