@@ -98,5 +98,22 @@ public class CartServiceImpl implements CartService{
 		
 		return dao.changeAddress(add);
 	}
+
+	// 배송지 삭제
+	@Override
+	public int deleteAddress(int addressNo) {
+		return dao.deleteAddress(addressNo);
+	}
+
+	
+	// 장바구니 리스트 삭제
+	@Override
+	public int deleteCartList(int memberNo, String deleteList) {
+		
+		String condition = "WHERE PRODUCT_NO IN ("+deleteList+")"
+							+ "AND MEMBER_NO= " + memberNo;
+		
+		return dao.deleteCartList(condition);
+	}
 	
 }

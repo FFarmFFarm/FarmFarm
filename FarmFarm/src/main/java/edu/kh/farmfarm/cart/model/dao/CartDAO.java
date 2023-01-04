@@ -104,6 +104,22 @@ public class CartDAO {
 	public int changeAddress(MemberAddress add) {
 		return sqlSession.update("cartMapper.changeAddress", add);
 	}
+
+	/** 배송지 삭제
+	 * @param addressNo
+	 * @return result
+	 */
+	public int deleteAddress(int addressNo) {
+		return sqlSession.delete("cartMapper.deleteAddress", addressNo);
+	}
+
+	/** 장바구니 리스트 삭제
+	 * @param condition
+	 * @return result
+	 */
+	public int deleteCartList(String condition) {
+		return sqlSession.delete("cartMapper.deleteCartList", condition);
+	}
 	
 	
 	

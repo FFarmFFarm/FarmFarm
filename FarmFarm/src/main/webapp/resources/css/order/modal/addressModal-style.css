@@ -1,4 +1,4 @@
-/* 
+
 
 .login-confirm-container{
   width: 100vw;
@@ -15,6 +15,8 @@
 
   font-size: var(--main-font-size);
   font-family: "NotoSansKR-Bold";
+
+  z-index: 1200;
 }
 
 .login-confirm-container > div:first-child {
@@ -50,13 +52,13 @@
 
 .login-confirm-btn > button {
   width: 50%;
-
+  border: none;
   font-weight: bold;
 }
 
 .login-confirm-btn > button:last-child {
   color: var(--point-color);
-} */
+}
 
 /* 메세지 모달창 관련 */
 

@@ -216,8 +216,14 @@ const sumTotal = ()=> {
     temp = temp + productPrice*productAmount[i].value;
   }
 
-  totalPrice.innerText = Number(temp).toLocaleString();
-  orderPrice.innerText = Number(temp+3000).toLocaleString();
+  if(Number(temp)==0){
+    totalPrice.innerText = 0;
+    orderPrice.innerText = 0;
+    postPrice.innerText =0;
+  }else{
+    totalPrice.innerText = Number(temp).toLocaleString();
+    orderPrice.innerText = Number(temp+3000).toLocaleString();
+  }
 }
 
 const minusTotal = (productPrice)=>{
@@ -225,7 +231,6 @@ const minusTotal = (productPrice)=>{
 
   const selectChecked = document.querySelectorAll(".select-one:checked");
 
-  
   totalPrice.innerText = temp.toLocaleString();
   orderPrice.innerText = (temp+3000).toLocaleString();
 }
@@ -258,7 +263,7 @@ const infoMove = () => {
   }
 }
 
-
+// 즉시실행
 (()=>{
   sumTotal();
   infoMove();
@@ -291,10 +296,49 @@ for(let i=0; i<cancelBtn.length; i++){
         }
       })
     })
-
-
   })
 }
+
+
+// 선택목록 삭제 버튼
+document.getElementById("deleteBtn").addEventListener("click", ()=>{
+
+  const selectChecked = document.querySelectorAll(".select-one:checked");
+
+  let deleteList= "";
+  
+  for(item of selectChecked){
+    deleteList += item.value + ',';
+  }
+
+  deleteList = deleteList.substring(0, deleteList.length-1);
+  console.log(deleteList);
+
+  deleteCartConfirmOpen();
+  document.getElementById('deleteCartConfirmBtn').addEventListener('click', function () {
+
+    $.ajax({
+      url: "/deleteCart/list",
+      data: {"deleteList" : deleteList},
+      type: "GET",
+      success: (result)=>{
+        if(result>0){
+          setTimeout(() => {
+            window.location.reload();
+          }, '200');
+        }
+      },
+      error: ()=>{
+        console.log("장바구니 리스트 삭제 실패");
+      }
+    })
+
+  });
+    
+
+})
+
+
 
 // 장바구니 삭제 하시겠습니까? confirm
 const deleteCartConfirmOpen = () => {
@@ -326,9 +370,13 @@ document.getElementById("changeAddress").addEventListener("click",()=>{
   window.open("/address", "popupWindow", options);
 })
 
-
+// 주문하기 버튼
 document.getElementById('orderBtn').addEventListener('click', () => {
 
   const form = document.getElementById('orderPage');
   form.submit();
 })
+
+
+
+

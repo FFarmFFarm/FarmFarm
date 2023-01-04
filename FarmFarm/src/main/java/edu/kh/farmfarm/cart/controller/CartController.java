@@ -144,5 +144,25 @@ public class CartController {
 		return service.changeAddress(add);
 	}
 	
+	// 배송지 삭제
+	@ResponseBody
+	@GetMapping("/address/delete")
+	public int deleteAddress(
+		@RequestParam("addressNo") int addressNo) {
+		
+		return service.deleteAddress(addressNo);
+	}
+
+	// 장바구니 리스트 삭
+	@ResponseBody
+	@GetMapping("/deleteCart/list")
+	public int deleteCartList(
+		@SessionAttribute("loginMember") Member loginMember,
+		@RequestParam("deleteList") String deleteList) {
+			
+		return service.deleteCartList(loginMember.getMemberNo(), deleteList);
+	}
+	
+	
 	
 }

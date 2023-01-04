@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="/resources/css/order/deliveryInfo-style.css">
   <link rel="stylesheet" href="/resources/css/order/modal/addressModal-style.css" />
 
+
+
   <script src="https://kit.fontawesome.com/d449774bd8.js" crossorigin="anonymous"></script>
   <title>팜팜 | 배송지변경</title>
 </head>
@@ -23,7 +25,7 @@
         <div class="column-name">
           <span>선택</span>
           <span>배송 정보</span>
-          <span>수정</span>
+          <span>삭제</span>
         </div>
       </div>
 
@@ -56,9 +58,11 @@
                 <span class="phone-no">${address.to}</span>
               </div>
             </div>
-            <div class="edit-address">
-              <button class="fa-regular fa-pen-to-square" name="editBtn"></button>
-            </div>
+            <c:if test="${address.defaultFl == 'N'}">
+              <div class="delete-address">
+                <button class="fa-regular fa-circle-xmark" name="deleteBtn"></button>
+              </div>
+            </c:if>
           </div>
         </c:forEach>
 
@@ -77,6 +81,7 @@
   </div>
 
   <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
+  <jsp:include page="/WEB-INF/views/order/modal/cartConfirm.jsp"/>
 
   <script src="/resources/js/order/deliveryInfo.js"></script>
   <script src="/resources/js/common/common.js"></script>

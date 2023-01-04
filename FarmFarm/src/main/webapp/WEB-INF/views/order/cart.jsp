@@ -43,7 +43,7 @@
                             </span>
                         </label>
                         <span class="bar">|</span>
-                        <button type="button" class="check-title delete-check">선택삭제</button>
+                        <button type="button" class="check-title delete-check" id="deleteBtn">선택삭제</button>
                     </div>
 
                     <ul class="product-list">

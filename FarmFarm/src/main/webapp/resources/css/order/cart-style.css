@@ -29,6 +29,7 @@ button {
   display: flex;
   justify-content: space-between;
   margin-bottom: 100px;
+  min-height: 500px;
 }
 
 .product-container{
@@ -60,7 +61,7 @@ button {
 }
 
 input[type="checkbox"]{
-  /* display: none; */
+  display: none;
 }
 
 

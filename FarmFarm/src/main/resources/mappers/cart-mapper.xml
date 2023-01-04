@@ -110,14 +110,23 @@
 		AND DEFAULT_FL='Y'
 	</update>
 	
+	<!-- 다른 배송지를 기본으로 변경 -->
 	<update id="changeAddress">
 		UPDATE ADDRESS SET DEFAULT_FL='Y'
 		WHERE MEMBER_NO = #{memberNo}
 		AND ADDRESS_NO = #{addressNo}
 	</update>
 	
+	<!-- 배송지 삭제 -->
+	<delete id="deleteAddress">
+		DELETE FROM ADDRESS WHERE ADDRESS_NO = #{addressNo}
+	</delete>
 	
-	
+	<!-- 장바구니 리스트 삭제 -->
+	<delete id="deleteCartList">
+		DELETE FROM CART 
+		${condition}
+	</delete>
 	
   
 </mapper>
