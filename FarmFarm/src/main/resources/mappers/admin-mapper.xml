@@ -481,8 +481,15 @@
 	</update>
 	
 	
-	
-	
+	<!-- 정지된 계정 리스트 조회 (스케쥴링)-->
+	<select id="selectBannedAccountList" resultMap="admin_rm">
+		SELECT *
+		FROM REPORT
+		LEFT JOIN MEMBER ON (REPORT_TARGET_NO = MEMBER_NO)
+		WHERE REPORT_TYPE = 'M'
+		AND REPORT_PENALTY = 'Y'
+		AND MEMBER_DEL_FL = 'N'
+	</select>
 	
 	
 	

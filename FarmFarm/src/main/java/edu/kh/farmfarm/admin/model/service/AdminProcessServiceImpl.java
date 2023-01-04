@@ -1,12 +1,14 @@
 package edu.kh.farmfarm.admin.model.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.kh.farmfarm.admin.model.dao.AdminProcessDAO;
+import edu.kh.farmfarm.admin.model.vo.Admin;
 
 @Service
 public class AdminProcessServiceImpl implements AdminProcessService{
@@ -104,6 +106,13 @@ public class AdminProcessServiceImpl implements AdminProcessService{
 		return dao.reportLeaveContent(paramMap);
 	}	
 	
+	
+	
+	// 정지된 계정 리스트 불러오기 (스케쥴링)
+	@Override
+	public List<Admin> selectBannedAccountList() {
+		return dao.selectBannedAccountList();
+	}
 	
 	
 }

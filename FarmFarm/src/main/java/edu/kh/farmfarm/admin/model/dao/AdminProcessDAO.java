@@ -1,10 +1,13 @@
 package edu.kh.farmfarm.admin.model.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import edu.kh.farmfarm.admin.model.vo.Admin;
 
 @Repository
 public class AdminProcessDAO {
@@ -94,6 +97,14 @@ public class AdminProcessDAO {
 	 */
 	public int reportLeaveContent(Map<String, Object> paramMap) {
 		return sqlSession.update("adminMapper.reportLeaveContent", paramMap);
+	}
+
+
+	/** 정지된 계정 리스트 조회(스케쥴링)
+	 * @return bannedAccountList
+	 */
+	public List<Admin> selectBannedAccountList() {
+		return sqlSession.selectList("adminMapper.selectBannedAccountList");
 	}
 
 

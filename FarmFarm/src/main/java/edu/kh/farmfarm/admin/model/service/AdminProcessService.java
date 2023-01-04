@@ -1,6 +1,9 @@
 package edu.kh.farmfarm.admin.model.service;
 
+import java.util.List;
 import java.util.Map;
+
+import edu.kh.farmfarm.admin.model.vo.Admin;
 
 public interface AdminProcessService {
 	
@@ -50,6 +53,12 @@ public interface AdminProcessService {
 	 * @return result
 	 */
 	int reportLeaveContent(Map<String, Object> paramMap);
+
+
+	/** 정지된 계정 리스트 조회(스케쥴링)
+	 * @return bannedAccountList
+	 */
+	List<Admin> selectBannedAccountList();
 
 
 
