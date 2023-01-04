@@ -55,7 +55,7 @@ const fillInquireRoom = (messageList) => {
   readingArea.innerHTML = '';
 
 
-  const temp = messageList[0].messageDate;
+  let temp = messageList[0].messageDate;
 
   const dateLabelLine = document.createElement('div');
   dateLabelLine.className = 'date-label-line';
@@ -70,15 +70,18 @@ const fillInquireRoom = (messageList) => {
   for(let item of messageList) { 
 
     if (item.messageDate != temp) {
+      
       const dateLabelLine = document.createElement('div');
       dateLabelLine.className = 'date-label-line';
-    
+      
       const dateLabel = document.createElement('div');
       dateLabel.classList.add('date-label');
       dateLabel.innerHTML = item.messageDate;
-    
+      
       dateLabelLine.append(dateLabel);
       readingArea.append(dateLabelLine);
+      
+      temp = item.messageDate;
     }
 
     const message = document.createElement('div');
