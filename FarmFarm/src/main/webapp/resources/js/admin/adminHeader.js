@@ -49,3 +49,22 @@ window.onload = () =>{
     setClock();
     setInterval(setClock, 1000);  // 1초마다 실행
 }
+
+
+
+/* 문서 로딩 완료 후 읽지 않은 메세지가 있는 경우
+nav 상담 관리 버튼 옆에 빨간 아이콘 표시*/
+document.addEventListener('DOMContentLoaded', () => { 
+    $.ajax({
+        url: "/inquire/unreadCheck",
+        dataType: 'json',
+        success: (unreadCount) => {
+            if (unreadCount > 0) {
+                document.getElementById('newMessage').classList.remove('hide');
+            }
+        },
+        error: () => { }
+    })
+})
+
+

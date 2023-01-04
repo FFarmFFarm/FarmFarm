@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="inquireMapper">
 
-
+	<!-- 상담방 resultMap -->
 	 <resultMap type="InquireRoom" id="inquire_rm">
 	        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
 	     <id property = "inquireNo" column="INQUIRE_NO"/>
@@ -12,20 +12,17 @@
 	      <result property="memberNickname" column="MEMBER_NICKNAME" />
 	      <result property="profileImg" column="PROFILE_IMG" />
 	      <result property="memberNo2" column="MEMBER_NO2" />
-	      <result property="memberNickname2" column="MEMBER_NICKNAME2" />
-	      <result property="profileImg2" column="PROFILE_IMG2" />
 	      <result property="closedFl" column="CLOSED_FL" />
 	      
-	      <result property="lastSendTime" column="LAST_CHAT_TIME" />
-	      <result property="lastSendContent" column="LAST_CHAT_CONTENT" />
-	      <result property="lastSendImgFl" column="LAST_CHAT_IMG_FL" />
-	      <result property="unreadMessageCount" column="UNREAD_CHAT_COUNT" />
-	      
-	      <result property="messageTimeOrder" column="CHAT_TIME_ORDER" />
+	      <result property="lastSendTime" column="LAST_SEND_TIME" />
+	      <result property="lastMessage" column="LAST_MESSAGE" />
+	      <result property="lastSendImgFl" column="LAST_SEND_IMG_FL" />
+	      <result property="unreadCount" column="UNREAD_COUNT" />
+	      <result property="messageTimeOrder" column="MESSAGE_TIME_ORDER" />
 
 	 </resultMap>
 	 
-	 
+	 <!-- 메세지 resultMap -->
 	 <resultMap type="Message" id="message_rm">
 	        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
 	     <id property = "inquireNo" column="INQUIRE_NO"/>
@@ -42,7 +39,7 @@
 	      
 	 </resultMap>
 
-
+	<!-- 메세지 이미지 resultMap -->
 	 <resultMap type="MessageImg" id="messageImg_rm">
 	        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
 	     <id property = "imgNo" column="IMG_NO"/>
@@ -53,7 +50,7 @@
 	 </resultMap>
 	 
 	 
-	 
+	 <!-- 상담방 존재 유무 확인 -->
 	 <select id="checkInquireRoom" resultType="_int">
 	 	SELECT NVL(SUM(INQUIRE_NO), 0) 
 	 	FROM INQUIRE_ROOM
@@ -61,6 +58,7 @@
 			OR (MEMBER_NO = #{memberNo2} AND MEMBER_NO2 = #{memberNo})
 	 </select>
 	 
+	 <!-- 상담방 생성 -->
 	 <insert id="createInquireRoom" useGeneratedKeys="true">
 	 	<selectKey keyProperty="inquireNo" order="BEFORE" resultType="_int">
 	 		SELECT SEQ_INQUIRE_NO.NEXTVAL FROM DUAL
@@ -70,6 +68,7 @@
 	 	VALUES(#{inquireNo}, DEFAULT, #{memberNo}, #{memberNo2}, DEFAULT)
 	 </insert>
 	 
+	 <!-- 상담방 생성 시 안내 메세지 삽입 -->
 	 <insert id="insertFirstMessage">
 	 	INSERT INTO MESSAGE 
 		VALUES(SEQ_MESSAGE_NO.NEXTVAL,
@@ -77,13 +76,16 @@
 			,DEFAULT, DEFAULT, DEFAULT, #{inquireNo})
 	 </insert>
 	 
+	 <!-- 상담방 메세지 목록 조회 -->
 	 <select id="selectInquire" resultMap="message_rm">
 	 	SELECT MESSAGE_NO , MESSAGE_CONTENT , SEND_MEMBER_NO , MESSAGE_DEL_FL 
 			,READ_FL, TO_CHAR(MESSAGE_TIME, 'YYYY-MM-DD') AS MESSAGE_DATE,
 			TO_CHAR(MESSAGE_TIME, 'AM HH":"MI') AS MESSAGE_TIME, IMG_FL, INQUIRE_NO 
 		FROM MESSAGE WHERE INQUIRE_NO = #{inquireNo}
+		ORDER BY MESSAGE_NO
 	 </select>
 	 
+	 <!-- 메세지 하나 조회 -->
 	 <select id="selectMessage" resultMap="message_rm">
 	 	SELECT MESSAGE_NO , MESSAGE_CONTENT , SEND_MEMBER_NO , MESSAGE_DEL_FL 
 			,READ_FL, TO_CHAR(MESSAGE_TIME, 'YYYY-MM-DD') AS MESSAGE_DATE,
@@ -94,12 +96,14 @@
 		FROM MESSAGE WHERE MESSAGE_NO = #{messageNo}
 	 </select>
 	
+	<!-- 메세지 읽음처리 -->
 	<update id="messageRead">
 		UPDATE MESSAGE SET READ_FL = 'Y'
 		WHERE INQUIRE_NO = #{inquireNo}
 		AND SEND_MEMBER_NO != #{memberNo}
 	</update>
 	
+	<!-- 안읽은 메세지 조회 -->
 	<select id="unreadCheck" resultType="_int">
 		SELECT COUNT(*)
 		FROM MESSAGE m
@@ -107,6 +111,7 @@
 		WHERE READ_FL = 'N' AND SEND_MEMBER_NO != #{memberNo}
 	</select>
 	
+	<!-- 메세지 삽입 -->
 	<insert id="insertMessage" useGeneratedKeys="true">
 		<selectKey keyProperty="messageNo" order="BEFORE" resultType="_int">
 			SELECT SEQ_MESSAGE_NO.NEXTVAL FROM DUAL
@@ -118,10 +123,35 @@
 			,DEFAULT, DEFAULT, #{imgFl}, #{inquireNo})
 	</insert>
 	
+	<!-- 특정 상담방에 있는 회원 번호 조회 -->
  	<select id="selectMemberNo" resultMap="inquire_rm">
  		SELECT INQUIRE_NO, MEMBER_NO, MEMBER_NO2
  		FROM INQUIRE_ROOM
  		WHERE INQUIRE_NO = #{inquireNo}
+ 	</select>
+ 	
+ 	<select id="selectInquireList" resultMap="inquire_rm">
+ 		SELECT INQUIRE_NO, INQUIRE_DATE, MEMBER_NO, MEMBER_NO2
+			,(SELECT MEMBER_NICKNAME FROM "MEMBER" M WHERE M.MEMBER_NO = IR.MEMBER_NO) MEMBER_NICKNAME 
+			,(SELECT PROFILE_IMG  FROM "MEMBER" M WHERE M.MEMBER_NO = IR.MEMBER_NO) PROFILE_IMG
+			,(SELECT * FROM (SELECT MESSAGE_TIME 
+			FROM MESSAGE MS 
+			WHERE MS.INQUIRE_NO = IR.INQUIRE_NO 
+			ORDER BY MESSAGE_TIME DESC) WHERE ROWNUM = 1) LAST_SEND_TIME
+			,(SELECT * FROM (SELECT MESSAGE_CONTENT 
+			FROM MESSAGE MS 
+			WHERE MS.INQUIRE_NO = IR.INQUIRE_NO 
+			ORDER BY MESSAGE_TIME DESC) WHERE ROWNUM = 1) LAST_MESSAGE
+			,(SELECT * FROM (SELECT IMG_FL 
+			FROM MESSAGE MS 
+			WHERE MS.INQUIRE_NO = IR.INQUIRE_NO 
+			ORDER BY MESSAGE_TIME DESC) WHERE ROWNUM = 1) LAST_SEND_IMG_FL
+			,(SELECT COUNT(*) 
+			FROM MESSAGE MS 
+			WHERE MS.INQUIRE_NO = IR.INQUIRE_NO
+			AND SEND_MEMBER_NO != 0 AND READ_FL = 'N') UNREAD_COUNT
+		FROM INQUIRE_ROOM IR
+		ORDER BY LAST_SEND_TIME DESC
  	</select>
 	
 </mapper>
