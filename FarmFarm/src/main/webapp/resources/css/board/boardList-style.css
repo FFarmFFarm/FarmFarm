@@ -53,7 +53,7 @@ main{
     /* width: 100%; */
 }
 .board-search{
-    height: 70px;
+    height: 85px;
     border-bottom: 1px solid var(--line-color);
     display: flex;
     padding: 0 60px;
@@ -185,7 +185,7 @@ input[type="text"]:focus{
     width: 180px;
     cursor: pointer;
     /* height: 100%; */
-  }
+}
 .board-date{
     width: 120px;
 }
@@ -198,7 +198,7 @@ input[type="text"]:focus{
     height: 60px;
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #2B8C44;
+    border-bottom: 1px solid var(--line-color);
 }
 .board-list li > .board-title {
     padding-left: 10px;
@@ -211,10 +211,11 @@ input[type="text"]:focus{
 }
 
 .board-write-bottom{
-    height: 80px;
+    height: 125px;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-top: 20px;
 }
 .thumbImg{
     width: 100%;
