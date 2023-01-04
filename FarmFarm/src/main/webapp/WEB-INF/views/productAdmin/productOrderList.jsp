@@ -17,9 +17,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
 
     <link rel="stylesheet" href="/resources/css/productAdmin/productOrderList-style.css">
+    <link rel="stylesheet" href="/resources/css/productAdmin/modal/orderDetail-style.css">
     <link rel="stylesheet" href="/resources/css/common/header-style.css">
     <link rel="stylesheet" href="/resources/css/admin/adminNav-style.css">
 
+    
 
     <script src="https://kit.fontawesome.com/d449774bd8.js" crossorigin="anonymous"></script>
 </head>
@@ -97,7 +99,7 @@
                             <c:forEach items="${orderList}" var="order">
 
                                 <tr class="table-row">
-                                    <td>${order.orderNo}</td>
+                                    <td class="order-no">${order.orderNo}</td>
                                     <td>${order.orderDate}</td>
                                     <td>${order.memberId}</td>
                                     <td>${order.productCount}</td>
@@ -163,6 +165,9 @@
         </section>
     </main>
 
+    <jsp:include page="/WEB-INF/views/productAdmin/modal/orderDetail.jsp"/>
+
+    <script src="/resources/js/common/common.js"></script>
     <script src="/resources/js/productAdmin/productOrderList.js"></script>
 
     <!-- ajax -->

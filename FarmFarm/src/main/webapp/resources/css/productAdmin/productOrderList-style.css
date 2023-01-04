@@ -125,6 +125,11 @@ main{
 
 
 /* 상품리스트 조회 */
+.no-result{
+    line-height: 300px;
+    font-size: var(--medium-font-size);
+}
+
 .order-list-section{
     width: 1000px;
     min-height: 900px;
@@ -138,15 +143,16 @@ main{
 
 .page-title{
     text-align: center;
-    font-size: var(--title-font-size);
+    font-size: var(--headline-font-size);
     height: 115px;
-    padding-top: 30px;
+    padding-top: 50px;
 }
 
 /* 기간 설정 */
 .set-period{
     display: flex;
     height: 100px;
+    margin-top: 20px;
 }
 
 .part-title{

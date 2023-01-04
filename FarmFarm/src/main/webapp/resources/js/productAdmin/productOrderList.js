@@ -19,3 +19,22 @@
   }
 
 })();
+
+const tableRow = document.getElementsByClassName("table-row");
+const orderDetail = document.getElementById("orderDetail");
+for(item of tableRow){
+  item.addEventListener("click",()=>{
+
+    displayFlex(orderDetail);
+  })
+};
+
+// 모달 뒤로가기 버튼
+const detailBackBtn = document.getElementById('detailBackBtn');
+if(detailBackBtn!=undefined){
+  
+  detailBackBtn.addEventListener('click', () => {
+    displayNone(orderDetail);
+
+  })
+};
