@@ -27,7 +27,7 @@ public interface Chat2Service {
 	 * @param memberNo
 	 * @return roomNo(empty, then -1)
 	 */
-	int insertNewChat2Room(int memberNo, Chat2Room chatRoom);
+	int insertNewChatRoom(int memberNo, int sellerNo, Chat2Room chatRoom);
 	
 	/** 채팅방 참가자 목록 조회
 	 * @param roomNo
@@ -56,21 +56,21 @@ public interface Chat2Service {
 	 * @param roomName
 	 * @return
 	 */
-	int updateChat2Room(int roomNo, String roomName);
+	int updateChatRoom(int roomNo, String roomName);
 
 	/** 채팅방 입장
 	 * @param roomNo
 	 * @param memberNo
 	 * @return
 	 */
-	int insertChat2Enter(int roomNo, int memberNo);
+	int insertChatEnter(int roomNo, int memberNo);
 
 	/** 채팅방 탈퇴
 	 * @param roomNo
 	 * @param memberNo
 	 * @return
 	 */
-	int updateChat2Enter(int roomNo, int memberNo);
+	int updateChatEnter(int roomNo, int memberNo);
 
 
 

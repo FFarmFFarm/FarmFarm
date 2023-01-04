@@ -9,18 +9,22 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 
 import edu.kh.farmfarm.chat2.model.service.Chat2Service;
 import edu.kh.farmfarm.chat2.model.vo.Chat2;
 import edu.kh.farmfarm.chat2.model.vo.Chat2Room;
+import edu.kh.farmfarm.member.model.VO.Member;
 
 @Controller
 @RequestMapping("/chat")
@@ -71,21 +75,49 @@ public class Chat2Controller {
 	// 새 채팅방 개설(INSERT)
 	// 개설 후 바로 참가 DAO가 실행됨
 	@PostMapping("/insert/newRoom")
-	@ResponseBody
-	public String insertNewChat2Room(int memberNo, int roomType) {
+	public String insertNewChatRoom(int sellerNo, int roomType, HttpSession session,
+			 	  @RequestHeader(value = "referer") String referer,
+			 	  RedirectAttributes ra) {
 		
-		// 방 객체를 생성해 전달해서 방을 생성하고, 해당 방의 번호를 가져옴
-		// 만약, 생성에 실패하면 -1이 반환될 예정임
-		Chat2Room chatRoom = new Chat2Room();
+		String path = "";
+		String message = "";
 		
-		chatRoom.setRoomName("새 채팅방");
-		chatRoom.setRoomType(roomType);
-		
-		int roomNo = service.insertNewChat2Room(memberNo, chatRoom);
+		if(session.getAttribute("loginMember")!=null) {
+			Member member = (Member)(session.getAttribute("loginMember"));
+			
+			int memberNo = member.getMemberNo();
+			int memberAuth = member.getAuthority();
+			
+			if(memberAuth == 0) {
+				
+				// 방 객체를 생성해 전달해서 방을 생성하고, 해당 방의 번호를 가져옴
+				// 만약, 생성에 실패하면 -1이 반환될 예정임
+				Chat2Room chatRoom = new Chat2Room();
+				
+				chatRoom.setRoomName("새 채팅방");
+				chatRoom.setRoomType(roomType);
+				
+				int roomNo = service.insertNewChatRoom(memberNo, sellerNo, chatRoom);
+				
+				path = "/chat/center";
+				
+			} else {
+				
+				message = "구매자 아이디만 이용 가능합니다.";
+			}
+
+			
+		} else {
+			message = "로그인 후 이용가능합니다.";
+			
+			path = referer;
+		}
 		
 		// 결과를 반환
-		return new Gson().toJson(roomNo);
+		ra.addFlashAttribute("message", message);
+		return "redirect:" + path;
 	}
+
 	
 	// 채팅방 수정(UPDATE)
 	@PostMapping("/update/roomInfo/{roomNo}")
@@ -95,7 +127,7 @@ public class Chat2Controller {
 			String roomName) {
 		
 		// 방 번호와, 수정할 내용을 전달 받아 방을 수정함
-		int result = service.updateChat2Room(roomNo, roomName);
+		int result = service.updateChatRoom(roomNo, roomName);
 		
 		// 전달할 메세지
 		int chatSystem = result; // 1 : "제목이 수정되었습니다.";
@@ -112,7 +144,7 @@ public class Chat2Controller {
 			int memberNo) {
 		
 		// 방 번호와, 회원 번호를 전달받아서, 채팅방에 참가함
-		int result = service.insertChat2Enter(roomNo, memberNo);
+		int result = service.insertChatEnter(roomNo, memberNo);
 		
 		// 전달할 메세지
 		int chatSystem = result; // 1 : "참가완료" (참고 : 참가 시에는 메세지가 출력되지 않음)
@@ -129,7 +161,7 @@ public class Chat2Controller {
 			int memberNo) {
 		
 		// 방 번호와, 회원 번호를 전달받아서, 채팅방에서 탈퇴(delete가 아닌 update)
-		int result = service.updateChat2Enter(roomNo, memberNo);
+		int result = service.updateChatEnter(roomNo, memberNo);
 		
 		// 전달할 메세지
 		int chatSystem = result; // 1 : "탈퇴완료" (참고 : 탈퇴 시에는 메세지가 출력되지 않음)

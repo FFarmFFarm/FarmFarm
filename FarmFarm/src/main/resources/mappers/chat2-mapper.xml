@@ -75,7 +75,7 @@
 		           FROM CHAT2 GROUP BY ROOM_NO)
 	          RIGHT JOIN (SELECT ROOM_NO FROM CHAT2_ROOM) USING (ROOM_NO))
 		------------------
-		JOIN (SELECT ROOM_NO, C.CHAT_NO, C.CHAT_CONTENT AS LAST_CHAT_CONTENT, 
+		LEFT JOIN (SELECT ROOM_NO, C.CHAT_NO, C.CHAT_CONTENT AS LAST_CHAT_CONTENT, 
 		      CASE WHEN TO_CHAR(C.CHAT_TIME, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD') 
 	   			   THEN TO_CHAR(C.CHAT_TIME, 'AM HH"시" MI"분"')
 	   			   ELSE TO_CHAR(C.CHAT_TIME, 'YYYY-MM-DD')
@@ -86,7 +86,7 @@
 	                FROM CHAT2
 	 	            GROUP BY ROOM_NO) C_SUB ON (C_SUB.LAST_CHAT_NO = C.CHAT_NO)) USING(ROOM_NO)
 		------------------
-		JOIN (SELECT ROOM_NO, ROOM_NAME, CR.ROOM_TYPE,
+		LEFT JOIN (SELECT ROOM_NO, ROOM_NAME, CR.ROOM_TYPE,
 		   		     CASE WHEN ROOM_TYPE > 0 THEN (SELECT POST_TITLE 
 		   		 							       FROM POST P 
 		   		 							       WHERE CR.ROOM_TYPE=P.POST_NO)
@@ -123,6 +123,17 @@
 			SELECT SEQ_ROOM_NO.CURRVAL AS ROOM_NO FROM DUAL
 		</selectKey>
 	</insert>
+	
+	<!-- 새 채팅방 개설 전... 채팅방 존재 여부 체크 -->
+	<select id="selectChatRoomExist" parameterType="_int" resultType="_int" >
+		SELECT ROOM_NO
+		FROM CHAT2_ENTER
+		JOIN CHAT2_ROOM USING(ROOM_NO)
+		WHERE MEMBER_NO = #{memberNo}
+		AND ROOM_TYPE = #{roomType}
+		AND ENTER_STATUS = 'Y' 
+	</select>
+
 
 	<!-- 채팅방 참가자 조회(SELECT) -->
 	<select id="selectEnterMemberList" parameterType="_int" resultType="_int">
@@ -148,7 +159,7 @@
 	<!-- 채팅방 참가(INSERT) -->
 	<insert id="insertChatEnter">
 		INSERT INTO CHAT2_ENTER
-		VALUES(SEQ_ENTER_NO.NEXTVAL, #{roomNo}, #{memberNo}, DEFAULT)
+		VALUES(SEQ_ENTER_NO.NEXTVAL, #{roomNo}, #{memberNo}, DEFAULT, DEFAULT)
 	</insert>
 	
 	<!-- 채팅방 탈퇴(UPDATE) -->

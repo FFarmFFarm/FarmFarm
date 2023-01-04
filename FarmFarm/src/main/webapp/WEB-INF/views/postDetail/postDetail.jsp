@@ -68,8 +68,9 @@
           <div class="product-btn-area">
 
             <c:if test="${post.postSoldoutFl == 0}">
-              <form action="/chat/insert/room" method="POST">
-                <input type="hidden" name="postNo" value="${post.postNo}">
+              <form action="/chat/insert/newRoom" method="POST">
+                <input type="hidden" name="roomType" value="${post.postNo}">
+                <input type="hidden" name="sellerNo" value="${post.memberNo}">
                 <button class="chatting-btn">문의하기</button>
               </form>
             </c:if>

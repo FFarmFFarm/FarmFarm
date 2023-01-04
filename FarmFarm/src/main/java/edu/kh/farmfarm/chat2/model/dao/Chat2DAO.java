@@ -34,7 +34,22 @@ public class Chat2DAO {
 		return sqlSession.selectList("chat2Mapper.selectChatList", roomNo);
 	}
 	
-	// 새 채팅방 개설
+	/** 채팅방 개설
+	 * @param chatRoom
+	 * @return
+	 */
+	public int insertNewChatRoom(Chat2Room chatRoom) {
+		return sqlSession.insert("chat2Mapper.insertNewChatRoom", chatRoom);
+	}
+	
+	/** 채팅방 개설 전, 방이 존재하는지 점검
+	 * @param chatRoom
+	 * @return
+	 */
+	public int selectChatRoomExist(Chat2Room chatRoom) {
+		return sqlSession.selectOne("chat2Mapper.selectChatRoomExist", chatRoom);
+	}
+	
 	
 	/** 채팅방 참가자 조회(SELECT)
 	 * @param roomNo
@@ -75,11 +90,20 @@ public class Chat2DAO {
 	}
 
 	/** 채팅방 입장
-	 * @param chat2Enter
+	 * @param chatEnter
 	 * @return result
 	 */
-	public int insertChat2Enter(Chat2Enter chat2Enter) {
-		return sqlSession.insert("chat2Mapper.insertChatEnter", chat2Enter);
+	public int insertChatEnter(Chat2Enter chatEnter) {
+		return sqlSession.insert("chat2Mapper.insertChatEnter", chatEnter);
+	}
+	
+	
+	/** 채팅방 입장 보조...
+	 * @param postNo
+	 * @return
+	 */
+	public int selectSellerNo(int postNo) {
+		return sqlSession.selectOne("postDetailMapper.selectSellerNo", postNo);
 	}
 
 	/** 채팅방 탈퇴
@@ -102,6 +126,8 @@ public class Chat2DAO {
 		// 방 번호를 전달 받아서, 해당 방을 수정함
 		return sqlSession.update("chat2Mapper.updateChatRoomStatus", roomNo);
 	}
+
+
 
 
 	

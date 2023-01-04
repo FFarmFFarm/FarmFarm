@@ -238,10 +238,10 @@ body{
 
 /* 시간 */
 .last-chat-time{
-    width: 65px;
+    width: 70px;
     font-size: var(--small-font-size);
     color: var(--sub-font-color);
-    letter-spacing: -2px;
+    letter-spacing: -1px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -261,6 +261,7 @@ body{
 
 /* 상품 한줄소개 */
 .chat-sidebar .room-title{
+    font-weight: 600;
     font-size: var(--main-font-size);
     width: 150px;
     color: var(--main-font-color); 

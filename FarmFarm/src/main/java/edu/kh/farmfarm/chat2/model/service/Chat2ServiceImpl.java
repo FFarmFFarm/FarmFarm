@@ -37,10 +37,43 @@ public class Chat2ServiceImpl implements Chat2Service {
 	// 새로운 채팅방 개설하기
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public int insertNewChat2Room(int memberNo, Chat2Room chatRoom) {
-		// 1. 채팅방 생성
-		// 2. 채팅방 입장
-		return 0;
+	public int insertNewChatRoom(int memberNo, int sellerNo, Chat2Room chatRoom) {
+		// 1. 리턴용 변수 선언
+		int result = 0;
+		
+		// 2. 채팅방 생성하기 전, 채팅방이 존재하는지를 먼저 점검
+		chatRoom.setMemberNo(memberNo);
+		
+		int resultSelectChatRoom = dao.selectChatRoomExist(chatRoom);
+		
+		if(resultSelectChatRoom == 0) {
+			
+			int resultInsertNewChatRoom = dao.insertNewChatRoom(chatRoom);
+			
+			if(resultInsertNewChatRoom > 0) { // 채팅방이 생성되었으면?
+				// 2. 채팅방 입장하기
+				int roomNo = chatRoom.getRoomNo();
+				
+				Chat2Enter chatEnter = new Chat2Enter();
+				
+				chatEnter.setMemberNo(memberNo);
+				chatEnter.setRoomNo(roomNo);
+				
+				int resultInsertChatEnter = dao.insertChatEnter(chatEnter);
+				
+				result = resultInsertChatEnter;
+				
+				// 3. 만약 상품 관련 채팅방인 경우, 해당 판매자도 참가시킴
+				if(chatRoom.getRoomType() > 0) {
+					chatEnter.setMemberNo(sellerNo);
+					
+					resultInsertChatEnter = dao.insertChatEnter(chatEnter);
+					result = resultInsertChatEnter;
+				}
+			}
+		}
+		
+		return result;
 	}
 
 	// 채팅방 참가자 목록 조회
@@ -111,7 +144,7 @@ public class Chat2ServiceImpl implements Chat2Service {
 	// 채팅방 정보 수정
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public int updateChat2Room(int roomNo, String roomName) {
+	public int updateChatRoom(int roomNo, String roomName) {
 		Chat2Room chat2Room = new Chat2Room();
 		chat2Room.setRoomNo(roomNo);
 		chat2Room.setRoomName(roomName);
@@ -122,18 +155,18 @@ public class Chat2ServiceImpl implements Chat2Service {
 	// 채팅방 입장
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public int insertChat2Enter(int roomNo, int memberNo) {
+	public int insertChatEnter(int roomNo, int memberNo) {
 		Chat2Enter chat2Enter = new Chat2Enter();
 		chat2Enter.setRoomNo(roomNo);
 		chat2Enter.setMemberNo(memberNo);
 		
-		return dao.insertChat2Enter(chat2Enter);
+		return dao.insertChatEnter(chat2Enter);
 	}
 
 	// 채팅방 탈퇴
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public int updateChat2Enter(int roomNo, int memberNo) {
+	public int updateChatEnter(int roomNo, int memberNo) {
 		Chat2Enter chat2Enter = new Chat2Enter();
 		chat2Enter.setRoomNo(roomNo);
 		chat2Enter.setMemberNo(memberNo);

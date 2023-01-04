@@ -23,7 +23,6 @@ const connectToChattingSock = () => {
     axios.post('/check/myInfo'
     ).then(function (response) {
 
-        console.log(response.data);
         myMemberNo = response.data.memberNo;
         myMemberNickname = response.data.memberNickname;
         myProfileImg = response.data.profileImg;
@@ -44,6 +43,7 @@ const connectToChattingSock = () => {
 
                 chattingSock.onclose = function (e) {
                     console.log('채팅 2.0 서버와 재연결을 시도합니다...');
+                    console.log(e);
 
                     setTimeout(function () {
                         connectToChattingSock();
@@ -106,6 +106,8 @@ const selectChatRoomList = () => {
 /* 채팅방 목록을 불러오는 함수 */
 const makeChatPreviewBox = (chatRoom) => {
 
+    console.log(chatRoom);
+
     // 재료 준비
     const chatPreviewBox = document.createElement('div');   // 채팅방의 정보가 담길 박스
     const thumbnailImg = document.createElement('div');     // 채팅방 대표 이미지
@@ -135,8 +137,19 @@ const makeChatPreviewBox = (chatRoom) => {
 
     // box-label, lastChatContent, lastChatTime 세팅
     packUpElement(boxLabel, 'box-label', null);
-    packUpElement(lastChatContent, 'last-chat-content', chatRoom.lastChatContent);
+
+    if(chatRoom.lastChatType == 'I') { // 사진인 경우
+        packUpElement(lastChatContent, 'last-chat-content', "사진을 보냈습니다.");
+    } else { // 사진이 아닌 경우
+        if(chatRoom.lastChatContent != null) { // 텍스트이고, 내용이 있는 경우
+            packUpElement(lastChatContent, 'last-chat-content', chatRoom.lastChatContent);
+        } else { // 텍스트이고, 내용이 없는 경우
+            packUpElement(lastChatContent, 'last-chat-content', "-");           
+        }
+    }
+
     packUpElement(lastChatTime, 'last-chat-time', chatRoom.lastChatTime);
+
     
     // 포장하기
     boxLabel.append(lastChatContent, lastChatTime);
@@ -197,7 +210,9 @@ const makeNewChatTime = (chatTime) => {
     
     if(hour > 12) {
         hour -= 12;
-        hour = '0' + hour;
+        if(hour > 10) {
+            hour = '0' + hour;
+        }
         meridian = '오후'
     }
 
