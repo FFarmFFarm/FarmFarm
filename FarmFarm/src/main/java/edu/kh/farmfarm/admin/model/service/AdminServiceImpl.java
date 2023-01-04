@@ -195,7 +195,11 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	
-	
+	// 신고 누적 기록 
+@	Override
+	public Map<String, Object> selectReportAccumulate(String reportType, int memberNo, int contentNo) {
+		return dao.selectReportAccumulate(reportType, memberNo, contentNo);
+	}	
 	
 	
 	

@@ -416,6 +416,32 @@ public class AdminController {
 	
 
 	
+	// 신고 누적 기록 조회 (신고 누적 모달)
+	@PostMapping("/admin/selectReportAccumulate")
+	@ResponseBody
+	public String selectReportAccumulate(@SessionAttribute(value="loginMember") Member loginMember, 
+										String reportType, int memberNo, int contentNo) {
+		
+		// 관리자인지 확인 (관리자면 result==1)
+		int result = service.checkAdmin();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if(result == 1 && loginMember != null) {
+
+			// 신고 누적 기록 조회
+			map = service.selectReportAccumulate(reportType, memberNo, contentNo);
+	
+		} else {
+			System.out.println("관리자만 접근 가능합니다.");
+		}
+		
+		return new Gson().toJson(map);
+	}
+	
+	
+	
+	
 	// 접수된 신고 처리는 ReportController에서 해결  -- REPORT테이블
 
 	

@@ -87,6 +87,16 @@ public interface AdminService {
 
 
 
+	/** 신고 누적 기록 조회(모달)
+	 * @param reportType
+	 * @param memberNo
+	 * @param contentNo
+	 * @return map
+	 */
+	Map<String, Object> selectReportAccumulate(String reportType, int memberNo, int contentNo);
+
+
+
 
 
 	

@@ -71,11 +71,6 @@ public class AdminProcessServiceImpl implements AdminProcessService{
 		
 		int result = 0;
 		
-		
-		if(reportType.equals("B")) {
-			System.out.println(hiddenContentNo + "if문 된다");
-		}
-		
 		// 커뮤니티 게시글 삭제
 		if(reportType.equals("B")) {
 			result = dao.reportDeleteBoard(hiddenContentNo);

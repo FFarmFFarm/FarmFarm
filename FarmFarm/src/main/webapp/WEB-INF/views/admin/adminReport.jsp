@@ -21,9 +21,6 @@
     <link rel="stylesheet" href="/resources/css/admin/adminReportDetail-modal-style.css" />
     <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
 
-    <!-- swiper -->
-    <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
-
     <script src="https://kit.fontawesome.com/d4fbceca97.js" crossorigin="anonymous"></script>
 
 </head>
@@ -177,11 +174,11 @@
     </main>
 
     <!-- todo: 신고 상세페이지 모달 -->
-    <div class="report-detail-container swiper-container" id="reportDetailContainer">
-      <div class="report-detail-modal swipper-wrapper">
+    <div class="report-detail-container" id="reportDetailContainer">
+      <div class="report-detail-modal">
         <span class="report-modal-title">신고 상세 정보</span>
 
-        <table class="report-modal-table swiper-slide">
+        <table class="report-modal-table">
           <tbody id="tbodyDetail">
             <!-- <tr>
               <td class="detail-bold left">신고 번호</td>
@@ -220,11 +217,11 @@
 
         </table>
 
-        <table class="report-modal-table swiper-slide">
-          <tbody id="tbodyReportHistory">
+        <!-- <table class="report-modal-table">
+          <tbody id="tbodyReportHistory"> -->
               <!-- 누적 신고 기록 -->
-          </tbody>
-        </table> 
+          <!-- </tbody>
+        </table>  -->
 
         <div class="button-div">
           <!-- 회원, 판매자 -->
@@ -236,6 +233,29 @@
           <button id="contentLeaveBtn">반려</button>
           <button id="contentDeleteBtn">삭제</button>
         </div>
+      </div>
+    </div>  
+
+
+    <div class="accumulate-container" id="accumContainer">
+      <div class="accum-modal">
+        <span class="accum-modal-title">누적 신고 기록</span>
+
+        <table class="accum-modal-table">
+          <tbody id="tbodyAccum">
+            <!-- <tr class="accum-row">
+              <td class="accum-bold">NO</td>
+              <td class="accum-bold">신고번호</td>
+              <td class="accum-bold">신고 일자</td>
+              <td class="accum-bold">신고자</td>
+              <td class="accum-bold">신고 사유</td>
+              <td class="accum-bold">추가 사유</td>
+            </tr>
+            <tr>
+              <td></td>
+            </tr> -->
+          </tbody>
+        </table>
       </div>
     </div>  
 
@@ -253,9 +273,6 @@
     <script src="/resources/js/admin/adminReport.js"></script> 
     <script src="/resources/js/admin/adminModal.js"></script> 
     <script src="/resources/js/common/common.js"></script> 
-
-    <!-- swiper -->
-    <script src="https://unpkg.com/swiper/css/swiper.min.js"></script>
 
 </body>
 </html>
