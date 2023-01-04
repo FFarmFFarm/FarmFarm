@@ -39,4 +39,10 @@ public class CommentDAO {
 		return sqlSession.update("boardMapper.commentDelete", condition);
 	}
 
+
+	// 댓글의 부모의 댓글번호를 찾자
+	public int selectParent(int coParent) {
+		return sqlSession.selectOne("boardMapper.selectParent", coParent);
+	}
+
 }
