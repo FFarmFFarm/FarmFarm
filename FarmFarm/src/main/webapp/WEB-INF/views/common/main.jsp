@@ -87,13 +87,13 @@
                           <a href="/seller/${loginMember.memberNo}">판매자페이지</a>
                         </c:when>
                         <c:when test="${loginMember.authority == 2}">
-                          <a href="/admin">관리자</a>
+                            <a href="/admin">관리자</a>
                         </c:when>
                         <c:otherwise>
-                          <a href="/myPage">마이페이지</a>
+                            <a href="/myPage">마이페이지</a>
                         </c:otherwise>
-                      </c:choose>
-                      <a href="/logout">로그아웃</a>
+                    </c:choose>
+                    <a href="/logout">로그아웃</a>
                     </div>
                   </div>
                 </li>
