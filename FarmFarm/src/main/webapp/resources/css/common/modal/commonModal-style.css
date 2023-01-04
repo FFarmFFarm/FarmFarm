@@ -36,26 +36,32 @@
   align-items: center;
   justify-content: center;
 
-  height: 70%;
+  height: 60%;
+  margin-top: 18px;
 }
 
 .login-confirm-btn {
   width: 100%;
-  height: 40px;
+  height: 70px;
 
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: center;
+  margin-bottom: 5px;
 }
 
 .login-confirm-btn > button {
-  width: 50%;
+  width: 125px;
+  height: 30px;
 
-  font-weight: bold;
+  background-color: var(--point-color);
+  color: white;
+  border: none;
+  margin: 0 7px;
 }
 
-.login-confirm-btn > button:last-child {
-  color: var(--point-color);
+.login-confirm-btn > button:hover{
+    font-family: "NotoSansKR-Bold";
 }
 
 /* 메세지 모달창 관련 */

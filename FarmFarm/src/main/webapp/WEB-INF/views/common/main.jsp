@@ -137,7 +137,7 @@
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
         </div>
-
+        
       <h3 class="middle-product-title">딱! 오늘만 특가 상품</h3>
       <div class="middle-product">
         <div class="middle-wrap">
