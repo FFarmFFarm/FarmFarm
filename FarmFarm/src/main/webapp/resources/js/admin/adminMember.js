@@ -133,7 +133,7 @@ const printMemberList = (memberList, pagination) => {
         // 아이디
         const td3 = document.createElement("td");
         
-        if(member.memberId.length > 10){
+        if(member.memberId.length > 9){
             td3.innerText = member.memberId.substring(0, 9) + '...'; 
         } else {
             td3.innerText = member.memberId;
@@ -143,7 +143,7 @@ const printMemberList = (memberList, pagination) => {
         // 닉네임
         const td4 = document.createElement("td");
 
-        if(member.memberNickname.length > 10){
+        if(member.memberNickname.length > 9){
             td4.innerText = member.memberNickname.substring(0, 9) + '...';
         } else {
             td4.innerText = member.memberNickname;
@@ -156,7 +156,7 @@ const printMemberList = (memberList, pagination) => {
         const td5 = document.createElement("td");
 
         if(member.memberAddress != null){
-            if(member.memberAddress.length > 25){
+            if(member.memberAddress.length > 24){
                 td5.innerText = member.memberAddress.substring(0, 24) + '...';
             } else {
                 td5.innerText = member.memberAddress;
@@ -217,7 +217,7 @@ const printMemberList = (memberList, pagination) => {
                     td8.innerText = "신고접수";
                 }
     
-                if(member.reportPenalty == 'N'){
+                if(member.reportPenalty == 'N' || member.reportPenalty == 'A'){
                     td8.innerText = "활동중";
                 }
     
@@ -410,7 +410,7 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
                 tdStatus.innerText = "신고접수";
             }
 
-            if(memberDetailInfo.reportPenalty == 'N'){
+            if(memberDetailInfo.reportPenalty == 'N' && memberDetailInfo.reportPenalty == 'A'){
                 tdStatus.innerText = "활동중";
             }
 
@@ -927,7 +927,7 @@ const searchNoResult = () => {
 // jsp 첫 페이지 글자 자르기
 const mId = document.getElementsByClassName("mId");
 for(let i=0; i<mId.length; i++){
-    if(mId[i].innerText.length > 10){
+    if(mId[i].innerText.length > 9){
         mId[i].innerText = mId[i].innerText.substring(0, 9) + '...';
     } else {
         mId[i].innerText;
@@ -936,7 +936,7 @@ for(let i=0; i<mId.length; i++){
 
 const mNickname = document.getElementsByClassName("mNickname");
 for(let i=0; i<mId.length; i++){
-    if(mNickname[i].innerText.length > 10){
+    if(mNickname[i].innerText.length > 9){
         mNickname[i].innerText = mNickname[i].innerText.substring(0, 9) + '...';
     } else {
         mNickname[i].innerText;
@@ -945,7 +945,7 @@ for(let i=0; i<mId.length; i++){
 
 const mAddress = document.getElementsByClassName("mAddress");
 for(let i=0; i<mAddress.length; i++){
-    if(mAddress[i].innerText.length > 25){
+    if(mAddress[i].innerText.length > 24){
         mAddress[i].innerText = mAddress[i].innerText.substring(0, 24) + '...';
     } else {
         mAddress[i].innerText;

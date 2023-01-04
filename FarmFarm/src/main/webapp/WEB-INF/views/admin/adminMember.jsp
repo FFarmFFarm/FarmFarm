@@ -123,7 +123,7 @@
                                                 <c:if test="${empty member.reportPenalty}">
                                                     <td>신고접수</td>
                                                 </c:if>
-                                                <c:if test="${member.reportPenalty eq 'N'}">
+                                                <c:if test="${member.reportPenalty eq 'N' && member.reportPenalty eq 'A'}">
                                                     <td>활동중</td>
                                                 </c:if>
                                                 <c:if test="${member.reportPenalty eq 'Y'&& not empty member.processDate}">

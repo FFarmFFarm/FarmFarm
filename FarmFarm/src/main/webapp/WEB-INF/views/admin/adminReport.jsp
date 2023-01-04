@@ -21,6 +21,9 @@
     <link rel="stylesheet" href="/resources/css/admin/adminReportDetail-modal-style.css" />
     <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
 
+    <!-- swiper -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+
     <script src="https://kit.fontawesome.com/d4fbceca97.js" crossorigin="anonymous"></script>
 
 </head>
@@ -174,11 +177,11 @@
     </main>
 
     <!-- todo: 신고 상세페이지 모달 -->
-    <div class="report-detail-container" id="reportDetailContainer">
-      <div class="report-detail-modal">
+    <div class="report-detail-container swiper-container" id="reportDetailContainer">
+      <div class="report-detail-modal swipper-wrapper">
         <span class="report-modal-title">신고 상세 정보</span>
 
-        <table class="report-modal-table">
+        <table class="report-modal-table swiper-slide">
           <tbody id="tbodyDetail">
             <!-- <tr>
               <td class="detail-bold left">신고 번호</td>
@@ -214,7 +217,14 @@
               </td>
             </tr> -->
           </tbody>
+
         </table>
+
+        <table class="report-modal-table swiper-slide">
+          <tbody id="tbodyReportHistory">
+              <!-- 누적 신고 기록 -->
+          </tbody>
+        </table> 
 
         <div class="button-div">
           <!-- 회원, 판매자 -->
@@ -243,6 +253,9 @@
     <script src="/resources/js/admin/adminReport.js"></script> 
     <script src="/resources/js/admin/adminModal.js"></script> 
     <script src="/resources/js/common/common.js"></script> 
+
+    <!-- swiper -->
+    <script src="https://unpkg.com/swiper/css/swiper.min.js"></script>
 
 </body>
 </html>

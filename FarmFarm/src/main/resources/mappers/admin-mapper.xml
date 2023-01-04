@@ -508,7 +508,7 @@
 	<!-- 정지된 계정 활성화(스케쥴링) -->
 	<update id="activateAccount">
 		UPDATE REPORT SET
-		REPORT_PENALTY = 'N'
+		REPORT_PENALTY = 'A'
 		WHERE REPORT_TYPE = 'M'
 		AND REPORT_PENALTY = 'Y'
 		AND REPORT_TARGET_NO = #{targetNo}

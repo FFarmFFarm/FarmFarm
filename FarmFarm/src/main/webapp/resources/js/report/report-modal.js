@@ -4,12 +4,31 @@ const reportBtn = document.getElementById("reportBtn");
 
 reportContainer.style.display = 'none';
 
+
+// 직접 작성한 신고 사유 내용 == reportContent  // 전역변수로 바꾸면서 혹시나 다른데랑 충돌날까봐 이름 변경
+var modalReportContent = document.getElementById("reportContent");
+let radioButton = document.getElementsByName('reportRadio');
+
 reportBtn.addEventListener('click', () => {
     reportContainer.style.display = 'flex';
-    // console.log(targetNo);
-    // console.log(pathname);
+
+    // 내용지우기
+    modalReportContent.value = "";
+
+    // 체크해제
+    for(let i=0; i<radioButton.length; i++) {
+        if(radioButton[i].checked){
+            radioButton[i].checked = false;
+        }
+    }
 })
 
+
+
+// x 클릭 시 모달창 꺼짐
+document.getElementById("xIcon").addEventListener('click', () => {
+    reportContainer.style.display = 'none';
+});
 
 
 // 모달창 바깥 클릭 시 모달창 꺼짐
@@ -64,9 +83,9 @@ const reportSubmitBtn = document.getElementById("reportSubmitBtn");
 
 reportSubmitBtn.addEventListener("click", () => {
 
-    // 회원 신고
+    // 판매자 신고
     if(pathname == "seller") {
-        reportType.value = "S";
+        reportType.value = "M";
         reportTargetNo.value = targetNo;
     }
 
@@ -121,16 +140,14 @@ reportSubmitBtn.addEventListener("click", () => {
 
     // 선택한 신고 사유 가져오기
     const reportReasonList = document.getElementsByName('reportRadio');
-
-    
     const reportLabel = document.getElementsByTagName("label");
+    const radioText = document.getElementsByClassName('radio-text');
     
     for(var i=0; i<reportReasonList.length; i++){
         
         if(reportReasonList[i].checked){
-
             //fixme: 왜,, 하나씩 밀리는 거지. 일단 임시방편으로 +1함.
-            radioResult = reportLabel[i].innerText;
+            radioResult = radioText[i].innerText;
             console.log(radioResult);
         }
     }
@@ -139,8 +156,6 @@ reportSubmitBtn.addEventListener("click", () => {
 
 })
 
-// 직접 작성한 신고 사유 내용
-const reportContent = document.getElementById("reportContent").value;
 
 // optimize: 신고하기
 const report = () => {
@@ -149,14 +164,13 @@ const report = () => {
         data: { "reportType" :reportType.value, 
                 "reportTargetNo" : reportTargetNo.value,
                 "reportReason" : radioResult,
-                "reportContent": reportContent},
+                "reportContent": modalReportContent.value},
         type: "POST",
         success: (result) => {
             if(result > 0){
                 console.log("신고 접수");
                 reportContainer.style.display = 'none';
                 messageModalOpen('신고가 접수되었습니다.');
-                // fixme: 글 삭제하는 함수 넣기 
             
             } else {
                 console.log("신고 실패");

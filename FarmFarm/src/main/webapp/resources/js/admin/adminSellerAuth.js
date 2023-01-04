@@ -88,7 +88,7 @@ const printSellerList = (sellerList, pagination) => {
         const td3 = document.createElement("td");
         td3.className = 'sId';
 
-        if(seller.memberId.length > 10) {
+        if(seller.memberId.length > 9) {
             td3.innerText = seller.memberId.substring(0, 9) + '...';
         } else {
             td3.innerText = seller.memberId;
@@ -98,7 +98,7 @@ const printSellerList = (sellerList, pagination) => {
         const td4 = document.createElement("td");
         td4.className = 'sNickname';
 
-        if(seller.memberNickname.length > 10) {
+        if(seller.memberNickname.length > 9) {
             td4.innerText = seller.memberNickname.substring(0, 9) + '...';
         } else {
             td4.innerText = seller.memberNickname;
@@ -111,7 +111,7 @@ const printSellerList = (sellerList, pagination) => {
 
         // 주소
         const td6 = document.createElement("td");
-        if(seller.memberAddress.length > 25){
+        if(seller.memberAddress.length > 24){
             // sql에서 ,, 제거해서 가져옴
             td6.innerText = seller.memberAddress.substring(0,24) + '...';
         } else {
@@ -560,7 +560,7 @@ document.getElementById('authDenyBtn').addEventListener('click', () => {
 // jsp 첫 페이지  글자 자르기
 const sId = document.getElementsByClassName("sId");
 for(let i=0; i<sId.length; i++){
-    if(sId[i].innerText.length > 10){
+    if(sId[i].innerText.length > 9){
         sId[i].innerText = sId[i].innerText.substring(0, 9) + '...';
     } else {
         sId[i].innerText;
@@ -569,7 +569,7 @@ for(let i=0; i<sId.length; i++){
 
 const sNickname = document.getElementsByClassName("sNickname");
 for(let i=0; i<sNickname.length; i++){
-    if(sNickname[i].innerText.length > 10){
+    if(sNickname[i].innerText.length > 9){
         sNickname[i].innerText = sNickname[i].innerText.substring(0, 9) + '...';
     } else {
         sNickname[i].innerText;
@@ -578,7 +578,7 @@ for(let i=0; i<sNickname.length; i++){
 
 const sAddress = document.getElementsByClassName("sAddress");
 for(let i=0; i<sAddress.length; i++){
-    if(sAddress[i].innerText.length > 25){
+    if(sAddress[i].innerText.length > 24){
         sAddress[i].innerText = sAddress[i].innerText.substring(0, 24) + '...';
     } else {
         sAddress[i].innerText;

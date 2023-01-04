@@ -12,6 +12,14 @@ var hiddenMemberNo = 0; // memberNo / reportType = "M"일떄 reportTargetNo
 var hiddenContentNo = 0;  // contentNo  / reportType = "B" boardNo / reportType = "P" postNo
 var hiddenReportType;
 
+// swiper 초기화
+var mySwiper = new Swiper('.swiper-container', {
+    navigation: {
+      prevEl: '.swiper-button-prev',
+      nextEl: '.swiper-button-next',
+    },
+  });
+
 
 //optimize: 미처리 신고 조회 함수 ajax
 const selectNewReportList = (cp) => {
@@ -127,14 +135,14 @@ const printNewReportList = (newReportList, pagination, reportListCount, reportAl
 
         if(report.reportType != null){
             if(report.reportType == 'M'){
-                if(report.memberId.length > 15){
+                if(report.memberId.length > 14){
                     td3.innerText = report.memberId.substring(0,14) + '...';
                 } else{
                     td3.innerText = report.memberId;
                 }
             }
             if(report.reportType == 'B' || report.reportType == 'P'){
-                if(report.title.length > 15){
+                if(report.title.length > 14){
                     td3.innerHTML = report.title.substring(0,14) + '...';
 
                 } else{
@@ -395,30 +403,41 @@ const printNewReportDetail = (newReportDetail) => {
 
     // 7)
     const tr7Detail = document.createElement('tr');
-
-    // 내용
-    const td17Detail = document.createElement('td');
-    td17Detail.classList.add('detail-bold');
-    td17Detail.classList.add('left');
-    td17Detail.innerText = "내용";
-
-    tr7Detail.append(td17Detail);
-
-
-    // 8)
     const tr8Detail = document.createElement('tr');
-
-    // 내용
-    const td18Detail = document.createElement('td');
-    td18Detail.colSpan = "4";
-    td18Detail.rowSpan = "8";
-    td18Detail.style.overflow = "auto";
-    td18Detail.innerHTML = newReportDetail.content;
-
-    tr8Detail.append(td18Detail);
+    if(newReportDetail.reportType != 'M'){
+    
+        // 내용
+        const td17Detail = document.createElement('td');
+        td17Detail.classList.add('detail-bold');
+        td17Detail.classList.add('left');
+        td17Detail.innerText = "내용";
+    
+        tr7Detail.append(td17Detail);
+    
+    
+        // 8)
+        // const tr8Detail = document.createElement('tr');
+    
+        // 내용
+        const td18Detail = document.createElement('td');
+        td18Detail.colSpan = "4";
+        td18Detail.rowSpan = "8";
+        td18Detail.style.overflow = "auto";
+        td18Detail.innerHTML = newReportDetail.content;
+    
+        tr8Detail.append(td18Detail);
+    
+    }
 
     // tr4 순서 바꿈
     tbodyDetail.append(tr1Detail, tr2Detail,  tr3Detail, tr5Detail, tr6Detail, tr4Detail, tr7Detail, tr8Detail);
+
+
+    icon.addEventListener('click', () => {
+            // fixme: 누적 신고 기록 넣기!
+
+
+    })
 
 
     // 신고 처리용 값 가져오기  // 강제 탈퇴, 반려, 정지, 삭제 등등에 사용
@@ -461,6 +480,20 @@ const printNewReportDetail = (newReportDetail) => {
     }
 
 }
+
+
+
+
+
+//todo: 누적 신고 기록
+const reportHistory = () => {
+
+
+
+
+}
+
+
 
 
 
@@ -584,7 +617,7 @@ down.addEventListener('click', () => {
 // 신고대상 아이디/게시글 자르기 (15자)
 const rTitle = document.getElementsByClassName("rTitle");
 for(let i=0; i<rTitle.length; i++){
-    if(rTitle[i].innerText.length > 15){
+    if(rTitle[i].innerText.length > 14){
         rTitle[i].innerText = rTitle[i].innerText.substring(0, 14) + '...';
     } else {
         rTitle[i].innerText;
