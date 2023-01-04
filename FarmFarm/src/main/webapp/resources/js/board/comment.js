@@ -172,6 +172,7 @@ function selectCommentList(){
                     const writeTimeReply = document.createElement("div");
                     writeTimeReply.classList.add("writer-time-reply");
                     writeTimeReply.innerHTML = comment.commentDate + '&nbsp; ';
+                    writeTimeReply.setAttribute("id", comment.memberNickname);
                     
                     if(commentRow.classList.contains("comment-child")){
                         writerProfile.classList.add("child-img");
@@ -351,10 +352,16 @@ const showReply = (parentNo, btn)=>{
     }
         // 답글을 작성할 부분들을 만들어 볼까요~?
 
+        // 답글에 언급 시 넣어줄 닉네임을 얻어와볼까요!?
+        const nicknameDiv = btn.parentElement;
+        const nickname = nicknameDiv.id;
+
         // textarea를 만들어볼게요~
         const textarea = document.createElement("textarea");
         textarea.classList.add("comment-co-content");
         textarea.setAttribute("spellcheck", "false");
+        textarea.focus();
+        textarea.value = "@"+nickname+" ";
 
         // btn의 부모 요소 다음에 추가 해볼까요?
         btn.parentElement.after(textarea);

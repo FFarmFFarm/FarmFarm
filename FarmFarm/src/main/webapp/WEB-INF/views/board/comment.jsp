@@ -105,27 +105,27 @@
                                             <c:when test="${comment.commentDelFl == 'S'}">
                                                 <c:choose>
                                                     <c:when test="${loginMember.authority == 2}">
-                                                        <div class="comment-content child-content secret"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
+                                                        <div class="comment-content secret"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
                                                     </c:when>
                                                     <c:when test="${loginMember.memberNo == comment.memberNo}">
-                                                        <div class="comment-content child-content secret"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
+                                                        <div class="comment-content secret"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
                                                     </c:when>
                                                     <c:when test="${loginMember.memberNo == board.memberNo}">
-                                                        <div class="comment-content child-content secret"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
+                                                        <div class="comment-content secret"><i class="fa-solid fa-lock"></i>&nbsp;${comment.commentContent}</div>
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <div class="comment-content child-content secret"><i class="fa-solid fa-lock"></i>&nbsp;비밀댓글 입니다.</div>
+                                                        <div class="comment-content secret"><i class="fa-solid fa-lock"></i>&nbsp;비밀댓글 입니다.</div>
                                                     </c:otherwise>
                                                 </c:choose>
                                             </c:when>
                                             <c:otherwise>
-                                                <div class="comment-content child-content">${comment.commentContent}</div>
+                                                <div class="comment-content">${comment.commentContent}</div>
                                             </c:otherwise>
                                         </c:choose>
                                         
                                     </c:otherwise>
                                 </c:choose>
-                                <div class="writer-time-reply"> ${comment.commentDate} &nbsp; 
+                                <div class="writer-time-reply" id="${comment.memberNickname}"> ${comment.commentDate} &nbsp; 
 
                                     <c:choose>
                                         <%-- 관리자라면 --%>
