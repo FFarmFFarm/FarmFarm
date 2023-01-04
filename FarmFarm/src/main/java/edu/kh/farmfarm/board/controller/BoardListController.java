@@ -48,22 +48,25 @@ public class BoardListController {
 			@PathVariable("boardTypeNo") int boardTypeNo,
 			Model model,
 			@RequestParam(value="cp", required = false, defaultValue = "1") int cp,
-			@RequestParam(value="boardSelectNVL", required = false) List<String> boardSelectNVL,
-			@RequestParam(value="query", required = false) String query) {
+			@RequestParam Map<String, Object> pm) {
 		
-		
-			Map<String, Object> searchMap = new HashMap<String, Object>();
-			searchMap.put("query", query);
-			searchMap.put("boardTypeNo", boardTypeNo);
-			
-			Map<String, Object> boardMap = service.selectBoardList(searchMap, cp);
-			model.addAttribute("boardMap", boardMap);
+//			// 검색 안하는 경우
+			if(pm == null) {
+				pm.put("key", "t");
+				pm.put("query", null);
+			}
 
+			pm.put("boardTypeNo", boardTypeNo);
+			
+			Map<String, Object> boardMap = service.selectBoardList(pm, cp);
+			model.addAttribute("boardMap", boardMap);
+			
 		return "board/boardList";
 	}
 	
 	
 //	// 와글와글 게시판의 목록 불러오기
+	// + ajax로 요청한 목록 + 정렬
 	@GetMapping("/board/list/{boardTypeNo}")
 	@ResponseBody
 	public String boardList (

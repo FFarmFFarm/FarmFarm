@@ -5,10 +5,15 @@
 // board-list-title의 원래 모양을 저장을 위한 변수선언
 let beforeBoardListTitle;
 
+let key;
+
+console.log("key 3 : " + key);
+
 const showBoardList = (cp, sort)=>{
 
     // board-list-title의 원래 모양을 저장
     const boardListTitle = document.querySelector(".board-List-title");
+
 
     $.ajax({
         url : "/board/list/"+boardTypeNo,
@@ -265,13 +270,27 @@ if(boardAdd == '/board/4'){
 // 검색 시 검색어 유지시키기
 (()=>{
     const inputQuery = document.getElementById("inputQuery");
+    // const select = document.getElementById("search-key");
+    const option = document.querySelectorAll("#search-key > option");
     
     if(inputQuery != null){
         const params = new URL(location.href).searchParams
         
+        const key = params.get("key");
         const query = params.get("query");
 
         inputQuery.value = query;
+
+        for(let op of option){
+
+            // option의 value와 key가 일치할 때
+            if(op.value == key){
+                // op.setAttribute("selected", true); // 밑에처럼 간단히 쓸 수도 있데
+                op.selected = true;
+            }
+        }
+
+        console.log("key2:"+key);
     }
 })();
 
