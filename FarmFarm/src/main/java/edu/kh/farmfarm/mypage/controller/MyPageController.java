@@ -305,6 +305,7 @@ public class MyPageController {
 		
 		return "redirect:" + path;
 	}
+
 	
 
 }
