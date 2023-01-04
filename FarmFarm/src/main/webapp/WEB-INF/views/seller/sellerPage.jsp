@@ -60,10 +60,7 @@
                 
                 <c:choose>
                     <c:when test="${loginMember.memberNo == memberInfo.memberNo}">
-                        <button
-                        type="button"
-                        class="profile-setting-btn fa-solid fa-gear"
-                        ></button>
+                        <a href="/myPage/profile" class="profile-setting-btn fa-solid fa-gear" ></a>
                     </c:when>
                     <c:otherwise>
                         <button 
