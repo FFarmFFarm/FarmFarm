@@ -107,11 +107,19 @@ public class AdminProcessServiceImpl implements AdminProcessService{
 	}	
 	
 	
+	//-----------------------------------------------
 	
 	// 정지된 계정 리스트 불러오기 (스케쥴링)
 	@Override
 	public List<Admin> selectBannedAccountList() {
 		return dao.selectBannedAccountList();
+	}
+	
+
+	// 정지된 계정 활성화 (스케쥴링)
+	@Override
+	public int activateAccount(int targetNo) {
+		return dao.activateAccount(targetNo);
 	}
 	
 	

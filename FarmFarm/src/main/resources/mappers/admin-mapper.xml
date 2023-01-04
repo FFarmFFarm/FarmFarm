@@ -124,6 +124,9 @@
 			<if test='authFilter==3'> <!--판매자인증: 인증대기 -->
 				AND AUTHORITY = 3
 			</if>
+			<if test='authFilter==4'> <!--판매자인증: 인증보류 -->
+				AND AUTHORITY = 4
+			</if>
 			
 			<if test='statFilter==1'> <!--상태: 활동중 -->
 				AND MEMBER_DEL_FL = 'N'
@@ -176,6 +179,9 @@
 			</if>
 			<if test='authFilter==3'> <!--판매자인증: 인증대기 -->
 				AND AUTHORITY = 3
+			</if>
+			<if test='authFilter==4'> <!--판매자인증: 인증보류 -->
+				AND AUTHORITY = 4
 			</if>
 			
 			<if test='statFilter==1'> <!--상태: 활동중 -->
@@ -252,7 +258,7 @@
 			WHERE AUTHORITY = 3
 		</if>
 		<if test='sellerFilter == 1'>
-			WHERE (AUTHORITY = 1 OR AUTHORITY = 3)
+			WHERE (AUTHORITY = 1 OR AUTHORITY = 3 OR AUTHORITY = 4)
 		</if>
 	</select>
 
@@ -267,8 +273,8 @@
 		<if test='sellerFilter == 0'> <!-- 구매자 -->
 			WHERE AUTHORITY = 3
 		</if>
-		<if test='sellerFilter == 1'> <!-- 판매자 OR 인증대기 -->
-			WHERE (AUTHORITY = 1 OR AUTHORITY = 3)
+		<if test='sellerFilter == 1'> <!-- 판매자 OR 인증대기 OR 인증 보류-->
+			WHERE (AUTHORITY = 1 OR AUTHORITY = 3 OR AUTHORITY = 4)
 		</if>
 	</select>
 	
@@ -299,7 +305,12 @@
 	</update>
 
 
-	<!-- 판매자 인증 거절 -->
+	<!-- 판매자 인증 거절(보류) -->
+	<update id="sellerDeny">
+		UPDATE MEMBER SET
+		AUTHORITY = 4
+		WHERE MEMBER_NO = #{hiddenNo}
+	</update>
 	
 	
 	
@@ -484,12 +495,24 @@
 	<!-- 정지된 계정 리스트 조회 (스케쥴링)-->
 	<select id="selectBannedAccountList" resultMap="admin_rm">
 		SELECT *
+		FROM (SELECT REPORT_NO,REPORT_TYPE, REPORT_TARGET_NO, REPORT_PENALTY, PROCESS_DATE,
+				RANK() OVER(PARTITION BY REPORT_TARGET_NO, REPORT_TYPE ORDER BY REPORT_NO DESC) AS RANKING
 		FROM REPORT
 		LEFT JOIN MEMBER ON (REPORT_TARGET_NO = MEMBER_NO)
 		WHERE REPORT_TYPE = 'M'
 		AND REPORT_PENALTY = 'Y'
-		AND MEMBER_DEL_FL = 'N'
+		AND MEMBER_DEL_FL = 'N')
+		WHERE RANKING = 1
 	</select>
+	
+	<!-- 정지된 계정 활성화(스케쥴링) -->
+	<update id="activateAccount">
+		UPDATE REPORT SET
+		REPORT_PENALTY = 'N'
+		WHERE REPORT_TYPE = 'M'
+		AND REPORT_PENALTY = 'Y'
+		AND REPORT_TARGET_NO = #{targetNo}
+	</update>
 	
 	
 	

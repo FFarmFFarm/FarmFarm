@@ -54,11 +54,22 @@ public interface AdminProcessService {
 	 */
 	int reportLeaveContent(Map<String, Object> paramMap);
 
+	
+	
+	// --------------------------------------------
 
 	/** 정지된 계정 리스트 조회(스케쥴링)
 	 * @return bannedAccountList
 	 */
 	List<Admin> selectBannedAccountList();
+
+
+	/** 정지된 계정 활성화 (스케쥴링)
+	 * @param targetNo
+	 * @return result
+	 */
+	int activateAccount(int targetNo);
+
 
 
 
