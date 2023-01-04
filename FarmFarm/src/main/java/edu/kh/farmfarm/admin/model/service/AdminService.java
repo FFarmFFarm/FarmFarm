@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import edu.kh.farmfarm.admin.model.vo.Admin;
+import edu.kh.farmfarm.inquire.model.vo.InquireRoom;
 
 
 public interface AdminService {
@@ -87,7 +88,9 @@ public interface AdminService {
 
 
 
-
+	
+	
+	
 
 
 

@@ -118,3 +118,21 @@
     margin-left: 53px;
     margin-top: 7px;
 }
+
+
+/* 상담 관리 새 메세지 있을때 */
+#newMessage {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    color: red;
+    margin-left: 7px;
+    padding-top: 2px;
+}
+
+#inquireBtn {
+    display: flex;
+    align-items: center;
+}

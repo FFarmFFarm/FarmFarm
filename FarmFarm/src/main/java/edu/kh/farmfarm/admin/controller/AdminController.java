@@ -30,16 +30,24 @@ public class AdminController {
 	@Autowired
 	private AdminService service;
 
-
-	// 판매자 인증중인 회원이 로그인할 경우 이동_memberController와 연결
+	
+	// 나중에 MemberController로 옮기기
+	// 판매자 인증중 페이지 (판매자 인증중인 회원이 로그인할 경우)
 	@GetMapping("/authenticating")
 	public String authenticating() {
 		return "member/authNotice";
 	}
 	
 	
+	// 판매자 인증 거절 페이지 (판매자 인증 거절된 회원이 로그인할 경우)
+	@GetMapping("/authDeny")
+	public String authDeny() {
+		return "member/authNoticeDeny";
+	}
 	
 	
+	
+
 	// 관리자페이지 --------------------------------------------------------
 	
 	// 대시보드 -----------------------------------------------------------
@@ -400,10 +408,7 @@ public class AdminController {
 	
 	
 	
-	
-	
-	
-	
+
 	
 	
 	

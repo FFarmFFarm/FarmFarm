@@ -202,23 +202,34 @@ const printMemberList = (memberList, pagination) => {
         // 상태
         const td8 = document.createElement("td");
 
-        if(member.memberDelFl != null){
-
-            if(member.reportPenalty == 'N' || member.reportPenalty == null){
+        if(member.memberDelFl == 'N'){  //report테이블에 들어간 순간부터 신고가 접수된 것.
+            
+            if(member.reportType == null){
                 td8.innerText = "활동중";
             }
-
-            if(member.reportPenalty == 'N' && member.reportType != null){
-                td8.innerText = "신고접수";
+            
+            if(member.reportType != null){
+                if(member.reportPenalty == null){
+                    td8.innerText = "신고접수";
+                }
+    
+                if(member.reportPenalty == 'N'){
+                    td8.innerText = "활동중";
+                }
+    
+                if(member.reportPenalty == 'Y'){
+                    td8.innerText = "정지";
+                }
+    
+                if(member.memberDelFl == 'Y'){
+                    td8.innerText = "탈퇴"
+                }
             }
+        }
 
-            if(member.reportPenalty == 'Y'){
-                td8.innerText = "정지";
-            }
 
-            if(member.memberDelFl == 'Y'){
-                td8.innerText = "탈퇴"
-            }
+        if(member.memberDelFl == 'Y'){
+            td8.innerText = "탈퇴";
         }
 
 
@@ -381,24 +392,31 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
 
     const tdStatus = document.createElement("td");
 
-    if(memberDetailInfo.memberDelFl != null){
-
-        if(memberDetailInfo.reportPenalty == 'N' || memberDetailInfo.reportPenalty == null){
+    if(memberDetailInfo.memberDelFl == 'N'){
+        if(memberDetailInfo.reportType == null){
             tdStatus.innerText = "활동중";
         }
 
-        if(memberDetailInfo.reportPenalty == 'N' && memberDetailInfo.reportType != null){
-            tdStatus.innerText = "신고접수";
-        }
+        if(memberDetailInfo.reportType != null){
+            if(memberDetailInfo.reportPenalty == null){
+                tdStatus.innerText = "신고접수";
+            }
 
-        if(memberDetailInfo.reportPenalty == 'Y'){
-            tdStatus.innerText = "정지";
-        }
+            if(memberDetailInfo.reportPenalty == 'N'){
+                tdStatus.innerText = "활동중";
+            }
 
-        if(memberDetailInfo.memberDelFl == 'Y'){
-            tdStatus.innerText = "탈퇴"
+            if(memberDetailInfo.reportPenalty == 'Y'){
+                tdStatus.innerText = "정지";
+            }
         }
+    } 
+
+    if(memberDetailInfo.memberDelFl == 'Y'){
+        tdStatus.innerText = "탈퇴";
     }
+    
+
 
 
     // 5)
@@ -494,11 +512,9 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
 
         if(history.memberDelFl == 'N'){
             if(history.reportPenalty == 'Y'){
-                if(history.processDate != null){
-                    tdReportDate.innerText = history.processDate;
-                    tdReport.innerText = "정지"
-                    tdReportReason.innerText = history.reportReason;
-                }
+                tdReportDate.innerText = history.processDate;
+                tdReport.innerText = "정지";
+                tdReportReason.innerText = history.reportReason;
             }
 
             // 강제 탈퇴 버튼 활성화
@@ -508,10 +524,8 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
         }
 
         if(history.memberDelFl == 'Y'){
-            if(history.reportPenalty == 'N' || history.reportPenalty == null){
-                td6.innerText = "회원 탈퇴";
-            }
-
+            td6.innerText = "회원 탈퇴";
+     
             if(history.reportPenalty == 'Y'){
                 tdReportDate.innerText = history.processDate;
                 tdReport.innerText = "강제 탈퇴";
@@ -786,7 +800,7 @@ document.getElementById("s2").addEventListener("click", ()=>{
     let statFl = getFilterNum("s2");
     statFilter = statFl;  // authFilter : jsp에서 전역변수로 선언함.
     selectMemberList();
-    dropBtn2Text.innerText = "신고 접수";
+    dropBtn2Text.innerText = "신고접수";
 })
 document.getElementById("s3").addEventListener("click", ()=>{
     numCount = (cp-1)*15;
