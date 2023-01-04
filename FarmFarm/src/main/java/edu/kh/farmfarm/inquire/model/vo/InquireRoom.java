@@ -25,6 +25,7 @@ public class InquireRoom {
     private String lastSendTime;
     private String lastMessage;
     private int unreadCount;
+    private int messageCount;
     private String lastSendImgFl;
     private int messageTimeOrder;
 }
