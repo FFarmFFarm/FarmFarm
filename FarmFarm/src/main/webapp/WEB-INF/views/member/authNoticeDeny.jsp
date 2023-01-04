@@ -9,6 +9,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>판매자 인증</title>
 
+    <script
+        src="https://kit.fontawesome.com/591746f9e8.js"
+        crossorigin="anonymous"
+    ></script>
+    <script>
+        var loginMemberNo = "${loginMember.memberNo}";
+    </script>
+
     <link rel="stylesheet" href="/resources/css/member/authNotice-style.css" />
 
 </head>
@@ -29,11 +37,23 @@
 
     <div id="buttonArea">
         <div class="button to-main">
-            <a href="/">메인페이지</a>
+            <a href="/logout">메인페이지</a>
         </div>
         <div class="button to-happy-center">
-            <a href="/">실시간 상담</a>
+            <c:if test="${! empty loginMember}">
+            <c:if test="${loginMember.authority == 4}">
+            <button type="button" class="btn-inquire" id="inquireOpen">
+                1:1
+            <div id="inquireUnread">
+                <i class="fa-solid fa-circle"></i>
+            </div>
+            </button>
+            <jsp:include page="/WEB-INF/views/inquire/inquire.jsp"/>
+            </c:if>
+            </c:if>
         </div>
     </div>
+
+
 </body>
 </html>

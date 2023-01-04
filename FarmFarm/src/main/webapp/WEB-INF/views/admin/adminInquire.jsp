@@ -54,6 +54,9 @@
                         <!-- 채팅방 미리보기 영역 -->
                             <c:if test="${! empty inquireList}">
                             <c:forEach var="inquire" items="${inquireList}">
+                            <c:if test="${inquire.messageCount > 1}">
+
+
                             <div class="message-preview-box" id="${inquire.inquireNo}">
                                 <div class="profile-img">
                                 <c:if test="${empty inquire.profileImg}">
@@ -94,6 +97,9 @@
                                     </c:if>
                                 </div>
                             </div>
+
+
+                            </c:if>
                             </c:forEach>
                             </c:if>
 
@@ -178,7 +184,7 @@
         <!-- jquery -->
         <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
         
-   
+
         <script src="/resources/js/common/common.js"></script>
         <script src="/resources/js/admin/adminInquire.js"></script> 
 

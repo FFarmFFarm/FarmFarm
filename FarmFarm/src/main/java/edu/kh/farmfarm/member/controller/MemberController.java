@@ -113,6 +113,7 @@ public class MemberController {
 				
 				if (loginMember.getAuthority() == 4) { // 인증 보류
 					path = "/authDeny";
+					model.addAttribute("loginMember", loginMember);
 				}
 				
 			}

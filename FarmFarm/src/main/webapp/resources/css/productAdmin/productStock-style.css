@@ -117,7 +117,7 @@ main{
 }
 
 /* todo: 카테고리 선택 부분 _카테고리별로 다르게 표시! */
-.admin-nav-sub:nth-of-type(5){
+.admin-nav-sub:nth-of-type(6){
     height: 30px;
     padding-top: 5px;
     background-color: #eef4ed;;

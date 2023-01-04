@@ -55,7 +55,7 @@ const fillInquireRoom = (messageList) => {
   readingArea.innerHTML = '';
 
 
-  const temp = messageList[0].messageDate;
+  let temp = messageList[0].messageDate;
 
   const dateLabelLine = document.createElement('div');
   dateLabelLine.className = 'date-label-line';
@@ -70,15 +70,18 @@ const fillInquireRoom = (messageList) => {
   for(let item of messageList) { 
 
     if (item.messageDate != temp) {
+      
       const dateLabelLine = document.createElement('div');
       dateLabelLine.className = 'date-label-line';
-    
+      
       const dateLabel = document.createElement('div');
       dateLabel.classList.add('date-label');
       dateLabel.innerHTML = item.messageDate;
-    
+      
       dateLabelLine.append(dateLabel);
       readingArea.append(dateLabelLine);
+      
+      temp = item.messageDate;
     }
 
     const message = document.createElement('div');
@@ -151,82 +154,86 @@ const fillInquireList = (inquireList) => {
 
   
   for (let inquire of inquireList) {
-    const messagePreviewBox = document.createElement('div');
-    messagePreviewBox.classList.add('message-preview-box');
+    if (inquire.messageCount > 1) {
 
-    const profileImg = document.createElement('div');
-    profileImg.classList.add('profile-img');
+      const messagePreviewBox = document.createElement('div');
+      messagePreviewBox.classList.add('message-preview-box');
 
-    const img = document.createElement('img');
+      const profileImg = document.createElement('div');
+      profileImg.classList.add('profile-img');
 
-    profileImg.append(img);
+      const img = document.createElement('img');
 
-    if (inquire.profileImg != undefined) { 
-      img.src = inquire.profileImg;
-    } else {
-      img.src = '/resources/images/chatting/farmer.png';
-    }
+      profileImg.append(img);
 
-    messagePreviewBox.append(profileImg);
-    
-    const messageBoxLabel = document.createElement('div');
-    messageBoxLabel.classList.add('message-box-label');
-    
-    const messageInfo = document.createElement('div');
-    messageInfo.classList.add('message-info');
-    
-    const memberNickname = document.createElement('div');
-    memberNickname.classList.add('member-nickname');
-    memberNickname.innerHTML = inquire.memberNickname;
-    
-    const lastMessageTime = document.createElement('div');
-    lastMessageTime.classList.add('last-message-time');
-    lastMessageTime.innerHTML = inquire.lastSendTime;
+      if (inquire.profileImg != undefined) { 
+        img.src = inquire.profileImg;
+      } else {
+        img.src = '/resources/images/chatting/farmer.png';
+      }
 
-    const unreadMessage = document.createElement('div');
-    unreadMessage.innerHTML = inquire.unreadCount;
-    
-    if (inquire.unreadCount == 0) {
-      unreadMessage.classList.add('unread-message-count', 'hide');
+      messagePreviewBox.append(profileImg);
       
-    } else if (inquire.unreadCount > 0) {
-      unreadMessage.classList.add('unread-message-count');
+      const messageBoxLabel = document.createElement('div');
+      messageBoxLabel.classList.add('message-box-label');
+      
+      const messageInfo = document.createElement('div');
+      messageInfo.classList.add('message-info');
+      
+      const memberNickname = document.createElement('div');
+      memberNickname.classList.add('member-nickname');
+      memberNickname.innerHTML = inquire.memberNickname;
+      
+      const lastMessageTime = document.createElement('div');
+      lastMessageTime.classList.add('last-message-time');
+      lastMessageTime.innerHTML = inquire.lastSendTime;
+
+      const unreadMessage = document.createElement('div');
       unreadMessage.innerHTML = inquire.unreadCount;
-    }
-
-    messageInfo.append(memberNickname, lastMessageTime, unreadMessage);
-    
-    messageBoxLabel.append(messageInfo);
-    
-    messagePreviewBox.append(messageBoxLabel);
-
-    const lastMessage = document.createElement('div');
-    lastMessage.classList.add('last-message-content');
-
-    if (inquire.lastSendImgFl == 'N') {
-      lastMessage.innerHTML = inquire.lastMessage;
       
-    } else {
+      if (inquire.unreadCount == 0) {
+        unreadMessage.classList.add('unread-message-count', 'hide');
+        
+      } else if (inquire.unreadCount > 0) {
+        unreadMessage.classList.add('unread-message-count');
+        unreadMessage.innerHTML = inquire.unreadCount;
+      }
+
+      messageInfo.append(memberNickname, lastMessageTime, unreadMessage);
       
-      lastMessage.innerHTML = '사진';
+      messageBoxLabel.append(messageInfo);
+      
+      messagePreviewBox.append(messageBoxLabel);
+
+      const lastMessage = document.createElement('div');
+      lastMessage.classList.add('last-message-content');
+
+      if (inquire.lastSendImgFl == 'N') {
+        lastMessage.innerHTML = inquire.lastMessage;
+        
+      } else {
+        
+        lastMessage.innerHTML = '사진';
+      }
+
+      messageBoxLabel.append(lastMessage);
+      
+      roomList.append(messagePreviewBox);
+
+      
+      messagePreviewBox.addEventListener('click', () => { 
+        /* 해당 상담방 메세지 목록 불러오기 */
+        selectMessageList(inquire.inquireNo);
+        memberInquireNo = inquire.inquireNo;
+
+        /* unread count 아이콘 제거 */
+          if (!unreadMessage.classList.contains('hide')) {
+            unreadMessage.classList.add('hide');
+          }
+
+      })
+            
     }
-
-    messageBoxLabel.append(lastMessage);
-    
-    roomList.append(messagePreviewBox);
-
-    
-    messagePreviewBox.addEventListener('click', () => { 
-      /* 해당 상담방 메세지 목록 불러오기 */
-      selectMessageList(inquire.inquireNo);
-      memberInquireNo = inquire.inquireNo;
-
-      /* unread count 아이콘 제거 */
-        if (!unreadMessage.classList.contains('hide')) {
-          unreadMessage.classList.add('hide');
-        }
-
-    })
   }
 }
 
@@ -313,7 +320,10 @@ if(inquireImage!=undefined) {
 
 
 /* WebSocket 객체가 서버로부터 메세지를 통지받으면 자동으로 실행되는 콜백함수 */
-inquireSock.onmessage = (e) => {
+inquireSock.onmessage = function(e) {
+
+  
+
   const msg = JSON.parse(e.data);
   console.log(msg);
 
@@ -363,7 +373,12 @@ inquireSock.onmessage = (e) => {
 
 
     readingArea.scrollTo(0, readingArea.scrollHeight);
-
     
+    
+  } else {
+
   }
+
+  console.log('메세지 왔어요');
+  selectInquireList();
 }

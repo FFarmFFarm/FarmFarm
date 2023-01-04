@@ -18,6 +18,7 @@
 	      <result property="lastMessage" column="LAST_MESSAGE" />
 	      <result property="lastSendImgFl" column="LAST_SEND_IMG_FL" />
 	      <result property="unreadCount" column="UNREAD_COUNT" />
+	      <result property="messageCount" column="MESSAGE_COUNT" />
 	      <result property="messageTimeOrder" column="MESSAGE_TIME_ORDER" />
 
 	 </resultMap>
@@ -109,6 +110,7 @@
 		FROM MESSAGE m
 		JOIN INQUIRE_ROOM ir USING(INQUIRE_NO)
 		WHERE READ_FL = 'N' AND SEND_MEMBER_NO != #{memberNo}
+		AND (MEMBER_NO = #{memberNo} OR MEMBER_NO2 = #{memberNo})
 	</select>
 	
 	<!-- 메세지 삽입 -->
@@ -150,6 +152,9 @@
 			FROM MESSAGE MS 
 			WHERE MS.INQUIRE_NO = IR.INQUIRE_NO
 			AND SEND_MEMBER_NO != 0 AND READ_FL = 'N') UNREAD_COUNT
+			,(SELECT COUNT(*) 
+			FROM MESSAGE MS 
+			WHERE MS.INQUIRE_NO = IR.INQUIRE_NO) AS MESSAGE_COUNT
 		FROM INQUIRE_ROOM IR
 		ORDER BY LAST_SEND_TIME DESC
  	</select>

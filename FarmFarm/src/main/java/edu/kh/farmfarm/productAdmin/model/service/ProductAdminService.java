@@ -76,5 +76,18 @@ public interface ProductAdminService {
 	 */
 	int soldoutProduct(Map<String, Object> map);
 
+	/** 주문 목록 조회
+	 * @param cp
+	 * @return map
+	 */
+	Map<String, Object> selectOrderList(int cp);
+
+	/** 검색 목록 조회
+	 * @param pm
+	 * @param cp
+	 * @return map
+	 */
+	Map<String, Object> selectOrderList(Map<String, Object> pm, int cp);
+
 
 }
