@@ -1,5 +1,8 @@
 package edu.kh.farmfarm.admin.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -95,6 +98,7 @@ public class AdminProcessController {
 	
 	
 	
+	
 	// 신고 게시글(판매글, 커뮤니티 게시글) - 삭제
 	@GetMapping("/report/deleteContent")
 	@ResponseBody
@@ -102,6 +106,7 @@ public class AdminProcessController {
 									int hiddenContentNo, String reportType) {
 		// 관리자인지 확인
 		int result = service.checkAdmin();
+
 		
 		if(result == 1  && loginMember != null) {
 			
@@ -110,14 +115,26 @@ public class AdminProcessController {
 		return result;
 	}
 	
-	
-	
-	
-	
-	
+
 	
 	// 신고 게시글 - 반려
-	
+	@GetMapping("/report/LeaveContent")
+	@ResponseBody
+	public int reportLeaveContent(@SessionAttribute(value="loginMember") Member loginMember,
+									int hiddenContentNo, String reportType) {
+		// 관리자인지 확인
+		int result = service.checkAdmin();
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("hiddenContentNo", hiddenContentNo);
+		paramMap.put("reportType", reportType);
+		
+		if(result == 1  && loginMember != null) {
+			
+			result = service.reportLeaveContent(paramMap);
+		}
+		return result;
+	}
 	
 	
 	

@@ -1,5 +1,8 @@
 package edu.kh.farmfarm.admin.model.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -66,20 +69,41 @@ public class AdminProcessServiceImpl implements AdminProcessService{
 		
 		int result = 0;
 		
+		
+		if(reportType.equals("B")) {
+			System.out.println(hiddenContentNo + "if문 된다");
+		}
+		
 		// 커뮤니티 게시글 삭제
-		if(reportType.equals('B')) {
-			result = dao.reportDeleteBoard(hiddenContentNo, reportType);
+		if(reportType.equals("B")) {
+			result = dao.reportDeleteBoard(hiddenContentNo);
 		
 		// 판매글 삭제
-		}else if(reportType.equals('P')) {
-			result = dao.reportDeletePost(hiddenContentNo, reportType);
+		} else if(reportType.equals("P")) {
+			result = dao.reportDeletePost(hiddenContentNo);
 		}
 		
 		
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("hiddenContentNo", hiddenContentNo);
+		paramMap.put("reportType", reportType);
+		
+		// 삭제 후 신고 상태 변경, 처리 일자 추가
 		if(result > 0) {
-			result = dao.changeContentStatus(hiddenContentNo, reportType);
+			result = dao.changeReportStatusCt(paramMap);
 		}
 		
 		return result;
 	}
+	
+	
+	// 신고 게시글 - 반려
+	@Override
+	public int reportLeaveContent(Map<String, Object> paramMap) {
+		return dao.reportLeaveContent(paramMap);
+	}	
+	
+	
+	
 }

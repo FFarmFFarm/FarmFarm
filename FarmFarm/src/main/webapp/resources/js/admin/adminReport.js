@@ -157,7 +157,7 @@ const printNewReportList = (newReportList, pagination, reportListCount, reportAl
 
         // 처리 상태 
         const td7 = document.createElement('td');
-        if(report.reportPenalty == 'N' || report.reportPenalty == null){
+        if(report.reportPenalty == null){
             td7.innerText = "접수";
         }
 
@@ -168,18 +168,12 @@ const printNewReportList = (newReportList, pagination, reportListCount, reportAl
         // 한 행 클릭하면상세 내용 모달 열리기
         tr.addEventListener('click', () => {
             hiddenReportNo = report.reportNo;  // 상세조회용
-            hiddenMemberNo = report.memberNo;  // 강제탈퇴용
-            hiddenContentNo = report.contentNo; // 신고게시글 반려용
-            hiddenReportType = report.reportType; 
             
             // 상세 모달 
             selectNewReportDetail(hiddenReportNo);
 
             console.log("한 행 클릭할 때 모달 열리는 부분---------");
             console.log("hiddenReportNo: " + hiddenReportNo);
-            console.log("hiddenMemberNo: " + hiddenMemberNo);
-            console.log("hiddenContentNo: " + hiddenContentNo);
-            console.log("hiddenReportType: " + hiddenReportType);
         })
 
     }
@@ -257,7 +251,7 @@ const printNewReportDetail = (newReportDetail) => {
 
     const td4Detail = document.createElement('td');
     
-    if(newReportDetail.reportPenalty == 'N' || newReportDetail.reportPenalty == null){
+    if(newReportDetail.reportPenalty == null){
         td4Detail.innerText = "접수";
     }
 
@@ -427,8 +421,18 @@ const printNewReportDetail = (newReportDetail) => {
     tbodyDetail.append(tr1Detail, tr2Detail,  tr3Detail, tr5Detail, tr6Detail, tr4Detail, tr7Detail, tr8Detail);
 
 
-    // 강제탈퇴용 아이디 가져오기
-    hiddenMemberNo = newReportDetail.memberNo;
+    // 신고 처리용 값 가져오기  // 강제 탈퇴, 반려, 정지, 삭제 등등에 사용
+    hiddenMemberNo = newReportDetail.memberNo;  // 계정 강제탈퇴, 정지, 반려용
+    hiddenContentNo = newReportDetail.contentNo; // 게시글 정지, 반려용
+    hiddenReportType = newReportDetail.reportType;  // 게시글 정지, 반려용
+    // hiddenReportNo = newReportDetail.reportNo;  
+
+    
+    console.log("상세 모달---------");
+    console.log("hiddenReportNo: " + hiddenReportNo);
+    console.log("hiddenMemberNo: " + hiddenMemberNo);
+    console.log("hiddenContentNo: " + hiddenContentNo);
+    console.log("hiddenReportType: " + hiddenReportType);
 
     // 버튼
     // 회원신고 -> 반려, 강제정지, 탈퇴
@@ -623,6 +627,8 @@ window.addEventListener('click', (e) => {
 
 // * (계정) 강제 탈퇴
 accountKickOutBtn.addEventListener('click', () => {
+    console.log("계정 탈퇴 클릭");
+
     $.ajax({
         url: "/report/kickout",
         data: { "hiddenNo": hiddenMemberNo },
@@ -634,7 +640,7 @@ accountKickOutBtn.addEventListener('click', () => {
                 selectNewReportList(cp);
                 
                 console.log("강제 탈퇴 완료");
-                messageModalOpen("신고된 계정이 강제 탈퇴되었습니다.");
+                messageModalOpen("해당 계정이 강제 탈퇴되었습니다.");
 
                 //fixme: 시간 남을 때 모달이랑, 스크롤 위치 수정
 
@@ -645,6 +651,7 @@ accountKickOutBtn.addEventListener('click', () => {
         },
         error: () => {
             console.log("강퇴 처리 오류");
+            messageModalOpen("오류 발생");
         }
     });
 })
@@ -652,6 +659,8 @@ accountKickOutBtn.addEventListener('click', () => {
 
 // * (계정) 반려 
 accountLeaveBtn.addEventListener('click', () => {
+    console.log("계정 반려 클릭");
+
     $.ajax({
         url: "/report/leaveAccount",
         data: {"hiddenNo":hiddenMemberNo},
@@ -662,8 +671,12 @@ accountLeaveBtn.addEventListener('click', () => {
                 selectNewReportList(cp);
 
                 console.log("계정 반려");
-                messageModalOpen("신고된 계정이 활성화 상태를 유지합니다.");
+                messageModalOpen("해당 계정이 활성화 상태를 유지합니다.");
             }
+        },
+        error: () => {
+            console.log("계정 반려 오류");
+            messageModalOpen("오류 발생");
         }
     })
 })
@@ -671,6 +684,8 @@ accountLeaveBtn.addEventListener('click', () => {
 
 // * (계정) 정지
 accountBannedBtn.addEventListener('click', () => {
+    console.log("계정 정지 클릭");
+
     $.ajax({
         url: "/report/bannedAccount",
         data: {"hiddenNo":hiddenMemberNo},
@@ -681,8 +696,12 @@ accountBannedBtn.addEventListener('click', () => {
                 selectNewReportList(cp);
 
                 console.log("계정 정지");
-                messageModalOpen("신고된 계정이 7일간 정지됩니다.")
+                messageModalOpen("해당 계정이 7일간 정지됩니다.")
             }
+        },
+        error: () => {
+            console.log("계정 정지 오류");
+            messageModalOpen("오류 발생");
         }
     })
 })
@@ -692,18 +711,24 @@ accountBannedBtn.addEventListener('click', () => {
 // B, P 나눠야 함.
 // * (게시글) 삭제 : 판매글, 커뮤니티 게시글
 contentDeleteBtn.addEventListener('click', () => {
+    console.log("게시글 삭제 클릭");
+
     $.ajax({
         url: "/report/deleteContent",
-        data: {"hiddenContentNo":hiddenContentNo, "reportType":reportType},
+        data: {"hiddenContentNo":hiddenContentNo, "reportType":hiddenReportType},
         type: "GET",
         success: (result) => {
             if(result > 0){
                 reportDetailModalClose();
                 selectNewReportList(cp);
 
-                console.log("계정 정지");
-                messageModalOpen("신고된 계정이 7일간 정지됩니다.")
+                console.log("게시글 삭제");
+                messageModalOpen("해당 게시글이 삭제되었습니다.")
             }
+        },
+        error: () => {
+            console.log("게시글 삭제 오류");
+            messageModalOpen("오류 발생");
         }
     })
 })
@@ -712,19 +737,26 @@ contentDeleteBtn.addEventListener('click', () => {
 
 // * (게시글) 반려
 contentLeaveBtn.addEventListener('click', () => {
+    console.log("게시글 반려 클릭");
+    console.log(hiddenContentNo);
+
     $.ajax({
         url: "/report/LeaveContent",
-        data: {"hiddenContentNo":hiddenContentNo, "reportType":reportType},
+        data: {"hiddenContentNo":hiddenContentNo, "reportType":hiddenReportType},
         type: "GET",
         success: (result) => {
             if(result > 0){
                 reportDetailModalClose();
                 selectNewReportList(cp);
 
-                console.log("계정 정지");
-                messageModalOpen("신고된 계정이 7일간 정지됩니다.")
+                console.log("게시글 반려");
+                messageModalOpen("해당 게시글이 활성화 상태를 유지합니다.")
             }
-        }
+        }, 
+        error: () => {
+            console.log("게시글 반려 오류");
+            messageModalOpen("오류 발생");
+        } 
     })
 })
 

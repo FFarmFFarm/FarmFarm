@@ -121,7 +121,7 @@
                               <td>${report.reportDate}</td>
                               <td>${report.reportVolume}</td>
                               
-                              <c:if test="${report.reportPenalty eq 'N' || empty report.reportPenalty}">
+                              <c:if test="${empty report.reportPenalty}">
                                 <td>접수</td>
                               </c:if>
 

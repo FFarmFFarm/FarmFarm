@@ -127,11 +127,13 @@
 			
 			<if test='statFilter==1'> <!--상태: 활동중 -->
 				AND MEMBER_DEL_FL = 'N'
-				AND REPORT_PENALTY IS NULL
+				AND (REPORT_PENALTY IS NULL
+				OR REPORT_PENALTY = 'N')
+				AND REPORT_TYPE IS NULL
 			</if>
 			<if test='statFilter==2'> <!--상태: 신고접수 -->
 				AND MEMBER_DEL_FL = 'N'
-				AND REPORT_PENALTY = 'N' 
+				AND REPORT_PENALTY IS NULL 
 				AND REPORT_TYPE IS NOT NULL
 			</if>
 			<if test='statFilter==3'> <!--상태: 정지 -->
@@ -161,6 +163,7 @@
 			LEFT JOIN SELLER USING(MEMBER_NO)
 			LEFT JOIN REPORT ON (MEMBER_NO = REPORT_TARGET_NO)
 			WHERE MEMBER_ID != 'admin'
+			AND DEFAULT_FL = 'Y'
 			ORDER BY MEMBER_NO)
 			WHERE RANKING = 1
 			<if test='authFilter==0 and statFilter==0'> <!--전체 -->
@@ -177,11 +180,13 @@
 			
 			<if test='statFilter==1'> <!--상태: 활동중 -->
 				AND MEMBER_DEL_FL = 'N'
-				AND REPORT_PENALTY IS NULL
+				AND (REPORT_PENALTY IS NULL
+				OR REPORT_PENALTY = 'N')
+				AND REPORT_TYPE IS NULL
 			</if>
 			<if test='statFilter==2'> <!--상태: 신고접수 -->
 				AND MEMBER_DEL_FL = 'N'
-				AND REPORT_PENALTY = 'N' 
+				AND REPORT_PENALTY IS NULL 
 				AND REPORT_TYPE IS NOT NULL
 			</if>
 			<if test='statFilter==3'> <!--상태: 정지 -->
@@ -211,6 +216,7 @@
 				LEFT JOIN SELLER USING(MEMBER_NO)
 				LEFT JOIN REPORT ON (MEMBER_NO = REPORT_TARGET_NO)
 				WHERE MEMBER_ID != 'admin'
+				AND DEFAULT_FL = 'Y'
 				ORDER BY MEMBER_NO)
 			WHERE RANKING = 1
 			AND MEMBER_NO = #{hiddenNo}
@@ -229,6 +235,7 @@
 				LEFT JOIN SELLER USING(MEMBER_NO)
 				LEFT JOIN REPORT ON (MEMBER_NO = REPORT_TARGET_NO)
 				WHERE MEMBER_ID != 'admin'
+				AND DEFAULT_FL = 'Y'
 				ORDER BY MEMBER_NO)
 			WHERE MEMBER_NO = #{hiddenNo}
 	</select>
@@ -257,10 +264,10 @@
 		FROM "MEMBER" 
 		LEFT JOIN ADDRESS USING(MEMBER_NO)
 		LEFT JOIN "SELLER" USING(MEMBER_NO)
-		<if test='sellerFilter == 0'>
+		<if test='sellerFilter == 0'> <!-- 구매자 -->
 			WHERE AUTHORITY = 3
 		</if>
-		<if test='sellerFilter == 1'>
+		<if test='sellerFilter == 1'> <!-- 판매자 OR 인증대기 -->
 			WHERE (AUTHORITY = 1 OR AUTHORITY = 3)
 		</if>
 	</select>
@@ -439,15 +446,39 @@
 	</update>
 	
 	
+	<!-- 신고 커뮤니티 게시글 삭제 -->
+	<update id="reportDeleteBoard">
+		UPDATE BOARD SET
+		BOARD_DEL_FL = 'Y'
+		WHERE BOARD_NO = #{hiddenContentNo}
+	</update>
+	
+	<!-- 신고 판매글 삭제 -->
+	<update id="reportDeletePost">
+		UPDATE POST SET
+		POST_DEL_FL = 'Y'
+		WHERE POST_NO = #{hiddenContentNo}
+	</update>
 	
 	
+	<!-- 신고 게시글 : 정지 후 신고 상태 변경, 신고 처리일자 추가   -->
+	<update id="changeReportStatusCt">
+		UPDATE REPORT SET
+		REPORT_PENALTY = 'Y',
+		PROCESS_DATE = SYSDATE
+		WHERE REPORT_TYPE = #{reportType}
+		AND REPORT_TARGET_NO = #{hiddenContentNo}
+	</update>
 	
 	
-	
-	
-	
-	
-	
+	<!-- 신고 게시글 반려 -->
+	<update id="reportLeaveContent">
+		UPDATE REPORT SET
+		REPORT_PENALTY = 'N',
+		PROCESS_DATE = SYSDATE
+		WHERE REPORT_TYPE = #{reportType}
+		AND REPORT_TARGET_NO = #{hiddenContentNo}
+	</update>
 	
 	
 	

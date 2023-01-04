@@ -1,5 +1,7 @@
 package edu.kh.farmfarm.admin.model.service;
 
+import java.util.Map;
+
 public interface AdminProcessService {
 	
 	/** 관리자인지 확인
@@ -37,11 +39,19 @@ public interface AdminProcessService {
 
 
 	/** 신고 게시글 삭제
-	 * @param hiddenContentNo
-	 * @param reportType
-	 * @return
+	 * @param paramMap
+	 * @return result
 	 */
 	int reportDeleteContent(int hiddenContentNo, String reportType);
+
+
+	/** 신고 게시글 반려
+	 * @param paramMap
+	 * @return result
+	 */
+	int reportLeaveContent(Map<String, Object> paramMap);
+
+
 
 
 
