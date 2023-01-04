@@ -117,7 +117,7 @@ main{
 }
 
 /* todo: 카테고리 선택 부분 _카테고리별로 다르게 표시! */
-.admin-nav-sub:nth-of-type(3){
+.admin-nav-sub:nth-of-type(5){
     height: 30px;
     padding-top: 5px;
     background-color: #eef4ed;;
@@ -125,6 +125,11 @@ main{
 
 
 /* 상품리스트 조회 */
+.no-result{
+    line-height: 300px;
+    font-size: var(--medium-font-size);
+}
+
 .order-list-section{
     width: 1000px;
     min-height: 900px;
@@ -138,15 +143,16 @@ main{
 
 .page-title{
     text-align: center;
-    font-size: var(--title-font-size);
+    font-size: var(--headline-font-size);
     height: 115px;
-    padding-top: 30px;
+    padding-top: 50px;
 }
 
 /* 기간 설정 */
 .set-period{
     display: flex;
     height: 100px;
+    margin-top: 20px;
 }
 
 .part-title{
@@ -286,11 +292,46 @@ td, tr{
     color: var(--point-color);
 }
 
-.table-row>*:nth-child(1){width: 3%;}
-.table-row>*:nth-child(2){width: 11%;}
-.table-row>*:nth-child(3){width: 33%;}
-.table-row>*:nth-child(4){width: 15%;}
-.table-row>*:nth-child(5){width: 6%;}
-.table-row>*:nth-child(6){width: 10%;}
-.table-row>*:nth-child(7){width: 12%;}
-.table-row>*:nth-child(8){width: 10%;}
+.table-row>*:nth-child(1){width: 10%;}
+.table-row>*:nth-child(2){width: 15%;}
+.table-row>*:nth-child(3){width: 20%;}
+.table-row>*:nth-child(4){width: 10%;}
+.table-row>*:nth-child(5){width: 15%;}
+.table-row>*:nth-child(6){width: 15%;}
+.table-row>*:nth-child(7){width: 15%;}
+
+
+/* 페이지네이션 영역 */
+.pagination-area{
+    display: flex;
+    justify-content: center;
+    margin: 50px;
+}
+
+/* 페이지 박스 */
+.page-box{
+    color: var(--sub-font-color);
+    border: 1px solid var(--line-color);
+    width: 30px;
+    height: 30px;
+    background-color: var(--background-color);
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    font: var(--sub-font-color);
+
+    cursor: pointer;
+}
+
+.page-box>a{
+    width: 100%;
+}
+
+.page-box:hover{
+    color: var(--main-font-color);
+    font-weight: 600;
+    transition-duration: 0.1s;
+}

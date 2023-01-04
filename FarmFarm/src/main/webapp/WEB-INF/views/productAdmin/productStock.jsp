@@ -30,7 +30,7 @@
     <main>
         <jsp:include page='/WEB-INF/views/admin/adminNav.jsp' />
 
-        <c:if test="${not empty parma.key}">
+        <c:if test="${not empty param.key}">
             <c:set var="sURL" value="$key=${param.key}&query=${param.query}"/>
         </c:if>
 

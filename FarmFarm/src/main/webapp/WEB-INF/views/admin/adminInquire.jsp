@@ -35,11 +35,11 @@
                     <p>상담 관리</p>
                 </div>
                    <!-- 본문 영역 -->
-                <div class="container" role="main">
+                <div class="inquire-container" role="main">
 
                     <!-- 좌측 사이드바 채팅방 목록 -->
-                    <section class="chat-sidebar">
-                        <div class="chat-sidebar-header">
+                    <section class="message-sidebar">
+                        <div class="message-sidebar-header">
                         <div class="search-area">
                             <input id="searchBar" placeholder="채팅방 검색">
                             <button id="resetRoomSearch">
@@ -50,14 +50,66 @@
                             </button>
                         </div>
                         </div>
-                        <div class="chat-preview-area">
+                        <div class="message-preview-area" id="roomList">
                         <!-- 채팅방 미리보기 영역 -->
+                            <c:if test="${! empty inquireList}">
+                            <c:forEach var="inquire" items="${inquireList}">
+                            <c:if test="${inquire.messageCount > 1}">
+
+
+                            <div class="message-preview-box" id="${inquire.inquireNo}">
+                                <div class="profile-img">
+                                <c:if test="${empty inquire.profileImg}">
+                                    <img src="/resources/images/chatting/farmer.png">
+                                </c:if>
+                                <c:if test="${!empty inquire.profileImg}">
+                                    <img src="${inquire.profileImg}">
+                                </c:if>
+                                </div>
+                                <div class="message-box-label">
+                                    <div class="message-info">
+                                        <div class="member-nickname">
+                                        ${inquire.memberNickname}
+                                        </div>
+                                        <div class="last-message-time">
+                                        ${inquire.lastSendTime}
+                                        </div>
+                                        <c:if test="${inquire.unreadCount == 0}">
+                                        <div class="unread-message-count hide" >
+                                            ${inquire.unreadCount}
+                                        </div>
+                                        </c:if>
+                                        <c:if test="${inquire.unreadCount > 0}">
+                                        <div class="unread-message-count">
+                                            ${inquire.unreadCount}
+                                        </div>
+                                        </c:if>
+                                    </div>
+                                    <c:if test="${inquire.lastSendImgFl == 'N'}">
+                                    <div class="last-message-content">
+                                        ${inquire.lastMessage}
+                                    </div>
+                                    </c:if>
+                                    <c:if test="${inquire.lastSendImgFl == 'Y'}">
+                                    <div class="last-message-content">
+                                        사진
+                                    </div>
+                                    </c:if>
+                                </div>
+                            </div>
+
+
+                            </c:if>
+                            </c:forEach>
+                            </c:if>
+
+
                         </div>
 
                     </section>
 
                     <!-- 우측 채팅 내역 -->
-                    <section class="chat-room">
+                    <section class="inquire-room">
                     <div id="roomBodyBlinder">
                         <div id="emptyChat">
                         <div id="emptyChatIcon">
@@ -65,42 +117,10 @@
                             <!-- <i class="fa-solid fa-cart-shopping"></i> -->
                         </div>
                         <div id="emptyDetail">
-                            상담 내역이 없습니다.
                         </div>
                         </div>
                     </div>
-                    <div id="roomLabel">
-                        <div id="postImg">
-                        <!-- <img src="/resources/images/chat/potato.jpg"> -->
-                        </div>
-                        <div id="postTitle">
-                        <!-- 아주 긴 채팅방 제목... 아주 긴 채팅방 제목... 아주 긴 채팅방 제목...
-                        아주 긴 채팅방 제목... 아주 긴 채팅방 제목... 아주 긴 채팅방 제목...
-                        아주 긴 채팅방 제목... 아주 긴 채팅방 제목... 아주 긴 채팅방 제목...
-                        아주 긴 채팅방 제목... 아주 긴 채팅방 제목... 아주 긴 채팅방 -->
-                        </div>
-                        <button id="purchaseBtn">
-                        구매하기
-                        </button>
-
-                        <button id="roomEditBtn">
-                        <i class="fa-sharp fa-solid fa-gear"></i>
-                        </button>
-
-                        <div id="roomEditDropdown">
-                        <ul>
-                            <li class="roomEditDropdownMenu">신고하기</li>
-                            <li class="roomEditDropdownMenu">나가기</li>
-                        </ul>
-                        </div>
-
-                        <button id="spreadBtn">
-                        <i class="fa-solid fa-caret-down"></i>
-                        </button>
-                    </div>
-
-                    <!-- end roomLabel -->
-
+                    
                     <!-- 채팅창 메인 -->
                     <div id="roomBody">
 
@@ -124,19 +144,13 @@
                         <!-- 메세지 입력 영역 -->
                         <div id="writingArea">
                         
-                        <input id="imageInput" type="file" accept="image/*" hidden>
-                        <button id="addImageBtn">
+                        <label id="addImageBtn">
                             <i class="fa-solid fa-image"></i>
-                        </button>
+                            <form id="inquireImgForm">
+                            <input id="imageInput" type="file" accept="image/*" name="messageImg" hidden>
+                            </form>
+                        </label>
                         <input id="inputBox" type="text" placeholder="메세지를 입력하세요">
-                        <div id="inputImgPreviewBox">
-                            <div id="inputImgPreviewBoxHeader">
-                            <span>사진 보내기</span>
-                            <i id="inputImgPreviewDelBtn" class="fa-solid fa-xmark"></i>
-                            </div>
-                            <img id="inputImgPreview"> <!-- 사진 미리보기 들어갑니다! -->
-                            <div id="sendImgBtn">사진 전송</div>
-                        </div>
                         <button id="sendBtn">
                         <i class="fa-solid fa-paper-plane"></i>
                         </button>
@@ -159,7 +173,8 @@
         <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/> 
 
         <script>
-
+            var loginMemberNo = "${loginMember.memberNo}"
+            var memberInquireNo;
         </script>
 
         <!-- https://github.com/sockjs/sockjs-client -->
@@ -169,7 +184,7 @@
         <!-- jquery -->
         <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
         
-   
+
         <script src="/resources/js/common/common.js"></script>
         <script src="/resources/js/admin/adminInquire.js"></script> 
 

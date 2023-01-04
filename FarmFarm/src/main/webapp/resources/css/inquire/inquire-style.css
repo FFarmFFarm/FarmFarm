@@ -55,6 +55,8 @@
 
   overflow-y: scroll;
   overflow-x: hidden;
+
+  scroll-behavior: smooth;
 }
 
 .inquire-content::-webkit-scrollbar {
@@ -139,7 +141,7 @@ div.message-time {
 
 .img-container {
   margin: 5px 5px;
-  width: 200px;
+  width: 180px;
 }
 
 .img-container > img {
