@@ -15,8 +15,7 @@
         <title>회원 관리</title>
         <link rel="stylesheet" href="/resources/css/common/header-style.css">
         <link rel="stylesheet" href="/resources/css/admin/adminNav-style.css">
-        <link rel="stylesheet" href="/resources/css/admin/adminMember-style.css" />
-        <link rel="stylesheet" href="/resources/css/admin/adminModal-style.css" />
+        <link rel="stylesheet" href="/resources/css/admin/adminInquire-style.css" />
         <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
 
         <script src="https://kit.fontawesome.com/d4fbceca97.js" crossorigin="anonymous"></script>
@@ -33,256 +32,146 @@
             <!-- 오른쪽 -->
             <section class="admin-content-section">
                 <div class="page-title" id="pageTitle">
-                    <p>회원 관리</p>
+                    <p>상담 관리</p>
                 </div>
-                <div class="upper-board">
-                    <div class="title-div">
-                        <span class="member-select-title">회원 조회</span>
-                        <span class="member-search"> 
-                            <input type="text" name="adminMemberkeyword" id="adminMemberkeyword" placeholder="아이디, 닉네임 검색" 
-                                                                spellcheck="false" autocomplete="off">
-                            <button type="button" id="memberSearchBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
-                        </span>
+                   <!-- 본문 영역 -->
+                <div class="container" role="main">
+
+                    <!-- 좌측 사이드바 채팅방 목록 -->
+                    <section class="chat-sidebar">
+                        <div class="chat-sidebar-header">
+                        <div class="search-area">
+                            <input id="searchBar" placeholder="채팅방 검색">
+                            <button id="resetRoomSearch">
+                                <i class="fa-solid fa-circle-xmark"></i>
+                            </button>
+                            <button id="searchBtn">
+                                검색
+                            </button>
+                        </div>
+                        </div>
+                        <div class="chat-preview-area">
+                        <!-- 채팅방 미리보기 영역 -->
+                        </div>
+
+                    </section>
+
+                    <!-- 우측 채팅 내역 -->
+                    <section class="chat-room">
+                    <div id="roomBodyBlinder">
+                        <div id="emptyChat">
+                        <div id="emptyChatIcon">
+                            <i class="fa-solid fa-message"></i>
+                            <!-- <i class="fa-solid fa-cart-shopping"></i> -->
+                        </div>
+                        <div id="emptyDetail">
+                            상담 내역이 없습니다.
+                        </div>
+                        </div>
                     </div>
+                    <div id="roomLabel">
+                        <div id="postImg">
+                        <!-- <img src="/resources/images/chat/potato.jpg"> -->
+                        </div>
+                        <div id="postTitle">
+                        <!-- 아주 긴 채팅방 제목... 아주 긴 채팅방 제목... 아주 긴 채팅방 제목...
+                        아주 긴 채팅방 제목... 아주 긴 채팅방 제목... 아주 긴 채팅방 제목...
+                        아주 긴 채팅방 제목... 아주 긴 채팅방 제목... 아주 긴 채팅방 제목...
+                        아주 긴 채팅방 제목... 아주 긴 채팅방 제목... 아주 긴 채팅방 -->
+                        </div>
+                        <button id="purchaseBtn">
+                        구매하기
+                        </button>
 
-                    <div class="member-select" id="memberSelectDiv">
-                        <table class="member-select-table" id="memberSelectTable">
-                            <thead>
-                                <tr class="member-first-row">
-                                    <th>NO</th>
-                                    <th>회원번호</th>
-                                    <th>아이디</th>
-                                    <th>닉네임</th>
-                                    <th>주소</th>
-                                    <th>가입일</th>
-                                    <th id="sellerAuth"><span id="dropBtn1"><span id="dropBtn1Text">판매자 등록</span>
-                                        <i class="fa-solid fa-caret-down caret-icon" class="select-filter"></i></span>
-                                        <div class="drop-menu1" id="dropMenu1">
-                                            <ul class="drop-ul" id="dropUl1">
-                                                <li class="authFilter" id="a0">전체</li>
-                                                <li class="authFilter" id="a1">미등록</li>
-                                                <li class="authFilter" id="a2">판매자</li>
-                                                <li class="authFilter" id="a3">인증 대기</li>
-                                            </ul>
-                                        </div>
-                                    </th>
-                                    
-                                    <th id="memberStatus"><span id="dropBtn2"><span id="dropBtn2Text">상태</span>
-                                        <i class="fa-solid fa-caret-down caret-icon" class="select-filter" id="dropBtn2"></i></span>
-                                        <div class="drop-menu2" id="dropMenu2">
-                                            <ul class="drop-ul" id="dropUl2">
-                                                <li class="statFilter" id="s0">전체</li>
-                                                <li class="statFilter" id="s1">활동중</li>
-                                                <li class="statFilter" id="s2">신고 접수</li>
-                                                <li class="statFilter" id="s3">정지</li>
-                                                <li class="statFilter" id="s4">탈퇴</li>
-                                            </ul>
-                                        </div>
-                                    </th>
-                                </tr>
-                            </thead>
+                        <button id="roomEditBtn">
+                        <i class="fa-sharp fa-solid fa-gear"></i>
+                        </button>
 
-                            <tbody id="tbody">
-                                <!-- 한 행 반복 -->
-                                <c:forEach var="member" items="${memberList}">
-                                    <c:set var="i" value="${i+1}" />
-                                    <tr class="member-select-row" id="memberSelectRow"> 
-                                        
-                                        <td class="member-seq">${i}</td>
-                                        <td>${member.memberNo}</td>
-                                        <td class="mId">${member.memberId}</td>
-                                        <td class="mNickname">${member.memberNickname}</td>
-
-                                        <td class="mAddress">${member.memberAddress}</td>
-                                        <td>${member.signUpDate}</td> 
-
-                                        <%-- 판매자 인증 --%>
-                                        <c:if test="${not empty member.authority}">
-                                            <c:if test="${member.authority == 0}">
-                                                <td>미등록</td>
-                                            </c:if>
-                                            <c:if test="${member.authority == 1}">
-                                                <td>판매자</td>
-                                            </c:if>
-                                            <c:if test="${member.authority == 3}">
-                                                <td>인증 대기</td>
-                                            </c:if>
-                                        </c:if> 
-
-                                        <%-- 상태 --%>
-                                        <c:if test="${not empty member.memberDelFl}">
-                                            <c:if test="${member.memberDelFl eq 'N'}">
-                                                <c:if test="${member.reportPenalty eq 'N' || empty member.reportPenalty || member.reportPenalty eq 'N'}">
-                                                    <td>활동중</td>
-                                                </c:if>
-                                                <c:if test="${member.reportPenalty eq 'Y'&& not empty member.processDate}">
-                                                    <td>정지</td>
-                                                </c:if>
-                                            </c:if>
-                                            <c:if test="${member.memberDelFl eq 'Y'}">
-                                                <td>탈퇴</td>
-                                            </c:if>
-                                        </c:if> 
-
-                                        <!-- <input type="hidden" class="hidden-memberId" name="hiddenId" id="hiddenMemberId" value="${member.memberId}"> -->
-                                        <input type="hidden" class="hidden-memberNo" name="hiddenNo" id="hiddenMemberNo" value="${member.memberNo}">
-                                    </tr>
-                                    
-                                </c:forEach>
-                            </tbody>
-                            
-                        </table>
-                    </div>
-
-                    <!-- todo: 페이지네이션 반복문 -->
-                    <div class="admin-pagination-area" id="adminPaginationArea">
-                        <ul class="admin-pagination">
-                            <li id="1" class="page-box">  
-                                <i class="fa-solid fa-angles-left"></i>
-                            </li>
-                            <li id="${pagination.prevPage}" class="page-box"> 
-                                <i class="fa-solid fa-angle-left"></i>
-                            </li> 
-
-                            <c:forEach var="i" begin="${pagination.startPage}" end="${pagination.endPage}" step="1">
-                                <c:choose>
-                                    <c:when test="${i == pagination.currentPage}">
-                                        <li class="current-page-box">
-                                            ${i}
-                                        </li>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <li id="${i}" class="page-box">
-                                            ${i}
-                                        </li>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>
-
-                            <li id="${pagination.nextPage}" class="page-box">
-                                <i class="fa-solid fa-angle-right"></i>
-                            </li>
-                            <li id="${pagination.endPage}" class="page-box">
-                                <i class="fa-solid fa-angles-right"></i>
-                            </li> 
+                        <div id="roomEditDropdown">
+                        <ul>
+                            <li class="roomEditDropdownMenu">신고하기</li>
+                            <li class="roomEditDropdownMenu">나가기</li>
                         </ul>
+                        </div>
+
+                        <button id="spreadBtn">
+                        <i class="fa-solid fa-caret-down"></i>
+                        </button>
                     </div>
-                </div>
 
-                <div class="middle-board" id="middleBoard">
-                    <div class="middle-detail">
-                        <span class="member-detail-title line">회원 상세 정보</span>
-                        <span class="member-detail" id="detailSpan">
-                            <!-- todo: el쓰는부분 ajax로 -->
-                            <table class="member-detail-table" id="detailTable">
+                    <!-- end roomLabel -->
 
-                                <%-- <tr>
-                                    <td rowspan="6" class="detail-profileImg" id="detailMemberImg">
-                                        <!-- <img src="/resources/images/member/user.png" alt=""> -->
-                                    </td>
-                                    <td class="detail-bold" width="90px" id="detailMemberNo">회원번호</td>
-                                    <!-- <td width="120px">12345</td> -->
-                                    <td class="detail-bold" width="90px" id="detailMemberTel">연락처</td>
-                                    <!-- <td width="175px">010-1234-7894</td> -->
-                                </tr>
-                                <tr>
-                                    <td class="detail-bold" id="detailMemberId">아이디</td>
-                                    <!-- <input type="hidden" id="inputMemberId" value="${map.memberDetail.memberId}"> -->
-                                    <!-- <td>USER01</td> -->
-                                    <td class="detail-bold" id="detailMemberBirth">생년월일</td>
-                                    <!-- <td>1900-01-01</td> -->
-                                </tr>
-                                <tr>
-                                    <td class="detail-bold" id="detailMemberName">성명</td>
-                                    <!-- <td>이은지</td> -->
-                                    <td class="detail-bold" id="detailSellerAuth">판매자 인증</td>
-                                    <!-- <td>2022-12-19</td> -->
-                                </tr>
-                                <tr>
-                                    <td class="detail-bold" id="detailMemberNickname">닉네임</td>
-                                    <!-- <td>은지농장</td> -->
-                                    <td class="detail-bold" id="detailMemberStatus">상태</td>
-                                    <!-- <td class="status-bold">활동중/계정정지/신고접수중?</td> -->
-                                </tr>
-                                <tr>
-                                    <td class="detail-bold" id="detailSignUpDate">가입일</td>
-                                    <!-- <td>2022-12-14</td> -->
-                                    <td class="detail-bold" id="detailReportReason">신고 사유</td>
-                                    <!-- <td>있으면 나오고 없으면 안 나오고</td> -->
-                                </tr>
-                                <tr>
-                                    <td class="detail-bold" id="detailMemberAddress">주소</td>
-                                    <!-- <td colspan="3">서울 중구 남대문로 120 무슨빌딩 2층 kh정보교육원</td> -->
-                                </tr> --%>
-                            </table>
-                        </span>
+                    <!-- 채팅창 메인 -->
+                    <div id="roomBody">
 
-                        <span class="member-history-title line">계정 상태</span>
-                        <span class="member-history">
-                            <table class="member-history-table" id="historyTable">
-                                <%--
-                                    <thead>
-                                        <tr class="member-history-row">
-                                        <th width="160px">일자</th>
-                                        <th width="130px">상태</th>
-                                        <th width="150px">사유</th>
-                                    </thead> 
-                                </tr> --%>
+                        <!-- 채팅방 메세지 예시 -->
+                        <div id="readingArea">
 
-                                <%-- <tr id="row2" class="row2"> 
-                                    <td>2022-12-14</td>
-                                    <td>가입</td>
-                                    <td></td>
-                                </tr> --%>
+                        <!-- 송신/수신한 메세지가 들어갈 영역입니다 -->
+                        <!-- 받은 메세지 received-chat -->
+                        <!-- chat-profile-img2, received-bubble. received-bubble-tail -->
 
-                                <%-- 
-                                <tbody>
-                                    <tr id="row3">
-                                    <td>2022-12-14</td>
-                                    <td>계정 정지</td>
-                                    <td>불법 사기 계좌 운용</td> 
-                                </tr>
-                                </tbody>--%>
-                            </table>
-                        </span>
-                        <button id="adminDelBtn">강제 탈퇴</button>
-                    </div>   
+                        <!-- 보낸 메세지 sent-chat -->
+                        <!-- sent-bubble, sent-bubble-tail -->
+                        
+                        <!-- 메세지가 없는 경우 -->
+            
+                        </div>
+
+                        
+                        
+                        
+                        <!-- 메세지 입력 영역 -->
+                        <div id="writingArea">
+                        
+                        <input id="imageInput" type="file" accept="image/*" hidden>
+                        <button id="addImageBtn">
+                            <i class="fa-solid fa-image"></i>
+                        </button>
+                        <input id="inputBox" type="text" placeholder="메세지를 입력하세요">
+                        <div id="inputImgPreviewBox">
+                            <div id="inputImgPreviewBoxHeader">
+                            <span>사진 보내기</span>
+                            <i id="inputImgPreviewDelBtn" class="fa-solid fa-xmark"></i>
+                            </div>
+                            <img id="inputImgPreview"> <!-- 사진 미리보기 들어갑니다! -->
+                            <div id="sendImgBtn">사진 전송</div>
+                        </div>
+                        <button id="sendBtn">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    
+                    </div>
+                    <!-- 하단 이동 -->
+                    <div id="bottomBtn">
+                    <i class="fa-solid fa-caret-down"></i>
+                    </div>
+
+
+                    </section>
                 </div>
             </section>
         </main>
 
 
-        <!-- //TODO: 강제 탈퇴 모달 -->
-        <div class="adminModal-container" id="adminModalContainer">
-            <div class="admin-modal">
-    
-                <span class="adminModal-title"> 
-                    정말 탈퇴시키겠습니까?
-                </span>
-                
-                <div class="adminModal-form-div">
-                    <div class="adminModal-form">
-                        <button id="cancelBtn">취소</button>
-                        <button id="adminDelSubmitBtn">강제 탈퇴</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
             
         <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/> 
 
         <script>
-            var authFilter = 0;  /* 판매자등록 필터  0: 전체 조회 */
-            var statFilter = 0;  /* 상태 필터 0: 전체 조회  */
-            var cp = 1;  // cp 선언해야 필터 가능
+
         </script>
 
-        <%-- jquery --%>
+        <!-- https://github.com/sockjs/sockjs-client -->
+        <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+
+
+        <!-- jquery -->
         <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
         
-        <script src="/resources/js/admin/adminMember.js"></script> 
-        <script src="/resources/js/admin/adminModal.js"></script> 
-        <script src="/resources/js/common/common.js"></script> 
+   
+        <script src="/resources/js/common/common.js"></script>
+        <script src="/resources/js/admin/adminInquire.js"></script> 
+
     </body>
 </html>
