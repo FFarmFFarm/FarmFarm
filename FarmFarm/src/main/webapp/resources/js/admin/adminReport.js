@@ -578,6 +578,8 @@ down.addEventListener('click', () => {
 
 
 
+
+
 // todo: 전체 조회 글자 자르기(jsp 첫페이지)
 // 신고대상 아이디/게시글 자르기 (15자)
 const rTitle = document.getElementsByClassName("rTitle");

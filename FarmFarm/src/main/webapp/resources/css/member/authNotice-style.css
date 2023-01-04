@@ -39,9 +39,9 @@ body{
 
 
 #buttonArea{
-    width: 210px;
+    width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 
@@ -55,6 +55,7 @@ body{
 
 .to-main{
     background-color: var(--point-color);
+    margin-right: 10px;
 }
 
 .to-happy-center{

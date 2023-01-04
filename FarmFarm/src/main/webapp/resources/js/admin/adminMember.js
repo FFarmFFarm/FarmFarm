@@ -196,6 +196,10 @@ const printMemberList = (memberList, pagination) => {
             if(member.authority == 3){
                 td7.innerText = "인증 대기";
             }
+
+            if(member.authority == 4){
+                td7.innerText = "인증 보류";
+            }
         }
 
 
@@ -369,6 +373,10 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
 
         if(memberDetailInfo.authority == 3){
             tdAuth.innerText = "인증 대기";
+        }
+
+        if(memberDetailInfo.authority == 4){
+            tdAuth.innerText = "인증 보류";
         }
     }
 
@@ -764,6 +772,13 @@ document.getElementById("a3").addEventListener("click", ()=>{
     authFilter = authFl;  // authFilter : jsp에서 전역변수로 선언함.
     selectMemberList();
     dropBtn1Text.innerText = "인증 대기";
+})
+document.getElementById("a4").addEventListener("click", ()=>{
+    numCount = (cp-1)*15;
+    let authFl = getFilterNum("a4");
+    authFilter = authFl;  // authFilter : jsp에서 전역변수로 선언함.
+    selectMemberList();
+    dropBtn1Text.innerText = "인증 보류";
 })
 
 

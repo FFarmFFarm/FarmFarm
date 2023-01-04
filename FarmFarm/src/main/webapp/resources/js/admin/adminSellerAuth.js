@@ -126,6 +126,7 @@ const printSellerList = (sellerList, pagination) => {
         const td8 = document.createElement("td");
        
         if(seller.authority == 3){ td8.innerText = "접수"; }
+        if(seller.authority == 4){ td8.innerText = "보류"; }
         if(seller.authority == 1){ td8.innerText = "인증 완료"; }
         
         
@@ -312,11 +313,20 @@ const printSellerAuthPaper = (authPaper) => {
     tdAuthDate1.innerText = "판매자 승인 일자";
 
 
+
     const tdAuthDate2 = document.createElement("td");
     tdAuthDate2.classList.add('detail-content');
 
     if(authPaper.authDate != null) {
-        tdAuthDate2.innerText = authPaper.authDate;
+
+        if(authPaper.authority == 1){ //판매자
+            tdAuthDate2.innerText = authPaper.authDate;
+        }
+
+        if(authPaper.authority == 4){ // 인증 보류
+            tdAuthDate2.innerText = "보류 (" + authPaper.authDate + ")";
+        } //
+
     } else {
         tdAuthDate2.innerText = "승인 대기중";
     }
@@ -481,10 +491,8 @@ document.getElementById('authApproveBtn').addEventListener('click', () => {
             if(result > 0){
                 adminModalClose();
 
-                if(adminModal.style.display == 'none'){
-                    selectSellerList(cp);
-                    selectAuthPaper(hiddenNo);
-                }
+                selectSellerList(cp);
+                selectAuthPaper(hiddenNo);
 
                 console.log("승인 완료");
                 messageModalOpen("승인 처리되었습니다.");
@@ -501,11 +509,26 @@ document.getElementById('authApproveBtn').addEventListener('click', () => {
 // fixme: 거부
 document.getElementById('authDenyBtn').addEventListener('click', () => {
 
-    admin
-    
+    $.ajax({
+        url: '/admin/sellerDeny',
+        data: {"hiddenNo": hiddenNo},
+        type: 'POST',
+        success: (result) => {
 
+            if(result > 0){
+                adminModalClose();
 
+                selectSellerList(cp);
+                selectAuthPaper(hiddenNo);
 
+                console.log("거절 완료");
+                messageModalOpen("판매자 인증이 보류되었습니다.");
+            }
+        },
+        error: () => {
+            console.log("보류 처리 실패");
+        }
+    })
 })
 
 
