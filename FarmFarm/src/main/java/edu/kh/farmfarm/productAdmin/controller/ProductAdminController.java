@@ -172,6 +172,8 @@ public class ProductAdminController {
 		return "redirect:" + path;
 	}
 	
+	
+	// 판매완료
 	@ResponseBody
 	@GetMapping("/admin/soldout")
 	public int soldoutProduct(
@@ -185,6 +187,28 @@ public class ProductAdminController {
 		return service.soldoutProduct(map);
 	}
 	
+	
+	// 주문리스트 관리
+	@GetMapping("/admin/orderList")
+	public String orderList(Model model,
+		@RequestParam(value="cp", required=false, defaultValue="1")int cp,
+		@RequestParam Map<String, Object> pm) {
+		
+		if(pm.get("key") == null) { // 검색 아닌 경우
+			
+			Map<String, Object> map = service.selectOrderList(cp);
+			
+			model.addAttribute("map", map);
+			
+		} else { // 검색인 경우
+			
+			Map<String, Object> map = service.selectOrderList(pm, cp);
+
+			model.addAttribute("map", map);
+		}
+				
+		return "productAdmin/productOrderList";
+	}
 	
 	
 }
