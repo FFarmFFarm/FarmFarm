@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import edu.kh.farmfarm.cart.model.dao.CartDAO;
 import edu.kh.farmfarm.cart.model.vo.Cart;
+import edu.kh.farmfarm.member.model.VO.MemberAddress;
 
 @Service
 public class CartServiceImpl implements CartService{
@@ -83,7 +84,36 @@ public class CartServiceImpl implements CartService{
 	// 배송지 정보 가져오기
 	@Override
 	public Object selectAddressList(int memberNo) {
-		return dao.selectAddressList(memberNo);
+		
+		List<MemberAddress> addressList = dao.selectAddressList(memberNo);
+		
+		return addressList;
+	}
+
+	// 배송지 정보 변경
+	@Override
+	public int changeAddress(MemberAddress add) {
+		
+		int result = dao.updateDefault(add.getMemberNo());
+		
+		return dao.changeAddress(add);
+	}
+
+	// 배송지 삭제
+	@Override
+	public int deleteAddress(int addressNo) {
+		return dao.deleteAddress(addressNo);
+	}
+
+	
+	// 장바구니 리스트 삭제
+	@Override
+	public int deleteCartList(int memberNo, String deleteList) {
+		
+		String condition = "WHERE PRODUCT_NO IN ("+deleteList+")"
+							+ "AND MEMBER_NO= " + memberNo;
+		
+		return dao.deleteCartList(condition);
 	}
 	
 }
