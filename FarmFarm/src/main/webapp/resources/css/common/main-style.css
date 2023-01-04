@@ -11,11 +11,11 @@
 }
 
 .header-container {
-  height: 180px;
-  width: 100vw;
-  z-index: 10;
-  /* background-color: var(--background-color); */
-}
+    height: 180px;
+    width: 100vw;
+    z-index: 10;
+    /* background-color: var(--background-color); */
+  }
 
 /* Header */
 header {
@@ -149,7 +149,7 @@ header {
   z-index: 1000;
   min-width: 100px;
   height: 77px;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   background-color: white;
   border-radius: 10px;
   overflow: hidden;
@@ -164,7 +164,7 @@ header {
   z-index: 1000;
   width: 250px;
   min-height: 45px;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   background-color: white;
   border-radius: 10px;
   overflow: hidden;
@@ -181,7 +181,7 @@ header {
 
 .notice p {
   margin-left: 13px;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 700;
   text-align: left;
 }
@@ -271,10 +271,48 @@ main{
 
 }
 
+.swiper-container{
+    position: relative;
+    height: 570px;
+}
+
+.swiper-pagination{
+    top: 335px;
+}
+
+.swiper-pagination > .swiper-pagination-bullet {
+    opacity: 0.7;
+    border: white solid 1px;
+    background-color: transparent;
+}
+.swiper-pagination > .swiper-pagination-bullet-active {
+    background-color: white;
+}
+
+.swiper-button-prev, .swiper-button-next{
+    color: white !important;
+    opacity: 0.7;
+    top: 120px !important;
+}
+
+.swiper-button-prev::after, .swiper-button-next::after{
+    font-size: 90px !important;
+}
+
+.swiper-button-next{
+    right: 70px !important;
+}
+
+.swiper-button-prev{
+    left: 70px !important;
+}
+
 .main-background{
   height: 660px;
   width: 100vw;
   overflow: hidden;
+  position: absolute;
+
 }
 
 .main-background img{
@@ -306,7 +344,8 @@ main{
   display: flex;
   justify-content: center;
 
-  margin-top: 375px;
+  z-index: 100;
+  margin-top: 170px;
   margin-bottom: 100px;
 }
 
@@ -473,6 +512,13 @@ main{
     font-size: var(--title-font-size);
     margin-top: 70px;
     margin-bottom: 20px;
+}
+
+.middle-product-title{
+    text-align: center;
+    font-size: var(--title-font-size);
+    margin-top: -120px;
+    margin-bottom: -130px;
 }
 
 .product-text{

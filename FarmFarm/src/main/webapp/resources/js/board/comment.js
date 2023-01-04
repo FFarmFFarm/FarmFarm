@@ -127,31 +127,45 @@ function selectCommentList(){
                     lockIcon.classList.add("fa-solid");
                     lockIcon.classList.add("fa-lock");
 
-                    if(memberNo == comment.memberNo && comment.commentDelFl == 'S'){
-                        commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;'+comment.commentContent;
-                        commentContent.classList.add("secret");
-                        // lockIcon.innerHTML="&nbsp;"+comment.commentContent;
-                        // commentContent.append(lockIcon);
-                    }else if (comment.memberNo == comment.parentNo && comment.commentDelFl == 'S') {
-                        commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;'+comment.commentContent;
-                        commentContent.classList.add("secret");
-                        // lockIcon.innerHTML="&nbsp;"+comment.commentContent;
-                        // commentContent.append(lockIcon);
-                    }else if (memberNo == boardMemNo && comment.commentDelFl == 'S') {
-                        commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;'+comment.commentContent;
-                        commentContent.classList.add("secret");
-                        // lockIcon.innerHTML="&nbsp;"+comment.commentContent;
-                        // commentContent.append(lockIcon);
-                    }else if (comment.commentDelFl == 'S' && comment.memberNo != comment.parentNo) {
-                        commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;비밀댓글입니다.';
-                        commentContent.classList.add("secret");
-                    }else if (loginAuth == 2 && comment.commentDelFl == 'S') {
-                        commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;'+comment.commentContent;
-                        commentContent.classList.add("secret");
-                    } else {
-                        commentContent.innerHTML = comment.commentContent;
+
+                    if(comment.commentParent > 0){
+
+                        if(comment.commentDelFl == 'S'){
+                            if(loginAuth == 2){
+                                commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;'+comment.commentContent;
+                                commentContent.classList.add("secret");
+                            }else if(memberNo == comment.memberNo){
+                                commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;'+comment.commentContent;
+                                commentContent.classList.add("secret");
+                            }else if(memberNo == boardMemNo){
+                                commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;'+comment.commentContent;
+                                commentContent.classList.add("secret");
+                            }else{
+                                commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;비밀댓글입니다.';
+                            }
+                        }else{
+                            commentContent.innerHTML = comment.commentContent;
+                        }
+                        
+                    }else{
+
+                        if(comment.commentDelFl == 'S'){
+                            if(loginAuth == 2){
+                                commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;'+comment.commentContent;
+                                commentContent.classList.add("secret");
+                            } else if(memberNo == comment.memberNo){
+                                commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;'+comment.commentContent;
+                                commentContent.classList.add("secret");
+                            }else if(memberNo == boardMemNo){
+                                commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;'+comment.commentContent;
+                                commentContent.classList.add("secret");
+                            }else{
+                                commentContent.innerHTML='<i class="fa-solid fa-lock"></i>&nbsp;비밀댓글입니다.';
+                            }
+                        } else{
+                            commentContent.innerHTML = comment.commentContent;
+                        }
                     }
-                    
 
                     // 작성일 + 답글달기
                     // 작성일
