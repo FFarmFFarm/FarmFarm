@@ -13,6 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.simple.JSONObject;
@@ -38,6 +39,7 @@ import edu.kh.farmfarm.mypage.model.vo.Order;
 import edu.kh.farmfarm.order.model.service.OrderService;
 import edu.kh.farmfarm.order.model.vo.ImpToken;
 import edu.kh.farmfarm.order.model.vo.Return;
+import edu.kh.farmfarm.productDetail.model.vo.Product;
 import edu.kh.farmfarm.productDetail.model.vo.ProductList;
 
 
@@ -77,7 +79,15 @@ public class OrderController {
 	@PostMapping("/orderPage")
 	public String orderPage(ProductList pList, Model model) {
 		
-		model.addAttribute("productList", pList.getPList());
+		List<Product> productList = new ArrayList<>();
+		
+		for(Product p : pList.getPList()) {
+			if(p.getProductNo()!=0) {
+				productList.add(p);
+			}
+		}
+		
+		model.addAttribute("productList", productList);
 		
 		return "order/order";
 	}

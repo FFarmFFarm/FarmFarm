@@ -90,6 +90,7 @@ button{
   /* margin-right: 12px; */
   font-size: 24px;
   color: var(--point-color);
+  cursor: default;
 }
 
 [name=unCheckIcon]{
@@ -193,3 +194,4 @@ button{
 input{
   display: none;
 }
+

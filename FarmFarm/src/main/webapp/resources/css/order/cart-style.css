@@ -215,9 +215,23 @@ input[type="number"]::-webkit-inner-spin-button {
 
 /* 배송정보 */
 .info-container{
+  position: relative;
   width: 245px;
   display: flex;
   flex-direction: column;
+}
+
+
+.info-top{
+  position: absolute;
+  padding-top: 40px;
+}
+
+.info-sticky{
+  padding-top: 40px;
+  position: sticky;
+  top: 60px;
+  right: 0px;
 }
 
 

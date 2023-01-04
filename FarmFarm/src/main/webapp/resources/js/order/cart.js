@@ -40,7 +40,7 @@ for(let i=0; i<selectOne.length; i++){
       minusTotal(productPrice);
 
       // 체크된 목록이 1개 아래면 배송미 없애기
-      const selectChecked = document.querySelectorAll("[name='selectOne']:checked");
+      const selectChecked = document.querySelectorAll(".select-one:checked");
       
       if(selectChecked.length == 0){
         postPrice.innerText = 0;
@@ -60,7 +60,7 @@ for(let i=0; i<selectOne.length; i++){
       plusTotal(productPrice);
 
       // 선택된 체크와 전체 항목 수가 일치할 경우
-      const selectChecked = document.querySelectorAll("[name='selectOne']:checked");
+      const selectChecked = document.querySelectorAll(".select-one:checked")
       
       if(selectOne.length==selectChecked.length){
         selectAll.checked=true;
@@ -223,7 +223,7 @@ const sumTotal = ()=> {
 const minusTotal = (productPrice)=>{
   temp = Number(totalPrice.innerText.replaceAll(',', '')) - productPrice;
 
-  const selectChecked = document.querySelectorAll("[name='selectOne']:checked");
+  const selectChecked = document.querySelectorAll(".select-one:checked");
 
   
   totalPrice.innerText = temp.toLocaleString();
@@ -237,9 +237,31 @@ const plusTotal = (productPrice)=>{
   orderPrice.innerText = (temp+3000).toLocaleString();
 }
 
+// 배송정보 창 스크롤 따라서 이동
+const infoMove = () => {
+
+  let targetHeight = 290;  // 스크롤 위치 지정
+  const deliveryInfo = document.getElementById('deliveryInfo');
+
+  if (deliveryInfo.classList.contains('info-top')) {
+      if (window.scrollY >= targetHeight) {
+        deliveryInfo.classList.remove('info-top');
+        deliveryInfo.classList.add('info-sticky');
+      }
+  }
+
+  if (deliveryInfo.classList.contains('info-sticky')) {
+      if (window.scrollY < targetHeight) {
+        deliveryInfo.classList.remove('info-sticky');
+        deliveryInfo.classList.add('info-top');
+      }
+  }
+}
+
 
 (()=>{
   sumTotal();
+  infoMove();
 })();
 
 
@@ -302,4 +324,11 @@ document.getElementById("changeAddress").addEventListener("click",()=>{
 
   const options = "scrollbars=yes, height=600, width=500, left="+popupX+", top="+popupY
   window.open("/address", "popupWindow", options);
+})
+
+
+document.getElementById('orderBtn').addEventListener('click', () => {
+
+  const form = document.getElementById('orderPage');
+  form.submit();
 })
