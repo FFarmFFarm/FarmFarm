@@ -427,14 +427,7 @@ public class AdminController {
 	
 	
 	
-	
-	
-//	상담 관리 페이지로 이동
-	@GetMapping("/admin/inquire")
-	public String inquirePage() {
-		return "admin/adminInquire";
-	}
-	
+
 	
 	
 	
