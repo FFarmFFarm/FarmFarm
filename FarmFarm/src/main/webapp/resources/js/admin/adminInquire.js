@@ -314,6 +314,8 @@ if(inquireImage!=undefined) {
 
 /* WebSocket 객체가 서버로부터 메세지를 통지받으면 자동으로 실행되는 콜백함수 */
 inquireSock.onmessage = (e) => {
+  selectInquireList();
+
   const msg = JSON.parse(e.data);
   console.log(msg);
 
