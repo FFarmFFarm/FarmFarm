@@ -123,6 +123,15 @@ public class Chat2DAO {
 		return sqlSession.selectOne("memberMapper.selectEnterMemberInfo", memberNickname);
 	}
 	
+	/** 채팅방 초대 보조... 중복 초대 확인
+	 * @param chatEnter
+	 * @return
+	 */
+	public String selectDuplicateInvite(Chat2Enter chatEnter) {
+		return sqlSession.selectOne("chat2Mapper.selectDuplicatInvite", chatEnter);
+	}
+
+	
 	/** 채팅방 초대 승인 / 거부
 	 * @param chatEnter
 	 * @return
@@ -130,12 +139,14 @@ public class Chat2DAO {
 	public int updateChatEnterApprove(Chat2Enter chatEnter) {
 		return sqlSession.update("chat2Mapper.updateChatEnterApprove", chatEnter);
 	}
+	
+	
 
 	/** 채팅방 탈퇴
 	 * @param chat2Enter
 	 * @return result
 	 */
-	public int updateChat2Enter(Chat2Enter chat2Enter) {
+	public int updateChatEnter(Chat2Enter chat2Enter) {
 		return sqlSession.update("chat2Mapper.updateChatEnter", chat2Enter);
 	}
 	
@@ -151,6 +162,7 @@ public class Chat2DAO {
 		// 방 번호를 전달 받아서, 해당 방을 수정함
 		return sqlSession.update("chat2Mapper.updateChatRoomStatus", roomNo);
 	}
+
 
 
 

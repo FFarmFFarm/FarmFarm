@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="/resources/css/chat2/newChatRoomModal-style.css">
     <link rel="stylesheet" href="/resources/css/chat2/chatRoomMenuModal-style.css">
     <link rel="stylesheet" href="/resources/css/common/header-style.css">
+    <link rel="stylesheet" href="/resources/css/common/footer-style.css">
 
     
     <script src="https://kit.fontawesome.com/d449774bd8.js" crossorigin="anonymous"></script>
@@ -158,6 +159,9 @@
 
         </section>
     </div>
+
+    <!-- 푸터 -->
+    <jsp:include page="/WEB-INF/views/common/chatFooter.jsp" />
 
     <!-- 새 채팅방 만들기 이벤트 -->
     <jsp:include page="/WEB-INF/views/chat2/newChatRoomModal.jsp" />

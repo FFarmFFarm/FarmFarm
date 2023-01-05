@@ -182,7 +182,7 @@ public class Chat2Controller {
 	public String updateChatEnterInvite(
 			int roomNo, String memberNickname
 			) {
-		// 초대 - 회원 번호 or 0(판매자는 초대 불가), -1(찾을 수 없음)
+		// 초대 - 회원 번호 or 0(판매자는 초대 불가), -1(찾을 수 없음), -2(중복), -3(이미 초대중)
 		int memberNo = service.updateChatEnterInvite(roomNo, memberNickname);
 		
 		// 

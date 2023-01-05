@@ -97,9 +97,9 @@
 		   		    ELSE NULL END THUMBNAIL_IMG 
 		      FROM CHAT2_ROOM CR) USING(ROOM_NO)
 		------------------
-		LEFT JOIN (SELECT ROOM_NO, MEMBER_NO, ENTER_STATUS
+		LEFT JOIN (SELECT ROOM_NO, MEMBER_NO, ENTER_NO, ENTER_STATUS
 		  		   FROM CHAT2_ENTER
-		  		   WHERE ENTER_STATUS = 'Y') USING(ROOM_NO)
+		  		   WHERE ENTER_STATUS = 'Y' OR ENTER_STATUS = 'W') USING(ROOM_NO)
 		WHERE MEMBER_NO = #{memberNo}
 	</select>
 	
@@ -170,7 +170,6 @@
 	</update>
 
 
-
 	<!-- 채팅방 참가(INSERT) -->
 	<insert id="insertChatEnter">
 		INSERT INTO CHAT2_ENTER
@@ -183,6 +182,15 @@
 		ENTER_STATUS = #{enterStatus}
 		WHERE ENTER_NO = #{enterNo}
 	</update>
+	
+	<!-- 채팅방 초대 중 중복 초대 확인 -->
+	<select id="selectDuplicatInvite" parameterType="Chat2Enter" resultType="string">
+		SELECT ENTER_STATUS
+		FROM CHAT2_ENTER
+		WHERE ROOM_NO = #{roomNo}
+		AND MEMBER_NO = #{memberNo}
+		AND (ENTER_STATUS = 'Y' OR ENTER_STATUS = 'W')
+	</select>
 	
 	<!-- 채팅방 탈퇴(UPDATE) -->
 	<update id="updateChatEnter">

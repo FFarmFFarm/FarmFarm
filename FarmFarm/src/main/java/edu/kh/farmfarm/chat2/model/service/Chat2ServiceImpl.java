@@ -69,6 +69,7 @@ public class Chat2ServiceImpl implements Chat2Service {
 					
 					chatEnter.setMemberNo(memberNo);
 					chatEnter.setRoomNo(roomNo);
+					chatEnter.setEnterStatus("Y");
 					
 					int resultInsertChatEnter = dao.insertChatEnter(chatEnter);
 					
@@ -95,6 +96,7 @@ public class Chat2ServiceImpl implements Chat2Service {
 				
 				chatEnter.setMemberNo(memberNo);
 				chatEnter.setRoomNo(roomNo);
+				chatEnter.setEnterStatus("Y");
 				
 				int resultInsertChatEnter = dao.insertChatEnter(chatEnter);
 				
@@ -185,25 +187,27 @@ public class Chat2ServiceImpl implements Chat2Service {
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public int insertChatEnter(int roomNo, int memberNo) {
-		Chat2Enter chat2Enter = new Chat2Enter();
-		chat2Enter.setRoomNo(roomNo);
-		chat2Enter.setMemberNo(memberNo);
-		chat2Enter.setEnterStatus("Y");
+		Chat2Enter chatEnter = new Chat2Enter();
+		chatEnter.setRoomNo(roomNo);
+		chatEnter.setMemberNo(memberNo);
+		chatEnter.setEnterStatus("Y");
 		
-		return dao.insertChatEnter(chat2Enter);
+		return dao.insertChatEnter(chatEnter);
 	}
 	
 	// 채팅방 초대
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public int updateChatEnterInvite(int roomNo, String memberNickname) {
+		
 		int result = 0;
+		Member member = new Member();
 		
 		// 1. 회원 번호와, 권한을 확인함
-		Member member = dao.selectEnterMemberInfo(memberNickname);
+		member = dao.selectEnterMemberInfo(memberNickname);
 		
 		// 2. 초대 작업을 시작
-		if(member.getMemberNo() > 0) {
+		if(member != null) {
 			if(member.getAuthority() == 0) { // 0이면(구매자면)
 				
 				Chat2Enter chatEnter = new Chat2Enter();
@@ -211,7 +215,23 @@ public class Chat2ServiceImpl implements Chat2Service {
 				chatEnter.setRoomNo(roomNo);
 				chatEnter.setEnterStatus("W");
 				
-				result = dao.insertChatEnter(chatEnter);
+				// 중복 여부를 확인함
+				String checkDuplicateInvite = dao.selectDuplicateInvite(chatEnter);
+				
+				if(checkDuplicateInvite == null) { // 중복이 없으므로
+					int inviteResult = dao.insertChatEnter(chatEnter);
+					
+					if(inviteResult == 1) { // 초대가 잘 된 경우!
+						result = member.getMemberNo();
+					} else { // 알 수 없는 오류 ㅠㅠ
+						result = -4;
+					}
+					
+				} else if(checkDuplicateInvite.equals("W")) { // 이미 초대중인 경우
+					result = -3;
+				} else {
+					result = -2;
+				}
 				
 			} else { // 판매자는 초대 안함
 				result = 0;
@@ -243,7 +263,7 @@ public class Chat2ServiceImpl implements Chat2Service {
 		chat2Enter.setRoomNo(roomNo);
 		chat2Enter.setMemberNo(memberNo);
 		
-		return dao.updateChat2Enter(chat2Enter);
+		return dao.updateChatEnter(chat2Enter);
 	}
 
 

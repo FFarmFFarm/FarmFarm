@@ -115,7 +115,7 @@ const makeChatPreviewBox = (chatRoom) => {
     const boxLabel = document.createElement('div');         // 마지막 대화 내용, 마지막 대화 시간이 들어감
     const lastChatContent = document.createElement('div');  // 마지막 대화 내용
     const lastChatTime = document.createElement('div');     // 마지막 대화 시간
-
+    
     // chatPreviewBox 세팅
     chatPreviewBox.id = chatRoom.roomNo;
     packUpElement(chatPreviewBox, 'chat-preview-box', null);
@@ -136,37 +136,67 @@ const makeChatPreviewBox = (chatRoom) => {
             packUpElement(thumbnailImg, 'thumbnail-img', "<img src=" + chatRoom.thumbnailImg + ">");
         }
     }
-
-    // box-label, lastChatContent, lastChatTime 세팅
-    packUpElement(boxLabel, 'box-label', null);
-
-    if(chatRoom.lastChatType == 'I') { // 사진인 경우
-        packUpElement(lastChatContent, 'last-chat-content', "사진을 보냈습니다.");
-    } else { // 사진이 아닌 경우
-        if(chatRoom.lastChatContent != null) { // 텍스트이고, 내용이 있는 경우
-            packUpElement(lastChatContent, 'last-chat-content', chatRoom.lastChatContent);
-        } else { // 텍스트이고, 내용이 없는 경우
-            packUpElement(lastChatContent, 'last-chat-content', "-");           
-        }
-    }
-
-    packUpElement(lastChatTime, 'last-chat-time', chatRoom.lastChatTime);
+    console.log(chatRoom.enterStatus);
+    if(chatRoom.enterStatus === 'Y') {
+        // box-label, lastChatContent, lastChatTime 세팅
+        packUpElement(boxLabel, 'box-label', null);
     
-    // 포장하기
-    boxLabel.append(lastChatContent, lastChatTime);
-    chatPreviewBox.append(thumbnailImg, roomTitle, boxLabel);
+        if(chatRoom.lastChatType == 'I') { // 사진인 경우
+            packUpElement(lastChatContent, 'last-chat-content', "사진을 보냈습니다.");
+        } else { // 사진이 아닌 경우
+            if(chatRoom.lastChatContent != null) { // 텍스트이고, 내용이 있는 경우
+                packUpElement(lastChatContent, 'last-chat-content', chatRoom.lastChatContent);
+            } else { // 텍스트이고, 내용이 없는 경우
+                packUpElement(lastChatContent, 'last-chat-content', "-");           
+            }
+        }
+    
+        packUpElement(lastChatTime, 'last-chat-time', chatRoom.lastChatTime);
+        
+        // 포장하기
+        boxLabel.append(lastChatContent, lastChatTime);
+        chatPreviewBox.append(thumbnailImg, roomTitle, boxLabel);
+    
+        // unreadChatCount 세팅
+        if (chatRoom.unreadChatCount > 0) { // 읽지 않은 채팅이 있는 경우
+            const unreadChatCount = document.createElement('div'); // 읽지 않은 채팅 개수
+            packUpElement(unreadChatCount, 'unread-chat-count', chatRoom.unreadChatCount);
+            chatPreviewBox.append(unreadChatCount);
+        }
+    
+        // 클릭 이벤트
+        chatPreviewBox.addEventListener('click', ()=>{
+            chatPreviewBoxEvent(chatPreviewBox);
+        })
+    } 
 
-    // unreadChatCount 세팅
-    if (chatRoom.unreadChatCount > 0) { // 읽지 않은 채팅이 있는 경우
-        const unreadChatCount = document.createElement('div'); // 읽지 않은 채팅 개수
-        packUpElement(unreadChatCount, 'unread-chat-count', chatRoom.unreadChatCount);
-        chatPreviewBox.append(unreadChatCount);
+    if(chatRoom.enterStatus === 'W') { // 대기상태인 채팅방은 승인 전에는 입장 못하게 만듦
+        // 승인 및 거절 버튼 영역
+        const inviteBtnArea = document.createElement('div');
+        packUpElement(inviteBtnArea, 'invite-btn-area', null);
+
+        // enter 테이블의 pk를 id로 넣어둠
+        inviteBtnArea.id = chatRoom.enterNo;
+
+        // 거절 버튼 및 이벤트 작성
+        const inviteRejectBtn = document.createElement('div');
+        packUpElement(inviteRejectBtn, 'invite-reject-btn', '거절');
+        inviteRejectBtn.addEventListener('click', ()=>{
+            updateChatEnterReject(inviteBtnArea);
+        })
+        
+        // 승인 버튼 및 이벤트 작성
+        const inviteAgreeBtn = document.createElement('div');
+        packUpElement(inviteAgreeBtn, 'invite-agree-btn', '승인');
+        inviteAgreeBtn.addEventListener('click', () => {
+            updateChatEnterAgree(inviteBtnArea);
+        })
+
+        // 목록에 추가
+        inviteBtnArea.append(inviteRejectBtn, inviteAgreeBtn);
+        chatPreviewBox.append(thumbnailImg, roomTitle, inviteBtnArea);
+
     }
-
-    // 클릭 이벤트
-    chatPreviewBox.addEventListener('click', ()=>{
-        chatPreviewBoxEvent(chatPreviewBox);
-    })
 
     return chatPreviewBox;
 }
@@ -688,3 +718,39 @@ document.getElementById('bottomBtn').addEventListener('click', ()=>{
     document.getElementById('readingArea').scrollTo(0, roomHeight);
 })
 
+/* 채팅방 초대 승인 or 거절 */
+const updateChatEnterAgree = (inviteBtnArea) => {
+    const enterNo = inviteBtnArea.id;
+
+    let formData = new FormData();
+
+    formData.append("enterNo", enterNo);
+    formData.append("enterStatus", 'Y');
+
+    axios.post("/chat/update/chatEnter/approve", formData
+        ).then(function(response){ // 성공하면 목록을 다시 불러옴
+            selectChatRoomList();
+            console.log('초대를 승인했습니다.');
+        }).catch(function(error){
+            console.log('error');
+            console.log(error);
+        })
+}
+
+const updateChatEnterReject = (inviteBtnArea) => {
+    const enterNo = inviteBtnArea.id;
+
+    let formData = new FormData();
+
+    formData.append("enterNo", enterNo);
+    formData.append("enterStatus", 'F');
+
+    axios.post("/chat/update/chatEnter/approve", formData
+    ).then(function (response) { // 성공하면 목록을 다시 불러옴
+        selectChatRoomList();
+        console.log('초대를 거절했습니다.');
+    }).catch(function (error) {
+        console.log('error');
+        console.log(error);
+    })
+}

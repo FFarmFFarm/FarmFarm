@@ -243,6 +243,7 @@ document.getElementById("infoMenuHideBtn").addEventListener('click', ()=>{
 document.getElementById("inviteBtn").addEventListener('click', ()=>{
     document.getElementById('chatRoomMenuModal').classList.toggle('hide');
     document.querySelector('.invite-menu').classList.toggle('hide');
+
 })
 
 // 2. 닫기
@@ -250,7 +251,7 @@ document.getElementById("inviteMenuHideBtn").addEventListener('click', () => {
     document.getElementById('chatRoomMenuModal').classList.toggle('hide');
     document.querySelector('.invite-menu').classList.toggle('hide');
     document.querySelector('#searchNicknameInput').value = "";
-    document.querySelector('.invite-menu-notice').innerText="회원에게 초대 메세지를 전송합니다."
+    document.getElementById('inviteMenuNotice').innerText="회원에게 초대 메세지를 전송합니다."
 })
 
 // 3. 회원에게 알림 전송하기!
@@ -267,7 +268,10 @@ document.getElementById("inviteMenuConfirmBtn").addEventListener('click', ()=>{
         searchNicknameInput.focus();
         notice.classList.add('error');
 
-    } else { // 정규표현식 통과한 경우
+    } else if(searchNicknameInput.value === myMemberNickname){
+        searchNicknameInput.focus();
+        notice.innerText = "자기 자신은 초대할 수 없습니다.";
+    }else { // 정규표현식 통과한 경우
 
         let searchNicknameInputValue = searchNicknameInput.value.trim();
 
@@ -276,16 +280,28 @@ document.getElementById("inviteMenuConfirmBtn").addEventListener('click', ()=>{
             formData.append("roomNo", roomNo);
             formData.append("memberNickname", searchNicknameInputValue);
 
-            axios.post('/chat/invite', formData
+            axios.post('/chat/insert/chatEnter/invite', formData
             ).then(function (response) {
 
-                let result = response.data.result;
-
-                if(result==0) {
-                    document.querySelector('.invite-menu-notice').innerText = "닉네임을 확인해주세요.";
+                let result = response.data;
+                
+                if(result==0 || result==-1) {
+                    notice.innerText = "닉네임을 확인해주세요";
                     notice.classList.add('error');
-                } else {
-                    document.querySelector('.invite-menu-notice').innerText = "초대 메세지가 전송되었습니다.";
+                } else if (result == -2) {
+                    notice.innerText = "이미 함께 채팅하고 있어요!";
+                    notice.classList.add('error');
+                } else if(result==-3){
+                    notice.innerText = "이미 초대를 보냈어요!";
+                    notice.classList.add('error');
+                } else if(result < -3){
+                    notice.innerText = "오류가 발생했습니다. 잠시 후 다시 시도해주세요";
+                    notice.classList.add('error');
+                }else {
+                    notice.innerText = "초대 메세지를 전송했어요!";
+
+                    let roomTitle = document.getElementById("roomTitle").innerText;
+                    let inviteComment = "채팅방 \'" + roomTitle + "\' 에서 회원님을 초대합니다!";
 
                     // 알림 메시지 전송
                     let obj = {
@@ -294,8 +310,12 @@ document.getElementById("inviteMenuConfirmBtn").addEventListener('click', ()=>{
                         "notifyContent":inviteComment,
                         "quickLink":"/chat/center"
                     }
-
                     notifySock.send(JSON.stringify(obj));
+
+                    // // 비우기
+                    // document.getElementById('chatRoomMenuModal').classList.toggle('hide');
+                    // document.querySelector('.invite-menu').classList.toggle('hide');
+                    // document.getElementById('searchNicknameInput').value = "";
                 }
 
             }).catch(function (error) {
@@ -303,10 +323,7 @@ document.getElementById("inviteMenuConfirmBtn").addEventListener('click', ()=>{
                 console.log(error);
             })
 
-            // 비우기
-            document.getElementById('chatRoomMenuModal').classList.toggle('hide');
-            document.getElementById('invite-menu').classList.toggle('hide');
-            document.getElementById('searchNicknameInput').value = "";
+
 
 
         } else { // 정규표현식 걸린 경우

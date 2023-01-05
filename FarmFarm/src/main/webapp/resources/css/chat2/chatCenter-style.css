@@ -351,6 +351,47 @@ body{
     right: 10px;
 }
 
+/* 승인 및 거절 버튼 */
+.invite-btn-area{
+    width: 150px;
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.invite-reject-btn{
+    width: 70px;
+    background-color: red;
+    color: white;
+    font-weight: 600;
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.invite-reject-btn:hover{
+    opacity: 0.9;
+}
+
+.invite-agree-btn{
+    width: 70px;
+    background-color: var(--point-color);
+    color: white;
+    font-weight: 600;
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.invite-agree-btn:hover {
+    opacity: 0.9;
+}
+
 /* 채팅박스 hover */
 .chat-preview-box:hover{
     transform: translateY(-2px);
