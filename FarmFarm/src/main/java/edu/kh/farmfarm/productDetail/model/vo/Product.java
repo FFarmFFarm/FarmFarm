@@ -32,6 +32,7 @@ public class Product  implements Cloneable{
 	private int productStatus;
 	private int returnNo;
 	private int orderNo;
+	private int orderSum;
 	
 	private List<ProductImg> imgList;
 	
