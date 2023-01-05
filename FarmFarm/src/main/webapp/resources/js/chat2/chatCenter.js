@@ -202,13 +202,15 @@ document.querySelector('#newChatRoomConfirmBtn').addEventListener('click', () =>
         
             axios.post('/chat/insert/newRoom', formData
                 ).then(function(response){
-                    console.log(response);
+
+                    selectChatRoomList();
+
                 }).catch(function(error){
                     console.log("error");
                     console.log(error);
                 })
             
-            selectChatRoomList();
+
             document.getElementById('inputNewChatRoomName').value = "";
             document.getElementById('newChatRoomModal').classList.toggle('hide');
             
@@ -218,4 +220,48 @@ document.querySelector('#newChatRoomConfirmBtn').addEventListener('click', () =>
             notice.classList.add('error');
         }
     }
+})
+
+/* 채팅방 드롭다운 메뉴 */
+
+/* 정보보기 */
+// 1. 열기
+document.getElementById("infoBtn").addEventListener('click', ()=>{
+    document.getElementById('chatRoomMenuModal').classList.toggle('hide');
+    document.querySelector('.info-menu').classList.toggle('hide');
+})
+
+// 2. 닫기
+document.getElementById("infoMenuHideBtn").addEventListener('click', ()=>{
+    document.getElementById('chatRoomMenuModal').classList.toggle('hide');
+    document.querySelector('.info-menu').classList.toggle('hide');
+    document.querySelector('.member-list').innerHTML = "";
+})
+
+/* 초대하기 */
+// 1. 열기
+document.getElementById("inviteBtn").addEventListener('click', ()=>{
+    document.getElementById('chatRoomMenuModal').classList.toggle('hide');
+    document.querySelector('.invite-menu').classList.toggle('hide');
+})
+
+// 2. 닫기
+document.getElementById("inviteMenuHideBtn").addEventListener('click', () => {
+    document.getElementById('chatRoomMenuModal').classList.toggle('hide');
+    document.querySelector('.invite-menu').classList.toggle('hide');
+    document.querySelector('#searchNicknameInput').value = "";
+    document.querySelector('.invite-menu-notice').innerText="회원에게 초대 메세지를 전송합니다."
+})
+
+/* 나가기 */
+// 1. 열기
+document.getElementById("exitBtn").addEventListener('click', ()=>{
+    document.getElementById('chatRoomMenuModal').classList.toggle('hide');
+    document.querySelector('.exit-menu').classList.toggle('hide');
+})
+
+// 2. 닫기
+document.getElementById("exitMenuHideBtn").addEventListener('click', () => {
+    document.getElementById('chatRoomMenuModal').classList.toggle('hide');
+    document.querySelector('.exit-menu').classList.toggle('hide');
 })

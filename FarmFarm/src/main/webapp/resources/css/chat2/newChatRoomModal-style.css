@@ -23,8 +23,8 @@
 #newChatRoomConatainerHideBtn{
   font-size: var(--large-font-size);
   position: fixed;
-  right: 395px;
-  top: 215px;
+  right: 280px;
+  top: 190px;
   border: none;
   background-color: transparent;
 }

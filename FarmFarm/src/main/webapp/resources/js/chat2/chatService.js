@@ -72,7 +72,7 @@ const packUpElement = (elementName, elementClass, elementContent) => {
 const selectChatRoomList = () => {
 
     console.log('목록을 가져오고 있어요...')
-    
+
     // 채팅방 리스트가 들어갈 자리
     const chatPreviewArea = document.querySelector('.chat-preview-area');
 
@@ -151,7 +151,6 @@ const makeChatPreviewBox = (chatRoom) => {
     }
 
     packUpElement(lastChatTime, 'last-chat-time', chatRoom.lastChatTime);
-
     
     // 포장하기
     boxLabel.append(lastChatContent, lastChatTime);
@@ -228,12 +227,16 @@ const makeNewChatTime = (chatTime) => {
 const makeChatRoom = (chatRoom, chatList) => {
 
     // 라벨 영역
+    // 드롭다운 숨기기
+    document.getElementById('roomEditDropdown').classList.remove('dropdown-spread');
+    document.getElementById('roomEditDropdown').classList.add('dropdown-fold');
 
     const roomThumbnailImg = document.getElementById('roomThumbnailImg');
     const roomTitle = document.getElementById('roomTitle');
 
     if(chatRoom.roomType > 0) {
-
+        document.getElementById('inviteBtn').style.display="none";
+        document.getElementById('purchaseBtn').style.display='flex';
         if(chatRoom.thumbnailImg == undefined) {
             roomThumbnailImg.innerHTML = "<img src='/resources/images/member/user.png'>";
         } else {
@@ -241,6 +244,8 @@ const makeChatRoom = (chatRoom, chatList) => {
         }
         roomTitle.innerHTML = chatRoom.postTitle;
     } else {
+        document.getElementById('inviteBtn').style.display = "flex";
+        document.getElementById('purchaseBtn').style.display = 'none';
         roomThumbnailImg.innerHTML = "<img src='/resources/images/chat2/default/talking.png'>"
         roomTitle.innerHTML = chatRoom.roomName;
     }

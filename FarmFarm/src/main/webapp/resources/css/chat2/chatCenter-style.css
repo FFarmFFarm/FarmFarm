@@ -175,15 +175,15 @@ body{
 
 /* 채팅방 목록 */
 .chat-preview-area{
-    height: 470px;
+    height: 460px;
     overflow-y: scroll;
+    border-radius: 10px;
 
         /* 스크롤바 숨기기 */
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none;   /* Firefox */
 
     transition-duration: 0.5s;
-    padding: 4px 0px;
 }
 
 /* 채팅방 풋터 */
@@ -199,6 +199,7 @@ body{
     justify-content: center;
 
     cursor: pointer;
+    margin-top: 10px;
 }
 
 .chat-sidebar-footer:hover{
@@ -476,7 +477,7 @@ body{
 
     margin-top: 20px;
 
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
 }
@@ -497,6 +498,9 @@ body{
     
     margin-left: 5px;
     margin-top: 20px;
+    
+    position: absolute;
+    right: 20px;
 
     background-color: transparent;
     border: none;
@@ -515,8 +519,8 @@ body{
 
     border-radius: 10px;
 
-    top: 75px;
-    right: 40px;
+    top: 65px;
+    right: 35px;
 
     border: 1px solid var(--line-color);
 

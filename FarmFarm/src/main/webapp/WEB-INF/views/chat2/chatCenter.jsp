@@ -13,6 +13,7 @@
 
     <link rel="stylesheet" href="/resources/css/chat2/chatCenter-style.css">
     <link rel="stylesheet" href="/resources/css/chat2/newChatRoomModal-style.css">
+    <link rel="stylesheet" href="/resources/css/chat2/chatRoomMenuModal-style.css">
     <link rel="stylesheet" href="/resources/css/common/header-style.css">
 
     
@@ -93,8 +94,9 @@
 
             <div id="roomEditDropdown">
               <ul>
-                <li class="roomEditDropdownMenu">신고하기</li>
-                <li class="roomEditDropdownMenu">나가기</li>
+                <li id="infoBtn" class="roomEditDropdownMenu">정보보기</li>
+                <li id="inviteBtn" class="roomEditDropdownMenu">초대하기</li>
+                <li id="exitBtn" class="roomEditDropdownMenu">나가기</li>
               </ul>
             </div>
 
@@ -158,6 +160,9 @@
 
     <!-- 새 채팅방 만들기 이벤트 -->
     <jsp:include page="/WEB-INF/views/chat2/newChatRoomModal.jsp" />
+
+    <!-- 채팅방 내부 드롭다운 메뉴 -->
+    <jsp:include page="/WEB-INF/views/chat2/chatRoomMenuModal.jsp" />
 
     <!-- https://github.com/sockjs/sockjs-client -->
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
