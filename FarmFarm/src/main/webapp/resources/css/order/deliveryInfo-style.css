@@ -199,3 +199,16 @@ input{
   display: none;
 }
 
+
+
+
+
+
+.new-add-area{
+  border: 1px solid black;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  width: 100%;
+  padding: 24px 0px 18px;
+}

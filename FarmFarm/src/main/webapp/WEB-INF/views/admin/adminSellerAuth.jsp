@@ -78,6 +78,9 @@
                                         <c:if test="${seller.authority == 3}">
                                             <td>접수</td>
                                         </c:if>
+                                        <c:if test="${seller.authority == 4}">
+                                            <td>보류</td>
+                                        </c:if>
                                         <c:if test="${seller.authority == 1}">
                                             <td>인증 완료</td>
                                         </c:if>
@@ -182,7 +185,7 @@
                     
                         <div class="auth-button-div">
                             <button id="authApproveBtn">승인</button>
-                            <button id="authDenyBtn">반려</button>
+                            <button id="authDenyBtn">보류</button>
                         </div>
                     </div>
                 </div>
@@ -196,7 +199,7 @@
         <div class="admin-modal-deny">
 
             <span class="adminModal-title"> 
-                판매자 인증을 반려하시겠습니까?
+                판매자 인증을 보류하시겠습니까?
             </span>
 
             <textarea name="denyReason" id="denyReason" cols="30" rows="10"></textarea>
@@ -204,7 +207,7 @@
             <div class="adminModal-form-div">
                 <div class="adminModal-form">
                     <button id="cancelBtn">취소</button>
-                    <button id="denyBtn">반려</button>
+                    <button id="denyBtn">보류</button>
                 </div>
             </div>
         </div>

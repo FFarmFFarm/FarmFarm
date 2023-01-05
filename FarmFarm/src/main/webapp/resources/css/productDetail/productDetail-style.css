@@ -74,7 +74,7 @@ button:disabled:active {
 /* 대표 이미지 */
 .thumbnail-area {
   width: 430px;
-  height: 450px;
+  height: 530px;
   overflow: hidden;
 }
 
@@ -117,7 +117,7 @@ button:disabled:active {
 .product-price {
   font-size: var(--headline-font-size);
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 20px;
 }
 
 /* 로그인x일 때 메세지 */
@@ -148,7 +148,7 @@ button:disabled:active {
 .shipping,
 .seller,
 .origin {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 /* 상품 옵션 선택창 */
@@ -260,7 +260,7 @@ button:disabled:active {
 
 .cart-btn,
 .order-btn {
-  width: 200px;
+  width: 210px;
   background-color: var(--point-color);
   font-size: var(--large-font-size);
 }

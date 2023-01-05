@@ -150,6 +150,7 @@
     <jsp:include page='/WEB-INF/views/common/footer.jsp' />
     <jsp:include page="/WEB-INF/views/order/modal/cartConfirm.jsp"/>
 
+
     <c:if test="${!empty message}">
         <script>
             alert("${message}")
@@ -163,6 +164,7 @@
 
     <script src="/resources/js/common/common.js"></script>
     <script src="/resources/js/order/cart.js"></script>
+    <%-- <script src="/resources/js/member/signUp.js"></script> --%>
 
     <!-- ajax -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>

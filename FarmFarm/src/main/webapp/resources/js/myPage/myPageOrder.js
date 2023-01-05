@@ -165,7 +165,7 @@ for (let btn of orderCancelBtn) {
 
 
 /* 주문 취소 컨펌창 취소 버튼 클릭 시 */
-document.getElementById('cancelCalcelBtn').addEventListener('click', () => { 
+document.getElementById('cancelCancelBtn').addEventListener('click', () => { 
 
   displayNone(cancelConfirmModal);
   
@@ -223,7 +223,7 @@ if (confirmation.length != 0) {
 }
 
 /* 구매확정 취소 버튼 */
-document.getElementById('orderCalcelBtn').addEventListener('click', () => {
+document.getElementById('orderCancelBtn').addEventListener('click', () => {
   displayNone(document.getElementById('orderConfirmModal'));
 });
 
@@ -292,7 +292,7 @@ if(shippingBtn != undefined) {
   }
 }
 
-
+/* 배송조회창 끄기 */
 document.getElementById('shippingBackBtn').addEventListener('click', () => { 
   displayNone(document.getElementById('shippingContainer'));
 })
@@ -836,5 +836,24 @@ const selectOrderListEvent = (element, cp) => {
 }
 
 
+const reviewFormContainer = document.getElementById('reviewFormContainer');
+const orderConfirmModal = document.getElementById('orderConfirmModal');
+const shippingContainer = document.getElementById('shippingContainer');
 
-// TODO 주문 번호 클릭 시 주문 상세 페이지로 (보류)
+window.addEventListener('click', (e) => {
+  // 리뷰 작성창 밖 클릭 시 닫힘
+  e.target === reviewFormContainer ? displayNone(reviewFormContainer) : false
+  
+  // 구매확정 확인창
+  e.target === orderConfirmModal ? displayNone(orderConfirmModal) : false
+  
+  // 배송 조회창
+  e.target === shippingContainer ? displayNone(shippingContainer) : false
+  
+  
+  // 주문 취소 확인창
+  e.target === cancelConfirmModal ? displayNone(cancelConfirmModal) : false
+  
+
+
+});
