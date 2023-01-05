@@ -681,13 +681,6 @@ const printAccumulate = (accumMemberList, accumContentList) => {
         }
     }
 
-    // 짝수번째 줄 색칠
-    const trRow = document.getElementsByClassName('tr-row');
-    
-    for(let i=0; i<trRow.length; i++){
-        trRow[2*i].style.backgroundColor = "#eef4edcc";
-    }
-
 
     // 신고 내역으로 돌아가는 아이콘
     const preIcon = document.createElement('i');
@@ -701,7 +694,6 @@ const printAccumulate = (accumMemberList, accumContentList) => {
 
     tbodyAccum.append(spanIcon);
 
-    //fixme:
     // 아이콘 클릭했을 때
     spanIcon.addEventListener('click', () =>{
         // hiddenMemberNo = newReportDetail.memberNo;  // 계정 강제탈퇴, 정지, 반려용
@@ -718,6 +710,14 @@ const printAccumulate = (accumMemberList, accumContentList) => {
         // 상세 모달 
         selectNewReportDetail(hiddenReportNo);
     })
+
+    //fixme 수정하기
+    // 짝수번째 줄 색칠
+    const trRow = document.querySelectorAll(".tr-row");
+
+    for(let i=0; i<trRow.length; i++){
+        trRow[2*i].style.backgroundColor = "#eef4edcc";
+    }
 
 
 }

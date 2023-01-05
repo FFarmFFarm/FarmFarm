@@ -1,13 +1,14 @@
 
 var reportContainer = document.getElementById("reportContainer");
 var reportBtn = document.getElementById("reportBtn");
+const reportBtn2 = document.getElementById("reportBtn2");
 
 // 직접 작성한 신고 사유 내용 == reportContent  // 전역변수로 바꾸면서 혹시나 다른데랑 충돌날까봐 이름 변경
 var modalReportContent = document.getElementById("reportContent");
 var radioButton = document.getElementsByName('reportRadio');
 
 reportBtn.addEventListener('click', () => {
-    console.log("신고 모달 켜짐");
+    console.log("신고 모달");
     reportContainer.style.display = 'flex';
 
     // 내용지우기
@@ -21,6 +22,21 @@ reportBtn.addEventListener('click', () => {
     }
 })
 
+
+// 댓글에서 프로필 신고
+reportBtn2.addEventListener('click', () => {
+    reportContainer.style.display = 'flex';
+
+    // 내용지우기
+    modalReportContent.value = "";
+
+    // 체크해제
+    for(let i=0; i<radioButton.length; i++) {
+        if(radioButton[i].checked){
+            radioButton[i].checked = false;
+        }
+    }
+});
 
 
 // x 클릭 시 모달창 꺼짐
