@@ -12,5 +12,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class APIVO {
 
+	private String upper_Fd_Grupp_Nm;
+	private String fd_Nm;
+	private String ckry_Sumry_Info;
+	private String allrgy_Info;
+	private String food_Image_Address;
+	private String ckry_Info;
+	private String ckry_Image_Address;
+	
 	private List<JSONObject> response = new ArrayList<JSONObject>();
 }

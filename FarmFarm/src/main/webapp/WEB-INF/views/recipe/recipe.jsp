@@ -33,6 +33,11 @@
         </c:if>
 
     <main>
+        <c:forEach var="item" items="${apiList}">
+            이름: ${item.fd_Nm}
+        </c:forEach>
+
+
         <section class="board-top">
             <div class="board-top-title">팜팜 레시피</div>
         </section>
