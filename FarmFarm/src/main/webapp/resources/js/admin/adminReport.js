@@ -54,7 +54,31 @@ const selectNewReportDetail = (hiddenReportNo) => {
 
 
 
+//optimize: 신고 누적 기록 모달창 함수 ajax
+const selectReportAccumulate = (hiddenReportType, hiddenMemberNo, hiddenContentNo) => {
+    $.ajax({
+        url: "/admin/selectReportAccumulate",
+        data: {"reportType": hiddenReportType,
+                "memberNo": hiddenMemberNo,
+                "contentNo": hiddenContentNo},
+        dataType: "JSON",
+        type: "POST",
+        success: (map) => {
 
+            printAccumulate(map.accumMemberList, map.accumContentList);
+            // if(hiddenReportType == 'M'){
+            //     printAccumMember(map.accumMemberList);
+            // } else {
+            //     printAccumContent(map.accumContentList);
+            // }
+
+            console.log("신고 누적 기록 조회 성공");
+        }, 
+        error: () => {
+            console.log("신고 누적 기록 조회 실패");
+        }
+    })
+}
 
 
 
@@ -127,14 +151,14 @@ const printNewReportList = (newReportList, pagination, reportListCount, reportAl
 
         if(report.reportType != null){
             if(report.reportType == 'M'){
-                if(report.memberId.length > 15){
+                if(report.memberId.length > 14){
                     td3.innerText = report.memberId.substring(0,14) + '...';
                 } else{
                     td3.innerText = report.memberId;
                 }
             }
             if(report.reportType == 'B' || report.reportType == 'P'){
-                if(report.title.length > 15){
+                if(report.title.length > 14){
                     td3.innerHTML = report.title.substring(0,14) + '...';
 
                 } else{
@@ -289,27 +313,35 @@ const printNewReportDetail = (newReportDetail) => {
     }
 
     // 누적 신고 횟수
-
-    //fixme:라고 하기보다 add 누적신고기록 추가하기
     const icon = document.createElement('i');
-    icon.innerHTML = '<i class="fa-solid fa-caret-down filter-icon"></i>';
+    // icon.innerHTML = '<i class="fa-solid fa-caret-down filter-icon"></i>';
+    icon.innerHTML = '<i class="fa-sharp fa-solid fa-angle-right"></i>';
     icon.classList.add('filter-icon');
 
     const td7Detail = document.createElement('td');
     td7Detail.classList.add('detail-bold');
     td7Detail.classList.add('right');
-    td7Detail.innerHTML = "누적 신고 횟수" + icon.innerHTML;
+    td7Detail.innerHTML = "누적 신고 횟수";
 
+
+    //fixme:
+    // 옆으로 가는 아이콘
     const td8Detail = document.createElement('td');
     td8Detail.innerText = newReportDetail.reportVolume;
 
-    // const spanCount = document.createElement('span');
-    // spanCount.innerText = "누적 신고 기록 보기";
-    // spanCount.classList.add('span-count');
+    const spanIcon = document.createElement('span');
+    spanIcon.append(icon);
+    spanIcon.classList.add('next-icon');
 
-    // td8Detail.append(spanCount);
+    tbodyDetail.append(spanIcon);
+
     tr2Detail.append(td5Detail, td6Detail, td7Detail, td8Detail);
 
+    // 아이콘 클릭했을 때
+    spanIcon.addEventListener('click', () =>{
+        // reportDetailModalClose();
+        selectReportAccumulate();
+    })
 
     // 3)
     const tr3Detail = document.createElement('tr');
@@ -395,27 +427,31 @@ const printNewReportDetail = (newReportDetail) => {
 
     // 7)
     const tr7Detail = document.createElement('tr');
-
-    // 내용
-    const td17Detail = document.createElement('td');
-    td17Detail.classList.add('detail-bold');
-    td17Detail.classList.add('left');
-    td17Detail.innerText = "내용";
-
-    tr7Detail.append(td17Detail);
-
-
-    // 8)
     const tr8Detail = document.createElement('tr');
-
-    // 내용
-    const td18Detail = document.createElement('td');
-    td18Detail.colSpan = "4";
-    td18Detail.rowSpan = "8";
-    td18Detail.style.overflow = "auto";
-    td18Detail.innerHTML = newReportDetail.content;
-
-    tr8Detail.append(td18Detail);
+    if(newReportDetail.reportType != 'M'){
+    
+        // 내용
+        const td17Detail = document.createElement('td');
+        td17Detail.classList.add('detail-bold');
+        td17Detail.classList.add('left');
+        td17Detail.innerText = "내용";
+    
+        tr7Detail.append(td17Detail);
+    
+    
+        // 8)
+        // const tr8Detail = document.createElement('tr');
+    
+        // 내용
+        const td18Detail = document.createElement('td');
+        td18Detail.colSpan = "4";
+        td18Detail.rowSpan = "8";
+        td18Detail.style.overflow = "auto";
+        td18Detail.innerHTML = newReportDetail.content;
+    
+        tr8Detail.append(td18Detail);
+    
+    }
 
     // tr4 순서 바꿈
     tbodyDetail.append(tr1Detail, tr2Detail,  tr3Detail, tr5Detail, tr6Detail, tr4Detail, tr7Detail, tr8Detail);
@@ -461,6 +497,130 @@ const printNewReportDetail = (newReportDetail) => {
     }
 
 }
+
+
+
+
+
+//optimize: 누적 신고 기록
+const printAccumulate = (accumMemberList, accumContentList) => {
+    console.log("누적신고 기록 함수");
+
+    accumModalOpen();
+
+    const tbodyAccum = document.getElementById("tbodyAccum");
+    tbodyAccum.innerText = "";
+
+
+    // thead
+    const trA = document.createElement('tr');
+    trA.className = "accum-row";
+
+    const tda1 = document.createElement("tr");
+    tda1.classList.add("accum-bold");
+    tda1.innerText = "NO";
+
+    const tda2 = document.createElement("td");
+    tda2.classList.add("accum-bold");
+    tda2.innerText = "신고번호"
+    
+    const tda3 = document.createElement("td");
+    tda3.classList.add("accum-bold");
+    tda3.innerText = "신고 일자";
+
+    const tda4 = document.createElement("td");
+    tda4.classList.add("accum-bold");
+    tda4.innerText = "신고자";
+
+    const tda5 = document.createElement("td");
+    tda5.classList.add("accum-bold");
+    tda5.innerText = "신고 사유";
+
+    const tda6 = document.createElement("td");
+    tda6.classList.add("accum-bold");
+    tda6.innerText = "추가 사유";
+
+    trA.append(tda1, tda2, tda3, tda4, tda5, tda6);
+
+
+    // tbody
+    // 신고유형 : 계정
+    if(hiddenReportType == 'M'){
+        
+        for(let member of accumMemberList){
+
+            const trM = document.createElement("tr");
+
+            const tdm1 = document.createElement("td");
+            numCount++;
+            tdm1.innerText = numCount;
+
+            const tdm2 = document.createElement("td");
+            tdm2.innerText = member.reportNo;
+
+            const tdm3 = document.createElement("td");
+            tdm3.innerText = member.reportDate;
+
+            const tdm4 = document.createElement("td");
+            tdm4.innerText = member.reportMemberNo;
+
+            const tdm5 = document.createElement("td");
+            tdm5.innerText = member.reportReason;
+
+            const tdm6 = document.createElement("td");
+            tdm6.innerHTML = member.reportContent;
+
+            trM.append(tdm1, tdm2, tdm3, tdm4, tdm5, tdm6);
+            trA.append(trM);
+            tbodyAccum.append(trA);
+        }
+    }
+
+
+    if(hiddenReportType == 'B' || hiddenReportType == 'P'){
+
+        for(let content of accumContentList){
+
+            const trC = document.createElement("tr");
+
+            const tdc1 = document.createElement("td");
+            numCount++;
+            tdc1.innerText = numCount;
+
+            const tdc2 = document.createElement("td");
+            tdc2.innerText = content.reportNo;
+
+            const tdc3 = document.createElement("td");
+            tdc3.innerHTML = content.reportDate;
+
+            const tdc4 = document.createElement("td");
+            tdc4.innerText = content.contentNo;
+
+            const tdc5 = document.createElement("td");
+            tdc5.innerText = content.reportReason;
+
+            const tdc6 = document.createElement("td");
+            tdc6.innerHTML = content.reportContent;
+
+            trC.append(tdc1, tdc2, tdc3, tdc4, tdc5, tdc6);
+            trA.append(trC);
+            tbodyAccum.append(trA);
+        }
+    }
+}
+
+
+
+//optimize: 누적 신고 기록 (판매글, 커뮤니티게시글)
+const printAccumContent = (accumContentList) => {
+    
+    
+    
+    
+    
+}
+
+
 
 
 
@@ -578,11 +738,13 @@ down.addEventListener('click', () => {
 
 
 
+
+
 // todo: 전체 조회 글자 자르기(jsp 첫페이지)
 // 신고대상 아이디/게시글 자르기 (15자)
 const rTitle = document.getElementsByClassName("rTitle");
 for(let i=0; i<rTitle.length; i++){
-    if(rTitle[i].innerText.length > 15){
+    if(rTitle[i].innerText.length > 14){
         rTitle[i].innerText = rTitle[i].innerText.substring(0, 14) + '...';
     } else {
         rTitle[i].innerText;
@@ -594,6 +756,7 @@ for(let i=0; i<rTitle.length; i++){
 
 // 모달 ---------------------------------------
 var reportDetailContainer = document.getElementsByClassName("report-detail-container");
+var accumContainer = document.getElementsByClassName("accumulate-container");
 
 // 모달 열기
 const reportDetailModalOpen = () =>{
@@ -610,6 +773,20 @@ const reportDetailModalClose = () => {
 }
 
 
+// 누적기록 모달 열기
+const accumModalOpen = () =>{
+    for(let i=0; i<accumContainer.length; i++){
+        accumContainer[i].style.display = 'flex';
+    }
+}
+
+// 누적기록 모달 닫기
+const accumModalClose = () =>{
+    for(let i=0; i<accumContainer.length; i++){
+        accumContainer[i].style.display = 'none';
+    }
+}
+
 
 //todo: 모달창 바깥 클릭 시 모달창 꺼짐
 const detailModal = document.getElementById('reportDetailContainer');
@@ -618,6 +795,12 @@ window.addEventListener('click', (e) => {
     document.querySelector('body').classList.remove("scrollLock");
 });
 
+
+const accumModal = document.getElementById('accumContainer');
+window.addEventListener('click', (e) => {
+    e.target === accumModal ? accumModal.style.display = 'none' : false
+    document.querySelector('body').classList.remove("scrollLock");
+});
 //-------------------------------------------
 
 

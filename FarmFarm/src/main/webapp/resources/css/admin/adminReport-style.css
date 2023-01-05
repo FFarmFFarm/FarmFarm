@@ -75,21 +75,23 @@ main{
 
 .report-select{
     width: 920px;
-    height: 615px;
+    height: 520px;
     border-radius: 10px;
     background-color: white;
-    overflow: auto;
+    overflow: hidden;
 
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: center;
+
+    padding: 10px;
 }
 
 
 .report-list-table{
     width: 860px;
-    height: auto;
-    padding: 10px;
+    /* height: auto; */
+    height: fit-content;
+    /* padding: 10px; */
     margin: 10px 20px;
     font-size: var(--small-font-size);
     text-align: center;
@@ -98,13 +100,15 @@ main{
 
 .report-list-table th{
     color: var(--point-color);
-    padding: 10px 0;
+    padding-bottom: 10px;
+    vertical-align: middle;
+    height: 20px;
     /* background-color: #eef4ed; */
     /* border-bottom: 1px solid #bdf0b4; */
 }
 
 .report-list-table td{
-    padding: 10px 0;
+    padding-bottom: 10px;
     height: 31px;
 }
 
