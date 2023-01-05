@@ -324,6 +324,8 @@ inquireSock.onmessage = (e) => {
       }
     }
 
+    
+
     inquireContent.scrollTop = inquireContent.scrollHeight;
   } else {
     const inquireUnread = document.getElementById('inquireUnread');
@@ -371,3 +373,5 @@ if(inquireImage!=undefined) {
 
   })
 }
+
+

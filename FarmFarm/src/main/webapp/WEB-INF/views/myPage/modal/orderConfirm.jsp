@@ -10,7 +10,7 @@
           <span>구매를 확정 하시겠습니까?</span>
         </div>
         <div class="confirm-btn">
-          <button type="button" id="orderCalcelBtn">취소</button>
+          <button type="button" id="orderCancelBtn">취소</button>
           <button type="button" id="orderConfirmBtn">확인</button>
         </div>
       </div>
