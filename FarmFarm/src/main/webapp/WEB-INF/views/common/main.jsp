@@ -139,7 +139,7 @@
             <div class="swiper-button-next"></div>
         </div>
         
-      <h3 class="middle-product-title">딱! 오늘만 특가 상품</h3>
+      <h3 class="middle-product-title">딱! 오늘만 팜팜마켓 특가 상품</h3>
       <div class="middle-product">
         <div class="middle-wrap">
           <%-- <div class="middle-cover"><img src="resources/images/product/detail/20221230143348_60504.jpg"></div> --%>
@@ -217,7 +217,7 @@
       </div>
 
 
-      <h3 class="product-title">BEST 상품</h3>
+      <h3 class="product-title">우리 농장에서는 이런 물건을 팔아요</h3>
       <div class="product-wrap">
         <a href="/">
             <div class="product">
