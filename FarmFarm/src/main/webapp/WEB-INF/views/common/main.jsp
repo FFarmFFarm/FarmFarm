@@ -32,7 +32,7 @@
                 <div class="nav-list"><a href="/product/list">팜팜마켓</a></div>
                 <div class="nav-list"><a href="/post/list">사고팔고</a></div>
                 <div class="nav-list"><a href="/board/${1}">커뮤니티</a></div>
-                <div class="nav-list"><a href="/testPage/4">문의게시판</a></div>
+                <div class="nav-list"><a href="/recipe">레시피</a></div>
               </div>
             </div>
         </nav>
@@ -137,7 +137,7 @@
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
         </div>
-
+        
       <h3 class="middle-product-title">딱! 오늘만 특가 상품</h3>
       <div class="middle-product">
         <div class="middle-wrap">

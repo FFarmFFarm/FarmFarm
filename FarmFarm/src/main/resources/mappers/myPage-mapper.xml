@@ -270,6 +270,7 @@
 		UPDATE "ADDRESS" SET
 		MEMBER_ADDRESS = #{memberAddress}
 		WHERE MEMBER_NO = #{memberNo}
+		AND DEFAULT_FL = 'Y'
 	</update>
 
 	<!-- 암호화 된 비밀번호 조회 -->
