@@ -37,8 +37,6 @@ public class ReportController {
 							@RequestHeader(value="referer") String referer, 
 							Model model) {
 
-		System.out.println(reportType + reportTargetNo + reportReason + reportContent);
-		
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -55,8 +53,6 @@ public class ReportController {
 
 			result = service.insertReport(map);
 			path = referer;
-			
-			System.out.println(result);
 			
 		}
 		

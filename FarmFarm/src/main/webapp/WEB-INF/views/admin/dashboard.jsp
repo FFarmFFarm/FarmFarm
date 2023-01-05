@@ -17,7 +17,6 @@
         <link rel="stylesheet" href="/resources/css/common/footer-style.css">
         <link rel="stylesheet" href="/resources/css/admin/adminNav-style.css">
         <link rel="stylesheet" href="/resources/css/admin/dashboard-style.css" />
-        <link rel="stylesheet" href="/resources/css/modal/report-style.css" />
 
         <script src="https://kit.fontawesome.com/d4fbceca97.js" crossorigin="anonymous"></script>
     </head>
@@ -65,12 +64,6 @@
             
         </main>
 
-        <button id="reportBtn">님 신고</button>
-
-    <!-- <jsp:include page="/WEB-INF/views/common/footer.jsp"/>  -->
-        
-    <jsp:include page="/WEB-INF/views/report/report-modal.jsp"/> 
-    <script src="/resources/js/report/report-modal.js"></script>
     
     <!-- chart.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
