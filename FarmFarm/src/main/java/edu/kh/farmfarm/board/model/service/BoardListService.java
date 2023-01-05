@@ -22,6 +22,12 @@ public interface BoardListService {
 	Member selectMember(int memberNo);
 
 
+	/** 게시판 이미지 이름 조회
+	 * @return
+	 */
+	List<String> selectBoardImageList();
+
+
 
 
 

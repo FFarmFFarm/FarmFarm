@@ -122,6 +122,24 @@ public interface MyPageService {
 	Order selectOrder(int orderNo);
 
 
+	/** 배경 이미지 변경명 조회
+	 * @return
+	 */
+	List<String> selectBgImageList();
+
+
+	/** 프로필 이미지 변경명 조회
+	 * @return
+	 */
+	List<String> selectProfileImageList();
+
+
+	/** 리뷰 이미지 변경명 조회
+	 * @return
+	 */
+	List<String> selectReviewImageList();
+
+
 
 
 

@@ -60,4 +60,12 @@ public class BoardListDAO {
 	}
 
 
+	/** 게시판 이미지 이름 조회
+	 * @return
+	 */
+	public List<String> selectBoardImageList() {
+		return sqlSession.selectList("boardMapper.selectBoardImageList");
+	}
+
+
 }

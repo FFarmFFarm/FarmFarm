@@ -221,12 +221,22 @@ if (loginMemberNo != "") {
 const inputMessage = document.getElementById('inquireInput');
 const send = document.getElementById('send');
 send.addEventListener('click', () => {
-  sendInquire();
+  if(inputMessage.value.trim().length > 0) {
+    sendInquire();
+
+  } else {
+    messageModalOpen("메세지를 입력해주세요");
+  }
 })
 
 inputMessage.addEventListener('keypress', (e) => {
   if(e.key == 'Enter') {
-    sendInquire();
+    if(inputMessage.value.trim().length > 0) {
+      sendInquire();
+  
+    } else {
+      messageModalOpen("메세지를 입력해주세요");
+    }
   }
 })
 
