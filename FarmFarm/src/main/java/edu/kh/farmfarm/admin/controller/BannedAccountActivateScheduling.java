@@ -26,7 +26,7 @@ public class BannedAccountActivateScheduling {
 	
 	// 신고되어 정지된 계정 7일 뒤에 풀기
 //	@Scheduled(cron = "0 * * * * *")  // 매 분 0초에 실행
-	@Scheduled(cron = "0 0 0 * * *")  // 매일 0시 0분 0초에 실행
+	@Scheduled(cron = "0 0 3 * * *")  // 매일 3시 0분 0초에 실행
 	public void bannedAccountActivate() throws ParseException{
 		
 		// 1. 정지된 계정 조회하기
