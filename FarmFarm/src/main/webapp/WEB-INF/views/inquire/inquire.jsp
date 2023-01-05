@@ -2,8 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-
 <link rel="stylesheet" href="/resources/css/inquire/inquire-style.css">
+
 
 <div class="inquire-container hide-room" id="inquireContainer">
   <div class="inquire-header">
@@ -66,6 +66,5 @@
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
-    <script src="/resources/js/common/common.js"></script>
+
     <script src="/resources/js/inquire/inquire.js"></script>
-    

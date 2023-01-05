@@ -223,4 +223,11 @@ public class ProductDetailServiceImpl implements ProductDetailService{
 		return dao.deleteReview(reviewNo);
 	}
 	
+	/** 상품 이미지 이름 조회
+	 */
+	@Override
+	public List<String> selectProductImageList() {
+		return dao.selectProductImageList();
+	}
+	
 }

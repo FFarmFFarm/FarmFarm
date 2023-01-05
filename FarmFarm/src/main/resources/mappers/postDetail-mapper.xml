@@ -69,6 +69,13 @@
 	WHERE POST_NO = #{postNo}
 </select>
 
+<select id="selectPostImageList" resultType="string">
+	SELECT 
+		SUBSTR(POST_IMG_ADDRESS, INSTR(POST_IMG_ADDRESS, '/', -1)+1, LENGTH(POST_IMG_ADDRESS)) 
+	FROM POST_IMG pi2  
+	WHERE POST_IMG_ADDRESS IS NOT NULL
+</select>
+
 
 
 </mapper>

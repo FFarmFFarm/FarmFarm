@@ -220,16 +220,32 @@ if (loginMemberNo != "") {
 
 const inputMessage = document.getElementById('inquireInput');
 const send = document.getElementById('send');
-send.addEventListener('click', () => {
-  sendInquire();
-})
+if(send != undefined) {
 
-inputMessage.addEventListener('keypress', (e) => {
-  if(e.key == 'Enter') {
-    sendInquire();
-  }
-})
+  send.addEventListener('click', () => {
+    if(inputMessage.value.trim().length > 0) {
+      sendInquire();
+      
+    } else {
+      messageModalOpen("메세지를 입력해주세요");
+    }
+  })
+}
 
+if(inputMessage != undefined) {
+
+  inputMessage.addEventListener('keypress', (e) => {
+    if(e.key == 'Enter') {
+      if(inputMessage.value.trim().length > 0) {
+        sendInquire();
+        
+      } else {
+        messageModalOpen("메세지를 입력해주세요");
+      }
+    }
+  })
+}
+  
 /* 상담 메세지 전송 */
 const sendInquire = () => {
   if(inputMessage.value.trim().length == 0) {
@@ -247,90 +263,94 @@ const sendInquire = () => {
   }
 }
 
-/* WebSocket 객체가 서버로부터 메세지를 통지받으면 자동으로 실행되는 콜백함수 */
-inquireSock.onmessage = (e) => {
-  const msg = JSON.parse(e.data);
-  console.log(msg);
 
-  if(memberInquireNo == msg.inquireNo) {
-    const inquireContent = document.getElementById('inquireContent');
+if(inquireSock != undefined) {
 
-    if(msg.messageDate != msg.lastMessageDate) {
-      const messageDate = document.createElement('div');
-      messageDate.classList.add('message-date');
-      messageDate.innerHTML = msg.messageDate;
-  
-      inquireContent.append(messageDate);
-    }
-
-    if(msg.imgFl == 'N') {
-
-      if(msg.sendMemberNo == loginMemberNo) {
-        const send = document.createElement('div');
-        send.classList.add('send');
-        const messageTime = document.createElement('div');
-        messageTime.innerHTML = msg.messageTime;
-        messageTime.classList.add('message-time');
-        const span = document.createElement('span');
-        span.innerHTML = msg.messageContent;
-        send.append(messageTime, span);
-        inquireContent.append(send);
-        
-      } else {
-        const receive = document.createElement('div');
-        receive.classList.add('receive');
-        const span = document.createElement('span');
-        span.innerHTML = msg.messageContent;
-        const messageTime = document.createElement('div');
-        messageTime.innerHTML = msg.messageTime;
-        messageTime.classList.add('message-time');
-        receive.append(span, messageTime);
-        inquireContent.append(receive);
-      }
-
-    } else if(msg.imgFl == 'Y') {
-      
-      if(msg.sendMemberNo == loginMemberNo) {
-        const send = document.createElement('div');
-        send.classList.add('send');
-
-        const messageTime = document.createElement('div');
-        messageTime.innerHTML = msg.messageTime;
-        messageTime.classList.add('message-time');
-
-        const div = document.createElement('div');
-        div.classList.add('img-container');
-
-        div.innerHTML = msg.messageContent;
-
-        send.append(messageTime, div);
-        inquireContent.append(send);
-        
-      } else {
-        const receive = document.createElement('div');
-        receive.classList.add('send');
-
-        const div = document.createElement('div');
-        div.classList.add('img-container');
-
-        div.innerHTML =  msg.messageContent;
-
-        const messageTime = document.createElement('div');
-        messageTime.innerHTML = msg.messageTime;
-        messageTime.classList.add('message-time');
-
-        receive.append(div, messageTime);
-        inquireContent.append(receive);
-      }
-    }
-
+  /* WebSocket 객체가 서버로부터 메세지를 통지받으면 자동으로 실행되는 콜백함수 */
+  inquireSock.onmessage = (e) => {
+    const msg = JSON.parse(e.data);
+    console.log(msg);
     
-
-    inquireContent.scrollTop = inquireContent.scrollHeight;
-  } else {
-    const inquireUnread = document.getElementById('inquireUnread');
-    if (inquireUnread != undefined) {
-      inquireUnread.style.display = "block";
+    if(memberInquireNo == msg.inquireNo) {
+      const inquireContent = document.getElementById('inquireContent');
+      
+      if(msg.messageDate != msg.lastMessageDate) {
+        const messageDate = document.createElement('div');
+        messageDate.classList.add('message-date');
+        messageDate.innerHTML = msg.messageDate;
+        
+        inquireContent.append(messageDate);
+      }
+      
+      if(msg.imgFl == 'N') {
+        
+        if(msg.sendMemberNo == loginMemberNo) {
+          const send = document.createElement('div');
+          send.classList.add('send');
+          const messageTime = document.createElement('div');
+          messageTime.innerHTML = msg.messageTime;
+          messageTime.classList.add('message-time');
+          const span = document.createElement('span');
+          span.innerHTML = msg.messageContent;
+          send.append(messageTime, span);
+          inquireContent.append(send);
+          
+        } else {
+          const receive = document.createElement('div');
+          receive.classList.add('receive');
+          const span = document.createElement('span');
+          span.innerHTML = msg.messageContent;
+          const messageTime = document.createElement('div');
+          messageTime.innerHTML = msg.messageTime;
+          messageTime.classList.add('message-time');
+          receive.append(span, messageTime);
+          inquireContent.append(receive);
+        }
+        
+      } else if(msg.imgFl == 'Y') {
+        
+        if(msg.sendMemberNo == loginMemberNo) {
+          const send = document.createElement('div');
+          send.classList.add('send');
+          
+          const messageTime = document.createElement('div');
+          messageTime.innerHTML = msg.messageTime;
+          messageTime.classList.add('message-time');
+          
+          const div = document.createElement('div');
+          div.classList.add('img-container');
+          
+          div.innerHTML = msg.messageContent;
+          
+          send.append(messageTime, div);
+          inquireContent.append(send);
+          
+        } else {
+          const receive = document.createElement('div');
+          receive.classList.add('send');
+          
+          const div = document.createElement('div');
+          div.classList.add('img-container');
+          
+          div.innerHTML =  msg.messageContent;
+          
+          const messageTime = document.createElement('div');
+          messageTime.innerHTML = msg.messageTime;
+          messageTime.classList.add('message-time');
+          
+          receive.append(div, messageTime);
+          inquireContent.append(receive);
+        }
+      }
+      
+      
+      
+      inquireContent.scrollTop = inquireContent.scrollHeight;
+    } else {
+      const inquireUnread = document.getElementById('inquireUnread');
+      if (inquireUnread != undefined) {
+        inquireUnread.style.display = "block";
+      }
     }
   }
 }

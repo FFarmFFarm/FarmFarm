@@ -942,13 +942,13 @@ const printReviewList = (reviewList, pagination, sortFL) => {
   nextBtn.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
   nextBtn, id = 'reviewNext';
 
-  if (pagination.currentPage == 1) {
+  if (pagination.currentPage == 1 && pagination.maxPage > 1 && pagination.prevPage > 0) {
     paginationArea.innerHTML = "";
     paginationArea.appendChild(nextBtn);
   } else if (pagination.maxPage > pagination.currentPage) {
     paginationArea.innerHTML = "";
     paginationArea.append(preBtn, nextBtn);
-  } else if (pagination.currentPage == pagination.maxPage) {
+  } else if (pagination.currentPage > pagination.prevPage && pagination.currentPage > 1) {
     paginationArea.innerHTML = "";
     paginationArea.appendChild(preBtn);
   }

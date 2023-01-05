@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FarmFarm</title>
+    <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
     <link rel="stylesheet" href="/resources/css/common/main-style.css" />
     <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
     <script src="https://kit.fontawesome.com/1ce4f19a7a.js" crossorigin="anonymous"></script>
@@ -292,6 +293,9 @@
     </main>
     
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/> 
+    
+    <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
+    
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"
     integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
     crossorigin="anonymous"></script>

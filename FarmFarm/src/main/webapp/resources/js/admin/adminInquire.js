@@ -252,12 +252,22 @@ const sendBtn = document.getElementById('sendBtn');
 const inputMessage = document.getElementById('inputBox');
 
 sendBtn.addEventListener('click', () => { 
-  sendInquire();
+  if(inputMessage.value.trim().length > 0) {
+    sendInquire();
+
+  } else {
+    messageModalOpen("메세지를 입력해주세요")
+  }
 })
 
 inputMessage.addEventListener('keypress', (e) => {
   if(e.key == 'Enter') {
-    sendInquire();
+    if(inputMessage.value.trim().length > 0) {
+      sendInquire();
+  
+    } else {
+      messageModalOpen("메세지를 입력해주세요")
+    }
   }
 })
 

@@ -389,5 +389,28 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 	
 	
+	/** 배경 이미지 변경명 조회
+	 *
+	 */
+	@Override
+	public List<String> selectBgImageList() {
+		return dao.selectBgImageList();
+	}
+	
+	/** 프로필 이미지 변경명 조회
+	 *
+	 */
+	@Override
+	public List<String> selectProfileImageList() {
+		return dao.selectProfileImageList();
+	}
+	
+	/** 리뷰 이미지 변경명 조회
+	 *
+	 */
+	@Override
+	public List<String> selectReviewImageList() {
+		return dao.selectReviewImageList();
+	}
 
 }

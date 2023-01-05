@@ -86,6 +86,17 @@ a.comment-wrote > i {
   margin-left: 50px;
 }
 
+.comment-content {
+
+  height: 18px;
+  word-break : nowrap;
+  display : inline-block; 
+  text-overflow : clip;
+
+  overflow : hidden; 
+  white-space : nowrap;
+}
+
 .pagination {
   display: flex;
   margin-top: 10px;
