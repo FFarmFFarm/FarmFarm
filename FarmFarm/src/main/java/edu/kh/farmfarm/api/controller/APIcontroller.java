@@ -1,17 +1,24 @@
-//package edu.kh.farmfarm.api.controller;
-//
-//import org.springframework.stereotype.Controller;
-//import org.springframework.ui.Model;
-//import org.springframework.web.bind.annotation.GetMapping;
-//
-//@Controller
-//public class APIcontroller {
-//	@GetMapping("/")
-//	public String index(Model m) throws Exception{
-//		StringBuffer sb = new StringBuffer(http://211.237.50.150:7080/openapi/sample/xml/Grid_20171128000000000572_1/1/20);
-//		
-//		
-//		return null;
-//	}
-//	
-//}
+package edu.kh.farmfarm.api.controller;
+
+import java.io.IOException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import edu.kh.farmfarm.api.service.APIService;
+
+@Controller
+public class APIController {
+	
+	@Autowired
+	private APIService service;
+	
+	@GetMapping("/recipe")
+	public String recepie() throws Exception{
+		String token = service.foodList();
+		
+		return "/recipe/recipe";
+	}
+	
+}

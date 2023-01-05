@@ -13,13 +13,15 @@ public interface BoardListService {
 
 
 	// 와글와글 게시판 목록 조회
-	Map<String, Object> selectBoardList(Map<String, Object> searchMap, int cp);
+	Map<String, Object> selectBoardList(Map<String, Object> pm, int cp);
 
 	// 와글와글 게시판 검색 + 목록 조회
-	Map<String, Object> selecBoardtListSearch(Map<String, Object> searchMap, int cp);
+	Map<String, Object> selecBoardtListSearch(Map<String, Object> pm, int cp);
 
 	// 프로필 클릭시 모달  
 	Member selectMember(int memberNo);
+
+
 
 
 
