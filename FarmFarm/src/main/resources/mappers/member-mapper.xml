@@ -120,5 +120,12 @@
 		FROM "MEMBER"
 		WHERE MEMBER_NO = #{memberNo}
 	</select>
+	
+	<!-- 초대 : 회원 닉네임 확인 -->
+	<select id="selectEnterMemberInfo" parameterType="string" resultMap="member_rm">
+		SELECT MEMBER_NO, AUTHORITY
+		FROM MEMBER
+		WHERE MEMBER_NICKNAME = #{memberNickname}
+	</select>
 
 </mapper>

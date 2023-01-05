@@ -253,6 +253,70 @@ document.getElementById("inviteMenuHideBtn").addEventListener('click', () => {
     document.querySelector('.invite-menu-notice').innerText="회원에게 초대 메세지를 전송합니다."
 })
 
+// 3. 회원에게 알림 전송하기!
+document.getElementById("inviteMenuConfirmBtn").addEventListener('click', ()=>{
+
+    // 회원 이름 정규식 표현으로 걸러내기
+    let notice = document.getElementById('inviteMenuNotice');
+    let searchNicknameInput = document.getElementById('searchNicknameInput');
+    let roomNo = document.querySelector('.chat-room-id').id;
+    let regEx = /^[ㄱ-힣\w]{2,10}$/;
+    notice.classList.remove('error');
+
+    if (searchNicknameInput.value.trim().length == 0) { // 공백인 경우
+        searchNicknameInput.focus();
+        notice.classList.add('error');
+
+    } else { // 정규표현식 통과한 경우
+
+        let searchNicknameInputValue = searchNicknameInput.value.trim();
+
+        if (regEx.test(searchNicknameInputValue)) {
+            let formData = new FormData();
+            formData.append("roomNo", roomNo);
+            formData.append("memberNickname", searchNicknameInputValue);
+
+            axios.post('/chat/invite', formData
+            ).then(function (response) {
+
+                let result = response.data.result;
+
+                if(result==0) {
+                    document.querySelector('.invite-menu-notice').innerText = "닉네임을 확인해주세요.";
+                    notice.classList.add('error');
+                } else {
+                    document.querySelector('.invite-menu-notice').innerText = "초대 메세지가 전송되었습니다.";
+
+                    // 알림 메시지 전송
+                    let obj = {
+                        "notifyTypeNo":101,
+                        "memberNo":result,
+                        "notifyContent":inviteComment,
+                        "quickLink":"/chat/center"
+                    }
+
+                    notifySock.send(JSON.stringify(obj));
+                }
+
+            }).catch(function (error) {
+                console.log("error");
+                console.log(error);
+            })
+
+            // 비우기
+            document.getElementById('chatRoomMenuModal').classList.toggle('hide');
+            document.getElementById('invite-menu').classList.toggle('hide');
+            document.getElementById('searchNicknameInput').value = "";
+
+
+        } else { // 정규표현식 걸린 경우
+            searchNicknameInput.focus();
+            notice.classList.add('error');
+        }
+    }
+})
+
+
 /* 나가기 */
 // 1. 열기
 document.getElementById("exitBtn").addEventListener('click', ()=>{

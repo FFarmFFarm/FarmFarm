@@ -162,7 +162,7 @@ public class Chat2Controller {
 	// 채팅방 탈퇴(UPDATE)
 	@PostMapping("/update/chatEnter/{roomNo}")
 	@ResponseBody
-	public String updateChat2Enter(
+	public String updateChatEnter(
 			@PathVariable(value="roomNo", required = true) int roomNo,
 			int memberNo) {
 		
@@ -175,8 +175,37 @@ public class Chat2Controller {
 		
 		return new Gson().toJson(chatSystem);
 	}
+	
+	// 채팅방 초대(INSERT)
+	@PostMapping("/insert/chatEnter/invite")
+	@ResponseBody
+	public String updateChatEnterInvite(
+			int roomNo, String memberNickname
+			) {
+		// 초대 - 회원 번호 or 0(판매자는 초대 불가), -1(찾을 수 없음)
+		int memberNo = service.updateChatEnterInvite(roomNo, memberNickname);
+		
+		// 
+		return new Gson().toJson(memberNo);
+	}
+	
+	// 초대 승인 or 거부(UPDATE)
+	@PostMapping("/update/chatEnter/approve")
+	@ResponseBody
+	public String updateChatEnterApprove(
+			int enterNo, String enterStatus
+			) {
+		
+		// 초대 승인 또는 거부(1은 처리 성공, 0은 처리 실패)
+		int result = service.updateChatEnterApprove(enterNo, enterStatus);
+		
+		return new Gson().toJson(result);
+	}
+	
 
 	// 채팅 삭제 처리(UPDATE)
+	
+	
 
 	// 사진형식 채팅 전송(INSERT)
 	@PostMapping("/insert/img")

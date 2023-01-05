@@ -70,6 +70,22 @@ public interface Chat2Service {
 	 * @return
 	 */
 	int insertChatEnter(int roomNo, int memberNo);
+	
+	
+	/** 채팅방 초대
+	 * @param roomNo
+	 * @param memberNickname
+	 * @return
+	 */
+	int updateChatEnterInvite(int roomNo, String memberNickname);
+	
+	
+	/** 채팅방 초대 승인/거부
+	 * @param roomNo
+	 * @param memberNo
+	 * @return
+	 */
+	int updateChatEnterApprove(int enterNo, String enterStatus);
 
 	/** 채팅방 탈퇴
 	 * @param roomNo
@@ -77,6 +93,10 @@ public interface Chat2Service {
 	 * @return
 	 */
 	int updateChatEnter(int roomNo, int memberNo);
+
+
+
+
 
 
 

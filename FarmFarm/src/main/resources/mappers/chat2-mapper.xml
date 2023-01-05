@@ -97,7 +97,7 @@
 		   		    ELSE NULL END THUMBNAIL_IMG 
 		      FROM CHAT2_ROOM CR) USING(ROOM_NO)
 		------------------
-		LEFT JOIN (SELECT ROOM_NO, MEMBER_NO
+		LEFT JOIN (SELECT ROOM_NO, MEMBER_NO, ENTER_STATUS
 		  		   FROM CHAT2_ENTER
 		  		   WHERE ENTER_STATUS = 'Y') USING(ROOM_NO)
 		WHERE MEMBER_NO = #{memberNo}
@@ -174,8 +174,15 @@
 	<!-- 채팅방 참가(INSERT) -->
 	<insert id="insertChatEnter">
 		INSERT INTO CHAT2_ENTER
-		VALUES(SEQ_ENTER_NO.NEXTVAL, #{roomNo}, #{memberNo}, DEFAULT, DEFAULT)
+		VALUES(SEQ_ENTER_NO.NEXTVAL, #{roomNo}, #{memberNo}, #{enterStatus}, DEFAULT)
 	</insert>
+	
+	<!-- 채팅방 초대(UPDATE) -->
+	<update id="updateChatEnterApprove">
+		UPDATE CHAT2_ENTER SET
+		ENTER_STATUS = #{enterStatus}
+		WHERE ENTER_NO = #{enterNo}
+	</update>
 	
 	<!-- 채팅방 탈퇴(UPDATE) -->
 	<update id="updateChatEnter">

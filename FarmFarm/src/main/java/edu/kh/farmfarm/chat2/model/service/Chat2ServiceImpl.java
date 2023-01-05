@@ -15,6 +15,7 @@ import edu.kh.farmfarm.chat2.model.vo.Chat2Enter;
 import edu.kh.farmfarm.chat2.model.vo.Chat2Img;
 import edu.kh.farmfarm.chat2.model.vo.Chat2Room;
 import edu.kh.farmfarm.common.Util;
+import edu.kh.farmfarm.member.model.VO.Member;
 
 @Service
 public class Chat2ServiceImpl implements Chat2Service {
@@ -187,8 +188,51 @@ public class Chat2ServiceImpl implements Chat2Service {
 		Chat2Enter chat2Enter = new Chat2Enter();
 		chat2Enter.setRoomNo(roomNo);
 		chat2Enter.setMemberNo(memberNo);
+		chat2Enter.setEnterStatus("Y");
 		
 		return dao.insertChatEnter(chat2Enter);
+	}
+	
+	// 채팅방 초대
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int updateChatEnterInvite(int roomNo, String memberNickname) {
+		int result = 0;
+		
+		// 1. 회원 번호와, 권한을 확인함
+		Member member = dao.selectEnterMemberInfo(memberNickname);
+		
+		// 2. 초대 작업을 시작
+		if(member.getMemberNo() > 0) {
+			if(member.getAuthority() == 0) { // 0이면(구매자면)
+				
+				Chat2Enter chatEnter = new Chat2Enter();
+				chatEnter.setMemberNo(member.getMemberNo());
+				chatEnter.setRoomNo(roomNo);
+				chatEnter.setEnterStatus("W");
+				
+				result = dao.insertChatEnter(chatEnter);
+				
+			} else { // 판매자는 초대 안함
+				result = 0;
+			}
+		} else { // 찾을 수 없음
+			result = -1;
+		}
+			
+		return result;
+	}
+
+	// 채팅방 초대 승인 or 거부
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int updateChatEnterApprove(int enterNo, String enterStatus) {
+		Chat2Enter chatEnter = new Chat2Enter();
+		
+		chatEnter.setEnterNo(enterNo);
+		chatEnter.setEnterStatus(enterStatus);
+		
+		return dao.updateChatEnterApprove(chatEnter);
 	}
 
 	// 채팅방 탈퇴
@@ -201,6 +245,8 @@ public class Chat2ServiceImpl implements Chat2Service {
 		
 		return dao.updateChat2Enter(chat2Enter);
 	}
+
+
 
 
 

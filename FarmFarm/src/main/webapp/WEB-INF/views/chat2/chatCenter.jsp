@@ -63,6 +63,7 @@
 
         <!-- 우측 채팅 내역 -->
         <section class="chat-room">
+          <input type="hidden" id="none" class="chat-room-id">
           <div id="roomBodyBlinder">
             <div id="emptyChat">
               <div id="emptyChatIcon">

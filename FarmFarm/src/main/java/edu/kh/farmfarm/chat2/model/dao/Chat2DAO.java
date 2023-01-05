@@ -10,6 +10,7 @@ import edu.kh.farmfarm.chat2.model.vo.Chat2;
 import edu.kh.farmfarm.chat2.model.vo.Chat2Enter;
 import edu.kh.farmfarm.chat2.model.vo.Chat2Img;
 import edu.kh.farmfarm.chat2.model.vo.Chat2Room;
+import edu.kh.farmfarm.member.model.VO.Member;
 
 @Repository
 public class Chat2DAO {
@@ -113,6 +114,22 @@ public class Chat2DAO {
 	public int selectSellerNo(int postNo) {
 		return sqlSession.selectOne("postDetailMapper.selectSellerNo", postNo);
 	}
+	
+	/** 채팅방 초대 보조... 회원 닉네임 확인
+	 * @param memberNickname
+	 * @return
+	 */
+	public Member selectEnterMemberInfo(String memberNickname) {
+		return sqlSession.selectOne("memberMapper.selectEnterMemberInfo", memberNickname);
+	}
+	
+	/** 채팅방 초대 승인 / 거부
+	 * @param chatEnter
+	 * @return
+	 */
+	public int updateChatEnterApprove(Chat2Enter chatEnter) {
+		return sqlSession.update("chat2Mapper.updateChatEnterApprove", chatEnter);
+	}
 
 	/** 채팅방 탈퇴
 	 * @param chat2Enter
@@ -134,6 +151,10 @@ public class Chat2DAO {
 		// 방 번호를 전달 받아서, 해당 방을 수정함
 		return sqlSession.update("chat2Mapper.updateChatRoomStatus", roomNo);
 	}
+
+
+
+
 
 
 

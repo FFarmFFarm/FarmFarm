@@ -233,6 +233,7 @@ const makeChatRoom = (chatRoom, chatList) => {
 
     const roomThumbnailImg = document.getElementById('roomThumbnailImg');
     const roomTitle = document.getElementById('roomTitle');
+    document.querySelector('.chat-room-id').id = chatRoom.roomNo;
 
     if(chatRoom.roomType > 0) {
         document.getElementById('inviteBtn').style.display="none";

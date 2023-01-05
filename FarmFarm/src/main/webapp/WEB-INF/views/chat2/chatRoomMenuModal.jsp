@@ -34,10 +34,10 @@
           <div class="search-nickname-box">
             <input id="searchNicknameInput" type="text" placeholder="닉네임 입력">
           </div>
-          <span class="invite-menu-notice">회원에게 초대 메시지를 전송합니다.</span>
+          <span id="inviteMenuNotice">회원에게 초대 메시지를 전송합니다.</span>
           <div class="menu-confirm-btn">
-            <button type="button" id="newChatRoomCalcelBtn">취소</button>
-            <button type="button" id="newChatRoomConfirmBtn">확인</button>
+            <button type="button" id="inviteMenuCalcelBtn">취소</button>
+            <button type="button" id="inviteMenuConfirmBtn">확인</button>
           </div>
         </div>
       </div>
