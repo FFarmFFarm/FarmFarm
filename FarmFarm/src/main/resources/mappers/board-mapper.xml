@@ -426,5 +426,13 @@
 		</select>
 	
 	<!-- END 알림 SQL -->
+	
+	<!-- 게시판 이미지 이름 조회 -->
+	<select id="selectBoardImageList" resultType="string">
+		SELECT
+			SUBSTR(BOARD_IMG_ADDRESS  , INSTR(BOARD_IMG_ADDRESS, '/', -1)+1, LENGTH(BOARD_IMG_ADDRESS)) 
+		FROM BOARD_IMG bi 
+		WHERE BOARD_IMG_ADDRESS IS NOT NULL
+	</select>
 
 </mapper>

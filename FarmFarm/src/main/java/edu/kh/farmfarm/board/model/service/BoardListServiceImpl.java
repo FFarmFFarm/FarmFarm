@@ -71,6 +71,13 @@ public class BoardListServiceImpl implements  BoardListService{
 		return dao.selectMember(memberNo);
 	}
 
+	/** 게시판 이미지 이름 조회
+	 *
+	 */
+	@Override
+	public List<String> selectBoardImageList() {
+		return dao.selectBoardImageList();
+	}
 
 
 
