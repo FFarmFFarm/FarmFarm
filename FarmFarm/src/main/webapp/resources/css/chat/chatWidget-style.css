@@ -2,7 +2,7 @@
 
 /* 채팅 위젯 */
 .chatWidget-container{
-    display: none;
+    display: block;
     border: 1px solid var(--line-color);
     background-color: white;
     box-shadow: 2px 2px 10px 0px #bcbcbc;
@@ -261,3 +261,7 @@
     display: flex;
 }
 
+/* 채팅 위젯 가리기 */
+.chatWidget-hide{
+    display: none;
+}

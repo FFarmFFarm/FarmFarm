@@ -73,6 +73,19 @@
 		
 	</websocket:handlers>
 	
+	<!-- 채팅2 -->
+	<beans:bean id="chat2Handler" class="edu.kh.farmfarm.chat2.model.websocket.Chat2WebsocketHandler" />
+	<websocket:handlers>
+		<websocket:mapping handler="chat2Handler" path="/echo/chat2"/>
+		
+		<websocket:handshake-interceptors> 
+			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+		</websocket:handshake-interceptors>
+		
+		<websocket:sockjs />
+		
+	</websocket:handlers>
+	
 	<!-- 알림 -->
 	<beans:bean id="NofityHandler" class="edu.kh.farmfarm.notify.model.websocket.NotifyWebsocketHandler" />
 	<websocket:handlers>

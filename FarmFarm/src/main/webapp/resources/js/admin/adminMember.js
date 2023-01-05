@@ -293,7 +293,7 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
     if(memberDetailInfo.profileImg != null) {
         tdImg.setAttribute("src", memberDetailInfo.profileImg);
     } else {
-        tdImg.setAttribute("src", "/resources/images/myPage/profile/profileImg.png");
+        tdImg.setAttribute("src", "/resources/images/default/profileImg.png");
     }
 
     //회원번호

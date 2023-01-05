@@ -57,11 +57,9 @@
 	 </resultMap>
 	 
 	
-	
-	
 	<!-- 채팅방 목록 -->
-	<select id="getChatRoomList" parameterType="_int" resultMap="chatRoom_rm">
-		SELECT ROOM_NO, ROOM_DATE, MEMBER_NO, MEMBER_NO2,
+<select id="selectChatRoomList" parameterType="_int" resultMap="chatRoom_rm">
+		SELECT ROOM_NO, ROOM_DATE, MEMBER_NO, MEMBER_NO2, POST_NO,
 				-- 닉네임1
 			  (SELECT MEMBER_NICKNAME
 			  	FROM MEMBER M1
@@ -131,6 +129,34 @@
 		ORDER BY CHAT_TIME_ORDER DESC NULLS LAST
 	</select>
 	
+	<!-- 채팅방 정보 가져오기 (NEW) -->
+	<select id="selectChatRoomList_new" parameterType="_int" resultMap="chatRoom_rm">
+		SELECT *
+		FROM (SELECT ROOM_NO, NVL(UNREAD_CHAT_COUNT, 0) AS UNREAD_CHAT_COUNT 
+			  FROM(SELECT COUNT(*) AS UNREAD_CHAT_COUNT, ROOM_NO
+			       FROM CHAT WHERE READ_FL = 'N' GROUP BY ROOM_NO)
+			  RIGHT JOIN (SELECT ROOM_NO FROM CHAT_ROOM) USING (ROOM_NO)) UNREAD_CHAT_INFO
+		--
+		JOIN (SELECT ROOM_NO, CR.MEMBER_NO, M1.MEMBER_NICKNAME, M1.PROFILE_IMG, 
+		       		 CR.MEMBER_NO2, M2.MEMBER_NICKNAME AS MEMBER_NICKNAME2, M2.PROFILE_IMG AS PROFILE_IMG2,
+			   		 CR.POST_NO, POST_TITLE, POST_IMG_ADDRESS  AS THUMBNAIL_IMG, POST_IMG_ORDER
+			  FROM CHAT_ROOM CR
+			  JOIN "MEMBER" M1 ON (M1.MEMBER_NO = CR.MEMBER_NO) 
+			  JOIN "MEMBER" M2 ON (M2.MEMBER_NO = CR.MEMBER_NO2)
+			  RIGHT JOIN POST_IMG PIMG ON(CR.POST_NO = PIMG.POST_NO)
+			  RIGHT JOIN POST P ON(CR.POST_NO = P.POST_NO)
+			  WHERE POST_IMG_ORDER = 0
+			  ORDER BY ROOM_NO) ROOM_INFO
+		USING(ROOM_NO)
+		--
+		LEFT JOIN (SELECT C.ROOM_NO, C.CHAT_NO, C.CHAT_CONTENT, C.CHAT_TIME, IMG_FL
+				   FROM CHAT C
+				   JOIN (SELECT MAX(CHAT_NO) AS LAST_CHAT_NO
+			  	 	     FROM CHAT
+			  			 GROUP BY ROOM_NO) C_SUB ON (C_SUB.LAST_CHAT_NO = C.CHAT_NO)) LAST_CHAT_INFO
+		USING(ROOM_NO)
+	</select>
+		
 	<!-- 채팅 업데이트 -->
 	<update id="updateChatReadFl">
 		UPDATE CHAT SET READ_FL ='Y'
@@ -176,18 +202,6 @@
 		WHERE ROOM_NO = #{roomNo}
 	</select>
 	
-	<!-- 채팅 번호 찾기... -->
-<!-- 	<select id="selectChatNo123" parameterType="Chat" resultType="_int">
-		SELECT CHAT_NO 
-		FROM 	(SELECT CHAT_NO
-				FROM CHAT
-				WHERE ROOM_NO = #{roomNo}
-				AND SEND_MEMBER_NO = #{sendMemberNo}
-				AND CHAT_CONTENT = #{chatContent}
-				ORDER BY CHAT_NO DESC)
-		WHERE ROWNUM = 1
-	</select> -->
-	
 	<!-- 채팅 번호 찾기 -->
 	<select id="selectChatNo" parameterType="string" resultType="_int">
 		SELECT CHAT_NO 
@@ -223,8 +237,6 @@
 									DEFAULT,
 									#{postNo})
 	</insert>
-	
-	
 	
 	<!-- 채팅방에서 다루는 상품 번호 -->
 	<select id="selectRoomPostNo" parameterType="_int" resultType="_int">

@@ -1,0 +1,107 @@
+
+/* 모달창 전체 */
+.chatRoom-menu-container{
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--modal-background-color);
+
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: var(--main-font-size);
+  font-family: "NotoSansKR-Bold";
+
+  z-index: 50;
+}
+
+/* 공통 */
+.chatRoom-menu-title{
+  font-weight: 600;
+  font-size: 25px;
+  width: 100%;
+  text-align: center;
+}
+
+.chatRoom-menu-body{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu-confirm-btn{
+
+}
+
+.hide-btn{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+/* 정보보기 */
+.info-menu{
+  background-color: white;
+  width: 300px;
+  height: 200px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+/* 초대하기 */
+.invite-menu{
+  background-color: white;
+  width: 300px;
+  height: 200px;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+/* 나가기 */
+.exit-menu {
+  background-color: white;
+  width: 300px;
+  height: 200px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+/* 버튼 */
+.new-chatRoom-confirm-btn {
+  width: 60%;
+  height: 40px;
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.new-chatRoom-confirm-btn > button {
+  width: 110px;
+  height: 30px;
+  border: none;
+  font-weight: bold;
+  transition-duration: 0.2s;
+}
+
+.new-chatRoom-confirm-btn > button:hover {
+  opacity: 0.9;
+}
+
+.new-chatRoom-confirm-btn > button:last-child {
+  background-color: var(--point-color);
+  color: white;
+}

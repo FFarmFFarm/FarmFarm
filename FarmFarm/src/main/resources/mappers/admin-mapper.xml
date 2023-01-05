@@ -393,7 +393,7 @@
 	<!-- 미처리 신고 상세 조회 -->
 	<select id="selectNewReportDetail" resultMap="admin_rm">
 		SELECT *
-		FROM (SELECT M.MEMBER_NO, MEMBER_ID, AUTHORITY, MEMBER_DEL_FL, 
+		FROM (SELECT M.MEMBER_NO, MEMBER_ID, AUTHORITY, MEMBER_DEL_FL,
 				REPORT_NO, REPORT_MEMBER_NO, REPORT_TARGET_NO, REPORT_REASON, REPORT_CONTENT, REPORT_DATE, REPORT_PENALTY, PROCESS_DATE,
 				RANK() OVER(PARTITION BY REPORT_TARGET_NO, REPORT_TYPE ORDER BY REPORT_NO DESC) AS RANKING,
 				RANK() OVER(PARTITION BY REPORT_TARGET_NO, REPORT_TYPE ORDER BY REPORT_NO) AS REPORT_VOLUME,
@@ -453,6 +453,7 @@
 		WHERE REPORT_PENALTY IS NULL
 		AND REPORT_TYPE = 'M'
 		AND REPORT_TARGET_NO = #{memberNo}
+		ORDER BY REPORT_NO
 	</select>
 
 		<!-- 신고 누적 조회 (판매글, 커뮤니티게시글)-->
@@ -485,15 +486,8 @@
 		WHERE REPORT_PENALTY IS NULL
 		AND REPORT_TYPE = #{reportType}
 		AND REPORT_TARGET_NO = #{contentNo}
+		ORDER BY REPORT_NO
 	</select>
-
-
-
-
-
-
-
-
 
 
 
@@ -519,7 +513,13 @@
 		AND REPORT_TARGET_NO = #{hiddenNo}
 	</update>
 	
-	
+	<!-- 판매자 강제 탈퇴 시, 판매글 삭제 -->
+	<update id="deletePostofSeller">
+		UPDATE POST SET
+		POST_DEL_FL = 'Y'
+		WHERE POST_DEL_FL = 'N'
+		AND MEMBER_NO = #{hiddenNo}
+	</update>
 	
 	
 	
