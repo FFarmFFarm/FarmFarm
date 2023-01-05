@@ -206,6 +206,19 @@ public class ProductAdminDAO {
 		return sqlSession.selectList("productAdmin.selectOrderList_search", pm, rowBounds);
 	}
 
+	/** 주문 상세조회
+	 * @param orderNo
+	 * @return
+	 */
+	public Order selectOrderDetail(int orderNo) {
+		return sqlSession.selectOne("productAdmin.selectOrderDetail", orderNo);
+	}
+
+	public int orderStatus(Map<String, Object> map) {
+		return sqlSession.update("productAdmin.updateOrderStatus", map);
+	}
+
+
 
 
 	
