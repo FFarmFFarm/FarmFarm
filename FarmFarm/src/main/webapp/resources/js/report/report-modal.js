@@ -83,10 +83,26 @@ const reportSubmitBtn = document.getElementById("reportSubmitBtn");
 
 reportSubmitBtn.addEventListener("click", () => {
 
+    // 선택한 신고 사유 가져오기
+    const reportReasonList = document.getElementsByName('reportRadio');
+    const radioText = document.getElementsByClassName('radio-text');
+    
+    for(var i=0; i<reportReasonList.length; i++){
+        
+        if(reportReasonList[i].checked){
+            //fixme: 왜,, 하나씩 밀리는 거지. 일단 임시방편으로 +1함.
+            radioResult = radioText[i].innerText;
+            console.log(radioResult);
+        }
+    }
+
+
+        
     // 판매자 신고
     if(pathname == "seller") {
         reportType.value = "M";
         reportTargetNo.value = targetNo;
+        report();
     }
 
 
@@ -94,6 +110,7 @@ reportSubmitBtn.addEventListener("click", () => {
     if(pathname == "chat") {
         reportType.value = "M";
         reportTargetNo.value = memberNo2;
+        report();
     }
 
 
@@ -101,6 +118,7 @@ reportSubmitBtn.addEventListener("click", () => {
     if(pathname == "post"){
         reportType.value = "P";
         reportTargetNo.value = targetNo;  //postNo
+        report();
     }
 
 
@@ -109,17 +127,18 @@ reportSubmitBtn.addEventListener("click", () => {
     if(pathname.includes('board')){
         reportType.value = "B";
         reportTargetNo.value = targetNo;  //boardNo
+        report();
     }
 
 
     // 와글와글 게시글 - 회원 신고
-
-    const modal = document.getElementById("tempModal");
-
-    if(pathname.includes('board') && modal.classList.add('modal')){
+    if(targetMemberNo != null){
         reportType.value = "M";
-        reportTargetNo.value = targetMemberNo;  //boardNo
-    }
+        reportTargetNo.value = targetMemberNo;
+        report();
+    } 
+
+
 
 
 
@@ -132,27 +151,11 @@ reportSubmitBtn.addEventListener("click", () => {
 
 
     // 연습 test
-    if(pathname == 'testPage'){
-        reportType.value = 'T';
-        reportTargetNo.value = targetNo; //4
-    }
-
-
-    // 선택한 신고 사유 가져오기
-    const reportReasonList = document.getElementsByName('reportRadio');
-    const reportLabel = document.getElementsByTagName("label");
-    const radioText = document.getElementsByClassName('radio-text');
-    
-    for(var i=0; i<reportReasonList.length; i++){
-        
-        if(reportReasonList[i].checked){
-            //fixme: 왜,, 하나씩 밀리는 거지. 일단 임시방편으로 +1함.
-            radioResult = radioText[i].innerText;
-            console.log(radioResult);
-        }
-    }
-
-    report();
+    // if(pathname == 'testPage'){
+    //     reportType.value = 'T';
+    //     reportTargetNo.value = targetNo; //4
+    // }
+   
 
 })
 

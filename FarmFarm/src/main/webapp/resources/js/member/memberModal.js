@@ -19,8 +19,6 @@
                 modal.classList.toggle("show");
                 modalImage.setAttribute("src", th.getAttribute("src"));
                 selectMember(th.id);
-                /* 여기 추가 */
-                // targetMemberNo = th.id;
             });
         }
         
@@ -54,9 +52,6 @@
         modal.classList.toggle("show");
         modalImage.setAttribute("src", wPro.getAttribute("src"));
         selectMember(wPro.id);
-
-        /* 여기 추가 */
-        // targetMemberNo = wPro.id;
       });
     }
 
@@ -84,6 +79,10 @@ const modalSignUpDate = document.getElementById("modalSignUpDate");
 const modal = document.querySelector(".modal");
 
 const selectMember = (memberNo) => {
+  // 신고한 프로필의 회원번호 
+  targetMemberNo = memberNo;
+  console.log(targetMemberNo);
+
   $.ajax({
     url : "/board/member/" + memberNo,
     data : {"memberNo" : memberNo},
@@ -101,10 +100,6 @@ const selectMember = (memberNo) => {
 
       memberNickname.innerText = member.memberNickname;
       modalSignUpDate.innerText = "가입일 :" + member.signUpDate;
-
-      /* 여기 추가 */
-      targetMemberNo = member.memberNo;
-
     }, 
     error : ()=>{
       console.log("ajax 통신 실패");

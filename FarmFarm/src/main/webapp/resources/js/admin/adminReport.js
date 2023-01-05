@@ -59,7 +59,7 @@ const selectReportAccumulate = (hiddenReportType, hiddenMemberNo, hiddenContentN
     $.ajax({
         url: "/admin/selectReportAccumulate",
         data: {"reportType": hiddenReportType,
-                "hiddenMemberNo": hiddenMemberNo,
+                "memberNo": hiddenMemberNo,
                 "contentNo": hiddenContentNo},
         dataType: "JSON",
         type: "POST",
