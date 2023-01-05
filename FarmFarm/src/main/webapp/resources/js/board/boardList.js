@@ -186,6 +186,39 @@ const showBoardList = (cp, sort)=>{
             }
 
             
+            const boardWriter = document.getElementsByClassName("board-writer");
+            if(boardWriter.length > 0){ 
+        
+                // Modal 관련 요소 얻어오기
+                const modal = document.querySelector(".modal");
+                const modalClose = document.getElementById("modal-close");
+                const modalImage = document.getElementById("modal-text");
+        
+                if(loginYN != ""){
+        
+                for(let th of boardWriter){
+                    th.addEventListener("click", () => {
+                        modal.classList.toggle("show");
+                        modalImage.setAttribute("src", th.getAttribute("src"));
+                        selectMember(th.id);
+                    });
+                }
+                
+                // x버튼 동작
+                modalClose.addEventListener("click", () => {
+                    // hide 클래스를 추가해서 0.5초 동안 투명해지는 애니메이션 수행
+                    modal.classList.toggle("hide");
+                    // 0.5초 후에 show, hide 클래스를 모두 제거
+                    setTimeout(() => {
+                        modal.classList.remove("show", "hide");
+                    }, 500);
+                });
+        
+                }
+            }
+
+
+            
             // 페이지 선택 시
             const pageLis = document.querySelectorAll(".pageLi > a");
             for(let a of pageLis){
@@ -215,39 +248,6 @@ const showBoardList = (cp, sort)=>{
                     
                 })
 
-                const commentList = document.querySelector(".comment-list");
-if(commentList != null){
-
-    // 프로필 가져오깅
-    const writerProfile = document.getElementsByClassName("proImg");
-
-    // Modal 관련 요소 얻어오기
-    const modal = document.querySelector(".modal");
-    const modalClose = document.getElementById("modal-close");
-    const modalImage = document.getElementById("modal-text");
-
-    for(let wPro of writerProfile){
-        wPro.addEventListener("click", ()=>{
-        modal.classList.toggle("show");
-        modalImage.setAttribute("src", wPro.getAttribute("src"));
-        selectMember(wPro.id);
-
-        /* 여기 추가 */
-        // targetMemberNo = wPro.id;
-        });
-    }
-
-    // x버튼 동작
-    modalClose.addEventListener("click", () => {
-        // hide 클래스를 추가해서 0.5초 동안 투명해지는 애니메이션 수행
-        modal.classList.toggle("hide");
-        // 0.5초 후에 show, hide 클래스를 모두 제거
-        setTimeout(() => {
-            modal.classList.remove("show", "hide");
-        }, 500);
-    });
-
-}
 
                 urlChange(cp, sort, key, query);
             }
@@ -418,40 +418,4 @@ const urlChange = (cp, sort, key, query)=>{
     // }
 
     history.pushState(null, title, reUrl);
-}
-
-
-  /* 게시글 상세보기에서 실행될겁니당당당~ */
-const commentList = document.querySelector(".comment-list");
-if(commentList != null){
-
-    // 프로필 가져오깅
-    const writerProfile = document.getElementsByClassName("proImg");
-
-    // Modal 관련 요소 얻어오기
-    const modal = document.querySelector(".modal");
-    const modalClose = document.getElementById("modal-close");
-    const modalImage = document.getElementById("modal-text");
-
-    for(let wPro of writerProfile){
-        wPro.addEventListener("click", ()=>{
-        modal.classList.toggle("show");
-        modalImage.setAttribute("src", wPro.getAttribute("src"));
-        selectMember(wPro.id);
-
-        /* 여기 추가 */
-        // targetMemberNo = wPro.id;
-        });
-    }
-
-    // x버튼 동작
-    modalClose.addEventListener("click", () => {
-        // hide 클래스를 추가해서 0.5초 동안 투명해지는 애니메이션 수행
-        modal.classList.toggle("hide");
-        // 0.5초 후에 show, hide 클래스를 모두 제거
-        setTimeout(() => {
-            modal.classList.remove("show", "hide");
-        }, 500);
-    });
-
 }

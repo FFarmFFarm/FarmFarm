@@ -109,7 +109,6 @@
         typeNo = ${boardTypeNo}
     </script>
     
-    <script src="/resources/js/common/common.js"></script>
     <script src="/resources/js/board/boardWrite.js"> </script>
 </body>
 </html>
