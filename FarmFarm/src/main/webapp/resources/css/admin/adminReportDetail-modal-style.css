@@ -19,7 +19,28 @@
     display: none;
 }
 
-.report-detail-modal{
+
+.accumulate-container{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--modal-background-color);
+
+    z-index: 100;
+    
+    /* todo */
+    display: none;
+}
+
+
+.report-detail-modal, .accum-modal{
     background-color: white;
     width: 800px;
     height: 700px;
@@ -29,9 +50,22 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+
+    position: relative;
 }
 
-.report-modal-title{
+
+.next-icon{
+    position: absolute;
+    top: 300px;
+    right: 40px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+
+
+.report-modal-title, .accum-modal-title{
     font-weight: bold;
     height: 40px;
 }
@@ -43,6 +77,14 @@
     font-weight: bold;
     font-size: var(--main-font-size);
 }
+
+
+.accum-bold{
+    color: var(--point-color);
+    font-weight: bold;
+    font-size: var(--small-font-size);
+}
+
 
 .left{ width: 120px;}
 
@@ -60,7 +102,14 @@
     align-items: flex-start;
 }
 
-#tbodyDetail{
+.accum-modal-table{
+    width: 600px;
+    display: flex;
+    align-items: flex-start;
+
+}
+
+#tbodyDetail, #tbodyAccum{
     width: 100%;
 }
 
@@ -71,20 +120,67 @@
     font-size: var(--main-font-size);
 }
 
-
-/* 누적 신고 기록 보기 */
-/* .span-count{
+#tbodyAccum tr td{
+    height: 30px;
     font-size: var(--small-font-size);
-    color: #C43819;
-    text-decoration: underline;
-    border: none;
-    margin-left: 85px;
-} */
-
-/* 누적 신고 옆에 아래 화살표 아이콘 */
-.filter-icon{
-    margin-left: 5px;
 }
+
+
+/* 누적 신고 모달 */
+.accum-row{
+    width: 100%;
+}
+
+/* no */
+.accum-row th:first-of-type{
+    width: 70px;
+}
+
+/* 신고번호 */
+.accum-row th:nth-of-type(2){
+    width: 70px;
+}
+
+/* 신고 일자 */
+.accum-row th:nth-of-type(3){
+    width: 160px;
+}
+
+/* 신고자 */
+.accum-row th:nth-of-type(4){
+    width: 150px;
+}
+
+/* 신고 사유 */
+.accum-row th:nth-of-type(5){
+    width: 150px;
+}
+
+/* 추가 사유 */
+.accum-row th:nth-of-type(6){
+    width: 200px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

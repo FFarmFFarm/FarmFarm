@@ -26,7 +26,7 @@
         인증 완료까지 수일이 소요될 수 있습니다.
     </div>
 
-    <div class="go-home">
+    <div class="to-main button">
         <a href="/">메인페이지</a>
     </div>
 </body>

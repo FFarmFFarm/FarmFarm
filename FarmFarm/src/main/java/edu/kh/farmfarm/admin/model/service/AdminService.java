@@ -62,13 +62,12 @@ public interface AdminService {
 	int sellerApprove(int hiddenNo);
 
 	
-	// 판매자 인증 거절
 	
-	
-	
-	
-	
-	
+	/** 판매자 인증 거절
+	 * @param hiddenNo
+	 * @return result
+	 */
+	int sellerDeny(int hiddenNo);
 	
 	
 
@@ -85,6 +84,18 @@ public interface AdminService {
 	 * @return newReportDetail
 	 */
 	Admin selectNewReportDetail(int hiddenReportNo);
+
+
+
+	/** 신고 누적 기록 조회(모달)
+	 * @param reportType
+	 * @param memberNo
+	 * @param contentNo
+	 * @return map
+	 */
+	Map<String, Object> selectReportAccumulate(String reportType, int memberNo, int contentNo);
+
+
 
 
 

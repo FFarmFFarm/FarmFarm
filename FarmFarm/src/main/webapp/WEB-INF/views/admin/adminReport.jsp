@@ -214,7 +214,14 @@
               </td>
             </tr> -->
           </tbody>
+
         </table>
+
+        <!-- <table class="report-modal-table">
+          <tbody id="tbodyReportHistory"> -->
+              <!-- 누적 신고 기록 -->
+          <!-- </tbody>
+        </table>  -->
 
         <div class="button-div">
           <!-- 회원, 판매자 -->
@@ -226,6 +233,29 @@
           <button id="contentLeaveBtn">반려</button>
           <button id="contentDeleteBtn">삭제</button>
         </div>
+      </div>
+    </div>  
+
+
+    <div class="accumulate-container" id="accumContainer">
+      <div class="accum-modal">
+        <span class="accum-modal-title">누적 신고 기록</span>
+
+        <table class="accum-modal-table">
+          <tbody id="tbodyAccum">
+            <!-- <tr class="accum-row">
+              <td class="accum-bold">NO</td>
+              <td class="accum-bold">신고번호</td>
+              <td class="accum-bold">신고 일자</td>
+              <td class="accum-bold">신고자</td>
+              <td class="accum-bold">신고 사유</td>
+              <td class="accum-bold">추가 사유</td>
+            </tr>
+            <tr>
+              <td></td>
+            </tr> -->
+          </tbody>
+        </table>
       </div>
     </div>  
 

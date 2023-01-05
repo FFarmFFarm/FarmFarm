@@ -29,22 +29,28 @@
                     <input type="hidden" id="reportType">
                     <input type="hidden" id="reportTargetNo">
 
-                    <label for="0"><input type="radio" name="reportRadio" id="0">광고 또는 스팸 </label>
-                    <label for="1"><input type="radio" name="reportRadio" id="1">음란물 및 선정성 정보</label>
-                    <label for="2"><input type="radio" name="reportRadio" id="2">사기 또는 거짓 정보</label>
-                    <label for="3"><input type="radio" name="reportRadio" id="3">불법 또는 규제 상품 판매</label>
-                    <label for="4"><input type="radio" name="reportRadio" id="4">혐오 발언 또는 상징 </label>
-                    <label for="5"><input type="radio" name="reportRadio" id="5">따돌림 또는 괴롭힘</label>
-                    <label for="6"><input type="radio" name="reportRadio" id="6">폭력 또는 위험한 단체</label> 
-                    <label for="7"><input type="radio" name="reportRadio" id="7">지식재산권 침해 </label>
-                    <label for="8"><input type="radio" name="reportRadio" id="8">기타</label>
+                    <label for="0"><input type="radio" name="reportRadio" id="0"><span class="radio-text">광고 또는 스팸</span></label>
+                    <label for="1"><input type="radio" name="reportRadio" id="1"><span class="radio-text">음란물 및 선정성 정보</span></label>
+                    <label for="2"><input type="radio" name="reportRadio" id="2"><span class="radio-text">사기 또는 거짓 정보</span></label>
+                    <label for="3"><input type="radio" name="reportRadio" id="3"><span class="radio-text">불법 또는 규제 상품 판매</span></label>
+                    <label for="4"><input type="radio" name="reportRadio" id="4"><span class="radio-text">혐오 발언 또는 상징</span></label>
+                    <label for="5"><input type="radio" name="reportRadio" id="5"><span class="radio-text">따돌림 또는 괴롭힘</span></label>
+                    <label for="6"><input type="radio" name="reportRadio" id="6"><span class="radio-text">폭력 또는 위험한 단체</span></label> 
+                    <label for="7"><input type="radio" name="reportRadio" id="7"><span class="radio-text">지식재산권 침해</span></label>
+                    <label for="8"><input type="radio" name="reportRadio" id="8"><span class="radio-text">기타</span></label>
 
-                    <textarea id="reportContent" cols="50" rows="3" spellcheck="false"></textarea><br>
+                    <textarea id="reportContent" cols="50" rows="3" spellcheck="false" maxlength="500" placeholder="500자 제한"></textarea><br>
                     <button id="reportSubmitBtn">신고하기</button>
                 </div>
             </div>
+
+
+            <div id="xIcon"><i class="fa-sharp fa-solid fa-xmark"></i></div>
         </div>
     </div>
+    
+    <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/> 
+    
     <script>
         var radioResult;
     </script>

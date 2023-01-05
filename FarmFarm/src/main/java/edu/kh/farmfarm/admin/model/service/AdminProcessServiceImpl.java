@@ -71,11 +71,6 @@ public class AdminProcessServiceImpl implements AdminProcessService{
 		
 		int result = 0;
 		
-		
-		if(reportType.equals("B")) {
-			System.out.println(hiddenContentNo + "if문 된다");
-		}
-		
 		// 커뮤니티 게시글 삭제
 		if(reportType.equals("B")) {
 			result = dao.reportDeleteBoard(hiddenContentNo);
@@ -107,11 +102,19 @@ public class AdminProcessServiceImpl implements AdminProcessService{
 	}	
 	
 	
+	//-----------------------------------------------
 	
 	// 정지된 계정 리스트 불러오기 (스케쥴링)
 	@Override
 	public List<Admin> selectBannedAccountList() {
 		return dao.selectBannedAccountList();
+	}
+	
+
+	// 정지된 계정 활성화 (스케쥴링)
+	@Override
+	public int activateAccount(int targetNo) {
+		return dao.activateAccount(targetNo);
 	}
 	
 	

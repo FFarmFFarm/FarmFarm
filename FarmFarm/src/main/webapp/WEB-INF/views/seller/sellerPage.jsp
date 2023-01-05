@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="/resources/css/seller/sellerPage-style.css">
     <link rel="stylesheet" href="/resources/css/common/header-style.css">
     <link rel="stylesheet" href="/resources/css/common/footer-style.css">
+    <link rel="stylesheet" href="/resources/css/report/report-modal-style.css" />
 
 
     <script src="https://kit.fontawesome.com/d449774bd8.js" crossorigin="anonymous"></script>
@@ -221,7 +222,10 @@
         <c:remove var="message"/>
     </c:if>
 
+    <jsp:include page="/WEB-INF/views/report/report-modal.jsp"/> 
+    
     <script src="/resources/js/seller/sellerPage.js"></script>
+    <script src="/resources/js/report/report-modal.js"></script>
 
     <!-- ajax -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>

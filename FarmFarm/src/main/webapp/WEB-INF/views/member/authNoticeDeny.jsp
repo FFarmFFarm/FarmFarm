@@ -28,10 +28,10 @@
     </div>
 
     <div class="notice-text">
-        판매자 인증 승인 거절
+        판매자 인증 보류
     </div>
     <div class="notice-text2">
-        반려 사유 : 인증 사진 미흡<br>
+        보류 사유 : 인증 사진 미흡<br>
         실시간 상담을 이용하여 추가 인증을 진행하시기 바랍니다.
     </div>
 
