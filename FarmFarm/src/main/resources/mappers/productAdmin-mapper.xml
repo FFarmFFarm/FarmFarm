@@ -18,6 +18,7 @@
 	      <result property="soldoutFl" column="SOLDOUT_FL" />
 	      <result property="productDelFl" column="PRODUCT_DEL_FL" />
 	      <result property="productImgAddress" column="PRODUCT_IMG_ADDRESS" />
+	      <result property="productStatus" column="PRODUCT_STATUS" />    
 	      
  	      <collection property="imgList" 
 	      			  javaType="java.util.ArrayList" ofType="ProductImg"
@@ -46,23 +47,25 @@
 		<!-- 나머지 일반 컬럼 -->
 		<result property="memberNo" column="MEMBER_NO" />
 		<result property="memberId" column="MEMBER_ID" />
+		<result property="memberName" column="MEMBER_NAME" />
+		<result property="memberTel" column="MEMBER_TEL" />
 		<result property="orderDate" column="ORDER_DATE" />
+		<result property="orderAddress" column="ORDER_ADDRESS" />
 		<result property="orderStatus" column="ORDER_STATUS" />
 		<result property="invoiceNo" column="INVOICE_NO" />
 		<result property="orderPrice" column="ORDER_PRICE" />
 		<result property="impUid" column="IMP_UID" />
 		<result property="productCount" column="PRODUCT_COUNT" />
 		<result property="productSum" column="PRODUCT_SUM" />
-		  
-<!-- 		 <collection property="productList" 
+		
+ 		 <collection property="productList" 
 		javaType="java.util.ArrayList" ofType="Product"
-		select="selectProductList"
-		column = "{orderNo=ORDER_NO, memberNo=MEMBER_NO}"/> -->
+		select="selectOrderProduct"
+		column = "ORDER_NO"/> 
  	</resultMap>
   
 		
-		
-		
+
 		
 	<!-- 팜팜 상품 등록 -->
 	<insert id="enrollProduct" parameterType="Product" useGeneratedKeys="true">
@@ -298,6 +301,31 @@
 		ORDER BY ORDER_NO DESC
 	</select>
 	
+	
+	<!-- 주문 정보 조회 -->
+	<select id="selectOrderDetail" resultMap="order_rm">
+		SELECT ORDER_NO, ORDER_STATUS, INVOICE_NO, MEMBER_NAME, MEMBER_TEL,
+			ORDER_ADDRESS,TO_CHAR(ORDER_DATE, 'YYYY-MM-DD HH:mm:ss') ORDER_DATE
+		FROM "ORDER" O
+		LEFT JOIN MEMBER USING(MEMBER_NO)
+		LEFT JOIN ORDER_SHIPPING USING(ORDER_NO)
+		WHERE ORDER_NO = #{orderNo}
+	</select>
+	
+	<!-- 주문 상품 조회 -->
+	<select id="selectOrderProduct" resultMap="product_rm">
+		SELECT PRODUCT_PRICE, PRODUCT_AMOUNT, PRODUCT_NAME, PRODUCT_IMG_ADDRESS, PRODUCT_STATUS
+		FROM ORDER_PRODUCT
+		JOIN PRODUCT USING (PRODUCT_NO)
+		JOIN PRODUCT_IMG USING (PRODUCT_NO)
+		WHERE ORDER_NO= #{orderNo}
+		AND PRODUCT_IMG_ORDER=0
+	</select>
+	
+	<update id="updateOrderStatus">
+		UPDATE "ORDER" SET ORDER_STATUS = #{oStatus}
+		WHERE ORDER_NO = #{orderNo}
+	</update>
 	
 	
 </mapper>
