@@ -140,6 +140,13 @@ public interface MyPageService {
 	List<String> selectReviewImageList();
 
 
+	/** 배경 이미지 기본이미지로 변경
+	 * @param loginMember
+	 * @return
+	 */
+	int defaultBgImg(Member loginMember);
+
+
 
 
 

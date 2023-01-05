@@ -191,6 +191,16 @@ public class MyPageServiceImpl implements MyPageService {
 		return result;
 	}
 	
+	
+	/** 기본이미지로 변경
+	 *
+	 */
+	@Override
+	public int defaultBgImg(Member loginMember) {
+		// TODO Auto-generated method stub
+		return dao.defaultBgImg(loginMember);
+	}
+	
 	/** 주문 목록 구매 확정
 	 *
 	 */
