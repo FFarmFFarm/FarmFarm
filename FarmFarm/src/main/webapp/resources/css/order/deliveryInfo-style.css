@@ -202,13 +202,31 @@ input{
 
 
 
-
+/* 새로운 주소를 추가하는 css 입니당~~ */
 
 .new-add-area{
   border: 1px solid black;
-  display: flex;
+  /* display: flex; */
   -webkit-box-align: center;
   align-items: center;
   width: 100%;
   padding: 24px 0px 18px;
+}
+
+.new-style{
+  border:  1px solid red;
+  width: 100%;
+  height: 30px;
+}
+#sample6_detailAddress{
+  border:  1px solid blue;
+  width: 100%;
+  height: 30px;
+
+}
+
+.addadd-btn{
+  border: 1px solid violet;
+  width: 150px;
+  height: 30px;
 }

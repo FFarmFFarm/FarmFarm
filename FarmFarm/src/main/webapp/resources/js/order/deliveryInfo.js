@@ -97,7 +97,7 @@ function sample6_execDaumPostcode() {
   new daum.Postcode({
       oncomplete: function (data) {
 
-        history.pushState(null, null, "/cart/address/new");
+        // history.pushState(null, null, "/cart/address/new");
 
           // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
@@ -123,24 +123,43 @@ function sample6_execDaumPostcode() {
           newAddArea.classList.add("new-add-area");
           newAddForm.append(newAddArea);
           
-          const newPostCode = document.createElement("div");
+          const newPostCode = document.createElement("input");
+          // const newPostCode = document.createElement("div");
+          newPostCode.setAttribute("type", "text");
           newPostCode.setAttribute("id", "sample6_postcode");
+          newPostCode.classList.add("new-style");
           
-          const newAdd = document.createElement("div");
+          const newAdd = document.createElement("input");
+          // const newAdd = document.createElement("div");
+          newAdd.setAttribute("type", "text");
           newAdd.setAttribute("id", "sample6_address");
+          newAdd.classList.add("new-style");
           
-          const newDAdd = document.createElement("div");
+          const newDAdd = document.createElement("input");
+          newDAdd.setAttribute("type", "text");
           newDAdd.setAttribute("id", "sample6_detailAddress");
-
+          newDAdd.classList.add("new-style");
+          
           const newAddBtn = document.createElement("button");
+          newAddBtn.innerText = "주소 추가하기~";
+          newAddBtn.classList.add("addadd-btn");
 
           newAddArea.append(newPostCode, newAdd, newDAdd, newAddBtn)
 
           // 우편번호와 주소 정보를 해당 필드에 넣는다.
-          document.getElementById('sample6_postcode').value = data.zonecode;
-          document.getElementById("sample6_address").value = addr;
+          // newPostCode.value = data.zonecode;
+
+          newPostCode.value = data.zonecode;
+          newAdd.value = addr;
+
+          // document.getElementById('sample6_postcode').value = data.zonecode;
+          // document.getElementById("sample6_address").value = addr;
+
+          // document.getElementById('sample6_postcode').innerText = data.zonecode;
+          // document.getElementById("sample6_address").innerText = addr;
           // 커서를 상세주소 필드로 이동한다.
-          document.getElementById("sample6_detailAddress").focus();
+          // document.getElementById("sample6_detailAddress").focus();
+          newDAdd.focus();
       }
   }).open();
 }
