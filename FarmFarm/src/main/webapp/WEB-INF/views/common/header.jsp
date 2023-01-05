@@ -253,12 +253,15 @@
       }
 
       /* 외부 영역 클릭 시 클릭 해제 */
-      addEventListener('click', (e)=>{
-        const target = e.target;
-        if(!document.getElementById('myDropdown1').contains(e.target)){
-          document.getElementById('myDropdown1').style.display='';
-        }
-      })
+      const myDropdown11 = document.querySelector(".dropdown-message");
+      if(myDropdown11 != null){
+        addEventListener('click', (e)=>{
+          const target = e.target;
+          if(!document.getElementById('myDropdown1').contains(e.target)){
+            document.getElementById('myDropdown1').style.display='';
+          }
+        })
+      }
 
 
     </script>

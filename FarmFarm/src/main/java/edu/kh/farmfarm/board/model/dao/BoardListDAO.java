@@ -26,19 +26,17 @@ public class BoardListDAO {
 
 	// 와글와글 게시판 수 조회
 	public int getListCount(int boardTypeNo) {
-		return sqlSession.selectOne("boardMapper.getListCount", boardTypeNo);
+		return sqlSession.selectOne("boardMapper.getListCountSearch", boardTypeNo);
 	}
 	
 	// 와글와글 게시판 목록 불러오기
-	public List<Board> selecBoardtList(Pagination pagination, Map<String, Object> searchMap) {
+	public List<Board> selecBoardtList(Pagination pagination, Map<String, Object> pm) {
 		
 		int offset = (pagination.getCurrentPage()-1)*pagination.getLimit();
 		RowBounds rowbounds = new RowBounds(offset, pagination.getLimit());
 		
-		return sqlSession.selectList("boardMapper.selecBoardtList", searchMap, rowbounds);
+		return sqlSession.selectList("boardMapper.selecBoardtList", pm, rowbounds);
 	}
-
-	
 	
 	// 검색조건에 맞는 게시판 수 조회
 	public int getListCount(Map<String, Object> searchMap) {
@@ -60,5 +58,6 @@ public class BoardListDAO {
 	public Member selectMember(int memberNo) {
 		return sqlSession.selectOne("memberMapper.selectMember", memberNo);
 	}
+
 
 }
