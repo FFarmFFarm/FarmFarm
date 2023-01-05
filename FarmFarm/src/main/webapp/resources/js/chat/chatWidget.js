@@ -51,25 +51,35 @@ addEventListener("load", ()=>{
 
 // ---------------------------- 비동기 요청 ---------------------------------- //
 
+
+/* 채팅 위젯 이외의 영역 클릭 시, 채팅 위젯이 닫히게 함 */
+/* 원리 : 내가 선택한 영역(=이벤트가 발생한 영역)의 최상위 요소가
+내가 선택한 요소를 포함하고 있는지를 확인해서, 포함하지 않고 있으면 가림 */
+
+
+
 /* 채팅 위젯 열기 이벤트 */
-document.getElementById('showChatWidget').addEventListener('change', (e)=>{
-    if(e.target.checked) {
-        // chatWidget-footer를 보이게 합니다.`
-        document.getElementById('chatWidgetFooter').style.display='block';
 
-        // 먼저 채팅 위젯에 내용을 채워 넣습니다.
+// 버튼 이벤트
+document.querySelector('.btn-chat').addEventListener('click', ()=>{
+    const chatWidgetContainer = document.querySelector('.chatWidget-container');
+    document.querySelector('.chatWidget-container').classList.toggle('chatWidget-hide');
+    if(chatWidgetContainer.classList.contains('chatWidget-hide')){
         requestAndFillMyChatWidget();
-
-        // chatWidget-footer를 보이게 합니다.`
-        document.getElementById('chatWidgetFooter').style.display = 'none';
-
-        // 버튼이 체크되어있으면, style을 block으로 만들어 보이게 합니다.
-        document.querySelector('.chatWidget-container').style.display='block';
-
-    } else {
-        document.querySelector('.chatWidget-container').style.display='none';
     }
 })
+
+/* 외부 영역을 클릭했을 때 */
+addEventListener('click', (e)=>{
+    const chatWidgetContainer = document.querySelector('.chatWidget-container');
+
+    if(!chatWidgetContainer.contains(e.target) && !document.querySelector('.btn-chat').contains(e.target)) {
+        if(!chatWidgetContainer.classList.contains('chatWidget-hide')){
+            chatWidgetContainer.classList.toggle('chatWidget-hide');
+        }
+    }
+})
+
 
 /* 채팅 위젯에 채워넣을 값을 요청하고, 값을 채워넣는 함수 'fillChatWidget()'을 호출하는 함수 */
 const requestAndFillMyChatWidget = () => {
@@ -83,7 +93,8 @@ const requestAndFillMyChatWidget = () => {
     
             // 읽지 않은게 있으면...
             let unReadCountAll = response.data.unReadCountAll;
-    
+            
+            // 
             if (unReadCountAll > 0) {
                 document.getElementById('chatAlarmDot').style.display='block';
             }
@@ -182,7 +193,5 @@ const fillChatWidget = (chatRoomList) => {
     }
     
 }
-
-
 
 
