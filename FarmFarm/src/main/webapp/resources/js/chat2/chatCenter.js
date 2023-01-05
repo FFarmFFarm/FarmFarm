@@ -162,7 +162,7 @@ for(let roomType of roomTypeList) {
 
 /* 채팅방 모달 관련 js */
 document.querySelector('.chat-sidebar-footer').addEventListener("click", ()=>{
-    if(authority == 0) { // 다른 파일에 있음
+    if(myAuthority == 0) { // 다른 파일에 있음
         document.getElementById('newChatRoomModal').classList.toggle('hide');
     }
 })
@@ -185,7 +185,7 @@ document.querySelector('#newChatRoomConfirmBtn').addEventListener('click', () =>
     // 채팅방 이름 정규식 표현으로 걸러내기
     let notice = document.getElementById('inputNewChatRoomNameNotice');
     let newRoomName = document.getElementById('inputNewChatRoomName');
-    let regEx = /^[ㄱ-힣\d]{3,10}$/;
+    let regEx = /^[ㄱ-힣\d\s]{3,10}$/;
     notice.classList.remove('error');
 
     if(newRoomName.value.trim().length == 0) { // 공백인 경우
