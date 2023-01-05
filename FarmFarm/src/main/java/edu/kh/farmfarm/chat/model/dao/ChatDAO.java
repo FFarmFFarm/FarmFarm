@@ -23,8 +23,8 @@ public class ChatDAO {
 	 * @param memberNo
 	 * @return
 	 */
-	public List<ChatRoom> getChatRoomList(int myMemberNo) {
-		return sqlSession.selectList("chatMapper.getChatRoomList", myMemberNo);
+	public List<ChatRoom> selectChatRoomList(int myMemberNo) {
+		return sqlSession.selectList("chatMapper.selectChatRoomList_new", myMemberNo);
 	}
 	
 	/** 채팅 내역 가져오기 전, 읽음 처리
