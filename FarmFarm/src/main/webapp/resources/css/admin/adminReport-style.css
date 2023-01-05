@@ -26,7 +26,7 @@ main{
 .admin-nav-sub:nth-of-type(7){
     height: 30px;
     padding-top: 5px;
-    background-color: #eef4ed;;
+    background-color: #eef4ed;
     font-weight: bold;
 }
 
@@ -75,7 +75,7 @@ main{
 
 .report-select{
     width: 920px;
-    height: 520px;
+    height: 535px;
     border-radius: 10px;
     background-color: white;
     overflow: hidden;
@@ -95,6 +95,7 @@ main{
     margin: 10px 20px;
     font-size: var(--small-font-size);
     text-align: center;
+    vertical-align: middle;
     border-collapse: collapse;
 }
 
@@ -110,6 +111,8 @@ main{
 .report-list-table td{
     padding-bottom: 10px;
     height: 31px;
+    vertical-align: middle;
+    padding: 5px;
 }
 
 .report-list-row:hover{
@@ -252,7 +255,7 @@ main{
 }
 
 /* //todo */
-.sortFilter:first-of-type{
+.sortFilter:nth-of-type(2){
     display: none;
 }
 

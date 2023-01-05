@@ -41,6 +41,17 @@ public class AdminProcessDAO {
 	public int changeReportStatus(int hiddenNo) {
 		return sqlSession.update("adminMapper.changeReportStatus", hiddenNo);
 	}
+	
+	
+	
+	/** 강제 탈퇴된 판매자의 판매글 삭제
+	 * @param hiddenNo
+	 * @return result
+	 */
+	public int deletePostofSeller(int hiddenNo) {
+		return sqlSession.update("adminMapper.deletePostofSeller", hiddenNo);
+	}
+
 
 
 	/** 신고 회원 계정 정지
@@ -116,6 +127,8 @@ public class AdminProcessDAO {
 		// processDate는 변경하지 않음!!
 		return sqlSession.update("adminMapper.activateAccount", targetNo);
 	}
+
+
 
 
 }

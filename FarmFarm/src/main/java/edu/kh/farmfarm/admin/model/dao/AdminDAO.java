@@ -229,17 +229,18 @@ public class AdminDAO {
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("reportType", reportType);
-		paramMap.put("memberNo", memberNo);
 		paramMap.put("contentNo", contentNo);
 		
 		List<Admin> accumMemberList = new ArrayList<Admin>();
 		List<Admin> accumContentList = new ArrayList<Admin>();
 		
-		if(reportType.equals("M")) {
-			accumMemberList = sqlSession.selectList("adminMapper.accumMemberList", paramMap);
-		
-		} else {
-			accumContentList = sqlSession.selectList("adminMapper.accumContentList", paramMap);
+		if(reportType != null) {
+			if(reportType.equals("M")) {
+				accumMemberList = sqlSession.selectList("adminMapper.accumMemberList", memberNo);
+				
+			} else {
+				accumContentList = sqlSession.selectList("adminMapper.accumContentList", paramMap);
+			}
 		}
 		
 		 Map<String, Object> map = new HashMap<String, Object>();

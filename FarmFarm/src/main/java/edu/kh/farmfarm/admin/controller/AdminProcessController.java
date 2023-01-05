@@ -44,17 +44,18 @@ public class AdminProcessController {
 	 */
 	
 	
-	// 신고 계정 - 강제탈퇴  // 신고된 회원 강제 탈퇴 + REPORT 테이블 변경하기
+	// 신고 계정 - 강제탈퇴  // 신고된 회원 강제 탈퇴 + REPORT 테이블 변경하기 + 판매자면 판매상품 지우기
 	@PostMapping("/report/kickout")
 	@ResponseBody
-	public int reportMemberKickout(@SessionAttribute(value="loginMember") Member loginMember, int hiddenNo) {
+	public int reportMemberKickout(@SessionAttribute(value="loginMember") Member loginMember, 
+									int hiddenNo, int authority) {
 		
 		// 관리자인지 확인
 		int result = service.checkAdmin();
 		
 		if(result == 1  && loginMember != null) {
 			
-			result = service.reportMemberKickout(hiddenNo);
+			result = service.reportMemberKickout(hiddenNo, authority);
 		}
 		return result;
 	}
