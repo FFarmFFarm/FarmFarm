@@ -126,8 +126,6 @@ ${board.boardContent}
     <script src="/resources/js/board/boardDetail.js"> </script>
     <script src="/resources/js/board/comment.js"> </script>
 
-    <script src="/resources/js/common/common.js"></script> 
-
     <script src="/resources/js/member/memberModal.js"> </script>
 </body>
 </html>
