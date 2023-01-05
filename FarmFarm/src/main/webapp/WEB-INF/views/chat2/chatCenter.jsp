@@ -12,6 +12,7 @@
     <title>팜팜 | 팜팜 채팅 2.0</title>
 
     <link rel="stylesheet" href="/resources/css/chat2/chatCenter-style.css">
+    <link rel="stylesheet" href="/resources/css/chat2/newChatRoomModal-style.css">
     <link rel="stylesheet" href="/resources/css/common/header-style.css">
 
     
@@ -154,6 +155,9 @@
 
         </section>
     </div>
+
+    <!-- 새 채팅방 만들기 이벤트 -->
+    <jsp:include page="/WEB-INF/views/chat2/newChatRoomModal.jsp" />
 
     <!-- https://github.com/sockjs/sockjs-client -->
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>

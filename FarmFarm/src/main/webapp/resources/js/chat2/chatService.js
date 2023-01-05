@@ -71,6 +71,8 @@ const packUpElement = (elementName, elementClass, elementContent) => {
 /* 내 채팅방 목록을 요청하는 함수 feat : axios */
 const selectChatRoomList = () => {
 
+    console.log('목록을 가져오고 있어요...')
+    
     // 채팅방 리스트가 들어갈 자리
     const chatPreviewArea = document.querySelector('.chat-preview-area');
 
@@ -679,3 +681,4 @@ document.getElementById('bottomBtn').addEventListener('click', ()=>{
     let roomHeight = calculateRoomHeight();
     document.getElementById('readingArea').scrollTo(0, roomHeight);
 })
+

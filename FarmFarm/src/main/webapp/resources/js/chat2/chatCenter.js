@@ -160,3 +160,62 @@ for(let roomType of roomTypeList) {
     })
 }
 
+/* 채팅방 모달 관련 js */
+document.querySelector('.chat-sidebar-footer').addEventListener("click", ()=>{
+    document.getElementById('newChatRoomModal').classList.toggle('hide');
+})
+
+/* 모달창 닫기 x 버튼 */
+document.querySelector('#newChatRoomConatainerHideBtn').addEventListener('click', ()=>{
+    document.getElementById('inputNewChatRoomName').value = "";
+    document.getElementById('newChatRoomModal').classList.toggle('hide');
+})
+
+/* 모달창 닫기 취소 버튼 */
+document.querySelector('#newChatRoomCalcelBtn').addEventListener('click', ()=>{
+    document.getElementById('inputNewChatRoomName').value = "";
+    document.getElementById('newChatRoomModal').classList.toggle('hide');
+})
+
+/* 모달창 확인 버튼 클릭 시 생성! 단, 판매자는 채팅방을 만들 수 없음 ㅠ*/
+document.querySelector('#newChatRoomConfirmBtn').addEventListener('click', () => {
+    
+    // 채팅방 이름 정규식 표현으로 걸러내기
+    let notice = document.getElementById('inputNewChatRoomNameNotice');
+    let newRoomName = document.getElementById('inputNewChatRoomName');
+    let regEx = /^[ㄱ-힣\d]{3,10}$/;
+    notice.classList.remove('error');
+
+    if(newRoomName.value.trim().length == 0) { // 공백인 경우
+        newRoomName.focus();
+        notice.classList.add('error');
+
+    } else { // 정규표현식 통과한 경우
+
+        let newRoomNameValue = newRoomName.value.trim();
+
+        if(regEx.test(newRoomName.value.trim())){
+            let formData = new FormData();
+            formData.append("sellerNo", -1);
+            formData.append("roomType", 0);
+            formData.append("newRoomName", newRoomNameValue);
+        
+            axios.post('/chat/insert/newRoom', formData
+                ).then(function(response){
+                    console.log(response);
+                }).catch(function(error){
+                    console.log("error");
+                    console.log(error);
+                })
+            
+            selectChatRoomList();
+            document.getElementById('inputNewChatRoomName').value = "";
+            document.getElementById('newChatRoomModal').classList.toggle('hide');
+            
+
+        } else { // 정규표현식 걸린 경우
+            newRoomName.focus();
+            notice.classList.add('error');
+        }
+    }
+})

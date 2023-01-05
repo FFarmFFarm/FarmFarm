@@ -78,8 +78,10 @@ public class Chat2Controller {
 	
 	// 새 채팅방 개설(INSERT)
 	// 개설 후 바로 참가 DAO가 실행됨
+	// 판매 유형이 아닌 경우, sellerNo에 -1을 넣어주시면 좋습니다.
 	@PostMapping("/insert/newRoom")
-	public String insertNewChatRoom(int sellerNo, int roomType, HttpSession session,
+	public String insertNewChatRoom(int sellerNo, int roomType, String newRoomName,
+				  HttpSession session,
 			 	  @RequestHeader(value = "referer") String referer,
 			 	  RedirectAttributes ra) {
 		
@@ -98,7 +100,7 @@ public class Chat2Controller {
 				// 만약, 생성에 실패하면 -1이 반환될 예정임
 				Chat2Room chatRoom = new Chat2Room();
 				
-				chatRoom.setRoomName("새 채팅방");
+				chatRoom.setRoomName(newRoomName);
 				chatRoom.setRoomType(roomType);
 				
 				int roomNo = service.insertNewChatRoom(memberNo, sellerNo, chatRoom);

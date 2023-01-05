@@ -48,13 +48,42 @@ public class Chat2ServiceImpl implements Chat2Service {
 		// 1. 리턴용 변수 선언
 		int result = 0;
 		
-		// 2. 채팅방 생성하기 전, 채팅방이 존재하는지를 먼저 점검
-		chatRoom.setMemberNo(memberNo);
-		
-		int resultSelectChatRoom = dao.selectChatRoomExist(chatRoom);
-		
-		if(resultSelectChatRoom == 0) {
+		// 2. 채팅방 생성 시작
+		if(chatRoom.getRoomType() > 0) { // A. 상품 관련 채팅방인 경우? 중복 방지를 위해 해당 채팅방 여부를 확인 후 생성
+			chatRoom.setMemberNo(memberNo);
 			
+			// 1. 채팅방 중복 여부를 체크
+			int resultSelectChatRoom = dao.selectChatRoomExist(chatRoom);
+			
+			if(resultSelectChatRoom == 0) { // 중복이 없으면?
+				
+				// 2. 채팅방 생성하기
+				int resultInsertNewChatRoom = dao.insertNewChatRoom(chatRoom);
+				
+				if(resultInsertNewChatRoom > 0) { // 채팅방이 생성되었으면?
+					// 3. 채팅방 입장하기
+					int roomNo = chatRoom.getRoomNo();
+					
+					Chat2Enter chatEnter = new Chat2Enter();
+					
+					chatEnter.setMemberNo(memberNo);
+					chatEnter.setRoomNo(roomNo);
+					
+					int resultInsertChatEnter = dao.insertChatEnter(chatEnter);
+					
+					result = resultInsertChatEnter;
+					
+					// 4. 판매자를 초대함
+					chatEnter.setRoomNo(roomNo);
+					chatEnter.setMemberNo(sellerNo);
+					
+					resultInsertChatEnter = dao.insertChatEnter(chatEnter);
+					result = resultInsertChatEnter;
+				}
+			}
+			
+		} else { // B. 일반 채팅방인 경우? 즉시 생성
+			// 1. 채팅방 생성하기
 			int resultInsertNewChatRoom = dao.insertNewChatRoom(chatRoom);
 			
 			if(resultInsertNewChatRoom > 0) { // 채팅방이 생성되었으면?
@@ -69,14 +98,6 @@ public class Chat2ServiceImpl implements Chat2Service {
 				int resultInsertChatEnter = dao.insertChatEnter(chatEnter);
 				
 				result = resultInsertChatEnter;
-				
-				// 3. 만약 상품 관련 채팅방인 경우, 해당 판매자도 참가시킴
-				if(chatRoom.getRoomType() > 0) {
-					chatEnter.setMemberNo(sellerNo);
-					
-					resultInsertChatEnter = dao.insertChatEnter(chatEnter);
-					result = resultInsertChatEnter;
-				}
 			}
 		}
 		

@@ -157,7 +157,6 @@ body{
     justify-content: center;
     
     cursor: pointer;
-    transition-duration: 0.2s;
 }
 
 .roomTypeFilter > input{
@@ -165,8 +164,8 @@ body{
 }
 
 .roomTypeFilter > label:hover{
-    background-color: var(--point-color);
-    color: white;
+    font-weight: 600;
+    color: var(--point-color);
 }
 
 .roomTypeFilter > input:checked + label{
@@ -198,6 +197,12 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
+
+    cursor: pointer;
+}
+
+.chat-sidebar-footer:hover{
+    opacity: 0.9;
 }
 
 /* 스크롤바 숨기기 */
