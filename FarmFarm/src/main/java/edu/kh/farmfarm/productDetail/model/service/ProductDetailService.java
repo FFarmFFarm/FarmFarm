@@ -76,4 +76,9 @@ public interface ProductDetailService {
 	 */
 	int deleteReview(int reviewNo);
 
+	/** 상품 이미지 이름 조회
+	 * @return
+	 */
+	List<String> selectProductImageList();
+
 }

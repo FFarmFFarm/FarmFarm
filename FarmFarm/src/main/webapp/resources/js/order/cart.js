@@ -377,6 +377,3 @@ document.getElementById('orderBtn').addEventListener('click', () => {
   form.submit();
 })
 
-
-
-

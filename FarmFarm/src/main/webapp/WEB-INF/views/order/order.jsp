@@ -54,13 +54,13 @@
                 class="order-thumbnail-img"
                 />
               </div>
-            <span class="order-product-name">${product.productName}</span>
-            <span class="order-amount">${product.productAmount}</span>
-            <span class="order-price-info"><fmt:formatNumber value="${productPrice}" pattern="#,###" /></span>
-            <c:set var="totalPrice" value="${totalPrice + product.productPrice * product.productAmount}"/>
-
-          </li>
-        </c:forEach>
+              <span class="order-product-name">${product.productName}</span>
+              <span class="order-amount">${product.productAmount}</span>
+              <span class="order-price-info"><fmt:formatNumber value="${productPrice}" pattern="#,###" /></span>
+              <c:set var="totalPrice" value="${totalPrice + product.productPrice * product.productAmount}"/>
+              
+            </li>
+          </c:forEach>
         </ul>
       </section>
       <section class="member-info-container">
@@ -73,7 +73,7 @@
           <div class="info-content">
             <div class="member-name">${loginMember.memberName}</div>
             <div class="member-tel">${loginMember.to}</div>
-
+            
           </div>
         </div>
       </section>
@@ -87,6 +87,7 @@
             <div class="member-address">
               <span></span>
               <span>${loginMember.memberAddress2}</span>
+              <input type="hidden" name="orderAddress" value="${loginMember.memberAddress2}" id="orderAddress"/>
             </div>
 
           </div>
@@ -210,7 +211,6 @@
     <!-- iamport.payment.js -->
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
     
-    <script src="/resources/js/common/common.js"></script>
     <script src="resources/js/order/order.js"></script>
 
     <script>

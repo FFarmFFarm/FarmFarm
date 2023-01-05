@@ -108,7 +108,14 @@ public class AdminProcessDAO {
 	}
 
 
-	
-	
+	/** 정지된 계정 활성화(스케쥴링)
+	 * @param targetNo
+	 * @return result
+	 */
+	public int activateAccount(int targetNo) {
+		// processDate는 변경하지 않음!!
+		return sqlSession.update("adminMapper.activateAccount", targetNo);
+	}
+
 
 }

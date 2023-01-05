@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FarmFarm</title>
+    <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
     <link rel="stylesheet" href="/resources/css/common/main-style.css" />
     <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
     <script src="https://kit.fontawesome.com/1ce4f19a7a.js" crossorigin="anonymous"></script>
@@ -32,7 +33,7 @@
                 <div class="nav-list"><a href="/product/list">팜팜마켓</a></div>
                 <div class="nav-list"><a href="/post/list">사고팔고</a></div>
                 <div class="nav-list"><a href="/board/${1}">커뮤니티</a></div>
-                <div class="nav-list"><a href="/testPage/4">문의게시판</a></div>
+                <div class="nav-list"><a href="/recipe">레시피</a></div>
               </div>
             </div>
         </nav>
@@ -137,7 +138,7 @@
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
         </div>
-
+        
       <h3 class="middle-product-title">딱! 오늘만 특가 상품</h3>
       <div class="middle-product">
         <div class="middle-wrap">
@@ -292,6 +293,9 @@
     </main>
     
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/> 
+    
+    <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
+    
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"
     integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
     crossorigin="anonymous"></script>

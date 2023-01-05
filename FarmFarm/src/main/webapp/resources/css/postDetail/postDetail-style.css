@@ -278,3 +278,7 @@ button:active {
   margin-left: auto;
   margin-right: auto;
 }
+
+.swiper-button-prev, .swiper-button-next{
+    color: var(--point-color) !important;
+}

@@ -27,15 +27,15 @@ public class BoardListServiceImpl implements  BoardListService{
 	
 	// 와글와글 게시판 목록
 	@Override
-	public Map<String, Object> selectBoardList(Map<String, Object> searchMap, int cp) {
+	public Map<String, Object> selectBoardList(Map<String, Object> pm, int cp) {
 		// 검색 결과에 맞는 게시글 수 조회
-		int listCount = dao.getListCount(searchMap);
+		int listCount = dao.getListCount(pm);
 		
 		// 페이지네이션 객체 생성
 		Pagination pagination = new Pagination(listCount, cp);
 		
 		// 검색 조건에 맞는 리스트 가져오기
-		List<Board> boardList = dao.selecBoardtList(pagination, searchMap);
+		List<Board> boardList = dao.selecBoardtList(pagination, pm);
 		
 		Map<String, Object> boardMap = new HashMap<String, Object>();
 		boardMap.put("boardList", boardList);
@@ -71,7 +71,13 @@ public class BoardListServiceImpl implements  BoardListService{
 		return dao.selectMember(memberNo);
 	}
 
-
+	/** 게시판 이미지 이름 조회
+	 *
+	 */
+	@Override
+	public List<String> selectBoardImageList() {
+		return dao.selectBoardImageList();
+	}
 
 
 

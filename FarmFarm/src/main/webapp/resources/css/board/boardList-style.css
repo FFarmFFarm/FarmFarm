@@ -68,7 +68,7 @@ main{
     overflow: hidden;
 }
 .board-search-area > input{
-    width: 550px;
+    width: 455px;
     height: 100%;
     padding-left: 10px;
     font-size: var(--main-font-size);
@@ -91,6 +91,23 @@ input[type="text"]:focus{
 .board-search-area:focus-within{
     border: 1px solid var(--point-color);
     overflow: hidden;
+}
+
+#search-key{
+    border: none;
+    padding-left: 15px;
+    box-shadow: none !important;
+}
+#search-key:focus{
+    outline: none;
+    box-shadow: none !important;
+}
+#search-key > option{
+    border: none;
+    background-color: white;
+    box-shadow: none !important;
+
+
 }
 
 /* 커뮤니티 최신순, 조회수, 좋아요 */
@@ -129,7 +146,7 @@ input[type="text"]:focus{
     border-radius: 10px;
     z-index: 500;
     position: absolute;
-    top: 443px;
+    top: 455px;
     box-shadow: 3px 3px 14px -7px grey;
     display: none;
     justify-content: center;
@@ -178,7 +195,7 @@ input[type="text"]:focus{
     height: 50px;
 }
 .board-title{
-    width: 520px;
+    width: 660px;
 }
 .board-writer{
     /* border: 1px solid black; */
@@ -199,6 +216,7 @@ input[type="text"]:focus{
     display: flex;
     align-items: center;
     border-bottom: 1px solid var(--line-color);
+
 }
 .board-list li > .board-title {
     padding-left: 10px;

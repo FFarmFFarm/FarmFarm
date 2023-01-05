@@ -22,6 +22,7 @@ main {
 
 button {
   border: none;
+  background-color: white;
 }
 
 /* 회원 정보 */
@@ -50,7 +51,7 @@ button {
 .bg-change-btn {
   position: absolute;
   top: 20px;
-  right: 20px;
+  right: 60px;
 
   display: inline-block;
   font-size: var(--title-font-size);
@@ -65,6 +66,29 @@ button {
 
 .bg-change-btn:hover {
   opacity: 1;
+}
+
+#XBtn {
+  width: 20px;
+  height: 20px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+  position: absolute;
+  top: 22px;
+  right: 20px;
+
+  font-size: var(--title-font-size);
+  color: var(--sub-font-color);
+  opacity: 0.5;
+
+  border-radius: 50%;
+  border: none;
+
+  cursor: pointer;
 }
 
 .profile-info {

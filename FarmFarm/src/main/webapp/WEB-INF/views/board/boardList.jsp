@@ -3,6 +3,7 @@
 
 <c:set var="boardList" value="${boardMap.boardList}"/>
 <c:set var="pagination" value="${boardMap.pagination}"/>
+<%-- <c:set var="pagination" value="${boardMap.pagination}"/> --%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -25,9 +26,12 @@
     
     <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
-        <c:if test="${not empty param.query}">
-            <c:set var="sURL" value="&query=${param.query}"/>
+        <c:if test="${not empty param.key}">
+            <c:set var="sURL" value="&key=${param.key}&query=${param.query}"/>
         </c:if>
+        <%-- <c:if test="${not empty param.query}">
+            <c:set var="sURL" value="&query=${param.query}"/>
+        </c:if> --%>
         <c:if test="${not empty param.sort}">
             <c:set var="soURL" value="&sort=${param.sort}"/>
         </c:if>
@@ -41,12 +45,16 @@
                 <a id="type1" href="/board/${1}">물물교환</a>
                 <a id="type2" href="/board/${2}">팁</a>
                 <a id="type3" href="/board/${3}">질문</a>
-                
-                <a id="type4" href="/board/${4}">시원이꺼</a>
             </div>
         </section>
         <form action="/board/${boardTypeNo}" class="board-search">
             <section class="board-search-area">
+                <select name="key" id="search-key">
+                    <option value="t">제목</option>
+                    <option value="c">내용</option>
+                    <option value="tc">제목+내용</tion>
+                    <option value="w">작성자</option>
+                </select>
                 <input type="text" name="query" id="inputQuery" placeholder="검색어를 입력해주세요">
                 <button class="board-search-btn">
                     <i class="fa-solid fa-magnifying-glass"></i>
@@ -180,16 +188,14 @@
         const inputQuery = document.getElementById("inputQuery");
         // let query = inputQuery.value;
         let query = "${param.query}";
+        let key = "${param.key}";
 
         let cp = 1;
 
         const loginYN = "${loginMember}";
 
-        // const memberNo = ${loginMember.memberNo}
-
     </script>
     <script src="/resources/js/board/boardList.js"> </script>
-    <script src="/resources/js/common/common.js"> </script>
     <script src="/resources/js/member/memberModal.js"> </script>
 
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>

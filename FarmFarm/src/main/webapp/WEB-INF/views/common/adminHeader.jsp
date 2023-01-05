@@ -97,28 +97,45 @@
     <script>
       // 프로필 드롭다운
       const dropbtn = document.querySelector('.dropbtn');
-      dropbtn.addEventListener('click', () => {
-        const icon = document.querySelector('.caret-icon');
-        const myDropdown = document.querySelector('.dropdown-content');
+      if(dropbtn != null) {
 
-        if (
-          myDropdown.style.display == 'none' ||
-          myDropdown.style.display == ''
-        ) {
-          icon.style.transform = 'perspective(500px) rotateX(180deg)';
-          myDropdown.style.display = 'block';
-        } else {
-          icon.style.transform = 'perspective(500px) rotateX(360deg)';
-          myDropdown.style.display = 'none';
+        dropbtn.addEventListener('click', () => {
+          const icon = document.querySelector('.caret-icon');
+          const myDropdown = document.querySelector('.dropdown-content');
+  
+          if (
+            myDropdown.style.display == 'none' ||
+            myDropdown.style.display == ''
+          ) {
+            icon.style.transform = 'perspective(500px) rotateX(180deg)';
+            myDropdown.style.display = 'block';
+          } else {
+            icon.style.transform = 'perspective(500px) rotateX(360deg)';
+            myDropdown.style.display = 'none';
+          }
+        });
+
+      }
+
+
+      //const dd = document.querySelectorAll(".dropdown, #myDropdown, #myDropdown *");
+
+      window.addEventListener('click', e => {
+        // console.log(e.target);
+        const myDropdown = document.querySelector('.dropdown-content');
+        if(myDropdown != null) {
+
+          if(myDropdown.style.display == 'block' &&
+            !e.target.matches(".dropdown, .dropdown *, #myDropdown, #myDropdown *")){
+            
+            const icon = document.querySelector('.caret-icon');
+            const myDropdown = document.querySelector('.dropdown-content');
+            
+            myDropdown.style.display = '';
+            icon.style.transform = 'perspective(500px) rotateX(360deg)';
+          }
+
         }
-      });
-
-      dropbtn.addEventListener('blur', () => {
-        const icon = document.querySelector('.caret-icon');
-        const myDropdown = document.querySelector('.dropdown-content');
-
-        myDropdown.style.display = '';
-        icon.style.transform = 'perspective(500px) rotateX(360deg)';
       });
 
       // 알림 드롭다운

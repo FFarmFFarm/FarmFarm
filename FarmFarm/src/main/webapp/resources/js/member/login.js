@@ -3,7 +3,7 @@ const idCheck = document.getElementById("idCheck")
 
 saveId.addEventListener("change",function(event){
     if(this.checked){
-        const str = "개인 정보 보호를 위해 개인 PC에서의 사용을 권장합니다."
+        const str = "개인 정보 보호를 위해 개인 PC에서의 사용을 권장합니다.\n"
                     +"개인 PC가 아닌 경우 취소를 눌러주세요.";
         idCheck.classList.add("idOk");
         if(!confirm(str)){

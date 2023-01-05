@@ -252,12 +252,22 @@ const sendBtn = document.getElementById('sendBtn');
 const inputMessage = document.getElementById('inputBox');
 
 sendBtn.addEventListener('click', () => { 
-  sendInquire();
+  if(inputMessage.value.trim().length > 0) {
+    sendInquire();
+
+  } else {
+    messageModalOpen("메세지를 입력해주세요")
+  }
 })
 
 inputMessage.addEventListener('keypress', (e) => {
   if(e.key == 'Enter') {
-    sendInquire();
+    if(inputMessage.value.trim().length > 0) {
+      sendInquire();
+  
+    } else {
+      messageModalOpen("메세지를 입력해주세요")
+    }
   }
 })
 
@@ -322,14 +332,18 @@ if(inquireImage!=undefined) {
 /* WebSocket 객체가 서버로부터 메세지를 통지받으면 자동으로 실행되는 콜백함수 */
 inquireSock.onmessage = function(e) {
 
-  
-
   const msg = JSON.parse(e.data);
   console.log(msg);
 
-  if (memberInquireNo == msg.inquireNo) {
-    const readingArea = document.getElementById('readingArea');
+      
   
+  
+  if (memberInquireNo == msg.inquireNo) {
+    /* 방금온 메세지 읽음처리 */
+    updateMessageRead(msg.inquireNo);
+    
+    const readingArea = document.getElementById('readingArea');
+    
   
   if (msg.messageDate != msg.lastMessageDate) {
     const dateLabelLine = document.createElement('div');
@@ -374,11 +388,75 @@ inquireSock.onmessage = function(e) {
 
     readingArea.scrollTo(0, readingArea.scrollHeight);
     
-    
+
   } else {
 
   }
 
   console.log('메세지 왔어요');
-  selectInquireList();
+  setTimeout(() => {
+    selectInquireList();
+  }, "1000")
 }
+
+const updateMessageRead = (inquireNo) => {
+  $.ajax({
+    url: "/inquire/message/read",
+    data: {"inquireNo":inquireNo},
+    success: (result) => {
+      console.log('메세지 읽음처리');
+    },
+    error: ()=>{
+      console.log('error');
+    }
+  })
+}
+
+const searchBar = document.getElementById('searchBar');
+searchBar.addEventListener('keypress', (e) => {
+  if(e.key == 'Enter') {
+    chatSearch();
+  }
+})
+
+/* 검색창 만들기 이벤트 */
+document.getElementById('searchBtn').addEventListener('click', ()=>{
+
+  chatSearch();
+})
+
+const chatSearch = () => {
+  let input = document.getElementById('searchBar');
+
+  if(input.value.trim().length == 0) {
+      input.focus();
+  } else {
+
+      console.log('검색중이에요.........')
+
+      // 버튼 보여주세요
+      document.getElementById('resetRoomSearch').style.display='block';
+
+      let roomList = document.getElementsByClassName('message-preview-box');
+      
+      for(room of roomList) {
+          room.style.display = 'flex';
+          let roomName = room.children[1].children[0].innerText;
+          console.log('방제 : ' + roomName);
+  
+          if(!roomName.includes(input.value)) {
+              room.style.display='none';
+          } 
+      }
+
+  }
+}
+
+
+/* 초기화 버튼 클릭 시 */
+document.getElementById('resetRoomSearch').addEventListener('click', (e)=>{
+  // e.target.parent.style.display='none'; // 버튼 숨김
+  document.getElementById('resetRoomSearch').style.display = 'none';
+  document.getElementById('searchBar').value=''; // 채팅방 검색창 초기화
+  selectInquireList(); // 목록 가져옴
+})

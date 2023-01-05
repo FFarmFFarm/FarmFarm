@@ -63,6 +63,7 @@
                                                 <li class="authFilter" id="a1">미등록</li>
                                                 <li class="authFilter" id="a2">판매자</li>
                                                 <li class="authFilter" id="a3">인증 대기</li>
+                                                <li class="authFilter" id="a4">인증 보류</li>
                                             </ul>
                                         </div>
                                     </th>
@@ -107,6 +108,9 @@
                                             <c:if test="${member.authority == 3}">
                                                 <td>인증 대기</td>
                                             </c:if>
+                                            <c:if test="${member.authority == 4}">
+                                                <td>인증 보류</td>
+                                            </c:if>
                                         </c:if> 
 
                                         <%-- 상태 --%>
@@ -119,7 +123,7 @@
                                                 <c:if test="${empty member.reportPenalty}">
                                                     <td>신고접수</td>
                                                 </c:if>
-                                                <c:if test="${member.reportPenalty eq 'N'}">
+                                                <c:if test="${member.reportPenalty eq 'N' && member.reportPenalty eq 'A'}">
                                                     <td>활동중</td>
                                                 </c:if>
                                                 <c:if test="${member.reportPenalty eq 'Y'&& not empty member.processDate}">

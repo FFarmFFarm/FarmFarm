@@ -1,5 +1,7 @@
 package edu.kh.farmfarm.postDetail.model.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,6 +16,10 @@ public class PostDetailDAO {
 
 	public Post selectPost(int postNo) {
 		return sqlSession.selectOne("postDetailMapper.selectPost", postNo);
+	}
+
+	public List<String> selectPostImageList() {
+		return sqlSession.selectList("postDetailMapper.selectPostImageList");
 	}
 
 }

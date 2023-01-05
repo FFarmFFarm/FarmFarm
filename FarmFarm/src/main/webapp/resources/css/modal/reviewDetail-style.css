@@ -218,3 +218,14 @@
   color: white;
 }
 
+.swiper-button-prev, .swiper-button-next{
+    color: var(--point-color) !important;
+}
+
+.swiper-pagination > .swiper-pagination-bullet {
+    border: var(--point-color) solid 1px;
+    background-color: transparent;
+}
+.swiper-pagination > .swiper-pagination-bullet-active {
+    background-color: var(--point-color);
+}

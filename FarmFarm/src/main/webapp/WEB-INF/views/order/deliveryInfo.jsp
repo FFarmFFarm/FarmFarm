@@ -70,7 +70,7 @@
 
       <%-- 배송지 추가 --%>
       <div class="add-address">
-        <button class="add-btn" type="button" height="60">
+        <button class="add-btn" type="button" height="60"  onclick="sample6_execDaumPostcode()">
           <i class="fa-solid fa-plus"></i>
           <span>새 배송지 추가</span>
         </button>
@@ -82,6 +82,9 @@
 
   <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
   <jsp:include page="/WEB-INF/views/order/modal/cartConfirm.jsp"/>
+  
+  <%-- 다음주소 --%>
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
   <script src="/resources/js/order/deliveryInfo.js"></script>
   <script src="/resources/js/common/common.js"></script>

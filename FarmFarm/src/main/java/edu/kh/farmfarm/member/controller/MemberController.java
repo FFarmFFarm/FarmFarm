@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,7 +29,7 @@ import edu.kh.farmfarm.member.model.VO.MemberAddress;
 import edu.kh.farmfarm.member.model.service.MemberService;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
-@SessionAttributes({ "loginMember", "message" })
+@SessionAttributes({ "loginMember", "message", "previousPage"})
 @Controller
 public class MemberController {
 	@Autowired
@@ -36,7 +37,12 @@ public class MemberController {
 
 	// 로그인 화면
 	@GetMapping("/login")
-	public String loginPage() {
+	public String loginPage(@RequestHeader("referer")String referer,
+			Model model) {
+		
+		model.addAttribute("previousPage", referer);
+		
+		
 		return "member/login";
 	}
 
@@ -68,7 +74,8 @@ public class MemberController {
 	@PostMapping("/login")
 	public String login(Member inputMember, Model model, RedirectAttributes ra,
 			@RequestHeader(value = "referer") String referer,
-			@RequestParam(value = "saveId", required = false) String saveId, HttpServletResponse resp) {
+			@RequestParam(value = "saveId", required = false) String saveId, HttpServletResponse resp,
+			@SessionAttribute("previousPage") String previousPage) {
 		Member loginMember = service.login(inputMember);
 		
 		String path = null;
@@ -90,7 +97,7 @@ public class MemberController {
 					checkReport = service.checkReport(loginMember.getMemberNo());
 
 					if (checkReport == null) { // 신고 기록이 없으면
-						path = "/";
+						path = previousPage;
 						model.addAttribute("loginMember", loginMember);
 
 						Cookie cookie = new Cookie("saveId", loginMember.getMemberId());

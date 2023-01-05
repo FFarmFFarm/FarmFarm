@@ -88,7 +88,7 @@ const printSellerList = (sellerList, pagination) => {
         const td3 = document.createElement("td");
         td3.className = 'sId';
 
-        if(seller.memberId.length > 10) {
+        if(seller.memberId.length > 9) {
             td3.innerText = seller.memberId.substring(0, 9) + '...';
         } else {
             td3.innerText = seller.memberId;
@@ -98,7 +98,7 @@ const printSellerList = (sellerList, pagination) => {
         const td4 = document.createElement("td");
         td4.className = 'sNickname';
 
-        if(seller.memberNickname.length > 10) {
+        if(seller.memberNickname.length > 9) {
             td4.innerText = seller.memberNickname.substring(0, 9) + '...';
         } else {
             td4.innerText = seller.memberNickname;
@@ -111,7 +111,7 @@ const printSellerList = (sellerList, pagination) => {
 
         // 주소
         const td6 = document.createElement("td");
-        if(seller.memberAddress.length > 25){
+        if(seller.memberAddress.length > 24){
             // sql에서 ,, 제거해서 가져옴
             td6.innerText = seller.memberAddress.substring(0,24) + '...';
         } else {
@@ -126,6 +126,7 @@ const printSellerList = (sellerList, pagination) => {
         const td8 = document.createElement("td");
        
         if(seller.authority == 3){ td8.innerText = "접수"; }
+        if(seller.authority == 4){ td8.innerText = "보류"; }
         if(seller.authority == 1){ td8.innerText = "인증 완료"; }
         
         
@@ -312,11 +313,20 @@ const printSellerAuthPaper = (authPaper) => {
     tdAuthDate1.innerText = "판매자 승인 일자";
 
 
+
     const tdAuthDate2 = document.createElement("td");
     tdAuthDate2.classList.add('detail-content');
 
     if(authPaper.authDate != null) {
-        tdAuthDate2.innerText = authPaper.authDate;
+
+        if(authPaper.authority == 1){ //판매자
+            tdAuthDate2.innerText = authPaper.authDate;
+        }
+
+        if(authPaper.authority == 4){ // 인증 보류
+            tdAuthDate2.innerText = "보류 (" + authPaper.authDate + ")";
+        } //
+
     } else {
         tdAuthDate2.innerText = "승인 대기중";
     }
@@ -481,10 +491,8 @@ document.getElementById('authApproveBtn').addEventListener('click', () => {
             if(result > 0){
                 adminModalClose();
 
-                if(adminModal.style.display == 'none'){
-                    selectSellerList(cp);
-                    selectAuthPaper(hiddenNo);
-                }
+                selectSellerList(cp);
+                selectAuthPaper(hiddenNo);
 
                 console.log("승인 완료");
                 messageModalOpen("승인 처리되었습니다.");
@@ -501,11 +509,26 @@ document.getElementById('authApproveBtn').addEventListener('click', () => {
 // fixme: 거부
 document.getElementById('authDenyBtn').addEventListener('click', () => {
 
-    admin
-    
+    $.ajax({
+        url: '/admin/sellerDeny',
+        data: {"hiddenNo": hiddenNo},
+        type: 'POST',
+        success: (result) => {
 
+            if(result > 0){
+                adminModalClose();
 
+                selectSellerList(cp);
+                selectAuthPaper(hiddenNo);
 
+                console.log("거절 완료");
+                messageModalOpen("판매자 인증이 보류되었습니다.");
+            }
+        },
+        error: () => {
+            console.log("보류 처리 실패");
+        }
+    })
 })
 
 
@@ -537,7 +560,7 @@ document.getElementById('authDenyBtn').addEventListener('click', () => {
 // jsp 첫 페이지  글자 자르기
 const sId = document.getElementsByClassName("sId");
 for(let i=0; i<sId.length; i++){
-    if(sId[i].innerText.length > 10){
+    if(sId[i].innerText.length > 9){
         sId[i].innerText = sId[i].innerText.substring(0, 9) + '...';
     } else {
         sId[i].innerText;
@@ -546,7 +569,7 @@ for(let i=0; i<sId.length; i++){
 
 const sNickname = document.getElementsByClassName("sNickname");
 for(let i=0; i<sNickname.length; i++){
-    if(sNickname[i].innerText.length > 10){
+    if(sNickname[i].innerText.length > 9){
         sNickname[i].innerText = sNickname[i].innerText.substring(0, 9) + '...';
     } else {
         sNickname[i].innerText;
@@ -555,7 +578,7 @@ for(let i=0; i<sNickname.length; i++){
 
 const sAddress = document.getElementsByClassName("sAddress");
 for(let i=0; i<sAddress.length; i++){
-    if(sAddress[i].innerText.length > 25){
+    if(sAddress[i].innerText.length > 24){
         sAddress[i].innerText = sAddress[i].innerText.substring(0, 24) + '...';
     } else {
         sAddress[i].innerText;
