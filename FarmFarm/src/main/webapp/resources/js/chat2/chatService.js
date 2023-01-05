@@ -119,12 +119,14 @@ const makeChatPreviewBox = (chatRoom) => {
     packUpElement(chatPreviewBox, 'chat-preview-box', null);
 
     // thumbnailImg 세팅 : 채팅방 유형이 상품이 아닌 경우 기본 이미지를 채워넣음
-    if(chatRoom.roomType == 0) { 
+    if(chatRoom.roomType == 0) {
+        packUpElement(chatPreviewBox, 'free', null);
         packUpElement(thumbnailImg, 'thumbnail-img', "<img src='/resources/images/chat2/default/talking.png'>");
         packUpElement(roomTitle, 'room-title', chatRoom.roomName);
 
     // thumbnailImg 세팅 : 채팅방 유형이 상품인 경우 상품 이미지를 채워넣음
     } else { 
+        packUpElement(chatPreviewBox, 'post', null);
         packUpElement(roomTitle, 'room-title', chatRoom.postTitle);
         if (chatRoom.thumbnailImg == undefined) { // 이미지가 없는 경우 기본 이미지
             packUpElement(thumbnailImg, 'thumbnail-img', "<img src='/resources/images/member/user.png'>");
@@ -607,35 +609,6 @@ document.getElementById('inputImgPreviewDelBtn').addEventListener('click', (e) =
         document.getElementById('inputImgPreviewBox').style.height = 0;
         document.getElementById('inputImgPreviewBox').style.opacity = 0;
     }
-})
-
-/* 검색창 만들기 이벤트 */
-document.getElementById('searchBtn').addEventListener('click', ()=>{
-    let input = document.getElementById('searchBar');
-
-    if(input.value.trim().length == 0) {
-        input.focus();
-    } else {
-
-        console.log('검색중이에요.........')
-
-        // 버튼 보여주세요
-        document.getElementById('resetRoomSearch').style.display='block';
-
-        let roomList = document.getElementsByClassName('chat-preview-box');
-        
-        for(room of roomList) {
-            room.style.display = 'flex';
-            let roomName = room.children[1].children[0].innerText;
-            console.log('방제 : ' + roomName);
-    
-            if(!roomName.includes(input.value)) {
-                room.style.display='none';
-            } 
-        }
-
-    }
-
 })
 
 /* 초기화 버튼 클릭 시 */

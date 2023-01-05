@@ -68,7 +68,7 @@
                 <!-- <i class="fa-solid fa-cart-shopping"></i> -->
               </div>
               <div id="emptyDetail">
-                사고 싶은 상품을 찾고 판매자와 채팅을 시작해보세요!
+                팜팜 채팅을 시작해보세요!
               </div>
             </div>
           </div>

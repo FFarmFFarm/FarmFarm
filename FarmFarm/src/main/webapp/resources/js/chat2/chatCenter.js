@@ -102,3 +102,61 @@ roomEditBtn.addEventListener("click", ()=>{
 // bottomBtn.addEventListener('click', ()=>{
 //     readingArea.scrollTo(0, initialScrollHeight);
 // })
+
+/* 검색창 만들기 이벤트 */
+document.getElementById('searchBtn').addEventListener('click', () => {
+    let input = document.getElementById('searchBar');
+
+    if (input.value.trim().length == 0) {
+        input.focus();
+    } else {
+
+        console.log('검색중이에요.........')
+
+        // 버튼 보여주세요
+        document.getElementById('resetRoomSearch').style.display = 'block';
+
+        let roomList = document.getElementsByClassName('chat-preview-box');
+
+        for (room of roomList) {
+            
+            room.style.display = 'flex';
+            let roomTitle = room.children[1].innerText;
+
+            if (!roomTitle.includes(input.value)) {
+                room.style.display = 'none';
+            }
+        }
+
+    }
+
+})
+
+
+/* 채팅방 유형 선택 이벤트 */
+const roomTypeList = document.querySelectorAll("input[name='roomType']");
+
+for(let roomType of roomTypeList) {
+
+    roomType.addEventListener("click", ()=>{
+
+        if(roomType.checked) {
+            let roomList = document.getElementsByClassName('chat-preview-box');
+
+            if(roomType.id==='all') {
+                 for(room of roomList){
+                    room.style.display = 'flex';
+                 }
+            } else {
+                for (room of roomList) {
+                    room.style.display = 'flex';
+                    if(!room.classList.contains(roomType.id)) {
+                        room.style.display = 'none';
+                    }
+                }
+
+            }
+        }
+    })
+}
+
