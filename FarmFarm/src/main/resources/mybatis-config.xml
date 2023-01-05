@@ -46,6 +46,7 @@
 		<typeAlias type="edu.kh.farmfarm.inquire.model.vo.InquireRoom" alias="InquireRoom"/>
 		<typeAlias type="edu.kh.farmfarm.inquire.model.vo.Message" alias="Message"/>
 		<typeAlias type="edu.kh.farmfarm.inquire.model.vo.MessageImg" alias="MessageImg"/>
+		<typeAlias type="edu.kh.farmfarm.admin.model.vo.Graph" alias="Graph"/>
 	</typeAliases>
 	
 	
@@ -70,6 +71,7 @@
 		<mapper resource="/mappers/order-mapper.xml"/>
 		<mapper resource="/mappers/cart-mapper.xml"/>
 		<mapper resource="/mappers/inquire-mapper.xml"/>
+		<mapper resource="/mappers/graph-mapper.xml"/>
   	</mappers>
 	
 </configuration>

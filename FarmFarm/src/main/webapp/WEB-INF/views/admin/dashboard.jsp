@@ -4,6 +4,7 @@
 <c:set var="newOrderStat" value="${statMap.newOrderStat}" />
 <c:set var="askReportStat" value="${statMap.askReportStat}" />
 <c:set var="authSellerStat" value="${statMap.authSellerStat}" />
+<c:set var="returnStat" value="${statMap.returnStat}" />
 
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +41,7 @@
                     </span>
                     <span>
                         <a class="span-text">반품 요청</a>
-                        <a class="span-number s-green">-</a>
+                        <a class="span-number s-green">${returnStat}</a>
                     </span>
                     <span>
                         <a class="span-text">미처리 신고</a>
@@ -53,22 +54,25 @@
                 </div>
 
                 <div class="board-graph">
-                    <canvas id="sellChart"></canvas>
+                    <canvas id="orderChart"></canvas>
                 </div>
 
                 <div class="board-graph">
-                    <canvas id="signUpChart"></canvas>
+                    <canvas id="signUpChart" width="700px"></canvas>
                 </div>
             </section>
 
             
         </main>
 
-    
-    <!-- chart.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-        
-    <script src="/resources/js/admin/dashboard.js"></script>
+
+        <%-- jquery --%>
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+     
+        <!-- chart.js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+            
+        <script src="/resources/js/admin/dashboard.js"></script>
 
     </body>
 

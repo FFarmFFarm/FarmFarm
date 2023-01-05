@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import edu.kh.farmfarm.admin.model.vo.Admin;
+import edu.kh.farmfarm.admin.model.vo.Graph;
 import edu.kh.farmfarm.inquire.model.vo.InquireRoom;
 
 
@@ -20,6 +21,17 @@ public interface AdminService {
 	 * @return statMap
 	 */
 	Map<String, Object> selectStats();
+	
+	
+	/** 대시보드 회원가입자 수 조회
+	 * @return
+	 */
+	List<Graph> selectSignUpGraph();
+	
+	
+	
+	
+	
 
 
 	/** 전체 회원 조회(정렬, 페이지네이션, 검색)
@@ -45,7 +57,7 @@ public interface AdminService {
 	 * @param cp
 	 * @return map
 	 */
-	Map<String, Object> selectSeller(int sellerFilter, int cp);
+	Map<String, Object> selectSeller(Map<String, Object> paramMap, int cp);
 
 
 	/** 판매자 인증 신청서 조회
@@ -94,6 +106,9 @@ public interface AdminService {
 	 * @return map
 	 */
 	Map<String, Object> selectReportAccumulate(String reportType, int memberNo, int contentNo);
+
+
+
 
 
 
