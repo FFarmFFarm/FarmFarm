@@ -16,6 +16,12 @@ public interface Chat2Service {
 	 * @return List<Chat2Room>
 	 */
 	List<Chat2Room> selectChatRoomList(int memberNo);
+	
+	/** 선택한 채팅방의 채팅 정보 조회
+	 * @param roomNo
+	 * @return
+	 */
+	Chat2Room selectChatRoom(int roomNo);
 
 	/** 선택한 채팅방의 채팅 목록 조회
 	 * @param roomNo
@@ -71,6 +77,8 @@ public interface Chat2Service {
 	 * @return
 	 */
 	int updateChatEnter(int roomNo, int memberNo);
+
+
 
 
 

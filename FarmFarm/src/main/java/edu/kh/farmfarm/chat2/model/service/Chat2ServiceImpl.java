@@ -28,11 +28,18 @@ public class Chat2ServiceImpl implements Chat2Service {
 		return dao.selectChatRoomList(memberNo);
 	}
 
+	// 선택한 채팅방의 정보 조회
+	@Override
+	public Chat2Room selectChatRoom(int roomNo) {
+		return dao.selectChatRoom(roomNo);
+	}
+
 	// 선택한 채팅방의 채팅 목록 조회
 	@Override
 	public List<Chat2> selectChatList(int roomNo) {
 		return dao.selectChatList(roomNo);
 	}
+
 
 	// 새로운 채팅방 개설하기
 	@Override
@@ -173,6 +180,8 @@ public class Chat2ServiceImpl implements Chat2Service {
 		
 		return dao.updateChat2Enter(chat2Enter);
 	}
+
+
 
 
 	

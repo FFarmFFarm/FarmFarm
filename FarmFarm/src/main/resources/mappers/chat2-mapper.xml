@@ -102,6 +102,18 @@
 		  		   WHERE ENTER_STATUS = 'Y') USING(ROOM_NO)
 		WHERE MEMBER_NO = #{memberNo}
 	</select>
+	
+	<!-- 선택한 채팅방의 정보 조회 -->
+	<select id="selectChatRoom" parameterType="_int" resultMap="chat2Room_rm">
+		SELECT ROOM_NO, ROOM_NAME, ROOM_TYPE,
+			   (SELECT POST_TITLE FROM POST P 
+			    WHERE CR.ROOM_TYPE = P.POST_NO) AS POST_TITLE,
+			   (SELECT POST_IMG_ADDRESS FROM POST_IMG PIMG 
+			    WHERE CR.ROOM_TYPE = PIMG.POST_NO
+			    AND POST_IMG_ORDER = 0) AS THUMBNAIL_IMG
+		FROM CHAT2_ROOM CR
+		WHERE ROOM_NO = #{roomNo}
+	</select>
 
 	<!-- 선택한 채팅방의 대화내용 조회(SELECT) -->
 	<select id="selectChatList" parameterType="_int" resultMap="chat2_rm">
@@ -127,11 +139,14 @@
 	<!-- 새 채팅방 개설 전... 채팅방 존재 여부 체크 -->
 	<select id="selectChatRoomExist" parameterType="_int" resultType="_int" >
 		SELECT ROOM_NO
-		FROM CHAT2_ENTER
-		JOIN CHAT2_ROOM USING(ROOM_NO)
-		WHERE MEMBER_NO = #{memberNo}
-		AND ROOM_TYPE = #{roomType}
-		AND ENTER_STATUS = 'Y' 
+		FROM (SELECT MAX(ROOM_NO) AS ROOM_NO
+			  FROM CHAT2_ENTER
+			  JOIN CHAT2_ROOM USING(ROOM_NO)
+			  WHERE MEMBER_NO = #{memberNo}
+			  AND ROOM_TYPE = #{roomType}
+			  AND ENTER_STATUS = 'Y' 
+			  ORDER BY ROOM_NO DESC)
+		WHERE ROWNUM = 1
 	</select>
 
 

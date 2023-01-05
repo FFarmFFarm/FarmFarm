@@ -61,10 +61,10 @@
             </div>
           </div>
           <div id="roomLabel">
-            <div id="postImg">
+            <div id="roomThumbnailImg">
               <!-- <img src="/resources/images/chat/potato.jpg"> -->
             </div>
-            <div id="postTitle">
+            <div id="roomTitle">
               <!-- 아주 긴 채팅방 제목... 아주 긴 채팅방 제목... 아주 긴 채팅방 제목...
               아주 긴 채팅방 제목... 아주 긴 채팅방 제목... 아주 긴 채팅방 제목...
               아주 긴 채팅방 제목... 아주 긴 채팅방 제목... 아주 긴 채팅방 제목...

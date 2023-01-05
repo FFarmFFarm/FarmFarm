@@ -1,6 +1,6 @@
 /* 채팅방 정보(roomLabel) */
 const chattingBoxList = document.getElementsByClassName("chatting-box")
-const postTitle = document.getElementById("postTitle");
+const roomThumbnailImg = document.getElementById("roomThumbnailImg");
 const spreadBtn = document.getElementById("spreadBtn");
 const roomLabel = document.getElementById("roomLabel");
 
@@ -22,13 +22,13 @@ window.addEventListener('DOMContentLoaded', ()=>{
 
 /* 로딩 후 */
 window.addEventListener("load", ()=>{
-    if(postTitle.scrollHeight > 67) {
-        postTitle.classList.add("label-fold");
-        postTitle.classList.remove("label-flex");
+    if (roomThumbnailImg.scrollHeight > 67) {
+        roomThumbnailImg.classList.add("label-fold");
+        roomThumbnailImg.classList.remove("label-flex");
         spreadBtn.style.display="block";
     } else{
-        postTitle.classList.remove("label-fold");
-        postTitle.classList.add("label-flex");
+        roomThumbnailImg.classList.remove("label-fold");
+        roomThumbnailImg.classList.add("label-flex");
         spreadBtn.style.display="none";
     }
 })
@@ -37,15 +37,15 @@ window.addEventListener("load", ()=>{
 /* 버튼을 눌렀을 떄! */
 for(box of chattingBoxList) {
     box.addEventListener("click", ()=> {
-        if(postTitle.scrollHeight > 67) {
-            postTitle.classList.add("label-fold");
-            postTitle.classList.remove("label-flex");
-            postTitle.classList.remove("label-spread");
+        if(roomThumbnailImg.scrollHeight > 67) {
+            roomThumbnailImg.classList.add("label-fold");
+            roomThumbnailImg.classList.remove("label-flex");
+            roomThumbnailImg.classList.remove("label-spread");
             spreadBtn.style.display="block";
         } else{
-            postTitle.classList.add("label-flex");
-            postTitle.classList.remove("label-spread");
-            postTitle.classList.remove("label-fold");
+            roomThumbnailImg.classList.add("label-flex");
+            roomThumbnailImg.classList.remove("label-spread");
+            roomThumbnailImg.classList.remove("label-fold");
             spreadBtn.style.display="none";
         }
     })
@@ -53,27 +53,27 @@ for(box of chattingBoxList) {
 
 /* 펼치기 기능 */
 spreadBtn.addEventListener("click", ()=>{
-    if(postTitle.classList.contains("label-fold")) {
-        postTitle.classList.remove("label-fold");
-        postTitle.classList.add("label-spread");
+    if(roomThumbnailImg.classList.contains("label-fold")) {
+        roomThumbnailImg.classList.remove("label-fold");
+        roomThumbnailImg.classList.add("label-spread");
         spreadBtn.classList.add("spreadBtn-rotate");
         return;
     }
 
-    if(postTitle.classList.contains("label-spread")) {
-        postTitle.classList.remove("label-spread")
-        postTitle.classList.add("label-fold")
+    if(roomThumbnailImg.classList.contains("label-spread")) {
+        roomThumbnailImg.classList.remove("label-spread")
+        roomThumbnailImg.classList.add("label-fold")
         spreadBtn.classList.remove("spreadBtn-rotate");
         return;
     }
 })
 
 spreadBtn.addEventListener("click", ()=>{
-    if(postTitle.classList.contains("label-spread")) {
+    if(roomThumbnailImg.classList.contains("label-spread")) {
         // roomLabel.style.alignItems='flex-start';
         return;
     }
-    if(!postTitle.classList.contains("label-spread")) {
+    if(!roomThumbnailImg.classList.contains("label-spread")) {
         // roomLabel.style.alignItems='center';
         return;
     }

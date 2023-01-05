@@ -106,8 +106,6 @@ const selectChatRoomList = () => {
 /* 채팅방 목록을 불러오는 함수 */
 const makeChatPreviewBox = (chatRoom) => {
 
-    console.log(chatRoom);
-
     // 재료 준비
     const chatPreviewBox = document.createElement('div');   // 채팅방의 정보가 담길 박스
     const thumbnailImg = document.createElement('div');     // 채팅방 대표 이미지
@@ -182,6 +180,7 @@ const chatPreviewBoxEvent = (chatPreviewBox) => {
         .then(function (response) {
 
             // 선택한 채팅방의 채팅 내역
+            const chatRoom = response.data.chatRoom;            
             const chatList = response.data.chatList;
 
             // 채팅 전송을 위해 전역 변수 세팅
@@ -192,7 +191,7 @@ const chatPreviewBoxEvent = (chatPreviewBox) => {
             selectChatRoomList();
 
             // 채팅방 만들기
-            makeChatRoom(chatList); 
+            makeChatRoom(chatRoom, chatList); 
 
         }).catch(function (error) {
             console.log(error);
@@ -222,18 +221,25 @@ const makeNewChatTime = (chatTime) => {
 }
 
 /* 채팅방을 만드는 함수 */
-const makeChatRoom = (chatList) => {
+const makeChatRoom = (chatRoom, chatList) => {
 
     // 라벨 영역
-    // const postImg = document.getElementById('postImg');
-    // if(postInfo.thumbnailImg == undefined) {
-    //     postImg.innerHTML = "<img src='/resources/images/member/user.png'>";
-    // } else {
-    //     postImg.innerHTML = "<img src=" + postInfo.thumbnailImg + ">";
-    // }
 
-    // const postTitle = document.getElementById('postTitle');
-    // postTitle.innerHTML = postInfo.postTitle;
+    const roomThumbnailImg = document.getElementById('roomThumbnailImg');
+    const roomTitle = document.getElementById('roomTitle');
+
+    if(chatRoom.roomType > 0) {
+
+        if(chatRoom.thumbnailImg == undefined) {
+            roomThumbnailImg.innerHTML = "<img src='/resources/images/member/user.png'>";
+        } else {
+            roomThumbnailImg.innerHTML = "<img src=" + chatRoom.thumbnailImg + ">";
+        }
+        roomTitle.innerHTML = chatRoom.postTitle;
+    } else {
+        roomThumbnailImg.innerHTML = "<img src='/resources/images/chat2/default/talking.png'>"
+        roomTitle.innerHTML = chatRoom.roomName;
+    }
 
     // 읽기 영역
     const readingArea = document.getElementById('readingArea');

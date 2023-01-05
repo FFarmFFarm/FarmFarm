@@ -25,6 +25,14 @@ public class Chat2DAO {
 	public List<Chat2Room> selectChatRoomList(int memberNo) {
 		return sqlSession.selectList("chat2Mapper.selectChatRoomList", memberNo);
 	}
+	
+	/** 선택한 채팅방의 정보 조회
+	 * @param roomNo
+	 * @return
+	 */
+	public Chat2Room selectChatRoom(int roomNo) {
+		return sqlSession.selectOne("chat2Mapper.selectChatRoom", roomNo);
+	}
 
 	/** 선택한 채팅방의 채팅 목록 조회
 	 * @param roomNo
@@ -126,6 +134,8 @@ public class Chat2DAO {
 		// 방 번호를 전달 받아서, 해당 방을 수정함
 		return sqlSession.update("chat2Mapper.updateChatRoomStatus", roomNo);
 	}
+
+
 
 
 

@@ -61,12 +61,16 @@ public class Chat2Controller {
 	public String selectChatList(
 			@PathVariable(value="roomNo", required = true) int roomNo) {
 		
-		// 방 번호를 이용해서, 해당 방의 채팅 목록을 조회함
+		// 1. 방 번호를 이용해서, 해당 방의 정보(썸네일 이미지, 타이틀)을 조회함
+		Chat2Room chatRoom = service.selectChatRoom(roomNo);
+		
+		// 2. 방 번호를 이용해서, 해당 방의 채팅 목록을 조회함
 		List<Chat2> chatList = service.selectChatList(roomNo);
 		
-		// map에 담아서 반환
+		// 전부 map에 담아서 반환
 		Map<String, Object> chatMap = new HashMap<String, Object>();
 		
+		chatMap.put("chatRoom", chatRoom);
 		chatMap.put("chatList", chatList);
 		
 		return new Gson().toJson(chatMap);
