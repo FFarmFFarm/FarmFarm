@@ -166,3 +166,29 @@ orderStatus.addEventListener("change",(e)=>{
     })
   }
 })
+
+const enrollInvoice = document.getElementById("enrollInvoice");
+
+enrollInvoice.addEventListener("click",()=>{
+
+  let orderNo = document.getElementById("orderDetailNo").innerText;
+  const invoiceNo = document.getElementById("invoiceNo").value;
+
+  $.ajax({
+    url: "/admin/enrollInvoice",
+    data: {"orderNo" : orderNo,
+            "invoiceNo" : invoiceNo},
+    type: "GET",
+    success: (result)=>{
+      if(result>0){
+        messageModalOpen("송장번호가 입력되었습니다.");
+        setTimeout(() => {
+          window.location.reload();
+        }, "1000");
+      }
+    },
+    error: ()=>{
+      console.log("송장번호 입력 실패");
+    }
+  })
+})
