@@ -74,7 +74,8 @@ public class BoardListController {
 			@PathVariable("boardTypeNo") int boardTypeNo,
 			@RequestParam(value="cp", required = false, defaultValue = "1") int cp,
 			@RequestParam(value="sort", required = false, defaultValue = "new") String sort,
-			@RequestParam(value="query", required = false) String query) {
+			@RequestParam(value="query", required = false) String query,
+			@RequestParam(value="key", required = false, defaultValue = "t") String key) {
 		
 		
 		Map<String, Object> searchMap = new HashMap<String, Object>();
@@ -82,12 +83,14 @@ public class BoardListController {
 		searchMap.put("query", query);
 		searchMap.put("boardTypeNo", boardTypeNo);
 		searchMap.put("sort", sort);
+		searchMap.put("key", key);
 		
 		Map<String, Object> boardMap = new HashMap<String, Object>();
 		
 		boardMap = service.selecBoardtListSearch(searchMap, cp);
 		boardMap.put("query", query);
 		boardMap.put("sort", sort);
+		boardMap.put("key", key);
 		model.addAttribute("boardMap", boardMap);
 		
 		return new Gson().toJson(boardMap);

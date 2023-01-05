@@ -45,9 +45,6 @@
                 <a id="type1" href="/board/${1}">물물교환</a>
                 <a id="type2" href="/board/${2}">팁</a>
                 <a id="type3" href="/board/${3}">질문</a>
-                
-                <a id="type4" href="/board/${4}">시원이꺼</a>
-                <a id="type4" href="/board/${4}">${boardMap.key}</a>
             </div>
         </section>
         <form action="/board/${boardTypeNo}" class="board-search">
@@ -191,6 +188,7 @@
         const inputQuery = document.getElementById("inputQuery");
         // let query = inputQuery.value;
         let query = "${param.query}";
+        let key = "${param.key}";
 
         let cp = 1;
 

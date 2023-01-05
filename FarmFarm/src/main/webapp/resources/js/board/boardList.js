@@ -5,9 +5,9 @@
 // board-list-title의 원래 모양을 저장을 위한 변수선언
 let beforeBoardListTitle;
 
-let key;
+// let key;
 
-console.log("key 3 : " + key);
+// console.log("key 3 : " + key);
 
 const showBoardList = (cp, sort)=>{
 
@@ -20,7 +20,8 @@ const showBoardList = (cp, sort)=>{
         data : {"boardTypeNo" : boardTypeNo,
                 "cp" : cp,
                 "query" : query,
-                "sort" : sort
+                "sort" : sort,
+                "key" : key
                 },
         dataType : "JSON",
         success : boardMap=>{
@@ -213,7 +214,7 @@ const showBoardList = (cp, sort)=>{
                     e.preventDefault();
                     
                 })
-                urlChange(cp, sort);
+                urlChange(cp, sort, key, query);
             }
         },
         error : ()=>{
@@ -230,34 +231,29 @@ const boardAdd = location.pathname;
 const type1 = document.getElementById("type1");
 const type2 = document.getElementById("type2");
 const type3 = document.getElementById("type3");
-const type4 = document.getElementById("type4");
 if(boardAdd == '/board/1'){
     boardTitle.innerHTML = "와글와글 물물교환";
     type1.classList.add("nowType");
     type2.classList.remove("nowType");
     type3.classList.remove("nowType");
-    type4.classList.remove("nowType");
 }
 if(boardAdd == '/board/2'){
     boardTitle.innerHTML="와글와글 팁";
     type1.classList.remove("nowType");
     type2.classList.add("nowType");
     type3.classList.remove("nowType");
-    type4.classList.remove("nowType");
 }
 if(boardAdd == '/board/3'){
     boardTitle.innerHTML="와글와글 질문";
     type1.classList.remove("nowType");
     type2.classList.remove("nowType");
     type3.classList.add("nowType");
-    type4.classList.remove("nowType");
 }
 if(boardAdd == '/board/4'){
     boardTitle.innerHTML="CoolCool";
     type1.classList.remove("nowType");
     type2.classList.remove("nowType");
     type3.classList.remove("nowType");
-    type4.classList.add("nowType");
 }
 if(boardAdd == '/board/4'){
     boardTitle.innerHTML="아무도 들어오지마 시원이꺼";
@@ -387,10 +383,15 @@ for(let a of pageLis){
 
 
 // 주소 변경
-const urlChange = (cp, sort)=>{
+const urlChange = (cp, sort, key, query)=>{
 
     const title = '';
-    const reUrl = "/board/"+boardTypeNo+"?cp="+cp+"&sort="+sort;
+    // const reUrl = "";
+    // if(key != null){
+        const reUrl = "/board/"+boardTypeNo+"?cp="+cp+"&key="+key+"&query="+query+"&sort="+sort;
+    // }else{
+    //     reUrl = "/board/"+boardTypeNo+"?cp="+cp+"&sort="+sort;
+    // }
 
     history.pushState(null, title, reUrl);
 }
