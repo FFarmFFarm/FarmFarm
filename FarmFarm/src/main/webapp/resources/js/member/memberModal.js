@@ -38,39 +38,39 @@
   }
 
   /* 게시글 상세보기에서 실행될겁니당당당~ */
-  const commentList = document.querySelector(".comment-list");
-  if(commentList != null){
+  // const commentList = document.querySelector(".comment-list");
+  // if(commentList != null){
     
-    // 프로필 가져오깅
-    const writerProfile = document.getElementsByClassName("proImg");
+  //   // 프로필 가져오깅
+  //   const writerProfile = document.getElementsByClassName("proImg");
 
-    // Modal 관련 요소 얻어오기
-    const modal = document.querySelector(".modal");
-    const modalClose = document.getElementById("modal-close");
-    const modalImage = document.getElementById("modal-text");
+  //   // Modal 관련 요소 얻어오기
+  //   const modal = document.querySelector(".modal");
+  //   const modalClose = document.getElementById("modal-close");
+  //   const modalImage = document.getElementById("modal-text");
 
-    for(let wPro of writerProfile){
-      wPro.addEventListener("click", ()=>{
-        modal.classList.toggle("show");
-        modalImage.setAttribute("src", wPro.getAttribute("src"));
-        selectMember(wPro.id);
+  //   for(let wPro of writerProfile){
+  //     wPro.addEventListener("click", ()=>{
+  //       modal.classList.toggle("show");
+  //       modalImage.setAttribute("src", wPro.getAttribute("src"));
+  //       selectMember(wPro.id);
 
-        /* 여기 추가 */
-        // targetMemberNo = wPro.id;
-      });
-    }
+  //       /* 여기 추가 */
+  //       // targetMemberNo = wPro.id;
+  //     });
+  //   }
 
-    // x버튼 동작
-    modalClose.addEventListener("click", () => {
-        // hide 클래스를 추가해서 0.5초 동안 투명해지는 애니메이션 수행
-        modal.classList.toggle("hide");
-        // 0.5초 후에 show, hide 클래스를 모두 제거
-        setTimeout(() => {
-            modal.classList.remove("show", "hide");
-        }, 500);
-    });
+  //   // x버튼 동작
+  //   modalClose.addEventListener("click", () => {
+  //       // hide 클래스를 추가해서 0.5초 동안 투명해지는 애니메이션 수행
+  //       modal.classList.toggle("hide");
+  //       // 0.5초 후에 show, hide 클래스를 모두 제거
+  //       setTimeout(() => {
+  //           modal.classList.remove("show", "hide");
+  //       }, 500);
+  //   });
 
-  }
+  // }
 
 })();
 
