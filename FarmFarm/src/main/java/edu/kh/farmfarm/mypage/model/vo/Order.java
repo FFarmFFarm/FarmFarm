@@ -26,7 +26,6 @@ public class Order {
 	
 	private int productCount;
 	private String productSum;
-	private String orderAddress;
 	
 	private List<Product> productList;
 	

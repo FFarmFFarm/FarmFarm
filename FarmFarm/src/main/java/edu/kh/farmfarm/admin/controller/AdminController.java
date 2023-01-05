@@ -420,7 +420,11 @@ public class AdminController {
 	@PostMapping("/admin/selectReportAccumulate")
 	@ResponseBody
 	public String selectReportAccumulate(@SessionAttribute(value="loginMember") Member loginMember, 
-										String reportType, int memberNo, int contentNo) {
+										 @RequestParam(value="memberNo", required=false, defaultValue="0") int memberNo,
+										 @RequestParam(value="contentNo", required=false, defaultValue="0") int contentNo,
+										 @RequestParam(value="reportType", required=false ) String reportType
+										) {
+		
 		
 		// 관리자인지 확인 (관리자면 result==1)
 		int result = service.checkAdmin();
