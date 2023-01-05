@@ -290,12 +290,20 @@ document.getElementById("inviteBtn").addEventListener('click', ()=>{
 
 })
 
-// 2. 닫기
+// 2. 닫기(x)
 document.getElementById("inviteMenuHideBtn").addEventListener('click', () => {
     document.getElementById('chatRoomMenuModal').classList.toggle('hide');
     document.querySelector('.invite-menu').classList.toggle('hide');
     document.querySelector('#searchNicknameInput').value = "";
     document.getElementById('inviteMenuNotice').innerText="회원에게 초대 메세지를 전송합니다."
+})
+
+// 2. 닫기(취소)
+document.getElementById("inviteMenuCalcelBtn").addEventListener('click', ()=>{
+    document.getElementById('chatRoomMenuModal').classList.toggle('hide');
+    document.querySelector('.invite-menu').classList.toggle('hide');
+    document.querySelector('#searchNicknameInput').value = "";
+    document.getElementById('inviteMenuNotice').innerText = "회원에게 초대 메세지를 전송합니다."
 })
 
 // 3. 회원에게 알림 전송하기!
@@ -385,8 +393,31 @@ document.getElementById("exitBtn").addEventListener('click', ()=>{
     document.querySelector('.exit-menu').classList.toggle('hide');
 })
 
-// 2. 닫기
+// 2. 닫기(x)
 document.getElementById("exitMenuHideBtn").addEventListener('click', () => {
     document.getElementById('chatRoomMenuModal').classList.toggle('hide');
     document.querySelector('.exit-menu').classList.toggle('hide');
 })
+
+// 2. 닫기(취소)
+document.getElementById("exitMenuCalcelBtn").addEventListener('click', () => {
+    document.getElementById('chatRoomMenuModal').classList.toggle('hide');
+    document.querySelector('.exit-menu').classList.toggle('hide');
+})
+
+// 3. 탈퇴하기
+const deleteChatEnter = () => {
+    let formData = new FormData();
+    formData.append("roomNo", selectedRoomNo);
+    formData.append("memberNo", myMemberNo);
+
+    axios.post("/chat/delete/chatEnter", formData
+    ).then(function (response) {
+
+        selectChatRoomList();
+        
+    }).catch(function (error) {
+        console.log('탈퇴 중 오류 발생')
+        console.log(error)
+    })
+}

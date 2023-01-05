@@ -26,7 +26,7 @@
   width: 100%;
   text-align: center;
   padding-bottom: 10px;
-  border: 1px solid var(--line-color);
+  border-bottom: 1px solid var(--line-color);
 }
 
 .chatRoom-menu-body{
@@ -43,32 +43,86 @@
   position: absolute;
   top: 10px;
   right: 10px;
+  background-color: transparent;
+  border: none;
+}
+
+.hide-btn:hover{
+  color: var(--point-color);
 }
 
 /* 정보보기 */
 .info-menu{
   background-color: white;
   width: 300px;
-  height: 200px;
+  height: 280px;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
+  border-radius: 5px;
 }
 
 #infoBody{
-  height: 300px;
-  overflow: scroll;
+  height: 200px;
+  overflow-y: scroll;
 }
 
-#infoBody::-webkit-scrollbar{
+#infoBody > span:first-child{
+  width: 70px;
+  height: 60px;
+  background-color: var(--point-color);
+  color: white;
+  border-radius: 10px;
+  margin: 10px 0px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* #infoBody::-webkit-scrollbar{
     display: none;
+} */
+
+/* 초대하기 */
+.invite-menu{
+  background-color: white;
+  width: 270px;
+  height: 220px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  border-radius: 5px;
+}
+  
+#inviteBody > span:first-child{
+  width: 70px;
+  height: 30px;
+  background-color: var(--point-color);
+  color: white;
+  border-radius: 10px;
+  margin: 10px 0px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.member-list{
+.member-list {
   width: 100%;
   padding: 10px 20px;
+}
+
+.search-nickname-box{
+  margin: 10px 0px;
+}
+
+#inviteMenuNotice{
+  margin: 10px 0px;
 }
 
 /* 한 칸 */
@@ -78,7 +132,6 @@
   align-items: center;
   margin-bottom: 10px;
   padding-bottom: 5px;
-  border-top: 1px solid var(--line-color);
 }
 
 /* 프로필 이미지 */
@@ -94,38 +147,34 @@
   width: 100%;
   height: 100%;
 }
-/* 이름 */
-.info-member-nickname{
 
-}
-
-/* 초대하기 */
-.invite-menu{
-  background-color: white;
-  width: 300px;
-  height: 200px;
-  
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-}
 
 /* 나가기 */
 .exit-menu {
   background-color: white;
-  width: 300px;
-  height: 200px;
+  width: 270px;
+  height: 150px;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
+  border-radius: 5px;
 }
 
+#exitNotice{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin: 10px 0px;
+}
+
+
+
 /* 버튼 */
-.new-chatRoom-confirm-btn {
-  width: 60%;
+.menu-confirm-btn {
+  width: 55%;
   height: 40px;
   
   display: flex;
@@ -133,19 +182,20 @@
   align-items: center;
 }
 
-.new-chatRoom-confirm-btn > button {
-  width: 110px;
+.menu-confirm-btn > button {
+  width: 70px;
   height: 30px;
   border: none;
   font-weight: bold;
   transition-duration: 0.2s;
 }
 
-.new-chatRoom-confirm-btn > button:hover {
+.menu-confirm-btn > button:hover {
   opacity: 0.9;
 }
 
-.new-chatRoom-confirm-btn > button:last-child {
+.menu-confirm-btn > button:last-child {
   background-color: var(--point-color);
   color: white;
 }
+
