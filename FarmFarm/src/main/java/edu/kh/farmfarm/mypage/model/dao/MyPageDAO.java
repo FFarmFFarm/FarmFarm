@@ -270,7 +270,14 @@ public class MyPageDAO {
 		return sqlSession.update("myPageMapper.defaultBgImg", loginMember);
 	}
 
-
+	
+	/** 멤버 정보 조회
+	 * @param memberNo
+	 * @return memberInfo
+	 */
+	public Member selectMemberInfo(int memberNo) {
+		return sqlSession.selectOne("sellerMapper.selectMemberInfo", memberNo);
+	}
 
 
 

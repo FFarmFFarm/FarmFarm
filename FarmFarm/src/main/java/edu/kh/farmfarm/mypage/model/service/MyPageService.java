@@ -147,6 +147,9 @@ public interface MyPageService {
 	int defaultBgImg(Member loginMember);
 
 
+	Member selectMemberInfo(int memberNo);
+
+
 
 
 
