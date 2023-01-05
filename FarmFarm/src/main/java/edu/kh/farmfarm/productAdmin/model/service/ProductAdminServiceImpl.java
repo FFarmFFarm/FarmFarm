@@ -236,6 +236,19 @@ public class ProductAdminServiceImpl implements ProductAdminService{
 		return map;
 	}
 
+	// 주문목록 상세조회
+	@Override
+	public Order selectOrderDetail(int orderNo) {
+		
+		return dao.selectOrderDetail(orderNo);
+	}
+
+	// 주문상태 변경
+	@Override
+	public int orderStatus(Map<String, Object> map) {
+		return dao.orderStatus(map);
+	}
+
 	
 	
 }
