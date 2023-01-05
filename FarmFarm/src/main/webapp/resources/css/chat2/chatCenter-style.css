@@ -35,8 +35,7 @@ body{
 }
 
 .chat-sidebar-header{
-    height: 115px;
-    padding: 10px 0px;
+    padding: 5px 0px;
 }
 
 /* 채팅방 목록 타이틀 */
@@ -84,6 +83,7 @@ body{
     background-color: white;
     border-radius: 10px;
     border: 1px solid var(--line-color);
+    margin-bottom: 5px;
 
     position: relative;
 }
@@ -134,8 +134,49 @@ body{
     display: none;
 }
 
+.roomTypeFilter{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 40px;
+    background-color: white;
+
+    border-radius: 7px;
+
+    overflow: hidden;
+}
+
+.roomTypeFilter > label{
+    width: 80px;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    cursor: pointer;
+    transition-duration: 0.2s;
+}
+
+.roomTypeFilter > input{
+    display: none;
+}
+
+.roomTypeFilter > label:hover{
+    background-color: var(--point-color);
+    color: white;
+}
+
+.roomTypeFilter > input:checked + label{
+    background-color: var(--point-color);
+    color: white;
+}
+
+/* 채팅방 목록 */
 .chat-preview-area{
-    height: 555px;
+    height: 470px;
     overflow-y: scroll;
 
         /* 스크롤바 숨기기 */
@@ -143,6 +184,20 @@ body{
     scrollbar-width: none;   /* Firefox */
 
     transition-duration: 0.5s;
+    padding: 4px 0px;
+}
+
+/* 채팅방 풋터 */
+.chat-sidebar-footer{
+    height: 40px;
+    width: 100%;
+    background-color: var(--point-color);
+    color: white;
+    border-radius: 7px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* 스크롤바 숨기기 */

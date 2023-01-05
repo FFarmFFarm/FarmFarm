@@ -40,11 +40,23 @@
                       검색
                   </button>
               </div>
+              <div class="roomTypeFilter">
+                <input type="radio" name="roomType" id="all" checked>
+                <label for="all"> 전체 </label>
+                
+                <input type="radio" name="roomType" id="post">
+                <label for="post"> 상품 </label>
+                
+                <input type="radio" name="roomType" id="free">
+                <label for="free"> 자유 </label>
+              </div>
             </div>
             <div class="chat-preview-area">
               <!-- 채팅방 미리보기 영역 -->
             </div>
-
+            <div class="chat-sidebar-footer">
+              <i class="fa-solid fa-plus"></i>&nbsp;새 채팅 시작하기
+            </div>
         </section>
 
         <!-- 우측 채팅 내역 -->
