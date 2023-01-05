@@ -70,21 +70,42 @@ public class APIServiceImpl implements APIService {
 		}
 		
 //		String result = rd.readLine();
-		System.out.println(line);
+//		System.out.println(line);
 		JSONParser jsonParser = new JSONParser();
 		JSONObject jsonObject = (JSONObject)jsonParser.parse(sb.toString());
-		System.out.println(jsonObject.toString());
+//		System.out.println(jsonObject.toString());
 		JSONObject response = (JSONObject)jsonObject.get("response");
-		System.out.println(response.toString());
+//		System.out.println(response.toString());
 		
 		JSONArray list = (JSONArray)response.get("list");
-		System.out.println(list.toString());
+//		System.out.println(list.toString());
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map = new Gson().fromJson(list.toString(), map.getClass());
-		
-		
-		
+		System.out.println(((JSONObject)list.get(0)).get("no"));
+		for(int i=0 ; i<list.size() ; i++) {
+			JSONObject obj = (JSONObject)list.get(i);
+			
+			System.out.println(obj.get("upper_Fd_Grupp_Nm"));
+			System.out.println(obj.get("fd_Nm"));
+			System.out.println(obj.get("ckry_Sumry_Info"));
+			
+			JSONArray foodList = (JSONArray)obj.get("food_List");
+			for(int x=0 ; x<foodList.size() ; x++) {
+				JSONObject foodObj = (JSONObject)foodList.get(x);
+				
+				System.out.println(foodObj.get("allrgy_Info"));
+				System.out.println(foodObj.get("food_Image_Address"));
+			}
+			
+			JSONArray ckryList = (JSONArray)obj.get("ckry_List");
+			for(int x=0 ; x<ckryList.size() ; x++) {
+				JSONObject ckry = (JSONObject)ckryList.get(x);
+				
+				System.out.println(ckry.get("ckry_Info"));
+				System.out.println(ckry.get("ckry_Image_Address"));
+			}
+			
+			System.out.println("=========================");
+		}
 		
 		rd.close();
 		conn.disconnect();
