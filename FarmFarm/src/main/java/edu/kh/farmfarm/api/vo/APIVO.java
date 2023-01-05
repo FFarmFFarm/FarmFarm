@@ -19,6 +19,9 @@ public class APIVO {
 	private String food_Image_Address;
 	private String ckry_Info;
 	private String ckry_Image_Address;
+	private String page_No;
+	private String no;
+	private String total_Count;
 	
 	private List<JSONObject> response = new ArrayList<JSONObject>();
 }

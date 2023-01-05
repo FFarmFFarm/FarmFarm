@@ -26,9 +26,16 @@ public class APIController {
 			@RequestParam Map<String, Object> pm
 			) throws Exception{
 		
-		List<APIVO> apiList = service.foodList(cp);
+		// 검색 안하는 경우
+		if(pm == null) {
+			pm.put("key", "t");
+			pm.put("query", null);
+		}
 		
-		model.addAttribute("apiList", apiList);
+		Map<String, Object> map = service.foodList(cp, pm);
+		
+		model.addAttribute("pagination", map.get("pagination"));
+		model.addAttribute("apiList", map.get("apiList"));
 		
 		return "/recipe/recipe";
 	}

@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -28,6 +29,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import edu.kh.farmfarm.api.vo.APIVO;
+import edu.kh.farmfarm.common.Pagination;
 import edu.kh.farmfarm.order.model.dao.OrderDAO;
 import edu.kh.farmfarm.order.model.vo.ImpToken;
 import netscape.javascript.JSObject;
@@ -43,7 +45,7 @@ public class APIServiceImpl implements APIService {
 	private RestTemplate restTemplate = new RestTemplate();
 
 	@Override
-	public List<APIVO> foodList(int cp) throws IOException, Exception {
+	public Map<String, Object> foodList(int cp, Map<String, Object> pm) throws IOException, Exception {
 		StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/1390802/AgriFood/FdFoodCkryImage/getKoreanFoodFdFoodCkryImageList");
 		urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "=7KB%2B3qxnM6IslhoJLACIPUOC%2BwMDKZ3fsbUPRKAr3s82xRrm9Xk33uq8X1JxKl9xyFIeraHodKrkozZU0kxjQg%3D%3D");
 		urlBuilder.append("&" + URLEncoder.encode("service_Type","UTF-8") + "=" + URLEncoder.encode("json","UTF-8"));
@@ -79,7 +81,12 @@ public class APIServiceImpl implements APIService {
 		JSONObject jsonObject = (JSONObject)jsonParser.parse(sb.toString());
 //		System.out.println(jsonObject.toString());
 		JSONObject response = (JSONObject)jsonObject.get("response");
-//		System.out.println(response.toString());
+		System.out.println(response.get("total_Count"));
+		
+		Pagination pagination = new Pagination( Integer.parseInt(response.get("total_Count").toString()), cp);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("pagination", pagination);
 		
 		JSONArray list = (JSONArray)response.get("list");
 //		System.out.println(list.toString());
@@ -94,14 +101,24 @@ public class APIServiceImpl implements APIService {
 		for(int y=0; y<response.size(); y++) {
 			JSONObject obj = (JSONObject)list.get(y);
 			
+//			String total = obj.get("total_Count").toString();
+//			int total_Count = Integer.parseInt(total);
+
+			
+			System.out.println(obj.get("total_Count"));
 			System.out.println(obj.get("page_No"));
+			
+			object1.put("total_Count", obj.get("total_Count"));
 			object1.put("page_No", obj.get("page_No"));
 			objectList.add(object1);
+
+
 		}
 		
 		for(int i=0 ; i<list.size() ; i++) {
 			JSONObject obj = (JSONObject)list.get(i);
 			
+			object1.put("no", obj.get("no"));
 			object1.put("upper_Fd_Grupp_Nm", obj.get("upper_Fd_Grupp_Nm"));
 			object1.put("fd_Nm", obj.get("fd_Nm"));
 			object1.put("ckry_Sumry_Info", obj.get("ckry_Sumry_Info"));
@@ -127,24 +144,36 @@ public class APIServiceImpl implements APIService {
 			}
 			
 			JSONArray ckryList = (JSONArray)obj.get("ckry_List");
-			for(int x=0 ; x<ckryList.size() ; x++) {
-				JSONObject ckry = (JSONObject)ckryList.get(x);
+			if(ckryList != null) {
+				for(int x=0 ; x<ckryList.size() ; x++) {
+					JSONObject ckry = (JSONObject)ckryList.get(x);
+	//				if(ckryList) {
+	//					
+	//				} else {
+						
+						object1.put("ckry_Info", obj.get("ckry_Info"));
+						object1.put("ckry_Image_Address", obj.get("ckry_Image_Address"));
+						
+						objectList.add(object1);
+						
+						
+	//					System.out.println(ckry.get("ckry_Info"));
+	//					System.out.println(ckry.get("ckry_Image_Address"));
+	//				}
+				}
+			} else {
+				object1.put("ckry_Sumry_Info", "추후 업데이트 예정입니다.");
 				
-				object1.put("ckry_Info", obj.get("ckry_Info"));
-				object1.put("ckry_Image_Address", obj.get("ckry_Image_Address"));
-				
-				objectList.add(object1);
-				
-				ObjectMapper objectMapper = new ObjectMapper();
-				APIVO api = objectMapper.readValue(object1.toString(), APIVO.class);
-				
-				apiList.add(api);
-				
-				System.out.println(ckry.get("ckry_Info"));
-				System.out.println(ckry.get("ckry_Image_Address"));
 			}
 			
+			ObjectMapper objectMapper = new ObjectMapper();
+			APIVO api = objectMapper.readValue(object1.toString(), APIVO.class);
+			
+			apiList.add(api);
+			map.put("apiList", apiList);
+
 			System.out.println("=========================");
+			
 		}
 		
 		rd.close();
@@ -152,8 +181,7 @@ public class APIServiceImpl implements APIService {
 //		System.out.println(sb.toString());
 		
 		
-		
-		return apiList;
+		return map;
 	}
 
 
