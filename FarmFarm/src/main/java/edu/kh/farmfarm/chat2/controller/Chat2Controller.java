@@ -192,11 +192,9 @@ public class Chat2Controller {
 	}
 	
 	// 채팅방 탈퇴(UPDATE)
-	@PostMapping("/delete/chatEnter/{roomNo}")
+	@PostMapping("/delete/chatEnter")
 	@ResponseBody
-	public String deleteChatEnter(
-			@PathVariable(value="roomNo", required = true) int roomNo,
-			int memberNo) {
+	public String deleteChatEnter(int roomNo, int memberNo) {
 		
 		// 방 번호와, 회원 번호를 전달받아서, 채팅방에서 탈퇴(delete가 아닌 update)
 		int result = service.deleteChatEnter(roomNo, memberNo);

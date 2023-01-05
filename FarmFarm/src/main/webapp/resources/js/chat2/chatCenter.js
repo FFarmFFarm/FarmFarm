@@ -405,7 +405,14 @@ document.getElementById("exitMenuCalcelBtn").addEventListener('click', () => {
     document.querySelector('.exit-menu').classList.toggle('hide');
 })
 
-// 3. 탈퇴하기
+// 3. 나가기 확인
+document.getElementById("exitMenuConfirmBtn").addEventListener('click', () => {
+    deleteChatEnter();
+    document.getElementById('chatRoomMenuModal').classList.toggle('hide');
+    document.querySelector('.exit-menu').classList.toggle('hide');
+})
+
+// 3. 나가기 함수
 const deleteChatEnter = () => {
     let formData = new FormData();
     formData.append("roomNo", selectedRoomNo);
@@ -415,7 +422,13 @@ const deleteChatEnter = () => {
     ).then(function (response) {
 
         selectChatRoomList();
-        
+        document.getElementById('roomBodyBlinder').style.display='block';
+        document.getElementById('readingArea').innerHTML = "";
+        document.getElementById('roomTitle').innerHTML = "";
+        document.getElementById('roomThumbnailImg').innerHTML = "";
+        document.querySelector('.chat-room-id').id = "none";
+
+
     }).catch(function (error) {
         console.log('탈퇴 중 오류 발생')
         console.log(error)
