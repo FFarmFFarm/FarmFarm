@@ -69,9 +69,8 @@
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-    <script src="/resources/js/common/common.js"></script>
     <script src="/resources/js/myPage/myPage.js"></script>
     <script src="/resources/js/myPage/myPageUpdatePw.js"></script>
-
+    <script src="/resources/js/common/common.js"></script>
   </body>
 </html>

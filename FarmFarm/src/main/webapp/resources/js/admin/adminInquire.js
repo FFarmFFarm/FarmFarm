@@ -252,12 +252,22 @@ const sendBtn = document.getElementById('sendBtn');
 const inputMessage = document.getElementById('inputBox');
 
 sendBtn.addEventListener('click', () => { 
-  sendInquire();
+  if(inputMessage.value.trim().length > 0) {
+    sendInquire();
+
+  } else {
+    messageModalOpen("메세지를 입력해주세요")
+  }
 })
 
 inputMessage.addEventListener('keypress', (e) => {
   if(e.key == 'Enter') {
-    sendInquire();
+    if(inputMessage.value.trim().length > 0) {
+      sendInquire();
+  
+    } else {
+      messageModalOpen("메세지를 입력해주세요")
+    }
   }
 })
 
@@ -326,13 +336,14 @@ inquireSock.onmessage = function(e) {
   console.log(msg);
 
       
+  
+  
+  if (memberInquireNo == msg.inquireNo) {
     /* 방금온 메세지 읽음처리 */
     updateMessageRead(msg.inquireNo);
-
-
-  if (memberInquireNo == msg.inquireNo) {
+    
     const readingArea = document.getElementById('readingArea');
-  
+    
   
   if (msg.messageDate != msg.lastMessageDate) {
     const dateLabelLine = document.createElement('div');

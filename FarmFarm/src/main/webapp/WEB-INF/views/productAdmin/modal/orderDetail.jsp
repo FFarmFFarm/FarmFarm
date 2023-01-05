@@ -17,14 +17,39 @@
         <div class="order-detail-top">
           <div>
             <span class="small-title">주문번호</span>
-            <span>20220301-123</span>
+            <span id="orderDetailNo"></span>
           </div>
           <div>
             <span class="small-title">주문일시</span>
-            <span>2022-12-13 13:14:15</span>
+            <span id="orderDetailDate"></span>
           </div>
         </div>
-        <table class="order-detail-table">
+
+
+        <table class="order-status-table">
+          <tr>
+            <th>주문상태</th>
+            <td>
+              <select name="key" id="orderStatus">
+                <option value="0">결제완료</option>
+                <option value="1">배송중</option>
+                <option value="2">취소완료</option>
+                <option value="3">구매확정</option>
+              </select>
+            </td>
+            <th>송장번호 입력</th>
+            <td>
+              <input type="text"
+                id="invoiceNo" maxlength="15"
+                placeholder="송장번호 입력">
+              <button type="button" id="enrollInvoice">입력</button>
+            </td>
+          </tr>
+        </table>
+
+
+        <table class="order-detail-table" id="productDetail">
+          <thead>
             <tr class="order-table-head">
                 <th>주문상품</th>
                 <th>판매가</th>
@@ -32,35 +57,26 @@
                 <th>총액</th>
                 <th>배송료</th>
                 <th>결제금액</th>
-                <th>주문상태</th>
-                <th>송장번호</th>
+                <th>반품여부</th>
             </tr>
-            <tr class="order-table-row">
+          </thead>
+          <tbody id="orderDetailBody">
+          
+          </tbody>
+            <%-- <tr class="order-table-row">
               <td class="order-product">
                 <div class="product-img">
                   <img src="" alt="">
                 </div>
-                <span>제너럴킹갓모종삽</span>
+                <span class="product-name">제너럴킹갓모종삽</span>
               </td>
               <td>8,000</td>
               <td>3</td>
               <td>24,000</td>
               <td>3,000</td>
               <td>27,000<span>원</span></td>
-              <td>
-                <select name="key" id="orderStatus">
-                  <option value="payComplete">결제완료</option>
-                  <option value="duringDelivery">배송중</option>
-                  <option value="deliveryComplete">배송완료</option>
-                  <option value="cancel">주문취소</option>
-                </select>
-              </td>
-              <td>
-                <input type="text"
-                name="invoiceNo" maxlength="15"
-                placeholder="송장번호 입력">
-              </td>
-            </tr>
+              <td>반품신청</td>
+            </tr> --%>
         </table>
   </div>
 
@@ -70,13 +86,13 @@
       <table class="orderer-detail-table">
           <tr>
               <th>수령인</th>
-              <td>김길자</td>
+              <td id="memberName"></td>
               <th>전화번호</th>
-              <td>010-1234-1234</td>
+              <td id="memberTel"></td>
           </tr>
           <tr>
               <th>주소</th>
-              <td colspan="3">서울시 노원구 중계동</td>
+              <td colspan="3" id="orderAddress"></td>
           </tr>
       </table>
       </div>

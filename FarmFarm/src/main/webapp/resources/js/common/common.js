@@ -69,9 +69,9 @@ const loginConfirmOpen = () => {
 
 
 /* 로그인 컨펌창 취소 클릭 시 닫힘 */
-if (document.getElementById('loginCalcelBtn') != undefined) {
+if (document.getElementById('loginCancelBtn') != undefined) {
 
-  document.getElementById('loginCalcelBtn').addEventListener('click', function () {
+  document.getElementById('loginCancelBtn').addEventListener('click', function () {
     const loginConfirm = document.getElementById('loginConfirm');
     displayNone(loginConfirm);
   })

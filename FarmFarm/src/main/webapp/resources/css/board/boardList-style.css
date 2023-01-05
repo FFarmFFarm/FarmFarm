@@ -195,7 +195,7 @@ input[type="text"]:focus{
     height: 50px;
 }
 .board-title{
-    width: 520px;
+    width: 660px;
 }
 .board-writer{
     /* border: 1px solid black; */
@@ -216,6 +216,7 @@ input[type="text"]:focus{
     display: flex;
     align-items: center;
     border-bottom: 1px solid var(--line-color);
+
 }
 .board-list li > .board-title {
     padding-left: 10px;

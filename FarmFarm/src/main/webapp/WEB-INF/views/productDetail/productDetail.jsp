@@ -364,4 +364,5 @@
 
   <!-- script -->
   <script src="/resources/js/productDetail/productDetail.js"></script>
+  <script src="/resources/js/common/common.js"></script>
 </html>

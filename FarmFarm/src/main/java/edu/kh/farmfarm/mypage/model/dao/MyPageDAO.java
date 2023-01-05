@@ -238,6 +238,39 @@ public class MyPageDAO {
 	}
 
 
+	/** 배경 이미지 이름 조회
+	 * @return
+	 */
+	public List<String> selectBgImageList() {
+		return sqlSession.selectList("myPageMapper.selectBgImageList");
+	}
+	
+	
+	/** 프로필 이미지 이름 조회
+	 * @return
+	 */
+	public List<String> selectProfileImageList() {
+		return sqlSession.selectList("myPageMapper.selectProfileImageList");
+	}
+
+
+	/** 리뷰 이미지 변경명 조회
+	 * @return
+	 */
+	public List<String> selectReviewImageList() {
+		return sqlSession.selectList("myPageMapper.selectReviewImageList");
+	}
+
+
+	/** 기본 배경이미지로 변경
+	 * @param loginMember
+	 * @return
+	 */
+	public int defaultBgImg(Member loginMember) {
+		return sqlSession.update("myPageMapper.defaultBgImg", loginMember);
+	}
+
+
 
 
 

@@ -16,7 +16,7 @@
     <title>마이페이지 | 개인 정보 수정</title>
     <link rel="stylesheet" href="/resources/css/common/header-style.css" />
     <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
-    <link rel="stylesheet" href="/resources/css/myPage/myPage-style.css" />
+    <link rel="stylesheet" href="/resources/css/myPage/myPageSeller-style.css" />
     <link rel="stylesheet" href="/resources/css/myPage/myPageProfile-style.css" />
     <script
       src="https://kit.fontawesome.com/591746f9e8.js"
@@ -29,7 +29,7 @@
       <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
     <main>
-      <jsp:include page="/WEB-INF/views/myPage/myPage.jsp"/>
+      <jsp:include page="/WEB-INF/views/myPage/myPageSeller.jsp"/>
       <!-- ${loginMember.profileImg} -->
       <section class="list-container">
         <jsp:include page="/WEB-INF/views/myPage/myPageNav.jsp"/>
@@ -143,7 +143,6 @@
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
     <script src="/resources/js/common/common.js"></script>
-
     <script src="/resources/js/myPage/myPage.js"></script>
     <script src="/resources/js/myPage/myPageProfile.js"></script>
 
