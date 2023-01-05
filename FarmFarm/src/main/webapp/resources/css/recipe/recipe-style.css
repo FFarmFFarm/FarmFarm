@@ -68,9 +68,9 @@ main{
     overflow: hidden;
 }
 .board-search-area > input{
-    width: 455px;
+    width: 540px;
     height: 100%;
-    padding-left: 10px;
+    padding-left: 25px;
     font-size: var(--main-font-size);
     border: none;
     overflow: hidden;
@@ -185,22 +185,24 @@ input[type="text"]:focus{
     display: inline-block;
     text-align: center;
     font-size: var(--main-font-size);
-    margin: 0 5px;
+    /* margin: 0 10px; */
+    padding: 0 10px;
 }
 .board-no{
-    width: 70px;
+    width: 5%;
 }
 .board-img{
-    width: 50px;
-    height: 50px;
+    width: 15%;
 }
 .board-title{
-    width: 660px;
+    /* font-family: "NotoSansKR-Bold"; */
+    width: 15%;
 }
 .board-writer{
     /* border: 1px solid black; */
-    width: 180px;
+    width: 65%;
     cursor: pointer;
+    line-height: 1.8;
     /* height: 100%; */
 }
 .board-date{
@@ -212,11 +214,11 @@ input[type="text"]:focus{
 
 /* 게시판 목록 */
 .board-list-area li{
-    height: 60px;
+    min-height: 200px;
     display: flex;
     align-items: center;
     border-bottom: 1px solid var(--line-color);
-
+    padding: 30px 0;
 }
 .board-list li > .board-title {
     padding-left: 10px;
@@ -291,24 +293,4 @@ input[type="text"]:focus{
     transition-duration: 0.1s;
 }
 
-/* 글쓰기 버튼 */
-.board-write{
-    width: 110px;
-    height: 40px;
-    background-color: var(--point-color);
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-    color: white;
-    letter-spacing: 2px;
-    padding-top: 8px;
-    font-weight: 600;
-    font-size: var(--main-font-size);
-}
-
-/* 로그인 모달창 */
-.hide {
-    display: none;
-    opacity: 0;
-  }
 
