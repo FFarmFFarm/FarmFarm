@@ -157,7 +157,7 @@ const fillChatWidget = (chatRoomList) => {
         // 재료 손질
         // chatWidgetBox 세팅
         chatWidgetBox.id = chatRoom.roomNo;
-        packUpElement(chatWidgetBox, 'chat-widget-box', null);
+        packUpElement(chatWidgetBox, 'chatWidget-box', null);
 
         // thumbnailImg 세팅 : 채팅방 유형이 상품이 아닌 경우 기본 이미지를 채워넣음
         if (chatRoom.roomType == 0) {
@@ -192,6 +192,14 @@ const fillChatWidget = (chatRoomList) => {
             }
 
             packUpElement(chatWidgetLastChatTime, 'chatWidget-last-chat-time', chatRoom.lastChatTime);
+
+
+            // input값 세팅
+            // const chatWidgetBoxInfo = document.createElement('input');
+            // chatWidgetBoxInfo.hidden = true;
+            chatWidgetBox.setAttribute('name', "roomNo");
+            chatWidgetBox.setAttribute('value', chatRoom.roomNo);
+
 
             // 포장하기
             chatWidgetBoxLabel.append(chatWidgetLastChatContent, chatWidgetLastChatTime);

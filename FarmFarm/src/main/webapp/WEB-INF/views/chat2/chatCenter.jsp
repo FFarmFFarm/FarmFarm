@@ -31,7 +31,7 @@
         <!-- 좌측 사이드바 채팅방 목록 -->
         <section class="chat-sidebar">
             <div class="chat-sidebar-header">
-              <a class="title" href="/notify/center">
+              <a class="title" href="/myPage/notify">
                 <i class="fa-solid fa-bell"></i>&nbsp;&nbsp;알림 센터
               </a>
               <div class="search-area">

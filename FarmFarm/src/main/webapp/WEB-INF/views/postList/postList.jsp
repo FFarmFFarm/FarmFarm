@@ -101,15 +101,16 @@
             <div class="reset-category">
                 <span><i class="fa-solid fa-circle-xmark"></i>&nbsp;검색 초기화</span>
             </div>
-
-            <a href="/post/enroll" id="goPostEnrollBtn">
-              <div id="btn-icon">
-                <i class="fa-solid fa-square-pen"></i>
-              </div>
-              <div id="btn-name">
-                판매하기
-              </div> 
-            </a>
+            <c:if test="${loginMember.authority == 1}">
+                <a href="/post/enroll" id="goPostEnrollBtn">
+                    <div id="btn-icon">
+                        <i class="fa-solid fa-square-pen"></i>
+                    </div>
+                    <div id="btn-name">
+                        판매하기
+                    </div> 
+                </a>
+            </c:if>
         </section>
 
         <!-- 우측 상품목록 영역 -->

@@ -2,6 +2,7 @@
 let myMemberNo;         // 내 회원 번호
 let myMemberNickname;   // 내 닉네임
 let myProfileImg;       // 내 사진
+let myAuthority;        // 내 권한
 let selectedRoomNo;     // 현재 보고 있는 방의 번호
 let senderNo;           // 보낸 사람
 let partnerNickname;    // 상대방의 닉네임
@@ -15,6 +16,11 @@ let chattingSock;
 /* 내 채팅방 목록 가져오기 */
 window.addEventListener("DOMContentLoaded", ()=>{
     connectToChattingSock();
+
+    // /chat/shortcut 경로를 통해 페이지에 접근한 경우 사용
+    if (shortcutNo > 0) {
+        shortcut(shortcutNo);
+    }
 })
 
 
@@ -26,6 +32,11 @@ const connectToChattingSock = () => {
         myMemberNo = response.data.memberNo;
         myMemberNickname = response.data.memberNickname;
         myProfileImg = response.data.profileImg;
+        myAuthority = response.data.authority;
+
+        if (myAuthority != 0) {
+            document.querySelector('.chat-sidebar-footer').style.display='none';
+        }
 
         console.log("안녕 " + myMemberNo + "번 회원님")
 
@@ -204,7 +215,7 @@ const makeChatPreviewBox = (chatRoom) => {
 /* 채팅방 목록에 이벤트 부여 */
 const chatPreviewBoxEvent = (chatPreviewBox) => {
     console.log('가져올게 잠깐만 ~ ')
-    document.getElementById('roomBodyBlinder').style.display='none';
+    // document.getElementById('roomBodyBlinder').style.display='none';
 
     const roomNo = chatPreviewBox.id;
 
@@ -225,6 +236,10 @@ const chatPreviewBoxEvent = (chatPreviewBox) => {
 
             // 채팅방 만들기
             makeChatRoom(chatRoom, chatList); 
+
+            // 가림막 치우기
+            document.getElementById('roomBodyBlinder').style.display = 'none';
+
 
         }).catch(function (error) {
             console.log(error);
@@ -268,6 +283,10 @@ const makeChatRoom = (chatRoom, chatList) => {
     if(chatRoom.roomType > 0) {
         document.getElementById('inviteBtn').style.display="none";
         document.getElementById('purchaseBtn').style.display='flex';
+        // 구매하기 버튼에 상세페이지 이벤트 부여
+        document.getElementById('purchaseBtn').addEventListener('click', ()=>{
+            goToPostDetail(chatRoom.roomType);
+        })
         if(chatRoom.thumbnailImg == undefined) {
             roomThumbnailImg.innerHTML = "<img src='/resources/images/member/user.png'>";
         } else {
@@ -448,6 +467,12 @@ const sendChatToServer = () => {
     document.getElementById('inputBox').blur();
 }
 
+/* 구매하기 페이지 이벤트 */
+const goToPostDetail = (postNo) => {
+    let url = "/post/" + postNo;
+    location.href = url;
+}
+
 /* 채팅(이미지)를 보내는 함수 */
 const sendImgToServer = () => {
     const imageInput = document.getElementById('imageInput');
@@ -522,52 +547,6 @@ document.getElementById('inputBox').addEventListener('keyup', (e)=>{
 document.getElementById('sendImgBtn').addEventListener('click', ()=>{
     sendImgToServer();
 })
-
-/* 채팅을 받는 함수 */
-// chattingSock.onmessage = function(e) {
-//     const chat = JSON.parse(e.data);
-
-//     const readingArea = document.getElementById('readingArea');
-
-//     if(selectedRoomNo == chat.roomNo) { // 해당 채팅방을 보고 있는 경우..
-
-//         // 날짜가 바뀌었는지 확인
-//         if (nowDate != chat.chatDate) {
-//             nowDate = chat.chatDate;
-
-//             const dateLabel = document.createElement('div');
-//             const dateLabelLine = document.createElement('div');
-
-//             packUpElement(dateLabel, 'date-label', nowDate);
-//             packUpElement(dateLabelLine, 'date-label-line');
-
-//             dateLabelLine.append(dateLabel);
-//             readingArea.append(dateLabelLine);
-//         }
-
-//         if(senderNo == chat.sendMemberNo) { // 내가 보낸 채팅인 경우..
-//             const sentChat = makeSentChat(chat.chatContent, chat.chatTime, chat.imgFl, 'N');
-
-//             readingArea.append(sentChat);
-
-//         } else { // 아닌 경우
-//             const receivedChat = makeReceivedChat(partnerProfileImg, partnerNickname, chat.chatContent, chat.chatTime, chat.imgFl);
-            
-//             // 현재 보이는 읽지 않음을 전부 읽음처리해야함;;(동기화작업)
-//             readMyChat();
-
-//             readingArea.append(receivedChat);
-//         }
-
-//         // 스크롤을 하단으로 내림
-//         const nowScrollHeight = readingArea.scrollHeight;
-//         readingArea.scrollTo(0,nowScrollHeight);
-
-//     } else { // 해당 채팅방을 보고 있지 않은 경우..
-//         console.log('새로운 채팅이 왔어요')
-//     }
-//     selectChatRoomList();
-// }
 
 const onMessage = (chat) => {
     const readingArea = document.getElementById('readingArea');
@@ -718,6 +697,8 @@ document.getElementById('bottomBtn').addEventListener('click', ()=>{
     document.getElementById('readingArea').scrollTo(0, roomHeight);
 })
 
+
+/* 채팅 초대 승인 거절 이벤트  */
 /* 채팅방 초대 승인 or 거절 */
 const updateChatEnterAgree = (inviteBtnArea) => {
     const enterNo = inviteBtnArea.id;
@@ -753,4 +734,41 @@ const updateChatEnterReject = (inviteBtnArea) => {
         console.log('error');
         console.log(error);
     })
+}
+
+
+/* shortcut을 이용해서 접근한 경우 */
+const shortcut = (shortcutNo) => {
+    
+    console.log('지름길로 왔어요~')
+
+    const roomNo = shortcutNo;
+    console.log(roomNo);
+
+    // 채팅 목록 가져오기
+    axios.post('/chat/select/' + roomNo)
+        .then(function (response) {
+
+            // 선택한 채팅방의 채팅 내역
+            const chatRoom = response.data.chatRoom;
+            const chatList = response.data.chatList;
+
+            // 채팅 전송을 위해 전역 변수 세팅
+            selectedRoomNo = roomNo;
+            senderNo = myMemberNo;
+
+            // 읽음 처리 해야함..
+            selectChatRoomList();
+
+            // 채팅방 만들기
+            makeChatRoom(chatRoom, chatList);
+
+            // 가림막 치우기
+            document.getElementById('roomBodyBlinder').style.display = 'none';
+
+        }).catch(function (error) {
+            console.log(error);
+            // location.href = '/error';
+        });
+
 }

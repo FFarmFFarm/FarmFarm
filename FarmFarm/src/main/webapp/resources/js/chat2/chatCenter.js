@@ -162,7 +162,9 @@ for(let roomType of roomTypeList) {
 
 /* 채팅방 모달 관련 js */
 document.querySelector('.chat-sidebar-footer').addEventListener("click", ()=>{
-    document.getElementById('newChatRoomModal').classList.toggle('hide');
+    if(authority == 0) { // 다른 파일에 있음
+        document.getElementById('newChatRoomModal').classList.toggle('hide');
+    }
 })
 
 /* 모달창 닫기 x 버튼 */

@@ -3,7 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
-<link rel="stylesheet" href="/resources/css/chat/chatWidget-style.css">
+<link rel="stylesheet" href="/resources/css/chat2/chatWidget-style.css">
 
 <script src="https://kit.fontawesome.com/d449774bd8.js" crossorigin="anonymous"></script>
 
@@ -45,6 +45,3 @@
     
     <script src="/resources/js/chat2/chatWidget.js"></script>
     
-    <script>
-      const loginMemberNo = "${loginMember.memberNo}";
-    </script>

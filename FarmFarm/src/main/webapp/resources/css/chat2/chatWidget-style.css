@@ -111,7 +111,7 @@
     border: 1px solid var(--line-color);
     border-radius: 50%;
 } */
-.chatWidget-post-img{
+.chatWidget-thumbnail-img{
     width: 50px;
     height: 50px;
     margin-right: 5px;
@@ -120,7 +120,7 @@
     align-items: center;
 }
 
-.chatWidget-post-img > img{
+.chatWidget-thumbnail-img > img{
     width: 100%;
     height: 100%;
     
@@ -143,12 +143,12 @@
 }
 
 /* 이름 */
-.chatWidget-member-nickname{
-    width: 115px;
-    /* font-weight: 600; */
+.chatWidget-room-title{
+    width: 170px;
+    font-weight: 600;
     font-size: var(--main-font-size);
     color: var(--main-font-color);
-    margin-top: 4px;
+    margin-bottom: 4px;
     text-overflow: ellipsis;
     overflow: hidden;
     word-break: break-all;
@@ -160,20 +160,20 @@
 
 /* 시간 */
 .chatWidget-last-chat-time{
-    width: 73px;
+    width: 85px;
     font-size: var(--small-font-size);
-    font-family: sans-serif;
     color: var(--sub-font-color);
-    letter-spacing: -1px;
 
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
+
+    letter-spacing: -1px;
 }
 
 /* 채팅내용(1줄까지) */
 .chatWidget-last-chat-content{
-    width: 170px;
+    width: 130px;
     height: 17px;
     /* padding: 5px 0px; */
     font-size: var(--main-font-size);
@@ -182,6 +182,8 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+
+    margin-top: 4px;
 }
 
 .post-title{
@@ -216,7 +218,7 @@
     justify-content: center;
 
     /* bottom: 30px; */
-    bottom: 45px;
+    bottom: 40px;
     right: 21px;
 }
 

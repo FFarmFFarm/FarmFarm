@@ -31,15 +31,18 @@ public class CommonController {
 		int memberNo = -1;
 		String memberNickname = "";
 		String profileImg = "";
+		int authority = 0;
 		
 		if(session.getAttribute("loginMember") != null) {
 			memberNo = ((Member)(session.getAttribute("loginMember"))).getMemberNo();
 			memberNickname = ((Member)(session.getAttribute("loginMember"))).getMemberNickname();
 			profileImg = ((Member)(session.getAttribute("loginMember"))).getProfileImg();
+			authority = ((Member)(session.getAttribute("loginMember"))).getAuthority();
 			
 			member.setMemberNo(memberNo);
 			member.setMemberNickname(memberNickname);
 			member.setProfileImg(profileImg);
+			member.setAuthority(authority);
 		}
 		
 		return new Gson().toJson(member);

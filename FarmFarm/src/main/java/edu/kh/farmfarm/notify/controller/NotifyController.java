@@ -24,13 +24,13 @@ public class NotifyController {
 	@Autowired
 	private NotifyService service;
 	
-	// 임시 알림창 확인용 페이지 이동 메서드
-	@GetMapping("/temp/notify")
-	public String tempNotify() {
-		return "notify/notifyReceiver";
-	}
 	
-
+	// 알림 페이지 이동(초기 세팅)
+//	@GetMapping("/notify/center")
+	@GetMapping("/myPage/notify")
+	public String forwardNotifyList(HttpSession session) {
+		return "notify/notifyCenter";
+	}
 	
 	// 게시글 또는 댓글의 작성자 찾기
 	@PostMapping("/notify/select/targetNo")
@@ -61,11 +61,6 @@ public class NotifyController {
 		return new Gson().toJson(notifyMap);
 	}
 	
-	// 알림 페이지 이동(초기 세팅)
-	@GetMapping("/notify/center")
-	public String forwardNotifyList(HttpSession session) {
-		return "notify/notifyCenter";
-	}
 	
 	// 내 알림 목록 요청(axios)
 	@PostMapping("/notify/center/select")

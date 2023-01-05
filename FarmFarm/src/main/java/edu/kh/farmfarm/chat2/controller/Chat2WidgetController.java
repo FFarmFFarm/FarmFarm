@@ -50,6 +50,6 @@ public class Chat2WidgetController {
 		
 		ra.addFlashAttribute("shortcutNo", roomNo);
 		
-		return "redirect:/chat";
+		return "redirect:/chat/center";
 	}
 }

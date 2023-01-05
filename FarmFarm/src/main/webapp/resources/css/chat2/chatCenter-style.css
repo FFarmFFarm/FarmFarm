@@ -17,6 +17,7 @@ body{
     height: 670px;
 
     margin-top: 10px;
+    margin-bottom: 50px;
 }
 
 /* 채팅 목록 */
@@ -175,7 +176,7 @@ body{
 
 /* 채팅방 목록 */
 .chat-preview-area{
-    height: 460px;
+    height: 500px;
     overflow-y: scroll;
     border-radius: 10px;
 
