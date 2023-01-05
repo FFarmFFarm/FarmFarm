@@ -201,7 +201,6 @@ input[type="text"]:focus{
 .board-writer{
     /* border: 1px solid black; */
     width: 65%;
-    cursor: pointer;
     line-height: 1.8;
     /* height: 100%; */
 }
