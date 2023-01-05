@@ -28,6 +28,7 @@
       <result property="orderStatus" column="ORDER_STATUS" />
       <result property="invoiceNo" column="INVOICE_NO" />
       <result property="orderPrice" column="ORDER_PRICE" />
+      <result property="orderAddress" column="ORDER_ADDRESS" />
       <result property="impUid" column="IMP_UID" />
       
       
@@ -119,7 +120,7 @@
 	</selectKey>
 	
  	INSERT INTO "ORDER"
- 	VALUES(#{orderNo}, DEFAULT, #{memberNo}, 0, #{orderPrice})
+ 	VALUES(#{orderNo}, DEFAULT, #{memberNo}, 0, #{orderPrice}, #{orderAddress})
  </insert>
  
  <!-- 주문 결제 정보 등록 -->

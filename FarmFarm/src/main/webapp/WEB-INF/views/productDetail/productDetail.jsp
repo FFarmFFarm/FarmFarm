@@ -363,7 +363,5 @@
 
 
   <!-- script -->
-  <script src="/resources/js/common/common.js"></script>
   <script src="/resources/js/productDetail/productDetail.js"></script>
-  <script src="/resources/js/inquire/inquire.js"></script>
 </html>
