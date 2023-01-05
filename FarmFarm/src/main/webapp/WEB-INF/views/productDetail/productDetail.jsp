@@ -84,6 +84,7 @@
           <div class="summary">
             <div class="summary-subject">
               <span class="shipping">배송</span>
+              <span class="shipping">배송비</span>
               <span class="seller">판매자</span>
               <span class="origin">원산지</span>
             </div>
@@ -94,6 +95,7 @@
                   >주문 후 2~5일 배송</span
                 >
               </div>
+              <span class="seller">3000원</span>
               <span class="seller">팜팜</span>
               <span class="origin">국산</span>
             </div>
@@ -361,7 +363,6 @@
 
 
   <!-- script -->
-  <script src="/resources/js/common/common.js"></script>
   <script src="/resources/js/productDetail/productDetail.js"></script>
-  <script src="/resources/js/inquire/inquire.js"></script>
+  <script src="/resources/js/common/common.js"></script>
 </html>

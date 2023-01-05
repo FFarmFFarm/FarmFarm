@@ -5,6 +5,7 @@
 <c:set var="reportListCount" value="${map.reportListCount}" />
 <c:set var="newReportList" value="${map.newReportList}" />
 <c:set var="pagination" value="${map.pagination}" />
+<c:set var="reportAllListCount" value="${map.reportAllListCount}" />
 
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +41,7 @@
             <div class="report-total-div">
                 <div class="title-div">
                     <span class="report-title">신고 접수 내역</span>
-                    <span class="report-title" id="reportCount">총 ${reportListCount}건</span>
+                    <span class="report-title" id="reportCount">전체 ${reportAllListCount}건 / 실처리 ${reportListCount}건</span>
                 </div>
 
                 <div class="report-select">
@@ -120,7 +121,7 @@
                               <td>${report.reportDate}</td>
                               <td>${report.reportVolume}</td>
                               
-                              <c:if test="${report.reportPenalty eq 'N' || empty report.reportPenalty}">
+                              <c:if test="${empty report.reportPenalty}">
                                 <td>접수</td>
                               </c:if>
 
@@ -213,7 +214,14 @@
               </td>
             </tr> -->
           </tbody>
+
         </table>
+
+        <!-- <table class="report-modal-table">
+          <tbody id="tbodyReportHistory"> -->
+              <!-- 누적 신고 기록 -->
+          <!-- </tbody>
+        </table>  -->
 
         <div class="button-div">
           <!-- 회원, 판매자 -->
@@ -225,6 +233,29 @@
           <button id="contentLeaveBtn">반려</button>
           <button id="contentDeleteBtn">삭제</button>
         </div>
+      </div>
+    </div>  
+
+
+    <div class="accumulate-container" id="accumContainer">
+      <div class="accum-modal">
+        <span class="accum-modal-title">누적 신고 기록</span>
+
+        <table class="accum-modal-table">
+          <tbody id="tbodyAccum">
+            <!-- <tr class="accum-row">
+              <td class="accum-bold">NO</td>
+              <td class="accum-bold">신고번호</td>
+              <td class="accum-bold">신고 일자</td>
+              <td class="accum-bold">신고자</td>
+              <td class="accum-bold">신고 사유</td>
+              <td class="accum-bold">추가 사유</td>
+            </tr>
+            <tr>
+              <td></td>
+            </tr> -->
+          </tbody>
+        </table>
       </div>
     </div>  
 

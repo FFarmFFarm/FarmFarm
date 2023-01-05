@@ -22,7 +22,7 @@ const selectNewReportList = (cp) => {
         dataType: "JSON",
         type: "GET",
         success: (map) => {
-            printNewReportList(map.newReportList, map.pagination, map.reportListCount);
+            printNewReportList(map.newReportList, map.pagination, map.reportListCount, map.reportAllListCount);
             console.log("미처리 신고 내역 조회 성공");
             console.log(sortFilter);
         },
@@ -54,7 +54,31 @@ const selectNewReportDetail = (hiddenReportNo) => {
 
 
 
+//optimize: 신고 누적 기록 모달창 함수 ajax
+const selectReportAccumulate = (hiddenReportType, hiddenMemberNo, hiddenContentNo) => {
+    $.ajax({
+        url: "/admin/selectReportAccumulate",
+        data: {"reportType": hiddenReportType,
+                "memberNo": hiddenMemberNo,
+                "contentNo": hiddenContentNo},
+        dataType: "JSON",
+        type: "POST",
+        success: (map) => {
 
+            printAccumulate(map.accumMemberList, map.accumContentList);
+            // if(hiddenReportType == 'M'){
+            //     printAccumMember(map.accumMemberList);
+            // } else {
+            //     printAccumContent(map.accumContentList);
+            // }
+
+            console.log("신고 누적 기록 조회 성공");
+        }, 
+        error: () => {
+            console.log("신고 누적 기록 조회 실패");
+        }
+    })
+}
 
 
 
@@ -63,13 +87,12 @@ const selectNewReportDetail = (hiddenReportNo) => {
 
 
 // optimize: 미처리 신고 내역 출력 함수 
-const printNewReportList = (newReportList, pagination, reportListCount) => {
+const printNewReportList = (newReportList, pagination, reportListCount, reportAllListCount) => {
 
     // 출력 전 내용 지우기
-    //fixme: 확인해보고 내용 지우기!
     const reportCount = document.getElementById("reportCount");
     reportCount.innerText = "";
-    reportCount.innerText = "총 " + reportListCount + "건";
+    reportCount.innerText = "전체 "+ reportAllListCount + "건 / "+" 실처리 " + reportListCount + "건";
 
 
     const tbody = document.getElementById("tbody");
@@ -128,14 +151,14 @@ const printNewReportList = (newReportList, pagination, reportListCount) => {
 
         if(report.reportType != null){
             if(report.reportType == 'M'){
-                if(report.memberId.length > 15){
+                if(report.memberId.length > 14){
                     td3.innerText = report.memberId.substring(0,14) + '...';
                 } else{
                     td3.innerText = report.memberId;
                 }
             }
             if(report.reportType == 'B' || report.reportType == 'P'){
-                if(report.title.length > 15){
+                if(report.title.length > 14){
                     td3.innerHTML = report.title.substring(0,14) + '...';
 
                 } else{
@@ -158,7 +181,7 @@ const printNewReportList = (newReportList, pagination, reportListCount) => {
 
         // 처리 상태 
         const td7 = document.createElement('td');
-        if(report.reportPenalty == 'N' || report.reportPenalty == null){
+        if(report.reportPenalty == null){
             td7.innerText = "접수";
         }
 
@@ -169,18 +192,12 @@ const printNewReportList = (newReportList, pagination, reportListCount) => {
         // 한 행 클릭하면상세 내용 모달 열리기
         tr.addEventListener('click', () => {
             hiddenReportNo = report.reportNo;  // 상세조회용
-            hiddenMemberNo = report.memberNo;  // 강제탈퇴용
-            hiddenContentNo = report.contentNo; // 신고게시글 반려용
-            hiddenReportType = report.reportType; 
             
             // 상세 모달 
             selectNewReportDetail(hiddenReportNo);
 
             console.log("한 행 클릭할 때 모달 열리는 부분---------");
             console.log("hiddenReportNo: " + hiddenReportNo);
-            console.log("hiddenMemberNo: " + hiddenMemberNo);
-            console.log("hiddenContentNo: " + hiddenContentNo);
-            console.log("hiddenReportType: " + hiddenReportType);
         })
 
     }
@@ -258,7 +275,7 @@ const printNewReportDetail = (newReportDetail) => {
 
     const td4Detail = document.createElement('td');
     
-    if(newReportDetail.reportPenalty == 'N' || newReportDetail.reportPenalty == null){
+    if(newReportDetail.reportPenalty == null){
         td4Detail.innerText = "접수";
     }
 
@@ -296,27 +313,35 @@ const printNewReportDetail = (newReportDetail) => {
     }
 
     // 누적 신고 횟수
-
-    //fixme:라고 하기보다 add 누적신고기록 추가하기
     const icon = document.createElement('i');
-    icon.innerHTML = '<i class="fa-solid fa-caret-down filter-icon"></i>';
+    // icon.innerHTML = '<i class="fa-solid fa-caret-down filter-icon"></i>';
+    icon.innerHTML = '<i class="fa-sharp fa-solid fa-angle-right"></i>';
     icon.classList.add('filter-icon');
 
     const td7Detail = document.createElement('td');
     td7Detail.classList.add('detail-bold');
     td7Detail.classList.add('right');
-    td7Detail.innerHTML = "누적 신고 횟수" + icon.innerHTML;
+    td7Detail.innerHTML = "누적 신고 횟수";
 
+
+    //fixme:
+    // 옆으로 가는 아이콘
     const td8Detail = document.createElement('td');
     td8Detail.innerText = newReportDetail.reportVolume;
 
-    // const spanCount = document.createElement('span');
-    // spanCount.innerText = "누적 신고 기록 보기";
-    // spanCount.classList.add('span-count');
+    const spanIcon = document.createElement('span');
+    spanIcon.append(icon);
+    spanIcon.classList.add('next-icon');
 
-    // td8Detail.append(spanCount);
+    tbodyDetail.append(spanIcon);
+
     tr2Detail.append(td5Detail, td6Detail, td7Detail, td8Detail);
 
+    // 아이콘 클릭했을 때
+    spanIcon.addEventListener('click', () =>{
+        // reportDetailModalClose();
+        selectReportAccumulate();
+    })
 
     // 3)
     const tr3Detail = document.createElement('tr');
@@ -402,34 +427,48 @@ const printNewReportDetail = (newReportDetail) => {
 
     // 7)
     const tr7Detail = document.createElement('tr');
-
-    // 내용
-    const td17Detail = document.createElement('td');
-    td17Detail.classList.add('detail-bold');
-    td17Detail.classList.add('left');
-    td17Detail.innerText = "내용";
-
-    tr7Detail.append(td17Detail);
-
-
-    // 8)
     const tr8Detail = document.createElement('tr');
-
-    // 내용
-    const td18Detail = document.createElement('td');
-    td18Detail.colSpan = "4";
-    td18Detail.rowSpan = "8";
-    td18Detail.style.overflow = "auto";
-    td18Detail.innerHTML = newReportDetail.content;
-
-    tr8Detail.append(td18Detail);
+    if(newReportDetail.reportType != 'M'){
+    
+        // 내용
+        const td17Detail = document.createElement('td');
+        td17Detail.classList.add('detail-bold');
+        td17Detail.classList.add('left');
+        td17Detail.innerText = "내용";
+    
+        tr7Detail.append(td17Detail);
+    
+    
+        // 8)
+        // const tr8Detail = document.createElement('tr');
+    
+        // 내용
+        const td18Detail = document.createElement('td');
+        td18Detail.colSpan = "4";
+        td18Detail.rowSpan = "8";
+        td18Detail.style.overflow = "auto";
+        td18Detail.innerHTML = newReportDetail.content;
+    
+        tr8Detail.append(td18Detail);
+    
+    }
 
     // tr4 순서 바꿈
     tbodyDetail.append(tr1Detail, tr2Detail,  tr3Detail, tr5Detail, tr6Detail, tr4Detail, tr7Detail, tr8Detail);
 
 
-    // 강제탈퇴용 아이디 가져오기
-    hiddenMemberNo = newReportDetail.memberNo;
+    // 신고 처리용 값 가져오기  // 강제 탈퇴, 반려, 정지, 삭제 등등에 사용
+    hiddenMemberNo = newReportDetail.memberNo;  // 계정 강제탈퇴, 정지, 반려용
+    hiddenContentNo = newReportDetail.contentNo; // 게시글 정지, 반려용
+    hiddenReportType = newReportDetail.reportType;  // 게시글 정지, 반려용
+    // hiddenReportNo = newReportDetail.reportNo;  
+
+    
+    console.log("상세 모달---------");
+    console.log("hiddenReportNo: " + hiddenReportNo);
+    console.log("hiddenMemberNo: " + hiddenMemberNo);
+    console.log("hiddenContentNo: " + hiddenContentNo);
+    console.log("hiddenReportType: " + hiddenReportType);
 
     // 버튼
     // 회원신고 -> 반려, 강제정지, 탈퇴
@@ -458,6 +497,130 @@ const printNewReportDetail = (newReportDetail) => {
     }
 
 }
+
+
+
+
+
+//optimize: 누적 신고 기록
+const printAccumulate = (accumMemberList, accumContentList) => {
+    console.log("누적신고 기록 함수");
+
+    accumModalOpen();
+
+    const tbodyAccum = document.getElementById("tbodyAccum");
+    tbodyAccum.innerText = "";
+
+
+    // thead
+    const trA = document.createElement('tr');
+    trA.className = "accum-row";
+
+    const tda1 = document.createElement("tr");
+    tda1.classList.add("accum-bold");
+    tda1.innerText = "NO";
+
+    const tda2 = document.createElement("td");
+    tda2.classList.add("accum-bold");
+    tda2.innerText = "신고번호"
+    
+    const tda3 = document.createElement("td");
+    tda3.classList.add("accum-bold");
+    tda3.innerText = "신고 일자";
+
+    const tda4 = document.createElement("td");
+    tda4.classList.add("accum-bold");
+    tda4.innerText = "신고자";
+
+    const tda5 = document.createElement("td");
+    tda5.classList.add("accum-bold");
+    tda5.innerText = "신고 사유";
+
+    const tda6 = document.createElement("td");
+    tda6.classList.add("accum-bold");
+    tda6.innerText = "추가 사유";
+
+    trA.append(tda1, tda2, tda3, tda4, tda5, tda6);
+
+
+    // tbody
+    // 신고유형 : 계정
+    if(hiddenReportType == 'M'){
+        
+        for(let member of accumMemberList){
+
+            const trM = document.createElement("tr");
+
+            const tdm1 = document.createElement("td");
+            numCount++;
+            tdm1.innerText = numCount;
+
+            const tdm2 = document.createElement("td");
+            tdm2.innerText = member.reportNo;
+
+            const tdm3 = document.createElement("td");
+            tdm3.innerText = member.reportDate;
+
+            const tdm4 = document.createElement("td");
+            tdm4.innerText = member.reportMemberNo;
+
+            const tdm5 = document.createElement("td");
+            tdm5.innerText = member.reportReason;
+
+            const tdm6 = document.createElement("td");
+            tdm6.innerHTML = member.reportContent;
+
+            trM.append(tdm1, tdm2, tdm3, tdm4, tdm5, tdm6);
+            trA.append(trM);
+            tbodyAccum.append(trA);
+        }
+    }
+
+
+    if(hiddenReportType == 'B' || hiddenReportType == 'P'){
+
+        for(let content of accumContentList){
+
+            const trC = document.createElement("tr");
+
+            const tdc1 = document.createElement("td");
+            numCount++;
+            tdc1.innerText = numCount;
+
+            const tdc2 = document.createElement("td");
+            tdc2.innerText = content.reportNo;
+
+            const tdc3 = document.createElement("td");
+            tdc3.innerHTML = content.reportDate;
+
+            const tdc4 = document.createElement("td");
+            tdc4.innerText = content.contentNo;
+
+            const tdc5 = document.createElement("td");
+            tdc5.innerText = content.reportReason;
+
+            const tdc6 = document.createElement("td");
+            tdc6.innerHTML = content.reportContent;
+
+            trC.append(tdc1, tdc2, tdc3, tdc4, tdc5, tdc6);
+            trA.append(trC);
+            tbodyAccum.append(trA);
+        }
+    }
+}
+
+
+
+//optimize: 누적 신고 기록 (판매글, 커뮤니티게시글)
+const printAccumContent = (accumContentList) => {
+    
+    
+    
+    
+    
+}
+
+
 
 
 
@@ -575,11 +738,13 @@ down.addEventListener('click', () => {
 
 
 
+
+
 // todo: 전체 조회 글자 자르기(jsp 첫페이지)
 // 신고대상 아이디/게시글 자르기 (15자)
 const rTitle = document.getElementsByClassName("rTitle");
 for(let i=0; i<rTitle.length; i++){
-    if(rTitle[i].innerText.length > 15){
+    if(rTitle[i].innerText.length > 14){
         rTitle[i].innerText = rTitle[i].innerText.substring(0, 14) + '...';
     } else {
         rTitle[i].innerText;
@@ -591,6 +756,7 @@ for(let i=0; i<rTitle.length; i++){
 
 // 모달 ---------------------------------------
 var reportDetailContainer = document.getElementsByClassName("report-detail-container");
+var accumContainer = document.getElementsByClassName("accumulate-container");
 
 // 모달 열기
 const reportDetailModalOpen = () =>{
@@ -607,6 +773,20 @@ const reportDetailModalClose = () => {
 }
 
 
+// 누적기록 모달 열기
+const accumModalOpen = () =>{
+    for(let i=0; i<accumContainer.length; i++){
+        accumContainer[i].style.display = 'flex';
+    }
+}
+
+// 누적기록 모달 닫기
+const accumModalClose = () =>{
+    for(let i=0; i<accumContainer.length; i++){
+        accumContainer[i].style.display = 'none';
+    }
+}
+
 
 //todo: 모달창 바깥 클릭 시 모달창 꺼짐
 const detailModal = document.getElementById('reportDetailContainer');
@@ -615,11 +795,13 @@ window.addEventListener('click', (e) => {
     document.querySelector('body').classList.remove("scrollLock");
 });
 
+
+const accumModal = document.getElementById('accumContainer');
+window.addEventListener('click', (e) => {
+    e.target === accumModal ? accumModal.style.display = 'none' : false
+    document.querySelector('body').classList.remove("scrollLock");
+});
 //-------------------------------------------
-
-
-// 총 접수내역 가져오는 함수
-
 
 
 
@@ -628,6 +810,8 @@ window.addEventListener('click', (e) => {
 
 // * (계정) 강제 탈퇴
 accountKickOutBtn.addEventListener('click', () => {
+    console.log("계정 탈퇴 클릭");
+
     $.ajax({
         url: "/report/kickout",
         data: { "hiddenNo": hiddenMemberNo },
@@ -639,7 +823,7 @@ accountKickOutBtn.addEventListener('click', () => {
                 selectNewReportList(cp);
                 
                 console.log("강제 탈퇴 완료");
-                messageModalOpen("신고된 계정이 강제 탈퇴되었습니다.");
+                messageModalOpen("해당 계정이 강제 탈퇴되었습니다.");
 
                 //fixme: 시간 남을 때 모달이랑, 스크롤 위치 수정
 
@@ -650,6 +834,7 @@ accountKickOutBtn.addEventListener('click', () => {
         },
         error: () => {
             console.log("강퇴 처리 오류");
+            messageModalOpen("오류 발생");
         }
     });
 })
@@ -657,6 +842,8 @@ accountKickOutBtn.addEventListener('click', () => {
 
 // * (계정) 반려 
 accountLeaveBtn.addEventListener('click', () => {
+    console.log("계정 반려 클릭");
+
     $.ajax({
         url: "/report/leaveAccount",
         data: {"hiddenNo":hiddenMemberNo},
@@ -667,8 +854,12 @@ accountLeaveBtn.addEventListener('click', () => {
                 selectNewReportList(cp);
 
                 console.log("계정 반려");
-                messageModalOpen("신고된 계정이 활성화 상태를 유지합니다.");
+                messageModalOpen("해당 계정이 활성화 상태를 유지합니다.");
             }
+        },
+        error: () => {
+            console.log("계정 반려 오류");
+            messageModalOpen("오류 발생");
         }
     })
 })
@@ -676,6 +867,8 @@ accountLeaveBtn.addEventListener('click', () => {
 
 // * (계정) 정지
 accountBannedBtn.addEventListener('click', () => {
+    console.log("계정 정지 클릭");
+
     $.ajax({
         url: "/report/bannedAccount",
         data: {"hiddenNo":hiddenMemberNo},
@@ -686,22 +879,69 @@ accountBannedBtn.addEventListener('click', () => {
                 selectNewReportList(cp);
 
                 console.log("계정 정지");
-                messageModalOpen("신고된 계정이 정지되었습니다.")
+                messageModalOpen("해당 계정이 7일간 정지됩니다.")
             }
+        },
+        error: () => {
+            console.log("계정 정지 오류");
+            messageModalOpen("오류 발생");
         }
     })
 })
 
 
 
+// B, P 나눠야 함.
+// * (게시글) 삭제 : 판매글, 커뮤니티 게시글
+contentDeleteBtn.addEventListener('click', () => {
+    console.log("게시글 삭제 클릭");
+
+    $.ajax({
+        url: "/report/deleteContent",
+        data: {"hiddenContentNo":hiddenContentNo, "reportType":hiddenReportType},
+        type: "GET",
+        success: (result) => {
+            if(result > 0){
+                reportDetailModalClose();
+                selectNewReportList(cp);
+
+                console.log("게시글 삭제");
+                messageModalOpen("해당 게시글이 삭제되었습니다.")
+            }
+        },
+        error: () => {
+            console.log("게시글 삭제 오류");
+            messageModalOpen("오류 발생");
+        }
+    })
+})
 
 
 
+// * (게시글) 반려
+contentLeaveBtn.addEventListener('click', () => {
+    console.log("게시글 반려 클릭");
+    console.log(hiddenContentNo);
+
+    $.ajax({
+        url: "/report/LeaveContent",
+        data: {"hiddenContentNo":hiddenContentNo, "reportType":hiddenReportType},
+        type: "GET",
+        success: (result) => {
+            if(result > 0){
+                reportDetailModalClose();
+                selectNewReportList(cp);
+
+                console.log("게시글 반려");
+                messageModalOpen("해당 게시글이 활성화 상태를 유지합니다.")
+            }
+        }, 
+        error: () => {
+            console.log("게시글 반려 오류");
+            messageModalOpen("오류 발생");
+        } 
+    })
+})
 
 
 
-
-
-
-
-// * (게시글) 삭제

@@ -11,6 +11,10 @@
     <title>Product Detail</title>
     <link rel="stylesheet" href="/resources/css/common/header-style.css" />
     <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
+
+    <!-- 이거 넣어주세요 -->
+    <link rel="stylesheet" href="/resources/css/report/report-modal-style.css" />
+
     <link rel="stylesheet" href="/resources/css/postDetail/postDetail-style.css" />
     <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
     <link
@@ -65,6 +69,7 @@
             </div>
             ${post.memberNo}
           </div>
+
           <div class="product-btn-area">
 
             <c:if test="${post.postSoldoutFl == 0}">
@@ -81,6 +86,9 @@
         </div>
         <button type="button" class="share-btn" id="shareBtn">
           <i class="fa-solid fa-share"></i>
+        </button>
+        <button type="button" class="report-btn" id="reportBtn">
+          <i class="fa-solid fa-circle-exclamation"></i>
         </button>
       </section>
       <section class="product-menu">
@@ -131,8 +139,13 @@
       <c:remove var="message" />
   </c:if> 
 
+    <!-- 아래 두개 넣어주세요 -->
+    <jsp:include page="/WEB-INF/views/report/report-modal.jsp"/> 
+    <script src="/resources/js/report/report-modal.js"></script>
     <!-- script -->
     <script src="/resources/js/common/common.js"></script>
     <script src="/resources/js/postDetail/postDetail.js"></script>
+
+        
   </body>
 </html>

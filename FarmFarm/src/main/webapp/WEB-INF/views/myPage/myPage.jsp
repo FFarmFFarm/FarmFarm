@@ -7,7 +7,7 @@
         <div class="profile-background">
         <c:if test="${empty loginMember.mypageImg}">
           <img
-          src="/resources/images/myPage/background/bgImg2.jpg"
+          src="/resources/images/default/bgImg.png"
           alt=""
           class="member-bg-img"
           id="memberBgImg"
@@ -25,6 +25,7 @@
             <label for="mypageImgInput" class="bg-change-btn fa-solid fa-image"></label>
             <input type="file" name="mypageImg" id="mypageImgInput" accept="image/*" style="display:none;"></input>
           </form>
+          <button type="button" id="XBtn"><i class="fa-solid fa-circle-xmark"></i></button>
         </div>
 
         <div class="profile-info">
@@ -32,7 +33,7 @@
             <div class="member-profile">
               <c:if test="${empty loginMember.profileImg}">
                 <img
-                src="/resources/images/myPage/profile/profileImg.png"
+                src="/resources/images/default/profileImg.png"
                 class="member-profile-img"
                 id="ProfileImg"/>
               </c:if>

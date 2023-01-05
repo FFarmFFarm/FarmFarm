@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.kh.farmfarm.mypage.model.vo.Order;
 import edu.kh.farmfarm.productDetail.model.vo.Product;
 
 public interface ProductAdminService {
@@ -75,6 +76,32 @@ public interface ProductAdminService {
 	 * @return result
 	 */
 	int soldoutProduct(Map<String, Object> map);
+
+	/** 주문 목록 조회
+	 * @param cp
+	 * @return map
+	 */
+	Map<String, Object> selectOrderList(int cp);
+
+	/** 검색 목록 조회
+	 * @param pm
+	 * @param cp
+	 * @return map
+	 */
+	Map<String, Object> selectOrderList(Map<String, Object> pm, int cp);
+
+
+	/** 주문목록 상세조회
+	 * @param orderNo
+	 * @return order
+	 */
+	Order selectOrderDetail(int orderNo);
+
+	/** 주문상태 변경
+	 * @param map
+	 * @return result
+	 */
+	int orderStatus(Map<String, Object> map);
 
 
 }

@@ -224,11 +224,9 @@
 
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-
     <script src="/resources/js/common/common.js"></script>
     <script src="/resources/js/myPage/myPage.js"></script>
     <script src="/resources/js/myPage/myPageOrder.js"></script>
-    <script src="/resources/js/inquire/inquire.js"></script>
 
     <c:if test="${! empty message}">
     <script>

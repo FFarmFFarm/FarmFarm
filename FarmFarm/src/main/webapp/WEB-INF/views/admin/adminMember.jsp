@@ -63,6 +63,7 @@
                                                 <li class="authFilter" id="a1">미등록</li>
                                                 <li class="authFilter" id="a2">판매자</li>
                                                 <li class="authFilter" id="a3">인증 대기</li>
+                                                <li class="authFilter" id="a4">인증 보류</li>
                                             </ul>
                                         </div>
                                     </th>
@@ -73,7 +74,7 @@
                                             <ul class="drop-ul" id="dropUl2">
                                                 <li class="statFilter" id="s0">전체</li>
                                                 <li class="statFilter" id="s1">활동중</li>
-                                                <li class="statFilter" id="s2">신고 접수</li>
+                                                <li class="statFilter" id="s2">신고접수</li>
                                                 <li class="statFilter" id="s3">정지</li>
                                                 <li class="statFilter" id="s4">탈퇴</li>
                                             </ul>
@@ -107,22 +108,35 @@
                                             <c:if test="${member.authority == 3}">
                                                 <td>인증 대기</td>
                                             </c:if>
+                                            <c:if test="${member.authority == 4}">
+                                                <td>인증 보류</td>
+                                            </c:if>
                                         </c:if> 
 
                                         <%-- 상태 --%>
-                                        <c:if test="${not empty member.memberDelFl}">
-                                            <c:if test="${member.memberDelFl eq 'N'}">
-                                                <c:if test="${member.reportPenalty eq 'N' || empty member.reportPenalty || member.reportPenalty eq 'N'}">
+                                        <c:if test="${member.memberDelFl eq 'N'}">
+                                            <c:if test="${empty member.reportType}">
+                                                <td>활동중</td>
+                                            </c:if>
+
+                                            <c:if test="${not empty member.reportType}">
+                                                <c:if test="${empty member.reportPenalty}">
+                                                    <td>신고접수</td>
+                                                </c:if>
+                                                <c:if test="${member.reportPenalty eq 'N' && member.reportPenalty eq 'A'}">
                                                     <td>활동중</td>
                                                 </c:if>
                                                 <c:if test="${member.reportPenalty eq 'Y'&& not empty member.processDate}">
                                                     <td>정지</td>
                                                 </c:if>
                                             </c:if>
-                                            <c:if test="${member.memberDelFl eq 'Y'}">
-                                                <td>탈퇴</td>
-                                            </c:if>
-                                        </c:if> 
+                                        </c:if>
+
+                                        <c:if test="${member.memberDelFl eq 'Y'}">
+                                            <td>탈퇴</td>
+                                        </c:if>
+
+
 
                                         <!-- <input type="hidden" class="hidden-memberId" name="hiddenId" id="hiddenMemberId" value="${member.memberId}"> -->
                                         <input type="hidden" class="hidden-memberNo" name="hiddenNo" id="hiddenMemberNo" value="${member.memberNo}">

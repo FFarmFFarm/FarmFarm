@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import edu.kh.farmfarm.admin.model.vo.Admin;
+import edu.kh.farmfarm.inquire.model.vo.InquireRoom;
 
 
 public interface AdminService {
@@ -61,13 +62,12 @@ public interface AdminService {
 	int sellerApprove(int hiddenNo);
 
 	
-	// 판매자 인증 거절
 	
-	
-	
-	
-	
-	
+	/** 판매자 인증 거절
+	 * @param hiddenNo
+	 * @return result
+	 */
+	int sellerDeny(int hiddenNo);
 	
 	
 
@@ -87,7 +87,21 @@ public interface AdminService {
 
 
 
+	/** 신고 누적 기록 조회(모달)
+	 * @param reportType
+	 * @param memberNo
+	 * @param contentNo
+	 * @return map
+	 */
+	Map<String, Object> selectReportAccumulate(String reportType, int memberNo, int contentNo);
 
+
+
+
+
+	
+	
+	
 
 
 

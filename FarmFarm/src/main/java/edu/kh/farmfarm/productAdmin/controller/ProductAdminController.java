@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
+
+import edu.kh.farmfarm.mypage.model.vo.Order;
 import edu.kh.farmfarm.productAdmin.model.service.ProductAdminService;
 import edu.kh.farmfarm.productDetail.model.vo.Product;
 
@@ -172,6 +175,8 @@ public class ProductAdminController {
 		return "redirect:" + path;
 	}
 	
+	
+	// 판매완료
 	@ResponseBody
 	@GetMapping("/admin/soldout")
 	public int soldoutProduct(
@@ -186,5 +191,50 @@ public class ProductAdminController {
 	}
 	
 	
+	// 주문리스트 관리
+	@GetMapping("/admin/orderList")
+	public String orderList(Model model,
+		@RequestParam(value="cp", required=false, defaultValue="1")int cp,
+		@RequestParam Map<String, Object> pm) {
+		
+		if(pm.get("key") == null) { // 검색 아닌 경우
+			
+			Map<String, Object> map = service.selectOrderList(cp);
+			
+			model.addAttribute("map", map);
+			
+		} else { // 검색인 경우
+			
+			Map<String, Object> map = service.selectOrderList(pm, cp);
+
+			model.addAttribute("map", map);
+		}
+				
+		return "productAdmin/productOrderList";
+	}
+	
+	// 주문 상세조회
+	@ResponseBody
+	@GetMapping("/admin/orderDetail")
+	public String orderDetail(int orderNo) {
+		
+		Order order = service.selectOrderDetail(orderNo);
+		
+		return new Gson().toJson(order);
+	}
+	
+	// 판매완료
+	@ResponseBody
+	@GetMapping("/admin/orderStatus")
+	public int orderStatus(
+		@RequestParam("oStatus") String oStatus,
+		@RequestParam("orderNo") int orderNo) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("oStatus", oStatus);
+		map.put("orderNo", orderNo);
+		
+		return service.orderStatus(map);
+	}
 	
 }

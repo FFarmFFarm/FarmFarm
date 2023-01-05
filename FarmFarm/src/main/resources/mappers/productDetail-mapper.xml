@@ -221,5 +221,12 @@
 <update id="deleteReview">
 	UPDATE REVIEW SET REVIEW_DEL_FL = 'Y' WHERE REVIEW_NO = #{reviewNo} 
 </update>
+
+<select id="selectProductImageList" resultType="string">
+	SELECT 
+		SUBSTR(PRODUCT_IMG_ADDRESS , INSTR(PRODUCT_IMG_ADDRESS, '/', -1)+1, LENGTH(PRODUCT_IMG_ADDRESS)) 
+	FROM PRODUCT_IMG pi2  
+	WHERE PRODUCT_IMG_ADDRESS IS NOT NULL
+</select>
 	
 </mapper>

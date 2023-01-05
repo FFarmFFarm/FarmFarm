@@ -1,5 +1,6 @@
 package edu.kh.farmfarm.admin.model.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -159,16 +160,21 @@ public class AdminDAO {
 
 
 	
-	// 판매자 인증 거절
+	/** 판매자 인증 거절
+	 * @param hiddenNo
+	 * @return
+	 */
+	public int sellerDeny(int hiddenNo) {
+		return sqlSession.update("adminMapper.sellerDeny", hiddenNo);
+	}
+
 	
 	
 	
 	
 	
 	
-	
-	
-	/** 미처리 신고 개수
+	/** 미처리 신고 개수 (중복제거) _힌 아이디당 한 번씩 조회
 	 * @param sortFilter
 	 * @return reportListCount
 	 */
@@ -176,6 +182,16 @@ public class AdminDAO {
 		return sqlSession.selectOne("adminMapper.reportListCount", sortFilter);
 	}
 
+	
+	
+	/** 미처리 신고 개수 (중복포함) _ 한 아이디가 신고된 모든 개수 조회
+	 * @return reportAllListCount
+	 */
+	public int reportAllListCount() {
+		return sqlSession.selectOne("adminMapper.askReportStat");  // 대시보드 미처리 신고내역 통계와 같음.
+	}
+
+	
 	
 
 	/** 미처리 신고 조회
@@ -200,6 +216,44 @@ public class AdminDAO {
 	public Admin selectNewReportDetail(int hiddenReportNo) {
 		return sqlSession.selectOne("adminMapper.selectNewReportDetail", hiddenReportNo);
 	}
+
+
+
+	/** 누적 신고 기록 조회
+	 * @param reportType
+	 * @param memberNo
+	 * @param contentNo
+	 * @return map
+	 */
+	public Map<String, Object> selectReportAccumulate(String reportType, int memberNo, int contentNo) {
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("reportType", reportType);
+		paramMap.put("memberNo", memberNo);
+		paramMap.put("contentNo", contentNo);
+		
+		List<Admin> accumMemberList = new ArrayList<Admin>();
+		List<Admin> accumContentList = new ArrayList<Admin>();
+		
+		if(reportType.equals("M")) {
+			accumMemberList = sqlSession.selectList("adminMapper.accumMemberList", paramMap);
+		
+		} else {
+			accumContentList = sqlSession.selectList("adminMapper.accumContentList", paramMap);
+		}
+		
+		 Map<String, Object> map = new HashMap<String, Object>();
+		 map.put("accumMemberList", accumMemberList);
+		 map.put("accumContentList", accumContentList);
+		
+		return map;
+	}
+
+
+
+
+
+
 
 
 

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,7 +29,7 @@ import edu.kh.farmfarm.member.model.VO.MemberAddress;
 import edu.kh.farmfarm.member.model.service.MemberService;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
-@SessionAttributes({ "loginMember", "message" })
+@SessionAttributes({ "loginMember", "message", "previousPage"})
 @Controller
 public class MemberController {
 	@Autowired
@@ -36,7 +37,12 @@ public class MemberController {
 
 	// 로그인 화면
 	@GetMapping("/login")
-	public String loginPage() {
+	public String loginPage(@RequestHeader("referer")String referer,
+			Model model) {
+		
+		model.addAttribute("previousPage", referer);
+		
+		
 		return "member/login";
 	}
 
@@ -68,9 +74,10 @@ public class MemberController {
 	@PostMapping("/login")
 	public String login(Member inputMember, Model model, RedirectAttributes ra,
 			@RequestHeader(value = "referer") String referer,
-			@RequestParam(value = "saveId", required = false) String saveId, HttpServletResponse resp) {
+			@RequestParam(value = "saveId", required = false) String saveId, HttpServletResponse resp,
+			@SessionAttribute("previousPage") String previousPage) {
 		Member loginMember = service.login(inputMember);
-
+		
 		String path = null;
 
 		if (loginMember != null) {
@@ -85,12 +92,12 @@ public class MemberController {
 				}
 
 				if (loginMember.getAuthority() == 0 || loginMember.getAuthority() == 1) {
-					// 신고 여부 조회
+					// 신고 여부 조회 (계정 정지 후 7일 뒤 날짜 조회)
 					String checkReport = null;
 					checkReport = service.checkReport(loginMember.getMemberNo());
 
 					if (checkReport == null) { // 신고 기록이 없으면
-						path = "/";
+						path = previousPage;
 						model.addAttribute("loginMember", loginMember);
 
 						Cookie cookie = new Cookie("saveId", loginMember.getMemberId());
@@ -103,13 +110,19 @@ public class MemberController {
 						resp.addCookie(cookie);
 					} else { // 신고 기록이 있으면
 						path = referer;
-						String notice = "계정 사용이 중지됨" + "(기간 : " + checkReport + ") 자세한 사항은 고객센터(help@farmfarm)으로 문의 바랍니다.";
+						String notice = "계정 사용이 중지됨" + "(기간 : " + checkReport + "까지) 자세한 사항은 고객센터(help@farmfarm)으로 문의 바랍니다.";
 						ra.addFlashAttribute("message", notice);
 					}
 					}
-				if (loginMember.getAuthority() == 3) {
+				if (loginMember.getAuthority() == 3) { // 인증 대기
 					path = "/authenticating";
 				}
+				
+				if (loginMember.getAuthority() == 4) { // 인증 보류
+					path = "/authDeny";
+					model.addAttribute("loginMember", loginMember);
+				}
+				
 			}
 		} else {
 				path = referer;
@@ -199,5 +212,5 @@ public class MemberController {
 	public String signUpSuccessPage() {
 		return "/member/signUpSuccess";
 	}
-
+	
 }

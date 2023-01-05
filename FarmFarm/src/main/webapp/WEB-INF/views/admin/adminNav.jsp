@@ -24,10 +24,16 @@
         </div>
         <a href="/admin/member" class="admin-nav-sub">회원 관리</a>
         <a href="/admin/seller" class="admin-nav-sub">판매자 인증 관리</a>
+        <a href="/admin/inquire" class="admin-nav-sub" id="inquireBtn">
+            상담 관리
+
+            <i class="fa-solid fa-circle hide" id="newMessage"></i>
+
+        </a>
         
         <div class="with-icon-div">
             <span class="admin-nav-menu">
-                 <i class="fa-solid fa-chart-line"></i>
+                <i class="fa-solid fa-chart-line"></i>
                 판매 관리
             </span>
         </div>

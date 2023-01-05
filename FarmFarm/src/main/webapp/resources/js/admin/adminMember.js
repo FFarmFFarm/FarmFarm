@@ -133,7 +133,7 @@ const printMemberList = (memberList, pagination) => {
         // 아이디
         const td3 = document.createElement("td");
         
-        if(member.memberId.length > 10){
+        if(member.memberId.length > 9){
             td3.innerText = member.memberId.substring(0, 9) + '...'; 
         } else {
             td3.innerText = member.memberId;
@@ -143,7 +143,7 @@ const printMemberList = (memberList, pagination) => {
         // 닉네임
         const td4 = document.createElement("td");
 
-        if(member.memberNickname.length > 10){
+        if(member.memberNickname.length > 9){
             td4.innerText = member.memberNickname.substring(0, 9) + '...';
         } else {
             td4.innerText = member.memberNickname;
@@ -156,7 +156,7 @@ const printMemberList = (memberList, pagination) => {
         const td5 = document.createElement("td");
 
         if(member.memberAddress != null){
-            if(member.memberAddress.length > 25){
+            if(member.memberAddress.length > 24){
                 td5.innerText = member.memberAddress.substring(0, 24) + '...';
             } else {
                 td5.innerText = member.memberAddress;
@@ -196,29 +196,44 @@ const printMemberList = (memberList, pagination) => {
             if(member.authority == 3){
                 td7.innerText = "인증 대기";
             }
+
+            if(member.authority == 4){
+                td7.innerText = "인증 보류";
+            }
         }
 
 
         // 상태
         const td8 = document.createElement("td");
 
-        if(member.memberDelFl != null){
-
-            if(member.reportPenalty == 'N' || member.reportPenalty == null){
+        if(member.memberDelFl == 'N'){  //report테이블에 들어간 순간부터 신고가 접수된 것.
+            
+            if(member.reportType == null){
                 td8.innerText = "활동중";
             }
-
-            if(member.reportPenalty == 'N' && member.reportType != null){
-                td8.innerText = "신고접수";
+            
+            if(member.reportType != null){
+                if(member.reportPenalty == null){
+                    td8.innerText = "신고접수";
+                }
+    
+                if(member.reportPenalty == 'N' || member.reportPenalty == 'A'){
+                    td8.innerText = "활동중";
+                }
+    
+                if(member.reportPenalty == 'Y'){
+                    td8.innerText = "정지";
+                }
+    
+                if(member.memberDelFl == 'Y'){
+                    td8.innerText = "탈퇴"
+                }
             }
+        }
 
-            if(member.reportPenalty == 'Y'){
-                td8.innerText = "정지";
-            }
 
-            if(member.memberDelFl == 'Y'){
-                td8.innerText = "탈퇴"
-            }
+        if(member.memberDelFl == 'Y'){
+            td8.innerText = "탈퇴";
         }
 
 
@@ -359,6 +374,10 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
         if(memberDetailInfo.authority == 3){
             tdAuth.innerText = "인증 대기";
         }
+
+        if(memberDetailInfo.authority == 4){
+            tdAuth.innerText = "인증 보류";
+        }
     }
 
 
@@ -381,24 +400,31 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
 
     const tdStatus = document.createElement("td");
 
-    if(memberDetailInfo.memberDelFl != null){
-
-        if(memberDetailInfo.reportPenalty == 'N' || memberDetailInfo.reportPenalty == null){
+    if(memberDetailInfo.memberDelFl == 'N'){
+        if(memberDetailInfo.reportType == null){
             tdStatus.innerText = "활동중";
         }
 
-        if(memberDetailInfo.reportPenalty == 'N' && memberDetailInfo.reportType != null){
-            tdStatus.innerText = "신고접수";
-        }
+        if(memberDetailInfo.reportType != null){
+            if(memberDetailInfo.reportPenalty == null){
+                tdStatus.innerText = "신고접수";
+            }
 
-        if(memberDetailInfo.reportPenalty == 'Y'){
-            tdStatus.innerText = "정지";
-        }
+            if(memberDetailInfo.reportPenalty == 'N' && memberDetailInfo.reportPenalty == 'A'){
+                tdStatus.innerText = "활동중";
+            }
 
-        if(memberDetailInfo.memberDelFl == 'Y'){
-            tdStatus.innerText = "탈퇴"
+            if(memberDetailInfo.reportPenalty == 'Y'){
+                tdStatus.innerText = "정지";
+            }
         }
+    } 
+
+    if(memberDetailInfo.memberDelFl == 'Y'){
+        tdStatus.innerText = "탈퇴";
     }
+    
+
 
 
     // 5)
@@ -494,11 +520,9 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
 
         if(history.memberDelFl == 'N'){
             if(history.reportPenalty == 'Y'){
-                if(history.processDate != null){
-                    tdReportDate.innerText = history.processDate;
-                    tdReport.innerText = "정지"
-                    tdReportReason.innerText = history.reportReason;
-                }
+                tdReportDate.innerText = history.processDate;
+                tdReport.innerText = "정지";
+                tdReportReason.innerText = history.reportReason;
             }
 
             // 강제 탈퇴 버튼 활성화
@@ -508,10 +532,8 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
         }
 
         if(history.memberDelFl == 'Y'){
-            if(history.reportPenalty == 'N' || history.reportPenalty == null){
-                td6.innerText = "회원 탈퇴";
-            }
-
+            td6.innerText = "회원 탈퇴";
+     
             if(history.reportPenalty == 'Y'){
                 tdReportDate.innerText = history.processDate;
                 tdReport.innerText = "강제 탈퇴";
@@ -751,6 +773,13 @@ document.getElementById("a3").addEventListener("click", ()=>{
     selectMemberList();
     dropBtn1Text.innerText = "인증 대기";
 })
+document.getElementById("a4").addEventListener("click", ()=>{
+    numCount = (cp-1)*15;
+    let authFl = getFilterNum("a4");
+    authFilter = authFl;  // authFilter : jsp에서 전역변수로 선언함.
+    selectMemberList();
+    dropBtn1Text.innerText = "인증 보류";
+})
 
 
 
@@ -786,7 +815,7 @@ document.getElementById("s2").addEventListener("click", ()=>{
     let statFl = getFilterNum("s2");
     statFilter = statFl;  // authFilter : jsp에서 전역변수로 선언함.
     selectMemberList();
-    dropBtn2Text.innerText = "신고 접수";
+    dropBtn2Text.innerText = "신고접수";
 })
 document.getElementById("s3").addEventListener("click", ()=>{
     numCount = (cp-1)*15;
@@ -898,7 +927,7 @@ const searchNoResult = () => {
 // jsp 첫 페이지 글자 자르기
 const mId = document.getElementsByClassName("mId");
 for(let i=0; i<mId.length; i++){
-    if(mId[i].innerText.length > 10){
+    if(mId[i].innerText.length > 9){
         mId[i].innerText = mId[i].innerText.substring(0, 9) + '...';
     } else {
         mId[i].innerText;
@@ -907,7 +936,7 @@ for(let i=0; i<mId.length; i++){
 
 const mNickname = document.getElementsByClassName("mNickname");
 for(let i=0; i<mId.length; i++){
-    if(mNickname[i].innerText.length > 10){
+    if(mNickname[i].innerText.length > 9){
         mNickname[i].innerText = mNickname[i].innerText.substring(0, 9) + '...';
     } else {
         mNickname[i].innerText;
@@ -916,7 +945,7 @@ for(let i=0; i<mId.length; i++){
 
 const mAddress = document.getElementsByClassName("mAddress");
 for(let i=0; i<mAddress.length; i++){
-    if(mAddress[i].innerText.length > 25){
+    if(mAddress[i].innerText.length > 24){
         mAddress[i].innerText = mAddress[i].innerText.substring(0, 24) + '...';
     } else {
         mAddress[i].innerText;

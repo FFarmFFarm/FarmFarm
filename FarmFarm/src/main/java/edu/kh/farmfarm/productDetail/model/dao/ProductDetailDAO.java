@@ -169,4 +169,13 @@ public class ProductDetailDAO {
 
 
 
+	/** 상품 사진 이름 조회
+	 * @return
+	 */
+	public List<String> selectProductImageList() {
+		return sqlSession.selectList("productDetailMapper.selectProductImageList");
+	}
+
+
+
 }

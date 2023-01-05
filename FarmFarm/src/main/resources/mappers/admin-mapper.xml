@@ -88,7 +88,7 @@
 	<select id="askReportStat" resultType="_int">
 		SELECT COUNT(*)
 		FROM REPORT 
-		WHERE PROCESS_DATE IS NULL
+		WHERE REPORT_PENALTY IS NULL
 	</select>
 	
 	<!-- 판매자 인증 접수 -->
@@ -124,14 +124,19 @@
 			<if test='authFilter==3'> <!--판매자인증: 인증대기 -->
 				AND AUTHORITY = 3
 			</if>
+			<if test='authFilter==4'> <!--판매자인증: 인증보류 -->
+				AND AUTHORITY = 4
+			</if>
 			
 			<if test='statFilter==1'> <!--상태: 활동중 -->
 				AND MEMBER_DEL_FL = 'N'
-				AND REPORT_PENALTY IS NULL
+				AND (REPORT_PENALTY IS NULL
+				OR REPORT_PENALTY = 'N')
+				AND REPORT_TYPE IS NULL
 			</if>
 			<if test='statFilter==2'> <!--상태: 신고접수 -->
 				AND MEMBER_DEL_FL = 'N'
-				AND REPORT_PENALTY = 'N' 
+				AND REPORT_PENALTY IS NULL 
 				AND REPORT_TYPE IS NOT NULL
 			</if>
 			<if test='statFilter==3'> <!--상태: 정지 -->
@@ -161,6 +166,7 @@
 			LEFT JOIN SELLER USING(MEMBER_NO)
 			LEFT JOIN REPORT ON (MEMBER_NO = REPORT_TARGET_NO)
 			WHERE MEMBER_ID != 'admin'
+			AND DEFAULT_FL = 'Y'
 			ORDER BY MEMBER_NO)
 			WHERE RANKING = 1
 			<if test='authFilter==0 and statFilter==0'> <!--전체 -->
@@ -174,14 +180,19 @@
 			<if test='authFilter==3'> <!--판매자인증: 인증대기 -->
 				AND AUTHORITY = 3
 			</if>
+			<if test='authFilter==4'> <!--판매자인증: 인증보류 -->
+				AND AUTHORITY = 4
+			</if>
 			
 			<if test='statFilter==1'> <!--상태: 활동중 -->
 				AND MEMBER_DEL_FL = 'N'
-				AND REPORT_PENALTY IS NULL
+				AND (REPORT_PENALTY IS NULL
+				OR REPORT_PENALTY = 'N')
+				AND REPORT_TYPE IS NULL
 			</if>
 			<if test='statFilter==2'> <!--상태: 신고접수 -->
 				AND MEMBER_DEL_FL = 'N'
-				AND REPORT_PENALTY = 'N' 
+				AND REPORT_PENALTY IS NULL 
 				AND REPORT_TYPE IS NOT NULL
 			</if>
 			<if test='statFilter==3'> <!--상태: 정지 -->
@@ -211,6 +222,7 @@
 				LEFT JOIN SELLER USING(MEMBER_NO)
 				LEFT JOIN REPORT ON (MEMBER_NO = REPORT_TARGET_NO)
 				WHERE MEMBER_ID != 'admin'
+				AND DEFAULT_FL = 'Y'
 				ORDER BY MEMBER_NO)
 			WHERE RANKING = 1
 			AND MEMBER_NO = #{hiddenNo}
@@ -229,6 +241,7 @@
 				LEFT JOIN SELLER USING(MEMBER_NO)
 				LEFT JOIN REPORT ON (MEMBER_NO = REPORT_TARGET_NO)
 				WHERE MEMBER_ID != 'admin'
+				AND DEFAULT_FL = 'Y'
 				ORDER BY MEMBER_NO)
 			WHERE MEMBER_NO = #{hiddenNo}
 	</select>
@@ -245,7 +258,7 @@
 			WHERE AUTHORITY = 3
 		</if>
 		<if test='sellerFilter == 1'>
-			WHERE (AUTHORITY = 1 OR AUTHORITY = 3)
+			WHERE (AUTHORITY = 1 OR AUTHORITY = 3 OR AUTHORITY = 4)
 		</if>
 	</select>
 
@@ -257,11 +270,11 @@
 		FROM "MEMBER" 
 		LEFT JOIN ADDRESS USING(MEMBER_NO)
 		LEFT JOIN "SELLER" USING(MEMBER_NO)
-		<if test='sellerFilter == 0'>
+		<if test='sellerFilter == 0'> <!-- 구매자 -->
 			WHERE AUTHORITY = 3
 		</if>
-		<if test='sellerFilter == 1'>
-			WHERE (AUTHORITY = 1 OR AUTHORITY = 3)
+		<if test='sellerFilter == 1'> <!-- 판매자 OR 인증대기 OR 인증 보류-->
+			WHERE (AUTHORITY = 1 OR AUTHORITY = 3 OR AUTHORITY = 4)
 		</if>
 	</select>
 	
@@ -292,7 +305,12 @@
 	</update>
 
 
-	<!-- 판매자 인증 거절 -->
+	<!-- 판매자 인증 거절(보류) -->
+	<update id="sellerDeny">
+		UPDATE MEMBER SET
+		AUTHORITY = 4
+		WHERE MEMBER_NO = #{hiddenNo}
+	</update>
 	
 	
 	
@@ -320,7 +338,7 @@
 				LEFT JOIN BOARD ON(REPORT_TARGET_NO = BOARD_NO)
 				LEFT JOIN MEMBER M ON(REPORT_TARGET_NO = M.MEMBER_NO)
 				LEFT JOIN POST ON(REPORT_TARGET_NO = POST_NO))
-		WHERE (REPORT_PENALTY = 'N' OR REPORT_PENALTY IS NULL)
+		WHERE REPORT_PENALTY IS NULL
 		AND RANKING = 1
 	</select>
 	
@@ -353,7 +371,7 @@
 				LEFT JOIN BOARD ON(REPORT_TARGET_NO = BOARD_NO)
 				LEFT JOIN MEMBER M ON(REPORT_TARGET_NO = M.MEMBER_NO)
 				LEFT JOIN POST ON(REPORT_TARGET_NO = POST_NO))
-		WHERE (REPORT_PENALTY = 'N' OR REPORT_PENALTY IS NULL)
+		WHERE REPORT_PENALTY IS NULL
 		AND RANKING = 1
 		<if test='sortFilter != null and sortFilter != ""'>
 			<choose>
@@ -399,10 +417,86 @@
 				LEFT JOIN BOARD ON(REPORT_TARGET_NO = BOARD_NO)
 				LEFT JOIN MEMBER M ON(REPORT_TARGET_NO = M.MEMBER_NO)
 				LEFT JOIN POST ON(REPORT_TARGET_NO = POST_NO))
-		WHERE (REPORT_PENALTY = 'N' OR REPORT_PENALTY IS NULL)
+		WHERE REPORT_PENALTY IS NULL
 		AND RANKING = 1
 		AND REPORT_NO = #{hiddenReportNo}
 	</select>
+
+
+	<!-- 신고 누적 조회 (회원)-->
+	<select id="accumMemberList" resultMap="admin_rm">
+		SELECT *
+		FROM (SELECT M.MEMBER_NO, MEMBER_ID, AUTHORITY, MEMBER_DEL_FL, 
+				REPORT_NO, REPORT_MEMBER_NO, REPORT_TARGET_NO, REPORT_REASON, REPORT_CONTENT, REPORT_DATE, REPORT_PENALTY, PROCESS_DATE,
+				RANK() OVER(PARTITION BY REPORT_TARGET_NO, REPORT_TYPE ORDER BY REPORT_NO DESC) AS RANKING,
+				RANK() OVER(PARTITION BY REPORT_TARGET_NO, REPORT_TYPE ORDER BY REPORT_NO) AS REPORT_VOLUME,
+				BOARD_NO, BOARD_DEL_FL, POST_NO, POST_DEL_FL, REPORT_TYPE,
+				(CASE
+					WHEN REPORT_TYPE = 'B' THEN BOARD_NO
+					WHEN REPORT_TYPE = 'P' THEN POST_NO
+				END 
+				) CONTENT_NO,
+				(CASE
+					WHEN REPORT_TYPE = 'B' THEN BOARD_TITLE
+					WHEN REPORT_TYPE = 'P' THEN POST_TITLE
+				END 
+				) TITLE,
+				(CASE
+					WHEN REPORT_TYPE = 'B' THEN BOARD_CONTENT
+					WHEN REPORT_TYPE = 'P' THEN POST_CONTENT
+				END 
+				) CONTENT
+				FROM REPORT R
+				LEFT JOIN BOARD ON(REPORT_TARGET_NO = BOARD_NO)
+				LEFT JOIN MEMBER M ON(REPORT_TARGET_NO = M.MEMBER_NO)
+				LEFT JOIN POST ON(REPORT_TARGET_NO = POST_NO))
+		WHERE REPORT_PENALTY IS NULL
+		AND REPORT_TYPE = 'M'
+		AND REPORT_TARGET_NO = #{memberNo}
+	</select>
+
+		<!-- 신고 누적 조회 (판매글, 커뮤니티게시글)-->
+	<select id="accumContentList" resultMap="admin_rm">
+		SELECT *
+		FROM (SELECT M.MEMBER_NO, MEMBER_ID, AUTHORITY, MEMBER_DEL_FL, 
+				REPORT_NO, REPORT_MEMBER_NO, REPORT_TARGET_NO, REPORT_REASON, REPORT_CONTENT, REPORT_DATE, REPORT_PENALTY, PROCESS_DATE,
+				RANK() OVER(PARTITION BY REPORT_TARGET_NO, REPORT_TYPE ORDER BY REPORT_NO DESC) AS RANKING,
+				RANK() OVER(PARTITION BY REPORT_TARGET_NO, REPORT_TYPE ORDER BY REPORT_NO) AS REPORT_VOLUME,
+				BOARD_NO, BOARD_DEL_FL, POST_NO, POST_DEL_FL, REPORT_TYPE,
+				(CASE
+					WHEN REPORT_TYPE = 'B' THEN BOARD_NO
+					WHEN REPORT_TYPE = 'P' THEN POST_NO
+				END 
+				) CONTENT_NO,
+				(CASE
+					WHEN REPORT_TYPE = 'B' THEN BOARD_TITLE
+					WHEN REPORT_TYPE = 'P' THEN POST_TITLE
+				END 
+				) TITLE,
+				(CASE
+					WHEN REPORT_TYPE = 'B' THEN BOARD_CONTENT
+					WHEN REPORT_TYPE = 'P' THEN POST_CONTENT
+				END 
+				) CONTENT
+				FROM REPORT R
+				LEFT JOIN BOARD ON(REPORT_TARGET_NO = BOARD_NO)
+				LEFT JOIN MEMBER M ON(REPORT_TARGET_NO = M.MEMBER_NO)
+				LEFT JOIN POST ON(REPORT_TARGET_NO = POST_NO))
+		WHERE REPORT_PENALTY IS NULL
+		AND REPORT_TYPE = #{reportType}
+		AND REPORT_TARGET_NO = #{contentNo}
+	</select>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -426,6 +520,9 @@
 	</update>
 	
 	
+	
+	
+	
 	<!-- 신고 계정 반려 -->
 	<update id="reportMemberLeave">
 		UPDATE REPORT SET
@@ -436,17 +533,62 @@
 	</update>
 	
 	
+	<!-- 신고 커뮤니티 게시글 삭제 -->
+	<update id="reportDeleteBoard">
+		UPDATE BOARD SET
+		BOARD_DEL_FL = 'Y'
+		WHERE BOARD_NO = #{hiddenContentNo}
+	</update>
+	
+	<!-- 신고 판매글 삭제 -->
+	<update id="reportDeletePost">
+		UPDATE POST SET
+		POST_DEL_FL = 'Y'
+		WHERE POST_NO = #{hiddenContentNo}
+	</update>
 	
 	
+	<!-- 신고 게시글 : 정지 후 신고 상태 변경, 신고 처리일자 추가   -->
+	<update id="changeReportStatusCt">
+		UPDATE REPORT SET
+		REPORT_PENALTY = 'Y',
+		PROCESS_DATE = SYSDATE
+		WHERE REPORT_TYPE = #{reportType}
+		AND REPORT_TARGET_NO = #{hiddenContentNo}
+	</update>
 	
 	
+	<!-- 신고 게시글 반려 -->
+	<update id="reportLeaveContent">
+		UPDATE REPORT SET
+		REPORT_PENALTY = 'N',
+		PROCESS_DATE = SYSDATE
+		WHERE REPORT_TYPE = #{reportType}
+		AND REPORT_TARGET_NO = #{hiddenContentNo}
+	</update>
 	
 	
+	<!-- 정지된 계정 리스트 조회 (스케쥴링)-->
+	<select id="selectBannedAccountList" resultMap="admin_rm">
+		SELECT *
+		FROM (SELECT REPORT_NO,REPORT_TYPE, REPORT_TARGET_NO, REPORT_PENALTY, PROCESS_DATE,
+				RANK() OVER(PARTITION BY REPORT_TARGET_NO, REPORT_TYPE ORDER BY REPORT_NO DESC) AS RANKING
+		FROM REPORT
+		LEFT JOIN MEMBER ON (REPORT_TARGET_NO = MEMBER_NO)
+		WHERE REPORT_TYPE = 'M'
+		AND REPORT_PENALTY = 'Y'
+		AND MEMBER_DEL_FL = 'N')
+		WHERE RANKING = 1
+	</select>
 	
-	
-	
-	
-	
+	<!-- 정지된 계정 활성화(스케쥴링) -->
+	<update id="activateAccount">
+		UPDATE REPORT SET
+		REPORT_PENALTY = 'A'
+		WHERE REPORT_TYPE = 'M'
+		AND REPORT_PENALTY = 'Y'
+		AND REPORT_TARGET_NO = #{targetNo}
+	</update>
 	
 	
 	

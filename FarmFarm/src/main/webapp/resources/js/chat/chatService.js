@@ -598,8 +598,22 @@ document.getElementById('inputImgPreviewDelBtn').addEventListener('click', (e) =
     }
 })
 
+/* 검색창 엔터 클릭 이벤트 */
+const searchBar = document.getElementById('searchBar');
+searchBar.addEventListener('keypress', (e) => {
+  if(e.key == 'Enter') {
+    chatSearch();
+  }
+})
+
+
 /* 검색창 만들기 이벤트 */
 document.getElementById('searchBtn').addEventListener('click', ()=>{
+    chatSearch();
+
+})
+
+const chatSearch = () => {
     let input = document.getElementById('searchBar');
 
     if(input.value.trim().length == 0) {
@@ -615,7 +629,7 @@ document.getElementById('searchBtn').addEventListener('click', ()=>{
         
         for(room of roomList) {
             room.style.display = 'flex';
-            let roomName = room.children[1].children[0].innerText;
+            let roomName = room.children[1].innerText;
             console.log('방제 : ' + roomName);
     
             if(!roomName.includes(input.value)) {
@@ -624,8 +638,7 @@ document.getElementById('searchBtn').addEventListener('click', ()=>{
         }
 
     }
-
-})
+}
 
 /* 초기화 버튼 클릭 시 */
 document.getElementById('resetRoomSearch').addEventListener('click', (e)=>{

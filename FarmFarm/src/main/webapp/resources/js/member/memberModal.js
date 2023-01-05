@@ -1,5 +1,8 @@
 (()=>{
   
+  /* 여기 추가_ 신고 당하는 회원 번호 */
+  var targetMemberNo;
+
   /* 게시글 목록에서 실행됩니당~ */
   const boardWriter = document.getElementsByClassName("board-writer");
   if(boardWriter.length > 0){ 
@@ -76,6 +79,10 @@ const modalSignUpDate = document.getElementById("modalSignUpDate");
 const modal = document.querySelector(".modal");
 
 const selectMember = (memberNo) => {
+  // 신고한 프로필의 회원번호 
+  targetMemberNo = memberNo;
+  console.log(targetMemberNo);
+
   $.ajax({
     url : "/board/member/" + memberNo,
     data : {"memberNo" : memberNo},
@@ -93,7 +100,6 @@ const selectMember = (memberNo) => {
 
       memberNickname.innerText = member.memberNickname;
       modalSignUpDate.innerText = "가입일 :" + member.signUpDate;
-
     }, 
     error : ()=>{
       console.log("ajax 통신 실패");

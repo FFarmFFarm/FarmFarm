@@ -30,16 +30,24 @@ public class AdminController {
 	@Autowired
 	private AdminService service;
 
-
-	// 판매자 인증중인 회원이 로그인할 경우 이동_memberController와 연결
+	
+	// 나중에 MemberController로 옮기기
+	// 판매자 인증중 페이지 (판매자 인증중인 회원이 로그인할 경우)
 	@GetMapping("/authenticating")
 	public String authenticating() {
 		return "member/authNotice";
 	}
 	
 	
+	// 판매자 인증 거절 페이지 (판매자 인증 거절된 회원이 로그인할 경우)
+	@GetMapping("/authDeny")
+	public String authDeny() {
+		return "member/authNoticeDeny";
+	}
 	
 	
+	
+
 	// 관리자페이지 --------------------------------------------------------
 	
 	// 대시보드 -----------------------------------------------------------
@@ -270,7 +278,7 @@ public class AdminController {
 		
 		if(result == 1 && loginMember != null) {
 
-			// 해당 회원번호의 인증신청서 조회
+			// 해당 회원번호의 인증 승인
 			result = service.sellerApprove(hiddenNo);
 	
 		} else {
@@ -284,8 +292,27 @@ public class AdminController {
 	
 	
 	
-	// 판매자 거절 
+	// 판매자 거절 (인증 보류)
+	@PostMapping("/admin/sellerDeny")
+	@ResponseBody
+	public int sellerDeny(@SessionAttribute(value = "loginMember") Member loginMember, int hiddenNo) {
+		
+		// 관리자인지 확인 (관리자면 result==1)
+		int result = service.checkAdmin();
+		
+		
+		if(result == 1 && loginMember != null) {
+
+			// 해당 회원번호의 인증 보류
+			result = service.sellerDeny(hiddenNo);
 	
+		} else {
+			System.out.println("관리자만 접근 가능합니다.");
+		}
+		
+		return result;
+
+	}
 	
 	
 	
@@ -389,6 +416,32 @@ public class AdminController {
 	
 
 	
+	// 신고 누적 기록 조회 (신고 누적 모달)
+	@PostMapping("/admin/selectReportAccumulate")
+	@ResponseBody
+	public String selectReportAccumulate(@SessionAttribute(value="loginMember") Member loginMember, 
+										String reportType, int memberNo, int contentNo) {
+		
+		// 관리자인지 확인 (관리자면 result==1)
+		int result = service.checkAdmin();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if(result == 1 && loginMember != null) {
+
+			// 신고 누적 기록 조회
+			map = service.selectReportAccumulate(reportType, memberNo, contentNo);
+	
+		} else {
+			System.out.println("관리자만 접근 가능합니다.");
+		}
+		
+		return new Gson().toJson(map);
+	}
+	
+	
+	
+	
 	// 접수된 신고 처리는 ReportController에서 해결  -- REPORT테이블
 
 	
@@ -400,10 +453,7 @@ public class AdminController {
 	
 	
 	
-	
-	
-	
-	
+
 	
 	
 	

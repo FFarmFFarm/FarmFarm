@@ -1,9 +1,14 @@
 package edu.kh.farmfarm.admin.model.service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.kh.farmfarm.admin.model.dao.AdminProcessDAO;
+import edu.kh.farmfarm.admin.model.vo.Admin;
 
 @Service
 public class AdminProcessServiceImpl implements AdminProcessService{
@@ -45,10 +50,72 @@ public class AdminProcessServiceImpl implements AdminProcessService{
 	}
 	
 	
+	// 신고된 회원 계정 정지
+	@Override
+	public int reportMemberBanned(int hiddenNo) {
+		return dao.reportMemberBanned(hiddenNo);
+	}
+	
 	
 	// 신고 계정 - 반려
 	@Override
 	public int reportMemberLeave(int hiddenNo) {
 		return dao.reportMemberLeave(hiddenNo);
 	}	
+	
+	
+	
+	// 신고 게시글 - 삭제
+	@Override
+	public int reportDeleteContent(int hiddenContentNo, String reportType) {
+		
+		int result = 0;
+		
+		// 커뮤니티 게시글 삭제
+		if(reportType.equals("B")) {
+			result = dao.reportDeleteBoard(hiddenContentNo);
+		
+		// 판매글 삭제
+		} else if(reportType.equals("P")) {
+			result = dao.reportDeletePost(hiddenContentNo);
+		}
+		
+		
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("hiddenContentNo", hiddenContentNo);
+		paramMap.put("reportType", reportType);
+		
+		// 삭제 후 신고 상태 변경, 처리 일자 추가
+		if(result > 0) {
+			result = dao.changeReportStatusCt(paramMap);
+		}
+		
+		return result;
+	}
+	
+	
+	// 신고 게시글 - 반려
+	@Override
+	public int reportLeaveContent(Map<String, Object> paramMap) {
+		return dao.reportLeaveContent(paramMap);
+	}	
+	
+	
+	//-----------------------------------------------
+	
+	// 정지된 계정 리스트 불러오기 (스케쥴링)
+	@Override
+	public List<Admin> selectBannedAccountList() {
+		return dao.selectBannedAccountList();
+	}
+	
+
+	// 정지된 계정 활성화 (스케쥴링)
+	@Override
+	public int activateAccount(int targetNo) {
+		return dao.activateAccount(targetNo);
+	}
+	
+	
 }

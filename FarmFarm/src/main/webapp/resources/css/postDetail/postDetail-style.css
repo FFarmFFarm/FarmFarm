@@ -29,7 +29,7 @@ button:active {
 }
 
 /* 공유, 찜 버튼 */
-.wish-btn,
+.report-btn,
 .share-btn {
   width: 40px;
   height: 40px;
@@ -49,10 +49,19 @@ button:active {
 .share-btn {
   width: 30px;
   height: 30px;
-  right: 30px;
+  right: 50px;
 }
 
 .share-btn:hover {
+  color: var(--point-color);
+}
+
+.report-btn {
+  width: 30px;
+  height: 30px;
+}
+
+.report-btn:hover {
   color: var(--point-color);
 }
 
@@ -268,4 +277,8 @@ button:active {
 .swiper {
   margin-left: auto;
   margin-right: auto;
+}
+
+.swiper-button-prev, .swiper-button-next{
+    color: var(--point-color) !important;
 }

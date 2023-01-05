@@ -1,0 +1,421 @@
+@import '../root-style.css';
+
+a {
+  color: var(--main-font-color);
+}
+
+body {
+  min-height: 100vh;
+  color: var(--main-font-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--background-color);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 130vh;
+}
+
+button {
+  border: none;
+  background-color: white;
+}
+
+/* 회원 정보 */
+.profile-container {
+  height: 350px;
+  background-color: white;
+}
+
+.profile-background {
+  width: 1000px;
+  height: 150px;
+  overflow: hidden;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.member-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.bg-change-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+  display: inline-block;
+  font-size: var(--title-font-size);
+  color: var(--sub-font-color);
+  opacity: 0.5;
+
+  border-radius: 50%;
+  border: none;
+
+  cursor: pointer;
+}
+
+.bg-change-btn:hover {
+  opacity: 1;
+}
+
+.profile-info {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 1000px;
+  height: 200px;
+
+  cursor: default;
+}
+
+/* .profile-setting-btn {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  border: none;
+  font-size: var(--large-font-size);
+  cursor: pointer;
+}
+
+.profile-setting-btn:active {
+  transform: scale(0.95);
+} */
+
+.profile-img-container {
+  width: 200px;
+  height: 250px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  position: absolute;
+  left: 60px;
+  top: -70px;
+}
+
+.member-profile {
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  
+  background-color: white;
+  border-radius: 50%;
+  border: 1px solid var(--line-color);
+}
+
+.member-profile-img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.member-nickname {
+  margin-top: 10px;
+  font-size: var(--large-font-size);
+  font-weight: bold;
+}
+
+.member-info-container {
+  width: 500px;
+  height: 130px;
+
+  margin-right: 70px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  font-size: var(--main-font-size);
+}
+
+.member-count {
+  display: flex;
+}
+
+.member-count > div {
+  margin-right: 50px;
+}
+
+.info-title {
+  font-weight: bold;
+}
+
+.basic-title {
+  display: inline-block;
+  width: 90px;
+}
+
+.count-title {
+  margin-right: 5px;
+}
+
+/* 마이페이지 메뉴바 */
+
+.list-container {
+  width: 1000px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  align-content: space-between;
+  position: relative;
+}
+
+.mypage-nav {
+  width: 20%;
+  background-color: #ffffff;
+
+  display: flex;
+  flex-direction: column;
+
+  margin-right: 30px;
+  position: absolute;
+  top: 10px;
+  left: 0;
+}
+
+.mypage-nav > a {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: var(--main-font-size);
+}
+
+.mypage-nav > a > span {
+  margin-left: 5px;
+  margin-right: 50px;
+
+  width: 60%;
+  display: flex;
+  justify-content: flex-start;
+  color: var(--sub-font-color);
+  font-weight: bold;
+}
+
+.mypage-nav-title {
+  display: inline-block;
+  font-size: var(--title-font-size);
+  margin: 20px 0 30px;
+  font-weight: bold;
+}
+
+.mypage-nav > a > i {
+  font-size: var(--main-font-size);
+}
+
+button:hover,
+a:hover,
+a:hover > span:not(.notify-box > span),
+button:hover > span {
+  color: var(--point-color);
+}
+
+
+/* 페이지네이션 영역 */
+.pagination-area{
+  display: flex;
+  justify-content: center;
+  margin: 50px 0;
+}
+
+/* 페이지 박스 */
+.page-box{
+  color: var(--sub-font-color);
+  border: 1px solid var(--line-color);
+  width: 30px;
+  height: 30px;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font: var(--sub-font-color);
+
+  cursor: pointer;
+}
+
+.page-box:hover{
+  color: var(--main-font-color);
+  font-weight: 600;
+  transition-duration: 0.1s;
+}
+
+/* 현재 페이지 */
+.current-page-box{
+  font-weight: 600;
+  color: white;
+  background-color: var(--point-color);
+  border: 1px solid var(--line-color);
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font: var(--sub-font-color);
+}
+
+
+/* 컨펌 모달창 */
+.confirm-container{
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--modal-background-color);
+
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: var(--main-font-size);
+  font-family: "NotoSansKR-Bold";
+}
+
+.confirm-container > div:first-child {
+  width: 300px;
+  height: 140px;
+  background-color: white;
+
+  border-radius: 5px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.confirm-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: 70%;
+}
+
+.confirm-btn {
+  width: 100%;
+  height: 40px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.confirm-btn > button {
+  width: 50%;
+
+  font-weight: bold;
+}
+
+.confirm-btn > button:last-child {
+  color: var(--point-color);
+}
+
+.hide {
+  display: none;
+  opacity: 0;
+}
+
+.appear {
+  animation: fade-in 0.3s;
+  animation-fill-mode: forwards;
+  display: flex;
+}
+
+.disappear {
+  animation: fade-out 0.3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* 판매자 정보 */
+
+.member-nickname{
+    font-size: var(--title-font-size);
+    margin-bottom: 17px;
+}
+
+.member-nickname>i{
+    /* color: #e78111; */
+    color: #eb8717;
+}
+
+.info-title{
+    margin-right: 20px;
+    font-weight: bold;
+}
+
+.member-info-container {
+    width: 500px;
+    display: flex;
+    justify-content: space-between;
+    
+    margin-bottom: 20px;
+}
+
+#enroll-post{
+    background-color: var(--point-color);
+    border: none;
+    border-radius: 7px;
+
+    color: #ffffff;
+    font-family:"NotoSansKR-Medium";
+    font-size: var(--medium-font-size);
+
+    width: 78%;
+    height: 40px;
+
+    margin-bottom: 30px;
+}
+
+.profile-info {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 1000px;
+    height: 55%;
+
+    padding-left: 360px;
+    padding-top: 23px;
+
+    cursor: default;
+}

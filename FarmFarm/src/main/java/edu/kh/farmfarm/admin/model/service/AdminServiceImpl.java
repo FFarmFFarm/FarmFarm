@@ -135,7 +135,19 @@ public class AdminServiceImpl implements AdminService{
 	
 	
 	// 판매자 인증 거절
-	
+	@Override
+	public int sellerDeny(int hiddenNo) {
+		
+		// 회원 권한을 인증 보류로 변경
+		int result = dao.sellerDeny(hiddenNo);
+		
+		if(result > 0) {
+			// 판매자 인증 처리 일자 수정
+			result = dao.updateAuthDate(hiddenNo);
+		}
+		
+		return result;
+	}
 	
 	
 	
@@ -149,7 +161,7 @@ public class AdminServiceImpl implements AdminService{
 	public Map<String, Object> selectNewReport(String sortFilter, int cp) {
 		
 		/* 페이지네이션 */
-		// 1. 전체 개수 가져오기
+		// 1. 전체 개수 가져오기 (신고 중복 제거)
 		int reportListCount = dao.reportListCount(sortFilter);
 		
 		// 2. 가져온 개수와 현재 페이지를 이용하여 페이지네이션 객체 발생
@@ -159,10 +171,17 @@ public class AdminServiceImpl implements AdminService{
 		// 미처리 신고 조회
 		List<Admin> newReportList = dao.selectNewReport(sortFilter, pagination);
 		
+		
+		// 신고 중복 포함된 전체 개수
+		int reportAllListCount = dao.reportAllListCount();
+		
+		
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("reportListCount", reportListCount);
 		map.put("newReportList", newReportList);
 		map.put("pagination", pagination);
+		map.put("reportAllListCount", reportAllListCount);
 		
 		return map;
 	}
@@ -176,6 +195,11 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	
+	// 신고 누적 기록 
+@	Override
+	public Map<String, Object> selectReportAccumulate(String reportType, int memberNo, int contentNo) {
+		return dao.selectReportAccumulate(reportType, memberNo, contentNo);
+	}	
 	
 	
 	

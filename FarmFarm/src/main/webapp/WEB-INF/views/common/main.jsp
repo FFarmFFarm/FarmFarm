@@ -8,9 +8,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FarmFarm</title>
+    <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
     <link rel="stylesheet" href="/resources/css/common/main-style.css" />
     <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
     <script src="https://kit.fontawesome.com/1ce4f19a7a.js" crossorigin="anonymous"></script>
+    
+    <!-- swiper -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+
   </head>
   <body>
     <div class="header-container">
@@ -27,7 +33,7 @@
                 <div class="nav-list"><a href="/product/list">팜팜마켓</a></div>
                 <div class="nav-list"><a href="/post/list">사고팔고</a></div>
                 <div class="nav-list"><a href="/board/${1}">커뮤니티</a></div>
-                <div class="nav-list"><a href="/testPage/4">문의게시판</a></div>
+                <div class="nav-list"><a href="/recipe">레시피</a></div>
               </div>
             </div>
         </nav>
@@ -87,13 +93,13 @@
                           <a href="/seller/${loginMember.memberNo}">판매자페이지</a>
                         </c:when>
                         <c:when test="${loginMember.authority == 2}">
-                          <a href="/admin">관리자</a>
+                            <a href="/admin">관리자</a>
                         </c:when>
                         <c:otherwise>
-                          <a href="/myPage">마이페이지</a>
+                            <a href="/myPage">마이페이지</a>
                         </c:otherwise>
-                      </c:choose>
-                      <a href="/logout">로그아웃</a>
+                    </c:choose>
+                    <a href="/logout">로그아웃</a>
                     </div>
                   </div>
                 </li>
@@ -114,16 +120,26 @@
 
     </div>
     <main>
-      <div class="main-wrap">
-        <div class="main-background">
-          <img src="resources/images/main/bg2.png">
-        </div>
-        <div class="main-title">
-          <!-- <p>내 손으로 키운 작물,<br>손쉽게 거래하세요.</p>
-          <p>믿을 수 있는 먹거리, 팜팜이 함께합니다</p> -->
-        </div>
-      </div>
+        <div class="swiper-container">
+            <div class="main-wrap swiper-wrapper">
+                <div class="main-background swiper-slide">
+                    <img src="resources/images/main/bg2.png">
+                </div>
+                <div class="main-background swiper-slide">
+                    <img src="resources/images/main/farm.png">
+                </div>
+                <div class="main-background swiper-slide">
+                    <img src="resources/images/main/ss.png">
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
 
+            <!-- If we need navigation buttons -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+        
+      <h3 class="middle-product-title">딱! 오늘만 팜팜마켓 특가 상품</h3>
       <div class="middle-product">
         <div class="middle-wrap">
           <%-- <div class="middle-cover"><img src="resources/images/product/detail/20221230143348_60504.jpg"></div> --%>
@@ -201,7 +217,7 @@
       </div>
 
 
-      <h3 class="product-title">지금 가장 핫한 상품</h3>
+      <h3 class="product-title">우리 농장에서는 이런 물건을 팔아요</h3>
       <div class="product-wrap">
         <a href="/">
             <div class="product">
@@ -261,7 +277,7 @@
         <div class="cooking-a">
           <a href="/board/${1}">
             <div class="cooking">
-              <p>와글와글로 가기 </p>
+              <p>와글와글로 이동 </p>
               <i class="fa-solid fa-arrow-right cooking-arrow"></i>
             </div>
           </a>
@@ -277,8 +293,28 @@
     </main>
     
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/> 
-
+    
+    <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
+    
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+    crossorigin="anonymous"></script>
     <script>
+      var swiper = new Swiper('.swiper-container', {
+        loop: true,
+        autoplay: {
+            delay: 4000,
+            disableOnInteraction: false
+        },
+        pagination: {
+            el: '.swiper-pagination',
+        },
+        navigation : { // 네비게이션 설정
+            nextEl : '.swiper-button-next', // 다음 버튼 클래스명
+            prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
+	    }
+      })
+
       const loginMember = "${loginMember}"
 
       if(loginMember){

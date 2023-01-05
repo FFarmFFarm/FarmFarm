@@ -52,18 +52,6 @@
   </resultMap>
   
 <!-- comment 관련 -->
-<!-- <resultMap type="Comment" id="comment_rm">
-	<id property="commentNo" column="COMMENT_NO"/>
-	
-	<result property="commentContent" column="COMMENT_CONTENT"/>
-	<result property="commentDate" column="COMMENT_DATE"/>
-	<result property="commentParent" column="COMMENT_PARENT"/>
-	<result property="commentDeleteFlg" column="COMMENT_DEL_FL"/>
-	<result property="memberNo" column="MEMBER_NO"/>
-	<result property="boardNo" column="BOARD_NO"/>
-	<result property="memberNickname" column="MEMBER_NICKNAME"/>
-	
-</resultMap> -->
  <resultMap type="Comment" id="comment_rm">
         <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
      <id property = "commentNo" column="COMMENT_NO"/>
@@ -112,11 +100,11 @@
 	</insert>
 	
 	<!-- 와글와글 게시판 수 조회 -->
-	<select id="getListCount" resultType="_int">
+<!-- 	<select id="getListCount" resultType="_int">
 		SELECT COUNT(*) FROM "BOARD"
 		WHERE BOARD_TYPE_NO = #{boardTypeNo}
 		AND BOARD_DEL_FL = 'N'
-	</select>
+	</select> -->
 	
 	<!-- 와글와글 게시판 리스트 조회 -->
 		<select id="selecBoardtList" resultMap="board_rm">
@@ -142,10 +130,22 @@
 			JOIN "MEMBER" USING (MEMBER_NO)
 			WHERE BOARD_TYPE_NO = #{boardTypeNo}
 			AND BOARD_DEL_FL = 'N'
-			<!-- 검색어 있는 경우 -->
+ 			<!-- 검색어 있는 경우 -->
 			<if test='query != null and query != ""'>
-				AND (BOARD_TITLE LIKE '%${query}%'
-				OR BOARD_CONTENT LIKE '%${query}%')
+				<choose>
+					<when test='key == "t"'>
+							AND BOARD_TITLE LIKE '%${query}%'
+					</when>
+					<when test='key == "c"'>
+							AND BOARD_CONTENT LIKE '%${query}%'
+					</when>
+					<when test='key == "tc"'>
+							AND (BOARD_TITLE LIKE '%${query}%' OR BOARD_CONTENT LIKE '%${query}%')
+					</when>
+					<otherwise>
+							AND MEMBER_NICKNAME LIKE '%${query}%'
+					</otherwise>
+				</choose>
 			</if>
 			ORDER BY BOARD_NO DESC
 	</select>
@@ -153,9 +153,24 @@
 	<!-- 와글와글 게시판 검색 조건에 맞는 게시글 수 조회 -->
 	<select id="getListCountSearch" resultType="_int">
 		SELECT COUNT(*) FROM "BOARD"
+		JOIN "MEMBER" USING ("MEMBER_NO")
 		WHERE BOARD_TYPE_NO = #{boardTypeNo}
-		AND (BOARD_TITLE LIKE '%${query}%'
-			OR BOARD_CONTENT LIKE '%${query}%')
+		<if test='query != null and query != ""'>
+			<choose>
+				<when test='key == "t"'>
+						AND BOARD_TITLE LIKE '%${query}%'
+				</when>
+				<when test='key == "c"'>
+						AND BOARD_CONTENT LIKE '%${query}%'
+				</when>
+				<when test='key == "tc"'>
+						AND (BOARD_TITLE LIKE '%${query}%' OR BOARD_CONTENT LIKE '%${query}%')
+				</when>
+				<otherwise>
+						AND MEMBER_NICKNAME LIKE '%${query}%'
+				</otherwise>
+			</choose>
+		</if>
 	</select>
 	
 
@@ -185,8 +200,20 @@
 			AND BOARD_DEL_FL = 'N'
 			<!-- 검색어 있는 경우 -->
 			<if test='query != null and query != ""'>
-				AND (BOARD_TITLE LIKE '%${query}%'
-				OR BOARD_CONTENT LIKE '%${query}%')
+				<choose>
+					<when test='key == "t"'>
+							AND BOARD_TITLE LIKE '%${query}%'
+					</when>
+					<when test='key == "c"'>
+							AND BOARD_CONTENT LIKE '%${query}%'
+					</when>
+					<when test='key == "tc"'>
+							AND (BOARD_TITLE LIKE '%${query}%' OR BOARD_CONTENT LIKE '%${query}%')
+					</when>
+					<otherwise>
+							AND MEMBER_NICKNAME LIKE '%${query}%'
+					</otherwise>
+				</choose>
 			</if>
 			<!-- 최신순, 조회수, 좋아요 -->
 				<choose>
@@ -285,7 +312,7 @@
 			FROM "COMMENT" C
 			JOIN "MEMBER" USING(MEMBER_NO)
 			WHERE BOARD_NO = #{boardNo}) C
-		START WITH COMMENT_PARENT IS NULL
+		START WITH COMMENT_PARENT = 0
 		CONNECT BY PRIOR COMMENT_NO = COMMENT_PARENT
 		ORDER SIBLINGS BY COMMENT_NO
 	</select>
@@ -338,7 +365,7 @@
 		INSERT INTO "COMMENT"
 		VALUES(SEQ_COMMENT_NO.NEXTVAL, #{commentContent},
 			<if test='commentParent == 0'>
-				NULL,
+				0,
 			</if>
 			<if test='commentParent != 0'>
 				#{commentParent},
@@ -373,6 +400,16 @@
 		${condition}
 	</update>
 	
+	
+	<!-- 댓글의 부모댓글의 댓글번호를 찾아보아요 -->
+	<select id="selectParent" resultType="_int">
+		SELECT COMMENT_PARENT FROM "COMMENT"
+		WHERE COMMENT_NO = #{coParent}
+	</select>
+	
+	
+	
+	
 	<!-- 알림에 사용되는 SQL문입니다! -->
 		
 		<!-- 게시글의 작성자 번호 찾기 -->
@@ -389,5 +426,13 @@
 		</select>
 	
 	<!-- END 알림 SQL -->
+	
+	<!-- 게시판 이미지 이름 조회 -->
+	<select id="selectBoardImageList" resultType="string">
+		SELECT
+			SUBSTR(BOARD_IMG_ADDRESS  , INSTR(BOARD_IMG_ADDRESS, '/', -1)+1, LENGTH(BOARD_IMG_ADDRESS)) 
+		FROM BOARD_IMG bi 
+		WHERE BOARD_IMG_ADDRESS IS NOT NULL
+	</select>
 
 </mapper>

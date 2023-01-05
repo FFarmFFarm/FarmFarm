@@ -34,6 +34,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.JsonObject;
 
+import edu.kh.farmfarm.cart.model.vo.Cart;
 import edu.kh.farmfarm.mypage.model.vo.Order;
 import edu.kh.farmfarm.order.model.dao.OrderDAO;
 import edu.kh.farmfarm.order.model.vo.BuyerInfo;
@@ -99,6 +100,20 @@ public class OrderServiceImpl implements OrderService{
 			}
 			
 			orderNo = dao.insertProduct(pList);
+			
+			if(orderNo > 0) {
+				List<Cart> cartList = new ArrayList<>();
+				
+				for(Product p : pList) {
+
+					Cart cart = new Cart();
+					cart.setMemberNo(order.getMemberNo());
+					cart.setProductNo(p.getProductNo());
+					
+					cartList.add(cart);
+				}
+				int cartResult = dao.deleteCart(cartList);
+			}
 		}
 		
 		return orderNo;

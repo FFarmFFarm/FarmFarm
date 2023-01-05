@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.farmfarm.common.Pagination;
 import edu.kh.farmfarm.common.Util;
+import edu.kh.farmfarm.mypage.model.vo.Order;
 import edu.kh.farmfarm.productAdmin.model.dao.ProductAdminDAO;
 import edu.kh.farmfarm.productDetail.model.vo.Product;
 import edu.kh.farmfarm.productDetail.model.vo.ProductImg;
@@ -194,6 +195,58 @@ public class ProductAdminServiceImpl implements ProductAdminService{
 	@Override
 	public int soldoutProduct(Map<String, Object> map) {
 		return dao.soldoutProduct(map);
+	}
+
+	// 주문 목록 조회
+	@Override
+	public Map<String, Object> selectOrderList(int cp) {
+		
+		int orderListCount = dao.getOrderListCount();
+		
+		Pagination pagination = new Pagination(orderListCount, cp, 10, 10);
+		
+		List<Order> orderList = dao.selectOrderList(pagination);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("pagination", pagination);
+		map.put("orderList", orderList);
+		map.put("orderListCount", orderListCount);
+		
+		return map;
+	}
+
+	
+	// 검색 목록 조회
+	@Override
+	public Map<String, Object> selectOrderList(Map<String, Object> pm, int cp) {
+		
+		int orderListCount = dao.getOrderListCount(pm);
+		
+		Pagination pagination = new Pagination(orderListCount, cp, 10, 10);
+		
+		List<Order> orderList = dao.selectOrderList(pagination, pm);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("pagination", pagination);
+		map.put("orderList", orderList);
+		map.put("orderListCount", orderListCount);
+		
+		return map;
+	}
+
+	// 주문목록 상세조회
+	@Override
+	public Order selectOrderDetail(int orderNo) {
+		
+		return dao.selectOrderDetail(orderNo);
+	}
+
+	// 주문상태 변경
+	@Override
+	public int orderStatus(Map<String, Object> map) {
+		return dao.orderStatus(map);
 	}
 
 	

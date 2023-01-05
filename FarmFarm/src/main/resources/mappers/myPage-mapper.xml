@@ -98,122 +98,141 @@
   </resultMap>
   
   
+	
+	<!-- 작성 댓글 수 조회 -->
+	<select id="commentCount" resultType="_int">
+		SELECT COUNT(*) FROM "COMMENT"
+		WHERE MEMBER_NO = #{memberNo}
+		AND COMMENT_DEL_FL = 'N'
+	</select>
+	
+	<!-- 작성 댓글 목록 조회 -->
+	<select id="selectCommentList" resultMap="comment_rm">
+		SELECT c.COMMENT_NO, c.COMMENT_CONTENT , c.COMMENT_DATE , c.BOARD_NO , b.BOARD_TITLE ,
+		(SELECT COUNT(*) FROM "COMMENT" c2 WHERE c2.BOARD_NO = b.BOARD_NO) COMMENT_COUNT, BOARD_TYPE_NO
+		FROM "COMMENT" c
+		JOIN BOARD b ON (c.BOARD_NO = b.BOARD_NO)
+		WHERE c.MEMBER_NO = #{memberNo} AND COMMENT_DEL_FL = 'N'
+		ORDER BY c.COMMENT_DATE DESC
+	</select>
+	
+	
+	<!-- 주문 수 조회 -->
+	<select id="orderCount" resultType="_int">
+		SELECT COUNT(*) FROM "ORDER" WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<!-- 주문 목록 조회 -->
+	<select id="selectOrderList" resultMap="order_rm">
+		SELECT DISTINCT o.ORDER_NO , o.ORDER_DATE , ORDER_STATUS , MEMBER_NO, TO_CHAR(ORDER_PRICE, '999,999,999,999') ORDER_PRICE
+		,(SELECT INVOICE_NO FROM ORDER_SHIPPING os WHERE os.ORDER_NO = o.ORDER_NO) INVOICE_NO
+		FROM "ORDER" o
+		JOIN ORDER_PRODUCT op ON (o.ORDER_NO = op.ORDER_NO)
+		WHERE MEMBER_NO = #{memberNo}
+		ORDER BY ORDER_NO DESC
+	</select>
+	
+	<!-- 주문한 상품 목록 조회 -->
+	<select id="selectProductList" resultMap="product_rm">
+		SELECT op.PRODUCT_NO , op.PRODUCT_AMOUNT, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_STATUS,
+			(SELECT PRODUCT_IMG_ADDRESS 
+			FROM PRODUCT_IMG pi3 
+			WHERE pi3.PRODUCT_NO = op.PRODUCT_NO 
+			AND PRODUCT_IMG_ORDER = 0) PRODUCT_IMG,
+			(SELECT COUNT(*) FROM REVIEW r 
+			WHERE PRODUCT_NO = op.PRODUCT_NO AND MEMBER_NO = #{memberNo} AND ORDER_NO = #{orderNo}) REVIEW_CHECK
+		FROM ORDER_PRODUCT op 
+		JOIN PRODUCT p ON (op.PRODUCT_NO = p.PRODUCT_NO)
+		WHERE ORDER_NO = #{orderNo}
+	</select>
+	
+	
+	
+	<!-- 작성 게시글 수 조회 -->
+	<select id="boardCount" resultType="_int">
+		SELECT COUNT(*) FROM BOARD WHERE MEMBER_NO = #{memberNo} AND BOARD_DEL_FL = 'N'
+	</select>
+	
+	
+	<!-- 작성 게시글 목록 조회 -->
+	<select id="selectBoardList" resultMap="board_rm">
+		SELECT BOARD_NO , SUBSTRB(BOARD_TITLE,1,75) BOARD_TITLE , BOARD_DATE CREATE_DATE,
+		TO_CHAR(BOARD_DATE, 'yyyy.MM.DD') BOARD_DATE, BOARD_VIEW, BOARD_TYPE_NO,
+		(SELECT COUNT(*) FROM "COMMENT" c WHERE c.BOARD_NO = b.BOARD_NO) COMMENT_COUNT,
+		(SELECT BOARD_IMG_ADDRESS FROM BOARD_IMG bi WHERE bi.BOARD_NO = b.BOARD_NO AND BOARD_IMG_ORDER = 0) BOARD_THUMBNAIL
+		FROM BOARD b WHERE MEMBER_NO = #{memberNo} AND BOARD_DEL_FL ='N'
+		<if test='sortFl.equals("V")'>
+		ORDER BY BOARD_VIEW DESC, CREATE_DATE DESC
+		</if>
+		<if test='sortFl.equals("N")'>
+		ORDER BY CREATE_DATE DESC, BOARD_VIEW DESC
+		</if>
+	</select>
+	
+	<!-- 작성 후기 수 조회 -->
+	<select id="reviewCount" resultType="_int">
+		SELECT COUNT(*) FROM REVIEW WHERE MEMBER_NO = #{memberNo} AND REVIEW_DEL_FL = 'N'
+	</select>
+	
+	<!-- 작성 후기 목록 조회 -->
+	<select id="selectReviewList" resultMap="review_rm">
+		SELECT REVIEW_NO, REVIEW_CONTENT, PRODUCT_NO, PRODUCT_NAME, 
+		TO_CHAR(CREATE_DATE, 'yyyy.MM.DD') CREATE_DATE,
+		(SELECT COUNT(*) FROM REVIEW_LIKE rl WHERE rl.REVIEW_NO = r.REVIEW_NO) LIKE_COUNT
+		FROM REVIEW r
+		JOIN PRODUCT p USING(PRODUCT_NO)
+		WHERE r.MEMBER_NO = #{memberNo} AND REVIEW_DEL_FL = 'N'
+		ORDER BY CREATE_DATE DESC
+	</select>
+	
+	<!-- 상품 리뷰 이미지 목록 조회 -->
+	<select id="selectReviewImgList" resultMap="reviewImg_rm">
+		SELECT * FROM REVIEW_IMG ri
+		WHERE REVIEW_NO = #{reviewNo}
+	</select>
 
-<!-- 작성 댓글 수 조회 -->
-<select id="commentCount" resultType="_int">
-	SELECT COUNT(*) FROM "COMMENT"
-	WHERE MEMBER_NO = #{memberNo}
-	AND COMMENT_DEL_FL = 'N'
-</select>
-
-<!-- 작성 댓글 목록 조회 -->
-<select id="selectCommentList" resultMap="comment_rm">
-	SELECT c.COMMENT_NO, c.COMMENT_CONTENT , c.COMMENT_DATE , c.BOARD_NO , b.BOARD_TITLE ,
-	(SELECT COUNT(*) FROM "COMMENT" c2 WHERE c2.BOARD_NO = b.BOARD_NO) COMMENT_COUNT, BOARD_TYPE_NO
-	FROM "COMMENT" c
-	JOIN BOARD b ON (c.BOARD_NO = b.BOARD_NO)
-	WHERE c.MEMBER_NO = #{memberNo} AND COMMENT_DEL_FL = 'N'
-	ORDER BY c.COMMENT_DATE DESC
-</select>
-
-
-<!-- 주문 수 조회 -->
-<select id="orderCount" resultType="_int">
-	SELECT COUNT(*) FROM "ORDER" WHERE MEMBER_NO = #{memberNo}
-</select>
-
-<!-- 주문 목록 조회 -->
-<select id="selectOrderList" resultMap="order_rm">
-	SELECT DISTINCT o.ORDER_NO , o.ORDER_DATE , ORDER_STATUS , MEMBER_NO, TO_CHAR(ORDER_PRICE, '999,999,999,999') ORDER_PRICE
-	,(SELECT INVOICE_NO FROM ORDER_SHIPPING os WHERE os.ORDER_NO = o.ORDER_NO) INVOICE_NO
-	FROM "ORDER" o
-	JOIN ORDER_PRODUCT op ON (o.ORDER_NO = op.ORDER_NO)
-	WHERE MEMBER_NO = #{memberNo}
-	ORDER BY ORDER_NO DESC
-</select>
-
-<!-- 주문한 상품 목록 조회 -->
-<select id="selectProductList" resultMap="product_rm">
-	SELECT op.PRODUCT_NO , op.PRODUCT_AMOUNT, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_STATUS,
-		(SELECT PRODUCT_IMG_ADDRESS 
-		FROM PRODUCT_IMG pi3 
-		WHERE pi3.PRODUCT_NO = op.PRODUCT_NO 
-		AND PRODUCT_IMG_ORDER = 0) PRODUCT_IMG,
-		(SELECT COUNT(*) FROM REVIEW r 
-		WHERE PRODUCT_NO = op.PRODUCT_NO AND MEMBER_NO = #{memberNo} AND ORDER_NO = #{orderNo}) REVIEW_CHECK
-	FROM ORDER_PRODUCT op 
-	JOIN PRODUCT p ON (op.PRODUCT_NO = p.PRODUCT_NO)
-	WHERE ORDER_NO = #{orderNo}
-</select>
-
-
-
-<!-- 작성 게시글 수 조회 -->
-<select id="boardCount" resultType="_int">
-	SELECT COUNT(*) FROM BOARD WHERE MEMBER_NO = #{memberNo} AND BOARD_DEL_FL = 'N'
-</select>
-
-
-<!-- 작성 게시글 목록 조회 -->
-<select id="selectBoardList" resultMap="board_rm">
-	SELECT BOARD_NO , SUBSTRB(BOARD_TITLE,1,75) BOARD_TITLE , BOARD_DATE CREATE_DATE,
-	TO_CHAR(BOARD_DATE, 'yyyy.MM.DD') BOARD_DATE, BOARD_VIEW, BOARD_TYPE_NO,
-	(SELECT COUNT(*) FROM "COMMENT" c WHERE c.BOARD_NO = b.BOARD_NO) COMMENT_COUNT,
-	(SELECT BOARD_IMG_ADDRESS FROM BOARD_IMG bi WHERE bi.BOARD_NO = b.BOARD_NO AND BOARD_IMG_ORDER = 0) BOARD_THUMBNAIL
-	FROM BOARD b WHERE MEMBER_NO = #{memberNo} AND BOARD_DEL_FL ='N'
-	<if test='sortFl.equals("V")'>
-	ORDER BY BOARD_VIEW DESC, CREATE_DATE DESC
-	</if>
-	<if test='sortFl.equals("N")'>
-	ORDER BY CREATE_DATE DESC, BOARD_VIEW DESC
-	</if>
-</select>
-
-<!-- 작성 후기 수 조회 -->
-<select id="reviewCount" resultType="_int">
-	SELECT COUNT(*) FROM REVIEW WHERE MEMBER_NO = #{memberNo} AND REVIEW_DEL_FL = 'N'
-</select>
-
-<!-- 작성 후기 목록 조회 -->
-<select id="selectReviewList" resultMap="review_rm">
-	SELECT REVIEW_NO, REVIEW_CONTENT, PRODUCT_NO, PRODUCT_NAME, 
-	TO_CHAR(CREATE_DATE, 'yyyy.MM.DD') CREATE_DATE,
-	(SELECT COUNT(*) FROM REVIEW_LIKE rl WHERE rl.REVIEW_NO = r.REVIEW_NO) LIKE_COUNT
-	FROM REVIEW r
-	JOIN PRODUCT p USING(PRODUCT_NO)
-	WHERE r.MEMBER_NO = #{memberNo} AND REVIEW_DEL_FL = 'N'
-	ORDER BY CREATE_DATE DESC
-</select>
-
-<!-- 상품 리뷰 이미지 목록 조회 -->
-<select id="selectReviewImgList" resultMap="reviewImg_rm">
-	SELECT * FROM REVIEW_IMG ri
-	WHERE REVIEW_NO = #{reviewNo}
-</select>
-
-<!-- 찜 수 조회 -->
-<select id="wishCount" resultType="_int">
-	SELECT COUNT(*) FROM WISH WHERE MEMBER_NO = #{memberNo}
-</select>
-
-<!-- 찜 목록 조회 -->
-<select id="selectWishList" resultMap="product_rm">
-	SELECT w.PRODUCT_NO, PRODUCT_NAME, TO_CHAR(PRODUCT_PRICE, '999,999,999,999') PRODUCT_PRICE,
-		TO_CHAR(WISH_DATE, 'yyyy.MM.DD') WISH_DATE,
-		(SELECT PRODUCT_IMG_ADDRESS 
-		FROM PRODUCT_IMG pi2 
-		WHERE pi2.PRODUCT_NO = p.PRODUCT_NO 
-		AND PRODUCT_IMG_ORDER = 0) PRODUCT_IMG
-	FROM WISH w 
-	JOIN PRODUCT p ON (p.PRODUCT_NO = w.PRODUCT_NO)
-	WHERE MEMBER_NO = #{memberNo}
-	ORDER BY WISH_DATE DESC
-</select>
-
+	<!-- 찜 수 조회 -->
+	<select id="wishCount" resultType="_int">
+		SELECT COUNT(*) FROM WISH WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<!-- 찜 목록 조회 -->
+	<select id="selectWishList" resultMap="product_rm">
+		SELECT w.PRODUCT_NO, PRODUCT_NAME, TO_CHAR(PRODUCT_PRICE, '999,999,999,999') PRODUCT_PRICE,
+			TO_CHAR(WISH_DATE, 'yyyy.MM.DD') WISH_DATE,
+			(SELECT PRODUCT_IMG_ADDRESS 
+			FROM PRODUCT_IMG pi2 
+			WHERE pi2.PRODUCT_NO = p.PRODUCT_NO 
+			AND PRODUCT_IMG_ORDER = 0) PRODUCT_IMG
+		FROM WISH w 
+		JOIN PRODUCT p ON (p.PRODUCT_NO = w.PRODUCT_NO)
+		WHERE MEMBER_NO = #{memberNo}
+		ORDER BY WISH_DATE DESC
+	</select>
+	
+	<!-- 찜 추가 -->
+	<insert id="insertWish">
+		INSERT INTO WISH
+		VALUES(#{memberNo}, ${productNo}, DEFAULT)
+	</insert>
+	
+	<!-- 찜 삭제 -->
+	<delete id="deleteWish">
+		DELETE FROM WISH
+		WHERE MEMBER_NO = #{memberNo} 
+		AND PRODUCT_NO = #{productNo}
+	</delete>
+	
 	
 	<!-- 마이 페이지 배경 사진 변경 -->
 	<update id="updateBgImg">
 		UPDATE "MEMBER" SET MYPAGE_IMG = #{mypageImg} WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	<!-- 마이 페이지 배경 사진 기본사진으로 변경 -->
+	<update id="defaultBgImg">
+		UPDATE "MEMBER" SET MYPAGE_IMG = '/resources/images/default/bgImg.png' 
+		WHERE MEMBER_NO = #{memberNo}
 	</update>
 	
 	<!-- 주문 구매 확정 -->
@@ -270,6 +289,7 @@
 		UPDATE "ADDRESS" SET
 		MEMBER_ADDRESS = #{memberAddress}
 		WHERE MEMBER_NO = #{memberNo}
+		AND DEFAULT_FL = 'Y'
 	</update>
 
 	<!-- 암호화 된 비밀번호 조회 -->
@@ -284,11 +304,6 @@
 		MEMBER_PW = #{newPw}
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
-<delete id="deleteWish">
-	DELETE FROM WISH
-	WHERE MEMBER_NO = #{memberNo} 
-	AND PRODUCT_NO = #{productNo}
-</delete>
 
 
 	<!-- 회원 탈퇴 -->
@@ -297,5 +312,30 @@
 		MEMBER_DEL_FL = 'Y'
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
+	
+	
+	<!-- 배경 이미지 이름 조회 -->
+	<select id="selectBgImageList" resultType="string">
+		SELECT 
+			SUBSTR(MYPAGE_IMG, INSTR(MYPAGE_IMG, '/', -1)+1, LENGTH(MYPAGE_IMG))
+		FROM "MEMBER" m 
+		WHERE MYPAGE_IMG IS NOT NULL
+	</select>
+	
+	<!-- 프로필 이미지 이름 조회 -->
+	<select id="selectProfileImageList" resultType="string">
+		SELECT 
+			SUBSTR(PROFILE_IMG , INSTR(PROFILE_IMG, '/', -1)+1, LENGTH(PROFILE_IMG)) 
+		FROM "MEMBER" m 
+		WHERE PROFILE_IMG IS NOT NULL
+	</select>
+	
+	<!-- 리뷰 이미지 이름 조회 -->
+	<select id="selectReviewImageList" resultType="string">
+		SELECT
+			SUBSTR(REVIEW_IMG_PATH , INSTR(REVIEW_IMG_PATH, '/', -1)+1, LENGTH(REVIEW_IMG_PATH)) 
+		FROM REVIEW_IMG ri  
+		WHERE REVIEW_IMG_PATH IS NOT NULL
+	</select>
 
 </mapper>

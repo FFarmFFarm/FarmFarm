@@ -30,7 +30,26 @@ public class CommentServiceImpl implements CommentService{
 		comment.setCommentContent(Util.XSSHandling(comment.getCommentContent()));
 		comment.setCommentContent(Util.newLineHandling(comment.getCommentContent()));
 		
-		int result = dao.commentWrite(comment);
+		int coParent = comment.getCommentParent();
+		int result = 0;
+		
+		System.out.println(coParent);
+		
+		if(coParent > 0) {
+			int parentNo = dao.selectParent(coParent);
+			
+			if(parentNo > 0) {
+				comment.setCommentParent(parentNo);
+			}else {
+				comment.setCommentParent(coParent);
+			}
+			
+			result = dao.commentWrite(comment);
+			
+		}else {
+			result = dao.commentWrite(comment);
+		}
+		
 		
 		if(result > 0) {
 			result = comment.getCommentNo();

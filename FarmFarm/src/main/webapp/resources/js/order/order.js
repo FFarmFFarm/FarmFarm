@@ -46,7 +46,6 @@ function requestPay() {
 
         alert(msg);
 
-        console.log(rsp.imp_uid);
 
         const impUid = rsp.imp_uid
         confirmBuy(impUid);

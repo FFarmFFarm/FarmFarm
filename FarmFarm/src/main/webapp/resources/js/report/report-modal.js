@@ -4,12 +4,31 @@ const reportBtn = document.getElementById("reportBtn");
 
 reportContainer.style.display = 'none';
 
+
+// 직접 작성한 신고 사유 내용 == reportContent  // 전역변수로 바꾸면서 혹시나 다른데랑 충돌날까봐 이름 변경
+var modalReportContent = document.getElementById("reportContent");
+let radioButton = document.getElementsByName('reportRadio');
+
 reportBtn.addEventListener('click', () => {
     reportContainer.style.display = 'flex';
-    // console.log(targetNo);
-    // console.log(pathname);
+
+    // 내용지우기
+    modalReportContent.value = "";
+
+    // 체크해제
+    for(let i=0; i<radioButton.length; i++) {
+        if(radioButton[i].checked){
+            radioButton[i].checked = false;
+        }
+    }
 })
 
+
+
+// x 클릭 시 모달창 꺼짐
+document.getElementById("xIcon").addEventListener('click', () => {
+    reportContainer.style.display = 'none';
+});
 
 
 // 모달창 바깥 클릭 시 모달창 꺼짐
@@ -64,10 +83,26 @@ const reportSubmitBtn = document.getElementById("reportSubmitBtn");
 
 reportSubmitBtn.addEventListener("click", () => {
 
-    // 회원 신고
+    // 선택한 신고 사유 가져오기
+    const reportReasonList = document.getElementsByName('reportRadio');
+    const radioText = document.getElementsByClassName('radio-text');
+    
+    for(var i=0; i<reportReasonList.length; i++){
+        
+        if(reportReasonList[i].checked){
+            //fixme: 왜,, 하나씩 밀리는 거지. 일단 임시방편으로 +1함.
+            radioResult = radioText[i].innerText;
+            console.log(radioResult);
+        }
+    }
+
+
+        
+    // 판매자 신고
     if(pathname == "seller") {
-        reportType.value = "S";
+        reportType.value = "M";
         reportTargetNo.value = targetNo;
+        report();
     }
 
 
@@ -75,6 +110,7 @@ reportSubmitBtn.addEventListener("click", () => {
     if(pathname == "chat") {
         reportType.value = "M";
         reportTargetNo.value = memberNo2;
+        report();
     }
 
 
@@ -82,6 +118,7 @@ reportSubmitBtn.addEventListener("click", () => {
     if(pathname == "post"){
         reportType.value = "P";
         reportTargetNo.value = targetNo;  //postNo
+        report();
     }
 
 
@@ -90,26 +127,19 @@ reportSubmitBtn.addEventListener("click", () => {
     if(pathname.includes('board')){
         reportType.value = "B";
         reportTargetNo.value = targetNo;  //boardNo
+        report();
     }
 
 
-    // // 와글와글 게시글 신고 - 물물교환
-    // if(pathname.contains("board/1") && !commentNo.contains("c")){
-    //     reportType.value = "B1";
-    //     reportTargetNo.value = targetNo;  //boardNo
-    // }
+    // 와글와글 게시글 - 회원 신고
+    if(targetMemberNo != null){
+        reportType.value = "M";
+        reportTargetNo.value = targetMemberNo;
+        report();
+    } 
 
-    // // 와글와글 게시글 신고 - 팁
-    // if(pathname.contains("board/2") && !commentNo.contains("c")){
-    //     reportType.value = "B2";
-    //     reportTargetNo.value = targetNo;  //boardNo
-    // }
 
-    // // 와글와글 게시글 신고 - 질문
-    // if(pathname.contains("board/3") && !commentNo.contains("c")){
-    //     reportType.value = "B3";
-    //     reportTargetNo.value = targetNo;  //boardNo
-    // }
+
 
 
     // 댓글 신고 - 
@@ -121,43 +151,29 @@ reportSubmitBtn.addEventListener("click", () => {
 
 
     // 연습 test
-    if(pathname == 'testPage'){
-        reportType.value = 'T';
-        reportTargetNo.value = targetNo; //4
-    }
+    // if(pathname == 'testPage'){
+    //     reportType.value = 'T';
+    //     reportTargetNo.value = targetNo; //4
+    // }
+   
+
+})
 
 
-    // 선택한 신고 사유 가져오기
-    const reportReasonList = document.getElementsByName('reportRadio');
-    var radioResult;
-    
-    const reportLabel = document.getElementsByTagName("label");
-    const reportContent = document.getElementById("reportContent").value;
-    
-    for(var i=0; i<reportReasonList.length; i++){
-        
-        if(reportReasonList[i].checked){
-
-            //fixme: 왜,, 하나씩 밀리는 거지. 일단 임시방편으로 +1함.
-            radioResult = reportLabel[i+1].innerText;
-            console.log(radioResult);
-        }
-    }
-
-
+// optimize: 신고하기
+const report = () => {
     $.ajax({
         url: "/report",
         data: { "reportType" :reportType.value, 
                 "reportTargetNo" : reportTargetNo.value,
                 "reportReason" : radioResult,
-                "reportContent": reportContent},
+                "reportContent": modalReportContent.value},
         type: "POST",
         success: (result) => {
             if(result > 0){
                 console.log("신고 접수");
                 reportContainer.style.display = 'none';
                 messageModalOpen('신고가 접수되었습니다.');
-                // fixme: 글 삭제하는 함수 넣기 
             
             } else {
                 console.log("신고 실패");
@@ -168,5 +184,4 @@ reportSubmitBtn.addEventListener("click", () => {
         }
     });
 
-})
-
+}

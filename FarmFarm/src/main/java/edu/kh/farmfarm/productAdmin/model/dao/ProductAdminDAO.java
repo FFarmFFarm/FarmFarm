@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.farmfarm.common.Pagination;
+import edu.kh.farmfarm.mypage.model.vo.Order;
 import edu.kh.farmfarm.productDetail.model.vo.Product;
 import edu.kh.farmfarm.productDetail.model.vo.ProductImg;
 
@@ -159,6 +160,66 @@ public class ProductAdminDAO {
 	public int soldoutProduct(Map<String, Object> map) {
 		return sqlSession.update("productAdmin.soldoutProduct", map);
 	}
+
+	/** 주문 목록 수 조회
+	 * @return
+	 */
+	public int getOrderListCount() {
+		return sqlSession.selectOne("productAdmin.orderListCount");
+	}
+
+	/** 주문 리스트 조회
+	 * @param pagination
+	 * @return orderList
+	 */
+	public List<Order> selectOrderList(Pagination pagination) {
+		
+		int offset = (pagination.getCurrentPage()-1)*pagination.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		return sqlSession.selectList("productAdmin.selectOrderList", 0, rowBounds);
+	}
+	
+	
+	/** 검색 목록 수 조회
+	 * @param pm
+	 * @return
+	 */
+	public int getOrderListCount(Map<String, Object> pm) {
+		return sqlSession.selectOne("productAdmin.getOrderListCount_search", pm);
+	}
+
+	
+	
+	/** 주문 검색 조회
+	 * @param pagination
+	 * @param pm
+	 * @return orderList
+	 */
+	public List<Order> selectOrderList(Pagination pagination, Map<String, Object> pm) {
+		
+		int offset = (pagination.getCurrentPage()-1)*pagination.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		return sqlSession.selectList("productAdmin.selectOrderList_search", pm, rowBounds);
+	}
+
+	/** 주문 상세조회
+	 * @param orderNo
+	 * @return
+	 */
+	public Order selectOrderDetail(int orderNo) {
+		return sqlSession.selectOne("productAdmin.selectOrderDetail", orderNo);
+	}
+
+	public int orderStatus(Map<String, Object> map) {
+		return sqlSession.update("productAdmin.updateOrderStatus", map);
+	}
+
+
+
 
 	
 }

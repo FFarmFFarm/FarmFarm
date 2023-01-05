@@ -42,3 +42,16 @@
         </div>
       </div>
     </div>
+
+  <!-- 장바구니 주소 삭제 모달창 -->
+    <div class="login-confirm-container hide" id="deleteAddConfirm">
+      <div>
+        <div class="login-confirm-message">
+          <span>배송지를 삭제하시겠습니까?</span>
+        </div>
+        <div class="login-confirm-btn">
+          <button type="button" id="deleteAddCalcelBtn">취소</button>
+          <button type="button" id="deleteAddConfirmBtn">확인</button>
+        </div>
+      </div>
+    </div>

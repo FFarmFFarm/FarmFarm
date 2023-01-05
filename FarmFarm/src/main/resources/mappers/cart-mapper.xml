@@ -20,6 +20,7 @@
      <id property = "addressNo" column="ADDRESS_NO"/>
      <!-- 나머지 일반 컬럼 -->
       <result property="memberAddress" column="MEMBER_ADDRESS" />
+      <result property="memberAddress2" column="MEMBER_ADDRESS2" />
       <result property="defaultFl" column="DEFAULT_FL" />
       <result property="memberNo" column="MEMBER_NO" />
       <result property="memberName" column="MEMBER_NAME" />
@@ -33,13 +34,10 @@
 			TO_CHAR(PRODUCT_PRICE*PRODUCT_AMOUNT, 'FM999,999,999,999') PRODUCT_TOTAL_PRICE,
 			(SELECT PRODUCT_IMG_ADDRESS FROM PRODUCT_IMG PI
 			WHERE PI.PRODUCT_NO = C.PRODUCT_NO
-			AND PRODUCT_IMG_ORDER=0) PRODUCT_IMG,
-			MEMBER_ADDRESS
+			AND PRODUCT_IMG_ORDER=0) PRODUCT_IMG
 		FROM CART C
 		JOIN PRODUCT P ON(C.PRODUCT_NO = P.PRODUCT_NO)
-		JOIN ADDRESS A ON(C.MEMBER_NO = A.MEMBER_NO)
-		WHERE DEFAULT_FL = 'Y'
-		AND C.MEMBER_NO = #{memberNo}
+		WHERE C.MEMBER_NO = #{memberNo}
 	</select>
   
 	<!-- 장바구니 확인 -->
@@ -88,18 +86,47 @@
 		AND PRODUCT_NO = #{productNo}
 	</update>
 	
+	<!-- 장바구니 항목 삭제 -->
 	<delete id="deleteCart">
 		DELETE FROM CART
 		WHERE MEMBER_NO = #{memberNo}
 		AND PRODUCT_NO = #{productNo}
 	</delete>
 	
+	<!-- 배송지 조회 -->
 	<select id="selectAddressList" resultMap="memberAddress_rm">
-		SELECT ADDRESS_NO, MEMBER_ADDRESS, DEFAULT_FL, MEMBER_NAME, MEMBER_TEL 
+		SELECT ADDRESS_NO, DEFAULT_FL, MEMBER_NAME, MEMBER_TEL, 
+				REPLACE(MEMBER_ADDRESS, ',,', ' ') MEMBER_ADDRESS2
 		FROM ADDRESS
 		JOIN MEMBER USING(MEMBER_NO)
 		WHERE MEMBER_NO = #{memberNo}
+		ORDER BY DEFAULT_FL DESC
 	</select>
+	
+	<!-- 기존 배송지 default 변경 -->
+	<update id="updateDefault">
+		UPDATE ADDRESS SET DEFAULT_FL='N'
+		WHERE MEMBER_NO = #{memberNo}
+		AND DEFAULT_FL='Y'
+	</update>
+	
+	<!-- 다른 배송지를 기본으로 변경 -->
+	<update id="changeAddress">
+		UPDATE ADDRESS SET DEFAULT_FL='Y'
+		WHERE MEMBER_NO = #{memberNo}
+		AND ADDRESS_NO = #{addressNo}
+	</update>
+	
+	<!-- 배송지 삭제 -->
+	<delete id="deleteAddress">
+		DELETE FROM ADDRESS WHERE ADDRESS_NO = #{addressNo}
+	</delete>
+	
+	<!-- 장바구니 리스트 삭제 -->
+	<delete id="deleteCartList">
+		DELETE FROM CART 
+		${condition}
+	</delete>
 	
   
 </mapper>

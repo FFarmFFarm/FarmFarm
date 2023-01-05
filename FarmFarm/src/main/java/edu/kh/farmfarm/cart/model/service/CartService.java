@@ -3,6 +3,7 @@ package edu.kh.farmfarm.cart.model.service;
 import java.util.Map;
 
 import edu.kh.farmfarm.cart.model.vo.Cart;
+import edu.kh.farmfarm.member.model.VO.MemberAddress;
 
 public interface CartService {
 
@@ -47,6 +48,25 @@ public interface CartService {
 	 * @return addressList
 	 */
 	Object selectAddressList(int memberNo);
+
+	/** 배송지 정보 변경
+	 * @param add
+	 * @return result
+	 */
+	int changeAddress(MemberAddress add);
+
+	/** 배송지 삭제
+	 * @param addressNo
+	 * @return result
+	 */
+	int deleteAddress(int addressNo);
+
+	/** 장바구니 리스트 삭제
+	 * @param memberNo
+	 * @param deleteList
+	 * @return result
+	 */
+	int deleteCartList(int memberNo, String deleteList);
 
 
 }

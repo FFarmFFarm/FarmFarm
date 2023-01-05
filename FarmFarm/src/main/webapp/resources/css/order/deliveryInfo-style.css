@@ -90,6 +90,7 @@ button{
   /* margin-right: 12px; */
   font-size: 24px;
   color: var(--point-color);
+  cursor: default;
 }
 
 [name=unCheckIcon]{
@@ -103,6 +104,7 @@ button{
 
 .address-area{
   flex: 1 1 0%;
+  padding-left: 15px;
 }
 
 .selected-address{
@@ -140,12 +142,12 @@ button{
   background-color: rgb(221, 221, 221);
 }
 
-.edit-address{
+.delete-address{
   width: 64px;
   text-align: center;
 }
 
-[name="editBtn"]{
+[name="deleteBtn"]{
   display: inline-flex;
   width: 24px;
   height: 24px;
@@ -154,6 +156,9 @@ button{
   color: rgb(221, 221, 221);
 }
 
+[name="deleteBtn"]:hover{
+  color: var(--point-color);
+}
 
 
 /* 새 배송지 선택 */
@@ -192,4 +197,18 @@ button{
 
 input{
   display: none;
+}
+
+
+
+
+
+
+.new-add-area{
+  border: 1px solid black;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  width: 100%;
+  padding: 24px 0px 18px;
 }
