@@ -107,7 +107,7 @@ public class MemberServiceImpl implements MemberService {
 			rename = Util.fileRename(farmImg.getOriginalFilename());
 			
 			farmImage.setMemberNo(memberNo);
-			farmImage.setFarmImg(farmImg.getOriginalFilename());
+			farmImage.setFarmImg(rename);
 
 			int result1 = dao.insertFarmImage(farmImage);
 			
