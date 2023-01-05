@@ -1,31 +1,26 @@
 // 전역변수
-let myMemberNo;
-let selectedRoomNo;
-let senderNo;
-let partnerNickname;
-let partnerProfileImg;
-let nowDate;
+let myMemberNo;    // 회원 번호
+let selectedRoomNo;     // 현재 보고 있는 방의 번호
+let senderNo;           // 보낸 사람
+let partnerNickname;    // 상대방의 닉네임
+let partnerProfileImg;  // 상대방의 프로필 이미지
+let nowDate;            // 현재 날짜
 
 // 소켓
 let chattingSock;
-
-// 채팅을 위한 소켓 생성
-// if(loginMemberNo = 1) {
-//     chattingSock = new SockJS('/echo/chat');
-//     chattingSock.onmessage = onMessage();
-// }
 
 
 /* 내 채팅방 목록 가져오기 */
 window.addEventListener("DOMContentLoaded", ()=>{
     requestMyChatRoomList();
 
+    // /chat/shortcut 경로를 통해 페이지에 접근한 경우 사용
     if(shortcutNo > 0) {
         shortcut(shortcutNo);
-        // history.replaceState("", "", "/chat");
     }
 
-    axios.post('/get/myNo'
+    // 세션에서 내 회원 번호를 조회하는 메서드
+    axios.post('/check/login'
     ).then(function (response) {
 
         myMemberNo = response.data;
@@ -49,20 +44,15 @@ window.addEventListener("DOMContentLoaded", ()=>{
 
 })
 
-
 /* 요소에 클래스, 텍스트를 넣는 함수 */
 const packUpElement = (elementName, elementClass, elementContent) => {
-
     elementName.classList.add(elementClass);
-
-    if (elementContent != null) { // -1을 넣으면 안넣음
+    if (elementContent != null) { // null을 넣으면 안넣음
         elementName.innerHTML = elementContent;
     }
-
-    return elementName;
 }
 
-/*  */
+/* shortcut을 이용해서 접근한 경우 */
 const shortcut = (shortcutNo) => {
 
     const roomNo = shortcutNo;
@@ -110,14 +100,18 @@ const shortcut = (shortcutNo) => {
 /* 내 채팅방 목록을 요청하는 함수(axios) */
 const requestMyChatRoomList = () => {
 
-    // 채팅방 리스트
+    // 채팅방 리스트가 들어갈 자리
     const chatPreviewArea = document.querySelector('.chat-preview-area');
 
-    // 내 채팅방 목록 가져오기
-    axios.post('/chat/chatRoomList')
-        .then(function (response) {
-            // 채팅 프리뷰 영역
+    // 보낼 값을 저장할 객체 formData
+    let formData = new FormData();
+    myMemberNo = 18;
 
+    formData.append("memberNo", myMemberNo);
+
+    // 내 채팅방 목록 가져오기
+    axios.post('/chat/select/room', formData)
+        .then(function (response) {
             // 채팅방 목록
             let chatRoomList = response.data.chatRoomList;
 
@@ -128,15 +122,13 @@ const requestMyChatRoomList = () => {
                 chatPreviewArea.innerHTML = "";
 
                 // 채팅 프리뷰 영역에 채팅방 목록 채워넣기
-                for (let chatRoomInfo of chatRoomList) {
-                    chatPreviewArea.append(makeChatPreviewBox(chatRoomInfo));
+                for (let chatRoom of chatRoomList) {
+                    chatPreviewArea.append(makeChatPreviewBox(chatRoom));
                 }
             }
 
-
         }).catch(function (error) {
             console.log(error);
-            // location.href = '/error';
         });
 }
 
@@ -144,13 +136,13 @@ const requestMyChatRoomList = () => {
 const makeChatPreviewBox = (chatRoomInfo) => {
     // 재료 준비
     const chatPreviewBox = document.createElement('div'); // 박스
-    // const profileImg = document.createElement('div'); // 상대 이미지
+    const profileImg = document.createElement('div'); // 상대 이미지
     const thumbnailImg = document.createElement('div'); // 상대 이미지
     const postTitle = document.createElement('div'); // 마지막 대화
     const boxLabel = document.createElement('div'); // 이름, 마지막 대화 시간이 들어감
     const memberNickname = document.createElement('div'); // 상대 이름
     const lastChatTime = document.createElement('div'); // 마지막 대화 시간
-    // const lastChatContent = document.createElement('div'); // 마지막 대화
+    const lastChatContent = document.createElement('div'); // 마지막 대화
 
     // 방번호 넣기
     chatPreviewBox.id = chatRoomInfo.roomNo;

@@ -26,8 +26,8 @@ public class ChatServiceImpl implements ChatService {
 	
 	// 채팅방 목록 가져오기
 	@Override
-	public List<ChatRoom> getChatRoomList(int myMemberNo) {
-		return dao.getChatRoomList(myMemberNo);
+	public List<ChatRoom> selectChatRoomList(int myMemberNo) {
+		return dao.selectChatRoomList(myMemberNo);
 	}
 	
 	// 채팅 내역 가져오기 전, 읽음 처리

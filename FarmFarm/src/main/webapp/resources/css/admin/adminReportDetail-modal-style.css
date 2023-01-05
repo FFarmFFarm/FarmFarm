@@ -40,7 +40,7 @@
 }
 
 
-.report-detail-modal, .accum-modal{
+.report-detail-modal{
     background-color: white;
     width: 800px;
     height: 700px;
@@ -55,10 +55,46 @@
 }
 
 
+.accum-modal{
+    background-color: white;
+    width: 800px;
+    height: 700px;
+    padding: 40px 50px;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    overflow: auto;
+    overflow-x: hidden;
+
+    position: relative;
+}
+
+::-webkit-scrollbar{
+    width: 10px;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb{
+    background-color: #eef4ed;
+    border-radius: 10px;
+}
+
+
 .next-icon{
     position: absolute;
     top: 300px;
     right: 40px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.pre-icon{
+    position: absolute;
+    top: 300px;
+    left: 30px;
     font-size: 30px;
     cursor: pointer;
 }
@@ -103,14 +139,19 @@
 }
 
 .accum-modal-table{
-    width: 600px;
+    width: 700px;
     display: flex;
     align-items: flex-start;
-
+    border-collapse: collapse;
+    border: none;
 }
 
 #tbodyDetail, #tbodyAccum{
     width: 100%;
+}
+
+#tbodyAccum{
+    display: flex;
 }
 
 
@@ -123,6 +164,12 @@
 #tbodyAccum tr td{
     height: 30px;
     font-size: var(--small-font-size);
+    text-align: center;
+    vertical-align: middle;
+}
+
+.tr-row{
+    padding: 15px;
 }
 
 
@@ -132,54 +179,34 @@
 }
 
 /* no */
-.accum-row th:first-of-type{
-    width: 70px;
+.accum-row td:first-of-type{
+    width: 60px;
 }
 
 /* 신고번호 */
-.accum-row th:nth-of-type(2){
-    width: 70px;
+.accum-row td:nth-of-type(2){
+    width: 60px;
 }
 
 /* 신고 일자 */
-.accum-row th:nth-of-type(3){
+.accum-row td:nth-of-type(3){
     width: 160px;
 }
 
 /* 신고자 */
-.accum-row th:nth-of-type(4){
-    width: 150px;
+.accum-row td:nth-of-type(4){
+    width: 80px;
 }
 
 /* 신고 사유 */
-.accum-row th:nth-of-type(5){
+.accum-row td:nth-of-type(5){
     width: 150px;
 }
 
 /* 추가 사유 */
-.accum-row th:nth-of-type(6){
-    width: 200px;
+.accum-row td:nth-of-type(6){
+    width: 190px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -247,6 +274,14 @@
     display: block;
 }
 
+
+.show-flex{
+    display: flex;
+}
+
+
 .hide{
     display: none;
 }
+
+  

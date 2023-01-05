@@ -4,14 +4,14 @@
 
         <div class="footer-btn">
             <!-- <a id="chatWidget"> -->
-                <input type="checkbox" id="showChatWidget">
-                <label for="showChatWidget" class="btn-chat">
+                <!-- <button type="button" id="showChatWidget"> -->
+                <button type="button" class="btn-chat">
                     <i class="fa-solid fa-comment-dots go-to-top-icon"></i>
                     <div id="chatAlarmDot">
                         <i class="fa-solid fa-circle"></i>
                     </div>
-                </label>
-                <jsp:include page="/WEB-INF/views/chat/chatWidget.jsp"/>
+                </button>
+                <jsp:include page="/WEB-INF/views/chat2/chatWidget.jsp"/>
             <!-- </a> -->
             <a href="#">
                 <button type="button" class="btn-go-to-top" id="top_btn">

@@ -17,7 +17,6 @@ public class Order {
 	private String memberName;
 	private String memberTel;
 	private String memberId;
-	private String orderAddress;
 	private String orderDate;
 	private int orderStatus;
 	private String invoiceNo;
