@@ -1,15 +1,13 @@
 
-const reportContainer = document.getElementById("reportContainer");
-const reportBtn = document.getElementById("reportBtn");
-
-reportContainer.style.display = 'none';
-
+var reportContainer = document.getElementById("reportContainer");
+var reportBtn = document.getElementById("reportBtn");
 
 // 직접 작성한 신고 사유 내용 == reportContent  // 전역변수로 바꾸면서 혹시나 다른데랑 충돌날까봐 이름 변경
 var modalReportContent = document.getElementById("reportContent");
-let radioButton = document.getElementsByName('reportRadio');
+var radioButton = document.getElementsByName('reportRadio');
 
 reportBtn.addEventListener('click', () => {
+    console.log("신고 모달 켜짐");
     reportContainer.style.display = 'flex';
 
     // 내용지우기
@@ -66,26 +64,26 @@ window.addEventListener('click', (e) => {
 */
 
 // * pathname: 각 기능 메인 주소
-const pathname = location.pathname.substring(1, location.pathname.lastIndexOf("/"));
+var pathname = location.pathname.substring(1, location.pathname.lastIndexOf("/"));
 
 //boardNo(와글와글), postNo(판매글), reviewNo의 번호  -> lastIndexOf("/")로 자름
 // seller에서 memberNo(판매자)
 //location.pathname.substring(location.pathname.lastIndexOf("/")+1)
-const targetNo = location.pathname.substring(location.pathname.lastIndexOf("/")+1);
+var targetNo = location.pathname.substring(location.pathname.lastIndexOf("/")+1);
 
-const reportType = document.getElementById("reportType");
-const reportTargetNo = document.getElementById("reportTargetNo");
+var reportType = document.getElementById("reportType");
+var reportTargetNo = document.getElementById("reportTargetNo");
 
 
 
 // 신고하기 ajax
-const reportSubmitBtn = document.getElementById("reportSubmitBtn");
+var reportSubmitBtn = document.getElementById("reportSubmitBtn");
 
 reportSubmitBtn.addEventListener("click", () => {
 
     // 선택한 신고 사유 가져오기
-    const reportReasonList = document.getElementsByName('reportRadio');
-    const radioText = document.getElementsByClassName('radio-text');
+    var reportReasonList = document.getElementsByName('reportRadio');
+    var radioText = document.getElementsByClassName('radio-text');
     
     for(var i=0; i<reportReasonList.length; i++){
         
@@ -161,7 +159,7 @@ reportSubmitBtn.addEventListener("click", () => {
 
 
 // optimize: 신고하기
-const report = () => {
+var report = () => {
     $.ajax({
         url: "/report",
         data: { "reportType" :reportType.value, 
