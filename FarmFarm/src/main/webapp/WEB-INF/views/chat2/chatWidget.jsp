@@ -43,7 +43,7 @@
     <!-- Axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     
-    <script src="/resources/js/chat/chatWidget.js"></script>
+    <script src="/resources/js/chat2/chatWidget.js"></script>
     
     <script>
       const loginMemberNo = "${loginMember.memberNo}";

@@ -136,7 +136,7 @@ const makeChatPreviewBox = (chatRoom) => {
             packUpElement(thumbnailImg, 'thumbnail-img', "<img src=" + chatRoom.thumbnailImg + ">");
         }
     }
-    console.log(chatRoom.enterStatus);
+    
     if(chatRoom.enterStatus === 'Y') {
         // box-label, lastChatContent, lastChatTime 세팅
         packUpElement(boxLabel, 'box-label', null);

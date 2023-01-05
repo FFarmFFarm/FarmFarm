@@ -1,5 +1,13 @@
-let myMemberNo;
-let listenChatSocket;
+// 전역변수
+let myMemberNo;         // 내 회원 번호
+let myMemberNickname;   // 내 닉네임
+let myProfileImg;       // 내 사진
+let selectedRoomNo;     // 현재 보고 있는 방의 번호
+let senderNo;           // 보낸 사람
+let partnerNickname;    // 상대방의 닉네임
+let partnerProfileImg;  // 상대방의 프로필 이미지
+let nowDate;            // 현재 날짜
+let chattingSock;   // 소켓?
 
 /* 요소에 클래스, 텍스트를 넣는 함수 */
 const packUpElement = (elementName, elementClass, elementContent) => {
@@ -13,40 +21,53 @@ const packUpElement = (elementName, elementClass, elementContent) => {
     return elementName;
 }
 
-
-/* 채팅 내역 받아오기 */
-addEventListener("DOMContentLoaded", () => {
-    axios.post('/get/myNo'
+/* 소켓과 연결하는 함수 */
+const connectToChattingSockForWidget = () => {
+    axios.post('/check/myInfo'
     ).then(function (response) {
 
-        myMemberNo = response.data;
+        myMemberNo = response.data.memberNo;
+        myMemberNickname = response.data.memberNickname;
+        myProfileImg = response.data.profileImg;
+
+        console.log("안녕 " + myMemberNo + "번 회원님")
 
         if (myMemberNo != -1) {
-            listenChatSocket = new SockJS('/echo/chat');
-            console.log('채팅 서버 연결중...')
+            chattingSock = new SockJS('/echo/chat2');
 
-            if (listenChatSocket != null) {
+            if (chattingSock != null) {
 
-                console.log('채팅 서버와 연결되었습니다.')
+                console.log('채팅 2.0 서버와 연결되었습니다.')
 
-                listenChatSocket.onmessage = function (e) {
+                chattingSock.onmessage = function (e) {
                     console.log('새로운 메세지가 있습니다.');
                     document.getElementById('chatAlarmDot').style.display = 'block';
                 }
+
+                chattingSock.onclose = function (e) {
+                    console.log('채팅 2.0 서버와 재연결을 시도합니다...');
+                    console.log(e);
+
+                    setTimeout(function () {
+                        connectToChattingSock();
+                    }, 1000);
+                }
             }
+
+            requestAndFillMyChatWidget();
 
         }
 
     }).catch(function (error) {
         console.log(error);
     })
-})
-
-/* 로딩이 완료되면 소켓을 연결함 */
-addEventListener("load", ()=>{
-    requestAndFillMyChatWidget();
+}
 
 
+
+/* 소켓과 연결하고, 채팅 내역 받아오기 */
+addEventListener("DOMContentLoaded", () => {
+    connectToChattingSockForWidget();
 })
 
 // ---------------------------- 비동기 요청 ---------------------------------- //
@@ -83,13 +104,22 @@ addEventListener('click', (e)=>{
 
 /* 채팅 위젯에 채워넣을 값을 요청하고, 값을 채워넣는 함수 'fillChatWidget()'을 호출하는 함수 */
 const requestAndFillMyChatWidget = () => {
-    axios.post('/chat/widget'
+
+    // 보낼 값을 저장할 객체 formData
+    let formData = new FormData();
+
+    // formData에 check/login을 이용해 받아온 정보 세팅
+    formData.append("memberNo", myMemberNo);
+
+    axios.post('/chat/select/widget', formData
     ).then(function (response) {
 
-        if(response.data.chatRoomList != undefined) {
+        let chatRoomList = response.data.chatRoomList;
+
+        if (chatRoomList != undefined) {
 
             // 채팅방 목록을 받음..
-            fillChatWidget(response.data.chatRoomList);
+            fillChatWidget(chatRoomList);
     
             // 읽지 않은게 있으면...
             let unReadCountAll = response.data.unReadCountAll;
@@ -118,76 +148,64 @@ const fillChatWidget = (chatRoomList) => {
         // 재료 준비
         // 변수명이 많이 깁니다... 이게 모든 곳에 다 들어가야해서 이름이 중복되지 않게 하려고 그랬어요...
         const chatWidgetBox = document.createElement('button'); // 채팅방 하나
-        // const chatWidgetProfileImg = document.createElement('div'); // 프로필 이미지
-        const chatWidgetPostTitle = document.createElement('div'); // 프로필 이미지
         const chatWidgetThumbnailImg = document.createElement('div'); // 프로필 이미지
-        const chatWidgetBoxLabel = document.createElement('div'); // 이름과 시간이 들어갈 라벨
-        const chatWidgetMemberNickname = document.createElement('div'); // 상대방 이름
-        const chatWidgetLastChatTime = document.createElement('div'); // 마지막 시간
+        const chatWidgetRoomTitle = document.createElement('div'); // 채팅방 이름
+        const chatWidgetBoxLabel = document.createElement('div'); // 내용과 시간이 들어갈 라벨
         const chatWidgetLastChatContent = document.createElement('div'); // 마지막 내용
+        const chatWidgetLastChatTime = document.createElement('div'); // 마지막 시간
 
         // 재료 손질
-        // 1. 사진
-        // if(chatRoom.profileImg2 == undefined) {
-        //     packUpElement(chatWidgetProfileImg, 'chatWidget-profile-img', 
-        //     "<img src='/resources/images/member/user.png'>");
-        // } else {
-        //     packUpElement(chatWidgetProfileImg, 'chatWidget-profile-img', "<img src=" + chatRoom.profileImg2 + ">");
-        // }
+        // chatWidgetBox 세팅
+        chatWidgetBox.id = chatRoom.roomNo;
+        packUpElement(chatWidgetBox, 'chat-widget-box', null);
 
-        // 상품 프로필 이미지
-        if (chatRoom.thumbnailImg == undefined) { // 이미지가 없는 경우 기본 이미지
-            packUpElement(chatWidgetThumbnailImg, 'chatWidget-post-img', "<img src='/resources/images/member/user.png'>");
+        // thumbnailImg 세팅 : 채팅방 유형이 상품이 아닌 경우 기본 이미지를 채워넣음
+        if (chatRoom.roomType == 0) {
+            packUpElement(chatWidgetBox, 'free', null);
+            packUpElement(chatWidgetThumbnailImg, 'chatWidget-thumbnail-img', "<img src='/resources/images/chat2/default/talking.png'>");
+            packUpElement(chatWidgetRoomTitle, 'chatWidget-room-title', chatRoom.roomName);
+
+            // thumbnailImg 세팅 : 채팅방 유형이 상품인 경우 상품 이미지를 채워넣음
         } else {
-            packUpElement(chatWidgetThumbnailImg, 'chatWidget-post-img', "<img src=" + chatRoom.thumbnailImg + ">");
-        }
-        
-        // 상품 한줄소개
-        packUpElement(chatWidgetPostTitle, 'post-title', chatRoom.postTitle);
-
-        // 2. 이름
-        packUpElement(chatWidgetMemberNickname, 'chatWidget-member-nickname', chatRoom.memberNickname2);
-
-        // 3. 마지막 날짜
-        packUpElement(chatWidgetLastChatTime, 'chatWidget-last-chat-time', chatRoom.lastChatTime);
-        
-        // // 4. 마지막 내용
-        // if (chatRoom.lastChatContent == undefined) { // 채팅 내용이 없는 경우 '대화 내용이 없습니다' 출력
-        //     packUpElement(chatWidgetLastChatContent, 'chatWidget-last-chat-content', '대화 내용이 없습니다.');
-        // } else {
-        //     if (chatRoom.lastChatImgFl === 'N') { // 사진이 아닌 경우
-        //         packUpElement(chatWidgetLastChatContent, 'chatWidget-last-chat-content', chatRoom.lastChatContent);
-        //     } else { // 사진인 경우
-        //         packUpElement(chatWidgetLastChatContent, 'chatWidget-last-chat-content', '사진을 보냈습니다.');
-        //     }
-        // }
-
-        // 5. 라벨(이름, 시간)
-        packUpElement(chatWidgetBoxLabel, 'chatWidget-box-label', null);
-        
-        // 6. 박스
-        packUpElement(chatWidgetBox, 'chatWidget-box', null);
-
-        // 7. input값 세팅
-        const chatWidgetBoxInfo = document.createElement('input');
-        chatWidgetBoxInfo.hidden=true;
-        chatWidgetBoxInfo.setAttribute('name', "roomNo");
-        chatWidgetBoxInfo.setAttribute('value', chatRoom.roomNo);
-
-        // 재료 조리
-        chatWidgetBoxLabel.append(chatWidgetMemberNickname, chatWidgetLastChatTime);
-        chatWidgetBox.append(chatWidgetThumbnailImg, chatWidgetPostTitle, chatWidgetBoxLabel, chatWidgetBoxInfo);
-
-        // 사이드 메뉴 : 읽지 않은 메세지 개수(있는 경우에만)
-        if(chatRoom.unreadChatCount > 0) {
-            const chatWidgetUnreadChatCount = document.createElement('div'); // 개별 채팅방의 읽지 않은 메세지 개수
-            packUpElement(chatWidgetUnreadChatCount, 'chatWidget-unread-chat-count', chatRoom.unreadChatCount);
-            chatWidgetBox.append(chatWidgetUnreadChatCount);
+            packUpElement(chatWidgetBox, 'post', null);
+            if (chatRoom.thumbnailImg == undefined) { // 이미지가 없는 경우 기본 이미지
+                packUpElement(chatWidgetThumbnailImg, 'chatWidget-thumbnail-img', "<img src='/resources/images/member/user.png'>");
+            } else {
+                packUpElement(chatWidgetThumbnailImg, 'chatWidget-thumbnail-img', "<img src=" + chatRoom.thumbnailImg + ">");
+            }
+            packUpElement(chatWidgetRoomTitle, 'chatWidget-room-title', chatRoom.postTitle);
         }
 
-  
+        // 내용 세팅
+        if (chatRoom.enterStatus === 'Y') {
+            // box-label, lastChatContent, lastChatTime 세팅
+            packUpElement(chatWidgetBoxLabel, 'chatWidget-box-label', null);
 
-        // 플레이팅
+            if (chatRoom.lastChatType == 'I') { // 사진인 경우
+                packUpElement(chatWidgetLastChatContent, 'chatWidget-last-chat-content', "사진을 보냈습니다.");
+            } else { // 사진이 아닌 경우
+                if (chatRoom.lastChatContent != null) { // 텍스트이고, 내용이 있는 경우
+                    packUpElement(chatWidgetLastChatContent, 'chatWidget-last-chat-content', chatRoom.lastChatContent);
+                } else { // 텍스트이고, 내용이 없는 경우
+                    packUpElement(chatWidgetLastChatContent, 'chatWidget-last-chat-content', "-");
+                }
+            }
+
+            packUpElement(chatWidgetLastChatTime, 'chatWidget-last-chat-time', chatRoom.lastChatTime);
+
+            // 포장하기
+            chatWidgetBoxLabel.append(chatWidgetLastChatContent, chatWidgetLastChatTime);
+            chatWidgetBox.append(chatWidgetThumbnailImg, chatWidgetRoomTitle, chatWidgetBoxLabel);
+
+            // unreadChatCount 세팅
+            if (chatRoom.unreadChatCount > 0) { // 읽지 않은 채팅이 있는 경우
+                const chatWidgetUnreadChatCount = document.createElement('div'); // 개별 채팅방의 읽지 않은 메세지 개수
+                packUpElement(chatWidgetUnreadChatCount, 'chatWidget-unread-chat-count', chatRoom.unreadChatCount);
+                chatWidgetBox.append(chatWidgetUnreadChatCount);
+            }
+
+        } 
+
         chatWidgetBody.append(chatWidgetBox);
 
     }

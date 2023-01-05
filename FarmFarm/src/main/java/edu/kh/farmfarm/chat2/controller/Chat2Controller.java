@@ -48,7 +48,7 @@ public class Chat2Controller {
 		String path = "";
  
 		if(session.getAttribute("loginMember") != null) { 
-			path = "/chat2/center"; 
+			path = "/chat/center"; 
 		} else {
 			ra.addFlashAttribute("message", "로그인 후 이용가능합니다."); path = "/login"; 
 		} 
