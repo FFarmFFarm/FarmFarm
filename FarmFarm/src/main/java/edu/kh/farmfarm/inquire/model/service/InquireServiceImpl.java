@@ -83,6 +83,11 @@ public class InquireServiceImpl implements InquireService {
 	 */
 	@Override
 	public int insertMessage(Message msg) {
+		
+		if(msg.getImgFl().equals("N")) {
+			msg.setMessageContent(Util.XSSHandling(msg.getMessageContent()));
+		}
+		
 		return dao.insertMessage(msg);
 	}
 	
