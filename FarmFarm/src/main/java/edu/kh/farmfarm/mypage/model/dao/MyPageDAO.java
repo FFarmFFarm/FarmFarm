@@ -262,6 +262,15 @@ public class MyPageDAO {
 	}
 
 
+	/** 기본 배경이미지로 변경
+	 * @param loginMember
+	 * @return
+	 */
+	public int defaultBgImg(Member loginMember) {
+		return sqlSession.update("myPageMapper.defaultBgImg", loginMember);
+	}
+
+
 
 
 
