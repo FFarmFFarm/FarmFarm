@@ -101,6 +101,7 @@
 		  		   FROM CHAT2_ENTER
 		  		   WHERE ENTER_STATUS = 'Y' OR ENTER_STATUS = 'W') USING(ROOM_NO)
 		WHERE MEMBER_NO = #{memberNo}
+		ORDER BY CHAT_NO DESC NULLS LAST
 	</select>
 	
 	<!-- 선택한 채팅방의 정보 조회 -->
@@ -247,9 +248,48 @@
 		WHERE CHAT_NO = #{chatNo}
 	</update>
 	
+	<!-- 위젯 영역 -->
 	
-	
-	
+	<!-- 내 채팅방 목록 조회(LIMIT < 6) -->
+	<select id="selectChatWidgetList" parameterType="_int" resultMap="chat2Room_rm">
+		SELECT * 
+		FROM (SELECT * 
+				FROM (SELECT ROOM_NO, NVL(UNREAD_CHAT_COUNT, 0) AS UNREAD_CHAT_COUNT 
+			  	  	  FROM(SELECT COUNT(*) AS UNREAD_CHAT_COUNT, ROOM_NO
+				           FROM CHAT2 GROUP BY ROOM_NO)
+			          RIGHT JOIN (SELECT ROOM_NO FROM CHAT2_ROOM) USING (ROOM_NO))
+				------------------
+				LEFT JOIN (SELECT ROOM_NO, C.CHAT_NO, C.CHAT_CONTENT AS LAST_CHAT_CONTENT, 
+				      CASE WHEN TO_CHAR(C.CHAT_TIME, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD') 
+			   			   THEN TO_CHAR(C.CHAT_TIME, 'AM HH"시" MI"분"')
+			   			   ELSE TO_CHAR(C.CHAT_TIME, 'YYYY-MM-DD')
+				   	  END LAST_CHAT_TIME, 
+				      C.CHAT_TYPE AS LAST_CHAT_TYPE
+			          FROM CHAT2 C
+			          JOIN (SELECT MAX(CHAT_NO) AS LAST_CHAT_NO
+			                FROM CHAT2
+			 	            GROUP BY ROOM_NO) C_SUB ON (C_SUB.LAST_CHAT_NO = C.CHAT_NO)) USING(ROOM_NO)
+				------------------
+				LEFT JOIN (SELECT ROOM_NO, ROOM_NAME, CR.ROOM_TYPE,
+				   		     CASE WHEN ROOM_TYPE > 0 THEN (SELECT POST_TITLE 
+				   		 							       FROM POST P 
+				   		 							       WHERE CR.ROOM_TYPE=P.POST_NO)
+				   		     ELSE NULL END POST_TITLE,
+				   		     CASE WHEN ROOM_TYPE > 0 THEN (SELECT POST_IMG_ADDRESS 
+				   						    	 	       FROM POST_IMG PIMG
+				   						    	 	       WHERE POST_IMG_ORDER = 0 AND CR.ROOM_TYPE=PIMG.POST_NO)
+				   		    ELSE NULL END THUMBNAIL_IMG 
+				      FROM CHAT2_ROOM CR) USING(ROOM_NO)
+				------------------
+				LEFT JOIN (SELECT ROOM_NO, MEMBER_NO, ENTER_NO, ENTER_STATUS
+				  		   FROM CHAT2_ENTER
+				  		   WHERE ENTER_STATUS = 'Y' OR ENTER_STATUS = 'W') USING(ROOM_NO)
+				WHERE MEMBER_NO = #{memberNo}
+				ORDER BY CHAT_NO DESC NULLS LAST)
+		<![CDATA[
+			WHERE ROWNUM <= 6
+		]]>
+	</select>
 	
 	
 </mapper>

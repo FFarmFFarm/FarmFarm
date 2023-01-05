@@ -10,7 +10,7 @@
                         <i class="fa-solid fa-circle"></i>
                     </div>
                 </button>
-                <jsp:include page="/WEB-INF/views/chat/chatWidget.jsp"/>
+                <jsp:include page="/WEB-INF/views/chat2/chatWidget.jsp"/>
             <!-- </a> -->
             <a href="#">
                 <button type="button" class="btn-go-to-top" id="top_btn">

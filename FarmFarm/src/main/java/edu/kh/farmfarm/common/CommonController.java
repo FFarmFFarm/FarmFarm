@@ -19,7 +19,7 @@ public class CommonController {
 	/** 로그인 여부를 확인하는 메서드입니다.
 	 *  세션에서 로그인 회원 정보(loginMember)를 찾아서,
 	 *  로그인 회원 정보가 없으면(null)이면 -1을,
-	 *  있으면 객체 내에 있는 memberNo를 반환합니다.
+	 *  있으면 객체 member를 반환합니다.
 	 * @param session
 	 * @return
 	 */
@@ -43,5 +43,18 @@ public class CommonController {
 		}
 		
 		return new Gson().toJson(member);
+	}
+	
+	// 단순 로그인 여부 확인용(알림에서 사용중)
+	@PostMapping("/check/login")
+	@ResponseBody
+	public String checkLogin2(HttpSession session) {
+		int result = -1;
+		
+		if(session.getAttribute("loginMember") != null) {
+			result = 0;
+		}
+		
+		return new Gson().toJson(result);
 	}
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -28,6 +29,7 @@ import edu.kh.farmfarm.member.model.VO.Member;
 
 @Controller
 @RequestMapping("/chat")
+@SessionAttributes("loginMember")
 public class Chat2Controller {
 
 	@Autowired
@@ -37,6 +39,21 @@ public class Chat2Controller {
 	@GetMapping("/center")
 	public String forwardChatPage() {
 		return "chat2/chatCenter";
+	}
+	
+	// 채팅 페이지로 이동하기 전 걸러내는 메서드
+	@PostMapping("/bridge") 
+	public String bridgetToChat( RedirectAttributes ra,
+							     @RequestHeader(value = "referer") String referer, HttpSession session) {
+		String path = "";
+ 
+		if(session.getAttribute("loginMember") != null) { 
+			path = "/chat2/center"; 
+		} else {
+			ra.addFlashAttribute("message", "로그인 후 이용가능합니다."); path = "/login"; 
+		} 
+		
+		return "redirect:" + path; 
 	}
 	
 	// 내 채팅방 목록 조회(SELECT)
