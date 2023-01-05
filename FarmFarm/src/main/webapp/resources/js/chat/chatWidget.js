@@ -135,6 +135,8 @@ const fillChatWidget = (chatRoomList) => {
         //     packUpElement(chatWidgetProfileImg, 'chatWidget-profile-img', "<img src=" + chatRoom.profileImg2 + ">");
         // }
 
+        if(chatRoom.enterStatus==='Y'){}
+
         // 상품 프로필 이미지
         if (chatRoom.thumbnailImg == undefined) { // 이미지가 없는 경우 기본 이미지
             packUpElement(chatWidgetThumbnailImg, 'chatWidget-post-img', "<img src='/resources/images/member/user.png'>");
@@ -184,8 +186,6 @@ const fillChatWidget = (chatRoomList) => {
             packUpElement(chatWidgetUnreadChatCount, 'chatWidget-unread-chat-count', chatRoom.unreadChatCount);
             chatWidgetBox.append(chatWidgetUnreadChatCount);
         }
-
-  
 
         // 플레이팅
         chatWidgetBody.append(chatWidgetBox);

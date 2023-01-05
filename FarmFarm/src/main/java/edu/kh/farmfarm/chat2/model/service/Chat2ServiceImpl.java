@@ -40,6 +40,13 @@ public class Chat2ServiceImpl implements Chat2Service {
 	public List<Chat2> selectChatList(int roomNo) {
 		return dao.selectChatList(roomNo);
 	}
+	
+	// 선택한 채팅방의 참가회원 정보 조회
+	@Override
+	public List<Chat2Room> selectChatRoomMemberList(int roomNo) {
+		return dao.selectChatRoomMemberList(roomNo);
+	}
+
 
 
 	// 새로운 채팅방 개설하기
@@ -258,13 +265,14 @@ public class Chat2ServiceImpl implements Chat2Service {
 	// 채팅방 탈퇴
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public int updateChatEnter(int roomNo, int memberNo) {
+	public int deleteChatEnter(int roomNo, int memberNo) {
 		Chat2Enter chat2Enter = new Chat2Enter();
 		chat2Enter.setRoomNo(roomNo);
 		chat2Enter.setMemberNo(memberNo);
 		
-		return dao.updateChatEnter(chat2Enter);
+		return dao.deleteChatEnter(chat2Enter);
 	}
+
 
 
 

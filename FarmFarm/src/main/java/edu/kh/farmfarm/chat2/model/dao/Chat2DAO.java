@@ -73,6 +73,15 @@ public class Chat2DAO {
 		return enterMemberList;
 	}
 	
+	/** 채팅방 참가자 정보 조회(SELECT)
+	 * @param roomNo
+	 * @return
+	 */
+	public List<Chat2Room> selectChatRoomMemberList(int roomNo) {
+		return sqlSession.selectList("chat2Mapper.selectChatRoomMemberList", roomNo);
+	}
+
+	
 	/** 채팅 전송(INSERT) : 언제 실행되나요? 웹소켓에 채팅을 보냈을 때
 	 * @param chat
 	 * @return result
@@ -146,8 +155,8 @@ public class Chat2DAO {
 	 * @param chat2Enter
 	 * @return result
 	 */
-	public int updateChatEnter(Chat2Enter chat2Enter) {
-		return sqlSession.update("chat2Mapper.updateChatEnter", chat2Enter);
+	public int deleteChatEnter(Chat2Enter chat2Enter) {
+		return sqlSession.update("chat2Mapper.deleteChatEnter", chat2Enter);
 	}
 	
 	
@@ -162,6 +171,7 @@ public class Chat2DAO {
 		// 방 번호를 전달 받아서, 해당 방을 수정함
 		return sqlSession.update("chat2Mapper.updateChatRoomStatus", roomNo);
 	}
+
 
 
 

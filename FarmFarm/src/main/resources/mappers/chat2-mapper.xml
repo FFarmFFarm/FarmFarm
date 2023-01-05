@@ -158,6 +158,17 @@
 		AND ENTER_STATUS = 'Y'
 	</select>
 	
+	<!-- 채팅방 참가자의 정보 조회(SELECT) -->
+	<select id="selectChatRoomMemberList" parameterType="_int" resultMap="chat2Room_rm">
+		SELECT ENTER_NO,
+		 	  (SELECT MEMBER_NICKNAME FROM "MEMBER" M WHERE CE.MEMBER_NO = M.MEMBER_NO) AS MEMBER_NICKNAME,
+		 	  (SELECT PROFILE_IMG FROM "MEMBER" M WHERE CE.MEMBER_NO = M.MEMBER_NO) AS PROFILE_IMG
+		 FROM CHAT2_ENTER CE
+		 WHERE ROOM_NO = #{roomNo}
+		 AND ENTER_STATUS = 'Y'
+	</select>
+	
+	
 	<!-- 채팅방 수정(UPDATE) -->
 	<update id="updateChatRoom">
 		UPDATE CHAT2_ROOM SET ROOM_NAME = #{roomName}
@@ -194,7 +205,7 @@
 	</select>
 	
 	<!-- 채팅방 탈퇴(UPDATE) -->
-	<update id="updateChatEnter">
+	<update id="deleteChatEnter">
 		UPDATE CHAT2_ENTER SET ENTER_STATUS = 'F'
 		WHERE ROOM_NO = #{roomNo}
 		AND MEMBER_NO = #{memberNo}

@@ -93,6 +93,21 @@ public class Chat2Controller {
 		return new Gson().toJson(chatMap);
 	}
 	
+	// 선택한 채팅방의 참가자 명단을 조회(SELECT)
+	@PostMapping("/select/members")
+	@ResponseBody
+	public String selectChatRoomMemberList(int roomNo) {
+		
+		List<Chat2Room> memberList = service.selectChatRoomMemberList(roomNo);
+		
+		// 전부 map에 담아서 반환
+		Map<String, Object> chatMap = new HashMap<String, Object>();
+		
+		chatMap.put("memberList", memberList);
+		
+		return new Gson().toJson(chatMap);
+	}
+	
 	// 새 채팅방 개설(INSERT)
 	// 개설 후 바로 참가 DAO가 실행됨
 	// 판매 유형이 아닌 경우, sellerNo에 -1을 넣어주시면 좋습니다.
@@ -177,14 +192,14 @@ public class Chat2Controller {
 	}
 	
 	// 채팅방 탈퇴(UPDATE)
-	@PostMapping("/update/chatEnter/{roomNo}")
+	@PostMapping("/delete/chatEnter/{roomNo}")
 	@ResponseBody
-	public String updateChatEnter(
+	public String deleteChatEnter(
 			@PathVariable(value="roomNo", required = true) int roomNo,
 			int memberNo) {
 		
 		// 방 번호와, 회원 번호를 전달받아서, 채팅방에서 탈퇴(delete가 아닌 update)
-		int result = service.updateChatEnter(roomNo, memberNo);
+		int result = service.deleteChatEnter(roomNo, memberNo);
 		
 		// 전달할 메세지
 		int chatSystem = result; // 1 : "탈퇴완료" (참고 : 탈퇴 시에는 메세지가 출력되지 않음)

@@ -41,6 +41,13 @@ public interface Chat2Service {
 	 */
 	public List<Integer> selectEnterMemberList(int roomNo);
 	
+
+	/** 선택한 채팅방의 참가자 정보 조회
+	 * @param roomNo
+	 * @return
+	 */
+	List<Chat2Room> selectChatRoomMemberList(int roomNo);
+	
 	/** 채팅 전송
 	 * @param chat
 	 * @return
@@ -92,7 +99,10 @@ public interface Chat2Service {
 	 * @param memberNo
 	 * @return
 	 */
-	int updateChatEnter(int roomNo, int memberNo);
+	int deleteChatEnter(int roomNo, int memberNo);
+
+
+
 
 
 

@@ -22,9 +22,11 @@
 /* 공통 */
 .chatRoom-menu-title{
   font-weight: 600;
-  font-size: 25px;
+  font-size: 20px;
   width: 100%;
   text-align: center;
+  padding-bottom: 10px;
+  border: 1px solid var(--line-color);
 }
 
 .chatRoom-menu-body{
@@ -53,6 +55,48 @@
   flex-direction: column;
   justify-content: center;
   position: relative;
+}
+
+#infoBody{
+  height: 300px;
+  overflow: scroll;
+}
+
+#infoBody::-webkit-scrollbar{
+    display: none;
+}
+
+.member-list{
+  width: 100%;
+  padding: 10px 20px;
+}
+
+/* 한 칸 */
+.info-body-row{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-top: 1px solid var(--line-color);
+}
+
+/* 프로필 이미지 */
+.info-member-profile-img{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 10px;
+}
+
+.info-member-profile-img > img{
+  width: 100%;
+  height: 100%;
+}
+/* 이름 */
+.info-member-nickname{
+
 }
 
 /* 초대하기 */

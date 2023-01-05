@@ -185,7 +185,7 @@ document.querySelector('#newChatRoomConfirmBtn').addEventListener('click', () =>
     // 채팅방 이름 정규식 표현으로 걸러내기
     let notice = document.getElementById('inputNewChatRoomNameNotice');
     let newRoomName = document.getElementById('inputNewChatRoomName');
-    let regEx = /^[ㄱ-힣\d\s]{3,10}$/;
+    let regEx = /^[ㄱ-힣\d]{3,10}$/;
     notice.classList.remove('error');
 
     if(newRoomName.value.trim().length == 0) { // 공백인 경우
@@ -231,6 +231,7 @@ document.querySelector('#newChatRoomConfirmBtn').addEventListener('click', () =>
 document.getElementById("infoBtn").addEventListener('click', ()=>{
     document.getElementById('chatRoomMenuModal').classList.toggle('hide');
     document.querySelector('.info-menu').classList.toggle('hide');
+    chatRoomMemberList();
 })
 
 // 2. 닫기
@@ -239,6 +240,47 @@ document.getElementById("infoMenuHideBtn").addEventListener('click', ()=>{
     document.querySelector('.info-menu').classList.toggle('hide');
     document.querySelector('.member-list').innerHTML = "";
 })
+
+// 3. 열때 실행되는 함수
+const chatRoomMemberList = () => {
+    let formData = new FormData();
+    formData.append("roomNo", selectedRoomNo);
+
+    axios.post("/chat/select/members", formData
+        ).then(function(response){
+            let memberListArea = document.querySelector('.member-list');
+            memberListArea.innerHTML = "";
+
+            let memberList = response.data.memberList;
+
+            for(let member of memberList){
+                const infoBodyRow = document.createElement('div');
+                const infoMemberProfileImg = document.createElement('div');
+                const infoMemberNickname = document.createElement('div');
+                let imgPath = document.createElement('img');
+
+                packUpElement(infoBodyRow, 'info-body-row', null);
+                
+                if(member.profileImg == null) {
+                    imgPath.setAttribute('src', "/resources/images/member/user.png");
+                } else {
+                    imgPath.setAttribute('src', member.profileImg);
+                }
+
+                packUpElement(infoMemberProfileImg, 'info-member-profile-img', null);
+                packUpElement(infoMemberNickname, 'info-member-nickname', member.memberNickname);
+
+                infoMemberProfileImg.append(imgPath);
+                infoBodyRow.append(infoMemberProfileImg, infoMemberNickname);
+
+                memberListArea.append(infoBodyRow);
+
+            }
+
+        }).catch(function(error){
+            console.log(error)
+        })
+}
 
 /* 초대하기 */
 // 1. 열기
