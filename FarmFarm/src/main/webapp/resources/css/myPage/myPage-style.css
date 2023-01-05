@@ -22,6 +22,7 @@ main {
 
 button {
   border: none;
+  background-color: white;
 }
 
 /* 회원 정보 */
