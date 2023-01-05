@@ -83,8 +83,7 @@
             <div class="nav-list"><a href="/product/list">팜팜마켓</a></div>
             <div class="nav-list"><a href="/post/list">사고팔고</a></div>
             <div class="nav-list"><a href="/board/${1}">커뮤니티</a></div>
-            <div class="nav-list"><a href="/testPage/4">문의게시판</a></div>
-
+            <div class="nav-list"><a href="/recipe">레시피</a></div>
           </div>
         </div>
       </nav>
@@ -253,12 +252,15 @@
       }
 
       /* 외부 영역 클릭 시 클릭 해제 */
-      addEventListener('click', (e)=>{
-        const target = e.target;
-        if(!document.getElementById('myDropdown1').contains(e.target)){
-          document.getElementById('myDropdown1').style.display='';
-        }
-      })
+      const myDropdown11 = document.querySelector(".dropdown-message");
+      if(myDropdown11 != null){
+        addEventListener('click', (e)=>{
+          const target = e.target;
+          if(!document.getElementById('myDropdown1').contains(e.target)){
+            document.getElementById('myDropdown1').style.display='';
+          }
+        })
+      }
 
 
     </script>

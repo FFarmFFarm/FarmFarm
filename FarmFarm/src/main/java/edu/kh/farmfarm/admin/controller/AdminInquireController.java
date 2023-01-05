@@ -74,5 +74,18 @@ public class AdminInquireController {
 		return new Gson().toJson(inquireList);
 	}
 	
+	@GetMapping("/inquire/message/read")
+	@ResponseBody
+	public int updateMessageRead(int inquireNo,
+			@SessionAttribute("loginMember")Member loginMember) {
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("inquireNo", inquireNo);
+		paramMap.put("memberNo", loginMember.getMemberNo());
+		
+		int result = inquireService.updateMessageRead(paramMap);
+		return result;
+	}
+	
 
 }

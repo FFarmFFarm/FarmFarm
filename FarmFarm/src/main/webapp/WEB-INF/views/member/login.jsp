@@ -39,19 +39,18 @@
                             <div class="login-btn">
                                 <button class="inputbox input-button">로그인</button>
                             </div>
+                            <!-- 쿠키에 svaeId 있을 때 -->
+                            <c:if test="${!empty cookie.saveId.value}">
+                                <c:set var="temp" value="checked"/>
+                            </c:if>
                             <input type="checkbox" name="saveId" id="saveId" ${temp}>
                         </form>
 
                         <section class="saveid-area">
                             <div class="save-find">
-                                <!-- 쿠키에 svaeId 있을 때 -->
-                                <c:if test="${!empty cookie.saveId.value}">
-                                    <c:set var="temp" value="checked"/>
-                                </c:if>
                                 <label for="saveId">
                                     <div class="saveIdArea" id="idCheck">
-                                        <i class="fa-solid fa-check" id="idCheck2">
-                                        </i>
+                                        <i class="fa-solid fa-check" id="idCheck2"></i>
                                     </div>아이디 저장
                                 </label>
                                 <div class="find-area">
