@@ -86,8 +86,23 @@ public class OrderDAO {
 	 
 	}
 
+	/** 주문 취소
+	 * @param orderNo
+	 * @return
+	 */
 	public int orderCancel(int orderNo) {
-		return sqlSession.update("orderMapper.orderCancel", orderNo);
+		int result = sqlSession.update("orderMapper.orderCancel", orderNo);
+		
+		if(result > 0) {
+			List<Product> productList = sqlSession.selectList("orderMapper.cancelProductList", orderNo);
+			
+			for(Product p : productList) {
+				
+				sqlSession.insert("orderMapper.cancelHistory", p);
+			}
+		}
+		
+		return result;
 	}
 
 	public Order selectImpUid(int orderNo) {

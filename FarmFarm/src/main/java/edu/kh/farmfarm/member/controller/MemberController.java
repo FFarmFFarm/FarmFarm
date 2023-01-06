@@ -41,6 +41,7 @@ public class MemberController {
 			Model model) {
 		
 		model.addAttribute("previousPage", referer);
+		System.out.println(referer);
 		
 		
 		return "member/login";
@@ -97,7 +98,18 @@ public class MemberController {
 					checkReport = service.checkReport(loginMember.getMemberNo());
 
 					if (checkReport == null) { // 신고 기록이 없으면
-						path = previousPage;
+						
+//						만약 previousPage가 로그인 페이지면 메인페이지로 이동 시키기
+//						p.substring(p.lastIndexOf('/'), p.length)
+						
+						if(previousPage.substring(previousPage.lastIndexOf("/"), previousPage.length()).equals("/login")) {
+							path = "/";
+						} else {
+							path = previousPage;
+							
+						}
+						
+						
 						model.addAttribute("loginMember", loginMember);
 
 						Cookie cookie = new Cookie("saveId", loginMember.getMemberId());
