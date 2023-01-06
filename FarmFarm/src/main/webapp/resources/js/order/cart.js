@@ -1,9 +1,10 @@
 const selectOne = document.getElementsByClassName("select-one");
 const checkIcon = document.querySelectorAll("[name='checkIcon']");
+let selectChecked = document.querySelectorAll(".select-one:checked")
 
 const selectAll = document.querySelector("[name='selectAll']");
 const checkAll = document.querySelector("[name='checkAll']");
-let countCheck = selectOne.length;
+
 
 // 수량 변경
 const minusBtn = document.getElementsByClassName("minus-btn");
@@ -16,6 +17,9 @@ const totalPrice = document.getElementById("totalPrice");
 const orderPrice = document.getElementById("orderPrice");
 const postPrice = document.getElementById("postPrice");
 
+const orderBtn = document.getElementById("orderBtn");
+const deleteBtn = document.getElementById("deleteBtn");
+
 // 체크박스 하나 체크할 때
 for(let i=0; i<selectOne.length; i++){
   
@@ -23,7 +27,9 @@ for(let i=0; i<selectOne.length; i++){
 
   selectOne[i].addEventListener("change", (e) => {
 
-    if(!e.target.checked){
+    let countCheck = Number(document.querySelector(".count-check").innerText);
+
+    if(!e.target.checked){ // 한개 체크 풀때
       checkIcon[i].classList.remove("fa-solid");
       checkIcon[i].classList.add("fa-regular");
       e.target.checked = false;
@@ -39,20 +45,25 @@ for(let i=0; i<selectOne.length; i++){
 
       minusTotal(productPrice);
 
-      // 체크된 목록이 1개 아래면 배송미 없애기
+      // 체크된 목록이 1개 아래면 배송비 없애기
       const selectChecked = document.querySelectorAll(".select-one:checked");
       
       if(selectChecked.length == 0){
         postPrice.innerText = 0;
         orderPrice.innerText = 0;
+        orderBtn.disabled = true;
+        deleteBtn.disabled = true;
       }
 
-
+      // 한개 체크할 때
     } else {
       checkIcon[i].classList.remove("fa-regular"); 
       checkIcon[i].classList.add("fa-solid");
       e.target.checked = true;
       countCheck = countCheck+1;
+
+      orderBtn.disabled = false;
+      deleteBtn.disabled = false;
 
       productPrice 
       = productAmount[i].value * Number(productTotalPrice[i].id.replaceAll(',', ''));
@@ -61,8 +72,10 @@ for(let i=0; i<selectOne.length; i++){
 
       // 선택된 체크와 전체 항목 수가 일치할 경우
       const selectChecked = document.querySelectorAll(".select-one:checked")
-      
-      if(selectOne.length==selectChecked.length){
+      const selectOneDisable = document.querySelectorAll(".select-one:disabled");
+
+      // disabled(품절상품)을 제외하고 일치하는경우
+      if(selectOne.length-selectOneDisable.length==selectChecked.length){
         selectAll.checked=true;
         checkAll.classList.remove("fa-regular"); 
         checkAll.classList.add("fa-solid");
@@ -86,8 +99,11 @@ for(let i=0; i<selectOne.length; i++){
 // 전체선택 체크박스
 selectAll.addEventListener("change", (e) => {
 
+
+  let countCheck = Number(document.querySelector(".count-check").innerText);
   // 체크 해제 시
   if(!e.target.checked){
+
     checkAll.classList.remove("fa-solid");
     checkAll.classList.add("fa-regular");
     countCheck = 0;
@@ -102,18 +118,25 @@ selectAll.addEventListener("change", (e) => {
     totalPrice.innerText = 0;
     orderPrice.innerText = 0;
     postPrice.innerText = 0;
+    orderBtn.disabled = true;
+    deleteBtn.disabled = true;
 
   } else {
-    countCheck = selectOne.length;
+
+    // countCheck = selectOne.length;
     checkAll.classList.remove("fa-regular"); 
     checkAll.classList.add("fa-solid");
 
     for(let select of selectOne) {
-      select.checked=true;
-    }
-    for(let checkbox of checkIcon){
-      checkbox.classList.remove("fa-regular"); 
-      checkbox.classList.add("fa-solid");
+      if(select.disabled==false){
+        select.checked=true;
+
+        countCheck +=1;
+        for(let checkbox of checkIcon){
+          checkbox.classList.remove("fa-regular"); 
+          checkbox.classList.add("fa-solid");
+        }
+      }
     }
 
     sumTotal();
@@ -198,7 +221,15 @@ for(let i=0; i<plusBtn.length; i++){
         }
       })
     }else{
-      stock[i].innerText="* 해당 상품의 재고량을 초과할 수 없습니다.";
+      stock[i].innerText="해당 상품의 재고량을 초과할 수 없습니다";
+
+      setTimeout(()=>{
+        stock[i].classList.add("disappear");
+
+        setTimeout(()=>{
+          stock[i].innerText="";
+        }, 300)
+      }, '1000')
     }
   })
 }
@@ -206,14 +237,18 @@ for(let i=0; i<plusBtn.length; i++){
 
 
 
-
+// 총액 함수
 const sumTotal = ()=> {
   let temp = 0;
 
   for(let i=0; i<productTotalPrice.length; i++){
-    productPrice = Number(productTotalPrice[i].id.replaceAll(',', ''));
 
-    temp = temp + productPrice*productAmount[i].value;
+    if(selectOne[i].checked){
+      productPrice = Number(productTotalPrice[i].id.replaceAll(',', ''));
+  
+      temp = temp + productPrice*productAmount[i].value;
+    }
+    
   }
 
   if(Number(temp)==0){
@@ -226,6 +261,7 @@ const sumTotal = ()=> {
   }
 }
 
+// 버튼 해제시 금액 감소
 const minusTotal = (productPrice)=>{
   temp = Number(totalPrice.innerText.replaceAll(',', '')) - productPrice;
 
@@ -235,6 +271,7 @@ const minusTotal = (productPrice)=>{
   orderPrice.innerText = (temp+3000).toLocaleString();
 }
 
+// 버튼 추가시 금액 증가
 const plusTotal = (productPrice)=>{
   temp = Number(totalPrice.innerText.replaceAll(',', '')) + productPrice;
 
@@ -267,6 +304,15 @@ const infoMove = () => {
 (()=>{
   sumTotal();
   infoMove();
+
+  // 체크된 목록 만큼의 수를 출력
+  document.querySelector(".count-check").innerText 
+  = document.querySelectorAll(".select-one:checked").length;
+
+  // 체크된 항목이 없을 경우 주문버튼 disabled
+  if(selectChecked.length == 0){
+    orderBtn.disabled = true;
+  }
 })();
 
 
@@ -371,7 +417,7 @@ document.getElementById("changeAddress").addEventListener("click",()=>{
 })
 
 // 주문하기 버튼
-document.getElementById('orderBtn').addEventListener('click', () => {
+orderBtn.addEventListener('click', () => {
 
   const form = document.getElementById('orderPage');
   form.submit();
