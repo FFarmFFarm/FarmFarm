@@ -244,9 +244,14 @@ button:active {
   height: 430px;
 }
 
+.swiper-wrapper{
+    width: 430px;
+    height: 430px;
+    overflow: hidden;
+
+}
+
 .swiper-slide {
-  width: 430px;
-  height: 430px;
 
   text-align: center;
   font-size: 18px;
@@ -281,4 +286,13 @@ button:active {
 
 .swiper-button-prev, .swiper-button-next{
     color: var(--point-color) !important;
+}
+
+.swiper-pagination > .swiper-pagination-bullet {
+    opacity: 0.7;
+    border: var(--point-color) solid 1px;
+    background-color: transparent;
+}
+.swiper-pagination > .swiper-pagination-bullet-active {
+    background-color: var(--point-color);
 }
