@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set var="returnList" value="${map.returnList}"/>
 <c:set var="pagination" value="${map.pagination}"/>
@@ -17,6 +18,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
 
     <link rel="stylesheet" href="/resources/css/productAdmin/returnList-style.css">
+    <link rel="stylesheet" href="/resources/css/productAdmin/modal/returnDetail-style.css">
     <link rel="stylesheet" href="/resources/css/common/header-style.css">
     <link rel="stylesheet" href="/resources/css/admin/adminNav-style.css">
 
@@ -32,13 +34,12 @@
     <main>
         <jsp:include page='/WEB-INF/views/admin/adminNav.jsp' />
 
-        <section class="order-list-section">
+        <section class="return-list-section">
             <div class="page-title">
                 <p>반품내역관리</p>
             </div>
             
-           
-            <div class="order-list">
+            <div class="return-list">
                 <div class="part-title">
                     <p>반품목록</p>
                     <div class="count-list">총
@@ -46,13 +47,13 @@
                     </div>
                 </div>
 
-                <table class="order-list-table">
+                <table class="return-list-table">
                     <tr class="table-row table-head">
                         <th>반품번호</th>
                         <th>주문번호</th>
                         <th>주문회원</th>
                         <th>반품수량</th>
-                        <th>반환금액</th>
+                        <th>반환총액</th>
                         <th>반품상태</th>
                         <th>반품사유</th>
                     </tr>
@@ -60,11 +61,11 @@
                     <c:forEach items="${returnList}" var="r">
 
                         <tr class="table-row table-info">
-                            <td class="order-no" id="${r.returnNo}">${r.returnNo}</td>
+                            <td class="return-no" id="${r.returnNo}">${r.returnNo}</td>
                             <td>${r.orderNo}</td>
                             <td>${r.memberId}</td>
                             <td>${r.returnAmount}</td>
-                            <td>${r.returnSum}</td>
+                            <td><fmt:formatNumber value="${r.returnSum}" pattern="#,###" /></td>
                             <td>
                                 <c:if test="${r.returnStatus == 0}">반품진행중</c:if>
                                 <c:if test="${r.returnStatus == 1}">반품완료</c:if>
@@ -126,8 +127,10 @@
         </section>
     </main>
 
+    <jsp:include page="/WEB-INF/views/productAdmin/modal/returnDetail.jsp"/>
     <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
 
+    <script src="/resources/js/productAdmin/returnList.js"></script>
     <script src="/resources/js/common/common.js"></script>
     
 

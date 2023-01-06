@@ -31,7 +31,7 @@
         판매자 인증 보류
     </div>
     <div class="notice-text2">
-        실시간 상담을 이용하여 추가 인증을 진행하시기 바랍니다.
+        1:1 상담을 이용하여 추가 인증을 진행하시기 바랍니다.
     </div>
 
     <div id="buttonArea">
@@ -42,7 +42,7 @@
             <c:if test="${! empty loginMember}">
             <c:if test="${loginMember.authority == 4}">
             <button type="button" class="btn-inquire" id="inquireOpen">
-                1:1
+                1:1 상담
             <div id="inquireUnread">
                 <i class="fa-solid fa-circle"></i>
             </div>

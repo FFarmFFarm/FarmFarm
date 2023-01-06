@@ -39,7 +39,7 @@
                     <div class="title-div">
                         <span class="member-select-title">회원 조회</span>
                         <span class="member-search"> 
-                            <input type="text" name="adminMemberkeyword" id="adminMemberkeyword" placeholder="아이디, 닉네임 검색" 
+                            <input type="text" name="adminMemberkeyword" id="adminMemberkeyword" placeholder="회원번호, 아이디, 닉네임" 
                                                                 spellcheck="false" autocomplete="off">
                             <button type="button" id="memberSearchBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
                         </span>

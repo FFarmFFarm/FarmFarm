@@ -100,7 +100,7 @@
 		FROM ADDRESS
 		JOIN MEMBER USING(MEMBER_NO)
 		WHERE MEMBER_NO = #{memberNo}
-		ORDER BY DEFAULT_FL DESC
+		ORDER BY DEFAULT_FL DESC, ADDRESS_NO DESC
 	</select>
 	
 	<!-- 기존 배송지 default 변경 -->
@@ -134,6 +134,13 @@
 		INSERT INTO "ADDRESS"
 		VALUES(SEQ_ADDRESS_NO.NEXTVAL, #{memberAddress},'N', #{memberNo})
 	</insert>
+	
+	
+	<!-- 배송지 조회  -->
+	<select id="selectAddress" resultType="string">
+		SELECT REPLACE(MEMBER_ADDRESS, ',,', ' ') MEMBER_ADDRESS2 
+		FROM ADDRESS WHERE ADDRESS_NO=#{address_no}
+	</select>
 	
   
 </mapper>

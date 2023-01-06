@@ -1,7 +1,6 @@
 @import "../root-style.css";
 
 
-
 /** 왼쪽 nav메뉴 */
 .admin-nav-section{
     width: 200px;
@@ -11,6 +10,7 @@
     flex-direction: column;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
+    background-color: white;
     /* position: sticky; */
 }
 

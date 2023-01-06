@@ -69,7 +69,7 @@
 	
 	<!-- 내 채팅방 목록 조회(SELECT) -->
 	<select id="selectChatRoomList" parameterType="_int" resultMap="chat2Room_rm">
-		SELECT * 
+	 	SELECT * 
 		FROM (SELECT ROOM_NO, NVL(UNREAD_CHAT_COUNT, 0) AS UNREAD_CHAT_COUNT 
 	  	  	  FROM(SELECT COUNT(*) AS UNREAD_CHAT_COUNT, ROOM_NO
 		           FROM CHAT2 GROUP BY ROOM_NO)
@@ -158,6 +158,17 @@
 		AND ENTER_STATUS = 'Y'
 	</select>
 	
+	<!-- 채팅방 참가자의 정보 조회(SELECT) -->
+	<select id="selectChatRoomMemberList" parameterType="_int" resultMap="chat2Room_rm">
+		SELECT ENTER_NO,
+		 	  (SELECT MEMBER_NICKNAME FROM "MEMBER" M WHERE CE.MEMBER_NO = M.MEMBER_NO) AS MEMBER_NICKNAME,
+		 	  (SELECT PROFILE_IMG FROM "MEMBER" M WHERE CE.MEMBER_NO = M.MEMBER_NO) AS PROFILE_IMG
+		 FROM CHAT2_ENTER CE
+		 WHERE ROOM_NO = #{roomNo}
+		 AND ENTER_STATUS = 'Y'
+	</select>
+	
+	
 	<!-- 채팅방 수정(UPDATE) -->
 	<update id="updateChatRoom">
 		UPDATE CHAT2_ROOM SET ROOM_NAME = #{roomName}
@@ -193,8 +204,15 @@
 		AND (ENTER_STATUS = 'Y' OR ENTER_STATUS = 'W')
 	</select>
 	
+	<!-- 채팅방 초대 승인 보조 : 방 번호 확인 -->
+	<select id="selectRoomNoByEnterNo" parameterType="_int" resultType="_int">
+		SELECT ROOM_NO
+		FROM CHAT2_ENTER
+		WHERE ENTER_NO = #{enterNo}
+	</select>
+	
 	<!-- 채팅방 탈퇴(UPDATE) -->
-	<update id="updateChatEnter">
+	<update id="deleteChatEnter">
 		UPDATE CHAT2_ENTER SET ENTER_STATUS = 'F'
 		WHERE ROOM_NO = #{roomNo}
 		AND MEMBER_NO = #{memberNo}
@@ -217,16 +235,22 @@
 		VALUES(SEQ_CHAT_IMG_NO.NEXTVAL, #{chatNo}, #{chatImgOriginal},
 		       #{chatImgRename}, #{chatImgPath})
 	</insert>
-		
+	
+	<!-- 시스템 메시지 전송(INSERT) -->
+	<insert id="insertNewSystemChat">
+		INSERT INTO CHAT2
+		VALUES(SEQ_CHAT_IMG_NO.NEXTVAL, #{roomNo}, 0, 'S', #{chatContent}, DEFAULT, DEFAULT)
+	</insert>	
 		
 	<!-- 채팅 조회 처리(1) : 마지막으로 읽은 채팅의 번호를 조회, 채팅 기록에 업데이트(UPDATE) -->
 	<update id="updateLastChatNo">
-		UPDATE LAST_READ_CHAT_NO SET (SELECT MAX(CHAT_NO)
-									 FROM (SELECT CHAT_NO 
-									  	   FROM CHAT2 
-									  	   WHERE ROOM_NO = {#roomNo}
-									  	   ORDER BY CHAT_NO DESC)
-									 WHERE ROWNUM = 1)
+		UPDATE CHAT2_ENTER
+			   SET LAST_READ_CHAT_NO = (SELECT MAX(CHAT_NO)
+									 	FROM (SELECT CHAT_NO 
+									  	   	  FROM CHAT2 
+									  	      WHERE ROOM_NO = #{roomNo}
+									  	      ORDER BY CHAT_NO DESC)
+									 	WHERE ROWNUM = 1)
 		WHERE ROOM_NO = #{roomNo}
 		AND MEMBER_NO = #{memberNo}
 	</update>
@@ -239,7 +263,8 @@
 		AND CHAT_NO > (SELECT LAST_READ_CHAT_NO 
 					   FROM CHAT2_ENTER
 					   WHERE ROOM_NO = #{roomNo}
-					   AND MEMBER_NO = #{memberNo} )
+					   AND MEMBER_NO = #{memberNo}
+					   AND ENTER_STATUS = 'Y' )
 	</update>
 
 	<!-- 채팅 삭제 처리(UPDATE) -->
@@ -248,7 +273,7 @@
 		WHERE CHAT_NO = #{chatNo}
 	</update>
 	
-	<!-- 위젯 영역 -->
+	<!-- 위젯 SQL 영역 -->
 	
 	<!-- 내 채팅방 목록 조회(LIMIT < 6) -->
 	<select id="selectChatWidgetList" parameterType="_int" resultMap="chat2Room_rm">
