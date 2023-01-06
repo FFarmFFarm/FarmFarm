@@ -1,3 +1,9 @@
+a.alert > span,
+a.alert > i {
+  font-weight: bold;
+  color: var(--point-color);
+}
+
 /* 알림 센터 알림  목록 */
 .notify-list {
   width: 75%;

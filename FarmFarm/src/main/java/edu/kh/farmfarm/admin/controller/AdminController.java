@@ -78,25 +78,25 @@ public class AdminController {
 	
 	
 	
-	// 날짜별 회원가입자 수
+	// 날짜별 회원가입자 수 + 주문 수 (최근 30일간)
 	@GetMapping("/dashboard/signUpGraph")
 	@ResponseBody
 	public String signUpGraph(@SessionAttribute(value="loginMember") Member loginMember) {
 		// 관리자인지 확인
 		int result = service.checkAdmin();
 
-		List<Graph> signUpGraphList = new ArrayList<>();
-//		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> graphMap = new HashMap<String, Object>();
 		
 		// 관리자일 때만 && 로그인했을 때
 		if(result == 1 && loginMember != null) {
 
-			// 회원가입자 수 조회
-			signUpGraphList = service.selectSignUpGraph();
+			// 회원가입자 수, 주문 수 조회
+			graphMap = service.selectGraph();
+			
 		}
+
 		
-		return new Gson().toJson(signUpGraphList);
-				
+		return new Gson().toJson(graphMap);
 	}
 
 	
