@@ -48,7 +48,7 @@
                     <input type="text" class="input-write-title" name="boardTitle">
                 </div>
 
-                <textarea class="write-content" name="boardContent" spellcheck="false"></textarea>
+                <textarea class="write-content" name="boardContent" spellcheck="false" maxlength="1200"></textarea>
                 
                 <div class="board-img-ex">이미지 첨부하기</div>
                 <div class="board-img-area">
