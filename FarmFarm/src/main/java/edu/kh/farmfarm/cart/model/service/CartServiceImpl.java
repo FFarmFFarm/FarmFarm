@@ -1,5 +1,6 @@
 package edu.kh.farmfarm.cart.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -114,6 +115,27 @@ public class CartServiceImpl implements CartService{
 							+ "AND MEMBER_NO= " + memberNo;
 		
 		return dao.deleteCartList(condition);
+	}
+
+	
+	// 배송지 추가
+	@Override
+	public int insertAdd(String[] memberAddress, int memberNo) {
+		
+		int result = 0;
+		
+		if(!memberAddress.equals(",,")) {
+			String address = String.join(",,", memberAddress);
+			System.out.println("-----------------"+address);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			map.put("memberAddress", address);
+			map.put("memberNo", memberNo);
+			result = dao.insertAdd(map);
+		}
+		return result;
+		
 	}
 	
 }

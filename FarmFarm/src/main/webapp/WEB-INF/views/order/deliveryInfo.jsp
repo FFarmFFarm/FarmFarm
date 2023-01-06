@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,6 +32,8 @@
 
       <%-- 배송지 선택 --%>
       <div class="delivery-address-area">
+
+        
 
         <c:forEach var="address" items="${addressList}">
           <div class="one-address">
@@ -83,6 +86,11 @@
   <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
   <jsp:include page="/WEB-INF/views/order/modal/cartConfirm.jsp"/>
   
+  <script>
+    const addinsertOk = "${addinsertOk}"
+  </script>
+
+
   <%-- 다음주소 --%>
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 

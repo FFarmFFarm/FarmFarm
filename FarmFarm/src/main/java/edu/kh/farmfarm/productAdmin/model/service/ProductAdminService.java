@@ -119,7 +119,7 @@ public interface ProductAdminService {
 	 * @param returnNo
 	 * @return returnDetail
 	 */
-	Return selectReturnDetail(int returnNo);
+	List<Return> selectReturnDetail(int returnNo);
 
 
 }

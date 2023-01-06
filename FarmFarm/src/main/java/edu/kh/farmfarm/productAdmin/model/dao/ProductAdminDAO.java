@@ -264,8 +264,8 @@ public class ProductAdminDAO {
 	 * @param returnNo
 	 * @return returnDetail
 	 */
-	public Return selectReturnDetail(int returnNo) {
-		return sqlSession.selectOne("productAdmin.selectReturnDetail", returnNo);
+	public List<Return> selectReturnDetail(int returnNo) {
+		return sqlSession.selectList("productAdmin.selectReturnDetail", returnNo);
 	}
 
 

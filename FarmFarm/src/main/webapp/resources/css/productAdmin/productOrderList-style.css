@@ -292,6 +292,10 @@ td, tr{
     color: var(--point-color);
 }
 
+.table-info{
+    cursor: pointer;
+}
+
 .table-row>*:nth-child(1){width: 10%;}
 .table-row>*:nth-child(2){width: 15%;}
 .table-row>*:nth-child(3){width: 20%;}

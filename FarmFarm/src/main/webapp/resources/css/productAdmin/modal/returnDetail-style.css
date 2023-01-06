@@ -1,7 +1,7 @@
 @import "../root-style.css";
 
 
-.order-detail-section {
+.return-detail-section {
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -17,8 +17,8 @@
   z-index: 100;
 }
 
-.order-modal{
-  width: 800px;
+.return-modal{
+  width: 600px;
   background-color: var(--background-color);
 }
 
@@ -39,14 +39,14 @@
   width: 100%;
 }
 
-.order{
+.return{
   padding: 20px;  
   border: 1px solid #ddd;
 }
 
-.order-detail {
+.return-detail {
   font-size: var(--small-font-size);
-  margin-bottom: 50px;
+  margin-bottom: 35px;
 }
 
 .detail-title{
@@ -56,13 +56,13 @@
   font-size: var(--main-font-size);
 }
 
-.order-detail-top{
+.return-detail-top{
   display: flex;
   flex-wrap: wrap;
   padding: 10px 0 3px;
 }
 
-.order-detail-top>div{
+.return-detail-top>div{
   margin-right: 20px;
 }
 
@@ -89,24 +89,24 @@ td, tr{
 
 
 /* 주문상태 */
-.order-status-table{
+.return-status-table{
   width: 100%;
   height: 33px;
   margin: 10px auto;
   text-align: center;
 }
 
-.order-status-table th{
+.return-status-table th{
   background-color: #eee;
   width: 20%;
 }
 
-.order-status-table td:nth-of-type(1){
-  width : 26%;
+.return-status-table td:nth-of-type(1){
+  width : 30%;
 }
 
 
-#orderStatus{
+#returnStatus{
   font-size: var(--small-font-size);
   border: none;
 }
@@ -129,21 +129,23 @@ td, tr{
 
 /* 주문상품 */
 
-.order-detail-table{
+.return-detail-table{
   width: 100%;
   margin: 5px auto;
 }
 
-.order-table-head{
+.return-table-head{
   height: 32px;
   background-color: #eee;
 }
 
-.order-table-row>td{
+.return-table-row>td{
   padding: 0 8px;
+  text-align: center;
+  height: 30px;
 }
 
-.order-product{
+.return-product{
   display: flex;
   border: none;
   margin: 10px 0;
@@ -151,51 +153,32 @@ td, tr{
   font-weight: bolder;
 }
 
-.product-img{
-  width: 60px;
-  height: 60px;
-  overflow: hidden;
-  border-radius: 50%;
-  margin-right: 15px;
-}
-
-.product-img>img{
-  width: 100%;
-  height: 100%;
-}
 
 
+.return-table-head>th:nth-of-type(1){width: 15%; text-align: center;}
+.return-table-head>th:nth-of-type(2){width: 35%; text-align: center;}
+.return-table-head>th:nth-of-type(3){width: 15%; text-align: center;}
+.return-table-head>th:nth-of-type(4){width: 15%; text-align: center;}
+.return-table-head>th:nth-of-type(5){width: 20%; text-align: center;}
 
-/* .order-table-row>*:nth-child(1){width: 35%; } */
-.order-table-row>*:nth-child(2){width: 9%; text-align: center;}
-.order-table-row>*:nth-child(3){width: 6%; text-align: center;}
-.order-table-row>*:nth-child(4){width: 10%; text-align: center;}
-.order-table-row>*:nth-child(5){width: 9%; text-align: center;}
-.order-table-row>*:nth-child(6){width: 10%; text-align: right;}
-.order-table-row>*:nth-child(7){width: 10%; text-align: center;}
-
-
+/* .return-table-head>th:nth-child(1) */
 
 /* 주문자 상세 정보 */
 
-.orderer-detail-table{
+.account-detail-table{
   width: 100%;
   margin: 10px 0 ;
+  text-align: center;
 }
 
-.orderer-detail-table *{
-  height: 32px;
-  padding: 0 15px;
-}
-
-.orderer-detail-table th{
-  /* text-align: left; */
-  width: 15%;
+.account-detail-table th{
   background-color: #eee;
+  width: 20%;
+  height: 32px;
 }
 
-.orderer-detail-table td{
-  width: 35%;
+#accountName{
+  width: 30%;
 }
 
 .hide {
