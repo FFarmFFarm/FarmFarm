@@ -129,6 +129,9 @@ input[type="radio"]:checked + label{
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    font-size: var(--main-font-size);
+    color: var(--sub-font-color);
+    overflow: hidden;
 }
 .board-input-img{
     display: none;
@@ -144,8 +147,9 @@ input[type="radio"]:checked + label{
     color: red;
 }
 .board-preview{
-    width: 100%;
+    max-width: 100%;
     height: 100%;
+    object-fit: cover;
 }
 
 /* 로그인 모달창 */

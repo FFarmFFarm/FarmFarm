@@ -104,7 +104,7 @@ function selectCommentList(){
                     if(comment.profileImg != null){ // 등록된 프로필 이미지 있음
                         profileImage.setAttribute("src", comment.profileImg);
                     }else{
-                        profileImage.setAttribute("src", "/resources/images/myPage/profile/profileImg.png");
+                        profileImage.setAttribute("src", "/resources/images/default/profileImg.png");
                     }
     
                     // 작성자 이름

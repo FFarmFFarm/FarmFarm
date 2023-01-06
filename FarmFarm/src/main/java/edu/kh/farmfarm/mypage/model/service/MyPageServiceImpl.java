@@ -423,4 +423,14 @@ public class MyPageServiceImpl implements MyPageService {
 		return dao.selectReviewImageList();
 	}
 
+
+	/** 멤버 정보 조회
+	 * @param memberNo
+	 * @return memberInfo
+	 */
+	@Override
+	public Member selectMemberInfo(int memberNo) {
+		return dao.selectMemberInfo(memberNo);
+	}
+
 }
