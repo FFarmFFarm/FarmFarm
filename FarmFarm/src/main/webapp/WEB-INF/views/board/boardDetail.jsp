@@ -89,7 +89,7 @@ ${board.boardContent}
                         </c:if>
                         &nbsp; 좋아요&nbsp;<span id="likeCount">${board.likeCount}</span>
                     </button>
-                    <button class="board-report" id="reportBtn">신고</button>
+                    <button class="board-report" id="reportBtn2">신고</button>
                 </c:if>
                 <c:if test="${loginMember.memberNo == board.memberNo}">
                     <button type="button" id="boardUpdate">수정하기</button>

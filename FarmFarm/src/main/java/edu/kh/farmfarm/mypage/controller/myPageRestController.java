@@ -119,6 +119,14 @@ public class myPageRestController {
 		
 		return service.updateBgImg(webPath, filePath, mypageImg, loginMember);
 	}
+	
+	@GetMapping("/myPage/default/bgImg")
+	public int defaultBgImg(@SessionAttribute("loginMember") Member loginMember) {
+		
+		loginMember.setMypageImg("/resources/images/default/bgImg.png");
+		
+		return service.defaultBgImg(loginMember);
+	}
 
 	
 	@GetMapping("/order/confirm")

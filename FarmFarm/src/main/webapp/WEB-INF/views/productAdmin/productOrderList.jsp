@@ -21,7 +21,8 @@
     <link rel="stylesheet" href="/resources/css/common/header-style.css">
     <link rel="stylesheet" href="/resources/css/admin/adminNav-style.css">
 
-    
+
+    <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
 
     <script src="https://kit.fontawesome.com/d449774bd8.js" crossorigin="anonymous"></script>
 </head>
@@ -98,8 +99,8 @@
                         <c:otherwise>
                             <c:forEach items="${orderList}" var="order">
 
-                                <tr class="table-row">
-                                    <td class="order-no">${order.orderNo}</td>
+                                <tr class="table-row table-info">
+                                    <td class="order-no" id="${order.orderNo}">${order.orderNo}</td>
                                     <td>${order.orderDate}</td>
                                     <td>${order.memberId}</td>
                                     <td>${order.productCount}</td>
@@ -166,9 +167,11 @@
     </main>
 
     <jsp:include page="/WEB-INF/views/productAdmin/modal/orderDetail.jsp"/>
+    <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
 
-    <script src="/resources/js/common/common.js"></script>
     <script src="/resources/js/productAdmin/productOrderList.js"></script>
+    <script src="/resources/js/common/common.js"></script>
+    
 
     <!-- ajax -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>

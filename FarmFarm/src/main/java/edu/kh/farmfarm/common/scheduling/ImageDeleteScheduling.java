@@ -42,7 +42,7 @@ public class ImageDeleteScheduling {
 	
 
 //	회원 프로필 이미지
-	@Scheduled(cron = "0 0 0 * * * ")
+	@Scheduled(cron = "0 0 * * * * ")
 	public void deleteprofileImgFile() {
 		
 		List<String> dbList = myPageService.selectProfileImageList();
@@ -76,7 +76,7 @@ public class ImageDeleteScheduling {
 	
 	
 //	회원 배경 이미지
-	@Scheduled(cron = "0 0 0 * * * ")
+	@Scheduled(cron = "0 0 * * * * ")
 	public void deleteBgImgFile() {
 		
 		List<String> dbList = myPageService.selectBgImageList();
@@ -110,7 +110,7 @@ public class ImageDeleteScheduling {
 	
 	 
 //	팜팜 상품 이미지
-	@Scheduled(cron = "0 0 0 * * * ")
+	@Scheduled(cron = "0 0 * * * * ")
 	public void deleteProductImgFile() {
 		
 		List<String> dbList = productService.selectProductImageList();
@@ -144,7 +144,7 @@ public class ImageDeleteScheduling {
 	
 	
 //	판매자 상품 이미지
-	@Scheduled(cron = "0 0 0 * * * ")
+	@Scheduled(cron = "0 0 * * * * ")
 	public void deletePostImgFile() {
 		
 		List<String> dbList = postService.selectPostImageList();
@@ -177,7 +177,7 @@ public class ImageDeleteScheduling {
 	
 	
 // 리뷰 이미지
-	@Scheduled(cron = "0 0 0 * * * ")
+	@Scheduled(cron = "0 0 * * * * ")
 	public void deleteReviewImgFile() {
 		
 		List<String> dbList = myPageService.selectReviewImageList();
@@ -210,7 +210,7 @@ public class ImageDeleteScheduling {
 	
 	
 //	와글와글 게시판 이미지
-	@Scheduled(cron = "0 0 0 * * *")
+	@Scheduled(cron = "0 0 * * * *")
 	public void deleteImageFile() {
 //		System.out.println("0초마다 출력");
 		

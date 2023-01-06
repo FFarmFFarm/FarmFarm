@@ -22,29 +22,18 @@
                     </button>
     
                     <div id="myDropdown1" class="dropdown-message">
-                      <div class="notice"><p>알림</p></div>
-                      <ul>
-                        <li>
-                          <div class="message-box">
-                            <a href="">배송이 시작되었습니다.</a>
-                          </div>
-                        </li>
-                        <li>
-                          <div class="message-box">
-                            <a href="">辛팜팜님이 신고했습니다..</a>
-                          </div>
-                        </li>
-                        <li>
-                          <div class="message-box">
-                            <a href="">정팜팜님이 신고를 거부하셨습니다.</a>
-                          </div>
-                        </li>
-                      </ul>
+                      <div class="notice">
+                        <p>알림</p><a id="notifyListBtn" href="/notify/center">더보기</a>
+                      </div>
+
+                      <!-- 알림 위젯 -->
+                      <jsp:include page="/WEB-INF/views/notify/notifyWidget.jsp" />
+
                     </div>
                   </div>
                 </li>
                 <li class="widget-item">
-                  <a href="#">
+                  <a href="/cart">
                     <i class="fa-solid fa-cart-shopping"></i>
                   </a>
                 </li>
@@ -96,7 +85,7 @@
             <div class="nav-list"><a href="/product/list">팜팜마켓</a></div>
             <div class="nav-list"><a href="/post/list">사고팔고</a></div>
             <div class="nav-list"><a href="/board/${1}">커뮤니티</a></div>
-            <div class="nav-list"><a href="/testPage/4">문의게시판</a></div>
+            <div class="nav-list"><a href="/recipe">레시피</a></div>
 
             <!-- nav custom -->
             <div class="nav-list view-hidden" id="navSearchBar">
@@ -160,28 +149,146 @@
         }
       });
 
+      // // 알림 드롭다운
+      // const dropbtn1 = document.querySelector('.dropbtn1');
+      // if(dropbtn1 != null) {
+
+      //   dropbtn1.addEventListener('click', () => {
+      //     const myDropdown1 = document.querySelector('.dropdown-message');
+  
+      //     if (
+      //       myDropdown1.style.display == 'none' ||
+      //       myDropdown1.style.display == ''
+      //     ) {
+      //       myDropdown1.style.display = 'block';
+      //     } else {
+      //       myDropdown1.style.display = 'none';
+      //     }
+      //   });
+  
+      //   dropbtn1.addEventListener('blur', () => {
+      //     const myDropdown1 = document.querySelector('.dropdown-message');
+  
+      //     myDropdown1.style.display = '';
+      //   });
+      // }
+
       // 알림 드롭다운
       const dropbtn1 = document.querySelector('.dropbtn1');
-      if(dropbtn1 != null) {
+      if (dropbtn1 != null) {
 
         dropbtn1.addEventListener('click', () => {
           const myDropdown1 = document.querySelector('.dropdown-message');
-  
+
           if (
             myDropdown1.style.display == 'none' ||
             myDropdown1.style.display == ''
           ) {
-            myDropdown1.style.display = 'block';
+
+            axios.post('/notify/widget/list' // 연결
+            ).then(function (response) {
+
+              if (response.data != undefined) { // 받아온 데이터가 있을 때에만 실행
+
+                const notifyDropdown = document.getElementById('notifyDropdown');
+
+                notifyDropdown.innerHTML = '';
+
+                const notifyList = response.data.notifyList;
+
+                // 반복문 숫자
+                let iteratorFl = 0;
+
+                for (let notify of notifyList) {
+
+                  // 반복 횟수 제한 : 6회
+                  if (iteratorFl == 6) break;
+                  else iteratorFl += 1;
+
+                  // 1. 재료 준비
+                  const notifyWidgetBox = document.createElement('div');
+
+                  const notifyWidgetIcon = document.createElement('div');
+
+                  const notifyWidgetMain = document.createElement('div');
+
+                  const notifyWidgetHeader = document.createElement('div');
+                  const notifyWidgetTitle = document.createElement('div');
+                  const notifyWidgetDate = document.createElement('div');
+                  const notifyWidgetDelBtn = document.createElement('div');
+
+                  const notifyWidgetContent = document.createElement('div');
+
+                  // 2. 재료 손질
+                  packupElement(notifyWidgetBox, 'notify-widget-box', -1);
+
+                  // 알림 유형 아이콘
+                  let icon;
+                  switch (notify.notifyTypeNo) {
+                    case 201: icon = '<i class="fa-solid fa-comment-dots"></i>'; break;
+                    case 202: icon = '<i class="fa-solid fa-comment-dots"></i>'; break;
+                  }
+
+                  packupElement(notifyWidgetIcon, 'notify-widget-icon', icon);
+
+                  packupElement(notifyWidgetMain, 'notify-widget-main', -1);
+                  packupElement(notifyWidgetHeader, 'notify-widget-header', -1);
+
+
+                  // 알림 유형 제목(단축버전)
+                  let title;
+
+                  // switch (notify.notifyTypeNo) {
+                  //   case 201: title = '댓글 알림'; break;
+                  //   case 202: title = '댓글 알림'; break;
+                  // }
+
+                  // packupElement(notifyWidgetTitle, 'notify-widget-title', title);
+                  packupElement(notifyWidgetTitle, 'notify-widget-title', notify.notifyTitle);
+
+                  // 알림 시간
+                  packupElement(notifyWidgetDate, 'notify-widget-date', notify.notifyDate);
+
+                  // 알림 삭제 버튼
+                  packupElement(notifyWidgetDelBtn, 'notify-widget-delBtn', '<i class="fa-solid fa-xmark"></i>');
+
+                  // 알림 내용
+                  packupElement(notifyWidgetContent, 'notify-widget-content', notify.notifyContent);
+
+                  // 3. 조리
+                  notifyWidgetHeader.append(notifyWidgetTitle, notifyWidgetDate, notifyWidgetDelBtn);
+                  notifyWidgetMain.append(notifyWidgetHeader, notifyWidgetContent);
+                  notifyWidgetBox.append(notifyWidgetIcon, notifyWidgetMain);
+
+                  // 4. 플레이팅
+                  notifyDropdown.append(notifyWidgetBox);
+                }
+
+              }
+
+              myDropdown1.style.display = 'block';
+
+            }).catch(function (error) {
+              console.log(error)
+            })
+
           } else {
             myDropdown1.style.display = 'none';
           }
+
         });
-  
-        dropbtn1.addEventListener('blur', () => {
-          const myDropdown1 = document.querySelector('.dropdown-message');
-  
-          myDropdown1.style.display = '';
-        });
+
       }
+
+      /* 외부 영역 클릭 시 클릭 해제 */
+        const myDropdown11 = document.querySelector(".dropdown-message");
+        if (myDropdown11 != null) {
+          addEventListener('click', (e) => {
+            const target = e.target;
+            if (!document.getElementById('myDropdown1').contains(e.target)) {
+              document.getElementById('myDropdown1').style.display = '';
+            }
+          })
+        }
 
     </script>

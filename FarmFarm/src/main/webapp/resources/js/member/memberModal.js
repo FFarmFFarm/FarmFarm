@@ -79,7 +79,7 @@ const modalSignUpDate = document.getElementById("modalSignUpDate");
 const modal = document.querySelector(".modal");
 
 const selectMember = (memberNo) => {
-  // 신고한 프로필의 회원번호 
+  // 신고 당한 프로필의 회원번호 
   targetMemberNo = memberNo;
   console.log(targetMemberNo);
 
@@ -114,3 +114,4 @@ const selectMember = (memberNo) => {
   })
 
 }
+

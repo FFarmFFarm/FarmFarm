@@ -1,0 +1,164 @@
+
+/* 모달창 전체 */
+.new-chatRoom-container{
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--modal-background-color);
+
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: var(--main-font-size);
+  font-family: "NotoSansKR-Bold";
+
+  z-index: 50;
+}
+
+/* 모달창, 닫기 */
+#newChatRoomConatainerHideBtn{
+  font-size: var(--large-font-size);
+  position: fixed;
+  right: 280px;
+  top: 190px;
+  border: none;
+  background-color: transparent;
+}
+
+#newChatRoomConatainerHideBtn:hover{
+  color: var(--point-color);
+}
+
+/* 모달창, 윈도우 영역만 */
+.new-chatRoom-container > div:first-child {
+  width: 400px;
+  height: 500px;
+  background-color: white;
+
+  border-radius: 5px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 모달창 타이틀 */
+.new-chatRoom-title{
+  font-size: 25px;
+  font-weight: 600;
+}
+
+/* 모달창 이미지 미리보기(기본 있음) */
+.new-chatRoom-img-preview{
+  border: 1px solid var(--line-color);
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+}
+
+.new-chatRoom-img-preview > img{
+  width: 100%;
+  height: 100%;
+}
+
+/* 모달창 이름 입력 영역*/
+.new-chatRoom-name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.new-chatRoom-name> span:first-child{
+  font-size: var(--medium-font-size);
+  font-weight: 600;
+}
+
+.new-chatRoom-name-input-area{
+  width: 200px;
+  height: 40px;
+  border: 1px solid var(--line-color);
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  margin: 10px 0px;
+}
+
+.new-chatRoom-name-input-area > input{
+  border: none;
+  outline: none;
+}
+
+.new-chatRoom-name-input-area:focus-within{
+  border-color: black;
+}
+
+#inputNewChatRoomNameNotice{
+  font-size: var(--small-font-size);
+
+}
+
+.error{
+  color: red;
+}
+
+/* 모달창 이미지 선택 영역 */
+/* .new-chatRoom-img{
+} */
+
+#newChatRoomImgBtn{
+  border: none;
+  background-color: white;
+}
+
+#newChatRoomImgBtn > *{
+  font-weight: 600;
+  font-size: var(--medium-font-size);
+}
+
+/* #newChatRoomImgBtn > i{
+  color: var(--point-color);
+} */
+
+#newChatRoomImgBtn:hover{
+  color:var(--point-color);
+}
+
+/* 모달창 안내멘트 영역 */
+.new-chatRoom-notice {
+  display: flex;
+  flex-direction: column;
+}
+
+.new-chatRoom-confirm-btn {
+  width: 60%;
+  height: 40px;
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.new-chatRoom-confirm-btn > button {
+  width: 110px;
+  height: 30px;
+  border: none;
+  font-weight: bold;
+  transition-duration: 0.2s;
+}
+
+.new-chatRoom-confirm-btn > button:hover {
+  opacity: 0.9;
+}
+
+.new-chatRoom-confirm-btn > button:last-child {
+  background-color: var(--point-color);
+  color: white;
+}

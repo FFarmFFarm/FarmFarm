@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.kh.farmfarm.mypage.model.vo.Order;
+import edu.kh.farmfarm.order.model.vo.Return;
 import edu.kh.farmfarm.productDetail.model.vo.Product;
 
 public interface ProductAdminService {
@@ -88,6 +90,36 @@ public interface ProductAdminService {
 	 * @return map
 	 */
 	Map<String, Object> selectOrderList(Map<String, Object> pm, int cp);
+
+
+	/** 주문목록 상세조회
+	 * @param orderNo
+	 * @return order
+	 */
+	Order selectOrderDetail(int orderNo);
+
+	/** 주문상태 변경
+	 * @param map
+	 * @return result
+	 */
+	int orderStatus(Map<String, Object> map);
+
+	/** 송장등록
+	 * @param map
+	 * @return result
+	 */
+	int enrollInvocie(Map<String, Object> map);
+
+	/** 반품리스트 조회
+	 * @return map
+	 */
+	Map<String, Object> selectReturnList(int cp);
+
+	/** 반품상세조회
+	 * @param returnNo
+	 * @return returnDetail
+	 */
+	Return selectReturnDetail(int returnNo);
 
 
 }

@@ -68,6 +68,16 @@
                   </div>
                 </label>
 
+                <input type="radio" id="categoryChat" name="notifyCategory"> 
+                <label for="categoryChat" class="category-item">
+                  <div class="category-img">
+                    <i class="fa-solid fa-message"></i>
+                  </div>
+                  <div class=category-name>
+                    채팅
+                  </div>
+                </label>
+
                 <input type="radio" id="categoryInquiry" name="notifyCategory"> 
                 <label for="categoryInquiry" class="category-item">
                   <div class="category-img">

@@ -14,15 +14,17 @@ public class Order {
 
 	private int orderNo;
 	private int memberNo;
+	private String memberName;
+	private String memberTel;
 	private String memberId;
 	private String orderDate;
 	private int orderStatus;
 	private String invoiceNo;
 	private String orderPrice;
 	private String impUid;
+	
 	private int productCount;
 	private String productSum;
-	private String orderAddress;
 	
 	private List<Product> productList;
 	

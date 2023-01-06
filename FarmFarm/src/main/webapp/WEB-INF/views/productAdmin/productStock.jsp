@@ -62,9 +62,9 @@
                     <tr class="table-row table-head">
                         <th>제품코드</th>
                         <th>제품명</th>
-                        <th>재고량</th>
-                        <th>출고예정</th>
-                        <th>가재고</th>
+                        <th>보유재고</th>
+                        <th>배송예정</th>
+                        <th>실재고</th>
                         <th>입고</th>
                         <th>출고</th>
                         <th>판매상태</th>
@@ -95,9 +95,9 @@
                                             <button class="delete-btn" id="${product.productNo}">삭제</button>
                                         </div>
                                     </td>
+                                    <td>${product.stock+product.orderSum}</td>
+                                    <td>${product.orderSum}</td>
                                     <td class="stock">${product.stock}</td>
-                                    <td>7</td>
-                                    <td>93</td>
                                     <td>
                                         <input type="number" max="999"  class="stock-input" placeholder="0">
                                         <c:if test="${product.soldoutFl=='N'}">

@@ -336,13 +336,14 @@ inquireSock.onmessage = function(e) {
   console.log(msg);
 
       
+  
+  
+  if (memberInquireNo == msg.inquireNo) {
     /* 방금온 메세지 읽음처리 */
     updateMessageRead(msg.inquireNo);
-
-
-  if (memberInquireNo == msg.inquireNo) {
+    
     const readingArea = document.getElementById('readingArea');
-  
+    
   
   if (msg.messageDate != msg.lastMessageDate) {
     const dateLabelLine = document.createElement('div');

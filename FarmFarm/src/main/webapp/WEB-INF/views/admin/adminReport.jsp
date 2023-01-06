@@ -71,8 +71,8 @@
                             <th>신고 일자</th>
                             <!-- <th>처리 일자</th> -->
                             <th>누적 횟수
-                              <i class="fa-solid fa-arrow-up-short-wide caret-icon sortFilter" id="down"></i> <!-- 오름차순 -->
-                              <i class="fa-solid fa-arrow-down-wide-short caret-icon sortFilter" id="up"></i> <!-- 내림차순 -->
+                              <i class="fa-solid fa-arrow-up-short-wide caret-icon sortFilter" id="up"></i> <!-- 오름차순 -->
+                              <i class="fa-solid fa-arrow-down-wide-short caret-icon sortFilter" id="down"></i> <!-- 내림차순 -->
                             </th>
                             <!-- <th>누적 정지
                               <i class="fa-solid fa-arrow-up-short-wide caret-icon"></i>
@@ -86,7 +86,7 @@
                           <c:forEach var="report" items="${newReportList}">
                             <c:set var="i" value="${i+1}" />
                             <tr class="report-list-row">
-                              <th class="report-seq">${i}</th>
+                              <td class="report-seq">${i}</td>
                               <td>${report.reportNo}</td>
 
                               <c:if test="${not empty report.reportType}">

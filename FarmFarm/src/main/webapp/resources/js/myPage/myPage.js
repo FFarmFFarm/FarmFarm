@@ -15,7 +15,7 @@ const makePageBox = (elementName, inputHtml, inputId, className) => {
 const mypageImgInput = document.getElementById('mypageImgInput');
 const memberBgImg = document.getElementById('memberBgImg');
 
-const originalBgImg = memberBgImg.getAttribute('src');
+let originalBgImg = memberBgImg.getAttribute('src');
 
 
 mypageImgInput.addEventListener('change', (e) => {
@@ -30,16 +30,36 @@ mypageImgInput.addEventListener('change', (e) => {
     fileReader.onload = (event) => {
 
       memberBgImg.src = event.target.result;
-
+      originalBgImg= event.target.result;
     }
 
     updateBgImg();
-
+    mypageImgInput.value = '';
   } else {
 
     memberBgImg.setAttribute('src', originalBgImg);
 
   }
+})
+
+
+const XBtn = document.getElementById('XBtn');
+XBtn.addEventListener('click', () => {
+  if(memberBgImg.src != "/resources/images/default/bgImg.png") {
+
+    memberBgImg.src = "/resources/images/default/bgImg.png";
+    
+    $.ajax({
+      url: '/myPage/default/bgImg',
+      success: (result) => {
+        console.log("성공")
+        if (result > 0) {
+          messageModalOpen("배경 이미지가 변경되었습니다.");
+        }
+      },
+    })
+  }
+    
 })
 
 
