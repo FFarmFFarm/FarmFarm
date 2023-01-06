@@ -58,6 +58,8 @@
     <script>
 
       var memberInquireNo;
+
+      var loginMemberNo = "${loginMember.memberNo}";
     </script>
 
     <!-- https://github.com/sockjs/sockjs-client -->
