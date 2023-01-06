@@ -120,7 +120,7 @@
 
     </div>
     <main>
-        <div class="swiper-container">
+        <div class="swiper-container first">
             <div class="main-wrap swiper-wrapper">
                 <div class="main-background swiper-slide">
                     <img src="resources/images/main/bg2.png">
@@ -140,70 +140,26 @@
         </div>
         
       <h3 class="middle-product-title">딱! 오늘만 팜팜마켓 특가 상품</h3>
-      <div class="middle-product">
-        <div class="middle-wrap">
-          <%-- <div class="middle-cover"><img src="resources/images/product/detail/20221230143348_60504.jpg"></div> --%>
-          <div class="middle-cover"><img src="resources/images/product/detail/chipmunk.jpg"></div>
-          <a href="#">
-            <div class="middle-text-wrap">
-              <div class="middle-text">
-                <p>함께 하면 귀여운... </p>
-                <p>12,000,000원</p>
-              </div>
-              <div class="middle-icon">
-                <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
-              </div>
-            </div>  
-          </a>
-        </div>
-
-        <div class="middle-wrap">
-          <%-- <div class="middle-cover"><img src="resources/images/product/detail/20221230142911_36173.jpeg"></div> --%>
-          <div class="middle-cover"><img src="resources/images/product/detail/lion.jpg"></div>
-          <a href="#">
-            <div class="middle-text-wrap">
-              <div class="middle-text">
-                <p>사바나 일꾼 심...</p>
-                <p>20,000원</p>
-              </div>
-              <div class="middle-icon">
-                <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
-              </div>
+            <div class="middle-product">
+              <div class="middle-wrap ">
+                <c:forEach items="${productMap.productList}" var="map" begin="0" end="3" step="1" >
+                    <c:if test="${map.soldoutFl.equals('N')}">
+                        <a href="/product/${map.productNo}" class="middle-a">
+                            <div class="middle-cover"><img src="${map.thumbnailImg}"></div>
+                            <div class="middle-text-wrap">
+                                <div class="middle-text">
+                                    <p>${map.productName}</p>
+                                    <p> ${map.productPrice}원</p>
+                                </div>
+                                <div class="middle-icon">
+                                <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                                </div>
+                            </div>  
+                        </a>
+                    </c:if>
+                </c:forEach>
+             </div>
             </div>
-          </a>
-        </div>
-
-        <div class="middle-wrap">
-          <div class="middle-cover"><img src="resources/images/product/detail/alpaca.jpg"></div>
-          <a href="#">
-            <div class="middle-text-wrap">
-              <div class="middle-text">
-                <p>실한 일꾼 알파...</p>
-                <p>1,000,000원</p>
-              </div>
-              <div class="middle-icon">
-                <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
-              </div>
-            </div>
-          </a>
-        </div>
-
-        <div class="middle-wrap">
-          <div class="middle-cover"><img src="resources/images/product/detail/hedgehog.jpg"></div>
-          <a href="#">
-            <div class="middle-text-wrap">
-                <div class="middle-text">
-                  <p>일꾼 고씨</p>
-                  <p>15,000원</p>
-                </div>
-                <div class="middle-icon">
-                  <div class="arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                </div>
-            </div>
-          </a>
-        </div>
-      </div>
-      
       <!-- <div class="mypage">
         <a href="/member/myPage">마이페이지</a>
         <a href="/product/1">상품상세조회</a>
@@ -218,52 +174,28 @@
 
 
       <h3 class="product-title">우리 농장에서는 이런 물건을 팔아요</h3>
-      <div class="product-wrap">
-        <a href="/">
-            <div class="product">
-                <div class="product-img">
-                    <img src="resources/images/product/detail/hedgehog.jpg">
-                </div>
-                <div class="product-text">
-                    <p>[특가] 고소한 고슴도치 가시 50gX2봉</p>
-                    <p>42,000원</p>
-                </div>
-            </div>
-        </a>
-        <a href="/">
-            <div class="product">
-                <div class="product-img">
-                    <img src="resources/images/main/gireffe.jpg">
-                </div>
-                <div class="product-text">
-                    <p>[할인] 기린이 먹다 뱉은 풀때기 1kg</p>
-                    <p>16,000원</p>
-                </div>
-            </div>
-        </a>
-        <a href="/">
-            <div class="product">
-                <div class="product-img">
-                    <img src="resources/images/main/squirrel.jpg">
-                </div>
-                <div class="product-text">
-                    <p>[할인] 다람쥐가 까준 도토리 2kg</p>
-                    <p>22,900원</p>
-                </div>
-            </div>
-        </a>
-        <a href="/">
-            <div class="product">
-                <div class="product-img">
-                    <img src="resources/images/main/kang.jpg">
-                </div>
-                <div class="product-text">
-                    <p>[특가] 캥거루가 다진 마늘 500g</p>
-                    <p>9,900원</p>
-                </div>
-            </div>
-        </a>
-      </div>
+      <c:forEach items="${postMap.postList}" var="post" begin="0" end="3" step="1" >
+        <div class="product-wrap">
+            <a href="/post/${post.postNo}">
+                <c:if test="${post.postSoldoutFl==0}">
+                    <div class="product">
+                        <div class="product-img">
+                            <c:if test="${!empty post.thumbnailImg}">
+                                <img src="${post.thumbnailImg}">
+                            </c:if>
+                            <c:if test="${empty post.thumbnailImg}">
+                                <img src="/resources/images/logo-square.png">
+                            </c:if>
+                        </div>
+                        <div class="product-text">
+                            <p>[특가] ${map.postTitle}</p>
+                            <p>${map.unitPrice}원</p>
+                        </div>
+                    </div>
+                </c:if>
+            </a>
+        </div>
+      </c:forEach>
 
 
       <div class="cooking-part">
@@ -275,9 +207,9 @@
           <img src="resources/images/main/re.jpg">
         </div>
         <div class="cooking-a">
-          <a href="/board/${1}">
+          <a href="/recipe">
             <div class="cooking">
-              <p>와글와글로 이동 </p>
+              <p>레시피 보러가기 </p>
               <i class="fa-solid fa-arrow-right cooking-arrow"></i>
             </div>
           </a>
@@ -300,12 +232,27 @@
     integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
     crossorigin="anonymous"></script>
     <script>
-      var swiper = new Swiper('.swiper-container', {
+      var swiper = new Swiper('.first', {
         loop: true,
         autoplay: {
             delay: 4000,
             disableOnInteraction: false
         },
+        pagination: {
+            el: '.swiper-pagination',
+        },
+        navigation : { // 네비게이션 설정
+            nextEl : '.swiper-button-next', // 다음 버튼 클래스명
+            prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
+	    }
+      })
+
+      var swiper = new Swiper('.second', {
+        loop: true,
+        // autoplay: {
+        //     delay: 4000,
+        //     disableOnInteraction: false
+        // },
         pagination: {
             el: '.swiper-pagination',
         },
