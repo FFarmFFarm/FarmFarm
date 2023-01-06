@@ -174,8 +174,8 @@
 
 
       <h3 class="product-title">우리 농장에서는 이런 물건을 팔아요</h3>
-      <c:forEach items="${postMap.postList}" var="post" begin="0" end="3" step="1" >
-        <div class="product-wrap">
+      <div class="product-wrap">
+            <c:forEach items="${postMap.postList}" var="post" begin="0" end="3" step="1" >
             <a href="/post/${post.postNo}">
                 <c:if test="${post.postSoldoutFl==0}">
                     <div class="product">
@@ -188,14 +188,14 @@
                             </c:if>
                         </div>
                         <div class="product-text">
-                            <p>[특가] ${map.postTitle}</p>
-                            <p>${map.unitPrice}원</p>
+                            <p>${post.postTitle}</p>
+                            <p>${post.unitPrice}원</p>
                         </div>
                     </div>
                 </c:if>
             </a>
+        </c:forEach>
         </div>
-      </c:forEach>
 
 
       <div class="cooking-part">
