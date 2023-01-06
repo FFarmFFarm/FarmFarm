@@ -137,5 +137,11 @@ public class CartServiceImpl implements CartService{
 		return result;
 		
 	}
+
+	// 배송지 불러오기
+	@Override
+	public String selectAddress(int addressNo) {
+		return dao.selectAddress(addressNo);
+	}
 	
 }

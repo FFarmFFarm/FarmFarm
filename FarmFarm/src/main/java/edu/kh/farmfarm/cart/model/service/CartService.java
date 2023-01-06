@@ -77,5 +77,11 @@ public interface CartService {
 	 */
 	int insertAdd(String[] memberAddress, int memberNo);
 
+	/** 배송지 조회
+	 * @param addressNo
+	 * @return memberAddress2
+	 */
+	String selectAddress(int addressNo);
+
 
 }
