@@ -54,13 +54,17 @@
                     </span>
                 </div>
 
-                <div class="board-graph1" id="graph1">
-                    <span>팜팜 가입자 수</span>
-                    <canvas id="signUpChart" width="700px"></canvas>
-                </div>
-                <div class="board-graph2">
-                    <span>팜팜 가입자 수</span>
-                    <canvas id="signUpChart" width="700px"></canvas>
+                <div class="graph-container">
+                    <div class="board-graph" id="signUpGraph">
+                        <span class="graph-title">팜팜 가입자 추이</span>
+                        <canvas id="signUpChart" width="700px"></canvas>
+                        <i class="fa-sharp fa-solid fa-angle-right" id="iconRight"></i>
+                    </div>
+                    <div class="board-graph" id="orderGraph">
+                        <span class="graph-title">팜팜상품 주문 추이</span>
+                        <canvas id="orderChart" width="700px"></canvas>
+                        <i class="fa-sharp fa-solid fa-angle-left" id="iconLeft"></i>
+                    </div>
                 </div>
             </section>
 

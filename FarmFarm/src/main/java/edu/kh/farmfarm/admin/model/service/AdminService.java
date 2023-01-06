@@ -23,13 +23,10 @@ public interface AdminService {
 	Map<String, Object> selectStats();
 	
 	
-	/** 대시보드 회원가입자 수 조회
-	 * @return
+	/** 대시보드 회원가입자 수, 주문 수 조회
+	 * @return signUpGraphList
 	 */
-	List<Graph> selectSignUpGraph();
-	
-	
-	
+	Map<String, Object> selectGraph();
 	
 	
 
@@ -106,6 +103,9 @@ public interface AdminService {
 	 * @return map
 	 */
 	Map<String, Object> selectReportAccumulate(String reportType, int memberNo, int contentNo);
+
+
+
 
 
 

@@ -36,12 +36,12 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	
-	// 대시보드 회원가입자수 조회
+	// 대시보드 회원가입자수, 주문수 조회
 	@Override
-	public List<Graph> selectSignUpGraph() {
-		return dao.selectSignUpGraph();
+	public Map<String, Object> selectGraph() {
+		return dao.selectGraph();
 	}
-	
+		
 	
 	
 	
