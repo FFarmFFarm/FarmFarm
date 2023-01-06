@@ -96,3 +96,16 @@
     overflow: hidden;
     white-space: nowrap;
 }
+
+
+.notifyWidget-red-dot{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: red;
+
+    position: absolute;
+    bottom: 16px;
+    left: 15px;
+
+}

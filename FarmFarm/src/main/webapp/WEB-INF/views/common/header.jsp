@@ -21,9 +21,9 @@
                       <i class="fa-solid fa-bell header-icon"></i>
                     </button>
     
+                    <div class="notifyWidget-red-dot red-dot"></div> <!-- notify-widget에 있음 -->
                     <div id="myDropdown1" class="dropdown-message">
                       <div class="notice"><p>알림</p><a id="notifyListBtn" href="/myPage/notify">더보기</a></div>
-
                       <!-- 알림 위젯 -->
                       <jsp:include page="/WEB-INF/views/notify/notifyWidget.jsp"/>
 

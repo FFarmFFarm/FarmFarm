@@ -345,6 +345,7 @@
                       case 101: icon = '<i class="fa-solid fa-message"></i>'; break;
                       case 201: icon = '<i class="fa-solid fa-comment-dots"></i>'; break;
                       case 202: icon = '<i class="fa-solid fa-comment-dots"></i>'; break;
+                      case 301: icon = '<i class="fa-solid fa-envelope-open-text"></i>'; break;
                     }
 
                     packUpElement(notifyWidgetIcon, 'notify-widget-icon', icon);

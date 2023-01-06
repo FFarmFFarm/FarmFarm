@@ -46,6 +46,9 @@ addEventListener("DOMContentLoaded", ()=>{
                     if(document.querySelector('.notify-list-body')) {
                         selectNotifyList();
                     }
+
+                    // 알림 위젯에 도트를 표시
+                    
                 }
             }
         }
