@@ -22,6 +22,7 @@
                 <button type="button" id="close-btn-wrap">
                     <div class="close-btn report-btn">
                         신고하기
+                        <input type="hidden" class="temp-target" id="temp" value="default">
                     </div>
                 </button>
             </div>

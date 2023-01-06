@@ -130,9 +130,17 @@ reportSubmitBtn.addEventListener("click", () => {
     }
 
 
+    const temp = document.getElementById('temp');
+
     // 와글와글 게시글 신고 (카테고리 분류X)
     // if(pathname.contains('board') && !commentNo.contains("c")){
-    if(pathname.includes('board')){
+    // if(pathname.includes('board')){
+    //     reportType.value = "B";
+    //     reportTargetNo.value = targetNo;  //boardNo
+    //     report();
+    // }
+    const targetBoardNo = document.getElementById('targetBoardNo');
+    if(pathname.includes('board') && temp == null){
         reportType.value = "B";
         reportTargetNo.value = targetNo;  //boardNo
         report();
@@ -141,11 +149,13 @@ reportSubmitBtn.addEventListener("click", () => {
 
     // 와글와글 게시글 목록- 회원 신고
     // 와글와글 게시글 댓글- 회원 신고
-    if(targetMemberNo != null){
+
+    if(targetMemberNo != null && temp != null){
         reportType.value = "M";
         reportTargetNo.value = targetMemberNo;
         report();
     } 
+    
 
 
 

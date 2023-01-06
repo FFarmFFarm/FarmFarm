@@ -52,6 +52,7 @@
                         <div class="writer-ect">
                             <div class="writer-name">${board.memberNickname}</div>
                             <div class="writer-date-view">${board.boardDate}&nbsp; 조회&nbsp; ${board.boardView}</div>
+                            <input type="hidden" id="targetBoardNo" class="temp" value=""><%-- 추가 --%>
                         </div>
                         <div class="goList">목록으로</div>
                     </div>
@@ -119,7 +120,6 @@ ${board.boardContent}
 
     <!-- 신고 모달창 -->
     <jsp:include page="/WEB-INF/views/report/report-modal.jsp"/> 
-    <script src="/resources/js/report/report-modal.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 

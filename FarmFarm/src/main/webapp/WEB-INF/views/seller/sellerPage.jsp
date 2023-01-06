@@ -222,7 +222,6 @@
     <jsp:include page="/WEB-INF/views/report/report-modal.jsp"/> 
     
     <script src="/resources/js/seller/sellerPage.js"></script>
-    <script src="/resources/js/report/report-modal.js"></script>
 
     <!-- ajax -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>

@@ -140,9 +140,7 @@
       <c:remove var="message" />
   </c:if> 
 
-    <!-- 아래 두개 넣어주세요 -->
     <jsp:include page="/WEB-INF/views/report/report-modal.jsp"/> 
-    <script src="/resources/js/report/report-modal.js"></script>
     <!-- script -->
     <script src="/resources/js/common/common.js"></script>
     <script src="/resources/js/postDetail/postDetail.js"></script>
