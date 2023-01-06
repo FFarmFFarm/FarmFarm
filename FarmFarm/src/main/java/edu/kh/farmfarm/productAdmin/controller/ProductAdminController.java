@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.gson.Gson;
 
 import edu.kh.farmfarm.mypage.model.vo.Order;
+import edu.kh.farmfarm.order.model.vo.Return;
 import edu.kh.farmfarm.productAdmin.model.service.ProductAdminService;
 import edu.kh.farmfarm.productDetail.model.vo.Product;
 
@@ -236,5 +237,44 @@ public class ProductAdminController {
 		
 		return service.orderStatus(map);
 	}
+	
+	
+	// 송장 등록
+	@ResponseBody
+	@GetMapping("/admin/enrollInvoice")
+	public int enrollInvoice(int orderNo, int invoiceNo) {
+		
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("orderNo", orderNo);
+		map.put("invoiceNo", invoiceNo);
+		
+		
+		return service.enrollInvocie(map);
+	}
+	
+	
+	// 반품리스트 조회
+	@GetMapping("/admin/return")
+	public String selectReturnList(Model model,
+		@RequestParam(value="cp", required=false, defaultValue="1")int cp) {
+		
+		Map<String, Object> map = service.selectReturnList(cp);
+		
+		model.addAttribute("map", map);
+		
+		return "productAdmin/returnList";
+	}
+	
+	// 반품 상세조회
+	@ResponseBody
+	@GetMapping("/admin/returnDetail")
+	public String selectReturnDetail(int returnNo) {
+		
+		Return returnDetail = service.selectReturnDetail(returnNo);
+		
+		return new Gson().toJson(returnDetail);
+	}
+	
 	
 }
