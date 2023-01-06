@@ -220,7 +220,7 @@
                   const notifyWidgetContent = document.createElement('div');
 
                   // 2. 재료 손질
-                  packupElement(notifyWidgetBox, 'notify-widget-box', -1);
+                  packUpElement(notifyWidgetBox, 'notify-widget-box', -1);
 
                   // 알림 유형 아이콘
                   let icon;
@@ -229,10 +229,10 @@
                     case 202: icon = '<i class="fa-solid fa-comment-dots"></i>'; break;
                   }
 
-                  packupElement(notifyWidgetIcon, 'notify-widget-icon', icon);
+                  packUpElement(notifyWidgetIcon, 'notify-widget-icon', icon);
 
-                  packupElement(notifyWidgetMain, 'notify-widget-main', -1);
-                  packupElement(notifyWidgetHeader, 'notify-widget-header', -1);
+                  packUpElement(notifyWidgetMain, 'notify-widget-main', -1);
+                  packUpElement(notifyWidgetHeader, 'notify-widget-header', -1);
 
 
                   // 알림 유형 제목(단축버전)
@@ -244,16 +244,16 @@
                   // }
 
                   // packupElement(notifyWidgetTitle, 'notify-widget-title', title);
-                  packupElement(notifyWidgetTitle, 'notify-widget-title', notify.notifyTitle);
+                  packUpElement(notifyWidgetTitle, 'notify-widget-title', notify.notifyTitle);
 
                   // 알림 시간
-                  packupElement(notifyWidgetDate, 'notify-widget-date', notify.notifyDate);
+                  packUpElement(notifyWidgetDate, 'notify-widget-date', notify.notifyDate);
 
                   // 알림 삭제 버튼
-                  packupElement(notifyWidgetDelBtn, 'notify-widget-delBtn', '<i class="fa-solid fa-xmark"></i>');
+                  packUpElement(notifyWidgetDelBtn, 'notify-widget-delBtn', '<i class="fa-solid fa-xmark"></i>');
 
                   // 알림 내용
-                  packupElement(notifyWidgetContent, 'notify-widget-content', notify.notifyContent);
+                  packUpElement(notifyWidgetContent, 'notify-widget-content', notify.notifyContent);
 
                   // 3. 조리
                   notifyWidgetHeader.append(notifyWidgetTitle, notifyWidgetDate, notifyWidgetDelBtn);
