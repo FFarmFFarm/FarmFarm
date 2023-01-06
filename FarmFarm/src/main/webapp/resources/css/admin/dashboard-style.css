@@ -116,21 +116,86 @@ main{
 }
 
 
+.graph-title{
+    font-family: "S-CoreDream-4Legular";
+    font-size: var(--large-font-size);
+    color: var(--point-color);
+    font-weight: bold;
+    margin-bottom: 20px;
+}
 
-.board-graph1{
+
+.graph-container{
     background-color: white;
     width: 900px;
-    height: 300px;
+    height: 460px;
     border-radius: 10px;
     margin-top: 30px;
+}
 
-    opacity: 1;
-    transition-duration: 1s;
-    /* transition-property: opacity; */
+.board-graph{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#signUpGraph{
+    position: relative;
+    display: flex;
+}
+
+#orderGraph{
+    position: relative;
+    display: none;
+}
+
+.fa-angle-right, .fa-angle-left{
+    position: absolute;
+    font-size: 30px;
+    color: rgba(43, 140, 68, 0.5);
+    cursor: pointer;
+}
+
+.fa-angle-right{
+    right: 30px;
+}
+
+.fa-angle-left{
+    left: 30px;
 }
 
 
-.fade{
-    opacity: 0;
+.move-to-left{
+    animation: fadeInToLeft ease 1s;;
 }
 
+.move-to-right{
+    animation: fadeInToRight ease 1s;
+}
+
+
+@keyframes fadeInToRight {
+    0% {
+        opacity: 0;
+        transform: translate3d(-20%, 0, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translateZ(0);
+    }
+}
+
+
+@keyframes fadeInToLeft {
+    0% {
+        opacity: 0;
+        transform: translate3d(20%, 0, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translateZ(0);
+    }
+}
