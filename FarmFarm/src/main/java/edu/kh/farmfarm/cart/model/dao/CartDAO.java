@@ -22,6 +22,10 @@ public class CartDAO {
 	 * @return cartList
 	 */
 	public List<Cart> selectCartList(int memberNo) {
+		
+		// 장바구니 중 재고보다 많은 경우 조회해서 수량을 재고 수로 낮춤
+		int result = sqlSession.update("cartMapper.updateOverStock", memberNo);
+		
 		return sqlSession.selectList("cartMapper.selectCartList", memberNo);
 	}
 

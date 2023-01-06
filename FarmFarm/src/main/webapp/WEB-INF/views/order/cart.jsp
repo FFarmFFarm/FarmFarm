@@ -30,41 +30,54 @@
         <div class="cart-title">장바구니</div>
 
         <section class="cart-container">
-            <form action="/orderPage" method="POST" id="orderPage">
             
-            
-                <!-- 상품 목록 -->
-                <div class="product-container">
-                    <div class="cart-headline" id="cartHeadline">
-                        <label class="check-label">
-                            <i class="fa-solid fa-circle-check" name="checkAll"></i>
-                            <input type="checkbox" class="select-all" name="selectAll" checked="checked">
-                            <span class="check-title">전체선택(<span class="count-check">${fn:length(cartList)}</span>/${fn:length(cartList)})
-                            </span>
-                        </label>
-                        <span class="bar">|</span>
-                        <button type="button" class="check-title delete-check" id="deleteBtn">선택삭제</button>
+            <!-- 상품 목록 -->
+            <c:choose>
+                <c:when test="${empty cartList}">
+                    <div class="no-item">
+                        <span>추가된 상품이 없습니다</span>
+                        <a href="/product/list" class='go-shopping'>쇼핑하러 가기</a>
                     </div>
+                </c:when>
+                <c:otherwise>
+                    <form action="/orderPage" method="POST" id="orderPage">
+                        <div class="product-container">
+                            <div class="cart-headline" id="cartHeadline">
+                                <label class="check-label">
+                                    <i class="fa-solid fa-circle-check" name="checkAll"></i>
+                                    <input type="checkbox" class="select-all" name="selectAll" checked="checked">
+                                    <span class="check-title">전체선택(<span class="count-check"></span>/${fn:length(cartList)})
+                                    </span>
+                                </label>
+                                <span class="bar">|</span>
+                                <button type="button" class="check-title delete-check" id="deleteBtn">선택삭제</button>
+                            </div>
 
-                    <ul class="product-list">
-
-                        <c:choose>
-                            <c:when test="${empty cartList}">
-                                <div class="no-item">추가된 상품이 없습니다.</div>
-                            </c:when>
-                            <c:otherwise>
+                            <ul class="product-list">
                                 <c:forEach var="cart" items="${cartList}" varStatus="vs">
                                     <input type="hidden" name="pList[${vs.index}].productName" value="${cart.productName}" />
                                     <input type="hidden" name="pList[${vs.index}].productImg" value="${cart.productImg}" />
                                     <input type="hidden" name="pList[${vs.index}].productPrice" value="${fn:replace(cart.productPrice, ',', '')}" />
 
                                     <li class="product-item" id="${cart.productNo}">
-                                        <label class="check-label">
-                                            <i class="fa-solid fa-circle-check" name="checkIcon"></i>
-                                            <input type="checkbox" class="select-one" 
-                                            name="pList[${vs.index}].productNo" value="${cart.productNo}"
-                                            checked="checked">
-                                        </label>
+                                    <c:choose>
+                                        <c:when test="${cart.stock eq 0 || cart.soldoutFl eq 'Y'}">
+                                            <label class="uncheck-label">
+                                                <i class="fa-regular fa-circle-check" name="unCheckIcon"></i>
+                                                <input type="checkbox" class="select-one" 
+                                                name="pList[${vs.index}].productNo" value="${cart.productNo}"
+                                                disabled>
+                                            </label>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <label class="check-label">
+                                                <i class="fa-solid fa-circle-check" name="checkIcon"></i>
+                                                <input type="checkbox" class="select-one" 
+                                                name="pList[${vs.index}].productNo" value="${cart.productNo}"
+                                                checked="checked">
+                                            </label>
+                                        </c:otherwise>
+                                    </c:choose>
                                         <a href="/product/${cart.productNo}" class="cart-thumbnail">
                                             <img
                                             src="${cart.productImg}"
@@ -78,11 +91,27 @@
                                             </a>
                                         </div>
                                         <div class="product-amount-btn">
-                                            <button type="button" class="minus-btn"><i class="fa-solid fa-minus"></i></button>
-                                            <input type="number" min="1" class="product-amount"
-                                            value="${cart.productAmount}" name="pList[${vs.index}].productAmount">
-                                            <button type="button" class="plus-btn"><i class="fa-solid fa-plus"></i></button>
-                                            <span id="${cart.stock}" name="stock"></span>
+                                            <c:if test="${cart.stock eq 0 || cart.soldoutFl eq 'Y'}">
+                                                <button type="button" class="minus-btn" disabled><i class="fa-solid fa-minus"></i></button>
+                                                <input type="number" min="1" class="product-amount"
+                                                value="${cart.productAmount}" name="pList[${vs.index}].productAmount">
+                                                <button type="button" class="plus-btn" disabled><i class="fa-solid fa-plus"></i></button>
+                                                <span id="${cart.stock}" name="stock">품절된 상품입니다</span>
+                                            </c:if>
+                                            <%-- <c:if test="${cart.stock lt cart.productAmount}">
+                                                <button type="button" class="minus-btn"><i class="fa-solid fa-minus"></i></button>
+                                                <input type="number" min="1" class="product-amount"
+                                                value="${cart.stock}" name="pList[${vs.index}].productAmount">
+                                                <button type="button" class="plus-btn"><i class="fa-solid fa-plus"></i></button>
+                                                <span id="${cart.stock}" name="stock"></span>
+                                            </c:if> --%>
+                                            <c:if test="${cart.stock ne 0 && cart.soldoutFl eq 'N' && cart.stock ge cart.productAmount}">
+                                                <button type="button" class="minus-btn"><i class="fa-solid fa-minus"></i></button>
+                                                <input type="number" min="1" class="product-amount"
+                                                value="${cart.productAmount}" name="pList[${vs.index}].productAmount">
+                                                <button type="button" class="plus-btn"><i class="fa-solid fa-plus"></i></button>
+                                                <span id="${cart.stock}" name="stock"></span>
+                                            </c:if>
                                         </div>
                                         <div class="price-box">
                                             <span class="product-total-price"
@@ -92,56 +121,55 @@
                                         <button type="button" class="cancel-item"><i class="fa-solid fa-xmark"></i></button>
                                     </li>
                                 </c:forEach>
-                            </c:otherwise>
-                        </c:choose>
-                    </ul>
-                </div>
-            </form>
-            
-            <!-- 배송지, 결제 정보 -->
-            <div class="info-container">
-                <div class="info-top" id="deliveryInfo">
-                    <div class="address-info">
-                        <div class="address-title">
-                            <i class="fa-solid fa-location-dot"></i>
-                            <span>배송지</span>
+                            </ul>
                         </div>
-                        <span class="address-detail">${loginMember.memberAddress2}</span>
-                        <button type="button" id="changeAddress">배송지 변경</button>
-                    </div>
-                    <div class="price-container">
-                        <div class="price-one-line">
-                            <span>상품금액</span>
-                            <div>
-                                <span id="totalPrice"></span>
-                                <span>원</span>
+                    </form>
+                    
+                    <!-- 배송지, 결제 정보 -->
+                    <div class="info-container">
+                        <div class="info-top" id="deliveryInfo">
+                            <div class="address-info">
+                                <div class="address-title">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <span>배송지</span>
+                                </div>
+                                <span class="address-detail">${loginMember.memberAddress2}</span>
+                                <button type="button" id="changeAddress">배송지 변경</button>
+                            </div>
+                            <div class="price-container">
+                                <div class="price-one-line">
+                                    <span>상품금액</span>
+                                    <div>
+                                        <span id="totalPrice"></span>
+                                        <span>원</span>
+                                    </div>
+                                </div>
+                                <div class="price-one-line">
+                                    <span>배송비</span>
+                                    <div>
+                                        <span id="postPrice">3,000</span>
+                                        <span>원</span>
+                                    </div>
+                                </div>
+                                <div class="price-one-line">
+                                    <span>결제예정금액</span>
+                                    <div>
+                                        <span id="orderPrice"></span>
+                                        <span>원</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="submit-container">
+                                <button type="button" id="orderBtn">주문하기</button>
+                                <ul class="notice-container">
+                                    <li>[주문완료] 상태일 경우에만 주문 취소 가능합니다.</li>
+                                    <li>[마이컬리 > 주문내역 상세페이지] 에서 직접 취소하실 수 있습니다.</li>
+                                </ul>
                             </div>
                         </div>
-                        <div class="price-one-line">
-                            <span>배송비</span>
-                            <div>
-                                <span id="postPrice">3,000</span>
-                                <span>원</span>
-                            </div>
-                        </div>
-                        <div class="price-one-line">
-                            <span>결제예정금액</span>
-                            <div>
-                                <span id="orderPrice"></span>
-                                <span>원</span>
-                            </div>
-                        </div>
                     </div>
-                    <div class="submit-container">
-                        <button type="button" id="orderBtn">주문하기</button>
-                        <ul class="notice-container">
-                            <li>[주문완료] 상태일 경우에만 주문 취소 가능합니다.</li>
-                            <li>[마이컬리 > 주문내역 상세페이지] 에서 직접 취소하실 수 있습니다.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
+                </c:otherwise>
+            </c:choose>
         </section>
 
     </main>
