@@ -49,7 +49,7 @@
         <c:forEach var="order" items="${orderList}">
         <div id="orderListContainer">
 
-          <div class="order">
+          <div class="order" id="${order.orderNo}">
             <div class="order-info-container">
             <div class="order-info">
               <span class="order-no" id="${order.orderNo}">주문번호 <span>${order.orderNo}</span></span>

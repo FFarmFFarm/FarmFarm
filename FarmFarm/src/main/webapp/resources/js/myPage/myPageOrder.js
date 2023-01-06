@@ -8,7 +8,7 @@ if (writeReviewBtn != undefined) {
       const productName = btn.parentElement.previousElementSibling.firstElementChild.innerText;
       const productThumbnail = btn.parentElement.previousElementSibling.
         previousElementSibling.firstElementChild.getAttribute('src');
-      const orderNo = btn.parentElement.parentElement.previousElementSibling.firstElementChild.firstElementChild.id;
+      const orderNo = btn.parentElement.parentElement.parentElement.id;
       /* 상품 링크 경로 */
       const href = btn.parentElement.previousElementSibling.firstElementChild.href;
 
