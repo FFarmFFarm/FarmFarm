@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 
 import edu.kh.farmfarm.admin.model.service.AdminService;
 import edu.kh.farmfarm.admin.model.vo.Admin;
+import edu.kh.farmfarm.admin.model.vo.Graph;
 import edu.kh.farmfarm.common.Util;
 import edu.kh.farmfarm.member.model.VO.Member;
 import lombok.ToString;
@@ -73,8 +74,41 @@ public class AdminController {
 		return "admin/dashboard";
 		
 	}
+	
+	
+	
+	
+	// 날짜별 회원가입자 수
+	@GetMapping("/dashboard/signUpGraph")
+	@ResponseBody
+	public String signUpGraph(@SessionAttribute(value="loginMember") Member loginMember) {
+		// 관리자인지 확인
+		int result = service.checkAdmin();
+
+		List<Graph> signUpGraphList = new ArrayList<>();
+//		Map<String, Object> map = new HashMap<String, Object>();
+		
+		// 관리자일 때만 && 로그인했을 때
+		if(result == 1 && loginMember != null) {
+
+			// 회원가입자 수 조회
+			signUpGraphList = service.selectSignUpGraph();
+		}
+		
+		return new Gson().toJson(signUpGraphList);
+				
+	}
 
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 회원 관리 --------------------------------------------------------------------------------
 	// 전체 회원 조회 페이지로 이동
 	// JSP 
 	@GetMapping("/admin/member")
@@ -192,6 +226,10 @@ public class AdminController {
 										@RequestParam(value="cp", required=false, defaultValue="1") int cp,
 										@RequestParam(value="preSellerFilter", required=false, defaultValue="0") int sellerFilter,
 										Model model) {
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("sellerFilter", sellerFilter);
+		
 		// 관리자인지 확인 (관리자면 result==1)
 		int result = service.checkAdmin();
 		
@@ -201,7 +239,7 @@ public class AdminController {
 		if(result == 1 && loginMember != null) {
 
 			// 판매자 인증 조회 + 페이지네이션 + 정렬
-			map = service.selectSeller(sellerFilter, cp);
+			map = service.selectSeller(paramMap, cp);
 	
 		} else {
 			System.out.println("관리자만 접근 가능합니다.");
@@ -220,8 +258,16 @@ public class AdminController {
 	@ResponseBody
 	public String adminSellerAuthPage(@SessionAttribute(value="loginMember") Member loginMember,
 										@RequestParam(value="cp", required=false, defaultValue="1") int cp,
-										@RequestParam(value="sellerFilter", required=false, defaultValue="0") int sellerFilter
-									   ) {
+										@RequestParam(value="sellerFilter", required=false, defaultValue="0") int sellerFilter,
+										@RequestParam(value="keyword", required=false) String keyword) {
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("sellerFilter", sellerFilter);
+		
+		if(keyword != null) {
+			paramMap.put("keyword", keyword);
+		}
+		
 		// 관리자인지 확인 (관리자면 result==1)
 		int result = service.checkAdmin();
 		
@@ -231,7 +277,7 @@ public class AdminController {
 		if(result == 1 && loginMember != null) {
 
 			// 판매자 인증 조회 + 페이지네이션 + 정렬
-			map = service.selectSeller(sellerFilter, cp);
+			map = service.selectSeller(paramMap, cp);
 			
 	
 		} else {

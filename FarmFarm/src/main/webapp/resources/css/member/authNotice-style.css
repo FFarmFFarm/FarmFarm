@@ -57,10 +57,12 @@ body{
 .to-main{
     background-color: var(--point-color);
     margin-right: 10px;
+    width: 95px;
 }
 
 .to-happy-center{
     background-color: #edb72f;
+    width: 95px;
 }
 
 
@@ -78,7 +80,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50px;
+    /* width: 50px; */
     border: none;
     background-color: rgba(0, 0, 0, 0);
     position: relative;
