@@ -214,7 +214,9 @@ body{
     padding: 10px 0px;
 }
 
-
+.types-area{
+    margin-top: 10px;
+}
 
 /* 상위 카테고리 */
 .sur{
