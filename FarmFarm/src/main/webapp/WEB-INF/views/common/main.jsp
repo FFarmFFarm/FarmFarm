@@ -142,7 +142,7 @@
       <h3 class="middle-product-title">딱! 오늘만 팜팜마켓 특가 상품</h3>
             <div class="middle-product">
               <div class="middle-wrap ">
-                <c:forEach items="${productMap.productList}" var="map" begin="0" end="3" step="1" >
+                <c:forEach items="${productMap}" var="map" begin="0" end="3" step="1" >
                     <c:if test="${map.soldoutFl.equals('N')}">
                         <a href="/product/${map.productNo}" class="middle-a">
                             <div class="middle-cover"><img src="${map.thumbnailImg}"></div>
@@ -175,7 +175,7 @@
 
       <h3 class="product-title">우리 농장에서는 이런 물건을 팔아요</h3>
       <div class="product-wrap">
-            <c:forEach items="${postMap.postList}" var="post" begin="0" end="3" step="1" >
+            <c:forEach items="${postMap}" var="post" begin="0" end="3" step="1" >
             <a href="/post/${post.postNo}">
                 <c:if test="${post.postSoldoutFl==0}">
                     <div class="product">

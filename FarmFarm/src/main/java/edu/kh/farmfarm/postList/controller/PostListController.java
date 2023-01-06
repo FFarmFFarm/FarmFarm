@@ -16,7 +16,7 @@ import edu.kh.farmfarm.common.Util;
 import edu.kh.farmfarm.postList.model.service.PostListService;
 
 @Controller
-@SessionAttributes({"loginMember", "postMap"})
+@SessionAttributes("loginMember")
 public class PostListController {
 		
 		@Autowired
