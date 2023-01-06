@@ -277,4 +277,20 @@ public class ProductAdminController {
 	}
 	
 	
+	// 반품상태 변경
+	@ResponseBody
+	@GetMapping("/admin/returnStatus")
+	public int returnStatus(
+		@RequestParam("rStatus") String rStatus,
+		@RequestParam("returnNo") int returnNo) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("rStatus", rStatus);
+		map.put("returnNo", returnNo);
+		
+		return service.returnStatus(map);
+	}
+	
+	
+	
 }

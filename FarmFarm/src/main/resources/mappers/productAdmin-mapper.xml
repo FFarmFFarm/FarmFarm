@@ -398,5 +398,10 @@
 		WHERE RETURN_NO = #{returnNo}
 	</select>
 	
+	<!-- 반품 상태 변경 -->
+	<update id="updateReturnStatus">
+		UPDATE RETURN SET RETURN_STATUS = #{rStatus} 
+		WHERE RETURN_NO = #{returnNo}
+	</update>
 	
 </mapper>
