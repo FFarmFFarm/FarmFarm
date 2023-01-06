@@ -119,6 +119,8 @@ const selectChatRoomList = () => {
 /* 채팅방 목록을 불러오는 함수 */
 const makeChatPreviewBox = (chatRoom) => {
 
+    console.log(chatRoom);
+    
     // 재료 준비
     const chatPreviewBox = document.createElement('div');   // 채팅방의 정보가 담길 박스
     const thumbnailImg = document.createElement('div');     // 채팅방 대표 이미지

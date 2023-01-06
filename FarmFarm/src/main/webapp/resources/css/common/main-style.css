@@ -162,7 +162,8 @@ header {
   display: none;
   position: absolute;
   z-index: 1000;
-  width: 250px;
+  /* width: 250px; */
+  width: 300px;
   min-height: 45px;
   /* border: 1px solid #ccc; */
   background-color: white;

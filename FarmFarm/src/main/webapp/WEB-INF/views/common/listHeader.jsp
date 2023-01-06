@@ -220,7 +220,7 @@
                   const notifyWidgetContent = document.createElement('div');
 
                   // 2. 재료 손질
-                  packUpElement(notifyWidgetBox, 'notify-widget-box', -1);
+                  packUpElement(notifyWidgetBox, 'notify-widget-box', null);
 
                   // 알림 유형 아이콘
                   let icon;
@@ -231,8 +231,8 @@
 
                   packUpElement(notifyWidgetIcon, 'notify-widget-icon', icon);
 
-                  packUpElement(notifyWidgetMain, 'notify-widget-main', -1);
-                  packUpElement(notifyWidgetHeader, 'notify-widget-header', -1);
+                  packUpElement(notifyWidgetMain, 'notify-widget-main', null);
+                  packUpElement(notifyWidgetHeader, 'notify-widget-header', null);
 
 
                   // 알림 유형 제목(단축버전)
