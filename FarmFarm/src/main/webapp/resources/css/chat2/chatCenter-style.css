@@ -843,6 +843,25 @@ body{
     position: absolute;
 }
 
+/* 시스템 메세지 */
+.system-chat-box{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.system-chat{
+    font-size: var(--medium-font-size);
+    width: 70%;
+    height: 30px;
+    border-radius: 10px;
+    background-color: rgb(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* 하단 이동 버튼 */
 #bottomBtn{
     background-color: white;

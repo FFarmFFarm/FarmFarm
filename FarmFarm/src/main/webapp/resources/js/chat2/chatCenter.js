@@ -185,7 +185,7 @@ document.querySelector('#newChatRoomConfirmBtn').addEventListener('click', () =>
     // 채팅방 이름 정규식 표현으로 걸러내기
     let notice = document.getElementById('inputNewChatRoomNameNotice');
     let newRoomName = document.getElementById('inputNewChatRoomName');
-    let regEx = /^[ㄱ-힣\d\s]{3,10}$/;
+    let regEx = /^[ㄱ-힣\d]{3,10}$/;
     notice.classList.remove('error');
 
     if(newRoomName.value.trim().length == 0) { // 공백인 경우
@@ -231,6 +231,7 @@ document.querySelector('#newChatRoomConfirmBtn').addEventListener('click', () =>
 document.getElementById("infoBtn").addEventListener('click', ()=>{
     document.getElementById('chatRoomMenuModal').classList.toggle('hide');
     document.querySelector('.info-menu').classList.toggle('hide');
+    chatRoomMemberList();
 })
 
 // 2. 닫기
@@ -240,6 +241,47 @@ document.getElementById("infoMenuHideBtn").addEventListener('click', ()=>{
     document.querySelector('.member-list').innerHTML = "";
 })
 
+// 3. 열때 실행되는 함수
+const chatRoomMemberList = () => {
+    let formData = new FormData();
+    formData.append("roomNo", selectedRoomNo);
+
+    axios.post("/chat/select/members", formData
+        ).then(function(response){
+            let memberListArea = document.querySelector('.member-list');
+            memberListArea.innerHTML = "";
+
+            let memberList = response.data.memberList;
+
+            for(let member of memberList){
+                const infoBodyRow = document.createElement('div');
+                const infoMemberProfileImg = document.createElement('div');
+                const infoMemberNickname = document.createElement('div');
+                let imgPath = document.createElement('img');
+
+                packUpElement(infoBodyRow, 'info-body-row', null);
+                
+                if(member.profileImg == null) {
+                    imgPath.setAttribute('src', "/resources/images/member/user.png");
+                } else {
+                    imgPath.setAttribute('src', member.profileImg);
+                }
+
+                packUpElement(infoMemberProfileImg, 'info-member-profile-img', null);
+                packUpElement(infoMemberNickname, 'info-member-nickname', member.memberNickname);
+
+                infoMemberProfileImg.append(imgPath);
+                infoBodyRow.append(infoMemberProfileImg, infoMemberNickname);
+
+                memberListArea.append(infoBodyRow);
+
+            }
+
+        }).catch(function(error){
+            console.log(error)
+        })
+}
+
 /* 초대하기 */
 // 1. 열기
 document.getElementById("inviteBtn").addEventListener('click', ()=>{
@@ -248,12 +290,20 @@ document.getElementById("inviteBtn").addEventListener('click', ()=>{
 
 })
 
-// 2. 닫기
+// 2. 닫기(x)
 document.getElementById("inviteMenuHideBtn").addEventListener('click', () => {
     document.getElementById('chatRoomMenuModal').classList.toggle('hide');
     document.querySelector('.invite-menu').classList.toggle('hide');
     document.querySelector('#searchNicknameInput').value = "";
     document.getElementById('inviteMenuNotice').innerText="회원에게 초대 메세지를 전송합니다."
+})
+
+// 2. 닫기(취소)
+document.getElementById("inviteMenuCalcelBtn").addEventListener('click', ()=>{
+    document.getElementById('chatRoomMenuModal').classList.toggle('hide');
+    document.querySelector('.invite-menu').classList.toggle('hide');
+    document.querySelector('#searchNicknameInput').value = "";
+    document.getElementById('inviteMenuNotice').innerText = "회원에게 초대 메세지를 전송합니다."
 })
 
 // 3. 회원에게 알림 전송하기!
@@ -343,8 +393,44 @@ document.getElementById("exitBtn").addEventListener('click', ()=>{
     document.querySelector('.exit-menu').classList.toggle('hide');
 })
 
-// 2. 닫기
+// 2. 닫기(x)
 document.getElementById("exitMenuHideBtn").addEventListener('click', () => {
     document.getElementById('chatRoomMenuModal').classList.toggle('hide');
     document.querySelector('.exit-menu').classList.toggle('hide');
 })
+
+// 2. 닫기(취소)
+document.getElementById("exitMenuCalcelBtn").addEventListener('click', () => {
+    document.getElementById('chatRoomMenuModal').classList.toggle('hide');
+    document.querySelector('.exit-menu').classList.toggle('hide');
+})
+
+// 3. 나가기 확인
+document.getElementById("exitMenuConfirmBtn").addEventListener('click', () => {
+    deleteChatEnter();
+    document.getElementById('chatRoomMenuModal').classList.toggle('hide');
+    document.querySelector('.exit-menu').classList.toggle('hide');
+})
+
+// 3. 나가기 함수
+const deleteChatEnter = () => {
+    let formData = new FormData();
+    formData.append("roomNo", selectedRoomNo);
+    formData.append("memberNo", myMemberNo);
+
+    axios.post("/chat/delete/chatEnter", formData
+    ).then(function (response) {
+
+        selectChatRoomList();
+        document.getElementById('roomBodyBlinder').style.display='block';
+        document.getElementById('readingArea').innerHTML = "";
+        document.getElementById('roomTitle').innerHTML = "";
+        document.getElementById('roomThumbnailImg').innerHTML = "";
+        document.querySelector('.chat-room-id').id = "none";
+
+
+    }).catch(function (error) {
+        console.log('탈퇴 중 오류 발생')
+        console.log(error)
+    })
+}

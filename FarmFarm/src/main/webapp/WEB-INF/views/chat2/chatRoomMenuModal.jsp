@@ -29,12 +29,12 @@
         <div class="chatRoom-menu-title">
           초대하기
         </div>
-        <div id="menuBody" class="chatRoom-menu-body">
+        <div id="inviteBody" class="chatRoom-menu-body">
           <span>회원 검색</span>
           <div class="search-nickname-box">
             <input id="searchNicknameInput" type="text" placeholder="닉네임 입력">
           </div>
-          <span id="inviteMenuNotice">회원에게 초대 메시지를 전송합니다.</span>
+          <span id="inviteMenuNotice">채팅방 초대 메시지를 전송합니다.</span>
           <div class="menu-confirm-btn">
             <button type="button" id="inviteMenuCalcelBtn">취소</button>
             <button type="button" id="inviteMenuConfirmBtn">확인</button>
@@ -50,13 +50,15 @@
         <div class="chatRoom-menu-title">
           나가기
         </div>
-        <div id="exitMenu" class="chatRoom-menu-body">
-          <span>정말 채팅방에서 나가시겠습니까?</span>
-          <span>채팅방이 목록에서 삭제됩니다.</span>
-        </div>
-        <div class="menu-confirm-btn">
-          <button type="button" id="exitMenuCalcelBtn">취소</button>
-          <button type="button" id="exitMenuConfirmBtn">확인</button>
+        <div id="exitBody" class="chatRoom-menu-body">
+          <div id="exitNotice">
+            <span>정말 채팅방에서 나가시겠습니까?</span>
+            <span>채팅방이 목록에서 삭제됩니다.</span>
+          </div>
+          <div class="menu-confirm-btn">
+            <button type="button" id="exitMenuCalcelBtn">취소</button>
+            <button type="button" id="exitMenuConfirmBtn">확인</button>
+          </div>
         </div>
       </div>
     </div>

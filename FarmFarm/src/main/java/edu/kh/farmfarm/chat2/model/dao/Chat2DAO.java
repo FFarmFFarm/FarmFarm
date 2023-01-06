@@ -73,6 +73,17 @@ public class Chat2DAO {
 		return enterMemberList;
 	}
 	
+	/** 채팅방 참가자 정보 조회(SELECT)
+	 * @param roomNo
+	 * @return
+	 */
+	public List<Chat2Room> selectChatRoomMemberList(int roomNo) {
+		return sqlSession.selectList("chat2Mapper.selectChatRoomMemberList", roomNo);
+	}
+	
+	
+
+	
 	/** 채팅 전송(INSERT) : 언제 실행되나요? 웹소켓에 채팅을 보냈을 때
 	 * @param chat
 	 * @return result
@@ -89,6 +100,15 @@ public class Chat2DAO {
 	public int insertNewChatImg(Chat2Img newChatImg) {
 		return sqlSession.insert("chat2Mapper.insertNewChatImg", newChatImg);
 	}
+	
+	/** 시스템 메세지 전송(INSERT) : 언제 실행되나요? 채팅방 입장, 생성 시
+	 * @param chat
+	 * @return
+	 */
+	public int insertNewSystemChat(Chat2 chat) {
+		return sqlSession.insert("chat2Mapper.insertNewSystemChat", chat);
+	}
+
 	
 	/** 채팅방 정보 수정
 	 * @param roomNo
@@ -113,6 +133,14 @@ public class Chat2DAO {
 	 */
 	public int selectSellerNo(int postNo) {
 		return sqlSession.selectOne("postDetailMapper.selectSellerNo", postNo);
+	}
+	
+	/** 채팅방 입장 보조...
+	 * @param memberNo
+	 * @return
+	 */
+	public String selectMemberNickname(int memberNo) {
+		return sqlSession.selectOne("memberMapper.selectMemberNickname", memberNo);
 	}
 	
 	/** 채팅방 초대 보조... 회원 닉네임 확인
@@ -141,13 +169,22 @@ public class Chat2DAO {
 	}
 	
 	
+	/** 채팅방 초대 승인 보조...
+	 * @param enterNo
+	 * @return
+	 */
+	public int selectRoomNoByEnterNo(int enterNo) {
+		return sqlSession.selectOne("chat2Mapper.selectRoomNoByEnterNo", enterNo);
+	}
+	
+	
 
 	/** 채팅방 탈퇴
 	 * @param chat2Enter
 	 * @return result
 	 */
-	public int updateChatEnter(Chat2Enter chat2Enter) {
-		return sqlSession.update("chat2Mapper.updateChatEnter", chat2Enter);
+	public int deleteChatEnter(Chat2Enter chat2Enter) {
+		return sqlSession.update("chat2Mapper.deleteChatEnter", chat2Enter);
 	}
 	
 	
@@ -162,6 +199,29 @@ public class Chat2DAO {
 		// 방 번호를 전달 받아서, 해당 방을 수정함
 		return sqlSession.update("chat2Mapper.updateChatRoomStatus", roomNo);
 	}
+
+	/** 채팅 조회 처리(1)
+	 * @param chatEnter
+	 * @return
+	 */
+	public int updateLastChatNo(Chat2Enter chatEnter) {
+		return sqlSession.update("chat2Mapper.updateLastChatNo", chatEnter);
+	}
+
+	/** 채팅 조회 처리(2)
+	 * @param roomNo
+	 * @param memberNo
+	 * @return
+	 */
+	public int updateChatCount(Chat2 chat) {
+		return sqlSession.update("chat2Mapper.updateChatCount", chat);
+	}
+
+
+
+
+
+
 
 
 
