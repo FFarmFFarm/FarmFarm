@@ -60,13 +60,19 @@ button {
 
 }
 
+.uncheck-label{
+  display: inline-flex;
+  line-height: 26px;
+  cursor: default;
+}
+
 input[type="checkbox"]{
   display: none;
 }
 
 
 /* 체크아이콘 */
-[name=checkIcon], [name=checkAll]{
+[name=checkIcon], [name=checkAll], [name=unCheckIcon]{
   font-size: 26px;
   display: inline-block;
   padding-right: 10px;
@@ -113,10 +119,26 @@ input[type="checkbox"]{
 }
 
 .no-item{
+  border-top: 1px solid var(--main-font-color);
+  border-bottom: 1px solid var(--main-font-color);
   text-align: center;
-    height: 200px;
-    line-height: 100%;
-    padding-top: 90px;
+  height: 340px;
+  width: 90%;
+  margin: 0 auto;
+  padding-top: 105px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.go-shopping{
+  margin-top: 40px;
+  padding: 10px;
+  width: 171px;
+  background-color: var(--point-color);
+  border-radius: 5px;
+  color: white;
+  font-family: "NotoSansKR-medium";
 }
 
 .product-list>li:not(:first-child){
@@ -172,10 +194,11 @@ input[type="checkbox"]{
 [name="stock"]{
   position: absolute;
   top: 40px;
-  left: -84px;
+  left: -86px;
   width: 260px;
   color: red;
   font-size: var(--main-font-size);
+  text-align: center;
 }
 
 .product-amount-btn>*:not(span:nth-of-type(1)){
@@ -189,6 +212,24 @@ input[type="checkbox"]{
   text-align: center;
   line-height: 28px;
   border: none;
+}
+
+.plus-btn:disabled,
+.minus-btn:disabled {
+  cursor: default;
+}
+.plus-btn:disabled>i,
+.minus-btn:disabled>i {
+  color: #ddd;
+}
+
+#orderBtn:disabled {
+  background-color: #ddd;
+}
+
+#deleteBtn:disabled{
+  cursor: default;
+  color: #ddd;
 }
 
 input[type="number"]::-webkit-outer-spin-button,
@@ -335,4 +376,39 @@ input[type="number"]::-webkit-inner-spin-button {
 .notice-p>li{
   padding: 5px 0 0 7px;
   line-height: 13px;
+}
+
+.hide {
+  display: none;
+  opacity: 0;
+}
+
+.appear {
+  animation: fade-in 0.3s;
+  animation-fill-mode: forwards;
+  display: flex;
+}
+
+.disappear {
+  animation: fade-out 0.3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+
+  }
+  to {
+    opacity: 0;
+  }
 }
