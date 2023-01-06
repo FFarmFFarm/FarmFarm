@@ -1,4 +1,8 @@
 
+document.getElementById('graph1').classList.add('fade');
+
+
+
 //  chartjs
 // 회원가입 수
 
@@ -29,12 +33,32 @@ function signUpGraph(){
           labels: signUpDateArr,  // x축
           datasets:[{
              //데이터
+             label: 'signup',
+              data: signUpCountArr,
+              backgroundColor:'#2b8c44'
+          }]
+        },
+        data: {
+          labels: signUpDateArr,  // x축
+          datasets:[{
+             //데이터
               data: signUpCountArr,
               backgroundColor:'#2b8c44'
           }]
         },
           options: {
             responsive: false,
+            legend:{ 
+              display: false      // 라벨 없애기
+            },
+            scales: {
+              yAxes: [{
+                  ticks:{
+                    beginAtZero: true,
+                    max: 50   //y축 값
+                  }
+              }]
+            }
         }
       });
       console.log("성공");
@@ -43,8 +67,6 @@ function signUpGraph(){
   })
 }
  
-
-
 
 
 

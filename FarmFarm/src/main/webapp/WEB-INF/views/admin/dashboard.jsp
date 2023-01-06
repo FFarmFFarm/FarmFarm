@@ -20,6 +20,7 @@
         <link rel="stylesheet" href="/resources/css/admin/dashboard-style.css" />
 
         <script src="https://kit.fontawesome.com/d4fbceca97.js" crossorigin="anonymous"></script>
+
     </head>
     <body>
         <jsp:include page="/WEB-INF/views/common/adminHeader.jsp"/> 
@@ -53,11 +54,12 @@
                     </span>
                 </div>
 
-                <div class="board-graph">
-                    <canvas id="orderChart"></canvas>
+                <div class="board-graph1" id="graph1">
+                    <span>팜팜 가입자 수</span>
+                    <canvas id="signUpChart" width="700px"></canvas>
                 </div>
-
-                <div class="board-graph">
+                <div class="board-graph2">
+                    <span>팜팜 가입자 수</span>
                     <canvas id="signUpChart" width="700px"></canvas>
                 </div>
             </section>
