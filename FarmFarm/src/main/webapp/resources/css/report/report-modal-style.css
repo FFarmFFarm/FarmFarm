@@ -80,12 +80,31 @@
 }
 
 .report-form textarea{
+    min-width: 200px;
+    min-height: 60px;
+    max-width: 300px;
+    max-height: 100px;
     width: 200px;
+    height: 60px;
     margin-left: 10px;
-    resize: none;
+    /* resize: none; */
     border:none;
     border: 1px solid lightgray;
+    padding: 4px;
+    font-size: var(--small-font-size);
+    /* line-height: 20px; */
 }
+
+.report-form textarea::-webkit-scrollbar{
+    width: 10px;
+    border-radius: 10px;
+}
+
+.report-form textarea::-webkit-scrollbar-thumb{
+    background-color: rgba(250, 38, 1, 0.1);
+    border-radius: 10px;
+}
+
 
 .report-form textarea:focus{
     outline: none;
@@ -108,7 +127,7 @@ input[type=radio]{
     color: white;
     border: none;
     border-radius: 5px;
-    margin-left: 30px;
+    /* margin-left: 30px; */
     
 }
 

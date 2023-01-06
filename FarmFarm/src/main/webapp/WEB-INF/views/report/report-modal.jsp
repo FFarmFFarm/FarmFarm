@@ -40,8 +40,8 @@
                     <label for="8"><input type="radio" name="reportRadio" id="8"><span class="radio-text">기타</span></label>
 
                     <textarea id="reportContent" cols="50" rows="3" spellcheck="false" maxlength="500" placeholder="500자 제한"></textarea><br>
-                    <button id="reportSubmitBtn">신고하기</button>
                 </div>
+                <button id="reportSubmitBtn">신고하기</button>
             </div>
 
 
