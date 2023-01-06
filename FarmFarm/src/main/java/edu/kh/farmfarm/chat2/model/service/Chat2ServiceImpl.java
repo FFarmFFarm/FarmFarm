@@ -63,6 +63,8 @@ public class Chat2ServiceImpl implements Chat2Service {
 			// 1. 채팅방 중복 여부를 체크
 			int resultSelectChatRoom = dao.selectChatRoomExist(chatRoom);
 			
+			System.out.println("sdf");
+			
 			if(resultSelectChatRoom == 0) { // 중복이 없으면?
 				
 				// 2. 채팅방 생성하기
