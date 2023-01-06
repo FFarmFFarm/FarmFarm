@@ -110,7 +110,7 @@ public interface AdminService {
 	 * @param cp
 	 * @return map
 	 */
-	Map<String, Object> selectReportAllList(int typeFilter, String sortFilter, int cp);
+	Map<String, Object> selectReportAllList(Map<String, Object> paramMap, int c);
 
 
 	/** 전체 신고 상세 조회

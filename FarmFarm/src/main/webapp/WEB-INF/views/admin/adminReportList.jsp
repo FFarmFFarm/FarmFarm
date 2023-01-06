@@ -41,7 +41,7 @@
                 <div class="title-div">
                     <span class="report-title">전체 신고 내역</span>
                     <span class="report-search"> 
-                      <input type="text" name="reportSearchKeyword" id="reportSearchKeyword" placeholder="회원번호, 아이디, 닉네임" 
+                      <input type="text" name="reportSearchKeyword" id="reportSearchKeyword" placeholder="아이디, 게시글 제목" 
                                                           spellcheck="false" autocomplete="off">
                       <button type="button" id="reportSearchBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
                   </span>

@@ -215,19 +215,19 @@ public class AdminServiceImpl implements AdminService{
 	
 	// 전체 신고 기록	
 	@Override
-	public Map<String, Object> selectReportAllList(int typeFilter, String sortFilter, int cp) {
-		
+	public Map<String, Object> selectReportAllList(Map<String, Object> paramMap, int cp) {
+
 		// 1. 전체 페이지네이션 개수 가져오기
 		// reportAllListCount: 미처리신고 전체 개수(중복포함)
 		// reportAllCount : 전체 신고 개수(중복X, 페이지네이션용)
-		int reportAllCount = dao.reportAllCount();
+		int reportAllCount = dao.reportAllCount(paramMap);
 		
 		// 2. 가져온 개수와 현재 페이지를 이용하여 페이지네이션 객체 발생
 		Pagination pagination = new Pagination(reportAllCount, cp, 15);
 		
 		// 3. 페이지네이션 객체를 생성해 목록 불러오기
 		// 전체 신고 조회
-		List<Admin> reportAllList = dao.selectReportAllList(typeFilter, sortFilter, pagination);
+		List<Admin> reportAllList = dao.selectReportAllList(paramMap, pagination);
 		
 		
 		Map<String, Object> map = new HashMap<String, Object>();

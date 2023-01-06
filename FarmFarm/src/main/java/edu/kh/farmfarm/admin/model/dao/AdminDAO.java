@@ -295,15 +295,10 @@ public class AdminDAO {
 	 * @param pagination
 	 * @return map
 	 */
-	public List<Admin> selectReportAllList(int typeFilter, String sortFilter, Pagination pagination) {
+	public List<Admin> selectReportAllList(Map<String, Object> paramMap, Pagination pagination) {
 		
 		int offset = (pagination.getCurrentPage() -1) * 15;
 		RowBounds rowBounds = new RowBounds(offset, 15);
-		
-		
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("typeFilter", typeFilter);
-		paramMap.put("sortFilter", sortFilter);
 		
 		return sqlSession.selectList("adminMapper.selectReportAllList", paramMap, rowBounds);
 	}
@@ -313,8 +308,8 @@ public class AdminDAO {
 	/** 전체 신고 기록 개수 (페이지네이션용, RANKING=1 적용)
 	 * @return reportAllCount
 	 */
-	public int reportAllCount() {
-		return sqlSession.selectOne("adminMapper.reportAllCount");
+	public int reportAllCount(Map<String, Object> paramMap) {
+		return sqlSession.selectOne("adminMapper.reportAllCount", paramMap);
 	}
 
 

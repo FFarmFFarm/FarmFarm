@@ -499,7 +499,15 @@ public class AdminController {
 										@RequestParam(value="cp", required=false, defaultValue="1") int cp,
 										@RequestParam(value="typeFilter", required=false, defaultValue="0") int typeFilter,
 										@RequestParam(value="sortFilter", required=false, defaultValue="default") String sortFilter,
+										@RequestParam(value="keyword", required=false) String keyword,
 										Model model) {
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("typeFilter", typeFilter);
+		paramMap.put("sortFilter", sortFilter);
+		paramMap.put("keyword", keyword);
+		
+		
 		// 관리자인지 확인 (관리자면 result==1)
 		int result = service.checkAdmin();
 		
@@ -508,7 +516,7 @@ public class AdminController {
 		if(result == 1 && loginMember != null) {
 
 			// 미처리 신고 조회 + 페이지네이션 + 정렬
-			map = service.selectReportAllList(typeFilter, sortFilter, cp);
+			map = service.selectReportAllList(paramMap, cp);
 	
 		} else {
 			System.out.println("관리자만 접근 가능합니다.");
@@ -528,8 +536,16 @@ public class AdminController {
 	public String adminReportListPage(@SessionAttribute(value="loginMember") Member loginMember,
 										@RequestParam(value="cp", required=false, defaultValue="1") int cp,
 										@RequestParam(value="typeFilter", required=false, defaultValue="0") int typeFilter,
-										@RequestParam(value="sortFilter", required=false, defaultValue="default") String sortFilter
+										@RequestParam(value="sortFilter", required=false, defaultValue="default") String sortFilter,
+										@RequestParam(value="keyword", required=false) String keyword
 										) {
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("typeFilter", typeFilter);
+		paramMap.put("sortFilter", sortFilter);
+		paramMap.put("keyword", keyword);
+		
+		
 		// 관리자인지 확인 (관리자면 result==1)
 		int result = service.checkAdmin();
 		
@@ -538,7 +554,7 @@ public class AdminController {
 		if(result == 1 && loginMember != null) {
 
 			// 미처리 신고 조회 + 페이지네이션 + 정렬
-			map = service.selectReportAllList(typeFilter, sortFilter, cp);
+			map = service.selectReportAllList(paramMap, cp);
 	
 		} else {
 			System.out.println("관리자만 접근 가능합니다.");

@@ -559,16 +559,6 @@ const doSearch = () => {
     selectSellerList(cp);
 }
 
-const searchNoResult = () => {
-    memberSelectTable.innerText = "검색 결과가 없습니다.";
-    memberSelectTable.style.marginTop = "230px";
-    memberSelectTable.style.color = "#2b8c44";
-}
-
-
-
-
-
 
 
 
