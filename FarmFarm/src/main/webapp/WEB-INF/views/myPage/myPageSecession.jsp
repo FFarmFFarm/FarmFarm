@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/resources/css/common/header-style.css" />
     <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
     <link rel="stylesheet" href="/resources/css/myPage/myPage-style.css" />
+    <link rel="stylesheet" href="/resources/css/myPage/myPageSeller-style.css" />
     <link rel="stylesheet" href="/resources/css/myPage/myPageSecession-style.css" />
     <script
       src="https://kit.fontawesome.com/591746f9e8.js"
@@ -24,7 +25,12 @@
       <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
     <main>
-      <jsp:include page="/WEB-INF/views/myPage/myPage.jsp"/>
+        <c:if test="${loginMember.authority == 0}">
+            <jsp:include page="/WEB-INF/views/myPage/myPage.jsp"/>
+        </c:if>
+        <c:if test="${loginMember.authority == 1}">
+            <jsp:include page="/WEB-INF/views/myPage/myPageSeller.jsp"/>
+        </c:if>
       
       <section class="list-container">
         <jsp:include page="/WEB-INF/views/myPage/myPageNav.jsp"/>

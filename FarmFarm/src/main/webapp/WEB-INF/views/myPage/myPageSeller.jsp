@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<main>
 <section class="profile-container">
     <div class="profile-background">
         <img
@@ -11,19 +10,19 @@
     </div>
 
     <!-- 판매자 정보 -->
-    <div class="profile-info">
-        <div class="profile-img-container">
+    <div class="seller-info">
+        <div class="seller-img-container">
             <c:choose>
-                <c:when test="${! empty memberInfo.profileImg}">
+                <c:when test="${!empty memberInfo.profileImg}">
                     <img
                     src="${memberInfo.profileImg}"
-                    class="member-profile-img"
+                    class="seller-profile-img"
                     />
                 </c:when>
                 <c:otherwise>
                     <img
                     src="/resources/images/default/profileImg.png"
-                    class="member-profile-img"
+                    class="seller-profile-img"
                     />
                 </c:otherwise>
             </c:choose>
@@ -41,12 +40,12 @@
             </c:when>
         </c:choose>
         
-        <span class="member-nickname">
+        <span class="seller-nickname">
             <i class="fa-solid fa-carrot"></i>
             ${memberInfo.memberNickname}
         </span>
             
-        <div class="member-info-container">
+        <div class="seller-info-container">
             <div class="member-info">
                 <span class="info-title member-name">판매자</span>
                 <span class="info-content">${memberInfo.memberName}</span>
@@ -67,6 +66,5 @@
         </c:if>
     </div>
 </section>
-</main>
 
      
