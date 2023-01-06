@@ -179,8 +179,8 @@
     <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
 
     <script>
-      var memberName = '${loginMeber.memberName}';
-      var memberNo = '${loginMeber.memberNo}';
+      var memberName = '${loginMember.memberName}';
+      var memberNo = '${loginMember.memberNo}';
       var memberTel = '${loginMember.to}';
       var memberAddress = '${loginMember.memberAddress2}';
       var orderAmount = '${fn:length(productList)}';

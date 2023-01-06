@@ -268,6 +268,15 @@ public class ProductAdminDAO {
 		return sqlSession.selectList("productAdmin.selectReturnDetail", returnNo);
 	}
 
+	
+	/** 반품 상태 변경
+	 * @param map
+	 * @return result
+	 */
+	public int returnStatus(Map<String, Object> map) {
+		return sqlSession.update("productAdmin.updateReturnStatus", map);
+	}
+
 
 
 

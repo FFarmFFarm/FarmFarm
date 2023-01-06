@@ -121,5 +121,11 @@ public interface ProductAdminService {
 	 */
 	List<Return> selectReturnDetail(int returnNo);
 
+	/** 반품상태 변경
+	 * @param map
+	 * @return result
+	 */
+	int returnStatus(Map<String, Object> map);
+
 
 }

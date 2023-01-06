@@ -79,6 +79,11 @@ a.secession > i {
     font-weight: 600;
 }
 
+.secession-btn:hover{
+    color: var(--background-color);
+    font-size: var(--large-font-size);
+}
+
 .update-btn:hover{
   color: var(--background-color);
   font-family: "NotoSansKR-Bold";
