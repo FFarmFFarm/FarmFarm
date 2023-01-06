@@ -128,5 +128,12 @@
 		${condition}
 	</delete>
 	
+	
+	<!-- 배송지 추가 -->
+	<insert id="insertAdd">
+		INSERT INTO "ADDRESS"
+		VALUES(SEQ_ADDRESS_NO.NEXTVAL, #{memberAddress},'N', #{memberNo})
+	</insert>
+	
   
 </mapper>

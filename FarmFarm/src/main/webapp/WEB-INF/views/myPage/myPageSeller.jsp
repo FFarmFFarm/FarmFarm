@@ -2,53 +2,48 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <section class="profile-container">
-        <div class="profile-background">
-        <c:if test="${empty loginMember.mypageImg}">
-          <img
-          src="/resources/images/myPage/background/bgImg2.jpg"
-          alt=""
-          class="member-bg-img"
-          id="memberBgImg"
-          />
-        </c:if>
-        <c:if test="${! empty loginMember.mypageImg}">
-          <img
-          src="${loginMember.mypageImg}"
-          alt=""
-          class="member-bg-img"
-          id="memberBgImg"
-          />
-        </c:if>
-          <form id="mypageImgForm">   
-            <label for="mypageImgInput" class="bg-change-btn fa-solid fa-image"></label>
-            <input type="file" name="mypageImg" id="mypageImgInput" accept="image/*" style="display:none;"></input>
-          </form>
+    <div class="profile-background">
+        <img
+        src="/resources/images/default/bgImg.png"
+        alt=""
+        class="member-bg-img"
+        />
+    </div>
+
+    <!-- 판매자 정보 -->
+    <div class="profile-info">
+        <div class="profile-img-container">
+            <c:choose>
+                <c:when test="${! empty memberInfo.profileImg}">
+                    <img
+                    src="${memberInfo.profileImg}"
+                    class="member-profile-img"
+                    />
+                </c:when>
+                <c:otherwise>
+                    <img
+                    src="/resources/images/default/profileImg.png"
+                    class="member-profile-img"
+                    />
+                </c:otherwise>
+            </c:choose>
         </div>
-
-        <div class="profile-info">
-          <div class="profile-img-container">
-            <div class="member-profile">
-              <c:if test="${empty loginMember.profileImg}">
-                <img
-                src="/resources/images/myPage/profile/profileImg.png"
-                class="member-profile-img"
-                id="ProfileImg"/>
-              </c:if>
-              <c:if test="${!empty loginMember.profileImg}">
-                <img
-                src="${loginMember.profileImg}"
-                class="member-profile-img"
-                id="ProfileImg"/>
-              </c:if>
-            </div>
-          </div>
-          <!-- 
-          <button
-            type="button"
-            class="profile-setting-btn fa-solid fa-gear"
-          ></button> -->
-
-          <span class="member-nickname">
+        
+        <c:choose>
+            <c:when test="${loginMember.memberNo == memberInfo.memberNo}">
+                <a href="/myPage/profile" class="profile-setting-btn fa-solid fa-gear" ></a>
+            </c:when>
+            <c:otherwise>
+                <button 
+                type="button"
+                class="seller-report-btn"
+                id="reportBtn">
+                    <p>신고하기</p>
+                </button>
+            </c:otherwise>
+        </c:choose>
+        
+        <span class="member-nickname">
             <i class="fa-solid fa-carrot"></i>
             ${memberInfo.memberNickname}
         </span>
@@ -73,7 +68,6 @@
             <button id="enroll-post">판매상품등록</button>
         </c:if>
     </div>
-        </div>
-      </section>
+</section>
 
      

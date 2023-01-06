@@ -68,5 +68,14 @@ public interface CartService {
 	 */
 	int deleteCartList(int memberNo, String deleteList);
 
+	
+	
+	/** 배송지 추가
+	 * @param memberAddress
+	 * @param memberNo 
+	 * @return result
+	 */
+	int insertAdd(String[] memberAddress, int memberNo);
+
 
 }
