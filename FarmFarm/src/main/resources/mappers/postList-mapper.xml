@@ -57,6 +57,21 @@
 
 	</select>
 	
+		<!-- 모든 상품 목록을 불러오는 SQL -->
+	<select id="getPostListAll" parameterType="SearchItem" resultMap="postList_rm">
+		SELECT POST_NO, POST_TITLE,
+			   TO_CHAR(UNIT_PRICE, 'FM999,999,999,999') UNIT_PRICE, 
+		       CATEGORY_NO, POST_CONTENT, POST_VIEW, POST_SOLDOUT_FL,
+				(SELECT POST_IMG_ADDRESS
+			   	FROM POST_IMG PIMG
+			   	WHERE PIMG.POST_NO = P.POST_NO
+			   	AND POST_IMG_ORDER = 0
+			   	AND ROWNUM = 1) AS THUMBNAIL_IMG
+		FROM POST P
+		WHERE POST_DEL_FL = 'N'
+		AND POST_SOLDOUT_FL = 0 
+		</select>
+	
 	<!-- 모든 상품 목록의 개수를 가져오는 SQL -->
 	<select id="getCount_all" parameterType="SearchItem" resultType="_int">
 		SELECT COUNT(*)
