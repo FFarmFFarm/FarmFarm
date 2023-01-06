@@ -152,6 +152,7 @@ public class MyPageDAO {
 		return sqlSession.selectList("myPageMapper.selectWishList", memberNo, rowBounds);
 	}
 
+	
 
 	/** 마이페이지 배경 사진 수정
 	 * @param loginMember
