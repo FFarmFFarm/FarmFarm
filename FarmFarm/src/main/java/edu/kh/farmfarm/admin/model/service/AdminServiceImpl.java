@@ -185,10 +185,8 @@ public class AdminServiceImpl implements AdminService{
 		List<Admin> newReportList = dao.selectNewReport(sortFilter, pagination);
 		
 		
-		// 신고 중복 포함된 전체 개수
+		// 신고 중복 포함된 미처리 신고 전체 개수 
 		int reportAllListCount = dao.reportAllListCount();
-		
-		
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("reportListCount", reportListCount);
@@ -210,13 +208,42 @@ public class AdminServiceImpl implements AdminService{
 	
 	// 신고 누적 기록 
 @	Override
-	public Map<String, Object> selectReportAccumulate(String reportType, int memberNo, int contentNo) {
-		return dao.selectReportAccumulate(reportType, memberNo, contentNo);
+	public Map<String, Object> selectReportAccumulate(String reportType, int memberNo, int contentNo, String allNew) {
+		return dao.selectReportAccumulate(reportType, memberNo, contentNo, allNew);
 	}	
 	
 	
+	// 전체 신고 기록	
+	@Override
+	public Map<String, Object> selectReportAllList(int typeFilter, String sortFilter, int cp) {
+		
+		// 1. 전체 페이지네이션 개수 가져오기
+		// reportAllListCount: 미처리신고 전체 개수(중복포함)
+		// reportAllCount : 전체 신고 개수(중복X, 페이지네이션용)
+		int reportAllCount = dao.reportAllCount();
+		
+		// 2. 가져온 개수와 현재 페이지를 이용하여 페이지네이션 객체 발생
+		Pagination pagination = new Pagination(reportAllCount, cp, 15);
+		
+		// 3. 페이지네이션 객체를 생성해 목록 불러오기
+		// 전체 신고 조회
+		List<Admin> reportAllList = dao.selectReportAllList(typeFilter, sortFilter, pagination);
+		
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("reportAllCount", reportAllCount);
+		map.put("pagination", pagination);
+		map.put("reportAllList", reportAllList);
+		
+		return map;
+	}
 	
 	
+	// 전체 신고 기록 - 상세 내역
+	@Override
+	public Admin selectReportDetail(int hiddenReportNo) {
+		return dao.selectReportDetail(hiddenReportNo);
+	}
 	
 	
 	

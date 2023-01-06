@@ -50,7 +50,7 @@
             </span>
         </div>
         <a href="/admin/report" class="admin-nav-sub">미처리 신고</a>
-        <a href="/admin/reportSearch" class="admin-nav-sub">신고 내역 검색</a>
+        <a href="/admin/reportList" class="admin-nav-sub">전체 신고 내역</a>
     </div>
 </nav>
 
