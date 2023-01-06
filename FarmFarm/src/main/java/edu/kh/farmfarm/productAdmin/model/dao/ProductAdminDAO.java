@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import edu.kh.farmfarm.common.Pagination;
 import edu.kh.farmfarm.mypage.model.vo.Order;
+import edu.kh.farmfarm.order.model.vo.Return;
 import edu.kh.farmfarm.productDetail.model.vo.Product;
 import edu.kh.farmfarm.productDetail.model.vo.ProductImg;
 
@@ -214,8 +215,57 @@ public class ProductAdminDAO {
 		return sqlSession.selectOne("productAdmin.selectOrderDetail", orderNo);
 	}
 
+	/** 주문 상태 업데이트
+	 * @param map
+	 * @return
+	 */
 	public int orderStatus(Map<String, Object> map) {
 		return sqlSession.update("productAdmin.updateOrderStatus", map);
+	}
+
+	/** 송장 등록
+	 * @param orderNo
+	 * @return result
+	 */
+	public int enrollInvocie(Map<String, Object> map) {
+		return sqlSession.insert("productAdmin.enrollInvocie", map);
+	}
+
+	/** 주문상태 업데이트(배송)
+	 * @param orderNo
+	 * @return result
+	 */
+	public int updateDeliveryStatus(Map<String, Object> map) {
+		return sqlSession.update("productAdmin.updateDeliveryStatus", map);
+	}
+
+	/** 반품 목록 수 조회
+	 * @return
+	 */
+	public int getReturnListCount() {
+		return sqlSession.selectOne("productAdmin.returnListCount");
+	}
+
+	/** 반품 목록 조회
+	 * @param pagination
+	 * @return map
+	 */
+	public List<Return> selectReturnList(Pagination pagination) {
+		
+		int offset = (pagination.getCurrentPage()-1)*pagination.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		return sqlSession.selectList("productAdmin.selectReturnList", 0, rowBounds);
+	
+	}
+
+	/** 반품 상세 조회
+	 * @param returnNo
+	 * @return returnDetail
+	 */
+	public List<Return> selectReturnDetail(int returnNo) {
+		return sqlSession.selectList("productAdmin.selectReturnDetail", returnNo);
 	}
 
 

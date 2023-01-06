@@ -41,7 +41,7 @@
         <a href="/admin/enroll" class="admin-nav-sub">상품 등록</a>
         <a href="/admin/orderList" class="admin-nav-sub">주문 내역 관리</a>
         <a href="/admin/stock" class="admin-nav-sub">상품 관리</a>
-        <a href="" class="admin-nav-sub">반품 관리</a>
+        <a href="/admin/return" class="admin-nav-sub">반품 관리</a>
         
         <div class="with-icon-div">
             <span class="admin-nav-menu">

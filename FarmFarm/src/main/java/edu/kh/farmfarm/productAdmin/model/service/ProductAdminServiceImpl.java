@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import edu.kh.farmfarm.common.Pagination;
 import edu.kh.farmfarm.common.Util;
 import edu.kh.farmfarm.mypage.model.vo.Order;
+import edu.kh.farmfarm.order.model.vo.Return;
 import edu.kh.farmfarm.productAdmin.model.dao.ProductAdminDAO;
 import edu.kh.farmfarm.productDetail.model.vo.Product;
 import edu.kh.farmfarm.productDetail.model.vo.ProductImg;
@@ -247,6 +248,44 @@ public class ProductAdminServiceImpl implements ProductAdminService{
 	@Override
 	public int orderStatus(Map<String, Object> map) {
 		return dao.orderStatus(map);
+	}
+
+	// 송장 등록
+	@Override
+	public int enrollInvocie(Map<String, Object> map) {
+		
+		int result = dao.enrollInvocie(map);
+		
+		if(result>0) {
+			result = dao.updateDeliveryStatus(map);
+		}
+		
+		return result;
+	}
+
+	// 반품리스트 조회
+	@Override
+	public Map<String, Object> selectReturnList(int cp) {
+		
+		int returnListCount = dao.getReturnListCount();
+		
+		Pagination pagination = new Pagination(returnListCount, cp, 10, 10);
+		
+		List<Return> returnList = dao.selectReturnList(pagination);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("pagination", pagination);
+		map.put("returnList", returnList);
+		map.put("returnListCount", returnListCount);
+		
+		return map;
+	}
+
+	// 반품 상세조회
+	@Override
+	public List<Return> selectReturnDetail(int returnNo) {
+		return dao.selectReturnDetail(returnNo);
 	}
 
 	

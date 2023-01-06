@@ -19,6 +19,15 @@ public class Return {
 	private String returnReason;
 	private String returnStatus;
 	
+	private int returnAmount;
+	private int memberNo;
+	private String memberId;
+	private String returnSum;
+	private int productNo;
+	private String productName;
+	private int productAmount;
+	private String productPrice;
+	
 	private List<Product> productList;
 
 }

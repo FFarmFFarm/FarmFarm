@@ -120,6 +120,14 @@ public class CartDAO {
 	public int deleteCartList(String condition) {
 		return sqlSession.delete("cartMapper.deleteCartList", condition);
 	}
+
+	/** 배송지 추가
+	 * @param map
+	 * @return result
+	 */
+	public int insertAdd(Map<String, Object> map) {
+		return sqlSession.insert("cartMapper.insertAdd", map);
+	}
 	
 	
 	

@@ -92,12 +92,13 @@ if (document.getElementById('deleteAddCalcelBtn') != undefined) {
 
 
 
-// 주소
+// 주소 API + 요소 추가해주기
+// 새 배송지 추가를 누르면 뜨는 다음 API 관련 코드임
 function sample6_execDaumPostcode() {
   new daum.Postcode({
       oncomplete: function (data) {
 
-        history.pushState(null, null, "/cart/address/new");
+        // history.pushState(null, null, "/cart/address/new");
 
           // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
@@ -113,35 +114,91 @@ function sample6_execDaumPostcode() {
               addr = data.jibunAddress;
           }
 
+          // 기존의 div 태그를 불러옵니다
           const oneAdd = document.querySelector(".one-address");
 
+          // 배송지 추가 시 사용 할 form 태그 만들어요
           const newAddForm = document.createElement("form");
-          newAddForm.setAttribute("action", "");
+          newAddForm.setAttribute("action", "/address/insert");
+          newAddForm.classList.add("new-add-form");
           oneAdd.after(newAddForm);
 
+          // 각 input 태그를 감쌀 div 태그 입니당
           const newAddArea = document.createElement("div");
           newAddArea.classList.add("new-add-area");
           newAddForm.append(newAddArea);
           
-          const newPostCode = document.createElement("div");
+          // 우편번호가 들어갈 부분입니당
+          const newPostCodeA = document.createElement("div");
+          const newPostCodeS = document.createElement("span");
+          newPostCodeS.classList.add("new-span");
+          newPostCodeS.innerText = "우편번호";
+          const newPostCode = document.createElement("input");
+          newPostCode.setAttribute("type", "text");
           newPostCode.setAttribute("id", "sample6_postcode");
+          newPostCode.setAttribute("name", "memberAddress");
+          newPostCode.classList.add("new-style");
+          newPostCodeA.append(newPostCodeS, newPostCode);
           
-          const newAdd = document.createElement("div");
+          // 주소가 들어갈 부분입니당
+          const newAddA = document.createElement("div");
+          const newAddS = document.createElement("span");
+          newAddS.classList.add("new-span");
+          newAddS.innerText = "주소";
+          const newAdd = document.createElement("input");
+          newAdd.setAttribute("type", "text");
           newAdd.setAttribute("id", "sample6_address");
+          newAdd.setAttribute("name", "memberAddress");
+          newAdd.classList.add("new-style");
+          newAddA.append(newAddS, newAdd);
           
-          const newDAdd = document.createElement("div");
+          // 주소의 상세정보가 들어갈 부분입니당
+          const newDAddA = document.createElement("div");
+          const newDAddS = document.createElement("span");
+          newDAddS.classList.add("new-span");
+          newDAddS.innerText = "상세주소";
+          const newDAdd = document.createElement("input");
+          newDAdd.setAttribute("type", "text");
           newDAdd.setAttribute("id", "sample6_detailAddress");
-
+          newDAdd.setAttribute("name", "memberAddress");
+          newDAdd.setAttribute("placeholder", "상세주소");
+          newDAdd.classList.add("new-style");
+          newDAddA.append(newDAddS, newDAdd);
+          
+          // 배송지를 추가한다는 button 입니당
+          const newBtnA = document.createElement("div");
+          newBtnA.classList.add("new-btn-area");
           const newAddBtn = document.createElement("button");
+          newAddBtn.innerText = "배송지 추가하기";
+          newAddBtn.classList.add("addadd-btn");
+          // 배송지 추가를 취소할래요 버튼입니당
+          const newCancleBtn = document.createElement("button");
+          newCancleBtn.innerText = "취소하기";
+          newCancleBtn.classList.add("addcancle-btn");
+          newCancleBtn.setAttribute("type", "button");
 
-          newAddArea.append(newPostCode, newAdd, newDAdd, newAddBtn)
+          newBtnA.append(newAddBtn, newCancleBtn)
 
-          // 우편번호와 주소 정보를 해당 필드에 넣는다.
+          // append를 해서 요소들을 추가해줍니당
+          newAddArea.append(newPostCodeA, newAddA, newDAddA, newBtnA);
+
+          // 각각의 값들을 요소에 넣어줍니당
           document.getElementById('sample6_postcode').value = data.zonecode;
           document.getElementById("sample6_address").value = addr;
+
           // 커서를 상세주소 필드로 이동한다.
           document.getElementById("sample6_detailAddress").focus();
+          newDAdd.focus();
+          
+          const addCancle = document.querySelector(".addcancle-btn");
+          if(addCancle != null){
+            addCancle.addEventListener("click", ()=>{
+              const newAddForm = document.querySelector(".new-add-form");
+              newAddForm.classList.add("add-none")
+            })
+          }
       }
   }).open();
 }
+
 

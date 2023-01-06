@@ -1,0 +1,217 @@
+@import "../root-style.css";
+
+
+.return-detail-section {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: var(--modal-background-color);
+
+  z-index: 100;
+}
+
+.return-modal{
+  width: 600px;
+  background-color: var(--background-color);
+}
+
+/* 뒤로가기 */
+.back-btn{
+  border: none;
+  background-color: var(--point-color);
+  color: white;
+  margin-right: 10px;
+}
+
+.detail-top{
+  font-weight: bold;
+  background-color: var(--point-color);
+  color: #fff;
+  height: 35px;
+  padding: 5px 0 0 15px;
+  width: 100%;
+}
+
+.return{
+  padding: 20px;  
+  border: 1px solid #ddd;
+}
+
+.return-detail {
+  font-size: var(--small-font-size);
+  margin-bottom: 35px;
+}
+
+.detail-title{
+  border-bottom: 1px solid #ddd;
+  font-weight: bolder;
+  height: 30px;
+  font-size: var(--main-font-size);
+}
+
+.return-detail-top{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px 0 3px;
+}
+
+.return-detail-top>div{
+  margin-right: 20px;
+}
+
+.small-title{
+  color: var(--point-color);
+  font-weight: 800;
+  margin-right: 3px;
+}
+
+
+table{
+  background-color: #fff;
+  
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+
+  font-size: var(--small-font-size);
+}
+
+td, tr{
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+}
+
+
+/* 주문상태 */
+.return-status-table{
+  width: 100%;
+  height: 33px;
+  margin: 10px auto;
+  text-align: center;
+}
+
+.return-status-table th{
+  background-color: #eee;
+  width: 20%;
+}
+
+.return-status-table td:nth-of-type(1){
+  width : 30%;
+}
+
+
+#returnStatus{
+  font-size: var(--small-font-size);
+  border: none;
+}
+
+#enrollInvoice{
+  font-size: var(--small-font-size);
+  padding: 0 3px;
+  margin: 0 3px;
+}
+
+#invoiceNo{
+  font-size: var(--small-font-size);
+  border: none;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+
+
+
+/* 주문상품 */
+
+.return-detail-table{
+  width: 100%;
+  margin: 5px auto;
+}
+
+.return-table-head{
+  height: 32px;
+  background-color: #eee;
+}
+
+.return-table-row>td{
+  padding: 0 8px;
+  text-align: center;
+  height: 30px;
+}
+
+.return-product{
+  display: flex;
+  border: none;
+  margin: 10px 0;
+  align-items: center;
+  font-weight: bolder;
+}
+
+
+
+.return-table-head>th:nth-of-type(1){width: 15%; text-align: center;}
+.return-table-head>th:nth-of-type(2){width: 35%; text-align: center;}
+.return-table-head>th:nth-of-type(3){width: 15%; text-align: center;}
+.return-table-head>th:nth-of-type(4){width: 15%; text-align: center;}
+.return-table-head>th:nth-of-type(5){width: 20%; text-align: center;}
+
+/* .return-table-head>th:nth-child(1) */
+
+/* 주문자 상세 정보 */
+
+.account-detail-table{
+  width: 100%;
+  margin: 10px 0 ;
+  text-align: center;
+}
+
+.account-detail-table th{
+  background-color: #eee;
+  width: 20%;
+  height: 32px;
+}
+
+#accountName{
+  width: 30%;
+}
+
+.hide {
+  display: none;
+  opacity: 0;
+}
+
+.appear {
+  animation: fade-in 0.3s;
+  animation-fill-mode: forwards;
+  display: flex;
+}
+
+.disappear {
+  animation: fade-out 0.3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+
+  }
+  to {
+    opacity: 0;
+  }
+}
