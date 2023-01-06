@@ -331,25 +331,59 @@ const makeChatRoom = (chatRoom, chatList) => {
 
         }
 
-        // chatTime를 잘라서 원하는 시간으로 만듦
-        const newChatTime = makeNewChatTime(chat.chatTime);
+        console.log(chat);
 
-        if(chat.memberNo == myMemberNo) { // 보낸 메세지인 경우
-            const sentChat = makeSentChat(chat, newChatTime);
+        if(chat.chatType==="S") {
 
-            readingArea.append(sentChat)
+            const systemChat = document.createElement('div');
+            packUpElement(systemChat, 'system-chat', chat.chatContent);
+            
+            const systemChatBox = document.createElement('div');
+            packUpElement(systemChatBox, 'system-chat-box', null);
+            
+            systemChatBox.append(systemChat);
+            readingArea.append(systemChatBox);
 
-        } else { // 수신 메세지인 경우
-            const receivedChat = makeReceivedChat(chat, newChatTime);
+        } else {
 
-            readingArea.append(receivedChat);
+            // chatTime를 잘라서 원하는 시간으로 만듦
+            const newChatTime = makeNewChatTime(chat.chatTime);
+    
+            if(chat.memberNo == myMemberNo) { // 보낸 메세지인 경우
+                const sentChat = makeSentChat(chat, newChatTime);
+    
+                readingArea.append(sentChat)
+    
+            } else { // 수신 메세지인 경우
+                const receivedChat = makeReceivedChat(chat, newChatTime);
+    
+                readingArea.append(receivedChat);
+            }
         }
     }
+
+    // 채팅 조회수 동기화
+    updateView();
 
     const nowScrollHeight = readingArea.scrollHeight;
     readingArea.scrollTo(0, nowScrollHeight);
 
     document.getElementById('inputBox').focus();
+}
+
+/* 채팅방 입장 시, 채팅 조회수를 동기화하는 함수 */
+const updateView = () => {
+    let formData = new FormData();
+    formData.append("roomNo", selectedRoomNo);
+    formData.append("memberNo", myMemberNo);
+
+    axios.post("/chat/update/view", formData
+        ).then(function(response){
+            console.log('조회수 업데이트')
+        }).catch(function(error){
+            console.log('조회수 업데이트 오류..')
+            console.log(error)
+        })
 }
 
 /* 내가 보낸 메세지를 만드는 함수 */
@@ -712,6 +746,23 @@ const updateChatEnterAgree = (inviteBtnArea) => {
         ).then(function(response){ // 성공하면 목록을 다시 불러옴
             selectChatRoomList();
             console.log('초대를 승인했습니다.');
+
+            let formData2 = new FormData();
+
+            formData2.append("roomNo", response.data.roomNo);
+            formData2.append("chatContent", myMemberNickname + "님이 입장했어요!");
+
+            // 입장 메세지를 전달합니다.
+            
+            axios.post("/chat/insert/system", formData2
+                ).then(function(response){
+                    console.log('입장 메세지를 보냈어요');
+
+                }).catch(function(error){
+                    console.log('error');
+                    console.log(error)
+                })
+
         }).catch(function(error){
             console.log('error');
             console.log(error);

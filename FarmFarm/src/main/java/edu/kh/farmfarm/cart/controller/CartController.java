@@ -143,7 +143,15 @@ public class CartController {
 		add.setMemberNo(loginMember.getMemberNo());
 		add.setAddressNo(addressNo);
 		
-		return service.changeAddress(add);
+		int result =  service.changeAddress(add);
+		
+		if(result>0) {
+			String memberAddress2 =service.selectAddress(addressNo);
+			
+			loginMember.setMemberAddress2(memberAddress2);
+		}
+				
+		return result;
 	}
 	
 	// 배송지 삭제
