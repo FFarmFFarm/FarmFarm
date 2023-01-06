@@ -29,7 +29,7 @@
                     <span class="category">카테고리 선택</span>
 
                     <input type="radio" name="boardTypeNo" class="boardTypeNo" id="share" value="1">
-                    <label class="categoryLabel" for="share">물물교환</label>
+                    <label class="categoryLabel" for="share">자유게시판</label>
 
                     <input type="radio" name="boardTypeNo"  class="boardTypeNo" id="tip" value="2">
                     <label class="categoryLabel" for="tip">팁</label>
