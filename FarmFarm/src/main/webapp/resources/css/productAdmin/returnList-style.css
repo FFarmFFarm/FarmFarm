@@ -117,7 +117,7 @@ main{
 }
 
 /* todo: 카테고리 선택 부분 _카테고리별로 다르게 표시! */
-.admin-nav-sub:nth-of-type(5){
+.admin-nav-sub:nth-of-type(7){
     height: 30px;
     padding-top: 5px;
     background-color: #eef4ed;;
@@ -130,7 +130,7 @@ main{
     font-size: var(--medium-font-size);
 }
 
-.order-list-section{
+.return-list-section{
     width: 1000px;
     min-height: 900px;
     height: auto;
@@ -150,8 +150,12 @@ main{
 
 
 /* 리스트 조회결과 */
-.order-list{
+.return-list{
     margin: auto;
+}
+
+.part-title>p{
+    display: inline-block;
 }
 
 .count-list{
@@ -170,7 +174,7 @@ table{
     font-size: var(--small-font-size);
 }
 
-.order-list-table{
+.return-list-table{
     width: 100%;
     margin: 10px auto;
 
@@ -192,13 +196,17 @@ td, tr{
     color: var(--point-color);
 }
 
+.table-info{
+    cursor: pointer;
+}
+
 .table-row>*:nth-child(1){width: 10%;}
-.table-row>*:nth-child(2){width: 15%;}
-.table-row>*:nth-child(3){width: 20%;}
+.table-row>*:nth-child(2){width: 10%;}
+.table-row>*:nth-child(3){width: 15%;}
 .table-row>*:nth-child(4){width: 10%;}
 .table-row>*:nth-child(5){width: 15%;}
-.table-row>*:nth-child(6){width: 15%;}
-.table-row>*:nth-child(7){width: 15%;}
+.table-row>*:nth-child(6){width: 20%;}
+.table-row>*:nth-child(7){width: 20%;}
 
 
 /* 페이지네이션 영역 */
