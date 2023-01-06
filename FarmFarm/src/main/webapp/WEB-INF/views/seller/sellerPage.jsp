@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>팜팜 | 사고팔고</title>
+    <title>팜팜 | 판매자 관리</title>
 
     <!-- swiper-style -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
@@ -40,22 +40,22 @@
 
             <!-- 판매자 정보 -->
             <div class="profile-info">
-                <div class="profile-img-container">
-                    <c:choose>
-                        <c:when test="${! empty memberInfo.profileImg}">
+                <c:choose>
+                    <c:when test="${! empty memberInfo.profileImg}">
+                        <div class="profile-img-container">
                             <img
                             src="${memberInfo.profileImg}"
-                            class="member-profile-img"
-                            />
-                        </c:when>
-                        <c:otherwise>
+                            class="member-profile-img"/>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="profile-img-container">
                             <img
                             src="/resources/images/default/profileImg.png"
-                            class="member-profile-img"
-                            />
-                        </c:otherwise>
-                    </c:choose>
-                </div>
+                            class="member-profile-img"/>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
                 
                 <c:choose>
                     <c:when test="${loginMember.memberNo == memberInfo.memberNo}">

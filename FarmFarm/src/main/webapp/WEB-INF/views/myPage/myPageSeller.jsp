@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<main>
 <section class="profile-container">
     <div class="profile-background">
         <img
@@ -30,17 +30,15 @@
         </div>
         
         <c:choose>
-            <c:when test="${loginMember.memberNo == memberInfo.memberNo}">
-                <a href="/myPage/profile" class="profile-setting-btn fa-solid fa-gear" ></a>
-            </c:when>
-            <c:otherwise>
+            <c:when test="${loginMember.memberNo != memberInfo.memberNo}">
+                <a href="/myPage/profile" class="profile-setting fa-solid fa-gear" ></a>
                 <button 
                 type="button"
                 class="seller-report-btn"
                 id="reportBtn">
-                    <p>신고하기</p>
-                </button>
-            </c:otherwise>
+                <p>신고하기</p>
+            </button>
+            </c:when>
         </c:choose>
         
         <span class="member-nickname">
@@ -69,5 +67,6 @@
         </c:if>
     </div>
 </section>
+</main>
 
      
