@@ -88,7 +88,7 @@
         <button type="button" class="share-btn" id="shareBtn">
           <i class="fa-solid fa-share"></i>
         </button>
-        <button type="button" class="report-btn" id="reportBtn">
+        <button type="button" class="report-btn">
           <i class="fa-solid fa-circle-exclamation"></i>
         </button>
       </section>
