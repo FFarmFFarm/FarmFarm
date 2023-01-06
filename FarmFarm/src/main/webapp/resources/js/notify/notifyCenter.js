@@ -1,3 +1,4 @@
+
 /* 
 
 <가이드라인>
@@ -134,6 +135,11 @@ const selectNotifyList = () => {
                     let icon;
 
                     switch(notify.notifyTypeNo) {
+                        case 101: { // 채팅
+                            packupElement(notifyBox, 'chat', null);
+                            icon = '<i class="fa-solid fa-message"></i>';
+                            break; 
+                        }       
                         case 201: { // 댓글
                             packupElement(notifyBox, 'board', null);
                             icon = '<i class="fa-solid fa-comment-dots"></i>';
@@ -238,17 +244,16 @@ const typeFilter = (option) => {
 
     for(let type of typeList){
         if(!type.classList.contains(option)){
-            type.style.classList.add('hide');
+            type.classList.add('hide');
             document.querySelector('.notify-empty').classList.add('hide');
         } else {
-            type.style.classList.remove('hide');
+            type.classList.remove('hide');
             boxExist = true;
         }
     }
-
     // 만약 요소가 하나도 없으면...
     if(!boxExist){
-        document.querySelector('.notify-empty').classList.add('hide');
+        document.querySelector('.notify-empty').classList.remove('hide');
     }
 }
 
@@ -264,7 +269,7 @@ const typeFilterRemove = () => {
     document.querySelector('.notify-empty').classList.add('hide');
 
     for(let type of typeList){
-        type.style.classList.remove('hide');
+        type.classList.remove('hide');
         boxExist = true;
     }
 
@@ -289,6 +294,10 @@ document.getElementById('categoryBoard').addEventListener('click', (e)=>{
 
 document.getElementById('categoryInquiry').addEventListener('click', (e)=>{
     if(e.target.checked) typeFilter('inquiry');
+})
+
+document.getElementById('categoryChat').addEventListener('click', (e)=>{
+    if(e.target.checked) typeFilter('chat');
 })
 
 /* --------------------------------------- 알림 카테고리 끝 -------------------------------- */

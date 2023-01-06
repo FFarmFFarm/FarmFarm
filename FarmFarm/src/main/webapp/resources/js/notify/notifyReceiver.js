@@ -90,8 +90,10 @@ const fillNotifyReceiverContainer = (notify) => {
 
     // 알림 아이콘 채우기
     switch(notify.notifyTypeNo){ // 필요 시 아이콘 추가
+        case 101:  notifyReceiverIcon.innerHTML = '<i class="fa-solid fa-message"></i>'; break;
         case 201:  notifyReceiverIcon.innerHTML = "<i class='fa-regular fa-comment-dots'></i>"; break;
         case 202:  notifyReceiverIcon.innerHTML = "<i class='fa-regular fa-comment-dots'></i>"; break;
+        case 202: notifyReceiverIcon.innerHTML = '<i class="fa-solid fa-envelope-open-text"></i>'; break;
         // case (원하는 notifyTypeNo) : notifyReceiverIcon.innerHTML = (원하는 아이콘); break
     }
 
