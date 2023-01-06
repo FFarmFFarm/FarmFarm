@@ -271,7 +271,7 @@ public class ProductAdminController {
 	@GetMapping("/admin/returnDetail")
 	public String selectReturnDetail(int returnNo) {
 		
-		Return returnDetail = service.selectReturnDetail(returnNo);
+		List<Return> returnDetail = service.selectReturnDetail(returnNo);
 		
 		return new Gson().toJson(returnDetail);
 	}

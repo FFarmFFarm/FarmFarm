@@ -284,7 +284,7 @@ public class ProductAdminServiceImpl implements ProductAdminService{
 
 	// 반품 상세조회
 	@Override
-	public Return selectReturnDetail(int returnNo) {
+	public List<Return> selectReturnDetail(int returnNo) {
 		return dao.selectReturnDetail(returnNo);
 	}
 
