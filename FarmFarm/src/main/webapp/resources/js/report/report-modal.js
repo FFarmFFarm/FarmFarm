@@ -1,46 +1,36 @@
 
 var reportContainer = document.getElementById("reportContainer");
-var reportBtn = document.getElementById("reportBtn");
-var reportBtn2 = document.getElementById("reportBtn2");
+// var reportBtn = document.getElementById("reportBtn");
+// 한 페이지에 두 개의 아이디가 존재하는 경우 발생
+// id 대신 class값으로 변경하여 class로 가져옴.
+var reportBtn = document.getElementsByClassName('report-btn');
 
 // 직접 작성한 신고 사유 내용 == reportContent  // 전역변수로 바꾸면서 혹시나 다른데랑 충돌날까봐 이름 변경
 var modalReportContent = document.getElementById("reportContent");
 var radioButton = document.getElementsByName('reportRadio');
 
-reportBtn.addEventListener('click', () => {
-    console.log("신고 모달");
-    reportContainer.style.display = 'flex';
 
-    // 내용지우기
-    modalReportContent.value = "";
-
-    // textarea 리사이즈한 후에 돌아왔을 때 원래 크기로.
-    reportContent.style.width = "200px";
-    reportContent.style.height = "60px";
-
-    // 체크해제
-    for(let i=0; i<radioButton.length; i++) {
-        if(radioButton[i].checked){
-            radioButton[i].checked = false;
+for(let i=0; i<reportBtn.length; i++) {
+    
+    reportBtn[i].addEventListener('click', () => {
+        console.log("신고 모달");
+        reportContainer.style.display = 'flex';
+    
+        // 내용지우기
+        modalReportContent.value = "";
+    
+        // textarea 리사이즈한 후에 돌아왔을 때 원래 크기로.
+        reportContent.style.width = "200px";
+        reportContent.style.height = "60px";
+    
+        // 체크해제
+        for(let j=0; j<radioButton.length; j++) {
+            if(radioButton[j].checked){
+                radioButton[j].checked = false;
+            }
         }
-    }
-})
-
-
-// 댓글에서 프로필 신고
-reportBtn2.addEventListener('click', () => {
-    reportContainer.style.display = 'flex';
-
-    // 내용지우기
-    modalReportContent.value = "";
-
-    // 체크해제
-    for(let i=0; i<radioButton.length; i++) {
-        if(radioButton[i].checked){
-            radioButton[i].checked = false;
-        }
-    }
-});
+    })
+}
 
 
 // x 클릭 시 모달창 꺼짐
@@ -149,14 +139,13 @@ reportSubmitBtn.addEventListener("click", () => {
     }
 
 
-    // 와글와글 게시글 - 회원 신고
+    // 와글와글 게시글 목록- 회원 신고
+    // 와글와글 게시글 댓글- 회원 신고
     if(targetMemberNo != null){
         reportType.value = "M";
         reportTargetNo.value = targetMemberNo;
         report();
     } 
-
-
 
 
 

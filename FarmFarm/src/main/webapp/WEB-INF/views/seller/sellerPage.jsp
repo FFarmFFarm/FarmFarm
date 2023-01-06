@@ -64,8 +64,7 @@
                     <c:otherwise>
                         <button 
                         type="button"
-                        class="seller-report-btn"
-                        id="reportBtn">
+                        class="seller-report-btn report-btn">
                             <p>신고하기</p>
                         </button>
                     </c:otherwise>
