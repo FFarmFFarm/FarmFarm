@@ -4,20 +4,6 @@
 
 
 
-
-
-<!-- 반품 resultMap -->
- <resultMap type="Return" id="return_rm">
-        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
-     <id property = "returnNo" column="RETURN_NO"/>
-     <!-- 나머지 일반 컬럼 -->
-      <result property="orderNo" column="PRODUCT_AMOUNT" />
-      <result property="returnStatus" column="PRODUCT_AMOUNT" />
-      <result property="returnReason" column="PRODUCT_AMOUNT" />
-      <result property="accountName" column="PRODUCT_AMOUNT" />
-      <result property="accountNo" column="PRODUCT_AMOUNT" />
-      			  
- </resultMap>
  
     <resultMap type="Order" id="order_rm">
         <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
