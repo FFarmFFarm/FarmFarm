@@ -123,11 +123,17 @@
 		WHERE MEMBER_NO = #{memberNo}
 	</select>
 	
-	<!-- 초대 : 회원 닉네임 확인 -->
+	<!-- 초대 : 회원 닉네임을 이용해 존재 여부 및 권한 확인 -->
 	<select id="selectEnterMemberInfo" parameterType="string" resultMap="member_rm">
 		SELECT MEMBER_NO, AUTHORITY
-		FROM MEMBER
+		FROM "MEMBER"
 		WHERE MEMBER_NICKNAME = #{memberNickname}
 	</select>
-
+	
+	<!-- 채팅 입장 : 회원 번호를 이용해 닉네임 검색 -->
+	<select id="selectMemberNickname" parameterType="_int" resultType="string">
+		SELECT MEMBER_NICKNAME
+		FROM "MEMBER"
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
 </mapper>

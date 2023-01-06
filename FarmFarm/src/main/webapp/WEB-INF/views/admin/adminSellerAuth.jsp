@@ -38,12 +38,16 @@
             </div>
             <div class="board-content">
                 <div class="board-div">
-                    <span class="board-title">
-                        인증 신청 목록 
-                        <button type="button" id="watingSellerBtn"><span class="sellerFilter" id="p0">인증 대기 회원 보기</span></button>
-                        <button type="button" id="allSellerBtn"><span class="sellerFilter" id="p1">전체 판매자 보기</span></button>
+                    <span class="board-title">인증 신청 목록</span>
+                    <span class="member-search"> 
+                        <input type="text" name="adminMemberkeyword" id="adminMemberkeyword" placeholder="회원번호, 아이디, 닉네임" 
+                                                            spellcheck="false" autocomplete="off">
+                        <button type="button" id="memberSearchBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </span>
                 </div>
+                
+                <button type="button" id="watingSellerBtn"><span class="sellerFilter" id="p0">인증 대기 회원 보기</span></button>
+                <button type="button" id="allSellerBtn"><span class="sellerFilter" id="p1">전체 판매자 보기</span></button>
 
                 <div class="seller-auth">
                     <table class="auth-list-table">

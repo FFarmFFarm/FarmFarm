@@ -6,7 +6,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import edu.kh.farmfarm.chat.model.vo.ChatRoom;
 import edu.kh.farmfarm.chat2.model.vo.Chat2Room;
 
 @Repository

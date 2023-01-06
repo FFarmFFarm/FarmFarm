@@ -100,7 +100,7 @@
 		FROM ADDRESS
 		JOIN MEMBER USING(MEMBER_NO)
 		WHERE MEMBER_NO = #{memberNo}
-		ORDER BY DEFAULT_FL DESC
+		ORDER BY DEFAULT_FL DESC, ADDRESS_NO DESC
 	</select>
 	
 	<!-- 기존 배송지 default 변경 -->

@@ -67,11 +67,16 @@ main{
     justify-content: center;
     align-items: center;
     align-content: flex-start;
+    margin-top: 15px;
+
+    position: relative;
 }
 
 
 .board-div{
     width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 
 
@@ -95,6 +100,11 @@ main{
     font-size: var(--small-font-size);
     text-decoration: underline;
     border: none;
+
+    position: absolute;
+    top: 415px;
+    right: 15px;
+
 }
 
 #allSellerBtn:hover{
@@ -113,6 +123,9 @@ main{
     border: none;
     
     display: none;
+    position: absolute;
+    top: 415px;
+    right: 15px;
 }
 
 #watingSellerBtn:hover{
@@ -120,7 +133,38 @@ main{
 }
 
 
+/* 검색 */
+.member-search{
+    width: 200px;
+    height: 30px;
+    padding: 1px 15px;
 
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+
+    margin-right: 5px;
+    margin-top: 15px;
+    
+    border-radius: 5px;
+
+    background-color: #e2e2e2;
+}
+
+#adminMemberkeyword{
+    width: 160px;
+    padding: 1px 0;
+    border: none;
+    background-color: #e2e2e2;
+    font-size: var(--small-font-size);
+}
+
+#memberSearchBtn{
+    background-color: #e2e2e2;
+    border: none;
+    cursor: pointer;
+}
 
 
 
