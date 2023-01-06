@@ -4,6 +4,7 @@
 <c:set var="newOrderStat" value="${statMap.newOrderStat}" />
 <c:set var="askReportStat" value="${statMap.askReportStat}" />
 <c:set var="authSellerStat" value="${statMap.authSellerStat}" />
+<c:set var="returnStat" value="${statMap.returnStat}" />
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,6 +20,7 @@
         <link rel="stylesheet" href="/resources/css/admin/dashboard-style.css" />
 
         <script src="https://kit.fontawesome.com/d4fbceca97.js" crossorigin="anonymous"></script>
+
     </head>
     <body>
         <jsp:include page="/WEB-INF/views/common/adminHeader.jsp"/> 
@@ -40,7 +42,7 @@
                     </span>
                     <span>
                         <a class="span-text">반품 요청</a>
-                        <a class="span-number s-green">-</a>
+                        <a class="span-number s-green">${returnStat}</a>
                     </span>
                     <span>
                         <a class="span-text">미처리 신고</a>
@@ -52,23 +54,27 @@
                     </span>
                 </div>
 
-                <div class="board-graph">
-                    <canvas id="sellChart"></canvas>
+                <div class="board-graph1" id="graph1">
+                    <span>팜팜 가입자 수</span>
+                    <canvas id="signUpChart" width="700px"></canvas>
                 </div>
-
-                <div class="board-graph">
-                    <canvas id="signUpChart"></canvas>
+                <div class="board-graph2">
+                    <span>팜팜 가입자 수</span>
+                    <canvas id="signUpChart" width="700px"></canvas>
                 </div>
             </section>
 
             
         </main>
 
-    
-    <!-- chart.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-        
-    <script src="/resources/js/admin/dashboard.js"></script>
+
+        <%-- jquery --%>
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+     
+        <!-- chart.js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+            
+        <script src="/resources/js/admin/dashboard.js"></script>
 
     </body>
 

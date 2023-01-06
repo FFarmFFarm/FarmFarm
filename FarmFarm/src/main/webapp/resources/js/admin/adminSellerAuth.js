@@ -8,6 +8,7 @@
 
 var numCount = 0;
 var hiddenNo = 0;  // 인증신청서, 승인, 거부에 사용
+var keyword;
 // var hiddenId = null;
 
 
@@ -15,7 +16,7 @@ var hiddenNo = 0;  // 인증신청서, 승인, 거부에 사용
 const selectSellerList = (cp) => {
     $.ajax({
         url: "/admin/selectSellerList",
-        data: {"cp": cp, "sellerFilter": sellerFilter},
+        data: {"cp": cp, "sellerFilter": sellerFilter, "keyword":keyword},
         dataType: "JSON",
         type: "GET",
         success: (map) => {
@@ -535,9 +536,38 @@ document.getElementById('authDenyBtn').addEventListener('click', () => {
 
 
 
+// todo: 검색하기
+// 1) 버튼 눌러서검색
+document.getElementById("memberSearchBtn").addEventListener('click', () => {
+    doSearch();
+})
+
+// 2) 엔터키로 검색
+document.getElementById("adminMemberkeyword").addEventListener('keydown', (e) => {
+
+    const keyCode = e.keyCode;
+
+    if(keyCode == 13){  // 엔터키
+        doSearch();
+    } 
+})
+
+// 검색하는 함수
+const doSearch = () => {
+    numCount = (cp-1)*10;  //순번 정렬
+    keyword = document.getElementById("adminMemberkeyword").value; // 입력한 검색어 
+    selectSellerList(cp);
+}
+
+const searchNoResult = () => {
+    memberSelectTable.innerText = "검색 결과가 없습니다.";
+    memberSelectTable.style.marginTop = "230px";
+    memberSelectTable.style.color = "#2b8c44";
+}
 
 
-// todo: 검색하기?
+
+
 
 
 

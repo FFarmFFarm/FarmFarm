@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="graphMapper">
+
+
+ <resultMap type="Graph" id="graph_rm">
+        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+     <!-- <id property = "memberNo" column="MEMBER_NO"/> -->
+     <!-- 나머지 일반 컬럼 -->
+      <result property="signUpCount" column="SIGNUP_COUNT" />
+      <result property="signUpDate" column="SIGNUP_DATE" />
+  </resultMap>
+  
+  
+  <select id="selectSignUpGraph" resultMap="graph_rm">
+		SELECT TO_CHAR(b.SD, 'MM-DD') AS SIGNUP_DATE
+		       ,NVL(SUM(a.cnt), 0) AS SIGNUP_COUNT
+		FROM ( SELECT TO_CHAR(SIGNUP_DATE, 'YYYY-MM-DD') AS SIGNUP_DATE ,COUNT(*) cnt
+		        FROM MEMBER
+		        WHERE SIGNUP_DATE BETWEEN SYSDATE-31 AND SYSDATE
+		        GROUP BY SIGNUP_DATE
+		        ) a
+		       ,(SELECT (TO_DATE(SYSDATE-30,'YY-MM-DD') + LEVEL) AS SD
+						FROM DUAL 
+						<![CDATA[CONNECT BY LEVEL <= 31]]>) b
+		WHERE b.SD = a.SIGNUP_DATE(+)
+		GROUP BY b.SD
+		ORDER BY b.SD 
+  </select>
+</mapper>

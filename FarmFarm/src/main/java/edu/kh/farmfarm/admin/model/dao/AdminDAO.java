@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.farmfarm.admin.model.vo.Admin;
+import edu.kh.farmfarm.admin.model.vo.Graph;
 import edu.kh.farmfarm.common.Pagination;
 import edu.kh.farmfarm.member.model.VO.Member;
 
@@ -38,8 +39,8 @@ public class AdminDAO {
 		// 신규 주문
 		int newOrderStat = sqlSession.selectOne("adminMapper.newOrderStat");
 		
-		// 반품 조회
-		
+		// 반품 진행중
+		int returnStat = sqlSession.selectOne("adminMapper.returnStat");
 		
 		
 		// 신고 미처리
@@ -54,10 +55,31 @@ public class AdminDAO {
 		statMap.put("newOrderStat", newOrderStat);
 		statMap.put("askReportStat", askReportStat);
 		statMap.put("authSellerStat", authSellerStat);
+		statMap.put("returnStat", returnStat);
 		
 		return statMap;
 	}
 
+	
+	
+
+	/** 대시보드 회원가입자 수 조회
+	 * @return signUpGraphList
+	 */
+	public List<Graph> selectSignUpGraph() {
+		return sqlSession.selectList("graphMapper.selectSignUpGraph");
+	}
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
 
 
 	/** 전체 회원 수(관리자 제외)
@@ -109,8 +131,8 @@ public class AdminDAO {
 	 * @param preSellerFilter
 	 * @return sellerListCount
 	 */
-	public int sellerListCount(int sellerFilter) {
-		return sqlSession.selectOne("adminMapper.sellerListCount", sellerFilter);
+	public int sellerListCount(Map<String, Object> paramMap) {
+		return sqlSession.selectOne("adminMapper.sellerListCount", paramMap);
 	}
 
 
@@ -120,12 +142,12 @@ public class AdminDAO {
 	 * @param pagination
 	 * @return sellerList
 	 */
-	public List<Admin> selectSeller(int sellerFilter, Pagination pagination) {
+	public List<Admin> selectSeller(Map<String, Object> paramMap, Pagination pagination) {
 		
 		int offset = (pagination.getCurrentPage() -1) * pagination.getLimit();  // limit = 10
 		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
 		
-		return sqlSession.selectList("adminMapper.selectSeller", sellerFilter, rowBounds);
+		return sqlSession.selectList("adminMapper.selectSeller", paramMap, rowBounds);
 	}
 
 
@@ -249,7 +271,6 @@ public class AdminDAO {
 		
 		return map;
 	}
-
 
 
 

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import edu.kh.farmfarm.admin.model.dao.AdminDAO;
 import edu.kh.farmfarm.admin.model.vo.Admin;
+import edu.kh.farmfarm.admin.model.vo.Graph;
 import edu.kh.farmfarm.common.Pagination;
 import edu.kh.farmfarm.common.Util;
 import edu.kh.farmfarm.member.model.VO.Member;
@@ -33,6 +34,18 @@ public class AdminServiceImpl implements AdminService{
 	public Map<String, Object> selectStats() {
 		return dao.selectStats();
 	}
+	
+	
+	// 대시보드 회원가입자수 조회
+	@Override
+	public List<Graph> selectSignUpGraph() {
+		return dao.selectSignUpGraph();
+	}
+	
+	
+	
+	
+	
 	
 
 	// 전체 회원 조회 (정렬, 페이지네이션, 검색)
@@ -85,18 +98,18 @@ public class AdminServiceImpl implements AdminService{
 	
 	// 판매자 인증 조회
 	@Override
-	public Map<String, Object> selectSeller(int sellerFilter, int cp) {
+	public Map<String, Object> selectSeller(Map<String, Object> paramMap, int cp) {
 		
 		/* 페이지네이션 */
 		// 1. 전체 개수 가져오기
-		int sellerListCount = dao.sellerListCount(sellerFilter);
+		int sellerListCount = dao.sellerListCount(paramMap);
 		
 		// 2. 가져온 개수와 현재 페이지를 이용하여 페이지네이션 객체 발생
 		Pagination pagination = new Pagination(sellerListCount, cp, 10);
 		
 		// 3. 페이지네이션 객체를 생성해 목록 불러오기
 		// 전체 판매자(인증대기포함) 조회 (정렬 포함)
-		List<Admin> sellerList = dao.selectSeller(sellerFilter, pagination);
+		List<Admin> sellerList = dao.selectSeller(paramMap, pagination);
 		
 		
 		Map<String, Object> map = new HashMap<String, Object>();
