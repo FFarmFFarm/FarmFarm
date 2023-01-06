@@ -67,8 +67,8 @@
                     
                     <div class="board-img">
                         <label for="img2">
-                            <p>사진추가</p>
                             <img src="" class="board-preview">
+                            <p>사진추가</p>
                         </label>
                         <input type="file" class="board-input-img" id="img2" name="imgs" accept="img/*">
                         <span class="board-img-delete"><i class="fa-solid fa-xmark"></i></span>
@@ -77,6 +77,7 @@
                     <div class="board-img">
                         <label for="img3">
                             <img src="" class="board-preview">
+                            <p>사진추가</p>
                         </label>
                         <input type="file" class="board-input-img" id="img3" name="imgs" accept="img/*">
                         <span class="board-img-delete"><i class="fa-solid fa-xmark"></i></span>
@@ -85,6 +86,7 @@
                     <div class="board-img">
                         <label for="img4">
                             <img src="" class="board-preview">
+                            <p>사진추가</p>
                         </label>
                         <input type="file" class="board-input-img" id="img4" name="imgs" accept="img/*">
                         <span class="board-img-delete"><i class="fa-solid fa-xmark"></i></span>

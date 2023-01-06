@@ -43,7 +43,7 @@
                     <div class="temptemp">
                         <div class="writer-img">
                             <c:if test="${empty board.profileImg}">
-                                <img src="/resources/images/myPage/profile/profileImg.png" alt=""><%-- 기본 이미지 주소 넣기 --%>
+                                <img src="/resources/images/default/profileImg.png" alt=""><%-- 기본 이미지 주소 넣기 --%>
                             </c:if>
                             <c:if test="${!empty board.profileImg}">
                                 <img src="${board.profileImg}" alt="">

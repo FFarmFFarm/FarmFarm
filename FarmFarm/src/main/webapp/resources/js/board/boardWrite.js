@@ -38,9 +38,11 @@ for(let i=0; i<inputImg.length; i++){
 
             reader.onload = event =>{
                 preview[i].setAttribute("src", event.target.result);
+                preview[i].nextElementSibling.style.display = 'none';
             }
         }else{
             preview[i].setAttribute("src");
+            preview[i].nextElementSibling.style.display = 'block';
         }
     });
 
