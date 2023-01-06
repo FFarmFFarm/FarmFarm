@@ -12,6 +12,7 @@ var hiddenMemberNo = 0; // memberNo / reportType = "M"일떄 reportTargetNo
 var hiddenContentNo = 0;  // contentNo  / reportType = "B" boardNo / reportType = "P" postNo
 var hiddenReportType;
 var hiddenAuthority = 0; // authority
+var allNew = 'new'; // 전체 신고 조회 누적 모달하고 구분하기 위해. reportPenalty = null
 
 
 //optimize: 미처리 신고 조회 함수 ajax
@@ -61,7 +62,8 @@ const selectReportAccumulate = (hiddenReportType, hiddenMemberNo, hiddenContentN
         url: "/admin/selectReportAccumulate",
         data: {"reportType": hiddenReportType,
                 "memberNo": hiddenMemberNo,
-                "contentNo": hiddenContentNo},
+                "contentNo": hiddenContentNo,
+                "allNew": allNew},
         dataType: "JSON",
         type: "POST",
         success: (map) => {

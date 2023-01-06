@@ -261,18 +261,20 @@ public class AdminDAO {
 	 * @param contentNo
 	 * @return map
 	 */
-	public Map<String, Object> selectReportAccumulate(String reportType, int memberNo, int contentNo) {
+	public Map<String, Object> selectReportAccumulate(String reportType, int memberNo, int contentNo, String allNew) {
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("memberNo", memberNo);
 		paramMap.put("reportType", reportType);
 		paramMap.put("contentNo", contentNo);
+		paramMap.put("allNew", allNew);
 		
 		List<Admin> accumMemberList = new ArrayList<Admin>();
 		List<Admin> accumContentList = new ArrayList<Admin>();
 		
 		if(reportType != null) {
 			if(reportType.equals("M")) {
-				accumMemberList = sqlSession.selectList("adminMapper.accumMemberList", memberNo);
+				accumMemberList = sqlSession.selectList("adminMapper.accumMemberList", paramMap);
 				
 			} else {
 				accumContentList = sqlSession.selectList("adminMapper.accumContentList", paramMap);
@@ -284,6 +286,40 @@ public class AdminDAO {
 		 map.put("accumContentList", accumContentList);
 		
 		return map;
+	}
+
+
+
+	/** 전체 신고 기록 조회
+	 * @param typeFilter
+	 * @param pagination
+	 * @return map
+	 */
+	public List<Admin> selectReportAllList(Map<String, Object> paramMap, Pagination pagination) {
+		
+		int offset = (pagination.getCurrentPage() -1) * 15;
+		RowBounds rowBounds = new RowBounds(offset, 15);
+		
+		return sqlSession.selectList("adminMapper.selectReportAllList", paramMap, rowBounds);
+	}
+
+
+
+	/** 전체 신고 기록 개수 (페이지네이션용, RANKING=1 적용)
+	 * @return reportAllCount
+	 */
+	public int reportAllCount(Map<String, Object> paramMap) {
+		return sqlSession.selectOne("adminMapper.reportAllCount", paramMap);
+	}
+
+
+
+	/** 전체 신고 기록_상세 조회
+	 * @param hiddenReportNo
+	 * @return reportDetail
+	 */
+	public Admin selectReportDetail(int hiddenReportNo) {
+		return sqlSession.selectOne("adminMapper.selectReportDetail", hiddenReportNo);
 	}
 
 

@@ -40,12 +40,14 @@ function requestPay() {
   }, function (rsp) { // callback
       if (rsp.success) {
 
+        // 알림을 전송합니다
+        ringOrderNotify();
+
         msg = '결제가 완료되었습니다.';
         msg += '\n결제 금액 : ' + rsp.paid_amount;
         // msg += '\n결제 번호 : ' + rsp.imp_uid;
 
         alert(msg);
-
 
         const impUid = rsp.imp_uid
         confirmBuy(impUid);
@@ -129,3 +131,21 @@ const getToken = () => {
   })
 }
 
+
+/* 주문 알림을 발생시키는 함수 */
+const ringOrderNotify = () => {
+
+
+
+  let notifyContent = itemName + "의 주문이 완료되었습니다!"
+
+  let obj = {
+    "notifyTypeNo":301, 
+    "memberNo":memberNo,
+    "notifyContent":notifyContent,
+    "quickLink":"/myPage"
+  }
+
+  notifySock.send(JSON.stringify(obj));
+
+}

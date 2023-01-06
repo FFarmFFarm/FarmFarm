@@ -134,6 +134,15 @@
  	WHERE ORDER_NO = #{orderNo}
  </update>
  
+ <select id="cancelProductList" resultMap="product_rm">
+ 	SELECT PRODUCT_NO, PRODUCT_AMOUNT FROM ORDER_PRODUCT op 
+	WHERE ORDER_NO = #{orderNo}
+ </select>
+ 
+ <insert id="cancelHistory">
+ 	INSERT INTO STOCK_HISTORY VALUES(SEQ_STOCK_NO.NEXTVAL, #{productAmount}, DEFAULT, #{productNo}, 4)
+ </insert>
+ 
  <!-- 해당 주문 아이디, 가격 조회 -->
  <select id="selectImpUid" parameterType="_int" resultMap="order_rm2">
  	SELECT ORDER_NO, IMP_UID, ORDER_PRICE

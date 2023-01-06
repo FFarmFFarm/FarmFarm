@@ -20,7 +20,7 @@
 
             <div class="close-wrap" id="modal-close">
                 <button type="button" id="close-btn-wrap">
-                    <div class="close-btn" id="reportBtn">
+                    <div class="close-btn report-btn">
                         신고하기
                     </div>
                 </button>

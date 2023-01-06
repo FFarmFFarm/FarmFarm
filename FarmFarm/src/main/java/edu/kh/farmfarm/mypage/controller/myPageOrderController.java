@@ -11,7 +11,7 @@ import edu.kh.farmfarm.mypage.model.service.MyPageService;
 import edu.kh.farmfarm.mypage.model.vo.Order;
 
 @Controller
-public class OrderController2 {
+public class myPageOrderController {
 	
 	@Autowired
 	private MyPageService service;

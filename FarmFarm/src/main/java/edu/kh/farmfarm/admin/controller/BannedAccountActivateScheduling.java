@@ -93,6 +93,7 @@ public class BannedAccountActivateScheduling {
 				result = service.activateAccount(targetNo);
 				
 				if(result > 0) {
+					System.out.println("[ADMIN] 정지 계정 해제 프로세스 진행합니다.]");
 					System.out.println(targetNo + "의 계정이 활성화되었습니다.");
 				} else {
 					System.out.println("계정 활성화 실패");

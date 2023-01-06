@@ -136,3 +136,6 @@ $RECYCLE.BIN/
 
 FarmFarm/src/main/resources/log4j.xml
 
+.DS_Store
+FarmFarm/.DS_Store
+FarmFarm/.DS_Store

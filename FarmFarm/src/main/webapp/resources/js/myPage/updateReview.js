@@ -93,7 +93,6 @@ const fillReviewForm = (review) => {
   const modalProductThumbnail = document.getElementById('modalProductThumbnail');
   const modalProductName = document.getElementById('modalProductName');
   const reviewTextArea = document.getElementById('reviewTextArea');
-  const productNoInput = document.getElementById('productNoInput');
   const reviewNoInput = document.getElementById('reviewNoInput');
 
 
@@ -104,8 +103,6 @@ const fillReviewForm = (review) => {
   modalProductName.href = '/product/' + review.productNo;
   modalProductName.innerHTML = review.productName;
 
-  productNoInput.value = '';
-  productNoInput.value = review.productNo;
 
   reviewNoInput.value = review.reviewNo;
 
