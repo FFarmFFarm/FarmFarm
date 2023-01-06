@@ -163,6 +163,13 @@ public class MyPageController {
 			@SessionAttribute("loginMember")Member loginMember,
 			Model model) {
 		
+		int memberNo = loginMember.getMemberNo();
+		
+		Member memberInfo = service.selectMemberInfo(memberNo);
+		memberInfo.setMemberNo(memberNo);
+		
+		model.addAttribute("memberInfo", memberInfo);
+		
 		return "myPage/myPageProfile";
 	}
 	
