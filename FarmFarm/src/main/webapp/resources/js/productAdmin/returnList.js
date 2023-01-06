@@ -83,32 +83,32 @@ if(detailBackBtn!=undefined){
 
 
 
-// const orderStatus = document.getElementById("orderStatus");
+const returnStatus = document.getElementById("returnStatus");
 
-// orderStatus.addEventListener("change",(e)=>{
-//   // 원래 체크된 옵션
+returnStatus.addEventListener("change",(e)=>{
+  // 원래 체크된 옵션
   
-//   let orderNo = document.getElementById("orderDetailNo").innerText;
+  let orderNo = document.getElementById("orderDetailNo").innerText;
 
-//   if(e.target.value != origin){
-//     console.log(e.target.value);
+  if(e.target.value != origin){
+    console.log(e.target.value);
     
-//     $.ajax({
-//       url: "/admin/orderStatus",
-//       data: {"oStatus" : e.target.value,
-//             "orderNo" : orderNo},
-//       type: "GET",
-//       success: (result)=>{
-//         if(result>0){
-//           messageModalOpen("주문 상태가 변경되었습니다.");
-//           setTimeout(() => {
-//             window.location.reload();
-//           }, "1000");
-//         }
-//       },
-//       error: ()=>{
-//         console.log("주문상태변경 실패");
-//       }
-//     })
-//   }
-// })
+    $.ajax({
+      url: "/admin/orderStatus",
+      data: {"oStatus" : e.target.value,
+            "orderNo" : orderNo},
+      type: "GET",
+      success: (result)=>{
+        if(result>0){
+          messageModalOpen("주문 상태가 변경되었습니다.");
+          setTimeout(() => {
+            window.location.reload();
+          }, "1000");
+        }
+      },
+      error: ()=>{
+        console.log("주문상태변경 실패");
+      }
+    })
+  }
+})
