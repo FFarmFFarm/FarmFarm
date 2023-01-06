@@ -654,6 +654,11 @@
 					LEFT JOIN MEMBER M ON(REPORT_TARGET_NO = M.MEMBER_NO)
 					LEFT JOIN POST ON(REPORT_TARGET_NO = POST_NO))
 			WHERE RANKING = 1
+			<if test='keyword != null'>
+				AND (MEMBER_ID LIKE('%${keyword}%') OR MEMBER_ID LIKE LOWER('%${keyword}%') OR MEMBER_ID LIKE UPPER('%${keyword}%')
+				OR MEMBER_NO LIKE ('%${keyword}%')
+				OR TITLE LIKE ('%${keyword}%') OR TITLE LIKE LOWER('%${keyword}%') OR TITLE LIKE ('%${keyword}%'))
+			</if>
 			<if test='typeFilter != null and typeFilter != ""'>
 			<choose>
 				<when test='typeFilter == 0' > <!-- 전체 -->
@@ -723,6 +728,48 @@
 					LEFT JOIN MEMBER M ON(REPORT_TARGET_NO = M.MEMBER_NO)
 					LEFT JOIN POST ON(REPORT_TARGET_NO = POST_NO))
 			WHERE RANKING = 1
+			<if test='keyword != null'>
+				AND (MEMBER_ID LIKE('%${keyword}%') OR MEMBER_ID LIKE LOWER('%${keyword}%') OR MEMBER_ID LIKE UPPER('%${keyword}%')
+				OR MEMBER_NO LIKE ('%${keyword}%')
+				OR TITLE LIKE ('%${keyword}%') OR TITLE LIKE LOWER('%${keyword}%') OR TITLE LIKE ('%${keyword}%'))
+			</if>
+			<if test='typeFilter != null and typeFilter != ""'>
+			<choose>
+				<when test='typeFilter == 0' > <!-- 전체 -->
+					ORDER BY REPORT_NO
+				</when>
+				<when test='typeFilter == 1'> <!-- 일반 회원 -->
+					AND REPORT_TYPE = 'M'
+					AND AUTHORITY = 0
+				</when>
+				<when test='typeFilter == 2'> <!-- 판매자 -->
+					AND REPORT_TYPE = 'M'
+					AND AUTHORITY = 1
+				</when>
+				<when test='typeFilter == 3'> <!-- 판매 게시글 -->
+					AND REPORT_TYPE = 'P'
+				</when>
+				<when test='typeFilter == 4'> <!-- 커뮤니티 게시글 -->
+					AND REPORT_TYPE = 'B'
+				</when>
+				<when test='typeFilter == 5'> <!-- 커뮤니티 댓글 -->
+					AND REPORT_TYPE = 'C'
+				</when>
+			</choose>
+		</if>
+		<if test='sortFilter != null and sortFilter != ""'>
+			<choose>
+				<when test='sortFilter == "up"'>
+					ORDER BY REPORT_VOLUME ASC
+				</when>
+				<when test='sortFilter == "down"'>
+					ORDER BY REPORT_VOLUME DESC
+				</when>
+				<when test='sortFilter == "default"'>
+						ORDER BY REPORT_NO
+				</when>
+			</choose>
+		</if>
 	</select>
 	
 	
@@ -759,69 +806,7 @@
 	</select>
 	
 	
-	<!-- 전체 신고 기록 _신고 누적 조회 (회원)-->
-<!-- 	<select id="accumMemberList" resultMap="admin_rm">
-		SELECT *
-		FROM (SELECT M.MEMBER_NO, MEMBER_ID, AUTHORITY, MEMBER_DEL_FL, 
-				REPORT_NO, REPORT_MEMBER_NO, REPORT_TARGET_NO, REPORT_REASON, REPORT_CONTENT, REPORT_DATE, REPORT_PENALTY, PROCESS_DATE,
-				RANK() OVER(PARTITION BY REPORT_TARGET_NO, REPORT_TYPE ORDER BY REPORT_NO DESC) AS RANKING,
-				RANK() OVER(PARTITION BY REPORT_TARGET_NO, REPORT_TYPE ORDER BY REPORT_NO) AS REPORT_VOLUME,
-				BOARD_NO, BOARD_DEL_FL, POST_NO, POST_DEL_FL, REPORT_TYPE,
-				(CASE
-					WHEN REPORT_TYPE = 'B' THEN BOARD_NO
-					WHEN REPORT_TYPE = 'P' THEN POST_NO
-				END 
-				) CONTENT_NO,
-				(CASE
-					WHEN REPORT_TYPE = 'B' THEN BOARD_TITLE
-					WHEN REPORT_TYPE = 'P' THEN POST_TITLE
-				END 
-				) TITLE,
-				(CASE
-					WHEN REPORT_TYPE = 'B' THEN BOARD_CONTENT
-					WHEN REPORT_TYPE = 'P' THEN POST_CONTENT
-				END 
-				) CONTENT
-				FROM REPORT R
-				LEFT JOIN BOARD ON(REPORT_TARGET_NO = BOARD_NO)
-				LEFT JOIN MEMBER M ON(REPORT_TARGET_NO = M.MEMBER_NO)
-				LEFT JOIN POST ON(REPORT_TARGET_NO = POST_NO))
-		WHERER REPORT_TYPE = 'M'
-		AND REPORT_TARGET_NO = #{memberNo}
-		ORDER BY REPORT_NO
-	</select> -->
 
-		<!-- 전체 신고 기록 _신고 누적 조회 (판매글, 커뮤니티게시글)-->
-<!-- 	<select id="accumContentList" resultMap="admin_rm">
-		SELECT *
-		FROM (SELECT M.MEMBER_NO, MEMBER_ID, AUTHORITY, MEMBER_DEL_FL, 
-				REPORT_NO, REPORT_MEMBER_NO, REPORT_TARGET_NO, REPORT_REASON, REPORT_CONTENT, REPORT_DATE, REPORT_PENALTY, PROCESS_DATE,
-				RANK() OVER(PARTITION BY REPORT_TARGET_NO, REPORT_TYPE ORDER BY REPORT_NO DESC) AS RANKING,
-				RANK() OVER(PARTITION BY REPORT_TARGET_NO, REPORT_TYPE ORDER BY REPORT_NO) AS REPORT_VOLUME,
-				BOARD_NO, BOARD_DEL_FL, POST_NO, POST_DEL_FL, REPORT_TYPE,
-				(CASE
-					WHEN REPORT_TYPE = 'B' THEN BOARD_NO
-					WHEN REPORT_TYPE = 'P' THEN POST_NO
-				END 
-				) CONTENT_NO,
-				(CASE
-					WHEN REPORT_TYPE = 'B' THEN BOARD_TITLE
-					WHEN REPORT_TYPE = 'P' THEN POST_TITLE
-				END 
-				) TITLE,
-				(CASE
-					WHEN REPORT_TYPE = 'B' THEN BOARD_CONTENT
-					WHEN REPORT_TYPE = 'P' THEN POST_CONTENT
-				END 
-				) CONTENT
-				FROM REPORT R
-				LEFT JOIN BOARD ON(REPORT_TARGET_NO = BOARD_NO)
-				LEFT JOIN MEMBER M ON(REPORT_TARGET_NO = M.MEMBER_NO)
-				LEFT JOIN POST ON(REPORT_TARGET_NO = POST_NO))
-		WHERE REPORT_TYPE = #{reportType}
-		AND REPORT_TARGET_NO = #{contentNo}
-		ORDER BY REPORT_NO
-	</select> -->
 
 
 </mapper>

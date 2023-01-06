@@ -13,6 +13,7 @@ var hiddenContentNo = 0;  // contentNo  / reportType = "B" boardNo / reportType 
 var hiddenReportType;
 var hiddenAuthority = 0; // authority
 var allNew = 'all'; // 미처리 신고 누적 모달과 구분하기 위해 reportPenalty 구분 안함.
+var keyword;
 
 
 //optimize: 전체 신고 조회 함수 ajax
@@ -20,7 +21,10 @@ const selectReportList = (cp) => {
 
     $.ajax({
         url: "/admin/selectReportList",
-        data: {"cp": cp, "sortFilter": sortFilter, "typeFilter": typeFilter},
+        data: {"cp": cp, 
+                "sortFilter": sortFilter, 
+                "typeFilter": typeFilter, 
+                "keyword" : keyword},
         dataType: "JSON",
         type: "GET",
         success: (map) => {
@@ -1181,3 +1185,25 @@ contentLeaveBtn.addEventListener('click', () => {
 
 
 
+// todo: 검색하기
+// 1) 버튼 눌러서검색
+document.getElementById("reportSearchBtn").addEventListener('click', () => {
+    doSearch();
+})
+
+// 2) 엔터키로 검색
+document.getElementById("reportSearchKeyword").addEventListener('keydown', (e) => {
+
+    const keyCode = e.keyCode;
+
+    if(keyCode == 13){  // 엔터키
+        doSearch();
+    } 
+})
+
+// 검색하는 함수
+const doSearch = () => {
+    numCount = (cp-1)*15;  //순번 정렬
+    keyword = document.getElementById("reportSearchKeyword").value; // 입력한 검색어 
+    selectReportList(cp);
+}
