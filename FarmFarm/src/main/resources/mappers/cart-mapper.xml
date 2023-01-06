@@ -135,5 +135,12 @@
 		VALUES(SEQ_ADDRESS_NO.NEXTVAL, #{memberAddress},'N', #{memberNo})
 	</insert>
 	
+	
+	<!-- 배송지 조회  -->
+	<select id="selectAddress" resultType="string">
+		SELECT REPLACE(MEMBER_ADDRESS, ',,', ' ') MEMBER_ADDRESS2 
+		FROM ADDRESS WHERE ADDRESS_NO=#{address_no}
+	</select>
+	
   
 </mapper>

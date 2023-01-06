@@ -128,6 +128,14 @@ public class CartDAO {
 	public int insertAdd(Map<String, Object> map) {
 		return sqlSession.insert("cartMapper.insertAdd", map);
 	}
+
+	/** 배송지 조회
+	 * @param addressNo
+	 * @return memberAddress2
+	 */
+	public String selectAddress(int addressNo) {
+		return sqlSession.selectOne("cartMapper.selectAddress", addressNo);
+	}
 	
 	
 	
