@@ -16,6 +16,7 @@
     <title>마이페이지 | 개인 정보 수정</title>
     <link rel="stylesheet" href="/resources/css/common/header-style.css" />
     <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
+    <link rel="stylesheet" href="/resources/css/myPage/myPage-style.css" />
     <link rel="stylesheet" href="/resources/css/myPage/myPageSeller-style.css" />
     <link rel="stylesheet" href="/resources/css/myPage/myPageProfile-style.css" />
     <script
@@ -29,7 +30,12 @@
       <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
     <main>
-      <jsp:include page="/WEB-INF/views/myPage/myPageSeller.jsp"/>
+        <c:if test="${loginMember.authority == 0}">
+            <jsp:include page="/WEB-INF/views/myPage/myPage.jsp"/>
+        </c:if>
+        <c:if test="${loginMember.authority == 1}">
+            <jsp:include page="/WEB-INF/views/myPage/myPageSeller.jsp"/>
+        </c:if>
       <!-- ${loginMember.profileImg} -->
       <section class="list-container">
         <jsp:include page="/WEB-INF/views/myPage/myPageNav.jsp"/>
@@ -44,7 +50,7 @@
                     <div class="profile-img" id="profile-image">
                       <c:if test="${empty loginMember.profileImg}">
                         <img
-                        src="/resources/images/myPage/profile/profileImg.png"
+                        src="/resources/images/default/profileImg.png"
                         class="member-profile-img" id="memberProfileImg"/>
                       </c:if>
                       <c:if test="${!empty loginMember.profileImg}">

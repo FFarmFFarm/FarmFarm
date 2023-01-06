@@ -381,6 +381,9 @@ main{
 .middle-text p:first-child{
   font-size: var(--main-font-size);
   font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .middle-text p:nth-child(2){
   font-size: var(--main-font-size);
@@ -544,5 +547,12 @@ main{
 }
 
 .product-text p:nth-child(2){
+    /* font-family: "NotoSansKR-Bold"; */
+}
+
+.product-text p:nth-child(1){
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-family: "NotoSansKR-Bold";
 }

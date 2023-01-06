@@ -1,5 +1,17 @@
+const signUpGraph = document.getElementById('signUpGraph');
+const orderGraph = document.getElementById('orderGraph');
 
-document.getElementById('graph1').classList.add('fade');
+document.getElementById('iconRight').addEventListener('click', () => {
+  orderGraph.classList.add('move-to-left');
+  signUpGraph.style.display = 'none';
+  orderGraph.style.display = 'flex';
+})
+
+document.getElementById('iconLeft').addEventListener('click', () => {
+  signUpGraph.classList.add('move-to-right');
+  signUpGraph.style.display = 'flex';
+  orderGraph.style.display = 'none';
+})
 
 
 
@@ -7,43 +19,49 @@ document.getElementById('graph1').classList.add('fade');
 // 회원가입 수
 
 // 날짜별 회원가입자 수
-function signUpGraph(){
+function showGraph(){
   $.ajax({
     url: '/dashboard/signUpGraph',
     type: 'GET',
     dataType: 'JSON',
-    success: (signUpGraphList) => {
+    success: (graphMap) => {
 
       let signUpDateArr = [];
 
-      for(let i=0; i<signUpGraphList.length; i++) {
-        signUpDateArr[i] = signUpGraphList[i].signUpDate;
+      for(let i=0; i<graphMap.signUpGraphList.length; i++) {
+        signUpDateArr[i] = graphMap.signUpGraphList[i].signUpDate;
       }
 
       let signUpCountArr = [];
 
-      for(let i=0; i<signUpGraphList.length; i++){
-        signUpCountArr[i] = signUpGraphList[i].signUpCount;
+      for(let i=0; i<graphMap.signUpGraphList.length; i++){
+        signUpCountArr[i] = graphMap.signUpGraphList[i].signUpCount;
       }
 
 
+      let orderDateArr = [];
+
+      for(let i=0; i<graphMap.orderGraphList.length; i++) {
+        orderDateArr[i] = graphMap.orderGraphList[i].orderDate;
+      }
+
+
+      let orderCountArr = [];
+
+      for(let i=0; i<graphMap.orderGraphList.length; i++) {
+        orderCountArr[i] = graphMap.orderGraphList[i].orderCount;
+      }
+
+      // 가입자 수
       new Chart(document.getElementById('signUpChart'), {
         type: 'bar',
         data: {
           labels: signUpDateArr,  // x축
           datasets:[{
              //데이터
-             label: 'signup',
               data: signUpCountArr,
-              backgroundColor:'#2b8c44'
-          }]
-        },
-        data: {
-          labels: signUpDateArr,  // x축
-          datasets:[{
-             //데이터
-              data: signUpCountArr,
-              backgroundColor:'#2b8c44'
+              // backgroundColor:'#2b8c44'
+              backgroundColor: 'rgba(43, 140, 68)'
           }]
         },
           options: {
@@ -55,8 +73,70 @@ function signUpGraph(){
               yAxes: [{
                   ticks:{
                     beginAtZero: true,
-                    max: 50   //y축 값
+                    max: 50,   //y축 값
+                    fontColor: 'rgba(43, 140, 68)',
+                    fontSize: 10
+                  },
+                  gridLines: {
+                    // color: 'rgba(43, 140, 68 ,0.5)'
                   }
+              }],
+              xAxes: [{
+                ticks:{
+                  fontColor: 'rgba(43, 140, 68)',
+                  fontSize: 10
+                },
+                gridLines: {
+                  color: 'white'
+                  // color: 'rgba(43, 140, 68 ,0.5)'
+                }
+              }]
+            }
+        }
+      });
+
+
+      // 주문수 차트
+      new Chart(document.getElementById('orderChart'), {
+        type: 'line',
+        data: {
+          labels: orderDateArr,  // x축
+          datasets:[{
+             //데이터
+              data: orderCountArr,
+              fill: false,
+              backgroundColor: 'rgba(43, 140, 68)',
+              borderColor: 'rgba(43, 140, 68)',
+              borderWidth: 1
+          }]
+        },
+          options: {
+            responsive: false,
+            legend:{ 
+              display: false      // 라벨 없애기
+            },
+            scales: {
+              yAxes: [{
+                  ticks:{
+                    beginAtZero: true,
+                    // stepSize
+                    max: 40,   //y축 값
+                    fontColor: 'rgba(43, 140, 68)',
+                    fontSize: 10
+                  },
+                  gridLines: {
+                    // color: 'rgba(43, 140, 68)'
+                  }
+              }],
+              xAxes: [{
+                ticks:{
+                  fontColor: 'rgba(43, 140, 68)',
+                  fontSize: 10
+                },
+                gridLines: {
+                  color: 'white'
+                  // color: 'rgba(43, 140, 68)'
+                }
               }]
             }
         }
@@ -69,54 +149,8 @@ function signUpGraph(){
  
 
 
-
-
-
-
-  //todo: 값 갖고오기
-  // 원그래프 : 구매자, 판매자 비율
-
-
-  // 라인: 매출
-
-
-
-  // 라인: 회원가입 수
-      // new Chart(
-      //   document.getElementById('orderChart'),
-      //   {
-      //     type: 'bar',
-      //     options: {
-      //       animation: false,
-      //       plugins: {
-      //         legend: {
-      //           display: false
-      //         },
-      //         tooltip: {
-      //           enabled: false
-      //         }
-      //       }
-      //     },
-      //     data: {
-      //       labels: data.map(sighUpGraphList => sighUpGraphList.signUpDate),
-      //       datasets: [
-      //         {
-      //           label: '가입자 수',
-      //           data: data.map(sighUpGraphList => sighUpGraphList.singUpCount)
-      //         }
-      //       ]
-      //     }
-      //   }
-      // );
-
-
-
-
-// 함수실행
+// todo: 함수실행
 (() => {
-  signUpGraph();
-
-
-
+  showGraph();
 
 })()

@@ -288,6 +288,12 @@ public class ProductAdminServiceImpl implements ProductAdminService{
 		return dao.selectReturnDetail(returnNo);
 	}
 
+	// 반품 상태 변경
+	@Override
+	public int returnStatus(Map<String, Object> map) {
+		return dao.returnStatus(map);
+	}
+
 	
 	
 }

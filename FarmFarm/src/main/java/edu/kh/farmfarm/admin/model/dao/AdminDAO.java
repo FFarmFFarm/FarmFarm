@@ -61,7 +61,28 @@ public class AdminDAO {
 	}
 
 	
-	
+
+	/** 대시보두 가입자수, 주문수 조회
+	 * @return
+	 */
+	public Map<String, Object> selectGraph() {
+		
+		// 가입자 수
+		List<Graph> singUpGraphList = sqlSession.selectList("graphMapper.selectSignUpGraph");
+		
+		// 주문 수
+		List<Graph> orderGraphList = sqlSession.selectList("graphMapper.selectOrderGraph");
+		
+		
+		Map<String, Object> graphMap = new HashMap<String, Object>();
+		graphMap.put("signUpGraphList", singUpGraphList);
+		graphMap.put("orderGraphList", orderGraphList);
+		
+		return graphMap;
+	}
+
+
+
 
 	/** 대시보드 회원가입자 수 조회
 	 * @return signUpGraphList
@@ -71,13 +92,6 @@ public class AdminDAO {
 	}
 
 
-
-
-	
-	
-	
-	
-	
 	
 	
 
