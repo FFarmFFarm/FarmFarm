@@ -1,7 +1,7 @@
 
 var reportContainer = document.getElementById("reportContainer");
 var reportBtn = document.getElementById("reportBtn");
-const reportBtn2 = document.getElementById("reportBtn2");
+var reportBtn2 = document.getElementById("reportBtn2");
 
 // 직접 작성한 신고 사유 내용 == reportContent  // 전역변수로 바꾸면서 혹시나 다른데랑 충돌날까봐 이름 변경
 var modalReportContent = document.getElementById("reportContent");
@@ -13,6 +13,10 @@ reportBtn.addEventListener('click', () => {
 
     // 내용지우기
     modalReportContent.value = "";
+
+    // textarea 리사이즈한 후에 돌아왔을 때 원래 크기로.
+    reportContent.style.width = "200px";
+    reportContent.style.height = "60px";
 
     // 체크해제
     for(let i=0; i<radioButton.length; i++) {

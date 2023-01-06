@@ -53,13 +53,6 @@
             </tr>
           </thead>
           <tbody id="returnDetailBody">
-            <tr class="return-table-row">
-              <td>3</td>
-              <td class="product-name">모종삽</td>
-              <td>8,000</td>
-              <td>3</td>
-              <td>24,000<span>원</span></td>
-            </tr>
           </tbody>
         </table>
   </div>

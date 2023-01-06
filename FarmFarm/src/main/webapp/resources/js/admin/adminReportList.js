@@ -1,9 +1,9 @@
 /*
-미처리 신고 조회 (ajax) : selectNewReportList(cp)
+전체 신고 조회 (ajax) : selectNewReportList(cp)
 
-미처리 신고 출력 함수: printNewReportList(newReportList, pagination)
+전체 신고 출력 함수: printReportList(reportList, pagination)
 페이지네이션 박스 생성 : printPagination(adminPagination, pagination)
-페이지네이션 박스 클릭이벤트 추가 : selectNewReportListEvent(element, cp)
+페이지네이션 박스 클릭이벤트 추가 : selectReportListEvent(element, cp)
 */
 
 var numCount = 0;
@@ -12,44 +12,44 @@ var hiddenMemberNo = 0; // memberNo / reportType = "M"일떄 reportTargetNo
 var hiddenContentNo = 0;  // contentNo  / reportType = "B" boardNo / reportType = "P" postNo
 var hiddenReportType;
 var hiddenAuthority = 0; // authority
-var allNew = 'new'; // 전체 신고 조회 누적 모달하고 구분하기 위해. reportPenalty = null
+var allNew = 'all'; // 미처리 신고 누적 모달과 구분하기 위해 reportPenalty 구분 안함.
 
 
-//optimize: 미처리 신고 조회 함수 ajax
-const selectNewReportList = (cp) => {
+//optimize: 전체 신고 조회 함수 ajax
+const selectReportList = (cp) => {
 
     $.ajax({
-        url: "/admin/selectNewReportList",
-        data: {"cp": cp, "sortFilter": sortFilter},
+        url: "/admin/selectReportList",
+        data: {"cp": cp, "sortFilter": sortFilter, "typeFilter": typeFilter},
         dataType: "JSON",
         type: "GET",
         success: (map) => {
-            printNewReportList(map.newReportList, map.pagination, map.reportListCount, map.reportAllListCount);
-            console.log("미처리 신고 내역 조회 성공");
+            printReportList(map.reportAllList, map.pagination);
+            console.log("전체 신고 내역 조회 성공");
             console.log(sortFilter);
         },
         error: () => {
-            console.log("미처리 신고 내역 조회 실패");
+            console.log("전체 신고 내역 조회 실패");
         }
     })
 }
 
 
 
-//optimize: 미처리 신고 상세 모달창 함수 ajax
-const selectNewReportDetail = (hiddenReportNo) => {
+//optimize: 전체 신고 상세 모달창 함수 ajax
+const selectReportDetail = (hiddenReportNo) => {
     $.ajax({
-        url: "/admin/selectNewReportDetail",
+        url: "/admin/selectReportDetail",
         data: {"hiddenReportNo": hiddenReportNo},
         type: "POST",
-        success: (newReportDetail) => {
+        success: (reportDetail) => {
 
-            printNewReportDetail(newReportDetail);
-            console.log("미처리 신고 상세 조회 성공");
+            printReportDetail(reportDetail);
+            console.log("전체 신고 상세 조회 성공");
 
         }, 
         error: () => {
-            console.log("미처리 신고 상세 조회 실패");
+            console.log("전체 신고 상세 조회 실패");
         }
     })
 }
@@ -89,14 +89,8 @@ const selectReportAccumulate = (hiddenReportType, hiddenMemberNo, hiddenContentN
 
 
 
-// optimize: 미처리 신고 내역 출력 함수 
-const printNewReportList = (newReportList, pagination, reportListCount, reportAllListCount) => {
-
-    // 출력 전 내용 지우기
-    const reportCount = document.getElementById("reportCount");
-    reportCount.innerText = "";
-    reportCount.innerText = "전체 "+ reportAllListCount + "건 / "+" 실처리 " + reportListCount + "건";
-
+// optimize: 전체 신고 내역 출력 함수 
+const printReportList = (reportAllList, pagination) => {
 
     const tbody = document.getElementById("tbody");
     tbody.innerText = "";
@@ -108,9 +102,9 @@ const printNewReportList = (newReportList, pagination, reportListCount, reportAl
     // tbodyDetail.innerText = "";  // 상세 모달창
 
 
-    for(let report of newReportList){
+    for(let report of reportAllList){
 
-        //todo: 미처리 신고 내역 조회
+        //todo: 전체 신고 내역 조회
 
         const tr = document.createElement("tr");
         tr.className = "report-list-row";
@@ -194,9 +188,33 @@ const printNewReportList = (newReportList, pagination, reportListCount, reportAl
 
         // 처리 상태 
         const td7 = document.createElement('td');
-        if(report.reportPenalty == null){
-            td7.innerText = "접수";
+
+        if(report.reportType != null) {
+            if(report.reportPenalty == null){
+                td7.innerText = "접수";
+            }
+            if(report.reportPenalty == 'N'){
+                td7.innerText = "반려";
+            }
+
+         
+            if(report.reportType == 'M'){
+                if(report.memberDelFl == 'N' && report.reportPenalty == 'Y'){
+                    td7.innerText = "정지";
+                }
+
+                if(report.memberDelFl == 'Y'){
+                    td7.innerText = "탈퇴";
+                }
+            }
+
+            if(report.reportType == 'B' || report.reportType == 'P' || report.reportType == 'C'){
+                if(report.reportPenalty == 'Y'){
+                    td7.innerText = "삭제";
+                }
+            }
         }
+
 
         tr.append(td0, td1, td2, td3, td4, td5, td6, td7);
         tbody.append(tr);
@@ -207,7 +225,7 @@ const printNewReportList = (newReportList, pagination, reportListCount, reportAl
             hiddenReportNo = report.reportNo;  // 상세조회용
             
             // 상세 모달 
-            selectNewReportDetail(hiddenReportNo);
+            selectReportDetail(hiddenReportNo);
 
             console.log("한 행 클릭할 때 모달 열리는 부분---------");
             console.log("hiddenReportNo: " + hiddenReportNo);
@@ -235,7 +253,7 @@ for(let i=0; i<reportListRow.length; i++){
         hiddenContentNo = tempContentNo[i].value;
         hiddenReportType = tempReportType[i].value;
 
-        selectNewReportDetail(hiddenReportNo);
+        selectReportDetail(hiddenReportNo);
 
         console.log("jsp에서 한 행 클릭했을때=====");
         console.log("hiddenReportNo: " + hiddenReportNo);
@@ -257,7 +275,7 @@ const contentDeleteBtn = document.getElementById('contentDeleteBtn');
 
 
 // optimize: 상세모달 열기 함수
-const printNewReportDetail = (newReportDetail) => {
+const printReportDetail = (reportDetail) => {
     
     reportDetailModalOpen();
 
@@ -277,7 +295,7 @@ const printNewReportDetail = (newReportDetail) => {
 
     const td2Detail = document.createElement('td');
     td2Detail.classList.add('left-content');
-    td2Detail.innerText = newReportDetail.reportNo;
+    td2Detail.innerText = reportDetail.reportNo;
 
 
     // 처리 상태
@@ -288,7 +306,7 @@ const printNewReportDetail = (newReportDetail) => {
 
     const td4Detail = document.createElement('td');
     
-    if(newReportDetail.reportPenalty == null){
+    if(reportDetail.reportPenalty == null){
         td4Detail.innerText = "접수";
     }
 
@@ -307,20 +325,20 @@ const printNewReportDetail = (newReportDetail) => {
     const td6Detail = document.createElement('td');
     td6Detail.classList.add('left-content');
 
-    if(newReportDetail.reportType != null){
-        if(newReportDetail.reportType == 'M' && newReportDetail.authority == 0){
+    if(reportDetail.reportType != null){
+        if(reportDetail.reportType == 'M' && reportDetail.authority == 0){
             td6Detail.innerText = "일반 회원";
         }
-        if(newReportDetail.reportType == 'M' && newReportDetail.authority == 1){
+        if(reportDetail.reportType == 'M' && reportDetail.authority == 1){
             td6Detail.innerText = "판매자";
         }
-        if(newReportDetail.reportType == 'P'){
+        if(reportDetail.reportType == 'P'){
             td6Detail.innerText = "판매 게시글";
         }
-        if(newReportDetail.reportType == 'B'){
+        if(reportDetail.reportType == 'B'){
             td6Detail.innerText = "커뮤니티 게시글";
         }
-        if(newReportDetail.reportType == 'C'){
+        if(reportDetail.reportType == 'C'){
             td6Detail.innerText = "커뮤니티 댓글";
         }
     }
@@ -333,7 +351,7 @@ const printNewReportDetail = (newReportDetail) => {
     td7Detail.innerHTML = "누적 신고 횟수";
     
     const td8Detail = document.createElement('td');
-    td8Detail.innerText = newReportDetail.reportVolume;
+    td8Detail.innerText = reportDetail.reportVolume;
     
     const icon = document.createElement('i');
     // icon.innerHTML = '<i class="fa-solid fa-caret-down filter-icon"></i>';
@@ -352,9 +370,9 @@ const printNewReportDetail = (newReportDetail) => {
     //fixme:
     // 아이콘 클릭했을 때
     spanIcon.addEventListener('click', () =>{
-        hiddenMemberNo = newReportDetail.memberNo;  // 계정 강제탈퇴, 정지, 반려용
-        hiddenContentNo = newReportDetail.contentNo; // 게시글 정지, 반려용
-        hiddenReportType = newReportDetail.reportType; // 게시글 정지, 반려용
+        hiddenMemberNo = reportDetail.memberNo;  // 계정 강제탈퇴, 정지, 반려용
+        hiddenContentNo = reportDetail.contentNo; // 게시글 정지, 반려용
+        hiddenReportType = reportDetail.reportType; // 게시글 정지, 반려용
 
         console.log("신고 누적 용 값---------");
         console.log("hiddenMemberNo: " + hiddenMemberNo);
@@ -377,7 +395,7 @@ const printNewReportDetail = (newReportDetail) => {
 
     const td10Detail = document.createElement('td');
     td10Detail.classList.add('left-content');
-    td10Detail.innerText = newReportDetail.reportDate;
+    td10Detail.innerText = reportDetail.reportDate;
     
 
     tr3Detail.append(td9Detail, td10Detail);
@@ -391,11 +409,11 @@ const printNewReportDetail = (newReportDetail) => {
     td11Detail.classList.add('detail-bold');
     td11Detail.classList.add('left');
 
-    if(newReportDetail.reportType != null){
-        if(newReportDetail.reportType == 'M'){
+    if(reportDetail.reportType != null){
+        if(reportDetail.reportType == 'M'){
             td11Detail.innerText = "신고 대상 아이디";
         }
-        if(newReportDetail.reportType == 'B' || newReportDetail.reportType == 'P'){
+        if(reportDetail.reportType == 'B' || reportDetail.reportType == 'P'){
             td11Detail.innerText = "신고 대상 게시글";
         }
     }
@@ -407,36 +425,36 @@ const printNewReportDetail = (newReportDetail) => {
 
     
 
-    if(newReportDetail.reportType != null){
+    if(reportDetail.reportType != null){
         const move = document.createElement('a');
         move.target = "_blank";
         td12Detail.style.cursor = "pointer";
         
         
-        if(newReportDetail.reportType == 'M'){
+        if(reportDetail.reportType == 'M'){
             
-            if(newReportDetail.authority == 0){
+            if(reportDetail.authority == 0){
                 // 마이페이지는 자기자신만 들어감
-                td12Detail.innerHTML = newReportDetail.memberId;
+                td12Detail.innerHTML = reportDetail.memberId;
                 td12Detail.style.cursor = "default";
 
-            } else if(newReportDetail.authority == 1){
-                move.href = "/seller/" + newReportDetail.reportTargetNo;
-                move.innerHTML = newReportDetail.memberId;
+            } else if(reportDetail.authority == 1){
+                move.href = "/seller/" + reportDetail.reportTargetNo;
+                move.innerHTML = reportDetail.memberId;
 
             } else {
-                move.innerHTML = newReportDetail.memberId;
+                move.innerHTML = reportDetail.memberId;
             }
         }
-        if(newReportDetail.reportType == 'B'){
+        if(reportDetail.reportType == 'B'){
             move.href = "/board/1"; 
-            move.innerHTML = "[ " + newReportDetail.title + " ]";
+            move.innerHTML = "[ " + reportDetail.title + " ]";
         }
 
-        if(newReportDetail.reportType == 'P'){
-            // td12Detail.innerHTML = "[ " + newReportDetail.title + " ]";
-            move.href = "/post/" + newReportDetail.reportTargetNo;
-            move.innerHTML = "[ " + newReportDetail.title + " ]";
+        if(reportDetail.reportType == 'P'){
+            // td12Detail.innerHTML = "[ " + reportDetail.title + " ]";
+            move.href = "/post/" + reportDetail.reportTargetNo;
+            move.innerHTML = "[ " + reportDetail.title + " ]";
         }
 
         td12Detail.append(move);
@@ -455,7 +473,7 @@ const printNewReportDetail = (newReportDetail) => {
     td13Detail.innerText = "신고 사유";
 
     const td14Detail = document.createElement('td');
-    td14Detail.innerHTML = newReportDetail.reportReason;
+    td14Detail.innerHTML = reportDetail.reportReason;
 
     tr5Detail.append(td13Detail, td14Detail);
 
@@ -471,7 +489,7 @@ const printNewReportDetail = (newReportDetail) => {
 
     const td16Detail = document.createElement('td');
     td16Detail.colSpan = "3";
-    td16Detail.innerHTML = newReportDetail.reportContent;
+    td16Detail.innerHTML = reportDetail.reportContent;
 
 
     tr6Detail.append(td15Detail, td16Detail);
@@ -480,7 +498,7 @@ const printNewReportDetail = (newReportDetail) => {
     // 7)
     const tr7Detail = document.createElement('tr');
     const tr8Detail = document.createElement('tr');
-    if(newReportDetail.reportType != 'M'){
+    if(reportDetail.reportType != 'M'){
     
         // 내용
         const td17Detail = document.createElement('td');
@@ -499,7 +517,7 @@ const printNewReportDetail = (newReportDetail) => {
         td18Detail.colSpan = "4";
         td18Detail.rowSpan = "8";
         td18Detail.style.overflow = "auto";
-        td18Detail.innerHTML = newReportDetail.content;
+        td18Detail.innerHTML = reportDetail.content;
     
         tr8Detail.append(td18Detail);
     
@@ -510,11 +528,11 @@ const printNewReportDetail = (newReportDetail) => {
 
 
     // 신고 처리용 값 가져오기  // 강제 탈퇴, 반려, 정지, 삭제 등등에 사용
-    hiddenMemberNo = newReportDetail.memberNo;  // 계정 강제탈퇴, 정지, 반려용
-    hiddenContentNo = newReportDetail.contentNo; // 게시글 정지, 반려용
-    hiddenReportType = newReportDetail.reportType;  // 게시글 정지, 반려용
-    hiddenAuthority = newReportDetail.authority; // 강제 탈퇴 시 글 삭제용 
-    // hiddenReportNo = newReportDetail.reportNo;  
+    hiddenMemberNo = reportDetail.memberNo;  // 계정 강제탈퇴, 정지, 반려용
+    hiddenContentNo = reportDetail.contentNo; // 게시글 정지, 반려용
+    hiddenReportType = reportDetail.reportType;  // 게시글 정지, 반려용
+    hiddenAuthority = reportDetail.authority; // 강제 탈퇴 시 글 삭제용 
+    // hiddenReportNo = reportDetail.reportNo;  
 
     
     console.log("상세 모달---------");
@@ -525,21 +543,48 @@ const printNewReportDetail = (newReportDetail) => {
     console.log("authority: " + hiddenAuthority);
 
     // 버튼
-    // 회원신고 -> 반려, 강제정지, 탈퇴
-    if(newReportDetail.reportType == 'M'){
-        accountLeaveBtn.classList.add('show');
-        accountBannedBtn.classList.add('show');
-        accountKickOutBtn.classList.add('show');
+    // 회원신고 -> 반려, 정지, 강제탈퇴
+    if(reportDetail.memberDelFl == 'N'){
+        if(reportDetail.reportType == 'M'){
+            accountLeaveBtn.classList.add('show');
+            accountBannedBtn.classList.add('show');
+            accountKickOutBtn.classList.add('show');
+            accountLeaveBtn.classList.remove('hide');
+            accountBannedBtn.classList.remove('hide');
+            accountKickOutBtn.classList.remove('hide');
+    
+            contentLeaveBtn.classList.add('hide');
+            contentDeleteBtn.classList.add('hide');
+            contentLeaveBtn.classList.remove('show');
+            contentDeleteBtn.classList.remove('show');
+        }
+    }
+
+    //  탈퇴한 회원 버튼 안나오게
+    if(reportDetail.memberDelFl == 'Y'){
+        accountLeaveBtn.classList.add('showDisabled');
+        accountBannedBtn.classList.add('showDisabled');
+        accountKickOutBtn.classList.add('showDisabled');
         accountLeaveBtn.classList.remove('hide');
         accountBannedBtn.classList.remove('hide');
         accountKickOutBtn.classList.remove('hide');
+        accountLeaveBtn.disabled = true;
+        accountBannedBtn.disabled = true;
+        accountKickOutBtn.disabled = true;
+
 
         contentLeaveBtn.classList.add('hide');
-        contentDeleteBtn.classList.add('hide'); //
+        contentDeleteBtn.classList.add('hide');
+        contentLeaveBtn.classList.remove('show');
+        contentDeleteBtn.classList.remove('show');
     }
+    
 
-    // 게시글 신고 -> 반려, 삭제
-    if(newReportDetail.reportType == 'B' || newReportDetail.reportType == 'P'){
+
+     // 게시글, 댓글 신고 -> 반려, 삭제
+    if((reportDetail.reportType == 'B' && reportDetail.boardDelFl == 'N')
+        || (reportDetail.reportType == 'P' && reportDetail.postDelFl == 'N')
+        || (reportDetail.reportType == 'C' && reportDetail.commentDelFl == 'N')){
         contentLeaveBtn.classList.add('show');
         contentDeleteBtn.classList.add('show'); 
         contentLeaveBtn.classList.remove('hide');
@@ -548,8 +593,31 @@ const printNewReportDetail = (newReportDetail) => {
         accountLeaveBtn.classList.add('hide');
         accountBannedBtn.classList.add('hide');
         accountKickOutBtn.classList.add('hide');
+        accountLeaveBtn.classList.remove('show');
+        accountBannedBtn.classList.remove('show');
+        accountKickOutBtn.classList.remove('show');
     }
 
+
+    // 삭제한 게시글 버튼 안나오게
+    if((reportDetail.reportType == 'B' && reportDetail.boardDelFl == 'Y')
+        || (reportDetail.reportType == 'P' && reportDetail.postDelFl == 'Y')
+        || (reportDetail.reportType == 'C' && reportDetail.commentDelFl == 'Y')){
+        contentLeaveBtn.classList.add('showDisabled');
+        contentDeleteBtn.classList.add('showDisabled'); 
+        contentLeaveBtn.classList.remove('hide');
+        contentDeleteBtn.classList.remove('hide');
+        contentLeaveBtn.disabled = true;
+        contentDeleteBtn.disabled = true;
+
+
+        accountLeaveBtn.classList.add('hide');
+        accountBannedBtn.classList.add('hide');
+        accountKickOutBtn.classList.add('hide');
+        accountLeaveBtn.classList.remove('show');
+        accountBannedBtn.classList.remove('show');
+        accountKickOutBtn.classList.remove('show');
+    }
 }
 
 
@@ -629,6 +697,7 @@ const printAccumulate = (accumMemberList, accumContentList) => {
 
             const tdm6 = document.createElement("td");
             tdm6.style.textAlign = "left";
+
             if(member.reportContent == null){
                 tdm6.innerText = "";
             } else {
@@ -671,6 +740,7 @@ const printAccumulate = (accumMemberList, accumContentList) => {
             }
 
             const tdc6 = document.createElement("td");
+            tdc6.style.textAlign = "left";
             if(content.reportContent == null){
                 tdc6.innerText = "";
             } else {
@@ -698,9 +768,9 @@ const printAccumulate = (accumMemberList, accumContentList) => {
 
     // 아이콘 클릭했을 때
     spanIcon.addEventListener('click', () =>{
-        // hiddenMemberNo = newReportDetail.memberNo;  // 계정 강제탈퇴, 정지, 반려용
-        // hiddenContentNo = newReportDetail.contentNo; // 게시글 정지, 반려용
-        // hiddenReportType = newReportDetail.reportType; // 게시글 정지, 반려용
+        // hiddenMemberNo = reportDetail.memberNo;  // 계정 강제탈퇴, 정지, 반려용
+        // hiddenContentNo = reportDetail.contentNo; // 게시글 정지, 반려용
+        // hiddenReportType = reportDetail.reportType; // 게시글 정지, 반려용
 
         // console.log("신고 누적 용 값---------");
         // console.log("hiddenMemberNo: " + hiddenMemberNo);
@@ -710,7 +780,7 @@ const printAccumulate = (accumMemberList, accumContentList) => {
         accumModalClose();
         reportDetailModalOpen();
         // 상세 모달 
-        selectNewReportDetail(hiddenReportNo);
+        selectReportDetail(hiddenReportNo);
     })
 
     //fixme 수정하기
@@ -764,7 +834,7 @@ const printPagination = (adminPaginationArea, pagination) => {
 
         adminPagination.append(numPage);
 
-        selectNewReportListEvent(numPage, i);
+        selectReportListEvent(numPage, i);
     }
 
 
@@ -777,18 +847,37 @@ const printPagination = (adminPaginationArea, pagination) => {
     adminPagination.append(nextPage, maxPage);
     adminPaginationArea.append(adminPagination);
 
-    selectNewReportListEvent(firstPage, 1);
-    selectNewReportListEvent(prevPage, pagination.prevPage);
-    selectNewReportListEvent(nextPage, pagination.nextPage);
-    selectNewReportListEvent(maxPage, pagination.maxPage);
+    selectReportListEvent(firstPage, 1);
+    selectReportListEvent(prevPage, pagination.prevPage);
+    selectReportListEvent(nextPage, pagination.nextPage);
+    selectReportListEvent(maxPage, pagination.maxPage);
 
 
 }
 
 
+//todo: 필터 드롭다운 메뉴
+//fix: 페이지네이션 이후에 수정하기! 드롭다운 메뉴 동시에 열림..
+const dropBtn = document.getElementById("dropBtn");
+const dropMenu = document.getElementById("dropMenu");
 
-// HTML 문서가 모두 읽어진 후에 selectNewReportList() 호출!
+dropBtn.addEventListener("click", () => {
+    dropMenu.classList.toggle("toggle");
+})
 
+
+const dropUl = document.getElementById("dropUl");
+
+dropUl.addEventListener("click", () => {
+    dropMenu.classList.toggle("toggle");
+})
+
+
+
+
+
+
+// HTML 문서가 모두 읽어진 후에 selectReportList() 호출!
 
 // --jsp
 // optimize : 페이지박스 각각에 cp 값 추가 + 전체 회원 조회
@@ -796,7 +885,7 @@ const pageBox = document.getElementsByClassName("page-box");
 for(let page of pageBox){
     page.addEventListener('click', () => {
         let cp = page.id;
-        selectNewReportList(cp);
+        selectReportList(cp);
     })
 }
 
@@ -804,10 +893,10 @@ for(let page of pageBox){
 // -- ajax
 // 2페이지 이후, ajax로 조회할 때 다른 페이지로 이동하기 위해! -> printPagination() 에서 사용
 //optimize: 페이지네이션 박스 클릭하면, 전체 회원 조회 
-const selectNewReportListEvent = (element, cp) => {
+const selectReportListEvent = (element, cp) => {
     element.addEventListener('click', () => {
         numCount = (cp-1)*15;
-        selectNewReportList(cp);
+        selectReportList(cp);
     })
 }
 
@@ -820,7 +909,7 @@ const down = document.getElementById('down');
 up.addEventListener('click', () => {
     numCount = (cp-1)*15;
     sortFilter = 'down';
-    selectNewReportList(cp);
+    selectReportList(cp);
 
     up.style.display = 'none';
     down.style.display = 'inline-block';
@@ -830,11 +919,57 @@ up.addEventListener('click', () => {
 down.addEventListener('click', () => {
     numCount = (cp-1)*15;
     sortFilter = 'up';
-    selectNewReportList(cp);
+    selectReportList(cp);
 
     down.style.display = 'none';
     up.style.display = 'inline-block';
 })
+
+
+// todo: 필터링 옵션 별로 조회  - typeFilter
+document.getElementById("t0").addEventListener("click", ()=>{
+    numCount = (cp-1)*15;
+    typeFilter = 0;  
+    selectReportList();
+    dropBtn2Text.innerText = "상태";
+})
+
+document.getElementById("t1").addEventListener("click", ()=>{
+    numCount = (cp-1)*15;
+    typeFilter = 1;  
+    selectReportList();
+    dropBtn2Text.innerText = "일반회원";
+})
+
+document.getElementById("t2").addEventListener("click", ()=>{
+    numCount = (cp-1)*15;
+    typeFilter = 2;  
+    selectReportList();
+    dropBtn2Text.innerText = "판매자";
+})
+
+document.getElementById("t3").addEventListener("click", ()=>{
+    numCount = (cp-1)*15;
+    typeFilter = 3;  
+    selectReportList();
+    dropBtn2Text.innerText = "판매 게시글";
+})
+
+document.getElementById("t4").addEventListener("click", ()=>{
+    numCount = (cp-1)*15;
+    typeFilter = 4;  
+    selectReportList();
+    dropBtn2Text.innerText = "커뮤니티 게시글";
+})
+
+document.getElementById("t5").addEventListener("click", ()=>{
+    numCount = (cp-1)*15;
+    typeFilter = 5;  
+    selectReportList();
+    dropBtn2Text.innerText = "커뮤니티 댓글";
+})
+
+
 
 
 
@@ -921,7 +1056,7 @@ accountKickOutBtn.addEventListener('click', () => {
             if(result > 0){
                 reportDetailModalClose();
 
-                selectNewReportList(cp);
+                selectReportList(cp);
                 
                 console.log("강제 탈퇴 완료");
                 messageModalOpen("해당 계정이 강제 탈퇴되었습니다.");
@@ -952,7 +1087,7 @@ accountLeaveBtn.addEventListener('click', () => {
         success: (result) => {
             if(result > 0){
                 reportDetailModalClose();
-                selectNewReportList(cp);
+                selectReportList(cp);
 
                 console.log("계정 반려");
                 messageModalOpen("해당 계정이 활성화 상태를 유지합니다.");
@@ -977,7 +1112,7 @@ accountBannedBtn.addEventListener('click', () => {
         success: (result) => {
             if(result > 0){
                 reportDetailModalClose();
-                selectNewReportList(cp);
+                selectReportList(cp);
 
                 console.log("계정 정지");
                 messageModalOpen("해당 계정이 7일간 정지됩니다.")
@@ -1004,7 +1139,7 @@ contentDeleteBtn.addEventListener('click', () => {
         success: (result) => {
             if(result > 0){
                 reportDetailModalClose();
-                selectNewReportList(cp);
+                selectReportList(cp);
 
                 console.log("게시글 삭제");
                 messageModalOpen("해당 게시글이 삭제되었습니다.")
@@ -1031,7 +1166,7 @@ contentLeaveBtn.addEventListener('click', () => {
         success: (result) => {
             if(result > 0){
                 reportDetailModalClose();
-                selectNewReportList(cp);
+                selectReportList(cp);
 
                 console.log("게시글 반려");
                 messageModalOpen("해당 게시글이 활성화 상태를 유지합니다.")

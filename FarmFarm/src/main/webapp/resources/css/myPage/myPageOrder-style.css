@@ -31,6 +31,10 @@ a.ordered > i {
   justify-content: center;
 }
 
+.order-div{
+    margin-top: 30px;
+}
+
 .order-list-title {
   font-size: var(--large-font-size);
   display: flex;

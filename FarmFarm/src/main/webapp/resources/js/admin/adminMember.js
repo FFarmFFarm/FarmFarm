@@ -734,7 +734,7 @@ const getFilterNum = (string) => {
 //     auth.addEventListener("click", ()=>{
 //         console.log(auth);
 //         let authFl = getFilterNum(auth.id);
-//         authFilter = authFl;  // authFilter : jsp에서 전역변수로 선언함.
+//         authFilter = authFl;  
 //         selectMemberList();
 //         console.log(authFilter);
 //     })
@@ -745,7 +745,7 @@ const dropBtn2Text = document.getElementById("dropBtn2Text")
 document.getElementById("a0").addEventListener("click", ()=>{
     numCount = (cp-1)*15;
     let authFl = getFilterNum("a0");
-    authFilter = authFl;  // authFilter : jsp에서 전역변수로 선언함.
+    authFilter = authFl;  
     selectMemberList();
     dropBtn1Text.innerText = "판매자 등록";
 })
@@ -753,7 +753,7 @@ document.getElementById("a0").addEventListener("click", ()=>{
 document.getElementById("a1").addEventListener("click", ()=>{
     numCount = (cp-1)*15;
     let authFl = getFilterNum("a1");
-    authFilter = authFl;  // authFilter : jsp에서 전역변수로 선언함.
+    authFilter = authFl;  
     selectMemberList();
     dropBtn1Text.innerText = "미등록";
 })
@@ -761,7 +761,7 @@ document.getElementById("a1").addEventListener("click", ()=>{
 document.getElementById("a2").addEventListener("click", ()=>{
     numCount = (cp-1)*15;
     let authFl = getFilterNum("a2");
-    authFilter = authFl;  // authFilter : jsp에서 전역변수로 선언함.
+    authFilter = authFl;  
     selectMemberList();
     dropBtn1Text.innerText = "판매자";
 })
@@ -769,14 +769,14 @@ document.getElementById("a2").addEventListener("click", ()=>{
 document.getElementById("a3").addEventListener("click", ()=>{
     numCount = (cp-1)*15;
     let authFl = getFilterNum("a3");
-    authFilter = authFl;  // authFilter : jsp에서 전역변수로 선언함.
+    authFilter = authFl;  
     selectMemberList();
     dropBtn1Text.innerText = "인증 대기";
 })
 document.getElementById("a4").addEventListener("click", ()=>{
     numCount = (cp-1)*15;
     let authFl = getFilterNum("a4");
-    authFilter = authFl;  // authFilter : jsp에서 전역변수로 선언함.
+    authFilter = authFl;  
     selectMemberList();
     dropBtn1Text.innerText = "인증 보류";
 })
@@ -799,35 +799,35 @@ document.getElementById("a4").addEventListener("click", ()=>{
 document.getElementById("s0").addEventListener("click", ()=>{
     numCount = (cp-1)*15;
     let statFl = getFilterNum("s0");
-    statFilter = statFl;  // authFilter : jsp에서 전역변수로 선언함.
+    statFilter = statFl;  // statFilter : jsp에서 전역변수로 선언함.
     selectMemberList();
     dropBtn2Text.innerText = "상태";
 })
 document.getElementById("s1").addEventListener("click", ()=>{
     numCount = (cp-1)*15;
     let statFl = getFilterNum("s1");
-    statFilter = statFl;  // authFilter : jsp에서 전역변수로 선언함.
+    statFilter = statFl;  
     selectMemberList();
     dropBtn2Text.innerText = "활동중";
 })
 document.getElementById("s2").addEventListener("click", ()=>{
     numCount = (cp-1)*15;
     let statFl = getFilterNum("s2");
-    statFilter = statFl;  // authFilter : jsp에서 전역변수로 선언함.
+    statFilter = statFl;  
     selectMemberList();
     dropBtn2Text.innerText = "신고접수";
 })
 document.getElementById("s3").addEventListener("click", ()=>{
     numCount = (cp-1)*15;
     let statFl = getFilterNum("s3");
-    statFilter = statFl;  // authFilter : jsp에서 전역변수로 선언함.
+    statFilter = statFl;  
     selectMemberList();
     dropBtn2Text.innerText = "정지";
 })
 document.getElementById("s4").addEventListener("click", ()=>{
     numCount = (cp-1)*15;
     let statFl = getFilterNum("s4");
-    statFilter = statFl;  // authFilter : jsp에서 전역변수로 선언함.
+    statFilter = statFl;  
     selectMemberList();
     dropBtn2Text.innerText = "탈퇴";
 })

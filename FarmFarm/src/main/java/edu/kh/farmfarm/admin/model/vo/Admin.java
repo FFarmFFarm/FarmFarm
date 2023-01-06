@@ -45,7 +45,7 @@ public class Admin {
 	private int boardNo; // 게시글 번호
 	private String boardTitle; // 게시글 제목
 	private String boardContent; // 게시글 내용
-	private String boardDelFlag; // 게시글 삭제여부
+	private String boardDelFl; // 게시글 삭제여부
 	
 	
 	private int postNo;

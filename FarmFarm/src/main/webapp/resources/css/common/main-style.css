@@ -162,7 +162,8 @@ header {
   display: none;
   position: absolute;
   z-index: 1000;
-  width: 250px;
+  /* width: 250px; */
+  width: 300px;
   min-height: 45px;
   /* border: 1px solid #ccc; */
   background-color: white;
@@ -212,6 +213,10 @@ header {
 
 .dropdown-content a:first-child {
   border-bottom: 0.75px solid #bcbcbc;
+}
+
+#notifyDropdown{
+  height: 144px;
 }
 
 .show {
@@ -376,6 +381,9 @@ main{
 .middle-text p:first-child{
   font-size: var(--main-font-size);
   font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .middle-text p:nth-child(2){
   font-size: var(--main-font-size);
@@ -539,5 +547,12 @@ main{
 }
 
 .product-text p:nth-child(2){
+    /* font-family: "NotoSansKR-Bold"; */
+}
+
+.product-text p:nth-child(1){
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-family: "NotoSansKR-Bold";
 }

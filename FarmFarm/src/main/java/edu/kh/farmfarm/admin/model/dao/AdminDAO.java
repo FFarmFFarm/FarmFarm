@@ -61,7 +61,28 @@ public class AdminDAO {
 	}
 
 	
-	
+
+	/** 대시보두 가입자수, 주문수 조회
+	 * @return
+	 */
+	public Map<String, Object> selectGraph() {
+		
+		// 가입자 수
+		List<Graph> singUpGraphList = sqlSession.selectList("graphMapper.selectSignUpGraph");
+		
+		// 주문 수
+		List<Graph> orderGraphList = sqlSession.selectList("graphMapper.selectOrderGraph");
+		
+		
+		Map<String, Object> graphMap = new HashMap<String, Object>();
+		graphMap.put("signUpGraphList", singUpGraphList);
+		graphMap.put("orderGraphList", orderGraphList);
+		
+		return graphMap;
+	}
+
+
+
 
 	/** 대시보드 회원가입자 수 조회
 	 * @return signUpGraphList
@@ -71,13 +92,6 @@ public class AdminDAO {
 	}
 
 
-
-
-	
-	
-	
-	
-	
 	
 	
 
@@ -247,18 +261,20 @@ public class AdminDAO {
 	 * @param contentNo
 	 * @return map
 	 */
-	public Map<String, Object> selectReportAccumulate(String reportType, int memberNo, int contentNo) {
+	public Map<String, Object> selectReportAccumulate(String reportType, int memberNo, int contentNo, String allNew) {
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("memberNo", memberNo);
 		paramMap.put("reportType", reportType);
 		paramMap.put("contentNo", contentNo);
+		paramMap.put("allNew", allNew);
 		
 		List<Admin> accumMemberList = new ArrayList<Admin>();
 		List<Admin> accumContentList = new ArrayList<Admin>();
 		
 		if(reportType != null) {
 			if(reportType.equals("M")) {
-				accumMemberList = sqlSession.selectList("adminMapper.accumMemberList", memberNo);
+				accumMemberList = sqlSession.selectList("adminMapper.accumMemberList", paramMap);
 				
 			} else {
 				accumContentList = sqlSession.selectList("adminMapper.accumContentList", paramMap);
@@ -270,6 +286,45 @@ public class AdminDAO {
 		 map.put("accumContentList", accumContentList);
 		
 		return map;
+	}
+
+
+
+	/** 전체 신고 기록 조회
+	 * @param typeFilter
+	 * @param pagination
+	 * @return map
+	 */
+	public List<Admin> selectReportAllList(int typeFilter, String sortFilter, Pagination pagination) {
+		
+		int offset = (pagination.getCurrentPage() -1) * 15;
+		RowBounds rowBounds = new RowBounds(offset, 15);
+		
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("typeFilter", typeFilter);
+		paramMap.put("sortFilter", sortFilter);
+		
+		return sqlSession.selectList("adminMapper.selectReportAllList", paramMap, rowBounds);
+	}
+
+
+
+	/** 전체 신고 기록 개수 (페이지네이션용, RANKING=1 적용)
+	 * @return reportAllCount
+	 */
+	public int reportAllCount() {
+		return sqlSession.selectOne("adminMapper.reportAllCount");
+	}
+
+
+
+	/** 전체 신고 기록_상세 조회
+	 * @param hiddenReportNo
+	 * @return reportDetail
+	 */
+	public Admin selectReportDetail(int hiddenReportNo) {
+		return sqlSession.selectOne("adminMapper.selectReportDetail", hiddenReportNo);
 	}
 
 

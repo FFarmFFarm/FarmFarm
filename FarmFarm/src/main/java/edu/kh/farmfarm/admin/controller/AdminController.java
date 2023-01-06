@@ -78,33 +78,27 @@ public class AdminController {
 	
 	
 	
-	// 날짜별 회원가입자 수
+	// 날짜별 회원가입자 수 + 주문 수 (최근 30일간)
 	@GetMapping("/dashboard/signUpGraph")
 	@ResponseBody
 	public String signUpGraph(@SessionAttribute(value="loginMember") Member loginMember) {
 		// 관리자인지 확인
 		int result = service.checkAdmin();
 
-		List<Graph> signUpGraphList = new ArrayList<>();
-//		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> graphMap = new HashMap<String, Object>();
 		
 		// 관리자일 때만 && 로그인했을 때
 		if(result == 1 && loginMember != null) {
 
-			// 회원가입자 수 조회
-			signUpGraphList = service.selectSignUpGraph();
+			// 회원가입자 수, 주문 수 조회
+			graphMap = service.selectGraph();
+			
 		}
+
 		
-		return new Gson().toJson(signUpGraphList);
-				
+		return new Gson().toJson(graphMap);
 	}
 
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -468,7 +462,8 @@ public class AdminController {
 	public String selectReportAccumulate(@SessionAttribute(value="loginMember") Member loginMember, 
 										 @RequestParam(value="memberNo", required=false, defaultValue="0") int memberNo,
 										 @RequestParam(value="contentNo", required=false, defaultValue="0") int contentNo,
-										 @RequestParam(value="reportType", required=false ) String reportType
+										 @RequestParam(value="reportType", required=false ) String reportType,
+										 @RequestParam(value="allNew", required=false) String allNew
 										) {
 		
 		
@@ -480,7 +475,7 @@ public class AdminController {
 		if(result == 1 && loginMember != null) {
 
 			// 신고 누적 기록 조회
-			map = service.selectReportAccumulate(reportType, memberNo, contentNo);
+			map = service.selectReportAccumulate(reportType, memberNo, contentNo, allNew);
 	
 		} else {
 			System.out.println("관리자만 접근 가능합니다.");
@@ -496,8 +491,86 @@ public class AdminController {
 
 	
 	
+	// 신고 검색 메뉴 -------------------------------------------
+	// 전체 신고 내역
+	// -- jsp
+	@GetMapping("/admin/reportList")
+	public String adminReportListPage(@SessionAttribute(value="loginMember") Member loginMember,
+										@RequestParam(value="cp", required=false, defaultValue="1") int cp,
+										@RequestParam(value="typeFilter", required=false, defaultValue="0") int typeFilter,
+										@RequestParam(value="sortFilter", required=false, defaultValue="default") String sortFilter,
+										Model model) {
+		// 관리자인지 확인 (관리자면 result==1)
+		int result = service.checkAdmin();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if(result == 1 && loginMember != null) {
+
+			// 미처리 신고 조회 + 페이지네이션 + 정렬
+			map = service.selectReportAllList(typeFilter, sortFilter, cp);
+	
+		} else {
+			System.out.println("관리자만 접근 가능합니다.");
+		}
+		
+		model.addAttribute("map", map);
+		
+		return "admin/adminReportList";
+	}
 	
 	
+	
+	// -- ajax
+	// 전체 신고 내역
+	@GetMapping("/admin/selectReportList")
+	@ResponseBody
+	public String adminReportListPage(@SessionAttribute(value="loginMember") Member loginMember,
+										@RequestParam(value="cp", required=false, defaultValue="1") int cp,
+										@RequestParam(value="typeFilter", required=false, defaultValue="0") int typeFilter,
+										@RequestParam(value="sortFilter", required=false, defaultValue="default") String sortFilter
+										) {
+		// 관리자인지 확인 (관리자면 result==1)
+		int result = service.checkAdmin();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if(result == 1 && loginMember != null) {
+
+			// 미처리 신고 조회 + 페이지네이션 + 정렬
+			map = service.selectReportAllList(typeFilter, sortFilter, cp);
+	
+		} else {
+			System.out.println("관리자만 접근 가능합니다.");
+		}
+		
+		
+		return new Gson().toJson(map);
+	}
+	
+	
+	// ajax
+	// 전체 신고 상세 조회(모달창 내부 내용)
+	@PostMapping("/admin/selectReportDetail")
+	@ResponseBody
+	public Admin selectReportDetail(@SessionAttribute(value="loginMember") Member loginMember, int hiddenReportNo) {
+		
+		// 관리자인지 확인 (관리자면 result==1)
+		int result = service.checkAdmin();
+		
+		Admin reportDetail = new Admin();
+		
+		if(result == 1 && loginMember != null) {
+
+			// 전체 신고 상세 조회
+			reportDetail = service.selectReportDetail(hiddenReportNo);
+	
+		} else {
+			System.out.println("관리자만 접근 가능합니다.");
+		}
+		
+		return reportDetail;
+	}
 	
 	
 	

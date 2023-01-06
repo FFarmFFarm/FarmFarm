@@ -156,6 +156,7 @@ main{
 
 .part-title>p{
     display: inline-block;
+    margin-right: 5px;
 }
 
 .count-list{

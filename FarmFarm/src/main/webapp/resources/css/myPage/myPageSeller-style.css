@@ -17,7 +17,6 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* min-height: 130vh; */
 }
 
 button {
@@ -68,7 +67,7 @@ button {
   opacity: 1;
 }
 
-.profile-img-container {
+.seller-img-container {
   width: 230px;
   height: 230px;
 
@@ -86,31 +85,19 @@ button {
   top: -75px;
 }
 
-.member-profile-img {
+.seller-profile-img {
   object-fit: cover;
   width: 100%;
   height: 100%;
 }
 
-.member-nickname {
+.seller-nickname {
     font-size: var(--title-font-size);
     margin-bottom: 17px;
 }
 
-.member-nickname > i{
+.seller-nickname > i{
     color: #eb8717;
-}
-
-.member-count {
-  display: flex;
-}
-
-.member-count > div {
-  margin-right: 50px;
-}
-
-.info-title {
-  font-weight: bold;
 }
 
 .basic-title {
@@ -328,12 +315,12 @@ button:hover > span {
 
 /* 판매자 정보 */
 
-.member-nickname{
+.seller-nickname{
     font-size: var(--title-font-size);
     margin-bottom: 17px;
 }
 
-.member-nickname>i{
+.seller-nickname>i{
     /* color: #e78111; */
     color: #eb8717;
 }
@@ -343,7 +330,7 @@ button:hover > span {
     font-weight: bold;
 }
 
-.member-info-container {
+.seller-info-container {
     width: 500px;
     display: flex;
     justify-content: space-between;
@@ -366,7 +353,7 @@ button:hover > span {
     margin-bottom: 30px;
 }
 
-.profile-info {
+.seller-info {
     position: relative;
 
     display: flex;
