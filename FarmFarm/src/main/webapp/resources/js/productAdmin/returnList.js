@@ -88,26 +88,26 @@ const returnStatus = document.getElementById("returnStatus");
 returnStatus.addEventListener("change",(e)=>{
   // 원래 체크된 옵션
   
-  let orderNo = document.getElementById("orderDetailNo").innerText;
+  let returnNo = document.getElementById("returnDetailNo").innerText;
 
   if(e.target.value != origin){
     console.log(e.target.value);
     
     $.ajax({
-      url: "/admin/orderStatus",
-      data: {"oStatus" : e.target.value,
-            "orderNo" : orderNo},
+      url: "/admin/returnStatus",
+      data: {"rStatus" : e.target.value,
+            "returnNo" : returnNo},
       type: "GET",
       success: (result)=>{
         if(result>0){
-          messageModalOpen("주문 상태가 변경되었습니다.");
+          messageModalOpen("반품 상태가 변경되었습니다.");
           setTimeout(() => {
             window.location.reload();
           }, "1000");
         }
       },
       error: ()=>{
-        console.log("주문상태변경 실패");
+        console.log("반품상태변경 실패");
       }
     })
   }
