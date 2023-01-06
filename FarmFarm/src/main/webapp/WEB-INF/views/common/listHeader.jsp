@@ -23,7 +23,7 @@
     
                     <div id="myDropdown1" class="dropdown-message">
                       <div class="notice">
-                        <p>알림</p><a id="notifyListBtn" href="/notify/center">더보기</a>
+                        <p>알림</p><a id="notifyListBtn" href="/myPage/notify">더보기</a>
                       </div>
 
                       <!-- 알림 위젯 -->
@@ -225,6 +225,7 @@
                   // 알림 유형 아이콘
                   let icon;
                   switch (notify.notifyTypeNo) {
+                    case 101: icon = '<i class="fa-solid fa-message"></i>'; break;
                     case 201: icon = '<i class="fa-solid fa-comment-dots"></i>'; break;
                     case 202: icon = '<i class="fa-solid fa-comment-dots"></i>'; break;
                   }

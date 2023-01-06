@@ -215,6 +215,10 @@ header {
   border-bottom: 0.75px solid #bcbcbc;
 }
 
+#notifyDropdown{
+  height: 144px;
+}
+
 .show {
   display: block;
 }
