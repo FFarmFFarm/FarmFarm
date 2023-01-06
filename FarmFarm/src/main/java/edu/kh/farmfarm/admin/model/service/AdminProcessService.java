@@ -24,7 +24,7 @@ public interface AdminProcessService {
 	 * @param hiddenId
 	 * @return result
 	 */
-	int reportMemberKickout(int hiddenNo);
+	int reportMemberKickout(int hiddenNo, int authority);
 	
 	
 	/** 신고 계정 정지
