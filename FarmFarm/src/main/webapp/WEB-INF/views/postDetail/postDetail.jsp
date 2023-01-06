@@ -67,7 +67,6 @@
               <a href="/seller/${post.memberNo}" class="seller">${post.memberNickname}</a>
               <span class="origin">국산</span>
             </div>
-            ${post.memberNo}
           </div>
 
           <div class="product-btn-area">
