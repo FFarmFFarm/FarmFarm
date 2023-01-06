@@ -202,7 +202,7 @@
           <c:if test="${fn:length(reviewImgAll) lt 8}">
             <c:forEach var="reviewImg" items="${reviewImgAll}">
                   <li id="${reviewImg.reviewNo}" class="review-one-img">
-                    <img src="${reviewImg.reviewImgPath}" alt="" />
+                        <img src="${reviewImg.reviewImgPath}" alt="" />
                   </li>
             </c:forEach>
           </c:if>
@@ -211,14 +211,14 @@
           <c:if test="${fn:length(reviewImgAll) gt 7}">
             <c:forEach var="reviewImg" items="${reviewImgAll}" begin="0" end="6">
               <li id="${reviewImg.reviewNo}" class="review-one-img">
-                <img src="${reviewImg.reviewImgPath}" alt="" />
+                    <img src="${reviewImg.reviewImgPath}" alt="" />
               </li>
             </c:forEach>
 
             <c:forEach var="reviewImg" items="${reviewImgAll}" begin="7" end="7">
                 <!-- 8개 이상일 때 -->
                 <li class="last-review-img" id="${reviewImg.reviewNo}">
-                  <img src="${reviewImg.reviewImgPath}" alt="" />
+                        <img src="${reviewImg.reviewImgPath}" alt="" />
                   <div class="more-review-img-btn">+더보기</div>
                 </li>
             </c:forEach>
