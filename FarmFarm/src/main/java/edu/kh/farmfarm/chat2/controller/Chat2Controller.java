@@ -226,10 +226,10 @@ public class Chat2Controller {
 			int enterNo, String enterStatus
 			) {
 		
-		// 초대 승인 또는 거부(1은 처리 성공, 0은 처리 실패)
-		int result = service.updateChatEnterApprove(enterNo, enterStatus);
+		// 초대 승인 또는 거부(1 이상은 처리 성공, 0은 처리 실패)
+		int resultRoomNo = service.updateChatEnterApprove(enterNo, enterStatus);
 		
-		return new Gson().toJson(result);
+		return new Gson().toJson(resultRoomNo);
 	}
 	
 
@@ -253,5 +253,26 @@ public class Chat2Controller {
 		String newChatImgPath = service.insertNewChatImg(roomNo, memberNo, chatImg, webPath, folderPath);
 		
 		return new Gson().toJson(newChatImgPath);
+	}
+	
+	
+	// 입장 시 채팅 
+//	@PostMapping("/insert/system")
+//	@ResponseBody
+//	public String insertNewSystenChat(int roomNo, String chatContent) {
+//		
+//		int result = service.insertNewSystemChat(roomNo, chatContent);
+//		
+//		return new Gson().toJson(result);
+//	}
+	
+	// 입장 시 조회
+	@PostMapping("/update/view")
+	@ResponseBody
+	public String updateView(int roomNo, int memberNo) {
+		
+		int result = service.updateView(roomNo, memberNo);
+		
+		return new Gson().toJson(result);
 	}
 }	

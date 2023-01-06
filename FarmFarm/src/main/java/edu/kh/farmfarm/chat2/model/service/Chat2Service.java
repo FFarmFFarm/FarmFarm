@@ -101,6 +101,20 @@ public interface Chat2Service {
 	 */
 	int deleteChatEnter(int roomNo, int memberNo);
 
+	/** 입장 시 시스템 메세지
+	 * @param roomNo
+	 * @param chatContent
+	 * @return
+	 */
+//	int insertNewSystemChat(int roomNo, String chatContent);
+
+	/** 입장 시 조회처리
+	 * @param roomNo
+	 * @param memberNo
+	 * @return
+	 */
+	int updateView(int roomNo, int memberNo);
+
 
 
 

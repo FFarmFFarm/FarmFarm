@@ -82,12 +82,25 @@ public class Chat2ServiceImpl implements Chat2Service {
 					
 					result = resultInsertChatEnter;
 					
-					// 4. 판매자를 초대함
+					// 4. 판매자를 초대함(강제초대)
 					chatEnter.setRoomNo(roomNo);
 					chatEnter.setMemberNo(sellerNo);
 					
 					resultInsertChatEnter = dao.insertChatEnter(chatEnter);
+					
 					result = resultInsertChatEnter;
+					
+					// 3. 시스템 메시지 전송하기
+//					if(resultInsertChatEnter > 0) {
+//						Chat2 chat = new Chat2();
+//						chat.setRoomNo(roomNo);
+//						chat.setChatType("S");
+//						chat.setChatContent("상품 문의 채팅이 시작되었습니다.");
+//						
+//						int resultInsertSystemChat = dao.insertNewSystemChat(chat);
+//						
+//						result = resultInsertSystemChat;
+//					}
 				}
 			}
 			
@@ -108,6 +121,19 @@ public class Chat2ServiceImpl implements Chat2Service {
 				int resultInsertChatEnter = dao.insertChatEnter(chatEnter);
 				
 				result = resultInsertChatEnter;
+				
+				// 3. 시스템 메시지 전송하기
+//				if(resultInsertChatEnter > 0) {
+//					Chat2 chat = new Chat2();
+//					chat.setRoomNo(roomNo);
+//					chat.setChatType("S");
+//					chat.setChatContent("채팅 시 서로간에 예의를 지켜주세요!");
+//					
+//					int resultInsertSystemChat = dao.insertNewSystemChat(chat);
+//					
+//					result = resultInsertSystemChat;
+//				}
+
 			}
 		}
 		
@@ -199,7 +225,26 @@ public class Chat2ServiceImpl implements Chat2Service {
 		chatEnter.setMemberNo(memberNo);
 		chatEnter.setEnterStatus("Y");
 		
-		return dao.insertChatEnter(chatEnter);
+		int result = dao.insertChatEnter(chatEnter);
+		
+		if(result > 0) {
+			
+			// 시스템 메시지 전송을 위해, 회원의 이름을 확인함
+			String memberNickname = dao.selectMemberNickname(memberNo);
+			
+			// 메세지 내용 작성
+			String chatContent = memberNickname + "님께서 입장하셨습니다.";
+			
+			Chat2 chat = new Chat2();
+			
+			chat.setRoomNo(roomNo);
+			chat.setChatType("S");
+			chat.setChatContent(chatContent);
+			
+			result = dao.insertNewSystemChat(chat);
+		}
+		
+		return result;
 	}
 	
 	// 채팅방 초대
@@ -258,8 +303,20 @@ public class Chat2ServiceImpl implements Chat2Service {
 		
 		chatEnter.setEnterNo(enterNo);
 		chatEnter.setEnterStatus(enterStatus);
+			
+		int result = dao.updateChatEnterApprove(chatEnter);
 		
-		return dao.updateChatEnterApprove(chatEnter);
+//		int resultRoomNo = 0; // 시스템 메세지를 보낼 채팅방 번호
+//		
+//		if(result > 0) {
+//			if(enterStatus.equals("Y")) {
+//				resultRoomNo = dao.selectRoomNoByEnterNo(enterNo);
+//			}
+//		}
+		
+		return result;
+		
+		
 	}
 
 	// 채팅방 탈퇴
@@ -271,6 +328,37 @@ public class Chat2ServiceImpl implements Chat2Service {
 		chat2Enter.setMemberNo(memberNo);
 		
 		return dao.deleteChatEnter(chat2Enter);
+	}
+
+	// 입장 시 시스템 메시지
+//	@Override
+//	@Transactional(rollbackFor = Exception.class)
+//	public int insertNewSystemChat(int roomNo, String chatContent) {
+//		Chat2 chat = new Chat2();
+//		chat.setRoomNo(roomNo);
+//		chat.setChatContent(chatContent);
+//		return dao.insertNewSystemChat(chat);
+//	}
+
+	// 입장 시 조회 처리
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int updateView(int roomNo, int memberNo) {
+		Chat2Enter chatEnter = new Chat2Enter();
+		chatEnter.setRoomNo(roomNo);
+		chatEnter.setMemberNo(memberNo);
+		
+		int resultA = dao.updateLastChatNo(chatEnter);
+		int resultB = 0;
+		
+		if(resultA > 0) {
+			Chat2 chat = new Chat2();
+			chat.setRoomNo(roomNo);
+			chat.setMemberNo(memberNo);
+			resultB = dao.updateChatCount(chat);
+		}
+		
+		return resultB;
 	}
 
 
