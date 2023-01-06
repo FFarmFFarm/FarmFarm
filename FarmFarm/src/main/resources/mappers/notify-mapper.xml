@@ -58,6 +58,15 @@
 		UPDATE NOTIFY SET NOTIFY_STATUS = 0 WHERE NOTIFY_NO = #{notifyNo}
 	</update>
 	
+	<!-- 내 알림 전부 다 업데이트 -->
+	<update id="updateNotifyAll">
+		UPDATE NOTIFY 
+		SET NOTIFY_STATUS = 0 
+		WHERE MEMBER_NO = (SELECT MEMBER_NO 
+								 FROM "MEMBER"
+								 WHERE MEMBER_NICKNAME = #{memberNickname})				
+	</update>
+	
 	 <!-- 내 알림 삭제 -->
 	<update id="deleteNotify">
 		DELETE FROM NOTIFY WHERE NOTIFY_NO = #{notifyNo}

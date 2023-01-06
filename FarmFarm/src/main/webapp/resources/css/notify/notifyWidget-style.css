@@ -108,4 +108,12 @@
     bottom: 16px;
     left: 15px;
 
+    display: none;
+
+}
+
+/* 읽은 경우 */
+.read {
+    background-color: rgb(0, 0, 0, 0.01);
+    opacity: 0.5;
 }

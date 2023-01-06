@@ -48,7 +48,7 @@ addEventListener("DOMContentLoaded", ()=>{
                     }
 
                     // 알림 위젯에 도트를 표시
-                    
+                    document.querySelector('norifyWidget-red-dot').style.display="block";
                 }
             }
         }

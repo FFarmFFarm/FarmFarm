@@ -380,3 +380,29 @@ const checkEmpty = () => {
 
 /* ------------------------------------- 알림 선택 관련 기능 끝 ------------------------------- */
 
+
+/* 알림 부가 기능들 */
+
+// 1. 알림 전부 조회 처리
+document.getElementById("notifyReadAll").addEventListener("click", ()=>{
+    let memberNickname = document.querySelector('.member-nickname').innerText;
+
+    let formData = new FormData();
+    formData.append("memberNickname", memberNickname);
+
+    axios.post("/notify/update/all", formData
+        ).then(function(response){
+            // 동기화 작업 하기
+
+            let notifyBoxes = document.getElementsByClassName('notify-box');
+
+            for(let notifyBox of notifyBoxes){
+                notifyBox.classList.add('read');
+            }
+
+        }).catch(function(error){
+            console.log("알림 전부 조회 처리 실패")
+            console.log(error)
+        })
+
+})
