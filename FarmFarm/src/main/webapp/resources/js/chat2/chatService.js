@@ -404,7 +404,7 @@ const makeSentChat = (chat, newChatTime) => {
     } else { // 사진인 경우...
         const imgArea = document.createElement('img');
         imgArea.setAttribute('src', chat.chatContent);
-        imgArea.setAttribute('onerror', "this.src='/resources/images/chat/no-pictures.png'");
+        imgArea.setAttribute('onerror', "this.src='/resources/images/chat2/default/no-pictures.png'");
         
         packUpElement(sentBubble, 'sent-bubble', null);
         sentBubble.append(imgArea);
@@ -451,7 +451,7 @@ const makeReceivedChat = (chat, newChatTime) => {
     } else {
         const imgArea = document.createElement('img');
         imgArea.setAttribute('src', chat.chatContent);
-        imgArea.setAttribute('onerror', "this.src='/resources/images/chat/no-pictures.png'");
+        imgArea.setAttribute('onerror', "this.src='/resources/images/chat2/default/no-pictures.png'");
 
         packUpElement(receivedBubble, 'sent-bubble', null);
         receivedBubble.append(imgArea);
@@ -578,6 +578,8 @@ document.getElementById('inputBox').addEventListener('keyup', (e)=>{
     }
     document.getElementById('inputBox').focus();
 })
+
+document.getElementById('inputBox').setAttribute("spellcheck", "false");
 
 /* 사진 보내기 이벤트 */
 document.getElementById('sendImgBtn').addEventListener('click', ()=>{
