@@ -80,19 +80,6 @@ button {
   cursor: default;
 }
 
-/* .profile-setting-btn {
-  position: absolute;
-  right: 15px;
-  top: 15px;
-  border: none;
-  font-size: var(--large-font-size);
-  cursor: pointer;
-}
-
-.profile-setting-btn:active {
-  transform: scale(0.95);
-} */
-
 .profile-img-container {
   width: 200px;
   height: 250px;

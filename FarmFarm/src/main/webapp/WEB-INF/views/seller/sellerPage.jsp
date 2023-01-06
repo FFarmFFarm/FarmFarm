@@ -32,7 +32,7 @@
         <section class="profile-container">
             <div class="profile-background">
                 <img
-                src="/resources/images/myPage/background/bgImg2.jpg"
+                src="/resources/images/default/bgImg.png"
                 alt=""
                 class="member-bg-img"
                 />
@@ -45,14 +45,12 @@
                         <c:when test="${! empty memberInfo.profileImg}">
                             <img
                             src="${memberInfo.profileImg}"
-                            alt=""
                             class="member-profile-img"
                             />
                         </c:when>
                         <c:otherwise>
                             <img
-                            src="/resources/images/myPage/profile/profile.png"
-                            alt=""
+                            src="/resources/images/default/profileImg.png"
                             class="member-profile-img"
                             />
                         </c:otherwise>
