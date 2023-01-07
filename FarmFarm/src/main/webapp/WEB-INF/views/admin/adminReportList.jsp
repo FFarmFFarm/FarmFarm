@@ -81,7 +81,22 @@
                               <i class="fa-solid fa-arrow-up-short-wide caret-icon"></i>
                               <i class="fa-solid fa-arrow-down-wide-short caret-icon"></i> 
                             </th> -->
-                            <th>처리 상태</th>
+                            <th>
+                              <span id="dropBtn2">
+                                <span id="dropBtn2Text">처리 상태</span>
+                                <i class="fa-solid fa-caret-down filter-icon" id="dropBtn2"></i>
+                              </span>
+                              <div class="drop-menu" id="dropMenu2">
+                                <ul class="drop-ul" id="dropUl2">
+                                    <li class="typeFilter" id="t0">전체</li>
+                                    <li class="typeFilter" id="t1">일반 회원</li>
+                                    <li class="typeFilter" id="t2">판매자</li>
+                                    <li class="typeFilter" id="t3">판매 게시글</li>
+                                    <li class="typeFilter" id="t4">커뮤니티 게시글</li>
+                                    <li class="typeFilter" id="t5">커뮤니티 댓글</li>
+                                </ul>
+                              </div>
+                            </th>
                         </tr>
 
                         <tbody id="tbody">
@@ -117,6 +132,9 @@
                                 </c:if>
                                 <c:if test="${report.reportType eq 'B' || report.reportType eq 'P'}">
                                   <td class="rTitle">${report.title}</td>
+                                </c:if>
+                                <c:if test="${report.reportType eq 'C'}">
+                                  <td>report.commentMemberId</td>
                                 </c:if>
                               </c:if>
 

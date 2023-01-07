@@ -58,4 +58,6 @@ public class Admin {
 	private String content; // 게시글 내용 (판매글, 커뮤니티게시글)
 	private int reportVolume;  // 한 타겟당 누적 신고 횟수
 	private int contentNo;  // 게시글 번호 (판매글, 커뮤니티게시글)
+	private String commentMemberId;  // 댓글 쓴 회원 아이디
+	private int commentBoardNo; // 댓글이 달린 게시글 번호
 }

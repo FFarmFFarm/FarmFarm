@@ -86,12 +86,23 @@ public class AdminProcessDAO {
 
 	/** 신고 판매글 삭제
 	 * @param hiddenContentNo
-	 * @return
+	 * @return result
 	 */
 	public int reportDeletePost(int hiddenContentNo) {
 		return sqlSession.update("adminMapper.reportDeletePost", hiddenContentNo);
 	}
 
+	
+
+	/** 신고 댓글 삭제
+	 * @param hiddenContentNo
+	 * @return result
+	 */
+	public int reportDeleteComment(int hiddenContentNo) {
+		return sqlSession.update("adminMapper.reportDeleteComment", hiddenContentNo);
+	}
+
+	
 
 	/** 신고 상태 변경, 신고 일자 업데이트 (계정)
 	 * @param paramMap
@@ -127,6 +138,8 @@ public class AdminProcessDAO {
 		// processDate는 변경하지 않음!!
 		return sqlSession.update("adminMapper.activateAccount", targetNo);
 	}
+
+
 
 
 

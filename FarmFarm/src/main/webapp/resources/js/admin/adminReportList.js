@@ -172,6 +172,10 @@ const printReportList = (reportAllList, pagination) => {
                     td3.innerText = report.memberId;
                 }
             }
+
+            if(report.reportType == 'C'){
+                td3.innerText = report.commentMemberId;
+            }
         }
 
         // 신고 사유
@@ -310,8 +314,67 @@ const printReportDetail = (reportDetail) => {
 
     const td4Detail = document.createElement('td');
     
-    if(reportDetail.reportPenalty == null){
-        td4Detail.innerText = "접수";
+    if(reportDetail.reportType != null){
+        
+        if(reportDetail.reportPenalty == null){
+            td4Detail.innerText = "접수";
+
+            // if(reportDetail.reportType == 'M'){
+            //     accountLeaveBtn.classList.add('account-leave-btn');
+            //     accountBannedBtn.classList.add('account-banned-btn');
+            //     accountKickOutBtn.classList.add('account-kickout-btn');
+            //     accountLeaveBtn.disabled = false;
+            //     accountBannedBtn.disabled = false;
+            //     accountKickOutBtn.disabled = false;
+
+            // } else {
+            //     contentLeaveBtn.classList.add('content-leave-btn');
+            //     contentDeleteBtn.classList.add('content-delete-btn');
+            //     contentLeaveBtn.disabled = false;
+            //     contentDeleteBtn.disabled = false;
+            // }
+
+        }
+        if(reportDetail.reportPenalty == 'N'){
+            td4Detail.innerText = "반려";
+
+            // if(reportDetail.reportType == 'M'){
+            //     accountLeaveBtn.disabled = true;
+            //     accountLeaveBtn.classList.toggle('off');
+            //     accountLeaveBtn.classList.remove('account-leave-btn');
+
+            //     accountBannedBtn.classList.add('account-banned-btn');
+            //     accountBannedBtn.disabled = false;
+            //     accountKickOutBtn.classList.add('account-kickout-btn');
+            //     accountKickOutBtn.diabled = false;
+
+
+            // } else {
+            //     contentLeaveBtn.disabled = true;
+            //     contentLeaveBtn.classList.toggle('off');
+            //     contentLeaveBtn.classList.remove('content-leave-btn');
+
+            //     contentDeleteBtn.classList.add('content-delete-btn');
+            //     contentDeleteBtn.disabled = false;
+            // }
+        }
+    
+     
+        if(reportDetail.reportType == 'M'){
+            if(reportDetail.memberDelFl == 'N' && reportDetail.reportPenalty == 'Y'){
+                td4Detail.innerText = "정지";
+            }
+    
+            if(reportDetail.memberDelFl == 'Y'){
+                td4Detail.innerText = "탈퇴";
+            }
+        }
+    
+        if(reportDetail.reportType == 'B' || reportDetail.reportType == 'P' || reportDetail.reportType == 'C'){
+            if(reportDetail.reportPenalty == 'Y'){
+                td4Detail.innerText = "삭제";
+            }
+        } 
     }
 
     tr1Detail.append(td1Detail, td2Detail, td3Detail, td4Detail);
@@ -420,6 +483,9 @@ const printReportDetail = (reportDetail) => {
         if(reportDetail.reportType == 'B' || reportDetail.reportType == 'P'){
             td11Detail.innerText = "신고 대상 게시글";
         }
+        if(reportDetail.reportType == 'C'){
+            td11Detail.innerText = "댓글 작성자 ID";
+        }
     }
 
     const td12Detail = document.createElement('td');
@@ -459,6 +525,11 @@ const printReportDetail = (reportDetail) => {
             // td12Detail.innerHTML = "[ " + reportDetail.title + " ]";
             move.href = "/post/" + reportDetail.reportTargetNo;
             move.innerHTML = "[ " + reportDetail.title + " ]";
+        }
+
+        if(reportDetail.reportType == 'C'){ //커뮤니티 댓글
+            // move.href = "/board/" + newReportDetail.commentBoardNo;
+            move.innerHTML = "[ " + reportDetail.commentMemberId + " ]";
         }
 
         td12Detail.append(move);
@@ -566,9 +637,9 @@ const printReportDetail = (reportDetail) => {
 
     //  탈퇴한 회원 버튼 안나오게
     if(reportDetail.memberDelFl == 'Y'){
-        accountLeaveBtn.classList.add('showDisabled');
-        accountBannedBtn.classList.add('showDisabled');
-        accountKickOutBtn.classList.add('showDisabled');
+        // accountLeaveBtn.classList.add('showDisabled');
+        // accountBannedBtn.classList.add('showDisabled');
+        // accountKickOutBtn.classList.add('showDisabled');
         accountLeaveBtn.classList.remove('hide');
         accountBannedBtn.classList.remove('hide');
         accountKickOutBtn.classList.remove('hide');
@@ -607,8 +678,8 @@ const printReportDetail = (reportDetail) => {
     if((reportDetail.reportType == 'B' && reportDetail.boardDelFl == 'Y')
         || (reportDetail.reportType == 'P' && reportDetail.postDelFl == 'Y')
         || (reportDetail.reportType == 'C' && reportDetail.commentDelFl == 'Y')){
-        contentLeaveBtn.classList.add('showDisabled');
-        contentDeleteBtn.classList.add('showDisabled'); 
+        // contentLeaveBtn.classList.add('showDisabled');
+        // contentDeleteBtn.classList.add('showDisabled'); 
         contentLeaveBtn.classList.remove('hide');
         contentDeleteBtn.classList.remove('hide');
         contentLeaveBtn.disabled = true;
@@ -714,8 +785,8 @@ const printAccumulate = (accumMemberList, accumContentList) => {
         }
     }
 
-
-    if(hiddenReportType == 'B' || hiddenReportType == 'P'){
+    // 신고유형 : 게시글, 판매글, 댓글
+    if(hiddenReportType == 'B' || hiddenReportType == 'P' || hiddenReportType == 'C'){
         numCount = 0;
 
         for(let content of accumContentList){
@@ -1186,7 +1257,7 @@ contentLeaveBtn.addEventListener('click', () => {
 
 
 // todo: 검색하기
-// 1) 버튼 눌러서검색
+// 1) 아이콘 눌러서검색
 document.getElementById("reportSearchBtn").addEventListener('click', () => {
     doSearch();
 })
