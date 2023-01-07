@@ -361,17 +361,13 @@ const checkEmpty = () => {
 
     // notify box 확인
     for (let type of typeList) {
-        console.log('자 반복문 돌아갑니다잉')
 
         if(!type.classList.contains('hide')) {
             boxExist = true;
-            console.log('있는데요?');
             break;
         }
     }
 
-    console.log(boxExist);
-    
     // 만약 요소가 하나도 없으면...
     if (!boxExist) {
         document.querySelector('.notify-empty').classList.remove('hide');
@@ -380,3 +376,29 @@ const checkEmpty = () => {
 
 /* ------------------------------------- 알림 선택 관련 기능 끝 ------------------------------- */
 
+
+/* 알림 부가 기능들 */
+
+// 1. 알림 전부 조회 처리
+document.getElementById("notifyReadAll").addEventListener("click", ()=>{
+    let memberNickname = document.querySelector('.member-nickname').innerText;
+
+    let formData = new FormData();
+    formData.append("memberNickname", memberNickname);
+
+    axios.post("/notify/update/all", formData
+        ).then(function(response){
+            // 동기화 작업 하기
+
+            let notifyBoxes = document.getElementsByClassName('notify-box');
+
+            for(let notifyBox of notifyBoxes){
+                notifyBox.classList.add('read');
+            }
+
+        }).catch(function(error){
+            console.log("알림 전부 조회 처리 실패")
+            console.log(error)
+        })
+
+})

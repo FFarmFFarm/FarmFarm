@@ -30,14 +30,12 @@ const connectToChattingSockForWidget = () => {
         myMemberNickname = response.data.memberNickname;
         myProfileImg = response.data.profileImg;
 
-        console.log("안녕 " + myMemberNo + "번 회원님")
-
-        if (myMemberNo != -1) {
+        if (myMemberNo != 0) {
             chattingSock = new SockJS('/echo/chat2');
 
             if (chattingSock != null) {
 
-                console.log('채팅 2.0 서버와 연결되었습니다.')
+                console.log('채팅2 서버와 연결되었습니다.')
 
                 chattingSock.onmessage = function (e) {
                     console.log('새로운 메세지가 있습니다.');
@@ -45,7 +43,7 @@ const connectToChattingSockForWidget = () => {
                 }
 
                 chattingSock.onclose = function (e) {
-                    console.log('채팅 2.0 서버와 재연결을 시도합니다...');
+                    console.log('채팅2 서버와 재연결을 시도합니다...');
                     console.log(e);
 
                     setTimeout(function () {

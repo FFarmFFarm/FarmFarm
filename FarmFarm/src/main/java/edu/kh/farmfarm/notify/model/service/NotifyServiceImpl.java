@@ -60,6 +60,12 @@ public class NotifyServiceImpl implements NotifyService {
 	public int updateNotify(int notifyNo) {
 		return dao.updateNotify(notifyNo);
 	}
+	
+	// 알림 전부 읽음 처리(UPDATE)
+	@Override
+	public int updateNotifyAll(String memberNickname) {
+		return dao.updateNotifyAll(memberNickname);
+	}
 
 	// 알림 삭제 처리(delete)
 	@Override
@@ -67,4 +73,6 @@ public class NotifyServiceImpl implements NotifyService {
 	public int deleteNotify(int notifyNo) {
 		return dao.deleteNotify(notifyNo);
 	}
+
+
 }

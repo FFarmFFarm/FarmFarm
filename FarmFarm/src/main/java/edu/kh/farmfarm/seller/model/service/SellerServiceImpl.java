@@ -177,6 +177,24 @@ public class SellerServiceImpl implements SellerService{
 		return result;
 	}
 
+	// 판매중인 상품리스트
+	@Override
+	public Map<String, Object> selectSellList(int cp, int memberNo) {
+		
+		int listCount = dao.getSellListCount(memberNo);
+		
+		Pagination pagination = new Pagination(listCount, cp, 10, 5);
+		
+		List<Post> postList = dao.selectSellList(pagination, memberNo);
+		
+		Map<String, Object> postMap = new HashMap<String, Object>();
+		postMap.put("pagination", pagination);
+		postMap.put("postList", postList);
+		
+		return postMap;
+		
+	}
+
 	
 	
 	

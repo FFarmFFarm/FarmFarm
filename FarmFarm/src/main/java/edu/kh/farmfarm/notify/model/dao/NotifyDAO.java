@@ -65,6 +65,16 @@ public class NotifyDAO {
 	public int updateNotify(int notifyNo) {
 		return sqlSession.update("notifyMapper.updateNotify", notifyNo);
 	}
+	
+	
+	/** 알림 전부 읽음처리
+	 * @param notifyNo
+	 * @return
+	 */
+	public int updateNotifyAll(String memberNickname) {
+		return sqlSession.update("notifyMapper.updateNotifyAll", memberNickname);
+	}
+	
 
 
 	/** 알림 삭제 처리
@@ -74,6 +84,8 @@ public class NotifyDAO {
 	public int deleteNotify(int notifyNo) {
 		return sqlSession.delete("notifyMapper.deleteNotify", notifyNo);
 	}
+
+
 	
 	
 }

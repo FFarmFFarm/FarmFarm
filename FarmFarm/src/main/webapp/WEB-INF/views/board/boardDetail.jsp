@@ -30,7 +30,7 @@
             </section>
             <section class="board-nav">
                 <div class="board-nav-area">
-                    <a href="/board/${1}" id="type1">물물교환</a>
+                    <a href="/board/${1}" id="type1">자유게시판</a>
                     <a href="/board/${2}" id="type2">팁</a>
                     <a href="/board/${3}" id="type3">질문</a>
                 </div>
@@ -59,9 +59,7 @@
                 </div>
                 <div class="board-content-area">
                     <div class="board-content">
-                        <pre> 
-${board.boardContent}
-                        </pre>
+                        ${board.boardContent}
                     </div>
 
                     <div class="board-img-area">

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set var="postList" value="${map.postList}"/>
 <c:set var="pagination" value="${map.pagination}"/>
@@ -20,6 +21,9 @@
     <link rel="stylesheet" href="/resources/css/common/header-style.css">
     <link rel="stylesheet" href="/resources/css/common/footer-style.css">
     <link rel="stylesheet" href="/resources/css/report/report-modal-style.css" />
+
+
+    <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
 
 
     <script src="https://kit.fontawesome.com/d449774bd8.js" crossorigin="anonymous"></script>
@@ -70,7 +74,7 @@
                     </c:otherwise>
                 </c:choose>
                 
-                <span class="member-nickname">
+                <span class="member-nickname" id="${memberInfo.memberNo}">
                     <i class="fa-solid fa-carrot"></i>
                     ${memberInfo.memberNickname}
                 </span>
@@ -97,15 +101,21 @@
             </div>
         </section>
         <section class="mypage-nav">
-            <i class="fa-regular fa-clipboard"></i> 
-            <span> 판매글</span>
+            <div class="nav-title">
+                <i class="fa-regular fa-clipboard"></i> 
+                <span>판매글</span>
+            </div>
+            <label id="onlySellList">
+                <input type="checkbox" id="onlySellCheck">
+                <span>판매중인 글만보기</span>
+            </label>
         </section>
 
         <section class="my-post-container">
             <div class="post-list-container">
                 <c:forEach var="post" items="${postList}">
-                    <div class="post-list">
-                        <div class="post">
+                    <div class="post-one">
+                        <div class="post-content">
                             <div class="post-thumbnail">
                                 <c:choose>
                                     <c:when test="${! empty post.postImgAddress}">
@@ -135,15 +145,15 @@
                                     </c:if>
                                 </div>
                                 <div class="post-price">
-                                    가격 <span>${post.unitPrice}</span>
+                                    가격 <span><fmt:formatNumber value="${post.unitPrice}" pattern="#,###" />원</span>
                                 </div>
                                 <div class="post-detail">
                                     <div class="post-reg-date">
                                         작성일<span>${post.postDate}</span>
                                     </div>
-                                    <div class="post-view-count">
+                                    <%-- <div class="post-view-count">
                                         조회수<span>${post.postView}</span>
-                                    </div>
+                                    </div> --%>
                                 </div>
                             </div>
                             <div class="button-area">
@@ -176,7 +186,7 @@
                     step="1">
                     <c:choose>
                         <c:when test="${i==pagination.currentPage}">
-                            <div class="page-box">
+                            <div class="current-page-box">
                                 <a class="current">${i}</a>
                             </div>
                         </c:when>
@@ -204,12 +214,13 @@
 
     <!-- footer -->
     <jsp:include page='/WEB-INF/views/common/footer.jsp' />
-
-    
+    <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
+    <jsp:include page="/WEB-INF/views/seller/modal/sellerConfirm.jsp"/>
 
     <script>
         let selectPostNo;
         var cp="${param.cp}";
+        var loginMemberNo = ${loginMember.memberNo};
     </script>
 
     <c:if test="${!empty message}">
@@ -222,6 +233,8 @@
     <jsp:include page="/WEB-INF/views/report/report-modal.jsp"/> 
     
     <script src="/resources/js/seller/sellerPage.js"></script>
+    <script src="/resources/js/common/common.js"></script>
+    <script src="/resources/js/report/report-modal.js"></script>
 
     <!-- ajax -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>

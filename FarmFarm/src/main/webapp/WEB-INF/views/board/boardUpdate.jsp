@@ -26,7 +26,7 @@
         <form action="/board/${boardTypeNo}/${board.boardNo}/update" method="post" encType="multipart/form-data">
             <section class="board-nav">
                 <div class="board-nav-area">
-                    <span id="type1">물물교환</span>
+                    <span id="type1">자유게시판</span>
                     <span id="type2">팁</span>
                     <span id="type3">질문</span>
                 <button class="board-update">수정하기</button>
@@ -42,7 +42,7 @@
                 </div>
 
                 <%-- 내용 --%>
-                <textarea class="write-content" name="boardContent" spellcheck="false">${board.boardContent}</textarea>
+                <textarea class="write-content" name="boardContent" spellcheck="false" maxlength="1200">${board.boardContent}</textarea>
                 
                 <div class="board-img-ex">이미지 첨부하기</div>
                 <div class="board-img-area">

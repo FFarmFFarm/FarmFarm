@@ -21,9 +21,9 @@
                       <i class="fa-solid fa-bell header-icon"></i>
                     </button>
     
+                    <div class="notifyWidget-red-dot red-dot"></div> <!-- notify-widget에 있음 -->
                     <div id="myDropdown1" class="dropdown-message">
                       <div class="notice"><p>알림</p><a id="notifyListBtn" href="/myPage/notify">더보기</a></div>
-
                       <!-- 알림 위젯 -->
                       <jsp:include page="/WEB-INF/views/notify/notifyWidget.jsp"/>
 
@@ -90,16 +90,6 @@
     </div>
     
     <script>
-      // 요소에 클래스, 값을 넣어서 반환하는 함수
-      const packupElement = (element, classname, inputValue) => {
-        element.classList.add(classname);
-
-        if(inputValue != -1) {
-          element.innerHTML = inputValue;
-        }
-
-      }
-
 
       // 프로필 드롭다운
       const dropbtn = document.querySelector('.dropbtn');
@@ -144,125 +134,7 @@
         }
       });
 
-      // 알림 드롭다운
-      const dropbtn1 = document.querySelector('.dropbtn1');
-      if(dropbtn1 != null) {
-
-        dropbtn1.addEventListener('click', () => {
-          const myDropdown1 = document.querySelector('.dropdown-message');
-  
-          if (
-            myDropdown1.style.display == 'none' ||
-            myDropdown1.style.display == ''
-          ) {
-
-            axios.post('/notify/widget/list' // 연결
-              ).then(function (response){
-
-                if(response.data != undefined) { // 받아온 데이터가 있을 때에만 실행
-                  
-                  const notifyDropdown = document.getElementById('notifyDropdown');
-
-                  notifyDropdown.innerHTML = '';
-
-                  const notifyList = response.data.notifyList;
-
-                  // 반복문 숫자
-                  let iteratorFl = 0;
-
-                  for(let notify of notifyList) {
-
-                    // 반복 횟수 제한 : 6회
-                    if(iteratorFl == 6) break;
-                    else iteratorFl += 1;
-                    
-                    // 1. 재료 준비
-                    const notifyWidgetBox = document.createElement('div');
-
-                    const notifyWidgetIcon = document.createElement('div');
-
-                    const notifyWidgetMain = document.createElement('div');
-
-                    const notifyWidgetHeader = document.createElement('div');
-                    const notifyWidgetTitle = document.createElement('div');
-                    const notifyWidgetDate = document.createElement('div');
-                    const notifyWidgetDelBtn = document.createElement('div');
-
-                    const notifyWidgetContent = document.createElement('div');
-
-                    // 2. 재료 손질
-                    packupElement(notifyWidgetBox, 'notify-widget-box', null);
-                    
-                    // 알림 유형 아이콘
-                    let icon;
-                    switch(notify.notifyTypeNo){
-                      case 101:  icon = '<i class="fa-solid fa-message"></i>'; break;
-                      case 201 : icon = '<i class="fa-solid fa-comment-dots"></i>'; break;
-                      case 202 : icon = '<i class="fa-solid fa-comment-dots"></i>'; break;
-                      case 301 : icon = '<i class="fa-solid fa-envelope-open-text"></i>'; break;
-                    }
-                    
-                    packupElement(notifyWidgetIcon, 'notify-widget-icon', icon);
-
-                    packupElement(notifyWidgetMain, 'notify-widget-main', null);
-                    packupElement(notifyWidgetHeader, 'notify-widget-header', null);
-                    
-                    
-                    // 알림 유형 제목(단축버전)
-                    let title;
-                    
-                    // switch (notify.notifyTypeNo) {
-                    //   case 201: title = '댓글 알림'; break;
-                    //   case 202: title = '댓글 알림'; break;
-                    // }
-
-                    // packupElement(notifyWidgetTitle, 'notify-widget-title', title);
-                    packupElement(notifyWidgetTitle, 'notify-widget-title', notify.notifyTitle);
-
-                    // 알림 시간
-                    packupElement(notifyWidgetDate, 'notify-widget-date', notify.notifyDate);
-
-                    // 알림 삭제 버튼
-                    packupElement(notifyWidgetDelBtn, 'notify-widget-delBtn', '<i class="fa-solid fa-xmark"></i>');
-
-                    // 알림 내용
-                    packupElement(notifyWidgetContent, 'notify-widget-content', notify.notifyContent);
-
-                    // 3. 조리
-                    notifyWidgetHeader.append(notifyWidgetTitle, notifyWidgetDate, notifyWidgetDelBtn);
-                    notifyWidgetMain.append(notifyWidgetHeader, notifyWidgetContent);
-                    notifyWidgetBox.append(notifyWidgetIcon, notifyWidgetMain);
-
-                    // 4. 플레이팅
-                    notifyDropdown.append(notifyWidgetBox);
-                  }
-
-                }
-
-                myDropdown1.style.display = 'block';
-
-              }).catch(function (error){
-                console.log(error)
-              }) 
-
-          } else {
-            myDropdown1.style.display = 'none';
-          }
-
-        });
-
-      }
-
-      /* 외부 영역 클릭 시 클릭 해제 */
-      const myDropdown11 = document.querySelector(".dropdown-message");
-      if(myDropdown11 != null){
-        addEventListener('click', (e)=>{
-          const target = e.target;
-          if(!document.getElementById('myDropdown1').contains(e.target)){
-            document.getElementById('myDropdown1').style.display='';
-          }
-        })
-      }
-
+      
 
     </script>
+

@@ -267,7 +267,7 @@ const type1 = document.getElementById("type1");
 const type2 = document.getElementById("type2");
 const type3 = document.getElementById("type3");
 if(boardAdd == '/board/1'){
-    boardTitle.innerHTML = "와글와글 물물교환";
+    boardTitle.innerHTML = "와글와글 자유게시판";
     type1.classList.add("nowType");
     type2.classList.remove("nowType");
     type3.classList.remove("nowType");
