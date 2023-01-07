@@ -45,7 +45,7 @@
 
                 <div class="write-title">
                     <span>제목 &nbsp; : </span>
-                    <input type="text" class="input-write-title" name="boardTitle">
+                    <input type="text" class="input-write-title" name="boardTitle" spellcheck="false">
                 </div>
 
                 <textarea class="write-content" name="boardContent" spellcheck="false" maxlength="1200"></textarea>

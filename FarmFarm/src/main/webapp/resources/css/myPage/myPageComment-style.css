@@ -63,7 +63,7 @@ a.comment-wrote > i {
 
 .comment-category,
 .comment-container {
-  width: 80%;
+  width: 90%;
   text-align: center;
 }
 
@@ -72,7 +72,7 @@ a.comment-wrote > i {
 }
 
 .comment-reg-date {
-  width: 20%;
+  width: 17%;
   text-align: center;
 }
 
@@ -83,11 +83,13 @@ a.comment-wrote > i {
   align-items: flex-start;
   justify-content: space-around;
   padding: 10px 0;
-  margin-left: 50px;
+  margin-left: 30px;
+  width: 550px;
+  margin-right: 10px;
 }
 
 .comment-content {
-
+  width: 95%;
   height: 18px;
   word-break : nowrap;
   display : inline-block; 
@@ -95,6 +97,8 @@ a.comment-wrote > i {
 
   overflow : hidden; 
   white-space : nowrap;
+
+  text-align: start;
 }
 
 .pagination {

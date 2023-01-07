@@ -184,6 +184,7 @@ public class ProductDetailServiceImpl implements ProductDetailService{
 					
 					if(result == 0) {
 						result = dao.insertReviewImg(img);
+						result = 1;
 						
 						if(result == 0) {
 							throw new Exception("후기 이미지 수정/삽입 예외");
