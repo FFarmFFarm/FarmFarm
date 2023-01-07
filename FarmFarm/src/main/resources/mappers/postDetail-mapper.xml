@@ -54,6 +54,12 @@
 	WHERE POST_NO = #{postNo}
 </select>
 
+<!-- 판매글 조회수 증가 -->
+<update id="updateViewCount">
+	UPDATE POST SET POST_VIEW = POST_VIEW  + 1
+	WHERE POST_NO = #{postNo}
+</update>
+
 
 
 <!-- 판매자 상품 이미지 목록 조회 -->

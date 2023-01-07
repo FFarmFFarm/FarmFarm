@@ -332,8 +332,8 @@
     <jsp:include page="/WEB-INF/views/productDetail/modal/reviewDetail.jsp"/>
     <jsp:include page="/WEB-INF/views/common/modal/loginConfirm.jsp"/>
     <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
-    <jsp:include page="/WEB-INF/views/myPage/modal/reviewForm.jsp"/>
     <jsp:include page="/WEB-INF/views/order/modal/cartConfirm.jsp"/>
+    <jsp:include page="/WEB-INF/views/myPage/modal/reviewUpdateForm.jsp"/>
 
 
 
@@ -344,12 +344,12 @@
 
   <script>
 
-    memberNo = "${loginMember.memberNo}";
-    stock = "${product.stock}";
-    loginMember = "${loginMember}";
-    cp = "${pagination.currentPage}"
-    sortFl = 'R';
-    authority = "${loginMember.authority}"
+    var loginMemberNo = "${loginMember.memberNo}";
+    var stock = "${product.stock}";
+    var loginMember = "${loginMember}";
+    var cp = "${pagination.currentPage}"
+    var sortFl = 'R';
+    var authority = "${loginMember.authority}"
 
   </script>
 
@@ -363,6 +363,6 @@
 
 
   <!-- script -->
-  <script src="/resources/js/productDetail/productDetail.js"></script>
   <script src="/resources/js/common/common.js"></script>
+  <script src="/resources/js/productDetail/productDetail.js"></script>
 </html>
