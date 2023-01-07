@@ -75,32 +75,34 @@
 	<!-- 내 채팅방 목록 조회(SELECT) -->
 	<select id="selectChatRoomList" parameterType="_int" resultMap="chat2Room_rm">
 		-- ROOM 번호와 회원 수
-	    SELECT *
-	    FROM (SELECT ROOM_NO, COUNT(MEMBER_NO) AS MEMBER_COUNT
-	    			 FROM CHAT2_ENTER
-	    			 GROUP BY ROOM_NO)
-	    LEFT JOIN(
-	    -- 내가 읽지 않은 채팅의 개수
-	    SELECT NVL(COUNT(CHAT_NO),0) AS UNREAD_CHAT_COUNT, ROOM_NO 
-	    FROM CHAT2
-	    WHERE CHAT_NO > (SELECT LAST_READ_CHAT_NO
-	    				 FROM CHAT2_ENTER
-	    				 WHERE MEMBER_NO = #{memberNo}
-	    				 AND ROOM_NO = 69
-	    				 AND ENTER_STATUS = 'Y')
-	    GROUP BY ROOM_NO) USING(ROOM_NO)
+		SELECT *
+		FROM (SELECT ROOM_NO, COUNT(MEMBER_NO) AS MEMBER_COUNT
+					 FROM CHAT2_ENTER
+					 GROUP BY ROOM_NO)
+		LEFT JOIN(
+		-- 내가 읽지 않은 채팅의 개수
+		SELECT ROOM_NO, (SELECT COUNT(CHAT_NO) 
+						 FROM CHAT2 C2
+						 WHERE C1.ROOM_NO = C2.ROOM_NO
+						 AND CHAT_NO > (SELECT LAST_READ_CHAT_NO
+						 				FROM CHAT2_ENTER C3
+						 				WHERE MEMBER_NO = #{memberNo}
+						 				AND C1.ROOM_NO = C3.ROOM_NO
+						 				AND ENTER_STATUS = 'Y')) AS UNREAD_CHAT_COUNT
+		FROM CHAT2 C1
+		GROUP BY ROOM_NO) USING(ROOM_NO)
 		------------------
 		LEFT JOIN (SELECT ROOM_NO, C.CHAT_NO, C.CHAT_CONTENT AS LAST_CHAT_CONTENT, 
 		      CASE WHEN TO_CHAR(C.CHAT_TIME, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD') 
-	   			   THEN TO_CHAR(C.CHAT_TIME, 'AM HH"시" MI"분"')
-	   			   ELSE TO_CHAR(C.CHAT_TIME, 'YYYY-MM-DD')
+				   THEN TO_CHAR(C.CHAT_TIME, 'AM HH"시" MI"분"')
+				   ELSE TO_CHAR(C.CHAT_TIME, 'YYYY-MM-DD')
 		   	  END LAST_CHAT_TIME, 
 		      C.CHAT_TYPE AS LAST_CHAT_TYPE
-	          FROM CHAT2 C
-	          JOIN (SELECT MAX(CHAT_NO) AS LAST_CHAT_NO
-	                FROM CHAT2
-	 	            GROUP BY ROOM_NO) C_SUB ON (C_SUB.LAST_CHAT_NO = C.CHAT_NO)
-      		  WHERE (C.CHAT_TYPE = 'T' OR C.CHAT_TYPE = 'I') ) USING(ROOM_NO)
+		      FROM CHAT2 C
+		      JOIN (SELECT MAX(CHAT_NO) AS LAST_CHAT_NO
+		            FROM CHAT2
+		            GROUP BY ROOM_NO) C_SUB ON (C_SUB.LAST_CHAT_NO = C.CHAT_NO)
+			  WHERE (C.CHAT_TYPE = 'T' OR C.CHAT_TYPE = 'I') ) USING(ROOM_NO)
 		------------------
 		LEFT JOIN (SELECT ROOM_NO, ROOM_NAME, CR.ROOM_TYPE,
 		   		     CASE WHEN ROOM_TYPE > 0 THEN (SELECT POST_TITLE 
@@ -297,23 +299,35 @@
 	<!-- 내 채팅방 목록 조회(LIMIT < 6) -->
 	<select id="selectChatWidgetList" parameterType="_int" resultMap="chat2Room_rm">
 		SELECT * 
-		FROM (SELECT * 
-				FROM (SELECT ROOM_NO, NVL(UNREAD_CHAT_COUNT, 0) AS UNREAD_CHAT_COUNT 
-			  	  	  FROM(SELECT COUNT(*) AS UNREAD_CHAT_COUNT, ROOM_NO
-				           FROM CHAT2 GROUP BY ROOM_NO)
-			          RIGHT JOIN (SELECT ROOM_NO FROM CHAT2_ROOM) USING (ROOM_NO))
+		FROM (-- ROOM 번호와 회원 수
+				SELECT *
+				FROM (SELECT ROOM_NO, COUNT(MEMBER_NO) AS MEMBER_COUNT
+							 FROM CHAT2_ENTER
+							 GROUP BY ROOM_NO)
+				LEFT JOIN(
+				-- 내가 읽지 않은 채팅의 개수
+				SELECT ROOM_NO, (SELECT COUNT(CHAT_NO) 
+								 FROM CHAT2 C2
+								 WHERE C1.ROOM_NO = C2.ROOM_NO
+								 AND CHAT_NO > (SELECT LAST_READ_CHAT_NO
+								 				FROM CHAT2_ENTER C3
+								 				WHERE MEMBER_NO = #{memberNo}
+								 				AND C1.ROOM_NO = C3.ROOM_NO
+								 				AND ENTER_STATUS = 'Y')) AS UNREAD_CHAT_COUNT
+				FROM CHAT2 C1
+				GROUP BY ROOM_NO) USING(ROOM_NO)
 				------------------
 				LEFT JOIN (SELECT ROOM_NO, C.CHAT_NO, C.CHAT_CONTENT AS LAST_CHAT_CONTENT, 
 				      CASE WHEN TO_CHAR(C.CHAT_TIME, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD') 
-			   			   THEN TO_CHAR(C.CHAT_TIME, 'AM HH"시" MI"분"')
-			   			   ELSE TO_CHAR(C.CHAT_TIME, 'YYYY-MM-DD')
+						   THEN TO_CHAR(C.CHAT_TIME, 'AM HH"시" MI"분"')
+						   ELSE TO_CHAR(C.CHAT_TIME, 'YYYY-MM-DD')
 				   	  END LAST_CHAT_TIME, 
 				      C.CHAT_TYPE AS LAST_CHAT_TYPE
-			          FROM CHAT2 C
-			          JOIN (SELECT MAX(CHAT_NO) AS LAST_CHAT_NO
-			                FROM CHAT2
-			 	            GROUP BY ROOM_NO) C_SUB ON (C_SUB.LAST_CHAT_NO = C.CHAT_NO)
-	 	      		  WHERE (C.CHAT_TYPE = 'T' OR C.CHAT_TYPE = 'I') ) USING(ROOM_NO)
+				      FROM CHAT2 C
+				      JOIN (SELECT MAX(CHAT_NO) AS LAST_CHAT_NO
+				            FROM CHAT2
+				            GROUP BY ROOM_NO) C_SUB ON (C_SUB.LAST_CHAT_NO = C.CHAT_NO)
+					  WHERE (C.CHAT_TYPE = 'T' OR C.CHAT_TYPE = 'I') ) USING(ROOM_NO)
 				------------------
 				LEFT JOIN (SELECT ROOM_NO, ROOM_NAME, CR.ROOM_TYPE,
 				   		     CASE WHEN ROOM_TYPE > 0 THEN (SELECT POST_TITLE 
