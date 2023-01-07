@@ -83,7 +83,9 @@ a.comment-wrote > i {
   align-items: flex-start;
   justify-content: space-around;
   padding: 10px 0;
-  margin-left: 50px;
+  margin-left: 30px;
+  width: 550px;
+  margin-right: 10px;
 }
 
 .comment-content {
@@ -95,6 +97,9 @@ a.comment-wrote > i {
 
   overflow : hidden; 
   white-space : nowrap;
+
+  text-align: start;
+  width: 100%;
 }
 
 .pagination {
