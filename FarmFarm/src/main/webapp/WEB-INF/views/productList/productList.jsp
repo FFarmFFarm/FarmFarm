@@ -29,13 +29,13 @@
             <div class="swiper-wrapper">
                 <!-- 필요 시 이미지 추가 -->
                 <div class="swiper-slide">
-                    <img src="/resources/images/productList/banner-sample.jpg">
+                    <img src="/resources/images/productList/listbg1.png">
                 </div>
                 <div class="swiper-slide">
-                    <img src="/resources/images/productList/banner-sample2.jpg">
+                    <img src="/resources/images/productList/listbg2.png">
                 </div>
                 <div class="swiper-slide">
-                    <img src="/resources/images/productList/banner-sample3.jpg">
+                    <img src="/resources/images/productList/listbg3.png">
                 </div>
             </div>
             <div>
