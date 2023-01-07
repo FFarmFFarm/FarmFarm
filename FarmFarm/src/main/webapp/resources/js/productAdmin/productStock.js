@@ -20,8 +20,10 @@ for(let i=0; i<inputBtn.length; i++) {
           "productNo": productNo},
         type: "GET",
         success: ()=>{
-          alert("입고되었습니다.");
-          window.location.reload();
+          messageModalOpen("입고되었습니다");
+          setTimeout(() => {
+            window.location.reload();
+          }, "1000");
         },
         error:()=>{
           console.log("재고 입고 실패");
@@ -39,7 +41,8 @@ for(let i=0; i<outputBtn.length; i++){
     let productNo = outputBtn[i].getAttribute("id");
   
     if(stockDown == 0) {
-      alert("수량을 입력해주세요.");
+      messageModalOpen("수량을 입력해주세요");
+      
     } else {
       $.ajax({
         url: "/admin/stockDown",
@@ -47,8 +50,10 @@ for(let i=0; i<outputBtn.length; i++){
               "productNo": productNo},
         type: "GET",
         success: ()=>{
-          alert("출고되었습니다.");
-          window.location.reload();
+          messageModalOpen("출고되었습니다");
+          setTimeout(() => {
+            window.location.reload();
+          }, "1000");
         },
         error:()=>{
           console.log("재고 출고 실패");
@@ -91,7 +96,7 @@ for(let i=0; i<deleteBtn.length; i++){
       // console.log(deleteBtn[i].getAttribute("id"));
       deletePost(deleteBtn[i].getAttribute("id"));
     } else {
-      alert("취소되었습니다.");
+      messageModalOpen("취소되었습니다");
     }
   });
 }
@@ -103,8 +108,10 @@ const deletePost = (productNo)=>{
     type: "GET",
     success: (result)=>{
       if(result>0){
-        alert("상품이 삭제되었습니다.");
-        window.location.reload();
+        messageModalOpen("상품이 삭제되었습니다");
+          setTimeout(() => {
+            window.location.reload();
+          }, "1000");
       }
     },
     error: ()=>{
@@ -149,8 +156,10 @@ for(let i=0; i<soldOutBtn.length; i++){
         type: "GET",
         success: (result)=>{
           if(result>0){
-            alert("상품 상태가 변경되었습니다.");
+          messageModalOpen("상품 상태가 변경되었습니다");
+          setTimeout(() => {
             window.location.reload();
+          }, "1000");
           }
         },
         error: ()=>{
