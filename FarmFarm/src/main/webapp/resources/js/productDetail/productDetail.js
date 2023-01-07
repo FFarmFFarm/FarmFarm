@@ -459,6 +459,7 @@ const newReview = (review) => {
   reviewSwiperArea.append(imgContainer);
 
   /* 리뷰 이미지 슬라이드 만들기 */
+  console.log(review.imgList);
   for (let image of review.imgList) {
     console.log(image);
     const div = document.createElement('div');

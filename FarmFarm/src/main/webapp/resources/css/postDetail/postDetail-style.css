@@ -240,7 +240,7 @@ button:active {
 .product-notice > span {
   font-size: var(--main-font-size);
 }
-.swiper {
+/* .swiper {
   width: 430px;
   height: 430px;
   margin-left: auto;
@@ -252,7 +252,7 @@ button:active {
     height: 430px;
     overflow: hidden;
 
-}
+} */
 
 .swiper-slide {
 
