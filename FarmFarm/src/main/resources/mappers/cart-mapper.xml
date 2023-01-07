@@ -12,6 +12,7 @@
 		<result property="productName" column="PRODUCT_NAME" />
 		<result property="productImg" column="PRODUCT_IMG" />
 		<result property="stock" column="STOCK" />
+		<result property="soldoutFl" column="SOLDOUT_FL" />
 		<result property="memberAddress" column="MEMBER_ADDRESS" />
 	</resultMap>
 	
@@ -26,10 +27,23 @@
       <result property="memberName" column="MEMBER_NAME" />
       <result property="to" column="MEMBER_TEL" />
   	</resultMap>
+  	
+  	<!-- 재고수 확인 -->
+  	<update id="updateOverStock">
+	  	UPDATE CART C
+			SET PRODUCT_AMOUNT =
+				(SELECT STOCK FROM PRODUCT P
+				WHERE C.PRODUCT_NO = P.PRODUCT_NO)
+			WHERE PRODUCT_AMOUNT > 
+				(SELECT STOCK FROM PRODUCT P
+				WHERE C.PRODUCT_NO = P.PRODUCT_NO
+				AND SOLDOUT_FL = 'N')
+			AND MEMBER_NO=#{memberNo}
+  	</update>
 	
 	<!-- 장바구니 조회 -->
 	<select id="selectCartList" resultMap="cart_rm">
-		SELECT C.PRODUCT_NO, PRODUCT_NAME, PRODUCT_AMOUNT, STOCK,
+		SELECT C.PRODUCT_NO, PRODUCT_NAME, PRODUCT_AMOUNT, STOCK, SOLDOUT_FL,
 			TO_CHAR(PRODUCT_PRICE, 'FM999,999,999,999') PRODUCT_PRICE,
 			TO_CHAR(PRODUCT_PRICE*PRODUCT_AMOUNT, 'FM999,999,999,999') PRODUCT_TOTAL_PRICE,
 			(SELECT PRODUCT_IMG_ADDRESS FROM PRODUCT_IMG PI

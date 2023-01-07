@@ -100,7 +100,7 @@
     <script src="/resources/js/common/common.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="/resources/js/myPage/myPage.js"></script>
-    <script src="/resources/js/myPage/myPageUpdatePw.js"></script>
+    <script src="/resources/js/myPage/myPageSecession.js"></script>
 
   </body>
 </html>

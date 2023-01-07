@@ -91,7 +91,7 @@
     border:none;
     border: 1px solid lightgray;
     padding: 4px;
-    font-size: var(--small-font-size);
+    font-size: var(--main-font-size);
     /* line-height: 20px; */
 }
 
@@ -127,6 +127,7 @@ input[type=radio]{
     color: white;
     border: none;
     border-radius: 5px;
+    display: block;
     /* margin-left: 30px; */
     
 }

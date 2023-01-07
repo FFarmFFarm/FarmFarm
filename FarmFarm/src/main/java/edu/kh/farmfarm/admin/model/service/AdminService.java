@@ -102,7 +102,22 @@ public interface AdminService {
 	 * @param contentNo
 	 * @return map
 	 */
-	Map<String, Object> selectReportAccumulate(String reportType, int memberNo, int contentNo);
+	Map<String, Object> selectReportAccumulate(String reportType, int memberNo, int contentNo, String allNew);
+
+
+	/** 전체 신고 내역 조회
+	 * @param typeFilter
+	 * @param cp
+	 * @return map
+	 */
+	Map<String, Object> selectReportAllList(Map<String, Object> paramMap, int c);
+
+
+	/** 전체 신고 상세 조회
+	 * @param hiddenReportNo
+	 * @return reportDetail
+	 */
+	Admin selectReportDetail(int hiddenReportNo);
 
 
 

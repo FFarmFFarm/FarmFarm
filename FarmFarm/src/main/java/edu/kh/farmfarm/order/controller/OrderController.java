@@ -110,7 +110,6 @@ public class OrderController {
 			RedirectAttributes ra) throws IOException {
 		
 
-		
 		order.setMemberNo(loginMember.getMemberNo());
 		
 		int result = service.orderProduct(order, pList.getPList());
@@ -124,6 +123,7 @@ public class OrderController {
 		} else {
 			path = referer;
 			message = "주문이 실패했습니다";
+			
 		}
 		
 		ra.addFlashAttribute("message", message);
@@ -164,6 +164,11 @@ public class OrderController {
 	
 
 	
+	/** 주문 취소
+	 * @param orderNo
+	 * @return
+	 * @throws IOException
+	 */
 	@GetMapping("/order/cancel")
 	@ResponseBody
 	public int orderCancel(int orderNo) throws IOException {
