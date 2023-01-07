@@ -147,3 +147,7 @@ enrollPostForm.addEventListener("submit", (event)=>{
 
 });
 
+// 등록취소 버튼
+document.getElementById("cancelBtn").addEventListener("click",()=>{
+  history.go(-1);
+})
