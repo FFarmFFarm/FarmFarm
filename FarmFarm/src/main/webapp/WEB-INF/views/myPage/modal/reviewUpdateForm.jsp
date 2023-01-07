@@ -44,35 +44,35 @@
             spellcheck="false"></textarea>
           </div>
           <div class="review-img-upload" id="imgUploadArea">
-            <div class="review-one-img" id='reviewOneImg1'>
+            <div class="review-update-img" id='reviewOneImg1'>
               <img class="review-img-thumbnail hide" id="reviewImg0"></img>
               <button type="button" class="x-btn fa-solid fa-xmark hide"></button>
               <label id="inputLabel" class="input-label"><i class="fa-solid fa-plus"></i>
                 <input type="file" id="imgInput1" class="input-file" name="reviewImg"/>
               </label>
             </div>
-            <div class="review-one-img" id='reviewOneImg2'>
+            <div class="review-update-img" id='reviewOneImg2'>
               <img class="review-img-thumbnail hide" id="reviewImg1"></img>
               <button type="button" class="x-btn fa-solid fa-xmark hide"></button>
               <label id="inputLabel" class="input-label"><i class="fa-solid fa-plus"></i>
                 <input type="file" id="imgInput2" class="input-file" name="reviewImg"/>
               </label>
             </div>
-            <div class="review-one-img" id='reviewOneImg3'>
+            <div class="review-update-img" id='reviewOneImg3'>
               <img class="review-img-thumbnail hide" id="reviewImg2"></img>
               <button type="button" class="x-btn fa-solid fa-xmark hide"></button>
               <label id="inputLabel" class="input-label"><i class="fa-solid fa-plus"></i>
                 <input type="file" id="imgInput3" class="input-file" name="reviewImg"/>
               </label>
             </div>
-            <div class="review-one-img" id='reviewOneImg4'>
+            <div class="review-update-img" id='reviewOneImg4'>
               <img class="review-img-thumbnail hide" id="reviewImg3"></img>
               <button type="button" class="x-btn fa-solid fa-xmark hide"></button>
               <label id="inputLabel" class="input-label"><i class="fa-solid fa-plus"></i>
                 <input type="file" id="imgInput4" class="input-file" name="reviewImg"/>
               </label>
             </div>
-            <div class="review-one-img" id='reviewOneImg5'>
+            <div class="review-update-img" id='reviewOneImg5'>
               <img class="review-img-thumbnail hide" id="reviewImg4"></img>
               <button type="button" class="x-btn fa-solid fa-xmark hide"></button>
               <label id="inputLabel" class="input-label"><i class="fa-solid fa-plus"></i>
