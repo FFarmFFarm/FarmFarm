@@ -98,13 +98,6 @@
                                                 <button type="button" class="plus-btn" disabled><i class="fa-solid fa-plus"></i></button>
                                                 <span id="${cart.stock}" name="stock">품절된 상품입니다</span>
                                             </c:if>
-                                            <%-- <c:if test="${cart.stock lt cart.productAmount}">
-                                                <button type="button" class="minus-btn"><i class="fa-solid fa-minus"></i></button>
-                                                <input type="number" min="1" class="product-amount"
-                                                value="${cart.stock}" name="pList[${vs.index}].productAmount">
-                                                <button type="button" class="plus-btn"><i class="fa-solid fa-plus"></i></button>
-                                                <span id="${cart.stock}" name="stock"></span>
-                                            </c:if> --%>
                                             <c:if test="${cart.stock ne 0 && cart.soldoutFl eq 'N' && cart.stock ge cart.productAmount}">
                                                 <button type="button" class="minus-btn"><i class="fa-solid fa-minus"></i></button>
                                                 <input type="number" min="1" class="product-amount"

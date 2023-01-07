@@ -142,6 +142,8 @@ public class ReviewController {
 			@RequestParam(value = "deleteList", required = false) String deleteList
 			) throws Exception {
 		
+		System.out.println(review.getReviewNo());
+		
 		review.setMemberNo(loginMember.getMemberNo());
 		
 		String webPath = "/resources/images/product/review/";
@@ -150,6 +152,7 @@ public class ReviewController {
 		
 		int result = service.updateReview(webPath, folderPath, review, imageList, deleteList);
 		
+		System.out.println(result);
 		
 		return result;
 	}

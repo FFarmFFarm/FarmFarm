@@ -1,3 +1,8 @@
+const selectCp = () => {
+  let cp = location.search.replace('?cp=', '');
+  return cp;
+}
+
 
 /* -------------------------------------------------------------------------------------------------- */
 /* 상품 관련 */
@@ -50,7 +55,7 @@ if (document.getElementById('wishBtn') != null) {
 const addWish = (productNo, wishBtn) => {
   $.ajax({
     url: '/wish/add',
-    data: { productNo: productNo, memberNo: memberNo },
+    data: { productNo: productNo, "memberNo": loginMemberNo },
     success: (result) => {
       wishBtn.classList.remove('wish-unclicked');
       wishBtn.classList.add('wish-clicked');
@@ -65,7 +70,7 @@ const addWish = (productNo, wishBtn) => {
 const removeWish = (productNo, wishBtn) => {
   $.ajax({
     url: '/wish/remove',
-    data: { productNo: productNo, memberNo: memberNo },
+    data: { productNo: productNo, "memberNo": loginMemberNo },
     success: (result) => {
       wishBtn.classList.remove('wish-clicked');
       wishBtn.classList.add('wish-unclicked');
@@ -157,7 +162,7 @@ if (document.getElementById('cartBtn') != undefined) {
           url: '/addCart',
           data: { productNo: productNo,
                 productAmount: productAmount,
-                memberNo: memberNo },
+                "memberNo": loginMemberNo },
           type: "GET",
           success: (result) => {
             if(result == 0){
@@ -230,7 +235,7 @@ if (document.getElementById('addCartCalcelBtn') != undefined) {
       url: '/addCart',
       data: {productNo: productNo,
           productAmount: productAmount,
-          memberNo: memberNo },
+          "memberNo": loginMemberNo },
       type: "POST",
       success: (result) => {
         if(result > 0){
@@ -331,7 +336,7 @@ const reviewImgList = (reviewList) => {
 
       const reviewNo = img.id;
 
-      selectReview(reviewNo, memberNo);
+      selectReview(reviewNo, loginMemberNo);
 
       setTimeout(() => {
         displayFlex(reviewDetail);
@@ -370,7 +375,7 @@ for (let img of reviewImg) {
       displayFlex(reviewDetail);
     }, '200');
 
-    selectReview(reviewNo, memberNo);
+    selectReview(reviewNo, loginMemberNo);
 
   });
 }
@@ -389,14 +394,14 @@ backBtn.addEventListener('click', () => {
 
 
 /* 리뷰 상세 조회  Function*/
-const selectReview = (reviewNo, memberNo) => {
-  if (memberNo == '') {
-    memberNo = 0;
+const selectReview = (reviewNo, loginMemberNo) => {
+  if (loginMemberNo == '') {
+    loginMemberNo = 0;
   }
 
   $.ajax({
     url: '/review/select/' + reviewNo,
-    data: { memberNo: memberNo },
+    data: { "memberNo": loginMemberNo },
     dataType: 'json',
     success: (review) => {
       console.log(review);
@@ -454,6 +459,7 @@ const newReview = (review) => {
   reviewSwiperArea.append(imgContainer);
 
   /* 리뷰 이미지 슬라이드 만들기 */
+  console.log(review.imgList);
   for (let image of review.imgList) {
     console.log(image);
     const div = document.createElement('div');
@@ -548,7 +554,7 @@ const newReview = (review) => {
   dateSpan.innerText = review.createDate;
 
 
-  if (Number(memberNo) != review.memberNo) {
+  if (Number(loginMemberNo) != review.memberNo) {
     const btn = document.createElement("button");
     btn.id = review.reviewNo;
 
@@ -598,18 +604,14 @@ const newReview = (review) => {
 
 
 
-    const button = document.createElement("button");
-    button.id = 'updateReview';
-    button.setAttribute('type', 'button');
-    button.innerText = '수정하기';
-
     const input = document.createElement("input");
     input.setAttribute('type', 'hidden');
     input.value = review.reviewNo;
     input.id = 'reviewNoInput';
-
+    
     createDate.append(dateSpan, span1);
-    reviewNotice.append(button, input);
+    reviewNotice.append( input);
+ 
 
 
   }
@@ -825,7 +827,7 @@ const printReviewList = (reviewList, pagination, sortFL) => {
 
     reviewWriter.append(profileImg, nicknameArea);
 
-    if (Number(memberNo) == review.memberNo) {
+    if (Number(loginMemberNo) == review.memberNo) {
       const button = document.createElement("button");
       button.classList.add('review-update-btn');
       button.id = review.reviewNo;
@@ -833,6 +835,11 @@ const printReviewList = (reviewList, pagination, sortFL) => {
       button.innerText = '수정하기';
 
       reviewContent.append(button);
+
+      button.addEventListener('click', ()=>{
+        displayFlex(document.getElementById('reviewFormContainer'));
+        selectReviewUpdate(review.reviewNo);
+      })
 
     }
 
@@ -857,7 +864,7 @@ const printReviewList = (reviewList, pagination, sortFL) => {
 
         img.addEventListener('click', () => {
 
-          selectReview(review.reviewNo, memberNo);
+          selectReview(review.reviewNo, loginMemberNo);
 
           setTimeout(() => {
             displayFlex(document.getElementById('reviewDetail'));
@@ -872,7 +879,7 @@ const printReviewList = (reviewList, pagination, sortFL) => {
     const dateSpan = document.createElement("span");
     dateSpan.innerText = review.createDate;
 
-    if (Number(memberNo) != review.memberNo) {
+    if (Number(loginMemberNo) != review.memberNo) {
       const btn = document.createElement("button");
       btn.id = review.reviewNo;
 
@@ -1025,23 +1032,247 @@ const selectReviewListBySort = (productNo, sortFL) => {
   });
 }
 
+
+
+
+
+
+/* 리뷰 수정하기 */
+/* 리뷰 수정하기 버튼 클릭 시 수정하기 form 출력 */
 const reviewUpdateBtn = document.getElementsByClassName('review-update-btn');
-for (let i = 0; i < reviewUpdateBtn.length; i++) {
-  reviewUpdateBtn[i].addEventListener('click', (e) => {
+if (reviewUpdateBtn != undefined) {
 
-    const reviewNo = reviewUpdateBtn[i].id;
-
-    $.ajax({
-
+  for (let btn of reviewUpdateBtn) {
+    btn.addEventListener('click', () => {
+      displayFlex(document.getElementById('reviewFormContainer'));
+      selectReviewUpdate(btn.id);
     })
+  }
+}
+
+/* 리뷰 작성 창 뒤로가기 클릭 시 */
+const reviewBackBtn = document.getElementById('reviewBackBtn');
+
+reviewBackBtn.addEventListener('click', () => {
+  document.getElementById('reviewFrom').reset();
+  displayNone(document.getElementById('reviewFormContainer'));
+
+  const reviewImage = document.getElementsByClassName('review-img-thumbnail');
+  const inputLabel = document.getElementsByClassName('input-label');
+  const xBtn = document.getElementsByClassName('x-btn');
+
+  for (let i = 0; i < xBtn.length; i++) {
+    reviewImage[i].classList.add('hide');
+    reviewImage[i].classList.remove('appear');
+    inputLabel[i].style.display = 'flex';
+
+    xBtn[i].classList.add('hide');
+    xBtn[i].classList.remove('appear');
+  }
+
+})
 
 
+/* 리뷰 삭제 버튼 클릭시 삭제 */
+const reviewDeleteBtn = document.getElementsByClassName('review-delete-btn');
+if (reviewDeleteBtn != undefined) {
+
+  for (let btn of reviewDeleteBtn) {
+    btn.addEventListener('click', () => {
+      displayFlex(document.getElementById('deleteConfirmModal'));
+      reviewNo = btn.id;
+    })
+  }
+}
+
+
+
+/* 수정할 리뷰상세 조회  Function*/
+const selectReviewUpdate = (reviewNo) => {
+
+  console.log(loginMemberNo);
+  console.log(reviewNo);
+
+  $.ajax({
+    url: '/review/select/' + reviewNo,
+    data: { "memberNo": loginMemberNo },
+    dataType: 'json',
+    success: (review) => {
+      console.log(review);
+
+      /* 리뷰 모달창 내용 넣기 */
+      fillReviewForm(review);
+    },
+    error: () => {
+      console.log('리뷰 상세 조회 중 에러');
+    },
   });
+};
+
+
+
+/* 리뷰 수정 폼 채우기 */
+const fillReviewForm = (review) => {
+  console.log(review);
+  const reviewForm = document.getElementById('reviewForm');
+  
+  if (reviewForm != undefined) {
+    reviewForm.reset();
+    
+  }
+  
+  /* 리뷰 모달창 내용 넣기 */
+  const modalProductThumbnail = document.getElementById('modalProductThumbnail');
+  const modalProductName = document.getElementById('modalProductName');
+  const reviewTextArea = document.getElementById('reviewTextArea');
+  const reviewNoInput = document.getElementById('reviewNoInput');
+  
+  
+  modalProductThumbnail.removeAttribute('src');
+  modalProductThumbnail.src = review.productThumbnail;
+  
+  modalProductName.removeAttribute('href');
+  modalProductName.href = '/product/' + review.productNo;
+  modalProductName.innerHTML = review.productName;
+  
+  
+  reviewNoInput.value = review.reviewNo;
+  console.log(review.reviewNo);
+  
+  reviewTextArea.value = '';
+  review.reviewContent = review.reviewContent.replaceAll('<br>', '\n');
+  review.reviewContent = review.reviewContent.replaceAll('<br/>', '\n');
+  review.reviewContent = review.reviewContent.replaceAll('<br />', '\n');
+  reviewTextArea.value = review.reviewContent;
+
+  reviewTextArea.focus();
+
+  if (review.imgList.length > 0) {
+    for (let img of review.imgList) {
+
+      const reviewImg = document.getElementById('reviewImg' + img.reviewImgOrder);
+      const xBtn = document.getElementsByClassName('x-btn')[img.reviewImgOrder];
+      const inputLabel = document.getElementsByClassName('input-label')[img.reviewImgOrder];
+
+      reviewImg.src = img.reviewImgPath;
+      reviewImg.classList.remove('hide');
+      xBtn.classList.remove('hide');
+      inputLabel.style.display = 'none';
+
+
+    }
+  }
+
 
 }
 
 
 
+
+/* 리뷰 수정 중 이미지 추가 시 */
+const inputFile = document.getElementsByClassName('input-file');
+const reviewImage = document.getElementsByClassName('review-img-thumbnail');
+const xBtn = document.getElementsByClassName('x-btn');
+const inputLabel = document.getElementsByClassName('input-label');
+
+const deleteSet = new Set();
+
+for (let i = 0; i < inputFile.length; i++) {
+  inputFile[i].addEventListener('change', (e) => {
+    const file = inputFile[i].files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.readAsDataURL(file);
+
+      reader.onload = (e) => {
+
+        reviewImage[i].setAttribute('src', event.target.result);
+        displayFlexNoLock(reviewImage[i]);
+        inputLabel[i].style.display = 'none';
+        displayFlexNoLock(xBtn[i]);
+
+        deleteSet.delete(i);
+
+      };
+    } else {
+      reviewImage[i].src = '';
+      reviewImage[i].classList.add('hide');
+      reviewImage[i].classList.remove('appear');
+      inputFile[i].value = '';
+      inputLabel[i].style.display = 'flex';
+      xBtn[i].classList.add('hide');
+      xBtn[i].classList.remove('appear');
+
+    }
+  });
+
+  xBtn[i].addEventListener('click', (e) => {
+
+    if (reviewImage[i].getAttribute('src') != "") {
+
+      reviewImage[i].removeAttribute('src');
+      reviewImage[i].classList.add('hide');
+      reviewImage[i].classList.remove('appear');
+      inputLabel[i].style.display = 'flex';
+      xBtn[i].classList.add('hide');
+      xBtn[i].classList.remove('appear');
+
+      inputFile[i].value = '';
+
+      deleteSet.add(i);
+    }
+
+  })
+}
+
+
+
+/* 리뷰 등록하기 버튼 클릭 */
+document.getElementById('submitBtn').addEventListener('click', () => {
+
+  const reviewTextArea = document.getElementById('reviewTextArea');
+
+  if (reviewTextArea.value.trim().length == 0) {
+    messageModalOpen("후기 내용을 입력해주세요.");
+    reviewTextArea.value = "";
+    reviewTextArea.focus();
+
+  } else {
+    console.log('등록 하기');
+
+    document.getElementById('deleteSetInput').value = Array.from(deleteSet);
+    const form = document.getElementById('reviewFrom');
+    const formData = new FormData(form);
+
+    $.ajax({
+      url: "/review/update",
+      data: formData,
+      type: "POST",
+      contentType: false,
+      processData: false,
+      success: (result) => {
+        console.log(result);
+
+        if (result > 0) {
+
+          displayNone(document.getElementById('reviewFormContainer'));
+
+          let cp = selectCp();
+          getProductNo()
+
+          selectReviewList(getProductNo(), cp);
+        }
+      },
+      error: () => {
+        console.log('error');
+
+      }
+    })
+  }
+
+})
 /* -------------------------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------------------------- */

@@ -111,12 +111,12 @@
                     <ul class="post-info">
                         <li class="info-list">
                             <p>상품명</p>
-                            <input type="text" name="postTitle" size="60" maxlength="20"
+                            <input type="text" name="postTitle" size="60" maxlength="30"
                             value="${post.postTitle}">
                         </li>
                         <li class="info-list">
                             <p>판매가격</p>
-                            <input type="text" name="unitPrice" 
+                            <input type="text" name="unitPrice"
                             value="${post.unitPrice}"
                             placeholder=0
                             >

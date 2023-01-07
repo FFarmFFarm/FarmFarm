@@ -160,12 +160,25 @@ a:hover {
     border-radius: 2px;
 
     display: flex;
-    justify-content: center;
+    justify-content: right;
     align-items: center;
 }
 
-.mypage-nav> span {
-    margin-left: 5px;
+.nav-title{
+    width: 39%;
+}
+
+#onlySellList{
+    width: 14%;
+    font-size: var(--main-font-size);
+}
+
+.mypage-nav i {
+    margin-right: 5px;
+}
+
+input[type="checkbox"]{
+    accent-color: var(--point-color);
 }
 
 .posted {
@@ -205,7 +218,7 @@ font-weight: bold;
 }
 
 .list-category,
-.post {
+.post-content {
 width: 100%;
 display: flex;
 align-items: center;
@@ -213,7 +226,7 @@ justify-content: center;
 border-bottom: 1px solid #ccc;
 }
 
-.post-list {
+.post-one {
 width: 1000px;
 display: flex;
 flex-direction: column;
@@ -222,7 +235,7 @@ align-content: space-between;
 justify-content: center;
 }
 
-.post {
+.post-content {
 display: flex;
 justify-content: center;
 align-items: center;
@@ -315,7 +328,7 @@ display: flex;
 flex-direction: column;
 }
 
-.button-area > * {
+.soldout-btn, .update-btn, .delete-btn{
 width: 110px;
 height: 30px;
 color: var(--main-font-color);
@@ -323,6 +336,10 @@ background-color: var(--background-color);
 border: 1px solid var(--line-color);
 margin: 2px 0;
 cursor: pointer;
+
+text-align: center;
+font-size: var(--small-font-size);
+line-height: 30px;
 }
 
 .pagination {
@@ -363,4 +380,54 @@ margin-top: 10px;
     color: var(--main-font-color);
     font-weight: 600;
     transition-duration: 0.1s;
+}
+
+/* 현재 페이지 */
+.current-page-box{
+    border: 1px solid var(--line-color);
+
+    width: 30px;
+    height: 30px;
+
+    font-weight: 600;
+    color: var(--point-color);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.current-page-box>a{
+    font-weight: 600;
+    color: var(--point-color);
+}
+
+
+.no-result{
+    height: 200px;
+    padding-top: 100px;
+}
+
+/* 검색 결과가 없는 경우 사용할 페이지 박스 */
+#resultIsEmpty{
+    margin-top: 200px;
+
+    width: 100%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#resultIsEmpty > i{
+    font-size: 50px;
+    color: var(--point-color);
+
+    margin-bottom: 20px;
+}
+
+#resultIsEmpty > span{
+    font-size: 30px;
+    color: var(--main-font-color);
 }
