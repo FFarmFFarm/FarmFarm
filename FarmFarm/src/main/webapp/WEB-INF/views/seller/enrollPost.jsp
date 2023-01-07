@@ -94,8 +94,7 @@
                         </li>
                         <li class="info-list">
                             <p>판매가격</p>
-                            <input type="text" name="unitPrice" placeholder=0
-                            onfocus="this.placeholder = ''">
+                            <input type="text" name="unitPrice" placeholder=0>
                             <p>원</p>
                         </li>
                         <li class="info-list">

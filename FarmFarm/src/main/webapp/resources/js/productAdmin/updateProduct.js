@@ -155,7 +155,8 @@ productPrice.addEventListener("focusout",()=>{
 })
 
 productPrice.addEventListener('keyup', (e)=>{
-  if((e.keyCode < 48 || e.keyCode > 57)&& e.keyCode!=8){
+  if((e.keyCode < 48 || e.keyCode > 57)&& e.keyCode!=8
+    && (e.keyCode < 96 || e.keyCode > 105 )){
     alert("숫자만 입력해주세요");
     e.target.value="";
   }
