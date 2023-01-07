@@ -157,12 +157,14 @@
                                                 </c:if>
                                                 <c:if test="${loginMember.memberNo != comment.memberNo && loginMember.memberNo == board.memberNo}">
                                                     <button onclick="showReply(${comment.commentNo}, this)" class="comment-reply">| &nbsp;&nbsp;답글달기&nbsp;&nbsp;</button> 
-                                                    <button type="button" class="comment-reply">| &nbsp;&nbsp;신고하기&nbsp;&nbsp;</button> 
+                                                    <button type="button" class="comment-reply report-comment-btn" id="reportComment1">| &nbsp;&nbsp;신고하기&nbsp;&nbsp;</button> 
+                                                    <input type="hidden" class="targetCommentNo" value="${comment.commentNo}">
                                                 </c:if>
                                                 <c:if test="${loginMember.memberNo == comment.parentNo && loginMember.memberNo != comment.memberNo}">
                                                 <%-- <c:if test="${loginMember.memberNo == comment.parentNo && loginMember.memberNo != board.memberNo}"> --%>
                                                     <button onclick="showReply(${comment.commentNo}, this)" class="comment-reply">| &nbsp;&nbsp;답글달기&nbsp;&nbsp;</button> 
-                                                    <button type="button" class="comment-reply">| &nbsp;&nbsp;신고하기&nbsp;&nbsp;</button> 
+                                                    <button type="button" class="comment-reply report-comment-btn" id="reportComment2">| &nbsp;&nbsp;신고하기&nbsp;&nbsp;</button> 
+                                                    <input type="hidden" class="targetCommentNo" value="${comment.commentNo}">
                                                 </c:if>
                                             
                                             </c:if>
@@ -174,7 +176,8 @@
                                                 </c:if>
                                                 <c:if test="${loginMember.memberNo != comment.memberNo  && comment.commentDelFl == 'N'}">
                                                     <button onclick="showReply(${comment.commentNo}, this)" class="comment-reply">| &nbsp;&nbsp;답글달기&nbsp;&nbsp;</button> 
-                                                    <button type="button" class="comment-reply">| &nbsp;&nbsp;신고하기&nbsp;&nbsp;</button> 
+                                                    <button type="button" class="comment-reply report-comment-btn" id="reportComment3">| &nbsp;&nbsp;신고하기&nbsp;&nbsp;</button> 
+                                                    <input type="hidden" class="targetCommentNo" value="${comment.commentNo}">
                                                 </c:if>
                                             </c:if>
 

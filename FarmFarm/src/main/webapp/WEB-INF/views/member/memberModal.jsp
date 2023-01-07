@@ -20,9 +20,8 @@
 
             <div class="close-wrap" id="modal-close">
                 <button type="button" id="close-btn-wrap">
-                    <div class="close-btn report-btn">
+                    <div class="close-btn" id="reportMemberBtn">
                         신고하기
-                        <input type="hidden" class="temp-target" id="temp" value="default">
                     </div>
                 </button>
             </div>

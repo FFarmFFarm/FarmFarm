@@ -68,7 +68,7 @@
                     <c:otherwise>
                         <button 
                         type="button"
-                        class="seller-report-btn report-btn">
+                        class="seller-report-btn" id="reportBtn">
                             <p>신고하기</p>
                         </button>
                     </c:otherwise>
@@ -247,6 +247,7 @@
     
     <script src="/resources/js/seller/sellerPage.js"></script>
     <script src="/resources/js/common/common.js"></script>
+    <script src="/resources/js/report/report-modal-common.js"></script>
     <script src="/resources/js/report/report-modal.js"></script>
 
     <!-- ajax -->
