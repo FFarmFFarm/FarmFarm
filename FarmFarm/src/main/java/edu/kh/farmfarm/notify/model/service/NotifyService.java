@@ -40,12 +40,20 @@ public interface NotifyService {
 	 * @return
 	 */
 	int updateNotify(int notifyNo);
+	
+
+	/** 알림 전부 읽음처리(UPDATE)
+	 * @param notifyNo
+	 * @return
+	 */
+	int updateNotifyAll(String memberNickname);
 
 	/** 알림 삭제 처리(delete)
 	 * @param notifyNo
 	 * @return
 	 */
 	int deleteNotify(int notifyNo);
+
 	
 	
 }	

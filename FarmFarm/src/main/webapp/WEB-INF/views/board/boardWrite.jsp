@@ -29,16 +29,13 @@
                     <span class="category">카테고리 선택</span>
 
                     <input type="radio" name="boardTypeNo" class="boardTypeNo" id="share" value="1">
-                    <label class="categoryLabel" for="share">물물교환</label>
+                    <label class="categoryLabel" for="share">자유게시판</label>
 
                     <input type="radio" name="boardTypeNo"  class="boardTypeNo" id="tip" value="2">
                     <label class="categoryLabel" for="tip">팁</label>
 
                     <input type="radio" name="boardTypeNo"  class="boardTypeNo" id="question" value="3">
                     <label class="categoryLabel" for="question">질문</label>
-
-                    <input type="radio" name="boardTypeNo"  class="boardTypeNo" id="Cool" value="4">
-                    <label class="categoryLabel" for="Cool">시원이꼬</label>
 
                 </div>
                 <button class="board-submit">게시하기</button>
@@ -51,7 +48,7 @@
                     <input type="text" class="input-write-title" name="boardTitle">
                 </div>
 
-                <textarea class="write-content" name="boardContent" spellcheck="false"></textarea>
+                <textarea class="write-content" name="boardContent" spellcheck="false" maxlength="1200"></textarea>
                 
                 <div class="board-img-ex">이미지 첨부하기</div>
                 <div class="board-img-area">
