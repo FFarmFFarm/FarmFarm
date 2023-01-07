@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -33,9 +34,11 @@ public class ReportController {
 	@PostMapping("/report")
 	@ResponseBody
 	public int insertReport(@SessionAttribute(value = "loginMember") Member loginMember,
-							String reportType, int reportTargetNo, String reportReason, String reportContent,
-							@RequestHeader(value="referer") String referer, 
-							Model model) {
+							@RequestParam(value="reportType", required=false) String reportType,
+							@RequestParam(value="reportTargetNo", required=false, defaultValue="0") int reportTargetNo,
+							@RequestParam(value="reportReason", required=false) String reportReason,
+							@RequestParam(value="reportContent", required=false)  String reportContent
+							) {
 
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -47,16 +50,12 @@ public class ReportController {
 		map.put("memberNo", loginMember.getMemberNo());
 		
 		int result = 0;
-		String path = null;
 		
 		if(loginMember != null) {
 
 			result = service.insertReport(map);
-			path = referer;
 			
 		}
-		
-		model.addAttribute("result", result);
 		
 		return result;
 	}
