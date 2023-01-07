@@ -217,6 +217,15 @@ public class Chat2DAO {
 		return sqlSession.update("chat2Mapper.updateChatCount", chat);
 	}
 
+	/** 채팅 삭제 처리
+	 * @param chat
+	 * @return
+	 */
+	public int deleteChat(Chat2 chat) {
+		return sqlSession.update("chat2Mapper.deleteChat", chat);
+	}
+
+
 
 
 

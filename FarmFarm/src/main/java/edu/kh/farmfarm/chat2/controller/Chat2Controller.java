@@ -233,8 +233,7 @@ public class Chat2Controller {
 	}
 	
 
-	// 채팅 삭제 처리(UPDATE)
-	
+
 	
 
 	// 사진형식 채팅 전송(INSERT)
@@ -253,6 +252,23 @@ public class Chat2Controller {
 		String newChatImgPath = service.insertNewChatImg(roomNo, memberNo, chatImg, webPath, folderPath);
 		
 		return new Gson().toJson(newChatImgPath);
+	}
+	
+	// 채팅 삭제 처리(UPDATE)
+	@PostMapping("/delete")
+	@ResponseBody
+	public String deleteChat(int chatNo, HttpSession session) {
+		
+		int result = 0;
+		
+		// 내 정보와 일치할 때에만 수행되게 함
+		if(session.getAttribute("loginMember") != null) {
+			int memberNo = ((Member)session.getAttribute("loginMember")).getMemberNo();
+			
+			result = service.deleteChat(memberNo, chatNo);
+		}
+		
+		return new Gson().toJson(result);
 	}
 	
 	
