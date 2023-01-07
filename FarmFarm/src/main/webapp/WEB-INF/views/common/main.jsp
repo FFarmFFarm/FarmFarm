@@ -133,7 +133,7 @@
       <h3 class="middle-product-title">딱! 오늘만 팜팜마켓 특가 상품</h3>
             <div class="middle-product">
               <div class="middle-wrap ">
-                <c:forEach items="${productMap}" var="map" begin="0" end="3" step="1" >
+                <c:forEach items="${productMap}" var="map" begin="9" end="12" step="1" >
                     <c:if test="${map.soldoutFl.equals('N')}">
                         <a href="/product/${map.productNo}" class="middle-a">
                             <div class="middle-cover"><img src="${map.thumbnailImg}"></div>
