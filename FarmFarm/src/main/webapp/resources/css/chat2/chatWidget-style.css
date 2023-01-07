@@ -270,30 +270,4 @@
 
 
 
-/*  */
 
-/* 알림 더보기  */
-#notifyListBtn {
-    color: white;
-    width: 50px;
-    background-color: var(--point-color);
-    border-radius: 5px;
-    height: 30px;
-    margin-right: 15px;
-}
-
-.notice {
-    margin-top: 10px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ccc;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.notice p {
-    margin-left: 13px;
-    font-size: var(--large-font-size);
-    font-weight: 700;
-    text-align: left;
-}
