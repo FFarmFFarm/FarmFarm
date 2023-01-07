@@ -1,20 +1,30 @@
-
-const kakaoBtn = document.getElementById('kakaoBtn');
-kakaoBtn.addEventListener('click', () => {
-  if (!kakaoBtn.classList.contains('pay-clicked')) {
-    kakaoBtn.classList.add('pay-clicked');
-  } else {
-    kakaoBtn.classList.remove('pay-clicked');
-  }
-})
+// kakaoBtn.addEventListener('click', () => {
+  //   if (!kakaoBtn.classList.contains('pay-clicked')) {
+    //     kakaoBtn.classList.add('pay-clicked');
+//   } else {
+//     kakaoBtn.classList.remove('pay-clicked');
+//   }
+// })
 
 function selectAllCheckbox(selectAll) {
   const checkboxes = document.getElementsByName('agreement');
-
+  
   for (let checkbox of checkboxes) {
     checkbox.checked = selectAll.checked;
   }
 }
+
+
+const paymentCheckbox = document.getElementById('payment');
+const kakaoBtn = document.getElementById('kakaoBtn');
+paymentCheckbox.addEventListener('change', ()=>{
+  if(paymentCheckbox.checked === true) {
+    kakaoBtn.classList.add('pay-clicked');
+  } else {
+    kakaoBtn.classList.remove('pay-clicked');
+  }
+
+})
 
 
 
@@ -88,7 +98,7 @@ const btn = document.getElementById('btn');
 
 btn.addEventListener('click', (e) => {
 
-  const paymentCheckbox = document.getElementById('payment');
+
 
   // 결제수단 선택 x 시
   if (!paymentCheckbox.checked === true) {

@@ -240,9 +240,11 @@ button:active {
 .product-notice > span {
   font-size: var(--main-font-size);
 }
-.swiper {
+/* .swiper {
   width: 430px;
   height: 430px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .swiper-wrapper{
@@ -250,7 +252,7 @@ button:active {
     height: 430px;
     overflow: hidden;
 
-}
+} */
 
 .swiper-slide {
 
@@ -280,10 +282,6 @@ button:active {
   object-fit: cover;
 }
 
-.swiper {
-  margin-left: auto;
-  margin-right: auto;
-}
 
 .swiper-button-prev, .swiper-button-next{
     color: var(--point-color) !important;
