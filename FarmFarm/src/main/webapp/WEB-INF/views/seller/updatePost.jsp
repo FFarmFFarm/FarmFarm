@@ -116,7 +116,7 @@
                         </li>
                         <li class="info-list">
                             <p>판매가격</p>
-                            <input type="text" name="unitPrice" 
+                            <input type="text" name="unitPrice"
                             value="${post.unitPrice}"
                             placeholder=0
                             >
