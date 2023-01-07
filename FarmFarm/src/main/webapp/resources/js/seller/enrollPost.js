@@ -22,6 +22,7 @@ for(let i=0; i<category.length; i++){
   });
 }
 
+
 // 이미지 미리보기
 const inputImg = document.getElementsByClassName("input-img");
 const preview = document.getElementsByClassName("preview");
@@ -57,8 +58,14 @@ for(let i=0; i<inputImg.length; i++){
 
 const unitPrice = document.querySelector("[name='unitPrice']");
 
+unitPrice.addEventListener("focus",()=>{
+  unitPrice.setAttribute("placeholder", "");
+})
+
 unitPrice.addEventListener('keyup', (e)=>{
-  if((e.keyCode < 48 || e.keyCode > 57)&& e.keyCode!=8){
+
+  if((e.keyCode < 48 || e.keyCode > 57)&& e.keyCode!=8
+    && (e.keyCode < 96 || e.keyCode > 105 )){
     alert("숫자만 입력해주세요");
     e.target.value="";
   }
@@ -68,6 +75,7 @@ unitPrice.addEventListener('keyup', (e)=>{
   const formatValue = value.toLocaleString('ko-KR');
   unitPrice.value = formatValue;
 })
+
 
 // 게시글 유효성 검사
 const enrollPostForm = document.getElementById("enrollPostForm");
