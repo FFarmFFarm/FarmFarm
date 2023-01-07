@@ -197,7 +197,7 @@ const createPostList = (postMap)=>{
   if(postList.length==0){
     // 결과가 없으면
     const resultEmpty = document.createElement('div');
-    resultEmpty.classList.add("no-list");
+    resultEmpty.classList.add("no-result");
 
     const resultEmptyComment = document.createElement('span');
     resultEmptyComment.innerText = "판매 중인 글이 없습니다.";
