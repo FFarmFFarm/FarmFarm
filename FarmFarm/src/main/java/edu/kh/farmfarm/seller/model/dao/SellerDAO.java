@@ -129,6 +129,31 @@ public class SellerDAO {
 	}
 
 	
+	/** 판매중인 물품 수
+	 * @param memberNo
+	 * @return listCount
+	 */
+	public int getSellListCount(int memberNo) {
+		return sqlSession.selectOne("sellerMapper.getSellListCount", memberNo);
+	}
+
+	
+	/** 판매중인 물품만 보기
+	 * @param pagination
+	 * @param memberNo
+	 * @return postList
+	 */
+	public List<Post> selectSellList(Pagination pagination, int memberNo) {
+		
+		int offset = (pagination.getCurrentPage()-1)*pagination.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+		
+		return sqlSession.selectList("sellerMapper.selectSellList", memberNo, rowBounds);
+	}
+
+
+	
 	
 	
 	

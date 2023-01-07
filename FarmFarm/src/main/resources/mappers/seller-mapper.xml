@@ -174,5 +174,29 @@
 		#{postNo}, #{postImgOrder})
 	</insert>
 	
+	
+	<!-- 판매중인 글 수 -->
+	<select id="getSellListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM POST
+		WHERE MEMBER_NO=#{memberNo}
+		AND POST_DEL_FL='N'
+		AND POST_SOLDOUT_FL=0
+	</select>
+	
+	<!-- 판매중인 글 리스트 -->
+	<select id="selectSellList" resultMap="post_rm">
+		SELECT POST_NO, POST_TITLE, UNIT_PRICE, POST_VIEW, POST_IMG_ADDRESS,
+			TO_CHAR(POST_DATE, 'YYYY-MM-DD') POST_DATE, MEMBER_NO
+		FROM POST
+		JOIN POST_IMG USING(POST_NO)
+		WHERE MEMBER_NO=#{memberNo}
+		AND POST_IMG_ORDER=0
+		AND POST_DEL_FL='N'
+		AND POST_SOLDOUT_FL=0
+		ORDER BY POST_DATE DESC
+	</select>
+	
+	
 
 </mapper>
