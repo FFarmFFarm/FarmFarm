@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
+
 import edu.kh.farmfarm.common.Util;
 import edu.kh.farmfarm.member.model.VO.Member;
 import edu.kh.farmfarm.postDetail.model.vo.Post;
@@ -167,6 +169,27 @@ public class SellerController {
 		
 		return "redirect:" + path;
 	}
+	
+	
+	// 판매중인 상품만 가져오기
+	@GetMapping("/seller/{memberNo}/sell")
+	@ResponseBody
+	public String sellList(Model model,
+			@PathVariable("memberNo") int memberNo,
+			@RequestParam(value="cp", required=false, defaultValue="1")int cp) {
+		
+	
+		Map<String, Object> postMap = service.selectSellList(cp, memberNo);
+	
+	
+		return new Gson().toJson(postMap);
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	

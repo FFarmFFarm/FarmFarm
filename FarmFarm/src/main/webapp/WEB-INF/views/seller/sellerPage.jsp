@@ -74,7 +74,7 @@
                     </c:otherwise>
                 </c:choose>
                 
-                <span class="member-nickname">
+                <span class="member-nickname" id="${memberInfo.memberNo}">
                     <i class="fa-solid fa-carrot"></i>
                     ${memberInfo.memberNickname}
                 </span>
@@ -101,8 +101,14 @@
             </div>
         </section>
         <section class="mypage-nav">
-            <i class="fa-regular fa-clipboard"></i> 
-            <span> 판매글</span>
+            <div class="nav-title">
+                <i class="fa-regular fa-clipboard"></i> 
+                <span>판매글</span>
+            </div>
+            <label id="onlySellList">
+                <input type="checkbox" id="onlySellCheck">
+                <span>판매중인 글만보기</span>
+            </label>
         </section>
 
         <section class="my-post-container">
@@ -180,7 +186,7 @@
                     step="1">
                     <c:choose>
                         <c:when test="${i==pagination.currentPage}">
-                            <div class="page-box">
+                            <div class="current-page-box">
                                 <a class="current">${i}</a>
                             </div>
                         </c:when>
