@@ -75,6 +75,7 @@
               <form action="/chat/insert/newRoom" method="POST">
                 <input type="hidden" name="roomType" value="${post.postNo}">
                 <input type="hidden" name="sellerNo" value="${post.memberNo}">
+                <input type="hidden" name="newRoomName" value="${post.postTitle}">
                 <c:if test="${loginMember.authority == 0}">
                   <button class="chatting-btn">문의하기</button>
                 </c:if>
