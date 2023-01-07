@@ -202,10 +202,12 @@ function selectCommentList(){
                     const commentReply = document.createElement("button");
                     const commentUpdate = document.createElement("button");
                     const commentDelete = document.createElement("button");
+                    const commentReport = document.createElement("button");
 
                     commentReply.classList.add("comment-reply");
                     commentUpdate.classList.add("comment-reply");
                     commentDelete.classList.add("comment-reply");
+                    commentReport.classList.add("comment-reply");
 
                     commentReply.setAttribute("onclick", "showReply("+comment.commentNo+", this)");
                     commentReply.innerHTML = '| &nbsp;&nbsp;답글달기&nbsp;&nbsp;';
@@ -213,6 +215,9 @@ function selectCommentList(){
                     commentUpdate.innerHTML = "|&nbsp;&nbsp;수정&nbsp;&nbsp;";
                     commentDelete.setAttribute("onclick", "deleteComment("+comment.commentNo+")")
                     commentDelete.innerHTML = "|&nbsp;&nbsp;삭제&nbsp;&nbsp;";
+                    commentReport.setAttribute("type", "button")
+                    commentReport.setAttribute("id", "")
+                    commentReport.innerHTML = "|&nbsp;&nbsp;신고하기&nbsp;&nbsp;";
                     
 
                     if(loginAuth == 2){
@@ -231,17 +236,17 @@ function selectCommentList(){
                                 writeTimeReply.append(commentReply, commentUpdate, commentDelete);
                             }
                             if(memberNo != comment.memberNo && memberNo == boardMemNo){
-                                writeTimeReply.append(commentReply);
+                                writeTimeReply.append(commentReply, commentReport);
                             }
                             if(memberNo == comment.parentNo){
-                                writeTimeReply.append(commentReply);
+                                writeTimeReply.append(commentReply, commentReport);
                             }
                         }
                         if(comment.commentDelFl != 'S'){
                             if(memberNo == comment.memberNo && comment.commentDelFl == 'N'){
                                 writeTimeReply.append(commentReply, commentUpdate, commentDelete);
                             }if(memberNo != comment.memberNo && comment.commentDelFl == 'N'){
-                                writeTimeReply.append(commentReply);
+                                writeTimeReply.append(commentReply, commentReport);
                             }
                         }
 
