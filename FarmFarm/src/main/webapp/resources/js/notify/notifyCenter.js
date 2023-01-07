@@ -361,17 +361,13 @@ const checkEmpty = () => {
 
     // notify box 확인
     for (let type of typeList) {
-        console.log('자 반복문 돌아갑니다잉')
 
         if(!type.classList.contains('hide')) {
             boxExist = true;
-            console.log('있는데요?');
             break;
         }
     }
 
-    console.log(boxExist);
-    
     // 만약 요소가 하나도 없으면...
     if (!boxExist) {
         document.querySelector('.notify-empty').classList.remove('hide');

@@ -10,55 +10,64 @@ addEventListener("DOMContentLoaded", ()=>{
     
     console.log('로그인 여부 확인중...')
     
+    connectToNotifySock();
+})
+
+
+/* 알림 서버 소켓과 연결하는 함수 */
+const connectToNotifySock = () => {
     // 로그인 여부 확인을 위해, axios 이용해서 회원 번호를 요청
     axios.post('/check/login'
-    ).then(function (response){
+    ).then(function (response) {
 
         // 회원 정보가 있을 때에만 웹소켓에 연결
-        if(response.data == 0) {
-            
-            console.log('로그인되었습니다.')
+        if (response.data == 0) {
 
             // 새 SockJS 객체 notifySock 생성, 서버는 /echo/notify과 연결
             notifySock = new SockJS("/echo/notify");
-    
-            console.log('알림 서버에 연결을 시도합니다... ')
-    
+
             // notifySock 객체가 null이 아닐 때에만, 웹소켓 서버로부터 알림을 수신
-            if(notifySock != null) {
-    
+            if (notifySock != null) {
+
                 console.log('알림 서버와 연결되었습니다.')
-                
-                notifySock.onmessage = function(e){
-                
+
+                notifySock.onmessage = function (e) {
+
                     console.log('새로운 알림이 있습니다.')
-                
+
                     // 받은 JSON 유형의 소켓 메시지를 역직렬화 한 후, 상수 notify을 선언해 대입
                     const notify = JSON.parse(e.data);
-    
+
                     // 알림 내용이 있을 때에만, 수신 알림 처리 함수를 선언
-                    if(notify != null) {
+                    if (notify != null) {
                         // 수신 알림 처리 함수인 fillNotifyContainer 실행해서 받은 데이터를 전송
                         fillNotifyReceiverContainer(notify);
                     }
 
                     // 알림 센터에서만 사용되는 조건문
-                    if(document.querySelector('.notify-list-body')) {
+                    if (document.querySelector('.notify-list-body')) {
                         selectNotifyList();
                     }
 
                     // 알림 위젯에 도트를 표시
-                    document.querySelector('norifyWidget-red-dot').style.display="block";
+                    startRedDotFlash();
+                }
+
+                notifySock.onclose = function (e) {
+                    console.log('알림 서버와 재연결을 시도합니다...');
+                    console.log(e);
+
+                    setTimeout(function () {
+                        connectToNotifySock();
+                    }, 3000);
                 }
             }
         }
 
-    }). catch(function (error){
+    }).catch(function (error) {
         console.log('로그인 여부 확인 중 오류 발생')
     })
-
-
-})
+}
 
 /* 
     * 수신 알림 처리 함수!
@@ -133,3 +142,35 @@ const hideNotify = () => {
         notifyReceiverContainer.style.height = '0px'; // 높이도 0
     }
 }
+
+/* 알림 점멸 관련 구문 */
+
+/* 불 들어오는 함수 */
+const redDotOn = () => {
+    document.querySelector('.notifyWidget-red-dot').style.display = "block";
+}
+
+/* 불 끄는 함수 */
+const redDotOff = () => {
+    document.querySelector('.notifyWidget-red-dot').style.display = "none";
+}
+
+/* 깜박이는 함수 */
+const startRedDotFlash = () => {
+    let i = 0;
+    const redDotFlash = setInterval(() => {
+        redDotOn();                 // 빨간점 생성
+        setTimeout(redDotOff, 1000) // 1초 후에 빨간점 지움
+        i += 1;
+        
+        if(i == 3){ // i가 3이 되면 그만 깜박임
+            clearInterval(redDotFlash);
+            console.log('그만 깜박이삼')
+            setTimeout(redDotOn, 1000);
+        }
+
+    }, 2000); // 2초마다 반복함
+
+}
+
+/* 알림 점멸 end */

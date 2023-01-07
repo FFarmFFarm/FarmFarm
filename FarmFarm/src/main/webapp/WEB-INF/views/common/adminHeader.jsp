@@ -26,26 +26,16 @@
                   <i class="fa-solid fa-bell header-icon"></i>
                 </button>
 
-                <div id="myDropdown1" class="dropdown-message">
-                  <div class="notice"><p>알림</p></div>
-                  <ul>
-                    <li>
-                      <div class="message-box">
-                        <a href="">배송이 시작되었습니다.</a>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="message-box">
-                        <a href="">신팜팜님이 신고했습니다/resources</a>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="message-box">
-                        <a href="">정팜팜님이 신고를 거부하셨습니다.</a>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
+                  <div class="notifyWidget-red-dot red-dot"></div> <!-- notify-widget에 있음 -->
+                  <div id="myDropdown1" class="dropdown-message">
+                    <div class="notice">
+                      <p>알림</p><a id="notifyListBtn" href="/myPage/notify">더보기</a>
+                    </div>
+                    <!-- 알림 위젯 -->
+                    <jsp:include page="/WEB-INF/views/notify/notifyWidget.jsp" />
+                  
+                  </div>
+                  
               </div>
             </li>
             <li class="widget-item">
@@ -137,41 +127,7 @@
 
         }
       });
-
-      // 알림 드롭다운
-      const dropbtn1 = document.querySelector('.dropbtn1');
-      dropbtn1.addEventListener('click', () => {
-        const myDropdown1 = document.querySelector('.dropdown-message');
-
-        if (
-          myDropdown1.style.display == 'none' ||
-          myDropdown1.style.display == ''
-        ) {
-          myDropdown1.style.display = 'block';
-        } else {
-          myDropdown1.style.display = 'none';
-        }
-      });
-
-      dropbtn1.addEventListener('blur', () => {
-        const myDropdown1 = document.querySelector('.dropdown-message');
-
-        myDropdown1.style.display = '';
-      });
-      // const myDropdown1 = document.getElementById("myDropdown1");
-
-      // function dropDown1(){
-      //     myDropdown1.classList.toggle("show1");
-      // };
-
-      // window.onclick=function(e){
-      //     if(!e.target.matches(".dropbtn, .dropbtn *")){
-
-      //         if(myDropdown1.classList.contains("show1")){
-      //             myDropdown1.classList.remove("show1");
-      //         }
-      //     }
-      // };
+  
     </script>
 
     <script src="/resources/js/admin/adminHeader.js"></script>
