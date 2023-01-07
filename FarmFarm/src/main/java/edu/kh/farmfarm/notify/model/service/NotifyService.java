@@ -54,6 +54,12 @@ public interface NotifyService {
 	 */
 	int deleteNotify(int notifyNo);
 
+	/** type에 따른 title
+	 * @param notifyTypeNo
+	 * @return
+	 */
+	String selectNotifyTitle(int notifyTypeNo);
+
 	
 	
 }	

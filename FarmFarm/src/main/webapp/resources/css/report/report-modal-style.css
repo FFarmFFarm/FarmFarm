@@ -68,7 +68,7 @@
 }
 
 .report-form{
-    font-size: var(--main-font-size);
+    font-size: 'var(--main-font-size)';
 
     display: flex;
     flex-direction: column;
@@ -87,11 +87,12 @@
     width: 200px;
     height: 60px;
     margin-left: 10px;
-    /* resize: none; */
+    resize: none;
     border:none;
     border: 1px solid lightgray;
     padding: 4px;
     font-size: var(--main-font-size);
+    /* font-size: 13px; */
     /* line-height: 20px; */
 }
 

@@ -175,7 +175,6 @@
 
     <!-- 신고 모달창 -->
     <jsp:include page="/WEB-INF/views/report/report-modal.jsp"/> 
-    <script src="/resources/js/report/report-modal.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"
     integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
@@ -198,6 +197,8 @@
     <script src="/resources/js/board/boardList.js"> </script>
     <script src="/resources/js/member/memberModal.js"> </script>
     <script src="/resources/js/common/common.js"> </script>
+    <script src="/resources/js/report/report-modal-common.js"></script>
+    <script src="/resources/js/report/report-modal-boardList.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 

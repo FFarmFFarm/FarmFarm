@@ -86,6 +86,15 @@ public class NotifyDAO {
 	}
 
 
+	/** type에 따른 title 조회
+	 * @param notifyTypeNo
+	 * @return
+	 */
+	public String selectNotifyTitle(int notifyTypeNo) {
+		return sqlSession.selectOne("notifyMapper.selectNotifyTitle", notifyTypeNo);
+	}
+
+
 	
 	
 }
