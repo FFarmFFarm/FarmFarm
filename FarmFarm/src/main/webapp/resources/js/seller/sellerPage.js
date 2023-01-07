@@ -267,16 +267,16 @@ const createPostList = (postMap)=>{
 
       postRegDate.append(postDate);
 
-      const postViewCount = document.createElement('div');
-      postViewCount.classList.add("post-view-count");
-      postViewCount.innerText = "조회수";
+      // const postViewCount = document.createElement('div');
+      // postViewCount.classList.add("post-view-count");
+      // postViewCount.innerText = "조회수";
 
-      const postView = document.createElement('span');
-      postView.innerText = post.postView;
+      // const postView = document.createElement('span');
+      // postView.innerText = post.postView;
 
-      postViewCount.append(postView);
+      // postViewCount.append(postView);
 
-      postDetail.append(postRegDate, postViewCount);
+      postDetail.append(postRegDate);
 
       postTotal.append(postHead, postPrice, postDetail);
 
