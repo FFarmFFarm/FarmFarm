@@ -84,6 +84,9 @@
         </div> 
       </nav>
     </div>
+
+    <jsp:include page="/WEB-INF/views/notify/notifyReceiver.jsp" />
+    
     <script>
       // 프로필 드롭다운
       const dropbtn = document.querySelector('.dropbtn');
@@ -127,7 +130,7 @@
 
         }
       });
-  
+      
     </script>
 
     <script src="/resources/js/admin/adminHeader.js"></script>

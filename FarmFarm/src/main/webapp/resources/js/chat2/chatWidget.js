@@ -10,16 +10,6 @@ let nowDate;            // 현재 날짜
 let chattingSock;   // 소켓?
 
 /* 요소에 클래스, 텍스트를 넣는 함수 */
-const packUpElement = (elementName, elementClass, elementContent) => {
-
-    elementName.classList.add(elementClass);
-
-    if (elementContent != null) { // -1을 넣으면 안넣음
-        elementName.innerHTML = elementContent;
-    }
-
-    return elementName;
-}
 
 /* 소켓과 연결하는 함수 */
 const connectToChattingSockForWidget = () => {

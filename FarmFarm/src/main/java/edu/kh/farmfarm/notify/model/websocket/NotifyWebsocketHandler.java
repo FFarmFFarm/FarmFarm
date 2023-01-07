@@ -51,7 +51,13 @@ public class NotifyWebsocketHandler extends TextWebSocketHandler {
 			
 			// 알림을 수신할 회원의 번호, 즉 대상 회원의 번호 targetNo
 			int targetNo = notify.getMemberNo();
+			
+			// notifyTitle을 세팅함(멀티플 키 사용 실패함...)
+			int notifyTypeNo = notify.getNotifyTypeNo();
+			String notifyTitle = service.selectNotifyTitle(notifyTypeNo);
 
+			notify.setNotifyTitle(notifyTitle);
+			
 			// 세션을 전부 확인
 			for(WebSocketSession s : sessions) {
 				
