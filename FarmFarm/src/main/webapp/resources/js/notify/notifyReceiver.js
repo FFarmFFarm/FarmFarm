@@ -37,6 +37,8 @@ const connectToNotifySock = () => {
 
                     // 받은 JSON 유형의 소켓 메시지를 역직렬화 한 후, 상수 notify을 선언해 대입
                     const notify = JSON.parse(e.data);
+                    const notifyNo = notify.notifyNo;
+                    console.log(notifyNo);
 
                     // 알림 내용이 있을 때에만, 수신 알림 처리 함수를 선언
                     if (notify != null) {
@@ -47,6 +49,11 @@ const connectToNotifySock = () => {
                     // 알림 센터에서만 사용되는 조건문
                     if (document.querySelector('.notify-list-body')) {
                         selectNotifyList();
+                    }
+
+                    // 알림 드롭다운 메뉴를 갱신하는 조건문
+                    if (document.querySelector('.dropdown-message') != null) {
+                        requestNotifyWidgetList();
                     }
 
                     // 알림 위젯에 도트를 표시
@@ -118,12 +125,24 @@ const fillNotifyReceiverContainer = (notify) => {
     // 알림 컨테이너에 링크(quickLink) 세팅하기
     document.querySelector('.notify-receiver-container').setAttribute('href', notify.quickLink);
 
+    // 알림 컨테이너에 id 세팅
+    document.querySelector('.notify-receiver-container').id = notify.notifyNo;
+
+    // 알림 컨테이너에, "클릭 시 알림 읽음 처리" 요청 세팅
+    document.querySelector('.notify-receiver-container').addEventListener('click', (e) => {
+        readThisNotifyByReceiver(notify.notifyNo);
+    })
+
     // 1000ms동안 딜레이 후, 숨어있던 notify-receiver-container를 노출
     pushtimer = setTimeout(pushNotify, 1000) // 1초 후 노출
 
     // 8000ms동안 노출 후, 노출된 notify-receiver-container를 다시 숨김
     hidetimer = setTimeout(hideNotify, 8000) // 8초 후 숨김
 }
+
+
+
+
 
 /* notify-receiver-container를 숨김 해제하는 함수 */
 const pushNotify = () => {
@@ -133,6 +152,10 @@ const pushNotify = () => {
         notifyReceiverContainer.style.height = '150px'; // 높이는 150으로 변경
     }
 }
+
+
+
+
 
 /* notify-receiver-container를 숨기는 함수 */
 const hideNotify = () => {
@@ -174,3 +197,22 @@ const startRedDotFlash = () => {
 }
 
 /* 알림 점멸 end */
+
+
+/* 알림 읽음처리 */
+const readThisNotifyByReceiver = (notifyNo) => {
+    let formData = new FormData();
+    formData.append("notifyNo", notifyNo);
+
+    console.log(notifyNo);
+
+    // 번호를 서버로 보내 읽음처리함
+    axios.post('/notify/update', formData
+    ).then(function (response) {
+        console.log('알림이 읽음 처리 되었습니다.')
+    }).catch(function (error) {
+        console.log('읽음 처리 과정에서 오류가 발생했습니다.')
+        console.log(error)
+    })
+
+}
