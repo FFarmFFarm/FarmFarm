@@ -18,6 +18,8 @@
 
     <link rel="stylesheet" href="/resources/css/productAdmin/productOrderList-style.css">
     <link rel="stylesheet" href="/resources/css/productAdmin/modal/orderDetail-style.css">
+    <link rel="stylesheet" href="/resources/css/productAdmin/modal/delivery-style.css">
+
     <link rel="stylesheet" href="/resources/css/common/header-style.css">
     <link rel="stylesheet" href="/resources/css/admin/adminNav-style.css">
 
@@ -167,6 +169,7 @@
     </main>
 
     <jsp:include page="/WEB-INF/views/productAdmin/modal/orderDetail.jsp"/>
+    <jsp:include page="/WEB-INF/views/productAdmin/modal/delivery.jsp"/>
     <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
 
     <script src="/resources/js/productAdmin/productOrderList.js"></script>

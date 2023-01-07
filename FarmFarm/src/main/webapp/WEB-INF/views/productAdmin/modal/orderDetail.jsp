@@ -42,7 +42,9 @@
               <input type="text"
                 id="invoiceNo" maxlength="15"
                 placeholder="송장번호 입력">
-              <button type="button" id="enrollInvoice">입력</button>
+              <div class="invoice-btn">
+              </div>
+              <%-- <button type="button" id="enrollBtn">입력</button> --%>
             </td>
           </tr>
         </table>
