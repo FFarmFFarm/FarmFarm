@@ -65,6 +65,7 @@ for (let i = 0; i < inputFile.length; i++) {
     console.log('x버튼 클릭');
     reviewImg[i].classList.add('hide');
     reviewImg[i].classList.remove('appear');
+    reviewImg.src = '';
     inputLabel[i].style.display = 'flex';
     xBtn[i].classList.add('hide');
     xBtn[i].classList.remove('appear');
@@ -713,6 +714,19 @@ const printOrderList = (orderList, pagination) => {
             button1.classList.add('write-review');
             button1.id = order.orderNo;
             buttonArea.append(button1);
+
+
+            button1.addEventListener('click', () => {
+              const reviewFormContainer = document.getElementById('reviewFormContainer');
+    
+              document.getElementById('modalProductThumbnail').setAttribute('src', product.productImg);
+              document.getElementById('modalProductName').innerHTML = product.productName;
+              document.getElementById('modalProductName').href = '/product/' + product.productNo;
+              document.getElementById('productNoInput').value = product.productNo;
+              document.getElementById('orderNoInput').value = order.orderNo;
+    
+              displayFlex(reviewFormContainer);
+            })
           }
         }
 
@@ -743,16 +757,7 @@ const printOrderList = (orderList, pagination) => {
         }
 
 
-        button1.addEventListener('click', () => {
-          const reviewFormContainer = document.getElementById('reviewFormContainer');
 
-          document.getElementById('modalProductThumbnail').setAttribute('src', product.productImg);
-          document.getElementById('modalProductName').innerHTML = product.productName;
-          document.getElementById('modalProductName').href = '/product/' + product.productNo;
-          document.getElementById('productNoInput').value = product.productNo;
-
-          displayFlex(reviewFormContainer);
-        })
       }
 
       orderOne.append(buttonArea);
@@ -841,9 +846,7 @@ const orderConfirmModal = document.getElementById('orderConfirmModal');
 const shippingContainer = document.getElementById('shippingContainer');
 
 window.addEventListener('click', (e) => {
-  // 리뷰 작성창 밖 클릭 시 닫힘
-  e.target === reviewFormContainer ? displayNone(reviewFormContainer) : false
-  
+
   // 구매확정 확인창
   e.target === orderConfirmModal ? displayNone(orderConfirmModal) : false
   
