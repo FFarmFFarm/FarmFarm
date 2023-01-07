@@ -9,7 +9,7 @@ if(boardTypeNo == 1){
     type2.classList.remove("nowType");
     type3.classList.remove("nowType");
     boardTopTitle.innerText = "";
-    boardTopTitle.innerText = "와글와글 물물교환";
+    boardTopTitle.innerText = "와글와글 자유게시판";
 }
 if(boardTypeNo == 2){
     type1.classList.remove("nowType");
