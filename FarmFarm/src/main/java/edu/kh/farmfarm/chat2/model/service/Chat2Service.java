@@ -64,6 +64,13 @@ public interface Chat2Service {
 	 */
 	String insertNewChatImg(int roomNo, int memberNo, MultipartFile chatImg, String webPath, String folderPath) throws IllegalStateException, IOException;
 
+	/** 채팅 삭제처리
+	 * @param chatNo
+	 * @param chatType
+	 * @return
+	 */
+	int deleteChat(int memberNo, int chatNo);
+	
 	/** 채팅방 정보 수정
 	 * @param roomNo
 	 * @param roomName
@@ -114,6 +121,8 @@ public interface Chat2Service {
 	 * @return
 	 */
 	int updateView(int roomNo, int memberNo);
+
+
 
 
 

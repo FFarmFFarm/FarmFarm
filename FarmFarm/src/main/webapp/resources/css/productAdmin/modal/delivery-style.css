@@ -1,0 +1,144 @@
+@import "../root-style.css";
+
+
+.delivery-detail-section {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: var(--modal-background-color);
+
+  z-index: 500;
+}
+
+.delivery-modal{
+  width: 800px;
+  background-color: var(--background-color);
+}
+
+/* 뒤로가기 */
+.back-btn{
+  border: none;
+  background-color: var(--point-color);
+  color: white;
+  margin-right: 10px;
+}
+
+.detail-top{
+  font-weight: bold;
+  background-color: var(--point-color);
+  color: #fff;
+  height: 35px;
+  padding: 5px 0 0 15px;
+  width: 100%;
+}
+
+
+/* 배송상태 */
+
+.delivery-status{
+  text-align: center;
+  padding: 25px 0 20px;
+  color: var(--point-color);
+  border-bottom: 1.5px solid var(--line-color);
+}
+
+
+/* 배송조회 */
+
+.tracking{
+  display: block;
+  min-height: 400px;
+  height: 400px;
+  overflow-y: scroll;
+}
+
+.one-row{
+  font-size: var(--main-font-size);
+  display: flex;
+  padding: 25px 50px;
+  border-bottom: 1px solid var(--line-color);
+}
+
+.l-small{
+  font-size: var(--small-font-size);
+}
+
+.location{
+  width: 40%;
+}
+
+.description{
+  width: 60%;
+  text-align: right;
+}
+
+/* 배달 상세 정보 */
+
+.tracking-info{
+  width: 100%;
+  margin: 10px 0 ;
+}
+
+.info-top{
+  text-align: center;
+  padding: 15px;
+  border-top: 1.5px solid var(--line-color);
+  border-bottom: 1px solid var(--line-color);
+}
+
+.info-detail{
+  padding: 20px 60px;
+  font-size: var(--main-font-size);
+}
+
+.one-info{
+  display: flex;
+  padding: 5px;
+}
+
+.info-title{
+  width: 30%;
+}
+
+
+.hide {
+  display: none;
+  opacity: 0;
+}
+
+.appear {
+  animation: fade-in 0.3s;
+  animation-fill-mode: forwards;
+  display: flex;
+}
+
+.disappear {
+  animation: fade-out 0.3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+
+  }
+  to {
+    opacity: 0;
+  }
+}

@@ -23,11 +23,32 @@ var orgin
 })();
 
 const tableRow = document.getElementsByClassName("table-info");
+
+// 주문 상세조회 모달창
 const orderDetail = document.getElementById("orderDetail");
+
+// 배송 상세조회 모달창
+const deliveryDetail = document.getElementById("deliveryDetail");
+
 for(let i=0; i<tableRow.length; i++){
   tableRow[i].addEventListener("click",()=>{
 
     let orderNo = document.getElementsByClassName("order-no")[i].id;
+
+    const orderDetailBody = document.getElementById("orderDetailBody");
+    orderDetailBody.innerHTML = "";
+
+    let invoiceNo = document.getElementById("invoiceNo");
+    invoiceNo.value = "";
+    invoiceNo.disabled=false;
+
+    let orderStatus = document.getElementById("orderStatus");
+    orderStatus.value = "";
+
+    // 송장번호 관련 버튼
+    const invoiceBtn= document.querySelector(".invoice-btn");
+    invoiceBtn.innerHTML = "";
+
 
     $.ajax({
       url: "/admin/orderDetail",
@@ -35,19 +56,58 @@ for(let i=0; i<tableRow.length; i++){
       dataType: "json",
       success: (order)=>{
 
-        const orderDetailBody = document.getElementById("orderDetailBody");
-        orderDetailBody.innerHTML = "";
-
         // 기본정보 출력
         document.getElementById("orderDetailNo").innerText = order.orderNo;
         document.getElementById("orderDetailDate").innerText = order.orderDate;
+        orderStatus.value = order.orderStatus;
 
-        document.getElementById("orderStatus").value = order.orderStatus;
         orgin = order.orderStatus;
 
-        if(order.invoiceNo!=null){
-          document.getElementById("invoiceNo").value =order.invoiceNo;
-        }
+        
+        
+        // 결제완료일 경우 등록 버튼
+        if(order.orderStatus == 0){
+          
+          const enrollBtn = document.createElement("button");
+          enrollBtn.id = "enrollBtn";
+
+          enrollBtn.innerText = "입력";
+          invoiceBtn.append(enrollBtn);
+
+          // 클릭하면 송장 등록
+          enrollBtn.addEventListener("click", ()=>{
+            
+            enrollInvoice(order.orderNo, invoiceNo.value);
+          })
+        };
+
+        // 배송중, 구매확정일 경우 배송조회 버튼
+        if(order.orderStatus == 1 || order.orderStatus == 3){
+
+          invoiceNo.value =order.invoiceNo;
+
+          const viewDelivery = document.createElement("button");
+          viewDelivery.id = "viewDelivery";
+          viewDelivery.innerText= "배송조회";
+
+          invoiceNo.disabled=true;
+
+          invoiceBtn.append(viewDelivery);
+
+          // 클릭하면 배송조회
+          viewDelivery.addEventListener("click", ()=>{
+            
+            selectDeliveryDetail(order.invoiceNo);
+          })
+
+        };
+
+        // 주문 취소일 경우 버튼 x
+        if(order.orderStatus == 2){
+
+          invoiceNo.disabled=true;
+          invoiceNo.value = "-";
+        };
 
         document.getElementById("memberName").innerText = order.memberName;
         document.getElementById("memberTel").innerText 
@@ -98,6 +158,7 @@ for(let i=0; i<tableRow.length; i++){
 
           totalSum.append(won);
 
+
           // 반품상태 조회
           const status = product.productStatus;
           let str;
@@ -136,6 +197,16 @@ if(detailBackBtn!=undefined){
 };
 
 
+const deliveryBackBtn = document.getElementById('deliveryBackBtn');
+if(deliveryBackBtn!=undefined){
+  
+  deliveryBackBtn.addEventListener('click', () => {
+    displayNone(deliveryDetail);
+
+  })
+};
+
+
 
 const orderStatus = document.getElementById("orderStatus");
 
@@ -167,12 +238,9 @@ orderStatus.addEventListener("change",(e)=>{
   }
 })
 
-const enrollInvoice = document.getElementById("enrollInvoice");
 
-enrollInvoice.addEventListener("click",()=>{
-
-  let orderNo = document.getElementById("orderDetailNo").innerText;
-  const invoiceNo = document.getElementById("invoiceNo").value;
+// 송장 등록 함수
+const enrollInvoice = (orderNo, invoiceNo)=>{
 
   $.ajax({
     url: "/admin/enrollInvoice",
@@ -191,4 +259,162 @@ enrollInvoice.addEventListener("click",()=>{
       console.log("송장번호 입력 실패");
     }
   })
-})
+  
+}
+
+
+// 배송조회 결과
+const selectDeliveryDetail = (invoiceNo)=>{
+
+  $.ajax({
+
+    url: "https://apis.tracker.delivery/carriers/kr.cjlogistics/tracks/" + invoiceNo,
+    dataType: "json",
+    success: (result)=>{
+      console.log(result);
+      makeTracking(result);
+      displayFlex(deliveryDetail); 
+    },
+
+    error:(result)=>{
+      console.log(result.responseJSON.message);
+    }
+
+  })
+}
+
+// 배송 조회 함수
+const makeTracking = (r)=>{
+
+  const deliveryContent = document.getElementById("deliveryContent");
+  deliveryContent.innerHTML = "";
+
+  // 배송상태
+  const deliveryStatus = document.createElement("div");
+  deliveryStatus.classList.add("delivery-status");
+  
+  const state = document.createElement("h3");
+  state.innerText = r.state.text;
+
+  deliveryStatus.append(state);
+
+
+  // 배송조회
+
+  const tracking = document.createElement("ul");
+  tracking.classList.add("tracking");
+
+  const progress = r.progresses.reverse();
+
+  for(let p of progress){
+
+    const oneRow = document.createElement("li");
+    oneRow.classList.add("one-row");
+
+    const location = document.createElement("div");
+    location.classList.add("location");
+
+    const locationName = document.createElement("p");
+    locationName.innerText = p.location.name;
+
+    const locationTime = document.createElement("p");
+    locationTime.classList.add("l-small");
+    locationTime.innerText = p.time;
+
+    location.append(locationName, locationTime);
+
+    const description = document.createElement("div");
+    description.classList.add("description");
+
+    const statusText = document.createElement("p");
+    statusText.innerText = p.status.text;
+
+    const descriptionDetail = document.createElement("p");
+    descriptionDetail.classList.add("l-small");
+    descriptionDetail.innerText = p.description;
+
+    description.append(statusText, descriptionDetail);
+
+    oneRow.append(location, description);
+
+    tracking.append(oneRow);
+  
+  }
+
+  // 기본정보
+  const trackingInfo = document.createElement("div");
+  trackingInfo.classList.add("tracking-info");
+
+  const infoTop = document.createElement("p");
+  infoTop.classList.add("info-top");
+  infoTop.innerText = "기본정보";
+
+  const infoDetail = document.createElement("ul");
+  infoDetail.classList.add("info-detail");
+
+
+  // 받는사람
+  const infoTo = document.createElement("li");
+  infoTo.classList.add("one-info");
+
+  const infoToSpan = document.createElement("span");
+  infoToSpan.classList.add("info-title");
+  infoToSpan.innerText = "받는사람";
+
+  const infoToName = document.createElement("p");
+  infoToName.innerText = r.to.name;
+
+  infoTo.append(infoToSpan, infoToName);
+  
+
+  // 택배사
+  const infoCompany = document.createElement("li");
+  infoCompany.classList.add("one-info");
+
+  const infoCompanySpan = document.createElement("span");
+  infoCompanySpan.classList.add("info-title");
+  infoCompanySpan.innerText = "택배사";
+
+  const infoCompanyName = document.createElement("p");
+  infoCompanyName.innerText = r.carrier.name;
+
+  infoCompany.append(infoCompanySpan, infoCompanyName);
+
+
+  // 송장번호
+  const infoInvoice = document.createElement("li");
+  infoInvoice.classList.add("one-info");
+
+  const infoInvoiceSpan = document.createElement("span");
+  infoInvoiceSpan.classList.add("info-title");
+  infoInvoiceSpan.innerText = "송장번호";
+
+  const infoInvoiceName = document.createElement("p");
+  infoInvoiceName.innerText = r.carrier.id;
+
+  infoInvoice.append(infoInvoiceSpan, infoInvoiceName);
+
+  
+  // 보내는 사람
+  const infoFrom = document.createElement("li");
+  infoFrom.classList.add("one-info");
+
+  const infoFromSpan = document.createElement("span");
+  infoFromSpan.classList.add("info-title");
+  infoFromSpan.innerText = "보내는 사람";
+
+  const infoFromName = document.createElement("p");
+  infoFromName.innerText = r.from.name;
+
+  infoFrom.append(infoFromSpan, infoFromName);
+
+  infoDetail.append(infoTo, infoCompany, infoInvoice, infoFrom);
+
+  trackingInfo.append(infoTop, infoDetail);
+
+
+  deliveryContent.append(deliveryStatus, tracking, trackingInfo);
+  
+
+}
+
