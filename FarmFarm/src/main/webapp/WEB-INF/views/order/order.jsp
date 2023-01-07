@@ -212,6 +212,7 @@
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
     
     <script src="resources/js/order/order.js"></script>
+    <script src="/resources/js/common/common.js"></script>
 
     <script>
     

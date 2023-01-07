@@ -137,7 +137,8 @@
   padding: 10px 10px;
 }
 
-.review-one-img {
+.review-one-img,
+.review-update-img {
 
   position: relative;
   width: 100px;
@@ -166,7 +167,8 @@
 
 }
 
-.review-one-img > label {
+.review-one-img > label ,
+.review-update-img > label{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -175,7 +177,8 @@
   height: 100%;
 }
 
-.review-one-img input {
+.review-one-img input,
+.review-update-img input {
   display: none;
 }
 
