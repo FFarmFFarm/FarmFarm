@@ -139,6 +139,8 @@
             </form>
         </section>
 
+        
+        <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
     </main>
 
     <!-- footer -->
