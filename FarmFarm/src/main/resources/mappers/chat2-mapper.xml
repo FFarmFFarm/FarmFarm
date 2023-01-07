@@ -154,7 +154,7 @@
 	
 	<!-- 새 채팅방 개설 전... 채팅방 존재 여부 체크 -->
 	<select id="selectChatRoomExist" parameterType="_int" resultType="_int" >
-		SELECT ROOM_NO
+		SELECT NVL(ROOM_NO,0) AS ROOM_NO 
 		FROM (SELECT MAX(ROOM_NO) AS ROOM_NO
 			  FROM CHAT2_ENTER
 			  JOIN CHAT2_ROOM USING(ROOM_NO)

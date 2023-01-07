@@ -25,6 +25,26 @@ a.alert > i {
 
   border-bottom: 1px solid var(--main-font-color);
   font-weight: bold;
+
+  position: relative;
+}
+
+/* 모두 읽음으로 표시 */
+#notifyReadAll{
+  position: absolute;  
+  bottom: 3px;
+  right: 0px;
+  font-size: var(--main-font-size);
+  font-weight: 400;
+  color: dimgray;
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+#notifyReadAll:hover{
+    color: black;
+     opacity: 1;
+    font-weight: 600;
 }
 
 /* 알림 목록 바디 */
@@ -120,6 +140,11 @@ input[name='notifyCategory']:checked + label > .category-name{
     overflow-y: scroll;
 }
 
+.notify-view-area::-webkit-scrollbar{
+    display: none;
+}
+
+
 /* 알림 하나 */
 .notify-box{
     height: 100px;
@@ -143,12 +168,16 @@ input[name='notifyCategory']:checked + label > .category-name{
 
 /* 알림 아이콘 */
 .notify-icon{
-    flex-basis: 10%;
+    height: 100%;
     font-size: 40px;
     color: var(--point-color);
 
-    text-align: center;
-    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    border-right: 3px dashed var(--point-color);
+    width: 25%;;
 }
 
 /* 알림 내용, 알림 종류 설명 */
@@ -164,7 +193,7 @@ input[name='notifyCategory']:checked + label > .category-name{
     justify-content: center;
     margin-right: 20px;
 
-    border-right: 3px dashed var(--point-color);
+    /* border-right: 3px dashed var(--point-color); */
 }
 
 /* 알림 종류 설명 */

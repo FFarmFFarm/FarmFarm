@@ -32,8 +32,10 @@
             <i class="fa-solid fa-bell"></i>
             &nbsp;
             알림 센터
+            <div id="notifyReadAll"> 
+              모두 읽음으로 표시
+            </div>
           </span>
-
           <div class="notify-list-body">
 
             <div class="notify-category">
@@ -89,7 +91,7 @@
                 </label>
 
             </div>
-
+            
             <div class="notify-view-area">
 
               <!-- 알림 하나 notify-box가 들어가는 영역입니다. -->
@@ -101,6 +103,7 @@
       </section> <!-- end list-container -->
 
     </main>
+
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
     <!-- https://github.com/sockjs/sockjs-client -->

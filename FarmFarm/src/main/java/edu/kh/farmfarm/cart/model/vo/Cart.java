@@ -18,6 +18,7 @@ public class Cart {
 	private String productName;
 	private String productImg;
 	private int stock;
+	private String soldoutFl;
 	private String memberAddress;
 	private String memberAddress2;
 	

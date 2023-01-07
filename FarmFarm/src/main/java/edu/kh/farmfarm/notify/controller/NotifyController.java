@@ -91,6 +91,13 @@ public class NotifyController {
 		return new Gson().toJson(service.updateNotify(notifyNo));
 	}
 	
+	// 알림 전부 읽음 처리(update)
+	@PostMapping("/notify/update/all")
+	@ResponseBody
+	public String updateNotifyAll(String memberNickname) {
+		return new Gson().toJson(service.updateNotifyAll(memberNickname));
+	}
+	
 	// 알림 삭제 처리(delete)
 	@PostMapping("/notify/delete")
 	@ResponseBody

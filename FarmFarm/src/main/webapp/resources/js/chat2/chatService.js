@@ -38,14 +38,12 @@ const connectToChattingSock = () => {
             document.querySelector('.chat-sidebar-footer').style.display='none';
         }
 
-        console.log("안녕 " + myMemberNo + "번 회원님")
-
-        if (myMemberNo != -1) {
+        if (myMemberNo != 0) {
             chattingSock = new SockJS('/echo/chat2');
 
             if (chattingSock != null) {
 
-                console.log('채팅 2.0 서버와 연결되었습니다.')
+                console.log('채팅2 서버와 연결되었습니다.')
 
                 chattingSock.onmessage = function (e) {
                     const chat = JSON.parse(e.data);
@@ -53,12 +51,12 @@ const connectToChattingSock = () => {
                 }
 
                 chattingSock.onclose = function (e) {
-                    console.log('채팅 2.0 서버와 재연결을 시도합니다...');
+                    console.log('채팅2 서버와 재연결을 시도합니다...');
                     console.log(e);
 
                     setTimeout(function () {
                         connectToChattingSock();
-                    }, 1000);
+                    }, 3000);
                 }
             }
 
@@ -119,8 +117,6 @@ const selectChatRoomList = () => {
 /* 채팅방 목록을 불러오는 함수 */
 const makeChatPreviewBox = (chatRoom) => {
 
-    console.log(chatRoom);
-    
     // 재료 준비
     const chatPreviewBox = document.createElement('div');   // 채팅방의 정보가 담길 박스
     const thumbnailImg = document.createElement('div');     // 채팅방 대표 이미지
@@ -332,8 +328,6 @@ const makeChatRoom = (chatRoom, chatList) => {
             readingArea.append(dateLabelLine);
 
         }
-
-        console.log(chat);
 
         if(chat.chatType==="S") {
 
