@@ -69,14 +69,6 @@ const connectToChattingSock = () => {
     })
 }
 
-/* 요소에 클래스, 텍스트를 넣는 함수 */
-const packUpElement = (elementName, elementClass, elementContent) => {
-    elementName.classList.add(elementClass);
-    if (elementContent != null) { // null을 넣으면 안넣음
-        elementName.innerHTML = elementContent;
-    }
-}
-
 /* 내 채팅방 목록을 요청하는 함수 feat : axios */
 const selectChatRoomList = () => {
 
@@ -159,8 +151,12 @@ const makeChatPreviewBox = (chatRoom) => {
                 packUpElement(lastChatContent, 'last-chat-content', "-");           
             }
         }
-    
-        packUpElement(lastChatTime, 'last-chat-time', chatRoom.lastChatTime);
+        
+        if(chatRoom.lastChatTime == undefined) {
+            packUpElement(lastChatTime, 'last-chat-time', '');
+        } else {
+            packUpElement(lastChatTime, 'last-chat-time', chatRoom.lastChatTime);
+        }
         
         // 포장하기
         boxLabel.append(lastChatContent, lastChatTime);

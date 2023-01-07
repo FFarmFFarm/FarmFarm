@@ -161,9 +161,9 @@
                                         <div class="post-reg-date">
                                             작성일<span>${post.postDate}</span>
                                         </div>
-                                        <%-- <div class="post-view-count">
+                                        <div class="post-view-count">
                                             조회수<span>${post.postView}</span>
-                                        </div> --%>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="button-area">
