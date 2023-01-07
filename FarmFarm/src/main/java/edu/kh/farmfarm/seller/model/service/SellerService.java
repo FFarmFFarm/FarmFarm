@@ -68,6 +68,15 @@ public interface SellerService {
 	int postUpdate(Post post, List<MultipartFile> postImgList, String webPath, String folderPath, String deleteList) throws Exception;
 
 
+	/** 판매중인 상품 리스트
+	 * @param cp
+	 * @param memberNo
+	 * @param postSoldoutFl
+	 * @return postMap
+	 */
+	Map<String, Object> selectSellList(int cp, int memberNo);
+
+
 	
 
 }
