@@ -26,9 +26,6 @@
             
             <div class="report-form-div">
                 <div class="report-form">
-                    <input type="hidden" id="reportType">
-                    <input type="hidden" id="reportTargetNo">
-
                     <label for="0"><input type="radio" name="reportRadio" id="0"><span class="radio-text">광고 또는 스팸</span></label>
                     <label for="1"><input type="radio" name="reportRadio" id="1"><span class="radio-text">음란물 및 선정성 정보</span></label>
                     <label for="2"><input type="radio" name="reportRadio" id="2"><span class="radio-text">사기 또는 거짓 정보</span></label>
@@ -55,7 +52,6 @@
         var radioResult;
     </script>
     
-    <script src="/resources/js/report/report-modal.js"></script>
     <script src="/resources/js/common/common.js"></script> 
     <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 
