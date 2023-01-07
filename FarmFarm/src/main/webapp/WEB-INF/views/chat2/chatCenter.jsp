@@ -160,6 +160,21 @@
         </section>
     </div>
 
+    <div id="sentBubbleContextMenu" class="context-menu">
+      <ul class="context-menu-box">
+        <!-- <li id="copyChat" class="context-menu-list">복사하기</li> -->
+        <li id="deleteChat" class="context-menu-list">삭제하기</li>
+      </ul>
+    </div>
+    
+    <div id="receivedBubbleContextMenu" class="context-menu">
+      <ul class="context-menu-box">
+        <!-- <li id="copyChat" class="context-menu-list">복사하기</li> -->
+        <li id="reportChat" class="context-menu-list">신고하기</li>
+      </ul>
+    </div>
+
+
     <!-- 푸터 -->
     <jsp:include page="/WEB-INF/views/common/chatFooter.jsp" />
 
@@ -182,6 +197,11 @@
     
     <script src="/resources/js/chat2/chatService.js"></script>
     <script src="/resources/js/chat2/chatCenter.js"></script>
+    <script src="/resources/js/chat2/chatContext.js"></script>
 
 </body>
+
+
+
 </html>
+
