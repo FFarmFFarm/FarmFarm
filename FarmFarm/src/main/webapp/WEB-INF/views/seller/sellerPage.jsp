@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set var="postList" value="${map.postList}"/>
 <c:set var="pagination" value="${map.pagination}"/>
@@ -20,6 +21,9 @@
     <link rel="stylesheet" href="/resources/css/common/header-style.css">
     <link rel="stylesheet" href="/resources/css/common/footer-style.css">
     <link rel="stylesheet" href="/resources/css/report/report-modal-style.css" />
+
+
+    <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
 
 
     <script src="https://kit.fontawesome.com/d449774bd8.js" crossorigin="anonymous"></script>
@@ -104,8 +108,8 @@
         <section class="my-post-container">
             <div class="post-list-container">
                 <c:forEach var="post" items="${postList}">
-                    <div class="post-list">
-                        <div class="post">
+                    <div class="post-one">
+                        <div class="post-content">
                             <div class="post-thumbnail">
                                 <c:choose>
                                     <c:when test="${! empty post.postImgAddress}">
@@ -135,7 +139,7 @@
                                     </c:if>
                                 </div>
                                 <div class="post-price">
-                                    가격 <span>${post.unitPrice}</span>
+                                    가격 <span><fmt:formatNumber value="${post.unitPrice}" pattern="#,###" />원</span>
                                 </div>
                                 <div class="post-detail">
                                     <div class="post-reg-date">
@@ -204,12 +208,13 @@
 
     <!-- footer -->
     <jsp:include page='/WEB-INF/views/common/footer.jsp' />
-
-    
+    <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
+    <jsp:include page="/WEB-INF/views/seller/modal/sellerConfirm.jsp"/>
 
     <script>
         let selectPostNo;
         var cp="${param.cp}";
+        var loginMemberNo = ${loginMember.memberNo};
     </script>
 
     <c:if test="${!empty message}">
@@ -222,6 +227,7 @@
     <jsp:include page="/WEB-INF/views/report/report-modal.jsp"/> 
     
     <script src="/resources/js/seller/sellerPage.js"></script>
+    <script src="/resources/js/common/common.js"></script>
     <script src="/resources/js/report/report-modal.js"></script>
 
     <!-- ajax -->
