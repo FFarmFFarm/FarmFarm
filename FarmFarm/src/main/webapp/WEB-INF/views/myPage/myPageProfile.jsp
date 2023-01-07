@@ -125,7 +125,6 @@
                   </div>
               </section>
               <button class="update-btn">변경하기</button>
-              <button class="update-btn">탈퇴하기</button>
             </form>
       </section>
       
