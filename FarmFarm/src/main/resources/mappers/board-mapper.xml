@@ -155,6 +155,7 @@
 		SELECT COUNT(*) FROM "BOARD"
 		JOIN "MEMBER" USING ("MEMBER_NO")
 		WHERE BOARD_TYPE_NO = #{boardTypeNo}
+		AND BOARD_DEL_FL = 'N'
 		<if test='query != null and query != ""'>
 			<choose>
 				<when test='key == "t"'>
