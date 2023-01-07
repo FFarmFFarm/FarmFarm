@@ -37,20 +37,20 @@
                 </span>
                 <div class="board-stat">
                     <span>
-                        <a class="span-text">신규 주문</a>
-                        <a class="span-number s-green">${newOrderStat}</a>
+                        <a href="/admin/orderList" class="span-text">신규 주문</a>
+                        <a href="/admin/orderList" class="span-number s-green">${newOrderStat}</a>
                     </span>
                     <span>
-                        <a class="span-text">반품 요청</a>
-                        <a class="span-number s-green">${returnStat}</a>
+                        <a href="/admin/return" class="span-text">반품 요청</a>
+                        <a href="/admin/return" class="span-number s-green">${returnStat}</a>
                     </span>
                     <span>
-                        <a class="span-text">미처리 신고</a>
-                        <a class="span-number s-red">${askReportStat}</a>
+                        <a href="/admin/report" class="span-text">미처리 신고</a>
+                        <a href="/admin/report" class="span-number s-red">${askReportStat}</a>
                     </span>
                     <span>
-                        <a class="span-text">판매자 인증 신청</a>
-                        <a class="span-number s-blue">${authSellerStat}</a>
+                        <a href="/admin/seller" class="span-text">판매자 인증 신청</a>
+                        <a href="/admin/seller" class="span-number s-blue">${authSellerStat}</a>
                     </span>
                 </div>
 
