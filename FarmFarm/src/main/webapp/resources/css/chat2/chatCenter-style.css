@@ -834,11 +834,20 @@ body{
 }
 
 /* 읽음 여부 */
-.sent-bubble-read-fl{
+.received-bubble-read-count{
+    font-size: var(--small-font-size);
+
+    bottom: 19px;
+    right: -48px;
+
+    position: absolute;
+}
+
+.sent-bubble-read-count{
     font-size: var(--small-font-size);
 
     bottom: 17px;
-    left: -52px;
+    left: -48px;
 
     position: absolute;
 }

@@ -42,6 +42,8 @@
 	      
 	      <result property="memberNickname" column="MEMBER_NICKNAME" />
 	      <result property="profileImg" column="PROFILE_IMG" />
+     	  <result property="lastReadChatNo" column="LAST_READ_CHAT_NO" />
+
 	 </resultMap>
 
 	 <resultMap type="Chat2Img" id="chat2Img_rm">
@@ -64,13 +66,7 @@
 	      <result property="lastReadChatNo" column="LAST_READ_CHAT_NO" />
 	 </resultMap>
 	 
-	
-	<!-- 필요한 SQL문 -->
-<!-- 	 	SELECT * 
-		FROM (SELECT ROOM_NO, NVL(UNREAD_CHAT_COUNT, 0) AS UNREAD_CHAT_COUNT 
-	  	  	  FROM(SELECT COUNT(*) AS UNREAD_CHAT_COUNT, ROOM_NO
-		           FROM CHAT2 GROUP BY ROOM_NO)
-	          RIGHT JOIN (SELECT ROOM_NO FROM CHAT2_ROOM) USING (ROOM_NO)) -->
+
 	
 	<!-- 내 채팅방 목록 조회(SELECT) -->
 	<select id="selectChatRoomList" parameterType="_int" resultMap="chat2Room_rm">
@@ -261,31 +257,28 @@
 		INSERT INTO CHAT2
 		VALUES(SEQ_CHAT_IMG_NO.NEXTVAL, #{roomNo}, 0, 'S', #{chatContent}, DEFAULT, DEFAULT)
 	</insert>	
-		
-	<!-- 채팅 조회 처리(1) : 마지막으로 읽은 채팅의 번호를 조회, 채팅 기록에 업데이트(UPDATE) -->
-	<update id="updateLastChatNo">
-		UPDATE CHAT2_ENTER
-			   SET LAST_READ_CHAT_NO = (SELECT MAX(CHAT_NO)
-									 	FROM (SELECT CHAT_NO 
-									  	   	  FROM CHAT2 
-									  	      WHERE ROOM_NO = #{roomNo}
-									  	      ORDER BY CHAT_NO DESC)
-									 	WHERE ROWNUM = 1)
+	
+
+	
+	<!-- 마지막으로 읽은 채팅의 번호를 조회 -->
+	<update id="updateLastReadChatNo">
+		UPDATE CHAT2_ENTER SET LAST_READ_CHAT_NO = #{lastReadChatNo}
 		WHERE ROOM_NO = #{roomNo}
 		AND MEMBER_NO = #{memberNo}
-	</update>
-		
+		<selectKey keyProperty="lastReadChatNo" resultType="_int" order="BEFORE">
+			SELECT MAX(CHAT_NO) AS LAST_READ_CHAT_NO
+			FROM CHAT2
+			WHERE ROOM_NO = #{roomNo}
+		</selectKey>
+	</update> 
 	
-	<!-- 채팅 조회 처리(2) : 마지막으로 읽은 채팅 번호로 업데이트(UPDATE) -->
-	<update id="updateChatCount">
+	<!-- 뷰카운트 + 1 -->
+	<update id="updateViewCount">
 		UPDATE CHAT2 SET READ_COUNT = READ_COUNT + 1
 		WHERE ROOM_NO = #{roomNo}
-		AND CHAT_NO > (SELECT LAST_READ_CHAT_NO 
-					   FROM CHAT2_ENTER
-					   WHERE ROOM_NO = #{roomNo}
-					   AND MEMBER_NO = #{memberNo}
-					   AND ENTER_STATUS = 'Y' )
-	</update>
+		AND CHAT_NO > #{lastReadChatNo}
+	</update>	
+		
 
 	<!-- 채팅 삭제 처리(UPDATE) -->
 	<update id="deleteChat">

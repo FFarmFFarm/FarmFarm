@@ -235,7 +235,7 @@ const selectChatList = (roomNo) => {
             selectedRoomNo = roomNo;
             senderNo = myMemberNo;
 
-            // 읽음 처리 해야함..
+            // 채팅방 목록 요청(동기화)
             selectChatRoomList();
 
             // 채팅방 만들기
@@ -244,6 +244,8 @@ const selectChatList = (roomNo) => {
             // 가림막 치우기
             document.getElementById('roomBodyBlinder').style.display = 'none';
 
+            // 읽음 처리 하기
+            updateView();
 
         }).catch(function (error) {
             console.log(error);
@@ -413,10 +415,10 @@ const makeSentChat = (chat, newChatTime) => {
     packUpElement(sentBubbleTail, 'sent-bubble-tail', null);
     packUpElement(sentBubbleTime, 'sent-bubble-time', newChatTime);
     
-    if(chat.readCount > 0) { // readCount가 0보다 클 때만
-        const sentBubbleReadFl = document.createElement('div');
-        packUpElement(sentBubbleReadFl, 'sent-bubble-read-fl', chat.readCount);
-        sentBubble.append(sentBubbleReadFl);
+    if(chat.readCount >= 0) { // readCount가 0보다 클 때만
+        const sentBubbleReadCount = document.createElement('div');
+        packUpElement(sentBubbleReadCount, 'sent-bubble-read-count', chat.readCount + '명 읽음');
+        sentBubble.append(sentBubbleReadCount);
     }
     sentBubble.append(sentBubbleTime);
     sentBubble.id = chat.chatNo;
@@ -459,6 +461,12 @@ const makeReceivedChat = (chat, newChatTime) => {
     }
     packUpElement(receivedBubbleTime, 'received-bubble-time', newChatTime);
     
+    if (chat.readCount >= 0) { // readCount가 0보다 클 때만
+        const receivedBubbleReadCount = document.createElement('div');
+        packUpElement(receivedBubbleReadCount, 'received-bubble-read-count', chat.readCount + '명 읽음');
+        receivedBubble.append(receivedBubbleReadCount);
+    }
+
     receivedBubble.append(receivedBubbleTime);
     receivedBubble.id = chat.chatNo;
     // receivedChat.append(receivedBubbleTime, senderProfileImg, senderName, receivedBubbleTail, receivedBubble);
@@ -492,6 +500,8 @@ const sendChatToServer = () => {
 
         chattingSock.send(JSON.stringify(obj));
     }
+
+    updateView(); // 바로 업데이트
 
     // 인풋 지우기
     inputBox.value = "";
@@ -629,6 +639,9 @@ const onMessage = (chat) => {
         // 스크롤을 하단으로 내림
         const nowScrollHeight = readingArea.scrollHeight;
         readingArea.scrollTo(0,nowScrollHeight);
+
+        // 조회수 업데이트
+        updateView();
 
     } else { // 해당 채팅방을 보고 있지 않은 경우..
         console.log('새로운 채팅이 왔어요')
@@ -828,3 +841,4 @@ const shortcut = (shortcutNo) => {
         });
 
 }
+

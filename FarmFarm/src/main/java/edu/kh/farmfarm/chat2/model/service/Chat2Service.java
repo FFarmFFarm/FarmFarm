@@ -120,7 +120,15 @@ public interface Chat2Service {
 	 * @param memberNo
 	 * @return
 	 */
-	int updateView(int roomNo, int memberNo);
+	int updateLastReadChatNo(int roomNo, int memberNo);
+
+	/** 뷰카운트 +1
+	 * @param roomNo
+	 * @param memberNo
+	 * @param lastReadChatNo
+	 * @return
+	 */
+	int updateViewCount(int roomNo, int memberNo, int lastReadChatNo);
 
 
 

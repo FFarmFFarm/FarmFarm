@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -287,8 +286,14 @@ public class Chat2Controller {
 	@ResponseBody
 	public String updateView(int roomNo, int memberNo) {
 		
-		int result = service.updateView(roomNo, memberNo);
+		int lastReadChatNo = service.updateLastReadChatNo(roomNo, memberNo);
 		
+		int result = -1;
+		
+		if(lastReadChatNo > 0) {
+			result = service.updateViewCount(roomNo, memberNo, lastReadChatNo);
+		} 
+
 		return new Gson().toJson(result);
 	}
 }	

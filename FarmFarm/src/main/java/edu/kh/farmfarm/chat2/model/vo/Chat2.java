@@ -23,4 +23,5 @@ public class Chat2 {
 	// 추가 값
 	private String memberNickname;
 	private String profileImg;
+	private int lastReadChatNo;
 }

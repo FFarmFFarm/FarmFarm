@@ -2,7 +2,9 @@ package edu.kh.farmfarm.chat2.model.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -356,22 +358,36 @@ public class Chat2ServiceImpl implements Chat2Service {
 	// 입장 시 조회 처리
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public int updateView(int roomNo, int memberNo) {
+	public int updateLastReadChatNo(int roomNo, int memberNo) {
+		
+		// 1. 내가 마지막으로 읽은 번호를 조회하면서 업데이트
 		Chat2Enter chatEnter = new Chat2Enter();
 		chatEnter.setRoomNo(roomNo);
 		chatEnter.setMemberNo(memberNo);
+
+		int result = dao.updateLastReadChatNo(chatEnter);
 		
-		int resultA = dao.updateLastChatNo(chatEnter);
-		int resultB = 0;
-		
-		if(resultA > 0) {
-			Chat2 chat = new Chat2();
-			chat.setRoomNo(roomNo);
-			chat.setMemberNo(memberNo);
-			resultB = dao.updateChatCount(chat);
+		if(result > 0) {
+			result = chatEnter.getLastReadChatNo();
+		} else {
+			result = -1;
 		}
 		
-		return resultB;
+		return result;
+	}
+
+	// 뷰 카운트 + 1;
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int updateViewCount(int roomNo, int memberNo, int lastReadChatNo) {
+		
+		Map<String, Object> chatMap = new HashMap<String, Object>();
+		
+		chatMap.put("roomNo", roomNo);
+		chatMap.put("memberNo", memberNo);
+		chatMap.put("lastReadChatNo", lastReadChatNo);
+
+		return dao.updateViewCount(chatMap);
 	}
 
 

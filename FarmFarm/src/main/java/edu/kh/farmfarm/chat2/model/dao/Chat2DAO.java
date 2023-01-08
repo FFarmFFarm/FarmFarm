@@ -1,6 +1,7 @@
 package edu.kh.farmfarm.chat2.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -200,22 +201,6 @@ public class Chat2DAO {
 		return sqlSession.update("chat2Mapper.updateChatRoomStatus", roomNo);
 	}
 
-	/** 채팅 조회 처리(1)
-	 * @param chatEnter
-	 * @return
-	 */
-	public int updateLastChatNo(Chat2Enter chatEnter) {
-		return sqlSession.update("chat2Mapper.updateLastChatNo", chatEnter);
-	}
-
-	/** 채팅 조회 처리(2)
-	 * @param roomNo
-	 * @param memberNo
-	 * @return
-	 */
-	public int updateChatCount(Chat2 chat) {
-		return sqlSession.update("chat2Mapper.updateChatCount", chat);
-	}
 
 	/** 채팅 삭제 처리
 	 * @param chat
@@ -223,6 +208,19 @@ public class Chat2DAO {
 	 */
 	public int deleteChat(Chat2 chat) {
 		return sqlSession.update("chat2Mapper.deleteChat", chat);
+	}
+
+	/** 마지막으로 읽은 채팅의 번호를 조회
+	 * @param roomNo
+	 * @param memberNo
+	 * @return
+	 */
+	public int updateLastReadChatNo(Chat2Enter chatEnter) {
+		return sqlSession.update("chat2Mapper.updateLastReadChatNo", chatEnter);
+	}
+
+	public int updateViewCount(Map<String, Object> chatMap) {
+		return sqlSession.update("chat2Mapper.updateViewCount", chatMap);
 	}
 
 
