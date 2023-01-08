@@ -226,6 +226,36 @@ main{
 
 }
 
+
+.drop-menu2{
+    width: 80px;
+    height: auto;
+    background-color: white;
+    overflow: hidden;
+    box-shadow: 0 2px 10px 0 #bcbcbc;
+    border-radius: 5px;
+
+    font-size: var(--small-font-size);
+    color: black;
+    font-weight: 500;
+
+    position: absolute;
+    z-index: 500;
+    top: 22px;
+    right: -9px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 2px;
+
+    display: none;
+}
+
+
+
 .drop-ul li {
     display: flex;
     align-items: center;
@@ -341,3 +371,4 @@ main{
     background-color: lightgray;
     cursor: default;
 }
+

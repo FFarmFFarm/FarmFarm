@@ -26,7 +26,6 @@ const selectNewReportList = (cp) => {
         success: (map) => {
             printNewReportList(map.newReportList, map.pagination, map.reportListCount, map.reportAllListCount);
             console.log("미처리 신고 내역 조회 성공");
-            console.log(sortFilter);
         },
         error: () => {
             console.log("미처리 신고 내역 조회 실패");
@@ -152,10 +151,6 @@ const printNewReportList = (newReportList, pagination, reportListCount, reportAl
         // 신고 대상 (아이디/게시글)
         const td3 = document.createElement('td');
 
-        console.log(report.reportType);
-        console.log(report.title);
-
-
         if(report.title != null){
             if(report.reportType == 'B' || report.reportType == 'P'){
                 if(report.title.length > 14){
@@ -173,6 +168,10 @@ const printNewReportList = (newReportList, pagination, reportListCount, reportAl
                 } else{
                     td3.innerText = report.memberId;
                 }
+            }
+
+            if(report.reportType == 'C'){
+                td3.innerText = report.commentMemberId;
             }
         }
 
@@ -398,6 +397,9 @@ const printNewReportDetail = (newReportDetail) => {
         if(newReportDetail.reportType == 'B' || newReportDetail.reportType == 'P'){
             td11Detail.innerText = "신고 대상 게시글";
         }
+        if(newReportDetail.reportType == 'C'){
+            td11Detail.innerText = "댓글 작성자 ID";
+        }
     }
 
     const td12Detail = document.createElement('td');
@@ -428,15 +430,19 @@ const printNewReportDetail = (newReportDetail) => {
                 move.innerHTML = newReportDetail.memberId;
             }
         }
-        if(newReportDetail.reportType == 'B'){
+        if(newReportDetail.reportType == 'B'){ // 커뮤니티 게시글
             move.href = "/board/1"; 
             move.innerHTML = "[ " + newReportDetail.title + " ]";
         }
 
-        if(newReportDetail.reportType == 'P'){
-            // td12Detail.innerHTML = "[ " + newReportDetail.title + " ]";
+        if(newReportDetail.reportType == 'P'){ //판매글
             move.href = "/post/" + newReportDetail.reportTargetNo;
             move.innerHTML = "[ " + newReportDetail.title + " ]";
+        }
+
+        if(newReportDetail.reportType == 'C'){ //커뮤니티 댓글
+            // move.href = "/board/" + newReportDetail.commentBoardNo;
+            move.innerHTML = "[ " + newReportDetail.commentMemberId + " ]";
         }
 
         td12Detail.append(move);
@@ -511,8 +517,8 @@ const printNewReportDetail = (newReportDetail) => {
 
     // 신고 처리용 값 가져오기  // 강제 탈퇴, 반려, 정지, 삭제 등등에 사용
     hiddenMemberNo = newReportDetail.memberNo;  // 계정 강제탈퇴, 정지, 반려용
-    hiddenContentNo = newReportDetail.contentNo; // 게시글 정지, 반려용
-    hiddenReportType = newReportDetail.reportType;  // 게시글 정지, 반려용
+    hiddenContentNo = newReportDetail.contentNo; // 게시글 삭제, 반려용
+    hiddenReportType = newReportDetail.reportType;  // 게시글 삭제, 반려용
     hiddenAuthority = newReportDetail.authority; // 강제 탈퇴 시 글 삭제용 
     // hiddenReportNo = newReportDetail.reportNo;  
 
@@ -538,8 +544,8 @@ const printNewReportDetail = (newReportDetail) => {
         contentDeleteBtn.classList.add('hide'); //
     }
 
-    // 게시글 신고 -> 반려, 삭제
-    if(newReportDetail.reportType == 'B' || newReportDetail.reportType == 'P'){
+    // 게시글/댓글 신고 -> 반려, 삭제
+    if(newReportDetail.reportType == 'B' || newReportDetail.reportType == 'P' || newReportDetail.reportType == 'C'){
         contentLeaveBtn.classList.add('show');
         contentDeleteBtn.classList.add('show'); 
         contentLeaveBtn.classList.remove('hide');
@@ -642,7 +648,7 @@ const printAccumulate = (accumMemberList, accumContentList) => {
     }
 
 
-    if(hiddenReportType == 'B' || hiddenReportType == 'P'){
+    if(hiddenReportType == 'B' || hiddenReportType == 'P' || hiddenReportType == 'C'){
         numCount = 0;
 
         for(let content of accumContentList){
@@ -993,7 +999,7 @@ accountBannedBtn.addEventListener('click', () => {
 
 
 // B, P 나눠야 함.
-// * (게시글) 삭제 : 판매글, 커뮤니티 게시글
+// * (게시글) 삭제 : 판매글, 커뮤니티 게시글, 커뮤니티 댓글
 contentDeleteBtn.addEventListener('click', () => {
     console.log("게시글 삭제 클릭");
 
@@ -1007,11 +1013,11 @@ contentDeleteBtn.addEventListener('click', () => {
                 selectNewReportList(cp);
 
                 console.log("게시글 삭제");
-                messageModalOpen("해당 게시글이 삭제되었습니다.")
+                messageModalOpen("해당 게시글/댓글이 삭제되었습니다.")
             }
         },
         error: () => {
-            console.log("게시글 삭제 오류");
+            console.log("게시글/댓글 삭제 오류");
             messageModalOpen("오류 발생");
         }
     })
@@ -1034,11 +1040,11 @@ contentLeaveBtn.addEventListener('click', () => {
                 selectNewReportList(cp);
 
                 console.log("게시글 반려");
-                messageModalOpen("해당 게시글이 활성화 상태를 유지합니다.")
+                messageModalOpen("해당 게시글/댓글이 활성화 상태를 유지합니다.")
             }
         }, 
         error: () => {
-            console.log("게시글 반려 오류");
+            console.log("게시글/댓글 반려 오류");
             messageModalOpen("오류 발생");
         } 
     })

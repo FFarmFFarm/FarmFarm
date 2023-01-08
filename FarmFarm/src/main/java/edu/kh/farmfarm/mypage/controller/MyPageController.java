@@ -268,6 +268,7 @@ public class MyPageController {
 		
 		if(result > 0) {
 			loginMember.setMemberNickname(inputMember.getMemberNickname());
+			loginMember.setMemberAddress(inputMember.getMemberAddress());
 			message = "프로필 수정 완료";
 		} else {
 			message="프로필 수정 실패";
