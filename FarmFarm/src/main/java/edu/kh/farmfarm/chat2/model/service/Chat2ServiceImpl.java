@@ -2,7 +2,9 @@ package edu.kh.farmfarm.chat2.model.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,8 +39,13 @@ public class Chat2ServiceImpl implements Chat2Service {
 
 	// 선택한 채팅방의 채팅 목록 조회
 	@Override
-	public List<Chat2> selectChatList(int roomNo) {
-		return dao.selectChatList(roomNo);
+	public List<Chat2> selectChatList(int roomNo, int memberNo) {
+		Map<String, Object> chatMap = new HashMap<String, Object>();
+		
+		chatMap.put("roomNo", roomNo);
+		chatMap.put("memberNo", memberNo);
+		
+		return dao.selectChatList(chatMap);
 	}
 	
 	// 선택한 채팅방의 참가회원 정보 조회
@@ -353,25 +360,17 @@ public class Chat2ServiceImpl implements Chat2Service {
 //		return dao.insertNewSystemChat(chat);
 //	}
 
-	// 입장 시 조회 처리
+
+	// 1. 입장 시 조회 처리 : UNREAD_CHAT_COUNT 0으로 만들기 J
 	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public int updateView(int roomNo, int memberNo) {
-		Chat2Enter chatEnter = new Chat2Enter();
-		chatEnter.setRoomNo(roomNo);
-		chatEnter.setMemberNo(memberNo);
+	public int updateUnreadCount(int memberNo, int roomNo) {
 		
-		int resultA = dao.updateLastChatNo(chatEnter);
-		int resultB = 0;
+		Map<String, Object> updateMap = new HashMap<String, Object>();
+		updateMap.put("memberNo", memberNo);
+		updateMap.put("roomNo", roomNo);
 		
-		if(resultA > 0) {
-			Chat2 chat = new Chat2();
-			chat.setRoomNo(roomNo);
-			chat.setMemberNo(memberNo);
-			resultB = dao.updateChatCount(chat);
-		}
+		return dao.updateUnreadCount(updateMap);
 		
-		return resultB;
 	}
 
 

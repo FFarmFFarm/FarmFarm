@@ -17,4 +17,5 @@ public class Chat2Enter {
 	private int memberNo;
 	private String enterStatus;
 	private int lastReadChatNo;
+	private int initialChatNo;
 }
