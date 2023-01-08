@@ -17,18 +17,20 @@
         <div class="new-chatRoom-name">
           <span>새 채팅방 이름</span>
           <div class="new-chatRoom-name-input-area">
-            <input id="inputNewChatRoomName" type="text" placeholder="팜팜 채팅방">
+            <input id="inputNewChatRoomName" type="text" placeholder="팜팜 채팅방" spellcheck="false">
           </div>
-          <span id="inputNewChatRoomNameNotice">한글, 숫자를 포함해 3자 이상 10자 이내로 작성해주세요</span>
+          <span id="inputNewChatRoomNameNotice">
+            한글, 숫자, 띄어쓰기를 포함해 3자 이상 10자 이내로 작성해주세요
+          </span>
         </div>
-        <div class="new-chatRoom-img">
+        <!-- <div class="new-chatRoom-img">
           <button id="newChatRoomImgBtn">
             <span>사진 선택</span>
             &nbsp;
             <i class="fa-regular fa-image"></i>
           </button>
           <input type="file" accept="image/*" hidden>
-        </div>
+        </div> -->
         <div class="new-chatRoom-notice">
           <span>- 자유 채팅방이 개설됩니다.</span>
           <span>- 상품 문의 채팅방은 상품 문의 시 자동으로 개설됩니다.</span>
