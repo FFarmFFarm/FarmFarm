@@ -38,9 +38,15 @@
             <span><i class="fa-solid fa-chevron-down"></i></span>
           </div>
           <div class="order-content">
-            <span> ${productList[0].productName} 외 </span>
-            <span class="order-count"> ${fn:length(productList)} 개 </span>
-            <span> 상품을 주문합니다 </span>
+            <c:if test="${fn:length(productList) > 1}">
+              <span> "${productList[0].productName}" 외 </span>
+              <span class="order-count"> ${fn:length(productList)} 개 </span>
+              <span> 상품을 주문합니다 </span>
+            </c:if>
+            <c:if test="${fn:length(productList) == 1}">
+              <span> "${productList[0].productName}"</span>
+              <span> 을/를 주문합니다 </span>
+            </c:if>
           </div>
           <c:forEach items="${productList}" var="product" varStatus="vs">
             <c:set var="productPrice" value="${product.productPrice * product.productAmount}"/>
@@ -211,6 +217,9 @@
     <!-- iamport.payment.js -->
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
     
+
+    <!-- script -->
+  <script src="/resources/js/common/common.js"></script>
     <script src="resources/js/order/order.js"></script>
 
     <script>
