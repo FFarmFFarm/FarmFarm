@@ -68,7 +68,7 @@ main{
     overflow: hidden;
 }
 .board-search-area > input{
-    width: 455px;
+    width: 445px;
     height: 100%;
     padding-left: 10px;
     font-size: var(--main-font-size);
