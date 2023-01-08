@@ -29,7 +29,8 @@ const connectToChattingSockForWidget = () => {
 
                 chattingSock.onmessage = function (e) {
                     console.log('새로운 메세지가 있습니다.');
-                    document.getElementById('chatAlarmDot').style.display = 'block';
+                    // document.getElementById('chatAlarmDot').style.display = 'block';
+                    startChatIconFlash();
                 }
 
                 chattingSock.onclose = function (e) {
@@ -200,6 +201,7 @@ const fillChatWidget = (chatRoomList) => {
                     const chatWidgetUnreadChatCount = document.createElement('div'); // 개별 채팅방의 읽지 않은 메세지 개수
                     packUpElement(chatWidgetUnreadChatCount, 'chatWidget-unread-chat-count', chatRoom.unreadChatCount);
                     chatWidgetBox.append(chatWidgetUnreadChatCount);
+                    chatRedDotOnly();
                 }
     
             } 
@@ -213,3 +215,49 @@ const fillChatWidget = (chatRoomList) => {
 }
 
 
+/* 채팅 수신 알림 */
+
+/* 알림 점멸 관련 구문 */
+
+/* 불 들어오는 함수 */
+const chatIconLightOn = () => {
+    document.querySelector('#chatAlarmDot').style.display = "block";
+    document.querySelector('.btn-chat').style.backgroundColor = "var(--point-color)";
+    document.querySelector('.btn-chat > i').style.color = "white";
+}
+
+/* 불 끄는 함수 */
+const chatIconLightOff = () => {
+    document.querySelector('#chatAlarmDot').style.display = "none";
+    document.querySelector('.btn-chat').style.backgroundColor = "white";
+    document.querySelector('.btn-chat > i').style.color = "var(--sub-font-color)";
+}
+
+/* 빨간점만 불들어오게 */
+const chatRedDotOnly = () => {
+    document.querySelector('#chatAlarmDot').style.display = "block";
+    document.querySelector('.btn-chat').style.backgroundColor = "white";
+    document.querySelector('.btn-chat > i').style.color = "var(--sub-font-color)";
+}
+
+
+/* 깜박이는 함수 */
+const startChatIconFlash = () => {
+    let i = 0;
+    const chatIconFlash = setInterval(() => {
+
+        chatIconLightOn();                 // 빨간점 생성
+        setTimeout(chatIconLightOff, 1000) // 1초 후에 빨간점 지움
+        i += 1;
+
+        if (i == 3) { // i가 3이 되면 그만 깜박임
+            clearInterval(chatIconFlash);
+            console.log('그만 깜박이삼')
+            setTimeout(chatRedDotOnly, 2000);
+        }
+
+    }, 2000); // 2초마다 반복함
+
+}
+
+/* 알림 점멸 end */

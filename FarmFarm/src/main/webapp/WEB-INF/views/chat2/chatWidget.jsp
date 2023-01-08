@@ -11,7 +11,6 @@
 <!-- 채팅 위젯은 최대 6개입니다. -->
 
 <div class="chatWidget-container chatWidget-hide" >
-  
   <div class="chatWidget-header">
     <div class="chatWidget-title">
       채팅
