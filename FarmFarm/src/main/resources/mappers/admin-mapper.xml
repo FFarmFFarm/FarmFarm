@@ -748,6 +748,27 @@
 				OR MEMBER_NO LIKE ('%${keyword}%')
 				OR TITLE LIKE ('%${keyword}%') OR TITLE LIKE LOWER('%${keyword}%') OR TITLE LIKE ('%${keyword}%'))
 			</if>
+			<if test='processFilter != null and processFilter != ""'>
+			<choose>
+				<when test='processFilter == 0'><!-- 전체 -->
+				</when>
+				<when test='processFilter == 1'><!-- 접수 -->
+					AND REPORT_PENALTY IS NULL
+				</when>
+				<when test='processFilter == 2'><!-- 반려 -->
+						AND REPORT_PENALTY = 'N'
+				</when>
+				<when test='processFilter == 3'><!-- 회원 정지 -->
+						AND ((REPORT_PENALTY = 'Y' OR REPORT_PENALTY = 'A') AND REPORT_TYPE = 'M' AND MEMBER_DEL_FL = 'N')
+				</when>
+				<when test='processFilter == 4'><!-- 회원 탈퇴 -->
+						AND MEMBER_DEL_FL = 'Y'
+				</when>
+				<when test='processFilter == 5'><!-- 게시글 삭제 -->
+						AND (REPORT_PENALTY = 'Y' AND (REPORT_TYPE = 'B' OR REPORT_TYPE = 'P' OR REPORT_TYPE = 'C'))
+				</when>
+			</choose>
+		</if>
 			<if test='typeFilter != null and typeFilter != ""'>
 			<choose>
 				<when test='typeFilter == 0' > <!-- 전체 -->
@@ -833,6 +854,26 @@
 				AND (MEMBER_ID LIKE('%${keyword}%') OR MEMBER_ID LIKE LOWER('%${keyword}%') OR MEMBER_ID LIKE UPPER('%${keyword}%')
 				OR MEMBER_NO LIKE ('%${keyword}%')
 				OR TITLE LIKE ('%${keyword}%') OR TITLE LIKE LOWER('%${keyword}%') OR TITLE LIKE ('%${keyword}%'))
+			</if>
+			<if test='processFilter != null and processFilter != ""'>
+				<choose>
+					<when test='processFilter == 0'>
+							AND REPORT_PENALTY IS NULL
+					</when>
+					<when test='processFilter == 1'>
+							AND REPORT_PENALTY = 'N'
+					</when>
+					<when test='processFilter == 2'>
+							AND ((REPORT_PENALTY = 'Y' OR REPORT_PENALTY = 'A') 
+										AND REPORT_TYPE = 'M' AND MEMBER_DEL_FL = 'N')
+					</when>
+					<when test='processFilter == 3'>
+							AND MEMBER_DEL_FL = 'Y'
+					</when>
+					<when test='processFilter == 4'>
+							AND (REPORT_PENALTY = 'Y' AND (REPORT_TYPE = 'B' OR REPORT_TYPE = 'P' OR REPORT_TYPE = 'C'))
+					</when>
+				</choose>
 			</if>
 			<if test='typeFilter != null and typeFilter != ""'>
 			<choose>

@@ -221,7 +221,7 @@ const printMemberList = (memberList, pagination) => {
                     td8.innerText = "활동중";
                 }
     
-                if(member.reportPenalty == 'Y'){
+                if(member.reportPenalty == 'Y' && member.memberDelFl == 'N'){
                     td8.innerText = "정지";
                 }
     
@@ -410,11 +410,11 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
                 tdStatus.innerText = "신고접수";
             }
 
-            if(memberDetailInfo.reportPenalty == 'N' && memberDetailInfo.reportPenalty == 'A'){
+            if(memberDetailInfo.reportPenalty == 'N' || memberDetailInfo.reportPenalty == 'A'){
                 tdStatus.innerText = "활동중";
             }
 
-            if(memberDetailInfo.reportPenalty == 'Y'){
+            if(memberDetailInfo.reportPenalty == 'Y' && memberDetailInfo.memberDelFl == 'N'){
                 tdStatus.innerText = "정지";
             }
         }

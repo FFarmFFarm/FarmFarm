@@ -23,7 +23,8 @@ const selectReportList = (cp) => {
         url: "/admin/selectReportList",
         data: {"cp": cp, 
                 "sortFilter": sortFilter, 
-                "typeFilter": typeFilter, 
+                "typeFilter": typeFilter,
+                "processFilter": processFilter, 
                 "keyword" : keyword},
         dataType: "JSON",
         type: "GET",
@@ -207,7 +208,7 @@ const printReportList = (reportAllList, pagination) => {
 
          
             if(report.reportType == 'M'){
-                if(report.memberDelFl == 'N' && report.reportPenalty == 'Y'){
+                if(report.memberDelFl == 'N' && (report.reportPenalty == 'Y' || report.reportPenalty == 'A')){
                     td7.innerText = "정지";
                 }
 
@@ -319,60 +320,59 @@ const printReportDetail = (reportDetail) => {
         if(reportDetail.reportPenalty == null){
             td4Detail.innerText = "접수";
 
-            // if(reportDetail.reportType == 'M'){
-            //     accountLeaveBtn.classList.add('account-leave-btn');
-            //     accountBannedBtn.classList.add('account-banned-btn');
-            //     accountKickOutBtn.classList.add('account-kickout-btn');
-            //     accountLeaveBtn.disabled = false;
-            //     accountBannedBtn.disabled = false;
-            //     accountKickOutBtn.disabled = false;
+            if(reportDetail.reportType == 'M'){
+                accountLeaveBtn.style.display = 'block';
+                accountBannedBtn.style.display = 'block';
+                accountKickOutBtn.style.display = 'block';
+            }
 
-            // } else {
-            //     contentLeaveBtn.classList.add('content-leave-btn');
-            //     contentDeleteBtn.classList.add('content-delete-btn');
-            //     contentLeaveBtn.disabled = false;
-            //     contentDeleteBtn.disabled = false;
-            // }
-
+            if(reportDetail.reportType == 'B' || reportDetail.reportType == 'P' || reportDetail.reportType == 'C'){
+                contentLeaveBtn.style.display = 'block';
+                contentDeleteBtn.style.display = 'block';
+            }
         }
+
         if(reportDetail.reportPenalty == 'N'){
             td4Detail.innerText = "반려";
 
-            // if(reportDetail.reportType == 'M'){
-            //     accountLeaveBtn.disabled = true;
-            //     accountLeaveBtn.classList.toggle('off');
-            //     accountLeaveBtn.classList.remove('account-leave-btn');
+            if(reportDetail.reportType == 'M'){
+                accountLeaveBtn.style.display = 'none';
+                accountBannedBtn.style.display = 'block';
+                accountKickOutBtn.style.display = 'block';
+            }
 
-            //     accountBannedBtn.classList.add('account-banned-btn');
-            //     accountBannedBtn.disabled = false;
-            //     accountKickOutBtn.classList.add('account-kickout-btn');
-            //     accountKickOutBtn.diabled = false;
-
-
-            // } else {
-            //     contentLeaveBtn.disabled = true;
-            //     contentLeaveBtn.classList.toggle('off');
-            //     contentLeaveBtn.classList.remove('content-leave-btn');
-
-            //     contentDeleteBtn.classList.add('content-delete-btn');
-            //     contentDeleteBtn.disabled = false;
-            // }
+            if(reportDetail.reportType == 'B' || reportDetail.reportType == 'P' || reportDetail.reportType == 'C'){
+                contentLeaveBtn.style.display = 'none';
+                contentDeleteBtn.style.display = 'block';
+            }
         }
     
      
         if(reportDetail.reportType == 'M'){
-            if(reportDetail.memberDelFl == 'N' && reportDetail.reportPenalty == 'Y'){
+            if(reportDetail.memberDelFl == 'N' && (reportDetail.reportPenalty == 'Y' || reportDetail.reportPenalty == 'A')){
                 td4Detail.innerText = "정지";
+
+                accountLeaveBtn.style.display = 'block';
+                accountBannedBtn.style.display = 'none';
+                accountKickOutBtn.style.display = 'block';
             }
     
             if(reportDetail.memberDelFl == 'Y'){
                 td4Detail.innerText = "탈퇴";
+
+                accountLeaveBtn.style.display = 'block';
+                accountBannedBtn.style.display = 'block';
+                accountKickOutBtn.style.display = 'none';
+
             }
         }
     
         if(reportDetail.reportType == 'B' || reportDetail.reportType == 'P' || reportDetail.reportType == 'C'){
             if(reportDetail.reportPenalty == 'Y'){
                 td4Detail.innerText = "삭제";
+
+                contentLeaveBtn.style.display = 'block';
+                contentDeleteBtn.style.display = 'none';
             }
         } 
     }
@@ -934,19 +934,29 @@ const printPagination = (adminPaginationArea, pagination) => {
 //todo: 필터 드롭다운 메뉴
 //fix: 페이지네이션 이후에 수정하기! 드롭다운 메뉴 동시에 열림..
 const dropBtn = document.getElementById("dropBtn");
+const dropBtn2 = document.getElementById("dropBtn2");
 const dropMenu = document.getElementById("dropMenu");
+const dropMenu2 = document.getElementById("dropMenu2");
 
 dropBtn.addEventListener("click", () => {
     dropMenu.classList.toggle("toggle");
 })
 
+dropBtn2.addEventListener("click", () => {
+    dropMenu2.classList.toggle("toggle");
+})
+
 
 const dropUl = document.getElementById("dropUl");
+const dropUl2 = document.getElementById("dropUl2");
 
 dropUl.addEventListener("click", () => {
     dropMenu.classList.toggle("toggle");
 })
 
+dropUl2.addEventListener("click", () => {
+    dropMenu2.classList.toggle("toggle");
+})
 
 
 
@@ -1002,47 +1012,91 @@ down.addEventListener('click', () => {
 
 
 // todo: 필터링 옵션 별로 조회  - typeFilter
+const dropBtnText = document.getElementById("dropBtnText");
+const dropBtn2Text = document.getElementById("dropBtn2Text")
+
 document.getElementById("t0").addEventListener("click", ()=>{
     numCount = (cp-1)*15;
     typeFilter = 0;  
     selectReportList();
-    dropBtn2Text.innerText = "상태";
+    dropBtnText.innerText = "유형";
 })
 
 document.getElementById("t1").addEventListener("click", ()=>{
     numCount = (cp-1)*15;
     typeFilter = 1;  
     selectReportList();
-    dropBtn2Text.innerText = "일반회원";
+    dropBtnText.innerText = "일반회원";
 })
 
 document.getElementById("t2").addEventListener("click", ()=>{
     numCount = (cp-1)*15;
     typeFilter = 2;  
     selectReportList();
-    dropBtn2Text.innerText = "판매자";
+    dropBtnText.innerText = "판매자";
 })
 
 document.getElementById("t3").addEventListener("click", ()=>{
     numCount = (cp-1)*15;
     typeFilter = 3;  
     selectReportList();
-    dropBtn2Text.innerText = "판매 게시글";
+    dropBtnText.innerText = "판매글";
 })
 
 document.getElementById("t4").addEventListener("click", ()=>{
     numCount = (cp-1)*15;
     typeFilter = 4;  
     selectReportList();
-    dropBtn2Text.innerText = "커뮤니티 게시글";
+    dropBtnText.innerText = "게시글";
 })
 
 document.getElementById("t5").addEventListener("click", ()=>{
     numCount = (cp-1)*15;
     typeFilter = 5;  
     selectReportList();
-    dropBtn2Text.innerText = "커뮤니티 댓글";
+    dropBtnText.innerText = "댓글";
 })
+
+
+
+// todo: 필터링 옵션 별로 조회  - processFilter
+document.getElementById("p0").addEventListener('click', ()=>{
+    numCount = (cp-1)*15;
+    processFilter = 0;  
+    selectReportList();
+    dropBtn2Text.innerText = "처리 상태";
+});
+document.getElementById("p1").addEventListener('click', ()=>{
+    numCount = (cp-1)*15;
+    processFilter = 1;  
+    selectReportList();
+    dropBtn2Text.innerText = "접수";
+});
+document.getElementById("p2").addEventListener('click', ()=>{
+    numCount = (cp-1)*15;
+    processFilter = 2;  
+    selectReportList();
+    dropBtn2Text.innerText = "반려";
+});
+document.getElementById("p3").addEventListener('click', ()=>{
+    numCount = (cp-1)*15;
+    processFilter = 3;  
+    selectReportList();
+    dropBtn2Text.innerText = "정지";
+});
+document.getElementById("p4").addEventListener('click', ()=>{
+    numCount = (cp-1)*15;
+    processFilter = 4;  
+    selectReportList();
+    dropBtn2Text.innerText = "탈퇴";
+});
+document.getElementById("p5").addEventListener('click', ()=>{
+    numCount = (cp-1)*15;
+    processFilter = 5;  
+    selectReportList();
+    dropBtn2Text.innerText = "삭제";
+});
+
 
 
 
