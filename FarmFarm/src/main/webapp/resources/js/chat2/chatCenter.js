@@ -185,18 +185,18 @@ document.querySelector('#newChatRoomConfirmBtn').addEventListener('click', () =>
     // 채팅방 이름 정규식 표현으로 걸러내기
     let notice = document.getElementById('inputNewChatRoomNameNotice');
     let newRoomName = document.getElementById('inputNewChatRoomName');
-    let regEx = /^[ㄱ-힣\d]{3,10}$/;
+    let regEx = /^[ㄱ-힣\d][ㄱ-힣\d\s]{2,9}[ㄱ-힣d]$/;
     notice.classList.remove('error');
 
-    if(newRoomName.value.trim().length == 0) { // 공백인 경우
+    if(newRoomName.value.length == 0) { // 공백인 경우
         newRoomName.focus();
         notice.classList.add('error');
 
     } else { // 정규표현식 통과한 경우
 
-        let newRoomNameValue = newRoomName.value.trim();
+        let newRoomNameValue = newRoomName.value;
 
-        if(regEx.test(newRoomName.value.trim())){
+        if(regEx.test(newRoomName.value)){
             let formData = new FormData();
             formData.append("sellerNo", -1);
             formData.append("roomType", 0);

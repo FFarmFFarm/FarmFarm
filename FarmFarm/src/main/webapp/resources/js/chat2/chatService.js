@@ -169,11 +169,18 @@ const makeChatPreviewBox = (chatRoom) => {
         boxLabel.append(lastChatContent, lastChatTime);
         chatPreviewBox.append(thumbnailImg, roomTitle, boxLabel);
     
-        // unreadChatCount 세팅
-        if (chatRoom.unreadChatCount > 0) { // 읽지 않은 채팅이 있는 경우
-            const unreadChatCount = document.createElement('div'); // 읽지 않은 채팅 개수
-            packUpElement(unreadChatCount, 'unread-chat-count', chatRoom.unreadChatCount);
-            chatPreviewBox.append(unreadChatCount);
+        // unreadChatCount 세팅(빨강)
+        console.log(chatRoom.roomNo);
+        if(chatRoom.roomNo != selectedRoomNo) {
+            if (chatRoom.unreadChatCount > 0) { // 읽지 않은 채팅이 있는 경우
+                let count = 0;
+                if(chatRoom.unreadChatCount > 99) count = '99+';
+                else count = chatRoom.unreadChatCount;
+    
+                const unreadChatCount = document.createElement('div'); // 읽지 않은 채팅 개수
+                packUpElement(unreadChatCount, 'unread-chat-count', count);
+                chatPreviewBox.append(unreadChatCount);
+            } 
         }
     
         // 클릭 이벤트
@@ -249,8 +256,8 @@ const selectChatList = (roomNo) => {
             // 가림막 치우기
             document.getElementById('roomBodyBlinder').style.display = 'none';
 
-            // // 읽음 처리 하기
-            // updateView();
+            // UnreadCount를 0으로 만듦
+            updateUnreadCount();
 
         }).catch(function (error) {
             console.log(error);
@@ -281,9 +288,6 @@ const makeNewChatTime = (chatTime) => {
 
 /* 채팅방을 만드는 함수 */
 const makeChatRoom = (chatRoom, chatList) => {
-
-    // UnreadCount를 0으로 만듦
-    updateUnreadCount();
 
     // 라벨 영역
     // 드롭다운 숨기기
@@ -409,11 +413,11 @@ const makeSentChat = (chat, newChatTime) => {
     packUpElement(sentBubbleTail, 'sent-bubble-tail', null);
     packUpElement(sentBubbleTime, 'sent-bubble-time', newChatTime);
     
-    if(chat.readCount >= 0) { // readCount가 0보다 클 때만
-        const sentBubbleReadCount = document.createElement('div');
-        packUpElement(sentBubbleReadCount, 'sent-bubble-read-count', chat.readCount + '명 읽음');
-        sentBubble.append(sentBubbleReadCount);
-    }
+    // if(chat.readCount >= 0) { // readCount가 0보다 클 때만
+    //     const sentBubbleReadCount = document.createElement('div');
+    //     packUpElement(sentBubbleReadCount, 'sent-bubble-read-count', chat.readCount + '명 읽음');
+    //     sentBubble.append(sentBubbleReadCount);
+    // }
     sentBubble.append(sentBubbleTime);
     sentBubble.id = chat.chatNo;
     sentChat.append(sentBubble, sentBubbleTail);
@@ -455,11 +459,11 @@ const makeReceivedChat = (chat, newChatTime) => {
     }
     packUpElement(receivedBubbleTime, 'received-bubble-time', newChatTime);
     
-    if (chat.readCount >= 0) { // readCount가 0보다 클 때만
-        const receivedBubbleReadCount = document.createElement('div');
-        packUpElement(receivedBubbleReadCount, 'received-bubble-read-count', chat.readCount + '명 읽음');
-        receivedBubble.append(receivedBubbleReadCount);
-    }
+    // if (chat.readCount >= 0) { // readCount가 0보다 클 때만
+    //     const receivedBubbleReadCount = document.createElement('div');
+    //     packUpElement(receivedBubbleReadCount, 'received-bubble-read-count', chat.readCount + '명 읽음');
+    //     receivedBubble.append(receivedBubbleReadCount);
+    // }
 
     receivedBubble.append(receivedBubbleTime);
     receivedBubble.id = chat.memberNo;
