@@ -170,6 +170,48 @@
   margin: 10px 0px;
 }
 
+/* 삭제하기 */
+.delete-menu {
+  background-color: white;
+  width: 270px;
+  height: 150px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  border-radius: 5px;
+}
+
+#deleteNotice{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin: 10px 0px;
+}
+
+/* 신고하기 */
+.report-menu {
+  background-color: white;
+  width: 270px;
+  height: 150px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  border-radius: 5px;
+}
+
+#reportNotice{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin: 10px 0px;
+}
+
 
 
 /* 버튼 */

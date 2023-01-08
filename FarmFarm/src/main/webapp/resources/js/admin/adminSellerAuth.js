@@ -158,7 +158,6 @@ const printSellerList = (sellerList, pagination) => {
 // optimize: 인증신청서 조회
 const printSellerAuthPaper = (authPaper) => {
 
-    
     // 인증신청서 보이기
     document.getElementById("selectAuthPaperDiv").style.display = "block";
     
@@ -340,6 +339,11 @@ const printSellerAuthPaper = (authPaper) => {
         authApproveBtn.style.backgroundColor = 'lightgray';
         authApproveBtn.style.cursor = 'default';
         authApproveBtn.disabled = true;
+    } else{
+        // 그 외에는 다시 활성화
+        authApproveBtn.style.backgroundColor = '#2b8c44';
+        authApproveBtn.style.cursor = 'pointer';
+        authApproveBtn.disabled = false;
     }
 
 

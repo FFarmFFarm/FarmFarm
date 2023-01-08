@@ -61,4 +61,39 @@
           </div>
         </div>
       </div>
+
+      <!-- 채팅 삭제하기 -->
+      <div class="delete-menu hide">
+        <div class="chatRoom-menu-title">
+          삭제하기
+        </div>
+        <div id="deleteBody" class="chatRoom-menu-body">
+          <div id="deleteNotice">
+            <span>정말 삭제하시겠습니까?</span>
+            <span>삭제된 내용은 복구할 수 없습니다.</span>
+          </div>
+          <div class="menu-confirm-btn">
+            <button type="button" id="deleteMenuCalcelBtn">취소</button>
+            <button type="button" id="deleteMenuConfirmBtn">확인</button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- 채팅 신고하기 -->
+      <div class="report-menu hide">
+        <div class="chatRoom-menu-title">
+          신고하기
+        </div>
+        <div id="reportBody" class="chatRoom-menu-body">
+          <div id="reportNotice">
+            <span>정말 신고하시겠습니까?</span>
+            <span>허위 신고시 제재를 받을 수 있습니다.</span>
+          </div>
+          <div class="menu-confirm-btn">
+              <button type="button" id="reportMenuCalcelBtn">취소</button>
+              <button type="button" id="reportMenuConfirmBtn">확인</button>
+          </div>
+        </div>
+      </div>
+
     </div>

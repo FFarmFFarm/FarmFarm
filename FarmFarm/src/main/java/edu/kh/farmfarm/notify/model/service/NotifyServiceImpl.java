@@ -74,5 +74,11 @@ public class NotifyServiceImpl implements NotifyService {
 		return dao.deleteNotify(notifyNo);
 	}
 
+	// type에 따른 title
+	@Override
+	public String selectNotifyTitle(int notifyTypeNo) {
+		return dao.selectNotifyTitle(notifyTypeNo);
+	}
+
 
 }

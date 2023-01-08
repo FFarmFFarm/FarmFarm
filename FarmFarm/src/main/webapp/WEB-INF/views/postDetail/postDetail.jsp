@@ -89,7 +89,7 @@
         <button type="button" class="share-btn" id="shareBtn">
           <i class="fa-solid fa-share"></i>
         </button>
-        <button type="button" class="report-btn">
+        <button type="button" class="report-btn" id="reportBtn">
           <i class="fa-solid fa-circle-exclamation"></i>
         </button>
       </section>
@@ -141,8 +141,8 @@
       <c:remove var="message" />
   </c:if> 
 
-    <!-- 아래 두개 넣어주세요 -->
     <jsp:include page="/WEB-INF/views/report/report-modal.jsp"/> 
+    <script src="/resources/js/report/report-modal-common.js"></script>
     <script src="/resources/js/report/report-modal.js"></script>
     <!-- script -->
     <script src="/resources/js/postDetail/postDetail.js"></script>

@@ -47,7 +47,12 @@ const connectToChattingSock = () => {
 
                 chattingSock.onmessage = function (e) {
                     const chat = JSON.parse(e.data);
-                    onMessage(chat);
+
+                    if(chat.chatType == 'U') { // 단순 U일때는 동기화만함
+                        selectChatList(selectedRoomNo);
+                    } else {
+                        onMessage(chat);
+                    }
                 }
 
                 chattingSock.onclose = function (e) {
@@ -67,14 +72,6 @@ const connectToChattingSock = () => {
     }).catch(function (error) {
         console.log(error);
     })
-}
-
-/* 요소에 클래스, 텍스트를 넣는 함수 */
-const packUpElement = (elementName, elementClass, elementContent) => {
-    elementName.classList.add(elementClass);
-    if (elementContent != null) { // null을 넣으면 안넣음
-        elementName.innerHTML = elementContent;
-    }
 }
 
 /* 내 채팅방 목록을 요청하는 함수 feat : axios */
@@ -159,8 +156,12 @@ const makeChatPreviewBox = (chatRoom) => {
                 packUpElement(lastChatContent, 'last-chat-content', "-");           
             }
         }
-    
-        packUpElement(lastChatTime, 'last-chat-time', chatRoom.lastChatTime);
+        
+        if(chatRoom.lastChatTime == undefined) {
+            packUpElement(lastChatTime, 'last-chat-time', '');
+        } else {
+            packUpElement(lastChatTime, 'last-chat-time', chatRoom.lastChatTime);
+        }
         
         // 포장하기
         boxLabel.append(lastChatContent, lastChatTime);
@@ -217,12 +218,17 @@ const chatPreviewBoxEvent = (chatPreviewBox) => {
 
     const roomNo = chatPreviewBox.id;
 
+    selectChatList(roomNo);
+
+}
+
+const selectChatList = (roomNo) => {
     // 채팅 목록 가져오기
     axios.post('/chat/select/' + roomNo)
         .then(function (response) {
 
             // 선택한 채팅방의 채팅 내역
-            const chatRoom = response.data.chatRoom;            
+            const chatRoom = response.data.chatRoom;
             const chatList = response.data.chatList;
 
             // 채팅 전송을 위해 전역 변수 세팅
@@ -233,7 +239,7 @@ const chatPreviewBoxEvent = (chatPreviewBox) => {
             selectChatRoomList();
 
             // 채팅방 만들기
-            makeChatRoom(chatRoom, chatList); 
+            makeChatRoom(chatRoom, chatList);
 
             // 가림막 치우기
             document.getElementById('roomBodyBlinder').style.display = 'none';
@@ -253,12 +259,12 @@ const makeNewChatTime = (chatTime) => {
     
     hour = chatTime.substring(11,13);
     
-    if(hour > 12) {
-        hour -= 12;
-        if(hour > 10) {
+    if(hour >= 12) meridian = '오후';
+    if(hour >= 13) {
+        hour = hour - 12;
+        if(hour < 10) {
             hour = '0' + hour;
         }
-        meridian = '오후'
     }
 
     minute = chatTime.substring(14, 16);
@@ -413,8 +419,8 @@ const makeSentChat = (chat, newChatTime) => {
         sentBubble.append(sentBubbleReadFl);
     }
     sentBubble.append(sentBubbleTime);
+    sentBubble.id = chat.chatNo;
     sentChat.append(sentBubble, sentBubbleTail);
-    
     return sentChat;
 }
 
@@ -440,6 +446,7 @@ const makeReceivedChat = (chat, newChatTime) => {
 
     packUpElement(memberNickname, 'sender-name', chat.memberNickname);
     packUpElement(receivedBubbleTail, 'received-bubble-tail', null);
+
     if(chat.chatType === 'T') {
         packUpElement(receivedBubble, 'received-bubble', chat.chatContent);
     } else {
@@ -447,15 +454,15 @@ const makeReceivedChat = (chat, newChatTime) => {
         imgArea.setAttribute('src', chat.chatContent);
         imgArea.setAttribute('onerror', "this.src='/resources/images/chat2/default/no-pictures.png'");
 
-        packUpElement(receivedBubble, 'sent-bubble', null);
+        packUpElement(receivedBubble, 'received-bubble', null);
         receivedBubble.append(imgArea);
     }
     packUpElement(receivedBubbleTime, 'received-bubble-time', newChatTime);
     
     receivedBubble.append(receivedBubbleTime);
+    receivedBubble.id = chat.chatNo;
     // receivedChat.append(receivedBubbleTime, senderProfileImg, senderName, receivedBubbleTail, receivedBubble);
     receivedChat.append(profileImg, memberNickname, receivedBubbleTail, receivedBubble);
-
     return receivedChat;
 }
 

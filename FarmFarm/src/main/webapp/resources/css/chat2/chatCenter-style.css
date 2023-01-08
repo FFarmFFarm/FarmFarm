@@ -1096,3 +1096,55 @@ body{
     font-size: var(--medium-font-size);
     text-align: center;
 }
+
+
+
+/* context-menu */
+.context-menu{
+    border: 1px solid var(--line-color);
+    border-radius: 5px;
+    width: 80px;
+    
+    position: absolute;
+    overflow: hidden;
+
+    display: none;
+}
+
+/* context-menu-box */
+.context-menu-box{
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* context-menu-list */
+.context-menu-list{
+    font-size: var(--main-font-size);
+    color: var(--sub-font-color);
+    background-color: white;
+    width: 100%;
+    height: 25px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+}
+
+/* context-menu-list 밑줄 */
+.context-menu-list:not(.context-menu-list:last-child) {
+    border-bottom: 1px solid var(--line-color);
+}
+
+.context-menu-list:hover{
+    color: var(--main-font-color);
+    background-color: #f0f0f0;
+}
+
+
+

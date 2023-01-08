@@ -87,7 +87,7 @@
                 <div class="title">*닉네임</div>
                 <input type="text" name="memberNickname" id="memberNickname"
                     maxlegnth="10" value="${loginMember.memberNickname}">
-                <div id="nicknameConfirm" class="coner">한글, 영어, 숫자 2~10자리 입력해주세요.</div>
+                <div id="nicknameConfirm" class="coner">한글, 영어, 숫자 2~10글자 입력해주세요.</div>
               </section>
               <section class="update">
                 <div class="title">생년월일</div>
@@ -125,7 +125,6 @@
                   </div>
               </section>
               <button class="update-btn">변경하기</button>
-              <button class="update-btn">탈퇴하기</button>
             </form>
       </section>
       
@@ -144,6 +143,8 @@
 
     <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
 
+
+
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
@@ -151,6 +152,10 @@
     <script src="/resources/js/common/common.js"></script>
     <script src="/resources/js/myPage/myPage.js"></script>
     <script src="/resources/js/myPage/myPageProfile.js"></script>
+    <script>
+        const oriNickname = "${loginMember.memberNickname}";
+        const oriMemberAddress = "${loginMember.memberAddress}";
+    </script>
 
   </body>
 </html>

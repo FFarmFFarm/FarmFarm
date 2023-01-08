@@ -82,9 +82,11 @@ public class AdminProcessServiceImpl implements AdminProcessService{
 		// 판매글 삭제
 		} else if(reportType.equals("P")) {
 			result = dao.reportDeletePost(hiddenContentNo);
+
+		// 댓글
+		} else if(reportType.equals("C")) {
+			result = dao.reportDeleteComment(hiddenContentNo);
 		}
-		
-		
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("hiddenContentNo", hiddenContentNo);

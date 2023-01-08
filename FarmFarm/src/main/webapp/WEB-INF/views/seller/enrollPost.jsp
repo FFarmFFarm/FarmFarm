@@ -90,7 +90,7 @@
                     <ul class="post-info">
                         <li class="info-list">
                             <p>상품명</p>
-                            <input type="text" name="postTitle" size="60" maxlength="30">
+                            <input type="text" name="postTitle" size="60" maxlength="30" spellcheck="false">
                         </li>
                         <li class="info-list">
                             <p>판매가격</p>
@@ -161,7 +161,7 @@
                     <p class="item-title">상품 상세 설명</p>
                     <textarea rows="15" cols="111" class="post-content" name="postContent"
                         placeholder="상품에 대한 상세 정보를 작성해주세요."
-                        style="resize: none"></textarea>
+                        style="resize: none" spellcheck="false"></textarea>
                 </div>
 
                 <div class="button-area">
