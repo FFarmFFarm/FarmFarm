@@ -49,6 +49,9 @@ public class Chat2WebsocketHandler extends TextWebSocketHandler{
 		// 결과용 변수
 		int result = 0;
 		
+		// 단순 update 전달
+		if(chat.getChatType().equals("U")) result = 1;
+		
 		// 채팅 삽입
 		if(chat.getChatType().equals("T")) result = service.insertNewChat(chat);
 		
@@ -63,16 +66,17 @@ public class Chat2WebsocketHandler extends TextWebSocketHandler{
 			// 해당 채팅방의 readCount를 1 증가 : 접속 시점의 시간보다 이른 시간에 도착한 메세지만 + 1;
 			// 중복 접속 여부는 어떻게 판단할까? -> ENTER 테이블에 LAST_READ_CHAT_NO 추가했음
 			// 두 작업은, 메세지를 수신한 후에 처리할 예정임@@@
-
 			
-			// 날짜를 생성해 chat 객체에 세팅함
-			LocalDateTime now = LocalDateTime.now();
-			
-			String sysdate = now.format(DateTimeFormatter.ofPattern("YYYY-MM-DD HH:mm:SS"));
-			
-			chat.setChatTime(sysdate);
-			
-			System.out.println("현재 시각은.." + sysdate);
+			if(!chat.getChatType().equals("U")) {
+				// 날짜를 생성해 chat 객체에 세팅함
+				LocalDateTime now = LocalDateTime.now();
+				
+				String sysdate = now.format(DateTimeFormatter.ofPattern("YYYY-MM-DD HH:mm:SS"));
+				
+				chat.setChatTime(sysdate);
+				
+				System.out.println("현재 시각은.." + sysdate);
+			}
 			
 			// 채팅방 정보(roomNo)를 이용해서, 해당 채팅방에 참가중인 회원을 전부 조회함
 			List<Integer> enterMemberNoList = service.selectEnterMemberList(chat.getRoomNo());

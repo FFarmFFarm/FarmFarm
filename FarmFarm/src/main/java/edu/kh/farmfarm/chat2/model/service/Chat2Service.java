@@ -27,7 +27,7 @@ public interface Chat2Service {
 	 * @param roomNo
 	 * @return List<Chat2>
 	 */
-	List<Chat2> selectChatList(int roomNo);
+	List<Chat2> selectChatList(int roomNo, int memberNo);
 
 	/** 새로운 채팅방 개설하기
 	 * @param memberNo
@@ -64,6 +64,13 @@ public interface Chat2Service {
 	 */
 	String insertNewChatImg(int roomNo, int memberNo, MultipartFile chatImg, String webPath, String folderPath) throws IllegalStateException, IOException;
 
+	/** 채팅 삭제처리
+	 * @param chatNo
+	 * @param chatType
+	 * @return
+	 */
+	int deleteChat(int memberNo, int chatNo);
+	
 	/** 채팅방 정보 수정
 	 * @param roomNo
 	 * @param roomName
@@ -101,6 +108,7 @@ public interface Chat2Service {
 	 */
 	int deleteChatEnter(int roomNo, int memberNo);
 
+
 	/** 입장 시 시스템 메세지
 	 * @param roomNo
 	 * @param chatContent
@@ -108,13 +116,15 @@ public interface Chat2Service {
 	 */
 //	int insertNewSystemChat(int roomNo, String chatContent);
 
-	/** 입장 시 조회처리
-	 * @param roomNo
+	
+	
+
+	/** 1. 입장 시 조회 처리 : UNREAD_CHAT_COUNT 0으로 만들기
 	 * @param memberNo
+	 * @param roomNo
 	 * @return
 	 */
-	int updateView(int roomNo, int memberNo);
-
+	int updateUnreadCount(int memberNo, int roomNo);
 
 
 

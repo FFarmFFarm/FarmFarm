@@ -17,10 +17,7 @@ let chattingSock;
 window.addEventListener("DOMContentLoaded", ()=>{
     connectToChattingSock();
 
-    // /chat/shortcut 경로를 통해 페이지에 접근한 경우 사용
-    if (shortcutNo > 0) {
-        shortcut(shortcutNo);
-    }
+
 })
 
 
@@ -45,9 +42,19 @@ const connectToChattingSock = () => {
 
                 console.log('채팅2 서버와 연결되었습니다.')
 
+                // /chat/shortcut 경로를 통해 페이지에 접근한 경우 사용
+                if (shortcutNo > 0) {
+                    shortcut(shortcutNo);
+                }
+
                 chattingSock.onmessage = function (e) {
                     const chat = JSON.parse(e.data);
-                    onMessage(chat);
+
+                    if(chat.chatType == 'U') { // 단순 U일때는 동기화만함
+                        selectChatList(selectedRoomNo);
+                    } else {
+                        onMessage(chat);
+                    }
                 }
 
                 chattingSock.onclose = function (e) {
@@ -213,27 +220,37 @@ const chatPreviewBoxEvent = (chatPreviewBox) => {
 
     const roomNo = chatPreviewBox.id;
 
+    selectChatList(roomNo);
+
+}
+
+const selectChatList = (roomNo) => {
+    let formData = new FormData();
+
+    formData.append("memberNo", myMemberNo);
     // 채팅 목록 가져오기
-    axios.post('/chat/select/' + roomNo)
+    axios.post('/chat/select/' + roomNo, formData)
         .then(function (response) {
 
             // 선택한 채팅방의 채팅 내역
-            const chatRoom = response.data.chatRoom;            
+            const chatRoom = response.data.chatRoom;
             const chatList = response.data.chatList;
 
             // 채팅 전송을 위해 전역 변수 세팅
             selectedRoomNo = roomNo;
             senderNo = myMemberNo;
 
-            // 읽음 처리 해야함..
+            // 채팅방 목록 요청(동기화)
             selectChatRoomList();
 
             // 채팅방 만들기
-            makeChatRoom(chatRoom, chatList); 
+            makeChatRoom(chatRoom, chatList);
 
             // 가림막 치우기
             document.getElementById('roomBodyBlinder').style.display = 'none';
 
+            // // 읽음 처리 하기
+            // updateView();
 
         }).catch(function (error) {
             console.log(error);
@@ -249,12 +266,12 @@ const makeNewChatTime = (chatTime) => {
     
     hour = chatTime.substring(11,13);
     
-    if(hour > 12) {
-        hour -= 12;
-        if(hour > 10) {
+    if(hour >= 12) meridian = '오후';
+    if(hour >= 13) {
+        hour = hour - 12;
+        if(hour < 10) {
             hour = '0' + hour;
         }
-        meridian = '오후'
     }
 
     minute = chatTime.substring(14, 16);
@@ -265,6 +282,9 @@ const makeNewChatTime = (chatTime) => {
 /* 채팅방을 만드는 함수 */
 const makeChatRoom = (chatRoom, chatList) => {
 
+    // UnreadCount를 0으로 만듦
+    updateUnreadCount();
+
     // 라벨 영역
     // 드롭다운 숨기기
     document.getElementById('roomEditDropdown').classList.remove('dropdown-spread');
@@ -273,6 +293,7 @@ const makeChatRoom = (chatRoom, chatList) => {
     const roomThumbnailImg = document.getElementById('roomThumbnailImg');
     const roomTitle = document.getElementById('roomTitle');
     document.querySelector('.chat-room-id').id = chatRoom.roomNo;
+
 
     if(chatRoom.roomType > 0) {
         document.getElementById('inviteBtn').style.display="none";
@@ -309,7 +330,7 @@ const makeChatRoom = (chatRoom, chatList) => {
     for(let chat of chatList) {
 
         const chatDate = chat.chatTime.substring(0, 10);
-        
+
         // 날짜 라벨 업데이트
         if(nowDate != chatDate) {
             nowDate = chatDate;
@@ -354,8 +375,7 @@ const makeChatRoom = (chatRoom, chatList) => {
         }
     }
 
-    // 채팅 조회수 동기화
-    updateView();
+
 
     const nowScrollHeight = readingArea.scrollHeight;
     readingArea.scrollTo(0, nowScrollHeight);
@@ -363,20 +383,6 @@ const makeChatRoom = (chatRoom, chatList) => {
     document.getElementById('inputBox').focus();
 }
 
-/* 채팅방 입장 시, 채팅 조회수를 동기화하는 함수 */
-const updateView = () => {
-    let formData = new FormData();
-    formData.append("roomNo", selectedRoomNo);
-    formData.append("memberNo", myMemberNo);
-
-    axios.post("/chat/update/view", formData
-        ).then(function(response){
-            console.log('조회수 업데이트')
-        }).catch(function(error){
-            console.log('조회수 업데이트 오류..')
-            console.log(error)
-        })
-}
 
 /* 내가 보낸 메세지를 만드는 함수 */
 /* sentchat 안에 sentBubbleTime(보낸 시간),  sentBubble(버블:내용이 담기는 곳입니다), sentBubbleTail(말풍선 모양을 만드는 꼬리)를 넣어주세요 */
@@ -403,14 +409,14 @@ const makeSentChat = (chat, newChatTime) => {
     packUpElement(sentBubbleTail, 'sent-bubble-tail', null);
     packUpElement(sentBubbleTime, 'sent-bubble-time', newChatTime);
     
-    if(chat.readCount > 0) { // readCount가 0보다 클 때만
-        const sentBubbleReadFl = document.createElement('div');
-        packUpElement(sentBubbleReadFl, 'sent-bubble-read-fl', chat.readCount);
-        sentBubble.append(sentBubbleReadFl);
+    if(chat.readCount >= 0) { // readCount가 0보다 클 때만
+        const sentBubbleReadCount = document.createElement('div');
+        packUpElement(sentBubbleReadCount, 'sent-bubble-read-count', chat.readCount + '명 읽음');
+        sentBubble.append(sentBubbleReadCount);
     }
     sentBubble.append(sentBubbleTime);
+    sentBubble.id = chat.chatNo;
     sentChat.append(sentBubble, sentBubbleTail);
-    
     return sentChat;
 }
 
@@ -436,6 +442,7 @@ const makeReceivedChat = (chat, newChatTime) => {
 
     packUpElement(memberNickname, 'sender-name', chat.memberNickname);
     packUpElement(receivedBubbleTail, 'received-bubble-tail', null);
+
     if(chat.chatType === 'T') {
         packUpElement(receivedBubble, 'received-bubble', chat.chatContent);
     } else {
@@ -443,15 +450,22 @@ const makeReceivedChat = (chat, newChatTime) => {
         imgArea.setAttribute('src', chat.chatContent);
         imgArea.setAttribute('onerror', "this.src='/resources/images/chat2/default/no-pictures.png'");
 
-        packUpElement(receivedBubble, 'sent-bubble', null);
+        packUpElement(receivedBubble, 'received-bubble', null);
         receivedBubble.append(imgArea);
     }
     packUpElement(receivedBubbleTime, 'received-bubble-time', newChatTime);
     
+    if (chat.readCount >= 0) { // readCount가 0보다 클 때만
+        const receivedBubbleReadCount = document.createElement('div');
+        packUpElement(receivedBubbleReadCount, 'received-bubble-read-count', chat.readCount + '명 읽음');
+        receivedBubble.append(receivedBubbleReadCount);
+    }
+
     receivedBubble.append(receivedBubbleTime);
+    receivedBubble.id = chat.memberNo;
+
     // receivedChat.append(receivedBubbleTime, senderProfileImg, senderName, receivedBubbleTail, receivedBubble);
     receivedChat.append(profileImg, memberNickname, receivedBubbleTail, receivedBubble);
-
     return receivedChat;
 }
 
@@ -480,7 +494,11 @@ const sendChatToServer = () => {
         };
 
         chattingSock.send(JSON.stringify(obj));
+
+        // UnreadCount를 0으로 만듦
+        updateUnreadCount();
     }
+
 
     // 인풋 지우기
     inputBox.value = "";
@@ -535,6 +553,9 @@ const sendImgToServer = () => {
 
                 chattingSock.send(JSON.stringify(obj));
 
+                // UnreadCount를 0으로 만듦
+                updateUnreadCount();
+
             })
             .catch(function (error) {
                 console.log('이미지 전송 실패...')
@@ -550,8 +571,7 @@ const sendImgToServer = () => {
     const nowScrollHeight = readingArea.scrollHeight;
     readingArea.scrollTo(0, nowScrollHeight);
 
-    // 채팅 읽음처리 없데이트
-    
+ 
 }
 
 /* 버튼, 엔터에 채팅 보내기 이벤트 */
@@ -580,6 +600,9 @@ const onMessage = (chat) => {
     const readingArea = document.getElementById('readingArea');
 
     if(selectedRoomNo == chat.roomNo) { // 해당 채팅방을 보고 있는 경우..
+
+        // UnreadCount를 0으로 만듦
+        updateUnreadCount();
 
         // 시간 데이터를 가공해서 연월일과 시분초로 분리
         const chatDate = chat.chatTime.substring(0, 10);
@@ -788,15 +811,19 @@ const shortcut = (shortcutNo) => {
     console.log('지름길로 왔어요~')
 
     const roomNo = shortcutNo;
-    console.log(roomNo);
+
+    let formData = new FormData();
+    formData.append("memberNo", myMemberNo);
 
     // 채팅 목록 가져오기
-    axios.post('/chat/select/' + roomNo)
+    axios.post('/chat/select/' + roomNo, formData)
         .then(function (response) {
 
             // 선택한 채팅방의 채팅 내역
             const chatRoom = response.data.chatRoom;
             const chatList = response.data.chatList;
+            console.log(chatRoom)
+            console.log(chatList)
 
             // 채팅 전송을 위해 전역 변수 세팅
             selectedRoomNo = roomNo;
@@ -815,5 +842,22 @@ const shortcut = (shortcutNo) => {
             console.log(error);
             // location.href = '/error';
         });
+
+}
+
+/* 1. 입장 시 조회 처리 : UNREAD_CHAT_COUNT 0으로 만들기 */
+const updateUnreadCount = () => {
+
+    let formData = new FormData();
+
+    formData.append("memberNo", myMemberNo);
+    formData.append("roomNo",selectedRoomNo);
+
+    axios.post("/chat/update/unread", formData
+        ).then(function(response){
+            // console.log('결과 : ' + response.data)
+        }).catch(function(error){
+            console.log(error)
+        })
 
 }

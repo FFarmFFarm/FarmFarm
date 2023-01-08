@@ -607,7 +607,6 @@ const newReview = (review) => {
     const input = document.createElement("input");
     input.setAttribute('type', 'hidden');
     input.value = review.reviewNo;
-    input.id = 'reviewNoInput';
     
     createDate.append(dateSpan, span1);
     reviewNotice.append( input);
