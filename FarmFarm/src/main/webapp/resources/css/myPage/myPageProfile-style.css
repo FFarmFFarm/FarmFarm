@@ -206,7 +206,7 @@ a.setting > i {
     font-weight: 600;
 }
 
-.update-btn:hover{
+.update-btn:hover, .address-btn:hover{
   color: var(--background-color);
   font-family: "NotoSansKR-Bold";
 }
