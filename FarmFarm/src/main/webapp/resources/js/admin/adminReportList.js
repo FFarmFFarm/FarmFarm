@@ -639,83 +639,6 @@ const printReportDetail = (reportDetail) => {
     console.log("hiddenContentNo: " + hiddenContentNo);
     console.log("hiddenReportType: " + hiddenReportType);
     console.log("authority: " + hiddenAuthority);
-
-    // 버튼
-    // 회원신고 -> 반려, 정지, 강제탈퇴
-    if(reportDetail.memberDelFl == 'N'){
-        if(reportDetail.reportType == 'M'){
-            accountLeaveBtn.classList.add('show');
-            accountBannedBtn.classList.add('show');
-            accountKickOutBtn.classList.add('show');
-            accountLeaveBtn.classList.remove('hide');
-            accountBannedBtn.classList.remove('hide');
-            accountKickOutBtn.classList.remove('hide');
-    
-            contentLeaveBtn.classList.add('hide');
-            contentDeleteBtn.classList.add('hide');
-            contentLeaveBtn.classList.remove('show');
-            contentDeleteBtn.classList.remove('show');
-        }
-    }
-
-    //  탈퇴한 회원 버튼 안나오게
-    if(reportDetail.memberDelFl == 'Y'){
-        // accountLeaveBtn.classList.add('showDisabled');
-        // accountBannedBtn.classList.add('showDisabled');
-        // accountKickOutBtn.classList.add('showDisabled');
-        accountLeaveBtn.classList.remove('hide');
-        accountBannedBtn.classList.remove('hide');
-        accountKickOutBtn.classList.remove('hide');
-        accountLeaveBtn.disabled = true;
-        accountBannedBtn.disabled = true;
-        accountKickOutBtn.disabled = true;
-
-
-        contentLeaveBtn.classList.add('hide');
-        contentDeleteBtn.classList.add('hide');
-        contentLeaveBtn.classList.remove('show');
-        contentDeleteBtn.classList.remove('show');
-    }
-    
-
-
-     // 게시글, 댓글 신고 -> 반려, 삭제
-    if((reportDetail.reportType == 'B' && reportDetail.boardDelFl == 'N')
-        || (reportDetail.reportType == 'P' && reportDetail.postDelFl == 'N')
-        || (reportDetail.reportType == 'C' && reportDetail.commentDelFl == 'N')){
-        contentLeaveBtn.classList.add('show');
-        contentDeleteBtn.classList.add('show'); 
-        contentLeaveBtn.classList.remove('hide');
-        contentDeleteBtn.classList.remove('hide');
-
-        accountLeaveBtn.classList.add('hide');
-        accountBannedBtn.classList.add('hide');
-        accountKickOutBtn.classList.add('hide');
-        accountLeaveBtn.classList.remove('show');
-        accountBannedBtn.classList.remove('show');
-        accountKickOutBtn.classList.remove('show');
-    }
-
-
-    // 삭제한 게시글 버튼 안나오게
-    if((reportDetail.reportType == 'B' && reportDetail.boardDelFl == 'Y')
-        || (reportDetail.reportType == 'P' && reportDetail.postDelFl == 'Y')
-        || (reportDetail.reportType == 'C' && reportDetail.commentDelFl == 'Y')){
-        // contentLeaveBtn.classList.add('showDisabled');
-        // contentDeleteBtn.classList.add('showDisabled'); 
-        contentLeaveBtn.classList.remove('hide');
-        contentDeleteBtn.classList.remove('hide');
-        contentLeaveBtn.disabled = true;
-        contentDeleteBtn.disabled = true;
-
-
-        accountLeaveBtn.classList.add('hide');
-        accountBannedBtn.classList.add('hide');
-        accountKickOutBtn.classList.add('hide');
-        accountLeaveBtn.classList.remove('show');
-        accountBannedBtn.classList.remove('show');
-        accountKickOutBtn.classList.remove('show');
-    }
 }
 
 
@@ -963,10 +886,12 @@ const dropMenu2 = document.getElementById("dropMenu2");
 
 dropBtn.addEventListener("click", () => {
     dropMenu.classList.toggle("toggle");
+    dropMenu2.classList.remove("toggle");
 })
 
 dropBtn2.addEventListener("click", () => {
     dropMenu2.classList.toggle("toggle");
+    dropMenu.classList.remove("toggle");
 })
 
 
@@ -1021,6 +946,10 @@ up.addEventListener('click', () => {
 
     up.style.display = 'none';
     down.style.display = 'inline-block';
+
+    // 누적 횟수 필터 누르면 필터창 꺼짐
+    dropMenu.classList.remove("toggle");
+    dropMenu2.classList.remove("toggle");
 })
 
 
@@ -1031,6 +960,10 @@ down.addEventListener('click', () => {
 
     down.style.display = 'none';
     up.style.display = 'inline-block';
+
+    // 누적 횟수 필터 누르면 필터창 꺼짐
+    dropMenu.classList.remove("toggle");
+    dropMenu2.classList.remove("toggle");
 })
 
 
