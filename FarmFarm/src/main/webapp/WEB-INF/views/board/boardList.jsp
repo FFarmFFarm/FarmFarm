@@ -182,7 +182,7 @@
     <script>
         let boardTypeNo = ${boardTypeNo};
 
-        let sort = "new";
+        let sort = "${param.sort}";
 
         const inputQuery = document.getElementById("inputQuery");
         // let query = inputQuery.value;

@@ -32,9 +32,35 @@ goList.addEventListener("click", ()=>{
     const pathname = location.pathname;
     const queryString = location.search;
 
+    // const url = pathname.substring(0, pathname.lastIndexOf("/"))+queryString;
+    
+    // // location.href = url;
+    
+    const params = new URL(location.href).searchParams;
+    
+    // const cp = boardTypeNo;
+    
+    const keyy = params.get("key");
+    const queryy = params.get("query");
+    let sortt = params.get("sort");
+    let cpp = params.get("cp");
+    // if(sort == null){
+    //     sort = "new";
+    // }
+    
+    
+    console.log("목록으로 cp : "+cpp);
+    console.log("목록으로 key : "+keyy);
+    console.log("목록으로 query : "+queryy);
+    console.log("목록으로 sort : "+sortt);
     const url = pathname.substring(0, pathname.lastIndexOf("/"))+queryString;
-
     location.href = url;
+    showBoardList(cpp, sortt, queryy, keyy);
+    console.log("목록으로 cpp : "+cpp);
+    console.log("목록으로 keyy : "+keyy);
+    console.log("목록으로 queryy : "+queryy);
+    console.log("목록으로 sortt : "+sortt);
+    // showBoardList(cp, sort, query, key);
 })
 
 
@@ -139,3 +165,23 @@ if(boardUpdate != null){
 }
 
 
+// 주소 변경
+// const urlChange = (cp, sort, key, query)=>{
+
+//     const title = '';
+//     // const reUrl = "";
+//     // if(key != null){
+//         const reUrl = "/board/"+boardTypeNo+"?cp="+cp+"&key="+key+"&query="+query+"&sort="+sort;
+//     // }else{
+//     //     reUrl = "/board/"+boardTypeNo+"?cp="+cp+"&sort="+sort;
+//     // }
+
+//     history.pushState(null, title, reUrl);
+// }
+// (()=>{
+//     const title = '';
+    
+//     const reUrl = "/board/"+boardTypeNo+"?cp="+cp+"&key="+key+"&query="+query+"&sort="+sort;
+
+//     history.pushState(null, title, reUrl);
+// })()
