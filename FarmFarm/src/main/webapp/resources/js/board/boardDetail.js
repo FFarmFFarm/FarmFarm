@@ -55,7 +55,7 @@ goList.addEventListener("click", ()=>{
     console.log("목록으로 sort : "+sortt);
     const url = pathname.substring(0, pathname.lastIndexOf("/"))+queryString;
     location.href = url;
-    showBoardList(cpp, sortt, queryy, keyy);
+    // showBoardList(cpp, sortt, queryy, keyy);
     console.log("목록으로 cpp : "+cpp);
     console.log("목록으로 keyy : "+keyy);
     console.log("목록으로 queryy : "+queryy);
@@ -163,25 +163,3 @@ if(boardUpdate != null){
         }
     })
 }
-
-
-// 주소 변경
-// const urlChange = (cp, sort, key, query)=>{
-
-//     const title = '';
-//     // const reUrl = "";
-//     // if(key != null){
-//         const reUrl = "/board/"+boardTypeNo+"?cp="+cp+"&key="+key+"&query="+query+"&sort="+sort;
-//     // }else{
-//     //     reUrl = "/board/"+boardTypeNo+"?cp="+cp+"&sort="+sort;
-//     // }
-
-//     history.pushState(null, title, reUrl);
-// }
-// (()=>{
-//     const title = '';
-    
-//     const reUrl = "/board/"+boardTypeNo+"?cp="+cp+"&key="+key+"&query="+query+"&sort="+sort;
-
-//     history.pushState(null, title, reUrl);
-// })()
