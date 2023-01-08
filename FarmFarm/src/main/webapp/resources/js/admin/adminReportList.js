@@ -23,7 +23,8 @@ const selectReportList = (cp) => {
         url: "/admin/selectReportList",
         data: {"cp": cp, 
                 "sortFilter": sortFilter, 
-                "typeFilter": typeFilter, 
+                "typeFilter": typeFilter,
+                "processFilter": processFilter, 
                 "keyword" : keyword},
         dataType: "JSON",
         type: "GET",
@@ -207,7 +208,7 @@ const printReportList = (reportAllList, pagination) => {
 
          
             if(report.reportType == 'M'){
-                if(report.memberDelFl == 'N' && report.reportPenalty == 'Y'){
+                if(report.memberDelFl == 'N' && (report.reportPenalty == 'Y' || report.reportPenalty == 'A')){
                     td7.innerText = "정지";
                 }
 
@@ -319,60 +320,82 @@ const printReportDetail = (reportDetail) => {
         if(reportDetail.reportPenalty == null){
             td4Detail.innerText = "접수";
 
-            // if(reportDetail.reportType == 'M'){
-            //     accountLeaveBtn.classList.add('account-leave-btn');
-            //     accountBannedBtn.classList.add('account-banned-btn');
-            //     accountKickOutBtn.classList.add('account-kickout-btn');
-            //     accountLeaveBtn.disabled = false;
-            //     accountBannedBtn.disabled = false;
-            //     accountKickOutBtn.disabled = false;
+            if(reportDetail.reportType == 'M'){
+                accountLeaveBtn.style.display = 'block';
+                accountBannedBtn.style.display = 'block';
+                accountKickOutBtn.style.display = 'block';
 
-            // } else {
-            //     contentLeaveBtn.classList.add('content-leave-btn');
-            //     contentDeleteBtn.classList.add('content-delete-btn');
-            //     contentLeaveBtn.disabled = false;
-            //     contentDeleteBtn.disabled = false;
-            // }
+                contentLeaveBtn.style.display = 'none';
+                contentDeleteBtn.style.display = 'none';
+            }
 
+            if(reportDetail.reportType == 'B' || reportDetail.reportType == 'P' || reportDetail.reportType == 'C'){
+                contentLeaveBtn.style.display = 'block';
+                contentDeleteBtn.style.display = 'block';
+
+                accountLeaveBtn.style.display = 'none';
+                accountBannedBtn.style.display = 'none';
+                accountKickOutBtn.style.display = 'none';
+            }
         }
+
         if(reportDetail.reportPenalty == 'N'){
             td4Detail.innerText = "반려";
 
-            // if(reportDetail.reportType == 'M'){
-            //     accountLeaveBtn.disabled = true;
-            //     accountLeaveBtn.classList.toggle('off');
-            //     accountLeaveBtn.classList.remove('account-leave-btn');
+            if(reportDetail.reportType == 'M'){
+                accountLeaveBtn.style.display = 'none';
+                accountBannedBtn.style.display = 'block';
+                accountKickOutBtn.style.display = 'block';
 
-            //     accountBannedBtn.classList.add('account-banned-btn');
-            //     accountBannedBtn.disabled = false;
-            //     accountKickOutBtn.classList.add('account-kickout-btn');
-            //     accountKickOutBtn.diabled = false;
+                contentLeaveBtn.style.display = 'none';
+                contentDeleteBtn.style.display = 'none';
+            }
 
-
-            // } else {
-            //     contentLeaveBtn.disabled = true;
-            //     contentLeaveBtn.classList.toggle('off');
-            //     contentLeaveBtn.classList.remove('content-leave-btn');
-
-            //     contentDeleteBtn.classList.add('content-delete-btn');
-            //     contentDeleteBtn.disabled = false;
-            // }
+            if(reportDetail.reportType == 'B' || reportDetail.reportType == 'P' || reportDetail.reportType == 'C'){
+                contentLeaveBtn.style.display = 'none';
+                contentDeleteBtn.style.display = 'block';
+                
+                accountLeaveBtn.style.display = 'none';
+                accountBannedBtn.style.display = 'none';
+                accountKickOutBtn.style.display = 'none';
+            }
         }
     
      
         if(reportDetail.reportType == 'M'){
-            if(reportDetail.memberDelFl == 'N' && reportDetail.reportPenalty == 'Y'){
+            if(reportDetail.memberDelFl == 'N' && (reportDetail.reportPenalty == 'Y' || reportDetail.reportPenalty == 'A')){
                 td4Detail.innerText = "정지";
+
+                accountLeaveBtn.style.display = 'block';
+                accountBannedBtn.style.display = 'none';
+                accountKickOutBtn.style.display = 'block';
+
+                contentLeaveBtn.style.display = 'none';
+                contentDeleteBtn.style.display = 'none';
             }
     
             if(reportDetail.memberDelFl == 'Y'){
                 td4Detail.innerText = "탈퇴";
+
+                accountLeaveBtn.style.display = 'block';
+                accountBannedBtn.style.display = 'block';
+                accountKickOutBtn.style.display = 'none';
+
+                contentLeaveBtn.style.display = 'none';
+                contentDeleteBtn.style.display = 'none';
             }
         }
     
         if(reportDetail.reportType == 'B' || reportDetail.reportType == 'P' || reportDetail.reportType == 'C'){
             if(reportDetail.reportPenalty == 'Y'){
                 td4Detail.innerText = "삭제";
+
+                contentLeaveBtn.style.display = 'block';
+                contentDeleteBtn.style.display = 'none';
+
+                accountLeaveBtn.style.display = 'none';
+                accountBannedBtn.style.display = 'none';
+                accountKickOutBtn.style.display = 'none';
             }
         } 
     }
@@ -616,83 +639,6 @@ const printReportDetail = (reportDetail) => {
     console.log("hiddenContentNo: " + hiddenContentNo);
     console.log("hiddenReportType: " + hiddenReportType);
     console.log("authority: " + hiddenAuthority);
-
-    // 버튼
-    // 회원신고 -> 반려, 정지, 강제탈퇴
-    if(reportDetail.memberDelFl == 'N'){
-        if(reportDetail.reportType == 'M'){
-            accountLeaveBtn.classList.add('show');
-            accountBannedBtn.classList.add('show');
-            accountKickOutBtn.classList.add('show');
-            accountLeaveBtn.classList.remove('hide');
-            accountBannedBtn.classList.remove('hide');
-            accountKickOutBtn.classList.remove('hide');
-    
-            contentLeaveBtn.classList.add('hide');
-            contentDeleteBtn.classList.add('hide');
-            contentLeaveBtn.classList.remove('show');
-            contentDeleteBtn.classList.remove('show');
-        }
-    }
-
-    //  탈퇴한 회원 버튼 안나오게
-    if(reportDetail.memberDelFl == 'Y'){
-        // accountLeaveBtn.classList.add('showDisabled');
-        // accountBannedBtn.classList.add('showDisabled');
-        // accountKickOutBtn.classList.add('showDisabled');
-        accountLeaveBtn.classList.remove('hide');
-        accountBannedBtn.classList.remove('hide');
-        accountKickOutBtn.classList.remove('hide');
-        accountLeaveBtn.disabled = true;
-        accountBannedBtn.disabled = true;
-        accountKickOutBtn.disabled = true;
-
-
-        contentLeaveBtn.classList.add('hide');
-        contentDeleteBtn.classList.add('hide');
-        contentLeaveBtn.classList.remove('show');
-        contentDeleteBtn.classList.remove('show');
-    }
-    
-
-
-     // 게시글, 댓글 신고 -> 반려, 삭제
-    if((reportDetail.reportType == 'B' && reportDetail.boardDelFl == 'N')
-        || (reportDetail.reportType == 'P' && reportDetail.postDelFl == 'N')
-        || (reportDetail.reportType == 'C' && reportDetail.commentDelFl == 'N')){
-        contentLeaveBtn.classList.add('show');
-        contentDeleteBtn.classList.add('show'); 
-        contentLeaveBtn.classList.remove('hide');
-        contentDeleteBtn.classList.remove('hide');
-
-        accountLeaveBtn.classList.add('hide');
-        accountBannedBtn.classList.add('hide');
-        accountKickOutBtn.classList.add('hide');
-        accountLeaveBtn.classList.remove('show');
-        accountBannedBtn.classList.remove('show');
-        accountKickOutBtn.classList.remove('show');
-    }
-
-
-    // 삭제한 게시글 버튼 안나오게
-    if((reportDetail.reportType == 'B' && reportDetail.boardDelFl == 'Y')
-        || (reportDetail.reportType == 'P' && reportDetail.postDelFl == 'Y')
-        || (reportDetail.reportType == 'C' && reportDetail.commentDelFl == 'Y')){
-        // contentLeaveBtn.classList.add('showDisabled');
-        // contentDeleteBtn.classList.add('showDisabled'); 
-        contentLeaveBtn.classList.remove('hide');
-        contentDeleteBtn.classList.remove('hide');
-        contentLeaveBtn.disabled = true;
-        contentDeleteBtn.disabled = true;
-
-
-        accountLeaveBtn.classList.add('hide');
-        accountBannedBtn.classList.add('hide');
-        accountKickOutBtn.classList.add('hide');
-        accountLeaveBtn.classList.remove('show');
-        accountBannedBtn.classList.remove('show');
-        accountKickOutBtn.classList.remove('show');
-    }
 }
 
 
@@ -934,19 +880,31 @@ const printPagination = (adminPaginationArea, pagination) => {
 //todo: 필터 드롭다운 메뉴
 //fix: 페이지네이션 이후에 수정하기! 드롭다운 메뉴 동시에 열림..
 const dropBtn = document.getElementById("dropBtn");
+const dropBtn2 = document.getElementById("dropBtn2");
 const dropMenu = document.getElementById("dropMenu");
+const dropMenu2 = document.getElementById("dropMenu2");
 
 dropBtn.addEventListener("click", () => {
     dropMenu.classList.toggle("toggle");
+    dropMenu2.classList.remove("toggle");
+})
+
+dropBtn2.addEventListener("click", () => {
+    dropMenu2.classList.toggle("toggle");
+    dropMenu.classList.remove("toggle");
 })
 
 
 const dropUl = document.getElementById("dropUl");
+const dropUl2 = document.getElementById("dropUl2");
 
 dropUl.addEventListener("click", () => {
     dropMenu.classList.toggle("toggle");
 })
 
+dropUl2.addEventListener("click", () => {
+    dropMenu2.classList.toggle("toggle");
+})
 
 
 
@@ -988,6 +946,10 @@ up.addEventListener('click', () => {
 
     up.style.display = 'none';
     down.style.display = 'inline-block';
+
+    // 누적 횟수 필터 누르면 필터창 꺼짐
+    dropMenu.classList.remove("toggle");
+    dropMenu2.classList.remove("toggle");
 })
 
 
@@ -998,51 +960,99 @@ down.addEventListener('click', () => {
 
     down.style.display = 'none';
     up.style.display = 'inline-block';
+
+    // 누적 횟수 필터 누르면 필터창 꺼짐
+    dropMenu.classList.remove("toggle");
+    dropMenu2.classList.remove("toggle");
 })
 
 
 // todo: 필터링 옵션 별로 조회  - typeFilter
+const dropBtnText = document.getElementById("dropBtnText");
+const dropBtn2Text = document.getElementById("dropBtn2Text")
+
 document.getElementById("t0").addEventListener("click", ()=>{
     numCount = (cp-1)*15;
     typeFilter = 0;  
     selectReportList();
-    dropBtn2Text.innerText = "상태";
+    dropBtnText.innerText = "유형";
 })
 
 document.getElementById("t1").addEventListener("click", ()=>{
     numCount = (cp-1)*15;
     typeFilter = 1;  
     selectReportList();
-    dropBtn2Text.innerText = "일반회원";
+    dropBtnText.innerText = "일반회원";
 })
 
 document.getElementById("t2").addEventListener("click", ()=>{
     numCount = (cp-1)*15;
     typeFilter = 2;  
     selectReportList();
-    dropBtn2Text.innerText = "판매자";
+    dropBtnText.innerText = "판매자";
 })
 
 document.getElementById("t3").addEventListener("click", ()=>{
     numCount = (cp-1)*15;
     typeFilter = 3;  
     selectReportList();
-    dropBtn2Text.innerText = "판매 게시글";
+    dropBtnText.innerText = "판매글";
 })
 
 document.getElementById("t4").addEventListener("click", ()=>{
     numCount = (cp-1)*15;
     typeFilter = 4;  
     selectReportList();
-    dropBtn2Text.innerText = "커뮤니티 게시글";
+    dropBtnText.innerText = "게시글";
 })
 
 document.getElementById("t5").addEventListener("click", ()=>{
     numCount = (cp-1)*15;
     typeFilter = 5;  
     selectReportList();
-    dropBtn2Text.innerText = "커뮤니티 댓글";
+    dropBtnText.innerText = "댓글";
 })
+
+
+
+// todo: 필터링 옵션 별로 조회  - processFilter
+document.getElementById("p0").addEventListener('click', ()=>{
+    numCount = (cp-1)*15;
+    processFilter = 0;  
+    selectReportList();
+    dropBtn2Text.innerText = "처리 상태";
+});
+document.getElementById("p1").addEventListener('click', ()=>{
+    numCount = (cp-1)*15;
+    processFilter = 1;  
+    selectReportList();
+    dropBtn2Text.innerText = "접수";
+});
+document.getElementById("p2").addEventListener('click', ()=>{
+    numCount = (cp-1)*15;
+    processFilter = 2;  
+    selectReportList();
+    dropBtn2Text.innerText = "반려";
+});
+document.getElementById("p3").addEventListener('click', ()=>{
+    numCount = (cp-1)*15;
+    processFilter = 3;  
+    selectReportList();
+    dropBtn2Text.innerText = "정지";
+});
+document.getElementById("p4").addEventListener('click', ()=>{
+    numCount = (cp-1)*15;
+    processFilter = 4;  
+    selectReportList();
+    dropBtn2Text.innerText = "탈퇴";
+});
+document.getElementById("p5").addEventListener('click', ()=>{
+    numCount = (cp-1)*15;
+    processFilter = 5;  
+    selectReportList();
+    dropBtn2Text.innerText = "삭제";
+});
+
 
 
 

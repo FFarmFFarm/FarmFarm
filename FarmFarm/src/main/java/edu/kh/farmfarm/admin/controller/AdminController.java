@@ -499,6 +499,7 @@ public class AdminController {
 										@RequestParam(value="cp", required=false, defaultValue="1") int cp,
 										@RequestParam(value="typeFilter", required=false, defaultValue="0") int typeFilter,
 										@RequestParam(value="sortFilter", required=false, defaultValue="default") String sortFilter,
+										@RequestParam(value="processFilter", required=false, defaultValue="0") int processFilter,
 										@RequestParam(value="keyword", required=false) String keyword,
 										Model model) {
 		
@@ -506,6 +507,7 @@ public class AdminController {
 		paramMap.put("typeFilter", typeFilter);
 		paramMap.put("sortFilter", sortFilter);
 		paramMap.put("keyword", keyword);
+		paramMap.put("processFilter", processFilter);
 		
 		
 		// 관리자인지 확인 (관리자면 result==1)
@@ -537,6 +539,7 @@ public class AdminController {
 										@RequestParam(value="cp", required=false, defaultValue="1") int cp,
 										@RequestParam(value="typeFilter", required=false, defaultValue="0") int typeFilter,
 										@RequestParam(value="sortFilter", required=false, defaultValue="default") String sortFilter,
+										@RequestParam(value="processFilter", required=false, defaultValue="0") int processFilter,
 										@RequestParam(value="keyword", required=false) String keyword
 										) {
 		
@@ -544,6 +547,7 @@ public class AdminController {
 		paramMap.put("typeFilter", typeFilter);
 		paramMap.put("sortFilter", sortFilter);
 		paramMap.put("keyword", keyword);
+		paramMap.put("processFilter", processFilter);
 		
 		
 		// 관리자인지 확인 (관리자면 result==1)
