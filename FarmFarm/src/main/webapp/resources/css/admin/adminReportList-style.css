@@ -188,9 +188,10 @@ main{
     padding-left: 10px;
 } */
 
-#dropBtn{
+#dropBtn, #dropBtn2{
     cursor: pointer;
 }
+
 
 
 #thTypeFilter{
@@ -227,8 +228,12 @@ main{
 }
 
 
+#thStatusFilter{
+    position: relative;
+}
+
 .drop-menu2{
-    width: 80px;
+    width: 70px;
     height: auto;
     background-color: white;
     overflow: hidden;
@@ -242,7 +247,7 @@ main{
     position: absolute;
     z-index: 500;
     top: 22px;
-    right: -9px;
+    right: 3px;
 
     display: flex;
     flex-direction: column;
