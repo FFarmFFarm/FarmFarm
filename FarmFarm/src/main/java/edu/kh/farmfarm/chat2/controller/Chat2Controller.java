@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -76,13 +75,14 @@ public class Chat2Controller {
 	@PostMapping("/select/{roomNo}")
 	@ResponseBody
 	public String selectChatList(
-			@PathVariable(value="roomNo", required = true) int roomNo) {
+			@PathVariable(value="roomNo", required = true) int roomNo,
+			int memberNo) {
 		
 		// 1. 방 번호를 이용해서, 해당 방의 정보(썸네일 이미지, 타이틀)을 조회함
 		Chat2Room chatRoom = service.selectChatRoom(roomNo);
 		
 		// 2. 방 번호를 이용해서, 해당 방의 채팅 목록을 조회함
-		List<Chat2> chatList = service.selectChatList(roomNo);
+		List<Chat2> chatList = service.selectChatList(roomNo, memberNo);
 		
 		// 전부 map에 담아서 반환
 		Map<String, Object> chatMap = new HashMap<String, Object>();
@@ -271,6 +271,18 @@ public class Chat2Controller {
 		return new Gson().toJson(result);
 	}
 	
+	// 1. 입장 시 조회 처리 : UNREAD_CHAT_COUNT 0으로 만들기 
+	@PostMapping("/update/unread")
+	@ResponseBody
+	public String updateUnreadCount(
+			int memberNo, int roomNo) {
+		
+		// 회원 번호와, 방 번호를 받아서, 읽음 처리함
+		int result = service.updateUnreadCount(memberNo, roomNo);
+		
+		return new Gson().toJson(result);
+	}
+	
 	
 	// 입장 시 채팅 
 //	@PostMapping("/insert/system")
@@ -282,13 +294,23 @@ public class Chat2Controller {
 //		return new Gson().toJson(result);
 //	}
 	
-	// 입장 시 조회
-	@PostMapping("/update/view")
-	@ResponseBody
-	public String updateView(int roomNo, int memberNo) {
-		
-		int result = service.updateView(roomNo, memberNo);
-		
-		return new Gson().toJson(result);
-	}
+
+	
+	
+	// 입장 시 조회 처리
+//	@PostMapping("/update/view")
+//	@ResponseBody
+//	public String updateView(int roomNo, int memberNo) {
+//		
+//		int lastReadChatNo = service.updateLastReadChatNo(roomNo, memberNo);
+//		
+//		int result = -1;
+//		
+//		if(lastReadChatNo > 0) {
+//			result = service.updateViewCount(roomNo, memberNo, lastReadChatNo);
+//		} 
+//
+//		return new Gson().toJson(result);
+//	}
+	
 }	

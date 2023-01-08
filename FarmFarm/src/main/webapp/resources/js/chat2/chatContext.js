@@ -63,6 +63,9 @@ document.addEventListener('contextmenu', (e) => {
     addEventListener('click',()=>{ // 클릭 시 닫음
         document.getElementById('sentBubbleContextMenu').style.display = 'none';
     })
+    document.getElementById('readingArea').addEventListener('scroll', () => {
+        document.getElementById('sentBubbleContextMenu').style.display = 'none';
+    })
 
 
 })
@@ -75,10 +78,10 @@ addEventListener('contextmenu', (e)=>{
         e.preventDefault();
 
         // id를 변수에 저장하고
-        if (e.target.classList.contains('sent-bubble')) {
+        if (e.target.classList.contains('received-bubble')) {
             selectedChatNo = e.target.id;
         }
-        if (e.target.parentElement.classList.contains('sent-bubble')) {
+        if (e.target.parentElement.classList.contains('received-bubble')) {
             selectedChatNo = e.target.parentElement.id;
         }
         // 준비된 context 메뉴를 노출
@@ -103,6 +106,9 @@ addEventListener('contextmenu', (e)=>{
     }
     addEventListener('click', () => { // 클릭 시 닫음
         document.getElementById('receivedBubbleContextMenu').style.display = 'none';
+    })
+    document.getElementById('readingArea').addEventListener('scroll',()=>{
+        document.getElementById('receivedBubbleContextMenu').style.display = 'none';  
     })
 
 })
@@ -198,6 +204,6 @@ if (reportMenuConfirmBtn) {
         */
 
         console.log('신고 기능 준비중입니다.')
-        console.log('선택한 채팅의 Primary Key인 chatNo는 ' + selectedChatNo + "입니다." );
+        console.log('선택한 채팅의 작성자 번호는 ' + selectedChatNo + "입니다." );
     })
 }

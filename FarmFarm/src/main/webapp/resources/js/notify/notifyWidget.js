@@ -171,7 +171,7 @@ const fillNotifyWidget = (notifyList) => {
 
         // 이벤트:클릭 시 읽음처리 부여
         notifyWidgetAnchor.addEventListener('click', (e) => {
-            readThisNotify(e.currentTarget.parentElement);
+            readThisWidgetNotify(e.currentTarget.parentElement);
         })
 
         // 알림 유형 아이콘

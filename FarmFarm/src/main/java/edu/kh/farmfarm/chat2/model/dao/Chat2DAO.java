@@ -1,6 +1,7 @@
 package edu.kh.farmfarm.chat2.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +40,8 @@ public class Chat2DAO {
 	 * @param roomNo
 	 * @return
 	 */
-	public List<Chat2> selectChatList(int roomNo) {
-		return sqlSession.selectList("chat2Mapper.selectChatList", roomNo);
+	public List<Chat2> selectChatList(Map<String, Object> chatMap) {
+		return sqlSession.selectList("chat2Mapper.selectChatList", chatMap);
 	}
 	
 	/** 채팅방 개설
@@ -200,22 +201,6 @@ public class Chat2DAO {
 		return sqlSession.update("chat2Mapper.updateChatRoomStatus", roomNo);
 	}
 
-	/** 채팅 조회 처리(1)
-	 * @param chatEnter
-	 * @return
-	 */
-	public int updateLastChatNo(Chat2Enter chatEnter) {
-		return sqlSession.update("chat2Mapper.updateLastChatNo", chatEnter);
-	}
-
-	/** 채팅 조회 처리(2)
-	 * @param roomNo
-	 * @param memberNo
-	 * @return
-	 */
-	public int updateChatCount(Chat2 chat) {
-		return sqlSession.update("chat2Mapper.updateChatCount", chat);
-	}
 
 	/** 채팅 삭제 처리
 	 * @param chat
@@ -223,6 +208,15 @@ public class Chat2DAO {
 	 */
 	public int deleteChat(Chat2 chat) {
 		return sqlSession.update("chat2Mapper.deleteChat", chat);
+	}
+
+
+	/** 1. 입장 시 조회 처리 : UNREAD_CHAT_COUNT 0으로 만들기 J
+	 * @param updateMap
+	 * @return
+	 */
+	public int updateUnreadCount(Map<String, Object> updateMap) {
+		return sqlSession.update("chat2Mapper.updateUnreadCount", updateMap);
 	}
 
 
