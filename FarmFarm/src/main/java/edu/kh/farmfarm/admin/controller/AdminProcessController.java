@@ -100,7 +100,7 @@ public class AdminProcessController {
 	
 	
 	
-	// 신고 게시글(판매글, 커뮤니티 게시글) - 삭제
+	// 신고 게시글(판매글, 커뮤니티 게시글, 커뮤니티 댓글) - 삭제
 	@GetMapping("/report/deleteContent")
 	@ResponseBody
 	public int reportDeleteContent(@SessionAttribute(value="loginMember") Member loginMember,

@@ -242,7 +242,7 @@ public class ProductAdminController {
 	// 송장 등록
 	@ResponseBody
 	@GetMapping("/admin/enrollInvoice")
-	public int enrollInvoice(int orderNo, int invoiceNo) {
+	public int enrollInvoice(int orderNo, String invoiceNo) {
 		
 		
 		Map<String, Object> map = new HashMap<String, Object>();

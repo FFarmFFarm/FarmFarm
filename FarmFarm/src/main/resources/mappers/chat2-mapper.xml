@@ -99,7 +99,8 @@
 	          FROM CHAT2 C
 	          JOIN (SELECT MAX(CHAT_NO) AS LAST_CHAT_NO
 	                FROM CHAT2
-	 	            GROUP BY ROOM_NO) C_SUB ON (C_SUB.LAST_CHAT_NO = C.CHAT_NO)) USING(ROOM_NO)
+	 	            GROUP BY ROOM_NO) C_SUB ON (C_SUB.LAST_CHAT_NO = C.CHAT_NO)
+      		  WHERE (C.CHAT_TYPE = 'T' OR C.CHAT_TYPE = 'I') ) USING(ROOM_NO)
 		------------------
 		LEFT JOIN (SELECT ROOM_NO, ROOM_NAME, CR.ROOM_TYPE,
 		   		     CASE WHEN ROOM_TYPE > 0 THEN (SELECT POST_TITLE 
@@ -140,6 +141,8 @@
 		FROM CHAT2 MAIN
 		LEFT JOIN MEMBER USING(MEMBER_NO)
 		WHERE ROOM_NO = #{roomNo}
+		AND (CHAT_TYPE = 'T' OR CHAT_TYPE = 'I') 
+		ORDER BY CHAT_NO
 	</select>
 
 	
@@ -283,9 +286,10 @@
 	</update>
 
 	<!-- 채팅 삭제 처리(UPDATE) -->
-	<update id="updateChatReadFl">
-		UPDATE CHAT2 SET READ_COUNT = 'B'
+	<update id="deleteChat">
+		UPDATE CHAT2 SET CHAT_TYPE = 'D'
 		WHERE CHAT_NO = #{chatNo}
+		AND MEMBER_NO = #{memberNo}
 	</update>
 	
 	<!-- 위젯 SQL 영역 -->
@@ -308,7 +312,8 @@
 			          FROM CHAT2 C
 			          JOIN (SELECT MAX(CHAT_NO) AS LAST_CHAT_NO
 			                FROM CHAT2
-			 	            GROUP BY ROOM_NO) C_SUB ON (C_SUB.LAST_CHAT_NO = C.CHAT_NO)) USING(ROOM_NO)
+			 	            GROUP BY ROOM_NO) C_SUB ON (C_SUB.LAST_CHAT_NO = C.CHAT_NO)
+	 	      		  WHERE (C.CHAT_TYPE = 'T' OR C.CHAT_TYPE = 'I') ) USING(ROOM_NO)
 				------------------
 				LEFT JOIN (SELECT ROOM_NO, ROOM_NAME, CR.ROOM_TYPE,
 				   		     CASE WHEN ROOM_TYPE > 0 THEN (SELECT POST_TITLE 
