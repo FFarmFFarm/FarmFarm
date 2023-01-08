@@ -324,11 +324,18 @@ const printReportDetail = (reportDetail) => {
                 accountLeaveBtn.style.display = 'block';
                 accountBannedBtn.style.display = 'block';
                 accountKickOutBtn.style.display = 'block';
+
+                contentLeaveBtn.style.display = 'none';
+                contentDeleteBtn.style.display = 'none';
             }
 
             if(reportDetail.reportType == 'B' || reportDetail.reportType == 'P' || reportDetail.reportType == 'C'){
                 contentLeaveBtn.style.display = 'block';
                 contentDeleteBtn.style.display = 'block';
+
+                accountLeaveBtn.style.display = 'none';
+                accountBannedBtn.style.display = 'none';
+                accountKickOutBtn.style.display = 'none';
             }
         }
 
@@ -339,11 +346,18 @@ const printReportDetail = (reportDetail) => {
                 accountLeaveBtn.style.display = 'none';
                 accountBannedBtn.style.display = 'block';
                 accountKickOutBtn.style.display = 'block';
+
+                contentLeaveBtn.style.display = 'none';
+                contentDeleteBtn.style.display = 'none';
             }
 
             if(reportDetail.reportType == 'B' || reportDetail.reportType == 'P' || reportDetail.reportType == 'C'){
                 contentLeaveBtn.style.display = 'none';
                 contentDeleteBtn.style.display = 'block';
+                
+                accountLeaveBtn.style.display = 'none';
+                accountBannedBtn.style.display = 'none';
+                accountKickOutBtn.style.display = 'none';
             }
         }
     
@@ -355,6 +369,9 @@ const printReportDetail = (reportDetail) => {
                 accountLeaveBtn.style.display = 'block';
                 accountBannedBtn.style.display = 'none';
                 accountKickOutBtn.style.display = 'block';
+
+                contentLeaveBtn.style.display = 'none';
+                contentDeleteBtn.style.display = 'none';
             }
     
             if(reportDetail.memberDelFl == 'Y'){
@@ -364,6 +381,8 @@ const printReportDetail = (reportDetail) => {
                 accountBannedBtn.style.display = 'block';
                 accountKickOutBtn.style.display = 'none';
 
+                contentLeaveBtn.style.display = 'none';
+                contentDeleteBtn.style.display = 'none';
             }
         }
     
@@ -373,6 +392,10 @@ const printReportDetail = (reportDetail) => {
 
                 contentLeaveBtn.style.display = 'block';
                 contentDeleteBtn.style.display = 'none';
+
+                accountLeaveBtn.style.display = 'none';
+                accountBannedBtn.style.display = 'none';
+                accountKickOutBtn.style.display = 'none';
             }
         } 
     }
