@@ -22,6 +22,37 @@ var orgin
 
 })();
 
+
+// -------------------------------------------------
+// ---------------------기간조회----------------------
+// -------------------------------------------------
+
+// 날짜 형식 지정('yyyy-mm-dd')
+const dateFormatter = (date)=>{
+
+  let year = date.getFullYear();
+  let month = date.getMonth() + 1;
+  let day = date.getDate();
+
+  // 01월 01일 같은 경우 숫자 앞에 0 붙여주고 끝에서 두 숫자만 추출
+  month = ("0"+month).slice(-2);
+  day = ("0"+day).slice(-2);
+
+  return year + "-" + month + "-" + day;
+};
+
+
+
+
+
+
+
+
+// -------------------------------------------------
+// -------------------주문상세조회---------------------
+// -------------------------------------------------
+
+
 const tableRow = document.getElementsByClassName("table-info");
 
 // 주문 상세조회 모달창
@@ -185,6 +216,8 @@ for(let i=0; i<tableRow.length; i++){
     displayFlex(orderDetail);
   })
 };
+
+
 
 // 모달 뒤로가기 버튼
 const detailBackBtn = document.getElementById('detailBackBtn');

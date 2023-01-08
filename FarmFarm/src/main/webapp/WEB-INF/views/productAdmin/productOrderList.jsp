@@ -56,9 +56,9 @@
                     placeholder="종료일">
                     <button id="search-period">기간검색</button>
                     <div class="button-area">
-                        <button id="this-month">당월조회</button>
-                        <button id="last-month">전월조회</button>
-                        <button id="period-all">전체조회</button>
+                        <button id="this-month" name="dateFilter">당월조회</button>
+                        <button id="last-month" name="dateFilter">전월조회</button>
+                        <button id="period-all" name="dateFilter">전체조회</button>
                     </div>
                 </div>
             </div>
