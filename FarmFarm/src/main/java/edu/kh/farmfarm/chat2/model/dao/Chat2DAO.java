@@ -40,8 +40,8 @@ public class Chat2DAO {
 	 * @param roomNo
 	 * @return
 	 */
-	public List<Chat2> selectChatList(int roomNo) {
-		return sqlSession.selectList("chat2Mapper.selectChatList", roomNo);
+	public List<Chat2> selectChatList(Map<String, Object> chatMap) {
+		return sqlSession.selectList("chat2Mapper.selectChatList", chatMap);
 	}
 	
 	/** 채팅방 개설
@@ -210,17 +210,13 @@ public class Chat2DAO {
 		return sqlSession.update("chat2Mapper.deleteChat", chat);
 	}
 
-	/** 마지막으로 읽은 채팅의 번호를 조회
-	 * @param roomNo
-	 * @param memberNo
+
+	/** 1. 입장 시 조회 처리 : UNREAD_CHAT_COUNT 0으로 만들기 J
+	 * @param updateMap
 	 * @return
 	 */
-	public int updateLastReadChatNo(Chat2Enter chatEnter) {
-		return sqlSession.update("chat2Mapper.updateLastReadChatNo", chatEnter);
-	}
-
-	public int updateViewCount(Map<String, Object> chatMap) {
-		return sqlSession.update("chat2Mapper.updateViewCount", chatMap);
+	public int updateUnreadCount(Map<String, Object> updateMap) {
+		return sqlSession.update("chat2Mapper.updateUnreadCount", updateMap);
 	}
 
 

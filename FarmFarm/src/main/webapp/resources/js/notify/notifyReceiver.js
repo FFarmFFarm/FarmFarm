@@ -189,7 +189,7 @@ const startRedDotFlash = () => {
         if(i == 3){ // i가 3이 되면 그만 깜박임
             clearInterval(redDotFlash);
             console.log('그만 깜박이삼')
-            setTimeout(redDotOn, 1000);
+            setTimeout(redDotOn, 2000);
         }
 
     }, 2000); // 2초마다 반복함

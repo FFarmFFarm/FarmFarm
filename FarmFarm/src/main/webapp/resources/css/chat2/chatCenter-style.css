@@ -1114,7 +1114,7 @@ body{
     border-radius: 5px;
     width: 80px;
     
-    position: absolute;
+    position: fixed;
     overflow: hidden;
 
     display: none;
@@ -1133,8 +1133,8 @@ body{
 /* context-menu-list */
 .context-menu-list{
     font-size: var(--main-font-size);
-    color: var(--sub-font-color);
-    background-color: white;
+    color: white;
+    background-color: var(--point-color);
     width: 100%;
     height: 25px;
 

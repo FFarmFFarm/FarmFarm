@@ -39,8 +39,13 @@ public class Chat2ServiceImpl implements Chat2Service {
 
 	// 선택한 채팅방의 채팅 목록 조회
 	@Override
-	public List<Chat2> selectChatList(int roomNo) {
-		return dao.selectChatList(roomNo);
+	public List<Chat2> selectChatList(int roomNo, int memberNo) {
+		Map<String, Object> chatMap = new HashMap<String, Object>();
+		
+		chatMap.put("roomNo", roomNo);
+		chatMap.put("memberNo", memberNo);
+		
+		return dao.selectChatList(chatMap);
 	}
 	
 	// 선택한 채팅방의 참가회원 정보 조회
@@ -355,39 +360,17 @@ public class Chat2ServiceImpl implements Chat2Service {
 //		return dao.insertNewSystemChat(chat);
 //	}
 
-	// 입장 시 조회 처리
+
+	// 1. 입장 시 조회 처리 : UNREAD_CHAT_COUNT 0으로 만들기 J
 	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public int updateLastReadChatNo(int roomNo, int memberNo) {
+	public int updateUnreadCount(int memberNo, int roomNo) {
 		
-		// 1. 내가 마지막으로 읽은 번호를 조회하면서 업데이트
-		Chat2Enter chatEnter = new Chat2Enter();
-		chatEnter.setRoomNo(roomNo);
-		chatEnter.setMemberNo(memberNo);
-
-		int result = dao.updateLastReadChatNo(chatEnter);
+		Map<String, Object> updateMap = new HashMap<String, Object>();
+		updateMap.put("memberNo", memberNo);
+		updateMap.put("roomNo", roomNo);
 		
-		if(result > 0) {
-			result = chatEnter.getLastReadChatNo();
-		} else {
-			result = -1;
-		}
+		return dao.updateUnreadCount(updateMap);
 		
-		return result;
-	}
-
-	// 뷰 카운트 + 1;
-	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public int updateViewCount(int roomNo, int memberNo, int lastReadChatNo) {
-		
-		Map<String, Object> chatMap = new HashMap<String, Object>();
-		
-		chatMap.put("roomNo", roomNo);
-		chatMap.put("memberNo", memberNo);
-		chatMap.put("lastReadChatNo", lastReadChatNo);
-
-		return dao.updateViewCount(chatMap);
 	}
 
 
