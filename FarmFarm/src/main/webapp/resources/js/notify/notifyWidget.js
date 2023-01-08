@@ -66,19 +66,7 @@ const packUpElement = (element, classname, inputValue) => {
 
 // 로딩이 처음 되었을 때, 내 알림 목록을 가져옴
 addEventListener('load', ()=>{
-    axios.post('/notify/widget/list' // 연결
-    ).then(function (response) {
-
-        if (response.data != undefined) { // 받아온 데이터가 있을 때에만 실행
-
-            const notifyList = response.data.notifyList;
-
-            fillNotifyWidget(notifyList);
-        }
-
-    }).catch(function (error) {
-        console.log(error)
-    })
+    requestNotifyWidgetList();
 })
 
 /* 내 알림 목록을 가져오는 함수 */
@@ -131,6 +119,9 @@ if (notifyDropdown != null) {
         const target = e.target;
         if (!document.getElementById('myDropdown1').contains(e.target)) {
             document.getElementById('myDropdown1').style.display = '';
+            
+            // 닫을 때도 동기화
+            requestNotifyWidgetList();
         }
     })
 }
@@ -177,6 +168,11 @@ const fillNotifyWidget = (notifyList) => {
         packupWidgetElement(notifyWidgetBox, 'notify-widget-box', null);
         packupWidgetElement(notifyWidgetAnchor, 'notify-widget-anchor', null);
         notifyWidgetAnchor.setAttribute('href', notify.quickLink);
+
+        // 이벤트:클릭 시 읽음처리 부여
+        notifyWidgetAnchor.addEventListener('click', (e) => {
+            readThisNotify(e.currentTarget.parentElement);
+        })
 
         // 알림 유형 아이콘
         let icon;
@@ -241,6 +237,25 @@ const fillNotifyWidget = (notifyList) => {
     }
 }
 
+
+/* 알림 목록을 요청 */
+const requestNotifyWidgetList = () => {
+    // 닫을 때도 동기화
+    axios.post('/notify/widget/list' // 연결
+    ).then(function (response) {
+
+        if (response.data != undefined) { // 받아온 데이터가 있을 때에만 실행
+
+            const notifyList = response.data.notifyList;
+
+            fillNotifyWidget(notifyList);
+        }
+
+    }).catch(function (error) {
+        console.log(error)
+    })
+}
+
 /* 알림 삭제 */
 const deleteWidgetNotify = (parent) => {
 
@@ -264,4 +279,24 @@ const deleteWidgetNotify = (parent) => {
 
     // 요소가 없는지 확인해서 없으면 empty-box 노출
     checkEmpty();
+}
+
+/* 알림 읽음처리 */
+const readThisWidgetNotify = (parent) => {
+
+    let notifyNo = parent.children[0].value;
+    let formData = new FormData;
+    formData.append("notifyNo", notifyNo);
+
+    // 번호를 서버로 보내 읽음처리함
+    axios.post('/notify/update', formData
+    ).then(function (response) {
+        console.log('알림이 읽음 처리 되었습니다.')
+    }).catch(function (error) {
+        console.log('읽음 처리 과정에서 오류가 발생했습니다.')
+        console.log(error)
+    })
+
+    // 동기화하기
+    parent.classList.add('read');
 }

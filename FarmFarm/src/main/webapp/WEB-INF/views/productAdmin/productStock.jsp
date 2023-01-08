@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="/resources/css/common/header-style.css">
     <link rel="stylesheet" href="/resources/css/admin/adminNav-style.css">
 
+    <link rel="stylesheet" href="/resources/css/common/modal/commonModal-style.css" />
 
     <script src="https://kit.fontawesome.com/d449774bd8.js" crossorigin="anonymous"></script>
 </head>
@@ -187,9 +188,12 @@
             
             </c:if>
         </section>
+
+        <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/>
     </main>
 
     <script src="/resources/js/productAdmin/productStock.js"></script>
+    <script src="/resources/js/common/common.js"></script>
 
     <!-- ajax -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>

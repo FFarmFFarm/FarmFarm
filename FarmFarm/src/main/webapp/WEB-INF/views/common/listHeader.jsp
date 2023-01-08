@@ -52,7 +52,7 @@
                     <div id="myDropdown" class="dropdown-content">
                       <c:choose>
                         <c:when test="${loginMember.authority == 1}">
-                          <a href="/seller">판매자페이지</a>
+                          <a href="/seller/${loginMember.memberNo}">판매자페이지</a>
                         </c:when>
                         <c:when test="${loginMember.authority == 2}">
                           <a href="/admin">관리자</a>

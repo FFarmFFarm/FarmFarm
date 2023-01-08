@@ -206,6 +206,17 @@ public class Chat2ServiceImpl implements Chat2Service {
 		// 만약 중간에 오류가 발생하면, null값이 반환됨!
 		return newChatImgPath;
 	}
+	
+	// 채팅 삭제
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public int deleteChat(int memberNo, int chatNo) {
+		Chat2 chat = new Chat2();
+		chat.setMemberNo(memberNo);
+		chat.setChatNo(chatNo);
+		return dao.deleteChat(chat);
+	}
+
 
 	// 채팅방 정보 수정
 	@Override
@@ -362,6 +373,7 @@ public class Chat2ServiceImpl implements Chat2Service {
 		
 		return resultB;
 	}
+
 
 
 

@@ -147,7 +147,9 @@
 }
 
 #tbodyDetail, #tbodyAccum{
-    width: 100%;
+    width: 95%;
+    height: 500px;
+    overflow: auto;
 }
 
 #tbodyAccum{
@@ -219,7 +221,7 @@
 }
 
 
-#accountLeaveBtn{
+#accountLeaveBtn, .account-leave-btn{
     width: 100px;
     height: 30px;
     border-radius: 5px;
@@ -227,10 +229,11 @@
     border: none;
     background-color: #9E9E9E;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 
-#accountBannedBtn{
+#accountBannedBtn, .account-banned-btn{
     width: 100px;
     height: 30px;
     border-radius: 5px;
@@ -238,19 +241,21 @@
     border: none;
     background-color: #E3A914;
     margin-right: 10px;
+    cursor: pointer;
 }
 
-#accountKickOutBtn{
+#accountKickOutBtn, .account-kickout-btn{
     width: 100px;
     height: 30px;
     border-radius: 5px;    
     color: white;
     border: none;
     background-color: #C43819;
+    cursor: pointer;
 }
 
 
-#contentLeaveBtn{
+#contentLeaveBtn, .content-leave-btn{
     width: 100px;
     height: 30px;
     border-radius: 5px;
@@ -258,15 +263,23 @@
     border: none;
     background-color: #9E9E9E;
     margin-right: 10px;
+    cursor: pointer;
 }
 
-#contentDeleteBtn{
+#contentDeleteBtn, .content-delete-btn{
     width: 100px;
     height: 30px;
     border-radius: 5px;    
     color: white;
     border: none;
     background-color: #C43819;
+    cursor: pointer;
+}
+
+
+.off{
+    background-color: lightgray;
+    cursor: default;
 }
 
 

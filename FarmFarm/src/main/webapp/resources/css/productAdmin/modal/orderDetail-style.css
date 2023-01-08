@@ -111,7 +111,11 @@ td, tr{
   border: none;
 }
 
-#enrollInvoice{
+.invoice-btn{
+  display: inline-block;
+}
+
+#enrollBtn, #viewDelivery{
   font-size: var(--small-font-size);
   padding: 0 3px;
   margin: 0 3px;

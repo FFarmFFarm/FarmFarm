@@ -3,7 +3,7 @@
 <mapper namespace="notifyMapper">
 
 
-	 <resultMap type="notify" id="notify_rm">
+	 <resultMap type="Notify" id="notify_rm">
         <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
 	     <id property = "notifyNo" column="NOTIFY_NO"/>
 	     <!-- 나머지 일반 컬럼 -->
@@ -17,11 +17,13 @@
 	 </resultMap>
 	 
 	 <!-- 알림을 DB에 저장 -->
-	 <insert id="insertNewNotify" useGeneratedKeys="true">
+	 <insert id="insertNewNotify" parameterType="edu.kh.farmfarm.notify.model.vo.Notify" useGeneratedKeys="true">
 	 	INSERT INTO NOTIFY
 	 	VALUES(SEQ_NOTIFY_NO.NEXTVAL, #{notifyTypeNo}, #{memberNo}, #{notifyContent}, DEFAULT, DEFAULT, #{quickLink})
-	 	<selectKey keyProperty="notifyTitle" resultType="string" order="AFTER">
-	 		SELECT NOTIFY_TITLE FROM NOTIFY_TYPE WHERE NOTIFY_TYPE_NO = #{notifyTypeNo}
+	 	<selectKey keyProperty="notifyNo" resultType="_int" order="AFTER">
+	 		SELECT SEQ_NOTIFY_NO.CURRVAL AS NOTIFY_NO
+	 		FROM DUAL
+	 		<!-- SELECT NOTIFY_TITLE FROM NOTIFY_TYPE WHERE NOTIFY_TYPE_NO = #{notifyTypeNo} -->
 	 	</selectKey>
 	 </insert>
 	 
@@ -71,5 +73,12 @@
 	<update id="deleteNotify">
 		DELETE FROM NOTIFY WHERE NOTIFY_NO = #{notifyNo}
 	</update>
+	
+	<!-- title 조회 -->
+	<select id="selectNotifyTitle" parameterType="_int" resultType="string">
+		SELECT NOTIFY_TITLE
+		FROM NOTIFY_TYPE
+		WHERE NOTIFY_TYPE_NO = #{notifyTypeNo}
+	</select>
 	
 </mapper>

@@ -197,7 +197,7 @@ const createPostList = (postMap)=>{
   if(postList.length==0){
     // 결과가 없으면
     const resultEmpty = document.createElement('div');
-    resultEmpty.classList.add("no-list");
+    resultEmpty.classList.add("no-result");
 
     const resultEmptyComment = document.createElement('span');
     resultEmptyComment.innerText = "판매 중인 글이 없습니다.";
@@ -267,16 +267,16 @@ const createPostList = (postMap)=>{
 
       postRegDate.append(postDate);
 
-      // const postViewCount = document.createElement('div');
-      // postViewCount.classList.add("post-view-count");
-      // postViewCount.innerText = "조회수";
+      const postViewCount = document.createElement('div');
+      postViewCount.classList.add("post-view-count");
+      postViewCount.innerText = "조회수";
 
-      // const postView = document.createElement('span');
-      // postView.innerText = post.postView;
+      const postView = document.createElement('span');
+      postView.innerText = post.postView;
 
-      // postViewCount.append(postView);
+      postViewCount.append(postView);
 
-      postDetail.append(postRegDate);
+      postDetail.append(postRegDate, postViewCount);
 
       postTotal.append(postHead, postPrice, postDetail);
 

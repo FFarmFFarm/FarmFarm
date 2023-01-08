@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>와글와글 | 커뮤니티</title>
+    <title>와글와글 커뮤니티</title>
     <script src="https://kit.fontawesome.com/345198b845.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/resources/css/board/boardList-style.css">
     <link rel="stylesheet" href="/resources/css/common/header-style.css" />
@@ -38,11 +38,11 @@
 
     <main>
         <section class="board-top">
-            <div class="board-top-title">와글와글 자유게시판</div>
+            <div class="board-top-title">와글와글 물물교환</div>
         </section>
         <section class="board-nav">
             <div class="board-nav-area">
-                <a id="type1" href="/board/${1}">자유게시판</a>
+                <a id="type1" href="/board/${1}">물물교환</a>
                 <a id="type2" href="/board/${2}">팁</a>
                 <a id="type3" href="/board/${3}">질문</a>
             </div>
