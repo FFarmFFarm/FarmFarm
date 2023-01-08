@@ -11,6 +11,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 
 import edu.kh.farmfarm.admin.model.service.AdminProcessService;
 import edu.kh.farmfarm.admin.model.vo.Admin;
@@ -24,10 +25,14 @@ public class BannedAccountActivateScheduling {
 	@Autowired
 	private AdminProcessService service;
 	
+	int count = 0;
+	
 	// 신고되어 정지된 계정 7일 뒤에 풀기
 //	@Scheduled(cron = "0 * * * * *")  // 매 분 0초에 실행
 	@Scheduled(cron = "0 0 3 * * *")  // 매일 3시 0분 0초에 실행
 	public void bannedAccountActivate() throws ParseException{
+		
+		System.out.println("[ADMIN] 정지 계정 해제 프로세스 진행합니다.");
 		
 		// 1. 정지된 계정 조회하기
 		List<Admin> bannedAccountList = service.selectBannedAccountList();
@@ -56,13 +61,13 @@ public class BannedAccountActivateScheduling {
 			// 7일 더하기
 			cal.add(Calendar.DATE, 7);
 			
-			// 테스트용 (3분 뒤)
-//			cal.add(Calendar.MINUTE, 10);
+			// 테스트용 (5분 뒤)
+//			cal.add(Calendar.MINUTE, 5);
 			
 			// processDate에서 7일 더한 날짜 (sdf 포맷으로 변경)
 			String afterDate = sdf.format(cal.getTime());
 			
-//			System.out.println("10분 뒤 : " + afterDate);
+			System.out.println("5분 뒤 : " + afterDate);
 			
 			
 			
@@ -72,7 +77,7 @@ public class BannedAccountActivateScheduling {
 			// 포맷 변경
 			String sysdate = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 			
-//			System.out.println("sysdate : " + sysdate);
+			System.out.println("sysdate : " + sysdate);
 			
 			
 			// 3. 7일 뒤 날짜가 현재 시간을 지났으면! 해당 reportTargetNo 조회
@@ -86,15 +91,20 @@ public class BannedAccountActivateScheduling {
 			if(result < 0) {
 			
 				int targetNo = admin.getReportTargetNo();
+				String targetType = admin.getReportType();
 				
 				System.out.println(targetNo);
 				
 				// 4. 해당 계정 활성화
-				result = service.activateAccount(targetNo);
+				if(targetType.equals("M")) {
+					result = service.activateAccount(targetNo);
+				}
 				
 				if(result > 0) {
-					System.out.println("[ADMIN] 정지 계정 해제 프로세스 진행합니다.]");
-					System.out.println(targetNo + "의 계정이 활성화되었습니다.");
+					System.out.println("회원번호 " + targetNo + "의 계정이 활성화되었습니다.");
+					count = result;
+					
+					
 				} else {
 					System.out.println("계정 활성화 실패");
 				}
@@ -102,9 +112,6 @@ public class BannedAccountActivateScheduling {
 		}
 		
 	}
-	
-	
-
 	
 
 }
