@@ -35,12 +35,11 @@
         <ul>
           <div class="order-headline order-product-list">
             <span> 주문 상품 </span>
-            <span><i class="fa-solid fa-chevron-down"></i></span>
           </div>
           <div class="order-content">
             <c:if test="${fn:length(productList) > 1}">
               <span> "${productList[0].productName}" 외 </span>
-              <span class="order-count"> ${fn:length(productList)} 개 </span>
+              <span class="order-count"> ${fn:length(productList) -1} 개 </span>
               <span> 상품을 주문합니다 </span>
             </c:if>
             <c:if test="${fn:length(productList) == 1}">
