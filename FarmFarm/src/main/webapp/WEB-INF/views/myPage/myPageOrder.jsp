@@ -35,7 +35,7 @@
 
   
     <section class="list-container">
-       
+
     <jsp:include page="/WEB-INF/views/myPage/myPageNav.jsp"/>
 
       <div class="order-list" >
@@ -80,10 +80,10 @@
                 </c:if>
                 <c:if test="${order.orderStatus == 1}">
                   <c:if test="${product.productStatus == 0}">
-                    <span class="order-shipping" id="${order.invoiceNo}">배송중</span>
+                    <span class="order-shipping" id="${order.invoiceNo}">배송조회</span>
                   </c:if>
                   <c:if test="${product.productStatus == 1}">
-                    <span class="order-shipping">반품 진행중</span>
+                    <span>반품 진행중</span>
                   </c:if>
                   <c:if test="${product.productStatus == 2}">
                     <span>반품 완료</span>
@@ -95,9 +95,12 @@
                 <c:if test="${order.orderStatus == 3}">
                   <c:if test="${product.productStatus == 0}">
                     <span>구매확정</span>
+                  <c:if test="${! empty order.invoiceNo}">
+                    <span class="order-shipping" id="${order.invoiceNo}">배송조회</span>
+                  </c:if>
                   </c:if>
                   <c:if test="${product.productStatus == 1}">
-                    <span class="order-shipping">반품 진행중</span>
+                    <span>반품 진행중</span>
                   </c:if>
                   <c:if test="${product.productStatus == 2}">
                     <span>반품 완료</span>
