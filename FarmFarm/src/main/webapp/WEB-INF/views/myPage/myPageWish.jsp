@@ -37,7 +37,7 @@
           <span class="wish-list-title">찜 목록</span>
 
           <c:if test="${empty wishList}">
-          <div>찜 목록이 비었습니다</div>
+          <div class="empty-list">찜 목록이 비었습니다</div>
           </c:if>
 
 

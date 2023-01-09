@@ -54,7 +54,7 @@
 
           
             <c:if test="${empty boardList}">
-            <div>작성 게시글이 없습니다.</div>
+            <div class="empty-list">작성 게시글이 없습니다.</div>
             </c:if>
 
             <c:if test="${! empty boardList}">

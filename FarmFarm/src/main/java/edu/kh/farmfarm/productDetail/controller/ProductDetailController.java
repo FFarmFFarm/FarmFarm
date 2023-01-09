@@ -77,6 +77,15 @@ public class ProductDetailController {
 		
 		return service.removeWish(product);
 	}
+	
+	@GetMapping("/product/stock")
+	@ResponseBody
+	public int productStock(int productNo) {
+		
+		int stock = service.productStock(productNo);
+		
+		return stock;
+	}
 
 
 }

@@ -34,7 +34,7 @@
                 <div class="page-title" id="pageTitle">
                     <p>상담 관리</p>
                 </div>
-                   <!-- 본문 영역 -->
+                <!-- 본문 영역 -->
                 <div class="inquire-container" role="main">
 
                     <!-- 좌측 사이드바 채팅방 목록 -->

@@ -135,7 +135,7 @@ a.review-wrote > i {
   border-radius: 5px;
   overflow: hidden;
   width: fit-content;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .review-img > img {
