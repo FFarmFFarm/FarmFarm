@@ -105,6 +105,7 @@ public interface MyPageService {
 
 
 	/** 마이페이지 회원 탈퇴 
+	 * @param authority 
 	 * @return
 	 */
 	int secession(String memberPw, int memberNo);
