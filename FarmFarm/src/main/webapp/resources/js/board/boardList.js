@@ -310,7 +310,7 @@ if(boardSearch != null){
     }
 
     ///////////////////////////////////////////////////
-        if(location.search != null){
+        if(location.search != ""){
 
             console.log("목록으로 cp : "+cp);
             console.log("목록으로 key : "+key);
@@ -476,9 +476,11 @@ if(boardSearch != null){
     for(let a of pageLis){
         a.addEventListener("click", (e)=>{
 
+            console.log("1");
+            
             
             const cp = a.parentElement.id;
-
+            
             if(sort == 'view'){
                 const boardSort = document.querySelector(".board-sort");
                 boardSort.innerHTML = "조회수 ";
@@ -494,10 +496,14 @@ if(boardSearch != null){
                 boardSort.innerHTML = "최신순 ";
                 showBoardList(cp, sort, query, key);
             }
-            console.log(cp);
+            console.log("2");
+            console.log("cp"+cp);
             console.log(sort);
+            console.log("3");
 
-            e.preventDefault();
+            showBoardList(cp, sort, query, key);
+
+            // e.preventDefault();
 
         })
     };
