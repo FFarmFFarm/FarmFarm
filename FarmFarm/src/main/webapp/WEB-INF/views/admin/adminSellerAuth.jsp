@@ -206,7 +206,8 @@
                 판매자 인증을 보류하시겠습니까?
             </span>
 
-            <textarea name="denyReason" id="denyReason" cols="30" rows="10"></textarea>
+            <textarea name="denyReason" id="denyReason" cols="30" rows="10" 
+            placeholder="보류 사유 입력" spellcheck="false"></textarea>
             
             <div class="adminModal-form-div">
                 <div class="adminModal-form">

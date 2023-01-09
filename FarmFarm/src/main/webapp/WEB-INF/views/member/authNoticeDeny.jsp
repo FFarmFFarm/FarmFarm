@@ -31,7 +31,8 @@
         판매자 인증 보류
     </div>
     <div class="notice-text2">
-        1:1 상담을 이용하여 추가 인증을 진행하시기 바랍니다.
+        <span class="notice-span"> [보류 사유] ${denyReason} </span>
+        <span>1:1 상담을 이용하여 추가 인증을 진행하시기 바랍니다.</span>
     </div>
 
     <div id="buttonArea">
