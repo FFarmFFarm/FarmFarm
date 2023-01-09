@@ -55,8 +55,8 @@
     width: 300px;
     height: 600px;
     margin-top: 20px;
-
     font-size: var(--medium-font-size);
+    padding: 5px;
 }
 
 

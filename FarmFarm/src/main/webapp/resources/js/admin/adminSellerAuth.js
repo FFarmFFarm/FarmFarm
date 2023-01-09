@@ -12,6 +12,7 @@ var keyword;
 // var hiddenId = null;
 
 
+
 // optimize: 판매자 정보 조회 함수 ajax
 const selectSellerList = (cp) => {
     $.ajax({
@@ -333,6 +334,8 @@ const printSellerAuthPaper = (authPaper) => {
     
     // 승인 버튼
     const authApproveBtn = document.getElementById("authApproveBtn");
+    // 보류 버튼
+    const authDenyBtn = document.getElementById("authDenyBtn");
 
     // 이미 승인되어 판매자인 회원은, 승인버튼 비활성화
     if(authPaper.authDate != null && authPaper.authority == 1){
@@ -347,11 +350,36 @@ const printSellerAuthPaper = (authPaper) => {
     }
 
 
+    // 보류된 판매자는 보류버튼 비활성화 -> 놉! 또 보류할 수도 있음.
+    // if(authPaper.authority == 4){
+    //     authDenyBtn.style.backgroundColor = 'lightgray';
+    //     authDenyBtn.style.cursor = 'default';
+    //     authDenyBtn.disabled = true;
+    // } else{
+    //     // 그 외에는 다시 활성화
+    //     authDenyBtn.style.backgroundColor = '#C43819';
+    //     authDenyBtn.style.cursor = 'pointer';
+    //     authDenyBtn.disabled = false;
+    // }
+
+
     authTr9.append(tdAuthDate1, tdAuthDate2);
 
     // 전체 조립
     sellerAuthTable.append(authTr1, authTr2, authTr3, authTr4, authTr5, authTr6, authTr7, authTr8, authTr9)
 }
+
+
+
+// optimize: 판매자 보류 모달
+const adminModalContainer = document.getElementById('adminModalContainer');
+
+document.getElementById('authDenyBtn').addEventListener('click', () => {
+    adminModalContainer.style.display = 'flex';
+
+
+
+})
 
 
 
@@ -483,7 +511,7 @@ allSellerBtn.addEventListener('click', () => {
 
 
 
-// todo: 판매자 승인 / 거부
+// todo: 판매자 승인 / 보류
 // 승인 
 document.getElementById('authApproveBtn').addEventListener('click', () => {
     
@@ -511,21 +539,24 @@ document.getElementById('authApproveBtn').addEventListener('click', () => {
 
 
 
-// fixme: 거부
-document.getElementById('authDenyBtn').addEventListener('click', () => {
+// todo: 보류
+document.getElementById('denyBtn').addEventListener('click', () => {
+    
+    const denyReason = document.getElementById('denyReason').value;
 
     $.ajax({
         url: '/admin/sellerDeny',
-        data: {"hiddenNo": hiddenNo},
+        data: {"hiddenNo": hiddenNo,
+                "denyReason": denyReason},
         type: 'POST',
         success: (result) => {
-
+    
             if(result > 0){
                 adminModalClose();
-
+    
                 selectSellerList(cp);
                 selectAuthPaper(hiddenNo);
-
+    
                 console.log("거절 완료");
                 messageModalOpen("판매자 인증이 보류되었습니다.");
             }
@@ -534,7 +565,8 @@ document.getElementById('authDenyBtn').addEventListener('click', () => {
             console.log("보류 처리 실패");
         }
     })
-})
+
+}) 
 
 
 
@@ -608,3 +640,9 @@ for(let i=0; i<sAddress.length; i++){
         sAddress[i].innerText;
     }
 }
+
+
+
+
+
+// fixme: 보류

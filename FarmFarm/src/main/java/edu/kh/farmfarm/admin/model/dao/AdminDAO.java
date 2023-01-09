@@ -196,16 +196,49 @@ public class AdminDAO {
 
 
 	
-	/** 판매자 인증 거절
+	/** 판매자 인증 보류
 	 * @param hiddenNo
 	 * @return
 	 */
-	public int sellerDeny(int hiddenNo) {
-		return sqlSession.update("adminMapper.sellerDeny", hiddenNo);
+	public int sellerDeny(int hiddenNo, String denyReason) {
+		
+		// 판매자 인증 보류
+		int result = sqlSession.update("adminMapper.sellerDeny", hiddenNo);
+		
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("hiddenNo", hiddenNo);
+		param.put("denyReason", denyReason);
+		
+		
+		// 보류 되면 사유 삽입
+		if(result > 0) {
+			
+			// 사유가 입력되어 있는지 확인
+			int checkDenyReason = sqlSession.selectOne("adminMapper.checkDenyReason", hiddenNo);
+
+			
+			if(checkDenyReason > 0) {
+				
+				// 있으면 update
+				sqlSession.update("adminMapper.updateDenyReason", param);
+				
+			} else {
+				
+				// 없으면 insert
+				sqlSession.insert("adminMapper.insertDenyReason", param);
+			}
+		}
+		
+		return result;
 	}
 
 	
-	
+	// 판매자 인증 보류 사유 가져오기
+	public String selectDenyReason(int memberNo) {
+		return sqlSession.selectOne("adminMapper.selectDenyReason", memberNo);
+	}
+
 	
 	
 	
@@ -321,7 +354,6 @@ public class AdminDAO {
 	public Admin selectReportDetail(int hiddenReportNo) {
 		return sqlSession.selectOne("adminMapper.selectReportDetail", hiddenReportNo);
 	}
-
 
 
 
