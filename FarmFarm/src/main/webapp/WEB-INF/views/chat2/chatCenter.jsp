@@ -87,7 +87,7 @@
               아주 긴 채팅방 제목... 아주 긴 채팅방 제목... 아주 긴 채팅방 -->
             </div>
             <button id="purchaseBtn">
-              구매하기
+              판매글 보기
             </button>
 
             <button id="roomEditBtn">
