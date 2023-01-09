@@ -1,20 +1,18 @@
 <div align="center">
-<h1>FarmFarm</h1>
+<img width="20%" src="https://user-images.githubusercontent.com/110653581/211257489-34757022-4c71-443f-afe7-94d240788288.png" />
+<h2>팜팜</h2>
 <h3>내 손으로 키운 작물, 손쉽게 거래하세요.</h3>
-
-
 <br>
-
-
+<br>
 <h3>✨팀원 소개✨</h3>
 <table>
 <tbody>
 <tr>
 <td align="center">
-<img width="30%" src="https://user-images.githubusercontent.com/110653581/206659234-0bad276a-aaa8-4ef6-a7aa-05f85a4816de.png" />
+<img width="30%" src="https://user-images.githubusercontent.com/110653581/211256545-af989eb7-74ed-404c-b778-b5b1d0a4e2f5.jpeg" />
 </td>
 <td align="center">
- <img width="30%" src="https://user-images.githubusercontent.com/110653581/206659287-19b61fcd-c1cd-4044-ab66-9943d8ef9e55.png" />
+ <img width="30%" src="https://user-images.githubusercontent.com/110653581/211256485-70828ec2-f6ed-459c-86f6-652190c5d32d.jpeg" />
 </td>
 </tr>
 <tr>
@@ -96,10 +94,10 @@
 </tr>
 <tr>
 <td align="center">
-<img width="30%" src="https://user-images.githubusercontent.com/110653581/206659353-e46dbf29-626d-4425-b4b4-394eab5403b4.png" />
+<img width="30%" src="https://user-images.githubusercontent.com/110653581/211256666-7f2a358b-bb1c-42ef-9f4d-6c9bb95caa9b.jpeg" />
 </td>
 <td align="center">
-<img width="30%" src="https://user-images.githubusercontent.com/110653581/206659445-11bab26f-66f8-477d-8ee0-c68f9e33b915.png" />
+<img width="30%" src="https://user-images.githubusercontent.com/110653581/211256711-af116397-18e0-4759-91ee-84d1e12d5cf4.jpeg" />
 </td>
 </tr>
 <tr>
@@ -250,10 +248,10 @@
 </tr>
 <tr>
 <td align="center">
-<img width="30%" src="https://user-images.githubusercontent.com/110653581/206659353-e46dbf29-626d-4425-b4b4-394eab5403b4.png" />
+<img width="30%" src="https://user-images.githubusercontent.com/110653581/211256866-dc88bfe4-5d3d-4f3e-a736-dd0df72cd4f6.jpeg" />
 </td>
 <td align="center">
-<img width="30%" src="https://user-images.githubusercontent.com/110653581/206659445-11bab26f-66f8-477d-8ee0-c68f9e33b915.png" />
+<img width="30%" src="https://user-images.githubusercontent.com/110653581/211256902-0a93310f-fad0-4876-86f5-d38dd8c5ec37.jpeg" />
 </td>
 </tr>
 <tr>
@@ -422,23 +420,23 @@
         <br>
         <br><br>
         <h4>📜ERD📜</h4>
-        <img src="https://user-images.githubusercontent.com/110653581/206644146-b63977b9-e8ad-45f6-9d72-66abfcdd1c95.png" />
+        <img src="https://user-images.githubusercontent.com/110653581/211257039-bdf7ad8f-da8b-4443-b930-7472c36ae91a.png" />
         ERD 주소 : https://www.erdcloud.com/d/pbYHmgRCTuwP6MJwB
         <br>
         <br><br>
         <h4>📜와이어프레임 : Figma📜</h4>
-        <img src="https://user-images.githubusercontent.com/110653581/206644146-b63977b9-e8ad-45f6-9d72-66abfcdd1c95.png" />
+        <img src="https://user-images.githubusercontent.com/110653581/211257109-b51c3224-8d69-4e0c-b9c7-aa951aea4ee6.png" />
         Figma 주소 :
         https://www.figma.com/file/fL234h21L5itEORWMehx0Z/%EC%84%9C%ED%8C%9C%ED%8C%9C's-team-library?node-id=0%3A1&t=q7b7wfUN6yFE8B5l-0
         <br>
         <br><br>
         <h4>📜Trello📜</h4>
-        <img src="https://user-images.githubusercontent.com/110653581/206644146-b63977b9-e8ad-45f6-9d72-66abfcdd1c95.png" />
+        <img src="https://user-images.githubusercontent.com/110653581/211257164-f4a37765-d07b-4575-b413-816be9a59a15.png" />
         Trello 주소 : https://trello.com/b/1ngXsFmE/%ED%8C%80%ED%95%9C%EC%82%B4%ED%84%B0%EC%9A%B8
         <br>
         <br><br>
-        <h4>📜Google Drive📜</h4>
-        <img src="https://user-images.githubusercontent.com/110653581/206644146-b63977b9-e8ad-45f6-9d72-66abfcdd1c95.png" />
+        <h4>📜GoogleDrive📜</h4>
+        <img src="https://user-images.githubusercontent.com/110653581/211257279-36bbd577-065e-4735-86e9-3aab13aed6fc.png" />
         Google Drive 주소 : https://drive.google.com/drive/folders/1aZxD1UlTOqDyV2hKvB_6jE0glwOcqclX
         <br>
         <br>
