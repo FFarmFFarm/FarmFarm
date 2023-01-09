@@ -131,12 +131,12 @@
             <c:if test="${!empty orderList}">
                 <div class="pagination-area">
                     <div class="page-box">
-                        <a href="/admin/orderList?cp=1${sURL}">
+                        <a href="/admin/orderList?cp=1">
                             <i class="fa-solid fa-angles-left"></i>
                         </a>
                     </div>
                     <div class="page-box">
-                        <a href="/admin/orderList?cp=${pagination.prevPage}${sURL}">
+                        <a href="/admin/orderList?cp=${pagination.prevPage}">
                             <i class="fa-solid fa-angle-left"></i>
                         </a>
                     </div>
@@ -152,18 +152,18 @@
                             </c:when>
                             <c:otherwise>
                                 <div class="page-box">
-                                    <a href="/admin/orderList?cp=${i}${sURL}">${i}</a>
+                                    <a href="/admin/orderList?cp=${i}">${i}</a>
                                 </div>
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
                     <div class="page-box">
-                        <a href="/admin/orderList?cp=${pagination.nextPage}${sURL}">
+                        <a href="/admin/orderList?cp=${pagination.nextPage}">
                             <i class="fa-solid fa-angle-right"></i>
                         </a>
                     </div>
                     <div class="page-box">
-                        <a href="/admin/orderList?cp=${pagination.maxPage}${sURL}">
+                        <a href="/admin/orderList?cp=${pagination.maxPage}">
                             <i class="fa-solid fa-angles-right"></i>
                         </a>
                     </div>
