@@ -109,10 +109,10 @@ if(myProfileFrm != null){
         }
     });
     function checkValidate(){
-        if(oriNickname == memberNickname.value){
-            alert("변경 사항이 없습니다.");
-            return false;
-        }
+        // if(oriNickname == memberNickname.value){
+        //     alert("변경 사항이 없습니다.");
+        //     return false;
+        // }
 
         if(memberNickname.value.trim().length == 0){
             alert("닉네임을 입력해주세요.");
