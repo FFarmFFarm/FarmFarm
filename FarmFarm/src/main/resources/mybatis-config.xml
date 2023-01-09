@@ -44,6 +44,7 @@
 		<typeAlias type="edu.kh.farmfarm.chat2.model.vo.Chat2Room" alias="Chat2Room"/>
 		<typeAlias type="edu.kh.farmfarm.chat2.model.vo.Chat2Enter" alias="Chat2Enter"/>
 		<typeAlias type="edu.kh.farmfarm.chat2.model.vo.Chat2Img" alias="Chat2Img"/>
+		<typeAlias type="edu.kh.farmfarm.chat2.model.vo.Emoticon" alias="Emoticon"/>
 		<typeAlias type="edu.kh.farmfarm.inquire.model.vo.InquireRoom" alias="InquireRoom"/>
 		<typeAlias type="edu.kh.farmfarm.inquire.model.vo.Message" alias="Message"/>
 		<typeAlias type="edu.kh.farmfarm.inquire.model.vo.MessageImg" alias="MessageImg"/>

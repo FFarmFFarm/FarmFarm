@@ -24,6 +24,7 @@ import com.google.gson.Gson;
 import edu.kh.farmfarm.chat2.model.service.Chat2Service;
 import edu.kh.farmfarm.chat2.model.vo.Chat2;
 import edu.kh.farmfarm.chat2.model.vo.Chat2Room;
+import edu.kh.farmfarm.chat2.model.vo.Emoticon;
 import edu.kh.farmfarm.member.model.VO.Member;
 
 @Controller
@@ -271,46 +272,50 @@ public class Chat2Controller {
 		return new Gson().toJson(result);
 	}
 	
-	// 1. 입장 시 조회 처리 : UNREAD_CHAT_COUNT 0으로 만들기 
+	// 2. 입장 시 조회 처리 : UNREAD_CHAT_COUNT 0으로 만들기 
 	@PostMapping("/update/unread")
 	@ResponseBody
 	public String updateUnreadCount(
 			int memberNo, int roomNo) {
 		
-		// 회원 번호와, 방 번호를 받아서, 읽음 처리함
+		// 회원 번호와, 방 번호를 받아서, 읽음 처리함(업데이트할 내용이 없는 경우 -2)
 		int result = service.updateUnreadCount(memberNo, roomNo);
+		
 		
 		return new Gson().toJson(result);
 	}
 	
+	// 1. 입장 시 조회 처리 : n명 읽음 + 1;
+	@PostMapping("/update/readcount")
+	@ResponseBody
+	public String updateReadCount(int memberNo, int roomNo) {
+		
+		// 회원 번호와, 방 번호를 받아서, read count를 +1함(업데이트할 내용이 없는 경우 -2)
+		int result = service.updateReadCount(memberNo, roomNo);
+		
+		return new Gson().toJson(result);
+	}
 	
-	// 입장 시 채팅 
-//	@PostMapping("/insert/system")
-//	@ResponseBody
-//	public String insertNewSystenChat(int roomNo, String chatContent) {
-//		
-//		int result = service.insertNewSystemChat(roomNo, chatContent);
-//		
-//		return new Gson().toJson(result);
-//	}
+	// 이모티콘 카테고리 리스트
+	@PostMapping("/select/emoticon/category")
+	@ResponseBody
+	public String selectEmoticonCategoryList() {
+		
+		List<Emoticon> emoticonCategoryList = service.selectEmoticonCategoryList();
+		
+		return new Gson().toJson(emoticonCategoryList);
+	}
 	
-
+	// 이모티콘 리스트
+	@PostMapping("/select/emoticon/list")
+	@ResponseBody
+	public String selectEmoticonList(
+			int emoticonCategoryNo) {
+		
+		List<Emoticon> emoticonList = service.selectEmoticonList(emoticonCategoryNo);
+		
+		return new Gson().toJson(emoticonList);
+	}
 	
-	
-	// 입장 시 조회 처리
-//	@PostMapping("/update/view")
-//	@ResponseBody
-//	public String updateView(int roomNo, int memberNo) {
-//		
-//		int lastReadChatNo = service.updateLastReadChatNo(roomNo, memberNo);
-//		
-//		int result = -1;
-//		
-//		if(lastReadChatNo > 0) {
-//			result = service.updateViewCount(roomNo, memberNo, lastReadChatNo);
-//		} 
-//
-//		return new Gson().toJson(result);
-//	}
 	
 }	

@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import edu.kh.farmfarm.chat2.model.vo.Chat2;
 import edu.kh.farmfarm.chat2.model.vo.Chat2Enter;
 import edu.kh.farmfarm.chat2.model.vo.Chat2Room;
+import edu.kh.farmfarm.chat2.model.vo.Emoticon;
 
 public interface Chat2Service {
 
@@ -119,12 +120,32 @@ public interface Chat2Service {
 	
 	
 
-	/** 1. 입장 시 조회 처리 : UNREAD_CHAT_COUNT 0으로 만들기
+	/** 2. 입장 시 조회 처리 : UNREAD_CHAT_COUNT 0으로 만들기
 	 * @param memberNo
 	 * @param roomNo
 	 * @return
 	 */
 	int updateUnreadCount(int memberNo, int roomNo);
+
+	
+	/** 1. 입장 시 조회 처리 : n명 읽음 + 1;
+	 * @param memberNo
+	 * @param roomNo
+	 * @return
+	 */
+	int updateReadCount(int memberNo, int roomNo) ;
+
+	
+	/** 이모티콘 카테고리 목록 가져오기
+	 * @return
+	 */
+	List<Emoticon> selectEmoticonCategoryList();
+
+	/** 이모티콘 리스트 가져오기
+	 * @param emoticonCategoryNo
+	 * @return
+	 */
+	List<Emoticon> selectEmoticonList(int emoticonCategoryNo);
 
 
 
