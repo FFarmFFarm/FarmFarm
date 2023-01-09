@@ -144,6 +144,7 @@
                         <span class="auth-image" id="authImage">
                             <!-- <img src="/resources/images/myPage/background/bgImg2.jpg" class="aImg"> -->
                         </span>
+                        <span class="update-image">사진 업데이트</span>
                     </div>
 
                     <div class="seller-auth-div">
@@ -218,6 +219,8 @@
         </div>
     </div>
 
+    <!-- 사진 업데이트 모달 (작게) -->
+    <div class="image-update-modal"></div>
 
 
     <!-- 증빙사진 모달 //  팝업창 열리는 것으로 대체-->

@@ -112,6 +112,19 @@ main{
 }
 
 
+.update-image{
+    color: var(--point-color);
+    font-size: var(--small-font-size);
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 35px;
+    cursor: pointer;
+}
+
+.update-image:hover{
+    color: #555;
+}
+
 
 #watingSellerBtn{
     width: 97px;
@@ -425,28 +438,9 @@ adminModal-style.css------------------------------- */
 
 
 
-/* 증빙사진 모달 */
-/* .authImg-modal{
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    background-color: var(--modal-background-color);
-
-    z-index: 2000;
-    
-    display: none;
+/* 이미지 업데이트 모달 */
+.image-update-modal{
+    width: 350px;
+    height: 450px;
 }
-
-.authImg{
-    width: auto;
-    height: auto;
-} */
-
 
