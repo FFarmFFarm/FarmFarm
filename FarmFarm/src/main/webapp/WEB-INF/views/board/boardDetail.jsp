@@ -109,6 +109,7 @@
         loginAuth = "${loginMember.authority}";
         let query = "${param.query}";
         let key = "${param.key}";
+        // let sort = "${param.sort}";
     </script>
     
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

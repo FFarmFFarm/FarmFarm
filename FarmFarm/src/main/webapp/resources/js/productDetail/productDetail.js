@@ -1256,12 +1256,7 @@ document.getElementById('submitBtn').addEventListener('click', () => {
 
         if (result > 0) {
 
-          displayNone(document.getElementById('reviewFormContainer'));
-
-          let cp = selectCp();
-          getProductNo()
-
-          selectReviewList(getProductNo(), cp);
+          location.reload();
         }
       },
       error: () => {

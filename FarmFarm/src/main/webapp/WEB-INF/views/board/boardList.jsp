@@ -26,15 +26,15 @@
     
     <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
-        <c:if test="${not empty param.key}">
-            <c:set var="sURL" value="&key=${param.key}&query=${param.query}"/>
+        <c:if test="${not empty param.key || not empty param.sort}">
+            <c:set var="sURL" value="&key=${param.key}&query=${param.query}&sort=${param.sort}"/>
         </c:if>
         <%-- <c:if test="${not empty param.query}">
             <c:set var="sURL" value="&query=${param.query}"/>
         </c:if> --%>
-        <c:if test="${not empty param.sort}">
+        <%-- <c:if test="${not empty param.sort}">
             <c:set var="soURL" value="&sort=${param.sort}"/>
-        </c:if>
+        </c:if> --%>
 
     <main>
         <section class="board-top">
@@ -73,6 +73,7 @@
                     </ul>
                 </div>
             </div>
+            <input type="hidden" id="tempSort">
         </form>
         <section class="board-list">
             <div class="board-list-top">
@@ -182,14 +183,14 @@
     <script>
         let boardTypeNo = ${boardTypeNo};
 
-        let sort = "new";
+        let sort = "${param.sort}";
 
         const inputQuery = document.getElementById("inputQuery");
         // let query = inputQuery.value;
         let query = "${param.query}";
         let key = "${param.key}";
 
-        let cp = 1;
+        let cp = "${pagination.currentPage}";
 
         const loginYN = "${loginMember}";
 

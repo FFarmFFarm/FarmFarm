@@ -48,6 +48,7 @@ public class BoardListController {
 			@PathVariable("boardTypeNo") int boardTypeNo,
 			Model model,
 			@RequestParam(value="cp", required = false, defaultValue = "1") int cp,
+//			@RequestParam(value="sort", required = false, defaultValue = "new") String sort,
 			@RequestParam Map<String, Object> pm) {
 		
 //			String key = null;
@@ -65,6 +66,7 @@ public class BoardListController {
 //			}
 
 			pm.put("boardTypeNo", boardTypeNo);
+//			pm.put("sort", sort);
 			
 			Map<String, Object> boardMap = service.selectBoardList(pm, cp);
 //			boardMap.put("key", key);

@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>팜팜 | 팜팜 채팅 2.0</title>
+    <title>팜팜 채팅 2.0</title>
 
     <link rel="stylesheet" href="/resources/css/chat2/chatCenter-style.css">
     <link rel="stylesheet" href="/resources/css/chat2/newChatRoomModal-style.css">
@@ -87,7 +87,7 @@
               아주 긴 채팅방 제목... 아주 긴 채팅방 제목... 아주 긴 채팅방 -->
             </div>
             <button id="purchaseBtn">
-              구매하기
+              판매글 보기
             </button>
 
             <button id="roomEditBtn">
@@ -136,6 +136,13 @@
               <button id="addImageBtn">
                 <i class="fa-solid fa-image"></i>
               </button>
+
+
+              <button id="addEmoticonBtn">
+                <i class="fa-regular fa-face-smile"></i>
+              </button>
+              <jsp:include page="/WEB-INF/views/chat2/chatEmoticon.jsp"/>
+
               <input id="inputBox" type="text" placeholder="메세지를 입력하세요">
               <div id="inputImgPreviewBox">
                 <div id="inputImgPreviewBoxHeader">
@@ -170,7 +177,7 @@
     <div id="receivedBubbleContextMenu" class="context-menu">
       <ul class="context-menu-box">
         <!-- <li id="copyChat" class="context-menu-list">복사하기</li> -->
-        <li id="reportChat" class="context-menu-list">신고하기</li>
+        <li id="reportBtn" class="context-menu-list">신고하기</li>
       </ul>
     </div>
 
@@ -183,6 +190,9 @@
 
     <!-- 채팅방 내부 드롭다운 메뉴 -->
     <jsp:include page="/WEB-INF/views/chat2/chatRoomMenuModal.jsp" />
+
+    <!-- 신고하기 모달창 -->
+    <jsp:include page="/WEB-INF/views/report/report-modal.jsp"/> 
 
     <!-- https://github.com/sockjs/sockjs-client -->
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
@@ -198,6 +208,10 @@
     <script src="/resources/js/chat2/chatService.js"></script>
     <script src="/resources/js/chat2/chatCenter.js"></script>
     <script src="/resources/js/chat2/chatContext.js"></script>
+
+    <!-- 신고하기 모달 -->
+    <script src="/resources/js/report/report-modal-common.js"></script>
+    <script src="/resources/js/report/report-modal.js"></script>
 
 </body>
 

@@ -282,6 +282,7 @@ if(inquireSock != undefined) {
         inquireContent.append(messageDate);
       }
       
+      
       if(msg.imgFl == 'N') {
         
         if(msg.sendMemberNo == loginMemberNo) {

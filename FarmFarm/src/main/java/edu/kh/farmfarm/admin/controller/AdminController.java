@@ -42,7 +42,14 @@ public class AdminController {
 	
 	// 판매자 인증 거절 페이지 (판매자 인증 거절된 회원이 로그인할 경우)
 	@GetMapping("/authDeny")
-	public String authDeny() {
+	public String authDeny(@SessionAttribute(value="loginMember") Member loginMember, Model model) {
+		
+		int memberNo = loginMember.getMemberNo();
+		
+		String denyReason = service.selectDenyReason(memberNo);
+		
+		model.addAttribute("denyReason", denyReason);
+		
 		return "member/authNoticeDeny";
 	}
 	
@@ -94,7 +101,6 @@ public class AdminController {
 			graphMap = service.selectGraph();
 			
 		}
-
 		
 		return new Gson().toJson(graphMap);
 	}
@@ -335,29 +341,24 @@ public class AdminController {
 	// 판매자 거절 (인증 보류)
 	@PostMapping("/admin/sellerDeny")
 	@ResponseBody
-	public int sellerDeny(@SessionAttribute(value = "loginMember") Member loginMember, int hiddenNo) {
+	public int sellerDeny(@SessionAttribute(value = "loginMember") Member loginMember, int hiddenNo,
+							@RequestParam(value="denyReason", required=false) String denyReason
+							) {
 		
 		// 관리자인지 확인 (관리자면 result==1)
 		int result = service.checkAdmin();
 		
-		
 		if(result == 1 && loginMember != null) {
 
 			// 해당 회원번호의 인증 보류
-			result = service.sellerDeny(hiddenNo);
-	
+			result = service.sellerDeny(hiddenNo, denyReason);
+			
 		} else {
 			System.out.println("관리자만 접근 가능합니다.");
 		}
 		
 		return result;
-
 	}
-	
-	
-	
-	
-	
 	
 	
 	
