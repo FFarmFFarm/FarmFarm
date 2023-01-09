@@ -170,7 +170,7 @@ const makeChatPreviewBox = (chatRoom) => {
         chatPreviewBox.append(thumbnailImg, roomTitle, boxLabel);
     
         // unreadChatCount 세팅(빨강)
-        console.log(chatRoom.roomNo);
+        // console.log(chatRoom.roomNo);
         if(chatRoom.roomNo != selectedRoomNo) {
             if (chatRoom.unreadChatCount > 0) { // 읽지 않은 채팅이 있는 경우
                 let count = 0;
@@ -255,6 +255,14 @@ const selectChatList = (roomNo) => {
 
             // 가림막 치우기
             document.getElementById('roomBodyBlinder').style.display = 'none';
+
+            // 이모티콘 에리어 닫기
+            document.querySelector('.emoticon-container').classList.add('emoticon-hide');
+
+            // 사진 영역 제거
+            document.getElementById('inputImgPreview').removeAttribute('src');
+            document.getElementById('inputImgPreviewBox').style.height = 0;
+            document.getElementById('inputImgPreviewBox').style.opacity = 0;
 
             // UnreadCount를 0으로 만듦
             updateReadCount();
@@ -400,8 +408,18 @@ const makeSentChat = (chat, newChatTime) => {
 
     packUpElement(sentChat, 'sent-chat', null);
 
-    if(chat.chatType === 'T') { // 사진이 아닌 경우!
+    if(chat.chatType === 'T') { // 텍스트인 경우
         packUpElement(sentBubble, 'sent-bubble', chat.chatContent);
+
+    } else if(chat.chatType === 'E'){ // 이모티콘인 경우
+
+        const imgArea = document.createElement('img');
+        imgArea.setAttribute('src', chat.chatContent);
+        imgArea.setAttribute('onerror', "this.src='/resources/images/chat2/default/no-pictures.png'");
+
+        packUpElement(sentBubble, 'sent-bubble', null);
+        sentBubble.append(imgArea);
+
     } else { // 사진인 경우...
         const imgArea = document.createElement('img');
         imgArea.setAttribute('src', chat.chatContent);
@@ -450,8 +468,19 @@ const makeReceivedChat = (chat, newChatTime) => {
     packUpElement(memberNickname, 'sender-name', chat.memberNickname);
     packUpElement(receivedBubbleTail, 'received-bubble-tail', null);
 
-    if(chat.chatType === 'T') {
+    if(chat.chatType === 'T') { // 텍스트인 경우
+
         packUpElement(receivedBubble, 'received-bubble', chat.chatContent);
+
+    } else if (chat.chatType === 'E') { // 이모티콘인 경우
+
+        const imgArea = document.createElement('img');
+        imgArea.setAttribute('src', chat.chatContent);
+        imgArea.setAttribute('onerror', "this.src='/resources/images/chat2/default/no-pictures.png'");
+
+        packUpElement(receivedBubble, 'received-bubble', null);
+        receivedBubble.append(imgArea);
+
     } else {
         const imgArea = document.createElement('img');
         imgArea.setAttribute('src', chat.chatContent);
@@ -580,9 +609,9 @@ const sendImgToServer = () => {
     // 스크롤을 하단으로 내림
     const nowScrollHeight = readingArea.scrollHeight;
     readingArea.scrollTo(0, nowScrollHeight);
-
  
 }
+
 
 /* 버튼, 엔터에 채팅 보내기 이벤트 */
 document.getElementById('sendBtn').addEventListener('click', ()=>{
@@ -662,6 +691,10 @@ const onMessage = (chat) => {
 
 /* 사진 선택 버튼 */
 document.getElementById('addImageBtn').addEventListener('click', ()=>{
+
+    // 이모티콘 에리어 닫기
+    document.querySelector('.emoticon-container').classList.add('emoticon-hide');
+
     if(selectedRoomNo != null) {
         document.getElementById('imageInput').click();
     }
@@ -860,34 +893,38 @@ const shortcut = (shortcutNo) => {
 /* 1. 입장 시 조회 처리 : UNREAD_CHAT_COUNT 0으로 만들기 */
 const updateReadCount = () => {
 
-    let formData = new FormData();
+    if (document.getElementById('readingArea').innerHTML != ""){
 
-    formData.append("memberNo", myMemberNo);
-    formData.append("roomNo", selectedRoomNo);
-
-    axios.post("/chat/update/readcount", formData
-    ).then(function (response) {
-        // console.log('결과 : ' + response.data)
-    }).catch(function (error) {
-        console.log(error)
-    })
+        let formData = new FormData();
+    
+        formData.append("memberNo", myMemberNo);
+        formData.append("roomNo", selectedRoomNo);
+    
+        axios.post("/chat/update/readcount", formData
+        ).then(function (response) {
+            // console.log('결과 : ' + response.data)
+        }).catch(function (error) {
+            console.log(error)
+        })
+    }
 
 }
 
 /* 2. 입장 시 조회 처리 : UNREAD_CHAT_COUNT 0으로 만들기 */
 const updateUnreadCount = () => {
 
-    let formData = new FormData();
+    if (document.getElementById('readingArea').innerHTML != "") {
+        let formData = new FormData();
 
-    formData.append("memberNo", myMemberNo);
-    formData.append("roomNo",selectedRoomNo);
+        formData.append("memberNo", myMemberNo);
+        formData.append("roomNo",selectedRoomNo);
 
-    axios.post("/chat/update/unread", formData
-        ).then(function(response){
-            // console.log('결과 : ' + response.data)
-        }).catch(function(error){
-            console.log(error)
-        })
-
+        axios.post("/chat/update/unread", formData
+            ).then(function(response){
+                // console.log('결과 : ' + response.data)
+            }).catch(function(error){
+                console.log(error)
+            })
+    }
 }
 

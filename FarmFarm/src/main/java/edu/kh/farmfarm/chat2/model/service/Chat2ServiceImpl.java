@@ -16,6 +16,7 @@ import edu.kh.farmfarm.chat2.model.vo.Chat2;
 import edu.kh.farmfarm.chat2.model.vo.Chat2Enter;
 import edu.kh.farmfarm.chat2.model.vo.Chat2Img;
 import edu.kh.farmfarm.chat2.model.vo.Chat2Room;
+import edu.kh.farmfarm.chat2.model.vo.Emoticon;
 import edu.kh.farmfarm.common.Util;
 import edu.kh.farmfarm.member.model.VO.Member;
 
@@ -371,6 +372,18 @@ public class Chat2ServiceImpl implements Chat2Service {
 		updateMap.put("roomNo", roomNo);
 		
 		return dao.updateReadCount(updateMap);
+	}
+
+
+	// 이모티콘 카테고리 리스트
+	@Override
+	public List<Emoticon> selectEmoticonCategoryList() {
+		return dao.selectEmoticonCategoryList();
+	}
+
+	@Override
+	public List<Emoticon> selectEmoticonList(int emoticonCategoryNo) {
+		return dao.selectEmoticonList(emoticonCategoryNo);
 	}
 
 

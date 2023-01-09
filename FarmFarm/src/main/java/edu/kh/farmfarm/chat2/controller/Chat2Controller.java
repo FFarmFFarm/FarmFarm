@@ -24,6 +24,7 @@ import com.google.gson.Gson;
 import edu.kh.farmfarm.chat2.model.service.Chat2Service;
 import edu.kh.farmfarm.chat2.model.vo.Chat2;
 import edu.kh.farmfarm.chat2.model.vo.Chat2Room;
+import edu.kh.farmfarm.chat2.model.vo.Emoticon;
 import edu.kh.farmfarm.member.model.VO.Member;
 
 @Controller
@@ -277,8 +278,9 @@ public class Chat2Controller {
 	public String updateUnreadCount(
 			int memberNo, int roomNo) {
 		
-		// 회원 번호와, 방 번호를 받아서, 읽음 처리함
+		// 회원 번호와, 방 번호를 받아서, 읽음 처리함(업데이트할 내용이 없는 경우 -2)
 		int result = service.updateUnreadCount(memberNo, roomNo);
+		
 		
 		return new Gson().toJson(result);
 	}
@@ -288,13 +290,32 @@ public class Chat2Controller {
 	@ResponseBody
 	public String updateReadCount(int memberNo, int roomNo) {
 		
-		// 회원 번호와, 방 번호를 받아서, read count를 +1함
+		// 회원 번호와, 방 번호를 받아서, read count를 +1함(업데이트할 내용이 없는 경우 -2)
 		int result = service.updateReadCount(memberNo, roomNo);
 		
 		return new Gson().toJson(result);
 	}
-
 	
-
+	// 이모티콘 카테고리 리스트
+	@PostMapping("/select/emoticon/category")
+	@ResponseBody
+	public String selectEmoticonCategoryList() {
+		
+		List<Emoticon> emoticonCategoryList = service.selectEmoticonCategoryList();
+		
+		return new Gson().toJson(emoticonCategoryList);
+	}
+	
+	// 이모티콘 리스트
+	@PostMapping("/select/emoticon/list")
+	@ResponseBody
+	public String selectEmoticonList(
+			int emoticonCategoryNo) {
+		
+		List<Emoticon> emoticonList = service.selectEmoticonList(emoticonCategoryNo);
+		
+		return new Gson().toJson(emoticonList);
+	}
+	
 	
 }	
