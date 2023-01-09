@@ -57,6 +57,7 @@ goList.addEventListener("click", ()=>{
     const url = pathname.substring(0, pathname.lastIndexOf("/"))+queryString;
     location.href = url;
     // showBoardList(cpp, sortt, queryy, keyy);
+    // showBoardList(cpp, sortt, queryy, keyy);
 
     // const state = {'cp':cpp, 'sort':sortt, 'key':keyy, 'query':queryy}
     // const title = '';
