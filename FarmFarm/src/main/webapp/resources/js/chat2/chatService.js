@@ -150,7 +150,9 @@ const makeChatPreviewBox = (chatRoom) => {
         packUpElement(boxLabel, 'box-label', null);
     
         if(chatRoom.lastChatType == 'I') { // 사진인 경우
-            packUpElement(lastChatContent, 'last-chat-content', "사진을 보냈습니다.");
+            packUpElement(lastChatContent, 'last-chat-content', "(사진)");
+        } else if (chatRoom.lastChatType == 'E'){
+            packUpElement(lastChatContent, 'last-chat-content', "(이모티콘)");
         } else { // 사진이 아닌 경우
             if(chatRoom.lastChatContent != null) { // 텍스트이고, 내용이 있는 경우
                 packUpElement(lastChatContent, 'last-chat-content', chatRoom.lastChatContent);
