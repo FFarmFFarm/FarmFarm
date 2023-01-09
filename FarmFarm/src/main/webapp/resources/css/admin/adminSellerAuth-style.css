@@ -112,20 +112,6 @@ main{
 }
 
 
-.update-image{
-    color: var(--point-color);
-    font-size: var(--small-font-size);
-    display: flex;
-    justify-content: flex-end;
-    margin-right: 35px;
-    cursor: pointer;
-}
-
-.update-image:hover{
-    color: #555;
-}
-
-
 #watingSellerBtn{
     width: 97px;
     height: 18px;
@@ -347,6 +333,7 @@ main{
 .auth-image{
     width: 350px;
     height: 450px;
+    position: relative;
 }
 
 .auth-image > img{
@@ -354,6 +341,94 @@ main{
     height: 100%;
     cursor: pointer;
 }
+
+
+.update-image-btn{
+    color: var(--point-color);
+    font-size: var(--small-font-size);
+    cursor: pointer;
+    border: none;
+    background-color: white;
+    position: absolute;
+    left: 305px;
+    top: 555px;
+
+}
+
+.update-image-btn:hover{
+    color: #555;
+}
+
+
+#submitBtn{
+    background-color: var(--modal-background-color);
+    border: 1px solid white;
+    color: white;
+    width: 120px;
+    height: 30px;
+    border-radius: 7px;
+}
+
+
+
+/* 이미지 업데이트 모달 */
+.update-farmImg-div{
+    width: 350px;
+    height: 452px;
+    background-color: var(--modal-background-color);
+
+    /* position: relative; */
+    position: absolute;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    top: 98px;
+    left: 30px;
+    display: none;
+}
+
+.update-input{
+    width: 150px;
+    min-width: 170px;
+    background-color: var(--modal-background-color);
+    color: white;
+    margin-bottom: 10px;
+}
+
+
+.flex-div{
+    width: 350px;
+    height: 452px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+/* .update-input::placeholder{
+    color: lightgray;
+} */
+
+/* .update-button{
+    width: 50px;
+    height: 32px;
+    border: none;
+    background-color: var(--modal-background-color);
+    border: 1px solid white;
+    color: white;
+    border-radius: 5px;
+    margin-left: 5px;
+} */
+
+    
+
+
+
 
 /* 신청서 */
 .seller-auth-div{
@@ -425,22 +500,4 @@ adminModal-style.css------------------------------- */
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* 이미지 업데이트 모달 */
-.image-update-modal{
-    width: 350px;
-    height: 450px;
-}
 

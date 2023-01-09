@@ -368,6 +368,15 @@
 	</select>
 	
 	
+	<!-- 판매자 인증 이미지 업데이트 -->
+	<update id="updateSellerImage">
+		UPDATE "SELLER" SET
+		FARM_IMG = #{farmImg}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	
+	
 	
 	<!-- 미처리 신고 개수 -->
 	<select id="reportListCount" resultType="_int">
