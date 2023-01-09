@@ -271,7 +271,7 @@ public class Chat2Controller {
 		return new Gson().toJson(result);
 	}
 	
-	// 1. 입장 시 조회 처리 : UNREAD_CHAT_COUNT 0으로 만들기 
+	// 2. 입장 시 조회 처리 : UNREAD_CHAT_COUNT 0으로 만들기 
 	@PostMapping("/update/unread")
 	@ResponseBody
 	public String updateUnreadCount(
@@ -283,34 +283,18 @@ public class Chat2Controller {
 		return new Gson().toJson(result);
 	}
 	
-	
-	// 입장 시 채팅 
-//	@PostMapping("/insert/system")
-//	@ResponseBody
-//	public String insertNewSystenChat(int roomNo, String chatContent) {
-//		
-//		int result = service.insertNewSystemChat(roomNo, chatContent);
-//		
-//		return new Gson().toJson(result);
-//	}
-	
+	// 1. 입장 시 조회 처리 : n명 읽음 + 1;
+	@PostMapping("/update/readcount")
+	@ResponseBody
+	public String updateReadCount(int memberNo, int roomNo) {
+		
+		// 회원 번호와, 방 번호를 받아서, read count를 +1함
+		int result = service.updateReadCount(memberNo, roomNo);
+		
+		return new Gson().toJson(result);
+	}
 
 	
-	
-	// 입장 시 조회 처리
-//	@PostMapping("/update/view")
-//	@ResponseBody
-//	public String updateView(int roomNo, int memberNo) {
-//		
-//		int lastReadChatNo = service.updateLastReadChatNo(roomNo, memberNo);
-//		
-//		int result = -1;
-//		
-//		if(lastReadChatNo > 0) {
-//			result = service.updateViewCount(roomNo, memberNo, lastReadChatNo);
-//		} 
-//
-//		return new Gson().toJson(result);
-//	}
+
 	
 }	

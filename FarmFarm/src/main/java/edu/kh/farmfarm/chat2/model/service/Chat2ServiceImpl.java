@@ -350,18 +350,7 @@ public class Chat2ServiceImpl implements Chat2Service {
 		return dao.deleteChatEnter(chat2Enter);
 	}
 
-	// 입장 시 시스템 메시지
-//	@Override
-//	@Transactional(rollbackFor = Exception.class)
-//	public int insertNewSystemChat(int roomNo, String chatContent) {
-//		Chat2 chat = new Chat2();
-//		chat.setRoomNo(roomNo);
-//		chat.setChatContent(chatContent);
-//		return dao.insertNewSystemChat(chat);
-//	}
-
-
-	// 1. 입장 시 조회 처리 : UNREAD_CHAT_COUNT 0으로 만들기 J
+	// 2. 입장 시 조회 처리 : UNREAD_CHAT_COUNT 0으로 만들기 J
 	@Override
 	public int updateUnreadCount(int memberNo, int roomNo) {
 		
@@ -371,6 +360,17 @@ public class Chat2ServiceImpl implements Chat2Service {
 		
 		return dao.updateUnreadCount(updateMap);
 		
+	}
+	
+	// 1. 입장 시 조회 처리 : n명 읽음 + 1;
+	@Override
+	public int updateReadCount(int memberNo, int roomNo) {
+		
+		Map<String, Object> updateMap = new HashMap<String, Object>();
+		updateMap.put("memberNo", memberNo);
+		updateMap.put("roomNo", roomNo);
+		
+		return dao.updateReadCount(updateMap);
 	}
 
 

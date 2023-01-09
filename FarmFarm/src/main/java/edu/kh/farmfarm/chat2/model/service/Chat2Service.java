@@ -119,12 +119,20 @@ public interface Chat2Service {
 	
 	
 
-	/** 1. 입장 시 조회 처리 : UNREAD_CHAT_COUNT 0으로 만들기
+	/** 2. 입장 시 조회 처리 : UNREAD_CHAT_COUNT 0으로 만들기
 	 * @param memberNo
 	 * @param roomNo
 	 * @return
 	 */
 	int updateUnreadCount(int memberNo, int roomNo);
+
+	
+	/** 1. 입장 시 조회 처리 : n명 읽음 + 1;
+	 * @param memberNo
+	 * @param roomNo
+	 * @return
+	 */
+	int updateReadCount(int memberNo, int roomNo);
 
 
 

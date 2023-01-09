@@ -211,12 +211,20 @@ public class Chat2DAO {
 	}
 
 
-	/** 1. 입장 시 조회 처리 : UNREAD_CHAT_COUNT 0으로 만들기 J
+	/** 2. 입장 시 조회 처리 : UNREAD_CHAT_COUNT 0으로 만들기 J
 	 * @param updateMap
 	 * @return
 	 */
 	public int updateUnreadCount(Map<String, Object> updateMap) {
 		return sqlSession.update("chat2Mapper.updateUnreadCount", updateMap);
+	}
+
+	/** 1. 입장 시 조회 처리 : n명 읽음 + 1;
+	 * @param updateMap
+	 * @return
+	 */
+	public int updateReadCount(Map<String, Object> updateMap) {
+		return sqlSession.update("chat2Mapper.updateReadCount", updateMap);
 	}
 
 

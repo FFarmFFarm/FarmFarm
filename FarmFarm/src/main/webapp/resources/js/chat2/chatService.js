@@ -257,6 +257,7 @@ const selectChatList = (roomNo) => {
             document.getElementById('roomBodyBlinder').style.display = 'none';
 
             // UnreadCount를 0으로 만듦
+            updateReadCount();
             updateUnreadCount();
 
         }).catch(function (error) {
@@ -413,11 +414,13 @@ const makeSentChat = (chat, newChatTime) => {
     packUpElement(sentBubbleTail, 'sent-bubble-tail', null);
     packUpElement(sentBubbleTime, 'sent-bubble-time', newChatTime);
     
-    // if(chat.readCount >= 0) { // readCount가 0보다 클 때만
-    //     const sentBubbleReadCount = document.createElement('div');
-    //     packUpElement(sentBubbleReadCount, 'sent-bubble-read-count', chat.readCount + '명 읽음');
-    //     sentBubble.append(sentBubbleReadCount);
-    // }
+    // read-count 보여주기!
+    if(chat.readCount >= 0) { // readCount가 0보다 클 때만
+        const sentBubbleReadCount = document.createElement('div');
+        packUpElement(sentBubbleReadCount, 'sent-bubble-read-count', chat.readCount + '명 읽음');
+        sentBubble.append(sentBubbleReadCount);
+    }
+
     sentBubble.append(sentBubbleTime);
     sentBubble.id = chat.chatNo;
     sentChat.append(sentBubble, sentBubbleTail);
@@ -459,11 +462,12 @@ const makeReceivedChat = (chat, newChatTime) => {
     }
     packUpElement(receivedBubbleTime, 'received-bubble-time', newChatTime);
     
-    // if (chat.readCount >= 0) { // readCount가 0보다 클 때만
-    //     const receivedBubbleReadCount = document.createElement('div');
-    //     packUpElement(receivedBubbleReadCount, 'received-bubble-read-count', chat.readCount + '명 읽음');
-    //     receivedBubble.append(receivedBubbleReadCount);
-    // }
+    // read-count 출력하기!
+    if (chat.readCount >= 0) { // readCount가 0보다 클 때만
+        const receivedBubbleReadCount = document.createElement('div');
+        packUpElement(receivedBubbleReadCount, 'received-bubble-read-count', chat.readCount + '명 읽음');
+        receivedBubble.append(receivedBubbleReadCount);
+    }
 
     receivedBubble.append(receivedBubbleTime);
     receivedBubble.id = chat.memberNo;
@@ -500,6 +504,7 @@ const sendChatToServer = () => {
         chattingSock.send(JSON.stringify(obj));
 
         // UnreadCount를 0으로 만듦
+        updateReadCount();
         updateUnreadCount();
     }
 
@@ -558,6 +563,7 @@ const sendImgToServer = () => {
                 chattingSock.send(JSON.stringify(obj));
 
                 // UnreadCount를 0으로 만듦
+                updateReadCount();
                 updateUnreadCount();
 
             })
@@ -605,9 +611,6 @@ const onMessage = (chat) => {
 
     if(selectedRoomNo == chat.roomNo) { // 해당 채팅방을 보고 있는 경우..
 
-        // UnreadCount를 0으로 만듦
-        updateUnreadCount();
-
         // 시간 데이터를 가공해서 연월일과 시분초로 분리
         const chatDate = chat.chatTime.substring(0, 10);
         
@@ -646,6 +649,11 @@ const onMessage = (chat) => {
         const nowScrollHeight = readingArea.scrollHeight;
         readingArea.scrollTo(0,nowScrollHeight);
 
+
+        // UnreadCount를 0으로 만듦
+        updateReadCount();
+        updateUnreadCount();
+        
     } else { // 해당 채팅방을 보고 있지 않은 경우..
         console.log('새로운 채팅이 왔어요')
     }
@@ -850,6 +858,23 @@ const shortcut = (shortcutNo) => {
 }
 
 /* 1. 입장 시 조회 처리 : UNREAD_CHAT_COUNT 0으로 만들기 */
+const updateReadCount = () => {
+
+    let formData = new FormData();
+
+    formData.append("memberNo", myMemberNo);
+    formData.append("roomNo", selectedRoomNo);
+
+    axios.post("/chat/update/readcount", formData
+    ).then(function (response) {
+        // console.log('결과 : ' + response.data)
+    }).catch(function (error) {
+        console.log(error)
+    })
+
+}
+
+/* 2. 입장 시 조회 처리 : UNREAD_CHAT_COUNT 0으로 만들기 */
 const updateUnreadCount = () => {
 
     let formData = new FormData();
@@ -865,3 +890,4 @@ const updateUnreadCount = () => {
         })
 
 }
+

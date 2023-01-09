@@ -270,7 +270,7 @@
 	</update>
 	
 	
-	<!-- 1. 입장 시 조회 처리 : UNREAD_CHAT_COUNT 0으로 만들기 J -->
+	<!-- 2. 입장 시 조회 처리 : UNREAD_CHAT_COUNT 0으로 만들기 J -->
 	<update id="updateUnreadCount">
 		UPDATE CHAT2_ENTER
 		SET LAST_READ_CHAT_NO = (SELECT MAX(CHAT_NO)
@@ -281,8 +281,16 @@
 	</update>
 	
 	
-	
-	
+	<!-- 1. 입장 시 조회 처리 : n명 읽음 + 1 -->
+	<update id="updateReadCount">
+		UPDATE CHAT2
+		SET READ_COUNT = READ_COUNT + 1
+		WHERE ROOM_NO = #{roomNo}
+		AND CHAT_NO > (SELECT LAST_READ_CHAT_NO
+					   FROM CHAT2_ENTER
+					   WHERE ROOM_NO = #{roomNo}
+					   AND MEMBER_NO = #{memberNo})	
+	</update>
 	
 	
 	
