@@ -619,7 +619,7 @@ resetCategory.addEventListener('click', ()=>{
     } else {
         const firstEqualSign = queryString.indexOf('=', 0);
         const firstAndSign = queryString.indexOf('&', firstEqualSign);
-        const keyword = queryString.substring(firstAndSign + 1, firstEqualSign);
+        let keyword = queryString.substring(firstAndSign + 1, firstEqualSign);
         requestUrl + '?keyword' + keyword;
     }
     location.href = requestUrl;
