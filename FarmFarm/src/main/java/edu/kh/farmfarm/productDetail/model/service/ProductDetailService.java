@@ -81,4 +81,10 @@ public interface ProductDetailService {
 	 */
 	List<String> selectProductImageList();
 
+	/** 상품 재고 조회
+	 * @param productNo
+	 * @return
+	 */
+	int productStock(int productNo);
+
 }
