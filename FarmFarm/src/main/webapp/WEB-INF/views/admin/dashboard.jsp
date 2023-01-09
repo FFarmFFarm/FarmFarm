@@ -65,6 +65,16 @@
                         <canvas id="orderChart" width="700px"></canvas>
                         <i class="fa-sharp fa-solid fa-angle-left" id="iconLeft"></i>
                     </div>
+                    <div class="board-graph" id="thisWeekSales">
+                        <span class="graph-title">이번주 팜팜매출</span>
+                        <canvas id="orderChart" width="700px"></canvas>
+                        <%-- <i class="fa-sharp fa-solid fa-angle-left" id="iconLeft"></i> --%>
+                    </div>
+                    <div class="board-graph" id="productRanking">
+                        <span class="graph-title">팜팜 TOP 5</span>
+                        <canvas id="orderChart" width="700px"></canvas>
+                        <%-- <i class="fa-sharp fa-solid fa-angle-left" id="iconLeft"></i> --%>
+                    </div>
                 </div>
             </section>
 
