@@ -99,7 +99,7 @@ addEventListener('contextmenu', (e)=>{
             // 모달 그림자
             document.getElementById('chatRoomMenuModal').classList.remove('hide');
             // 삭제 모달 보이기
-            document.querySelector('.report-menu').classList.remove('hide');
+            // document.querySelector('.report-menu').classList.remove('hide');
         })
     } else { // 다른 영역 우클릭 시 닫음
         document.getElementById('receivedBubbleContextMenu').style.display = 'none';
@@ -187,23 +187,23 @@ const reportMenuCalcelBtn = document.getElementById('reportMenuCalcelBtn');
 const reportMenuConfirmBtn = document.getElementById('reportMenuConfirmBtn');
 
 // 취소 버튼 누르면 그냥 닫음
-reportMenuCalcelBtn.addEventListener('click', () => {
-    document.getElementById('chatRoomMenuModal').classList.add('hide');
-    document.querySelector('.report-menu').classList.add('hide');
-})
+// reportMenuCalcelBtn.addEventListener('click', () => {
+//     document.getElementById('chatRoomMenuModal').classList.add('hide');
+//     // document.querySelector('.report-menu').classList.add('hide');
+// })
 
-// 확인 버튼 누르면 신고 진행함
-if (reportMenuConfirmBtn) {
-    reportMenuConfirmBtn.addEventListener('click', () => {
+// // 확인 버튼 누르면 신고 진행함
+// if (reportMenuConfirmBtn) {
+//     reportMenuConfirmBtn.addEventListener('click', () => {
 
 
-        /* 
+//         /* 
         
-        신고 관련 기능은 이곳에 적어주세요!!
+//         신고 관련 기능은 이곳에 적어주세요!!
         
-        */
+//         */
 
-        console.log('신고 기능 준비중입니다.')
-        console.log('선택한 채팅의 작성자 번호는 ' + selectedChatNo + "입니다." );
-    })
-}
+//         console.log('신고 기능 준비중입니다.')
+//         console.log('선택한 채팅의 작성자 번호는 ' + selectedChatNo + "입니다." );
+//     })
+// }
