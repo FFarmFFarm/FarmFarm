@@ -97,12 +97,12 @@
 <img width="30%" src="https://user-images.githubusercontent.com/110653581/211256666-7f2a358b-bb1c-42ef-9f4d-6c9bb95caa9b.jpeg" />
 </td>
 <td align="center">
-<img width="30%" src="https://user-images.githubusercontent.com/110653581/211256711-af116397-18e0-4759-91ee-84d1e12d5cf4.jpeg" />
+<img width="30%" src="https://user-images.githubusercontent.com/110653581/211256866-dc88bfe4-5d3d-4f3e-a736-dd0df72cd4f6.jpeg" /> 
 </td>
 </tr>
 <tr>
 <td align="center"><a href="https://github.com/cy-shin">🐭신충영🐭</a></td>
-<td align="center"><a href="https://github.com/nanazzoo">:chicken:신보경:chicken:</a></td>
+<td align="center"><a href="https://github.com/luejenie">:monkey_face:이은지:monkey_face:</a></td>
 </tr>
 <tr>
 <td align="left"><h5>[상품 목록]<br>
@@ -151,11 +151,56 @@
 :heavy_check_mark:실시간 알림 수신 표시<br>
 </h5>
 </td>
+<td align="left"><h5>[대시보드]<br>
+:heavy_check_mark:통계 : 신규주문, 미처리신고, 판매자인증 신청 수 조회<br>
+:heavy_check_mark:가입자 추이, 매출 추이 그래프 생성(chart.js 이용)<br>
+:heavy_check_mark:실시간 시계 구현 <br><br>
+
+[카테고리별 게시판]<br>
+>공통 기능<br>
+:heavy_check_mark:관리자 페이지 화면 구현<br>
+:heavy_check_mark:전체 목록 조회 : 회원/판매자/신고 목록<br>
+:heavy_check_mark:상세 정보 조회 : 회원, 판매자 상세 정보,<br>
+신고 상세 정보 및 누적 신고 내역 조회<br>
+:heavy_check_mark:목록 페이지네이션 구현<br>
+:heavy_check_mark:비동기 검색 <br>
+: 회원, 판매자, 신고 목록 검색 가능<br>
+:heavy_check_mark:비동기 필터 정렬 <br>
+: 회원 구분, 계정 상태, 게시글 상태 및 신고 상태 구분<br><br>
+
+>개별 기능<br>
+*회원 관리 : 비동기 회원 강제 탈퇴 기능<br>
+*판매자 인증 관리 : 판매자 승인, 보류 기능(비동기)<br>
+*신고 관리 <br>
+:heavy_check_mark:신고된 회원 강제 탈퇴, 정지, 반려 기능 (비동기)<br>
+:heavy_check_mark:신고된 게시글 삭제, 반려 기능<br>
+:heavy_check_mark:누적 신고 횟수 조회 <br>
+:heavy_check_mark:신고 횟수에 따른 오름차순, 내림차순 정렬<br>
+:heavy_check_mark:정지 회원 활성화 스케줄링 (7일 이후 자동 정지 해제)<br><br>
+
+[신고하기]<br>
+:heavy_check_mark:신고 기능 (일반 회원, 판매자, 게시글, 댓글)<br>
+:heavy_check_mark:해당 페이지에서 클릭 시 신고 모달창 열림<br>
+:heavy_check_mark:해당 신고 대상과 신고 사유 포함하여 저장<br></h5>
+</td>
+</tr>
+<tr>
+<td align="center">
+<img width="30%" src="https://user-images.githubusercontent.com/110653581/211256711-af116397-18e0-4759-91ee-84d1e12d5cf4.jpeg" />
+</td>
+<td align="center">
+<img width="30%" src="https://user-images.githubusercontent.com/110653581/211256902-0a93310f-fad0-4876-86f5-d38dd8c5ec37.jpeg" />
+</td>
+</tr>
+<tr>
+<td align="center"><a href="https://github.com/nanazzoo">:chicken:신보경:chicken:</a></td>
+<td align="center"><a href="https://github.com/Hyunjae">🐶정현재🐶</a></td>
+</tr>
+<tr>
 <td align="left"><h5>[마이페이지]<br>
 [프로필]<br>
  :heavy_check_mark:회원 정보 조회<br>
 :heavy_check_mark:프로필 배경 사진 변경 및 삭제 기능 구현<br><br>
-                           
 [주문 목록]<br>
 :heavy_check_mark:주문 내역/상태 조회<br>
 :heavy_check_mark:비동기 페이지네이션 구현<br>
@@ -204,7 +249,6 @@
 :heavy_check_mark:사진 후기 목록(이미지 리스트) 조회<br>
 :heavy_check_mark:후기 도움돼요(추천)<br>
 :heavy_check_mark:회원 본인 후기 수정(후기 내용, 이미지)<br><br>
-                           
 [주문서]<br>
 :heavy_check_mark:주문할 상품 목록 출력<br>
 :heavy_check_mark: 결제 시스템 구현<br>
@@ -213,7 +257,7 @@
 :heavy_check_mark:주문 정보 제출(주문 히스토리 반영)<br>
 :heavy_check_mark:주문 7일 후 자동 구매확정 스케줄러<br><br>
 
-판매글 상세페이지]<br>
+[판매글 상세페이지]<br>
 :heavy_check_mark:판매글 상세 조회<br>
 :heavy_check_mark:상품 이미지 swiper.js API<br>
 :heavy_check_mark:조회수(브라우저 당 1일 1회 증가) <br><br>
@@ -239,57 +283,10 @@
 [이미지 삭제 스케줄러]<br>
 :heavy_check_mark:프로필, 배경, 게시판, 상품, 판매글,<br> 
 리뷰 이미지 서버-DB 동기화<br><br>
-                           
 [로그인 필터]<br>
 :heavy_check_mark:로그인 시 로그인 이전 페이지로 이동<br><br>
 
 [오라클 클라우드 호스팅]</h5>
-</td>
-</tr>
-<tr>
-<td align="center">
-<img width="30%" src="https://user-images.githubusercontent.com/110653581/211256866-dc88bfe4-5d3d-4f3e-a736-dd0df72cd4f6.jpeg" />
-</td>
-<td align="center">
-<img width="30%" src="https://user-images.githubusercontent.com/110653581/211256902-0a93310f-fad0-4876-86f5-d38dd8c5ec37.jpeg" />
-</td>
-</tr>
-<tr>
-<td align="center"><a href="https://github.com/luejenie">:monkey_face:이은지:monkey_face:</a></td>
-<td align="center"><a href="https://github.com/Hyunjae">🐶정현재🐶</a></td>
-</tr>
-<tr>
-<td align="left"><h5>[대시보드]<br>
-:heavy_check_mark:통계 : 신규주문, 미처리신고, 판매자인증 신청 수 조회<br>
-:heavy_check_mark:가입자 추이, 매출 추이 그래프 생성(chart.js 이용)<br>
-:heavy_check_mark:실시간 시계 구현 <br><br>
-
-[카테고리별 게시판]<br>
->공통 기능<br>
-:heavy_check_mark:관리자 페이지 화면 구현<br>
-:heavy_check_mark:전체 목록 조회 : 회원/판매자/신고 목록<br>
-:heavy_check_mark:상세 정보 조회 : 회원, 판매자 상세 정보,<br>
-신고 상세 정보 및 누적 신고 내역 조회<br>
-:heavy_check_mark:목록 페이지네이션 구현<br>
-:heavy_check_mark:비동기 검색 <br>
-: 회원, 판매자, 신고 목록 검색 가능<br>
-:heavy_check_mark:비동기 필터 정렬 <br>
-: 회원 구분, 계정 상태, 게시글 상태 및 신고 상태 구분<br><br>
-
->개별 기능<br>
-*회원 관리 : 비동기 회원 강제 탈퇴 기능<br>
-*판매자 인증 관리 : 판매자 승인, 보류 기능(비동기)<br>
-*신고 관리 <br>
-:heavy_check_mark:신고된 회원 강제 탈퇴, 정지, 반려 기능 (비동기)<br>
-:heavy_check_mark:신고된 게시글 삭제, 반려 기능<br>
-:heavy_check_mark:누적 신고 횟수 조회 <br>
-:heavy_check_mark:신고 횟수에 따른 오름차순, 내림차순 정렬<br>
-:heavy_check_mark:정지 회원 활성화 스케줄링 (7일 이후 자동 정지 해제)<br><br>
-
-[신고하기]<br>
-:heavy_check_mark:신고 기능 (일반 회원, 판매자, 게시글, 댓글)<br>
-:heavy_check_mark:해당 페이지에서 클릭 시 신고 모달창 열림<br>
-:heavy_check_mark:해당 신고 대상과 신고 사유 포함하여 저장<br></h5>
 </td>
 <td align="left"><h5>[판매자 페이지-공통]<br>
 :heavy_check_mark:판매자 프로필 출력<br>
