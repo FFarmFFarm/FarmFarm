@@ -37,20 +37,20 @@
 		<if test=' soldOutFl == 0 '>
 			AND POST_SOLDOUT_FL = 0  
 		</if>
-		ORDER BY POST_SOLDOUT_FL,
+		ORDER BY POST_SOLDOUT_FL
 		<if test=' sort != null'>
 			<choose>
 				<when test=' sort == "views" '>
-					POST_VIEW DESC, POST_NO DESC
+					,POST_VIEW DESC, POST_NO DESC
 				</when>
 				<when test=' sort == "newest" '>
-					POST_NO DESC, POST_NO DESC
+					,POST_NO DESC, POST_NO DESC
 				</when>
 				<when test=' sort == "priceLowToHigh" '>
-					TO_NUMBER(UNIT_PRICE,'999999999999'), POST_NO DESC
+					,TO_NUMBER(UNIT_PRICE,'999999999999'), POST_NO DESC
 				</when>
 				<when test=' sort == "priceHighToLow" '>
-					TO_NUMBER(UNIT_PRICE,'999999999999') DESC, POST_NO DESC
+					,TO_NUMBER(UNIT_PRICE,'999999999999') DESC, POST_NO DESC
 				</when>
 			</choose>
 		</if>

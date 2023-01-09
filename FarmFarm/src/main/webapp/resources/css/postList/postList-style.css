@@ -419,6 +419,7 @@ input[name='sorting']:checked+label {
     color: var(--main-font-color);
     min-height: 20px;
     max-height: 50px;
+    width: 250px;
 
     margin-bottom: 5px;
     text-overflow: ellipsis;
@@ -426,7 +427,7 @@ input[name='sorting']:checked+label {
     word-break: break-all;
 
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 
 

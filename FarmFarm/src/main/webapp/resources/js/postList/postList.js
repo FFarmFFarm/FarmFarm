@@ -266,8 +266,9 @@ const getCustomList = (category, cp, sort) => {
             createPostBox(postMap);
             window.scrollTo(0, 570);
         },
-        error: () => {
+        error: (e) => {
             alert('error-c1');
+            alert(e);
         }
     })
 };
