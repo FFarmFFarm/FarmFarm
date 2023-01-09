@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>와글와글 커뮤니티</title>
+    <title>와글와글 | 커뮤니티</title>
     <script src="https://kit.fontawesome.com/345198b845.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/resources/css/board/boardList-style.css">
     <link rel="stylesheet" href="/resources/css/common/header-style.css" />
@@ -26,23 +26,23 @@
     
     <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
-        <c:if test="${not empty param.key}">
-            <c:set var="sURL" value="&key=${param.key}&query=${param.query}"/>
+        <c:if test="${not empty param.key || not empty param.sort}">
+            <c:set var="sURL" value="&key=${param.key}&query=${param.query}&sort=${param.sort}"/>
         </c:if>
         <%-- <c:if test="${not empty param.query}">
             <c:set var="sURL" value="&query=${param.query}"/>
         </c:if> --%>
-        <c:if test="${not empty param.sort}">
+        <%-- <c:if test="${not empty param.sort}">
             <c:set var="soURL" value="&sort=${param.sort}"/>
-        </c:if>
+        </c:if> --%>
 
     <main>
         <section class="board-top">
-            <div class="board-top-title">와글와글 물물교환</div>
+            <div class="board-top-title">와글와글 자유게시판</div>
         </section>
         <section class="board-nav">
             <div class="board-nav-area">
-                <a id="type1" href="/board/${1}">물물교환</a>
+                <a id="type1" href="/board/${1}">자유게시판</a>
                 <a id="type2" href="/board/${2}">팁</a>
                 <a id="type3" href="/board/${3}">질문</a>
             </div>
@@ -73,6 +73,7 @@
                     </ul>
                 </div>
             </div>
+            <input type="hidden" id="tempSort">
         </form>
         <section class="board-list">
             <div class="board-list-top">
@@ -175,8 +176,6 @@
 
     <!-- 신고 모달창 -->
     <jsp:include page="/WEB-INF/views/report/report-modal.jsp"/> 
-    <script src="/resources/js/report/report-modal-common.js"></script>
-    <script src="/resources/js/report/report-modal-boardList.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"
     integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
@@ -184,14 +183,14 @@
     <script>
         let boardTypeNo = ${boardTypeNo};
 
-        let sort = "new";
+        let sort = "${param.sort}";
 
         const inputQuery = document.getElementById("inputQuery");
         // let query = inputQuery.value;
         let query = "${param.query}";
         let key = "${param.key}";
 
-        let cp = 1;
+        let cp = "${pagination.currentPage}";
 
         const loginYN = "${loginMember}";
 
@@ -199,6 +198,8 @@
     <script src="/resources/js/board/boardList.js"> </script>
     <script src="/resources/js/member/memberModal.js"> </script>
     <script src="/resources/js/common/common.js"> </script>
+    <script src="/resources/js/report/report-modal-common.js"></script>
+    <script src="/resources/js/report/report-modal-boardList.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 

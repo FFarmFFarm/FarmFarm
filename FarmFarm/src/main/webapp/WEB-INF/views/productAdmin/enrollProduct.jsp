@@ -127,7 +127,7 @@
                 </div>
                 <div class="product-items">
                     <p class="item-title">상품 설명</p>
-                    <textarea rows="5" cols="111" class="product-message" name="productMessage"
+                    <textarea rows="5" cols="111" class="product-message" name="productMessage" spellcheck="false"
                         placeholder="상품에 대한 정보를 간략히 작성해주세요."
                         style="resize: none"></textarea>
                 </div>
