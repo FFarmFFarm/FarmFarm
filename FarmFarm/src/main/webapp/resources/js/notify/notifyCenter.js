@@ -155,20 +155,15 @@ const selectNotifyList = () => {
                             icon = '<i class="fa-solid fa-envelope-open-text"></i>'; 
                             break;   
                         }
-                        case 302: { // 구매 확정 요청
+                        case 302: { // 배송중
                             packupElement(notifyBox, 'shop', null);
-                            icon = '<i class="fa-solid fa-box"></i>';
+                            icon = '<i class="fa-solid fa-truck"></i>';
                              break;                  
                         }
-                        case 303: { // 후기 요청
+                        case 303: { // 주문 취소
                             packupElement(notifyBox, 'shop', null);
-                            icon = '<i class="fa-solid fa-pen"></i>'; 
+                            icon = '<i class="fa-solid fa-envelope-open"></i>'; 
                             break;                  
-                        }
-                        case 401: { // 문의 답변
-                            packupElement(notifyBox, 'inquiry', null);
-                            icon = '<i class="fa-solid fa-circle-exclamation"></i>';
-                            break;   
                         }
                     }
 

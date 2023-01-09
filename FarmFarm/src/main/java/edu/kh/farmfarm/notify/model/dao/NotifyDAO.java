@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.kh.farmfarm.notify.model.vo.Notify;
+import edu.kh.farmfarm.notify.model.vo.NotifyOrder;
 
 @Repository
 public class NotifyDAO {
@@ -92,6 +93,15 @@ public class NotifyDAO {
 	 */
 	public String selectNotifyTitle(int notifyTypeNo) {
 		return sqlSession.selectOne("notifyMapper.selectNotifyTitle", notifyTypeNo);
+	}
+
+
+	/** 상품 주문 알림 발생을 위한 정보 요청
+	 * @param orderNo
+	 * @return
+	 */
+	public List<NotifyOrder> selectTransaction(int orderNo) {
+		return sqlSession.selectOne("notifyMapper.selectTransaction", orderNo);
 	}
 
 

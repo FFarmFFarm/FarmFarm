@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import edu.kh.farmfarm.member.model.VO.Member;
 import edu.kh.farmfarm.notify.model.service.NotifyService;
 import edu.kh.farmfarm.notify.model.vo.Notify;
+import edu.kh.farmfarm.notify.model.vo.NotifyOrder;
 
 @Controller
 public class NotifyController {
@@ -103,5 +104,14 @@ public class NotifyController {
 	@ResponseBody
 	public String deleteNotify(int notifyNo) {
 		return new Gson().toJson(service.deleteNotify(notifyNo));
+	}
+	
+	// 상품 주문 알림 발생을 위한 정보 요청
+	@PostMapping("/notify/select/transaction")
+	@ResponseBody
+	public String selectTransaction(int orderNo) {
+		List<NotifyOrder> transactionInfo = service.selectTransaction(orderNo);
+		
+		return new Gson().toJson(transactionInfo);
 	}
 }

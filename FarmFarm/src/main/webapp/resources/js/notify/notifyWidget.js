@@ -181,6 +181,9 @@ const fillNotifyWidget = (notifyList) => {
             case 201: icon = '<i class="fa-solid fa-comment-dots"></i>'; break;
             case 202: icon = '<i class="fa-solid fa-comment-dots"></i>'; break;
             case 301: icon = '<i class="fa-solid fa-envelope-open-text"></i>'; break;
+            case 302: notifyReceiverIcon.innerHTML = '<i class="fa-solid fa-truck"></i>'; break;
+            case 303: notifyReceiverIcon.innerHTML = '<i class="fa-solid fa-envelope-open"></i>'; break;
+            // case (원하는 notifyTypeNo) : notifyReceiverIcon.innerHTML = (원하는 아이콘); break
         }
 
         packupWidgetElement(notifyWidgetIcon, 'notify-widget-icon', icon);

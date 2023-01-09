@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.gson.JsonElement;
+
 import edu.kh.farmfarm.notify.model.dao.NotifyDAO;
 import edu.kh.farmfarm.notify.model.vo.Notify;
+import edu.kh.farmfarm.notify.model.vo.NotifyOrder;
 
 @Service
 public class NotifyServiceImpl implements NotifyService {
@@ -78,6 +81,12 @@ public class NotifyServiceImpl implements NotifyService {
 	@Override
 	public String selectNotifyTitle(int notifyTypeNo) {
 		return dao.selectNotifyTitle(notifyTypeNo);
+	}
+
+	// 상품 주문 알림 발생을 위한 정보 요청
+	@Override
+	public List<NotifyOrder> selectTransaction(int orderNo) {
+		return dao.selectTransaction(orderNo);
 	}
 
 
