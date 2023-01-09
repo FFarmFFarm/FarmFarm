@@ -335,8 +335,8 @@ body{
 
 /* 읽지 않은 채팅 개수 */
 .unread-chat-count{
-    width: 20px;
-    height: 20px;
+    width: 23px;
+    height: 23px;
     background-color: rgb(250, 83, 83);
     color: white;
     font-size: var(--small-font-size);
@@ -919,7 +919,22 @@ body{
 
 #addImageBtn{
     background-color: white;
+
     border: none;
+    border-radius: 10px;
+    height: 35px;
+    width: 5%;
+    margin-left: 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition-duration: 0.2s;
+}
+
+#addEmoticonBtn{
+    background-color: white;
 
     border: none;
     border-radius: 10px;

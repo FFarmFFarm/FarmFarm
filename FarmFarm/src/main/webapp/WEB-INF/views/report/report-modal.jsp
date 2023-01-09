@@ -21,7 +21,7 @@
 
             <span class="report-title"> 
                 <i class="fa-solid fa-triangle-exclamation"></i>
-                신고
+                신고<br>
             </span>
             
             <div class="report-form-div">
@@ -36,7 +36,8 @@
                     <label for="7"><input type="radio" name="reportRadio" id="7"><span class="radio-text">지식재산권 침해</span></label>
                     <label for="8"><input type="radio" name="reportRadio" id="8"><span class="radio-text">기타</span></label>
 
-                    <textarea id="reportContent" cols="50" rows="3" spellcheck="false" maxlength="500" placeholder="500자 제한"></textarea><br>
+                    <textarea id="reportContent" cols="50" rows="3" spellcheck="false" maxlength="500" 
+                            placeholder="허위 신고시 제재를 받을 수 있습니다."></textarea><br>
                 </div>
                 <button id="reportSubmitBtn">신고하기</button>
             </div>

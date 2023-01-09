@@ -48,17 +48,29 @@ public class BoardListController {
 			@PathVariable("boardTypeNo") int boardTypeNo,
 			Model model,
 			@RequestParam(value="cp", required = false, defaultValue = "1") int cp,
+//			@RequestParam(value="sort", required = false, defaultValue = "new") String sort,
 			@RequestParam Map<String, Object> pm) {
+		
+//			String key = null;
+//			String query = null;
 		
 //			// 검색 안하는 경우
 			if(pm == null) {
 				pm.put("key", "t");
 				pm.put("query", null);
+//				key = "t";
 			}
+//			else {
+//				key = (String)pm.get("key");
+//				query = (String)pm.get("query");
+//			}
 
 			pm.put("boardTypeNo", boardTypeNo);
+//			pm.put("sort", sort);
 			
 			Map<String, Object> boardMap = service.selectBoardList(pm, cp);
+//			boardMap.put("key", key);
+//			boardMap.put("query", query);
 			model.addAttribute("boardMap", boardMap);
 			
 		return "board/boardList";
@@ -79,6 +91,9 @@ public class BoardListController {
 		
 		
 		Map<String, Object> searchMap = new HashMap<String, Object>();
+		
+		if(sort == "" || sort == null) sort = "new";
+		if(key == "" || key == null) sort = "t";
 		
 		searchMap.put("query", query);
 		searchMap.put("boardTypeNo", boardTypeNo);

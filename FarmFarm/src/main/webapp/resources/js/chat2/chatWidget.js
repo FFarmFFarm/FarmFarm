@@ -66,6 +66,14 @@ addEventListener("DOMContentLoaded", () => {
 /* 원리 : 내가 선택한 영역(=이벤트가 발생한 영역)의 최상위 요소가
 내가 선택한 요소를 포함하고 있는지를 확인해서, 포함하지 않고 있으면 가림 */
 
+// 요소 채우기
+
+const packupChatElement = (element, className, elementContent) => {
+    element.classList.add(className); // 클래스 이름 지정
+    if(elementContent != null) { // 내용이 null이 아닌 경우
+        element.innerHTML = elementContent; // 내용을 집어넣음
+    }
+}
 
 
 /* 채팅 위젯 열기 이벤트 */
@@ -148,41 +156,47 @@ const fillChatWidget = (chatRoomList) => {
             // 재료 손질
             // chatWidgetBox 세팅
             chatWidgetBox.id = chatRoom.roomNo;
-            packUpElement(chatWidgetBox, 'chatWidget-box', null);
+            packupChatElement(chatWidgetBox, 'chatWidget-box', null);
     
             // thumbnailImg 세팅 : 채팅방 유형이 상품이 아닌 경우 기본 이미지를 채워넣음
             if (chatRoom.roomType == 0) {
-                packUpElement(chatWidgetBox, 'free', null);
-                packUpElement(chatWidgetThumbnailImg, 'chatWidget-thumbnail-img', "<img src='/resources/images/chat2/default/talking.png'>");
-                packUpElement(chatWidgetRoomTitle, 'chatWidget-room-title', chatRoom.roomName);
+                packupChatElement(chatWidgetBox, 'free', null);
+                packupChatElement(chatWidgetThumbnailImg, 'chatWidget-thumbnail-img', "<img src='/resources/images/chat2/default/talking.png'>");
+                packupChatElement(chatWidgetRoomTitle, 'chatWidget-room-title', chatRoom.roomName);
     
                 // thumbnailImg 세팅 : 채팅방 유형이 상품인 경우 상품 이미지를 채워넣음
             } else {
-                packUpElement(chatWidgetBox, 'post', null);
+                packupChatElement(chatWidgetBox, 'post', null);
                 if (chatRoom.thumbnailImg == undefined) { // 이미지가 없는 경우 기본 이미지
-                    packUpElement(chatWidgetThumbnailImg, 'chatWidget-thumbnail-img', "<img src='/resources/images/member/user.png'>");
+                    packupChatElement(chatWidgetThumbnailImg, 'chatWidget-thumbnail-img', "<img src='/resources/images/member/user.png'>");
                 } else {
-                    packUpElement(chatWidgetThumbnailImg, 'chatWidget-thumbnail-img', "<img src=" + chatRoom.thumbnailImg + ">");
+                    packupChatElement(chatWidgetThumbnailImg, 'chatWidget-thumbnail-img', "<img src=" + chatRoom.thumbnailImg + ">");
                 }
-                packUpElement(chatWidgetRoomTitle, 'chatWidget-room-title', chatRoom.postTitle);
+                packupChatElement(chatWidgetRoomTitle, 'chatWidget-room-title', chatRoom.postTitle);
             }
     
             // 내용 세팅
             if (chatRoom.enterStatus === 'Y') {
                 // box-label, lastChatContent, lastChatTime 세팅
-                packUpElement(chatWidgetBoxLabel, 'chatWidget-box-label', null);
+                packupChatElement(chatWidgetBoxLabel, 'chatWidget-box-label', null);
     
                 if (chatRoom.lastChatType == 'I') { // 사진인 경우
-                    packUpElement(chatWidgetLastChatContent, 'chatWidget-last-chat-content', "사진을 보냈습니다.");
+                    packupChatElement(chatWidgetLastChatContent, 'chatWidget-last-chat-content', "(사진)");
+                } else if(chatRoom.lastChatType == 'E'){
+                    packupChatElement(chatWidgetLastChatContent, 'chatWidget-last-chat-content', "(이모티콘)");
                 } else { // 사진이 아닌 경우
                     if (chatRoom.lastChatContent != null) { // 텍스트이고, 내용이 있는 경우
-                        packUpElement(chatWidgetLastChatContent, 'chatWidget-last-chat-content', chatRoom.lastChatContent);
+                        packupChatElement(chatWidgetLastChatContent, 'chatWidget-last-chat-content', chatRoom.lastChatContent);
                     } else { // 텍스트이고, 내용이 없는 경우
-                        packUpElement(chatWidgetLastChatContent, 'chatWidget-last-chat-content', "-");
+                        packupChatElement(chatWidgetLastChatContent, 'chatWidget-last-chat-content', "-");
                     }
                 }
-    
-                packUpElement(chatWidgetLastChatTime, 'chatWidget-last-chat-time', chatRoom.lastChatTime);
+                
+                if(chatRoom.lastChatTime == undefined) {
+                    packupChatElement(chatWidgetLastChatTime, 'chatWidget-last-chat-time', '');
+                } else {
+                    packupChatElement(chatWidgetLastChatTime, 'chatWidget-last-chat-time', chatRoom.lastChatTime);
+                }
     
     
                 // input값 세팅
@@ -197,9 +211,15 @@ const fillChatWidget = (chatRoomList) => {
                 chatWidgetBox.append(chatWidgetThumbnailImg, chatWidgetRoomTitle, chatWidgetBoxLabel);
     
                 // unreadChatCount 세팅
+
+                
                 if (chatRoom.unreadChatCount > 0) { // 읽지 않은 채팅이 있는 경우
+                    let count = 0;
+                    if (chatRoom.unreadChatCount > 99) count = '99+';
+                    else count = chatRoom.unreadChatCount;
+
                     const chatWidgetUnreadChatCount = document.createElement('div'); // 개별 채팅방의 읽지 않은 메세지 개수
-                    packUpElement(chatWidgetUnreadChatCount, 'chatWidget-unread-chat-count', chatRoom.unreadChatCount);
+                    packupChatElement(chatWidgetUnreadChatCount, 'chatWidget-unread-chat-count', count);
                     chatWidgetBox.append(chatWidgetUnreadChatCount);
                     chatRedDotOnly();
                 }

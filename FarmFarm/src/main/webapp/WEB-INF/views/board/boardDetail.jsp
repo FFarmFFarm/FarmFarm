@@ -107,6 +107,9 @@
         boardMemNo = "${board.memberNo}";
         memberNo = "${loginMember.memberNo}";
         loginAuth = "${loginMember.authority}";
+        let query = "${param.query}";
+        let key = "${param.key}";
+        // let sort = "${param.sort}";
     </script>
     
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
@@ -123,6 +126,8 @@
     <script src="/resources/js/board/boardDetail.js"> </script>
     <script src="/resources/js/board/comment.js"> </script>
     <script src="/resources/js/common/common.js"> </script>
+
+    <script src="/resources/js/board/boardList.js"> </script>
 
     <script src="/resources/js/member/memberModal.js"> </script>
     <script src="/resources/js/report/report-modal-bcm.js"></script>

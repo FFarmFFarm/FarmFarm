@@ -262,7 +262,7 @@ main{
     position: absolute;
     z-index: 500;
     top: 22px;
-    right: -9px;
+    right: 1px;
 
     display: flex;
     flex-direction: column;
@@ -301,6 +301,10 @@ main{
 
 .toggle{
     display: flex;
+}
+
+.toggle2{
+    display: none;;
 }
 
 

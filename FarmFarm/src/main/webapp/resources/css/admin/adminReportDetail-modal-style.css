@@ -277,11 +277,6 @@
 }
 
 
-.off{
-    background-color: lightgray;
-    cursor: default;
-}
-
 
 .show{
     display: block;

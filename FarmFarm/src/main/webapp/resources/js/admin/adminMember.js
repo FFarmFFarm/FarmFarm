@@ -221,7 +221,7 @@ const printMemberList = (memberList, pagination) => {
                     td8.innerText = "활동중";
                 }
     
-                if(member.reportPenalty == 'Y'){
+                if(member.reportPenalty == 'Y' && member.memberDelFl == 'N'){
                     td8.innerText = "정지";
                 }
     
@@ -410,11 +410,11 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
                 tdStatus.innerText = "신고접수";
             }
 
-            if(memberDetailInfo.reportPenalty == 'N' && memberDetailInfo.reportPenalty == 'A'){
+            if(memberDetailInfo.reportPenalty == 'N' || memberDetailInfo.reportPenalty == 'A'){
                 tdStatus.innerText = "활동중";
             }
 
-            if(memberDetailInfo.reportPenalty == 'Y'){
+            if(memberDetailInfo.reportPenalty == 'Y' && memberDetailInfo.memberDelFl == 'N'){
                 tdStatus.innerText = "정지";
             }
         }
@@ -508,18 +508,26 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
     const tbodyHistory = document.createElement("tbody");
     
     for(let history of memberHistoryList){
-        // 3) 신고 처리 내역
-
-        // 강제 탈퇴 버튼
-        const adminDelBtn = document.getElementById('adminDelBtn');
-
         const trReport = document.createElement("tr");
         const tdReportDate = document.createElement("td");
         const tdReport = document.createElement("td");
         const tdReportReason = document.createElement("td");
 
+
+        if(history.reportPenalty == null){
+            tdReportDate.innerHTML = "";
+            tdReport.innerHTML = "";
+            tdReportReason.innerHTML = "";
+        }
+
+        
+        // 3) 신고 처리 내역
+
+        // 강제 탈퇴 버튼
+        const adminDelBtn = document.getElementById('adminDelBtn');
+
         if(history.memberDelFl == 'N'){
-            if(history.reportPenalty == 'Y'){
+            if(history.reportPenalty == 'Y' || history.reportPenalty == 'A'){
                 tdReportDate.innerText = history.processDate;
                 tdReport.innerText = "정지";
                 tdReportReason.innerText = history.reportReason;
@@ -534,11 +542,13 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
         if(history.memberDelFl == 'Y'){
             td6.innerText = "회원 탈퇴";
      
-            if(history.reportPenalty == 'Y'){
-                tdReportDate.innerText = history.processDate;
-                tdReport.innerText = "강제 탈퇴";
-                tdReportReason.innerText = history.reportReason;
-            }
+            // if(history.reportPenalty == 'Y'){
+                adminDelBtn.addEventListener('click', ()=>{
+                    tdReportDate.innerText = history.processDate;
+                    tdReport.innerText = "강제 탈퇴";
+                    tdReportReason.innerText = history.reportReason;
+                })
+            // }
 
             // 가입일자, 가입 상태에 취소선 긋기
             td4.style.textDecoration = 'line-through';
@@ -558,15 +568,17 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
             
         
         //조립
-        
         tr1.append(th1, th2, th3);
         tr2.append(td4, td5, td6);
-        trReport.append(tdReportDate, tdReport, tdReportReason);
-        tbodyHistory.append(trReport);
-        
+
+        if(history.reportPenalty != null){
+            trReport.append(tdReportDate, tdReport, tdReportReason);
+            tbodyHistory.append(trReport);
+        }
     }   
     theadHistory.append(tr1);
     historyTable.append(theadHistory, tr2, tbodyHistory);
+    
 }
 
 
@@ -639,10 +651,14 @@ const dropMenu2 = document.getElementById("dropMenu2");
 
 dropBtn1.addEventListener("click", () => {
     dropMenu1.classList.toggle("toggle");
+
+    // 하나 누를 때 다른 필터창 꺼짐
+    dropMenu2.classList.remove("toggle");
 })
 
 dropBtn2.addEventListener("click", () => {
     dropMenu2.classList.toggle("toggle");
+    dropMenu1.classList.remove("toggle");
 })
 
 const dropUl1 = document.getElementById("dropUl1");
@@ -655,6 +671,7 @@ dropUl1.addEventListener("click", () => {
 dropUl2.addEventListener("click", () => {
     dropMenu2.classList.toggle("toggle");
 })
+
 
 
 

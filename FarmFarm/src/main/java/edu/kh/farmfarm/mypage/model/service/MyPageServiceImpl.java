@@ -386,7 +386,7 @@ public class MyPageServiceImpl implements MyPageService {
 		if(bcrypt.matches(memberPw, encPw)) {
 			return dao.secession(memberNo);
 		}
-		
+
 		return 0;
 	}
 	

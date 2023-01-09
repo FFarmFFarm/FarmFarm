@@ -13,12 +13,15 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 })
 
+
+/* 1:1 상담 버튼 클릭 시 상담방 생성 함수 호출 */
 const inquireContainer = document.getElementById('inquireContainer');
 
 const inquireBtn = document.getElementById('inquireBtn');
 if (inquireBtn != undefined) {
   inquireBtn.addEventListener('click', function () {
 
+    /* 상담방 생성 함수 */
     createInquire();
 
   });
@@ -35,6 +38,8 @@ const createInquire = () => {
     success: (inquireNo) => {
       console.log(inquireNo);
       memberInquireNo = inquireNo;
+
+      /* 상담창 열기 */
       openInquire(inquireContainer, inquireNo);
     },
     error: () => {
@@ -281,6 +286,7 @@ if(inquireSock != undefined) {
         
         inquireContent.append(messageDate);
       }
+      
       
       if(msg.imgFl == 'N') {
         

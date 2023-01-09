@@ -84,6 +84,10 @@ public class InquireDAO {
 		return sqlSession.selectOne("inquireMapper.selectMemberNo", msg);
 	}
 
+	/** 메세지 상세 조회
+	 * @param messageNo
+	 * @return
+	 */
 	public Message selectMessage(int messageNo) {
 		return sqlSession.selectOne("inquireMapper.selectMessage", messageNo);
 	}

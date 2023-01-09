@@ -56,6 +56,8 @@
 	     <result property="commentMemberId" column="COMMENT_MEMBER_ID" />
 	     <result property="commentBoardNo" column="COMMENT_BOARD_NO" />
 	     
+	     <result property="authDenyReason" column="AUTH_DENY_REASON" />
+	     
   </resultMap>
   
   
@@ -247,7 +249,8 @@
 			FROM (
 				SELECT MEMBER_NO, MEMBER_ID, MEMBER_DEL_FL, SIGNUP_DATE, AUTHORITY, 
 						 REPORT_NO, REPORT_TYPE, REPORT_MEMBER_NO, REPORT_TARGET_NO, REPORT_REASON, REPORT_DATE, REPORT_PENALTY, 
-						PROCESS_DATE, REPORT_CONTENT, RANK() OVER(PARTITION BY REPORT_TARGET_NO, REPORT_TYPE ORDER BY REPORT_NO DESC) AS RANKING
+						PROCESS_DATE, REPORT_CONTENT, 
+						RANK() OVER(PARTITION BY REPORT_TARGET_NO, REPORT_TYPE ORDER BY REPORT_NO DESC) AS RANKING
 				FROM MEMBER 
 				LEFT JOIN ADDRESS USING(MEMBER_NO)
 				LEFT JOIN SELLER USING(MEMBER_NO)
@@ -334,15 +337,42 @@
 		WHERE MEMBER_NO = #{hiddenNo}
 	</update>
 	
+
+	<!-- 해당 회원번호의 판매자 인증 사유가 있는지 확인 -->
+	<select id="checkDenyReason" resultType="_int">
+		SELECT COUNT(*) 
+		FROM "SELLER_AUTH"
+		WHERE MEMBER_NO = #{hiddenNo}
+	</select>
+
+	<!-- 판매자 인증 보류 사유 업데이트  -->
+	<insert id="updateDenyReason">
+		UPDATE "SELLER_AUTH" SET
+		AUTH_DENY_REASON = #{denyReason}
+		WHERE MEMBER_NO = #{hiddenNo}
+	</insert>
+	
+	<!-- 판매자 인증 보류 사유 삽입  -->
+	<insert id="insertDenyReason">
+		INSERT INTO "SELLER_AUTH"
+		VALUES(#{hiddenNo}, #{denyReason})
+	</insert>
 	
 	
+	
+	<!-- 판매자 인증 보류 사유 가져오기 -->
+	<select id="selectDenyReason" resultType="string">
+		SELECT AUTH_DENY_REASON
+		FROM SELLER_AUTH
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
 	
 	
 	
 	<!-- 미처리 신고 개수 -->
 	<select id="reportListCount" resultType="_int">
 		SELECT COUNT(*)
-		FROM (SELECT M.MEMBER_NO, M.MEMBER_ID, M.AUTHORITY, M.MEMBER_DEL_FL,  
+		FROM (SELECT M.MEMBER_NO, M.MEMBER_ID, M.AUTHORITY, M.MEMBER_DEL_FL,  M.MEMBER_NICKNAME,
 				REPORT_NO, REPORT_MEMBER_NO, REPORT_TARGET_NO, REPORT_REASON, REPORT_CONTENT, REPORT_DATE, REPORT_PENALTY, PROCESS_DATE,
 				RANK() OVER(PARTITION BY REPORT_TARGET_NO, REPORT_TYPE ORDER BY REPORT_NO DESC) AS RANKING,
 				RANK() OVER(PARTITION BY REPORT_TARGET_NO, REPORT_TYPE ORDER BY REPORT_NO) AS REPORT_VOLUME,
@@ -387,7 +417,7 @@
 	<!-- 미처리 신고 조회 -->
 	<select id="selectNewReport" resultMap="admin_rm">
 		SELECT *
-		FROM (SELECT M.MEMBER_NO, M.MEMBER_ID, M.AUTHORITY, M.MEMBER_DEL_FL,
+		FROM (SELECT M.MEMBER_NO, M.MEMBER_ID, M.AUTHORITY, M.MEMBER_DEL_FL, M.MEMBER_NICKNAME,
 				REPORT_NO, REPORT_MEMBER_NO, REPORT_TARGET_NO, REPORT_REASON, REPORT_CONTENT, REPORT_DATE, REPORT_PENALTY, PROCESS_DATE,
 				RANK() OVER(PARTITION BY REPORT_TARGET_NO, REPORT_TYPE ORDER BY REPORT_NO DESC) AS RANKING,
 				RANK() OVER(PARTITION BY REPORT_TARGET_NO, REPORT_TYPE ORDER BY REPORT_NO) AS REPORT_VOLUME,
@@ -445,7 +475,7 @@
 	<!-- 미처리 신고 상세 조회 -->
 	<select id="selectNewReportDetail" resultMap="admin_rm">
 		SELECT *
-		FROM (SELECT M.MEMBER_NO, M.MEMBER_ID, M.AUTHORITY, M.MEMBER_DEL_FL, 
+		FROM (SELECT M.MEMBER_NO, M.MEMBER_ID, M.AUTHORITY, M.MEMBER_DEL_FL, M.MEMBER_NICKNAME,
 				REPORT_NO, REPORT_MEMBER_NO, REPORT_TARGET_NO, REPORT_REASON, REPORT_CONTENT, REPORT_DATE, REPORT_PENALTY, PROCESS_DATE,
 				RANK() OVER(PARTITION BY REPORT_TARGET_NO, REPORT_TYPE ORDER BY REPORT_NO DESC) AS RANKING,
 				RANK() OVER(PARTITION BY REPORT_TARGET_NO, REPORT_TYPE ORDER BY REPORT_NO) AS REPORT_VOLUME,
@@ -490,7 +520,7 @@
 	<!-- 신고 누적 조회 (회원)-->
 	<select id="accumMemberList" resultMap="admin_rm">
 		SELECT *
-		FROM (SELECT M.MEMBER_NO, M.MEMBER_ID, M.AUTHORITY, M.MEMBER_DEL_FL,  
+		FROM (SELECT M.MEMBER_NO, M.MEMBER_ID, M.AUTHORITY, M.MEMBER_DEL_FL,  M.MEMBER_NICKNAME,
 				REPORT_NO, REPORT_MEMBER_NO, REPORT_TARGET_NO, REPORT_REASON, REPORT_CONTENT, REPORT_DATE, REPORT_PENALTY, PROCESS_DATE,
 				RANK() OVER(PARTITION BY REPORT_TARGET_NO, REPORT_TYPE ORDER BY REPORT_NO DESC) AS RANKING,
 				RANK() OVER(PARTITION BY REPORT_TARGET_NO, REPORT_TYPE ORDER BY REPORT_NO) AS REPORT_VOLUME,
@@ -543,7 +573,7 @@
 		<!-- 신고 누적 조회 (판매글, 커뮤니티게시글, 댓글)-->
 	<select id="accumContentList" resultMap="admin_rm">
 		SELECT *
-		FROM (SELECT M.MEMBER_NO, M.MEMBER_ID, M.AUTHORITY, M.MEMBER_DEL_FL, 
+		FROM (SELECT M.MEMBER_NO, M.MEMBER_ID, M.AUTHORITY, M.MEMBER_DEL_FL, M.MEMBER_NICKNAME,
 				REPORT_NO, REPORT_MEMBER_NO, REPORT_TARGET_NO, REPORT_REASON, REPORT_CONTENT, REPORT_DATE, REPORT_PENALTY, PROCESS_DATE,
 				RANK() OVER(PARTITION BY REPORT_TARGET_NO, REPORT_TYPE ORDER BY REPORT_NO DESC) AS RANKING,
 				RANK() OVER(PARTITION BY REPORT_TARGET_NO, REPORT_TYPE ORDER BY REPORT_NO) AS REPORT_VOLUME,
@@ -706,7 +736,7 @@
 	<!-- 전체 신고 내역 조회 -->
 	<select id="selectReportAllList" resultMap="admin_rm">
 			SELECT *
-			FROM (SELECT M.MEMBER_NO, M.MEMBER_ID, M.AUTHORITY, M.MEMBER_DEL_FL,
+			FROM (SELECT M.MEMBER_NO, M.MEMBER_ID, M.AUTHORITY, M.MEMBER_DEL_FL, M.MEMBER_NICKNAME,
 					REPORT_NO, REPORT_MEMBER_NO, REPORT_TARGET_NO, REPORT_REASON, REPORT_CONTENT, REPORT_DATE, REPORT_PENALTY, PROCESS_DATE,
 					RANK() OVER(PARTITION BY REPORT_TARGET_NO, REPORT_TYPE ORDER BY REPORT_NO DESC) AS RANKING,
 					RANK() OVER(PARTITION BY REPORT_TARGET_NO, REPORT_TYPE ORDER BY REPORT_NO) AS REPORT_VOLUME,
@@ -748,6 +778,27 @@
 				OR MEMBER_NO LIKE ('%${keyword}%')
 				OR TITLE LIKE ('%${keyword}%') OR TITLE LIKE LOWER('%${keyword}%') OR TITLE LIKE ('%${keyword}%'))
 			</if>
+			<if test='processFilter != null and processFilter != ""'>
+			<choose>
+				<when test='processFilter == 0'><!-- 전체 -->
+				</when>
+				<when test='processFilter == 1'><!-- 접수 -->
+					AND REPORT_PENALTY IS NULL
+				</when>
+				<when test='processFilter == 2'><!-- 반려 -->
+						AND REPORT_PENALTY = 'N'
+				</when>
+				<when test='processFilter == 3'><!-- 회원 정지 -->
+						AND ((REPORT_PENALTY = 'Y' OR REPORT_PENALTY = 'A') AND REPORT_TYPE = 'M' AND MEMBER_DEL_FL = 'N')
+				</when>
+				<when test='processFilter == 4'><!-- 회원 탈퇴 -->
+						AND MEMBER_DEL_FL = 'Y'
+				</when>
+				<when test='processFilter == 5'><!-- 게시글 삭제 -->
+						AND (REPORT_PENALTY = 'Y' AND (REPORT_TYPE = 'B' OR REPORT_TYPE = 'P' OR REPORT_TYPE = 'C'))
+				</when>
+			</choose>
+		</if>
 			<if test='typeFilter != null and typeFilter != ""'>
 			<choose>
 				<when test='typeFilter == 0' > <!-- 전체 -->
@@ -834,6 +885,26 @@
 				OR MEMBER_NO LIKE ('%${keyword}%')
 				OR TITLE LIKE ('%${keyword}%') OR TITLE LIKE LOWER('%${keyword}%') OR TITLE LIKE ('%${keyword}%'))
 			</if>
+			<if test='processFilter != null and processFilter != ""'>
+				<choose>
+					<when test='processFilter == 0'>
+							AND REPORT_PENALTY IS NULL
+					</when>
+					<when test='processFilter == 1'>
+							AND REPORT_PENALTY = 'N'
+					</when>
+					<when test='processFilter == 2'>
+							AND ((REPORT_PENALTY = 'Y' OR REPORT_PENALTY = 'A') 
+										AND REPORT_TYPE = 'M' AND MEMBER_DEL_FL = 'N')
+					</when>
+					<when test='processFilter == 3'>
+							AND MEMBER_DEL_FL = 'Y'
+					</when>
+					<when test='processFilter == 4'>
+							AND (REPORT_PENALTY = 'Y' AND (REPORT_TYPE = 'B' OR REPORT_TYPE = 'P' OR REPORT_TYPE = 'C'))
+					</when>
+				</choose>
+			</if>
 			<if test='typeFilter != null and typeFilter != ""'>
 			<choose>
 				<when test='typeFilter == 0' > <!-- 전체 -->
@@ -878,7 +949,7 @@
 	<!-- 전체 신고 조회_ 상세 내역 -->
 	<select id="selectReportDetail" resultMap="admin_rm">
 			SELECT *
-			FROM (SELECT M.MEMBER_NO, M.MEMBER_ID, M.AUTHORITY, M.MEMBER_DEL_FL, 
+			FROM (SELECT M.MEMBER_NO, M.MEMBER_ID, M.AUTHORITY, M.MEMBER_DEL_FL, M.MEMBER_NICKNAME,
 					REPORT_NO, REPORT_MEMBER_NO, REPORT_TARGET_NO, REPORT_REASON, REPORT_CONTENT, REPORT_DATE, REPORT_PENALTY, PROCESS_DATE,
 					RANK() OVER(PARTITION BY REPORT_TARGET_NO, REPORT_TYPE ORDER BY REPORT_NO DESC) AS RANKING,
 					RANK() OVER(PARTITION BY REPORT_TARGET_NO, REPORT_TYPE ORDER BY REPORT_NO) AS REPORT_VOLUME,

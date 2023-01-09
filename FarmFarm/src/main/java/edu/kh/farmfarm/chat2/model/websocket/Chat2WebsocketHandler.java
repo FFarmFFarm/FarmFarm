@@ -52,11 +52,12 @@ public class Chat2WebsocketHandler extends TextWebSocketHandler{
 		// 단순 update 전달
 		if(chat.getChatType().equals("U")) result = 1;
 		
-		// 채팅 삽입
-		if(chat.getChatType().equals("T")) result = service.insertNewChat(chat);
+		// 채팅 삽입(텍스트 or 이모티콘)
+		if(chat.getChatType().equals("T") || chat.getChatType().equals("E")) result = service.insertNewChat(chat);
 		
 		// 만약 사진인 경우, 이미 저장했으므로 result = 1;
 		if(chat.getChatType().equals("I")) result = 1;
+		
 		
 		
 		

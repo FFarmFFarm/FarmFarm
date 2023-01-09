@@ -32,9 +32,37 @@ goList.addEventListener("click", ()=>{
     const pathname = location.pathname;
     const queryString = location.search;
 
+    // const url = pathname.substring(0, pathname.lastIndexOf("/"))+queryString;
+    
+    // // location.href = url;
+    
+    const params = new URL(location.href).searchParams;
+    
+    // const cp = boardTypeNo;
+    
+    const keyy = params.get("key");
+    const queryy = params.get("query");
+    let sortt = params.get("sort");
+    let cpp = params.get("cp");
+    if(sortt == null){
+        sortt = "new";
+    }
+    
+    
+    console.log("목록으로 cp : "+cpp);
+    console.log("목록으로 key : "+keyy);
+    console.log("목록으로 query : "+queryy);
+    console.log("목록으로 sort : "+sortt);
+    
     const url = pathname.substring(0, pathname.lastIndexOf("/"))+queryString;
-
     location.href = url;
+    // showBoardList(cpp, sortt, queryy, keyy);
+    // showBoardList(cpp, sortt, queryy, keyy);
+
+    // const state = {'cp':cpp, 'sort':sortt, 'key':keyy, 'query':queryy}
+    // const title = '';
+    // const reUrl = "/board/"+boardTypeNo+"?cp="+cpp+"&key="+keyy+"&query="+queryy+"&sort="+sortt;
+    // history.pushState(state, title, reUrl);
 })
 
 
@@ -138,4 +166,8 @@ if(boardUpdate != null){
     })
 }
 
-
+// window.onpageshow = function(event){
+//     if(event.persisted || (window.performance && window.performance.navigation.type == 2)){
+//         showBoardList();
+//     }
+// }

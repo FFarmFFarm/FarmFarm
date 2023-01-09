@@ -419,15 +419,15 @@ const printNewReportDetail = (newReportDetail) => {
             
             if(newReportDetail.authority == 0){
                 // 마이페이지는 자기자신만 들어감
-                td12Detail.innerHTML = newReportDetail.memberId;
+                move.innerHTML = newReportDetail.memberId +"(" + newReportDetail.memberNickname + ")" ;
                 td12Detail.style.cursor = "default";
 
             } else if(newReportDetail.authority == 1){
                 move.href = "/seller/" + newReportDetail.reportTargetNo;
-                move.innerHTML = newReportDetail.memberId;
+                move.innerHTML = newReportDetail.memberId +"(" + newReportDetail.memberNickname + ")";
 
             } else {
-                move.innerHTML = newReportDetail.memberId;
+                move.innerHTML = newReportDetail.memberId +"(" + newReportDetail.memberNickname + ")";
             }
         }
         if(newReportDetail.reportType == 'B'){ // 커뮤니티 게시글

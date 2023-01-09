@@ -72,11 +72,11 @@ public interface AdminService {
 
 	
 	
-	/** 판매자 인증 거절
+	/** 판매자 인증 보류
 	 * @param hiddenNo
 	 * @return result
 	 */
-	int sellerDeny(int hiddenNo);
+	int sellerDeny(int hiddenNo, String denyReason);
 	
 	
 
@@ -118,6 +118,13 @@ public interface AdminService {
 	 * @return reportDetail
 	 */
 	Admin selectReportDetail(int hiddenReportNo);
+
+
+	/** 판매자 인증 보류 사유 가져오기
+	 * @param memberNo
+	 * @return
+	 */
+	String selectDenyReason(int memberNo);
 
 
 

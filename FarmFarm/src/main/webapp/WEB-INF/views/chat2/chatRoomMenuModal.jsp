@@ -32,7 +32,7 @@
         <div id="inviteBody" class="chatRoom-menu-body">
           <span>회원 검색</span>
           <div class="search-nickname-box">
-            <input id="searchNicknameInput" type="text" placeholder="닉네임 입력">
+            <input id="searchNicknameInput" type="text" placeholder="닉네임 입력" spellcheck="false">
           </div>
           <span id="inviteMenuNotice">채팅방 초대 메시지를 전송합니다.</span>
           <div class="menu-confirm-btn">
@@ -80,11 +80,11 @@
       </div>
   
       <!-- 채팅 신고하기 -->
-      <div class="report-menu hide">
-        <div class="chatRoom-menu-title">
+      <!--<div class="report-menu hide">
+        <div class="chatRoom-menu-title" id="reportBtn">
           신고하기
         </div>
-        <div id="reportBody" class="chatRoom-menu-body">
+         <div id="reportBody" class="chatRoom-menu-body">
           <div id="reportNotice">
             <span>정말 신고하시겠습니까?</span>
             <span>허위 신고시 제재를 받을 수 있습니다.</span>
@@ -93,7 +93,7 @@
               <button type="button" id="reportMenuCalcelBtn">취소</button>
               <button type="button" id="reportMenuConfirmBtn">확인</button>
           </div>
-        </div>
-      </div>
+        </div> 
+      </div>-->
 
     </div>

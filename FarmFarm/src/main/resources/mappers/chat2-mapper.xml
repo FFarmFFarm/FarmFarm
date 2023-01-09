@@ -67,6 +67,15 @@
 	      <result property="initialChatNo" column="INITIAL_CHAT_NO" />
 	 </resultMap>
 	 
+ 	 <resultMap type="Emoticon" id="emoticon_rm">
+        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+	     <id property = "emoticonCategoryNo" column="EMOTICON_CATEGORY_NO"/>
+	     <!-- 나머지 일반 컬럼 -->
+	      <result property="emoticonCategoryName" column="EMOTICON_CATEGORY_NAME" />
+	      <result property="emoticonNo" column="EMOTICON_NO" />
+	      <result property="emoticonName" column="EMOTICON_NAME" />
+	 </resultMap>
+	 
 
 	
 	<!-- 내 채팅방 목록 조회(SELECT) -->
@@ -94,7 +103,7 @@
 		      JOIN (SELECT MAX(CHAT_NO) AS LAST_CHAT_NO
 		            FROM CHAT2
 		            GROUP BY ROOM_NO) C_SUB ON (C_SUB.LAST_CHAT_NO = C.CHAT_NO)
-			  WHERE (C.CHAT_TYPE = 'T' OR C.CHAT_TYPE = 'I') ) USING(ROOM_NO)
+			  WHERE (C.CHAT_TYPE = 'T' OR C.CHAT_TYPE = 'I' OR C.CHAT_TYPE = 'E') ) USING(ROOM_NO)
 		------------------
 		LEFT JOIN (SELECT ROOM_NO, ROOM_NAME, CR.ROOM_TYPE,
 		   		     CASE WHEN ROOM_TYPE > 0 THEN (SELECT POST_TITLE 
@@ -135,7 +144,7 @@
 		FROM CHAT2 MAIN
 		LEFT JOIN MEMBER USING(MEMBER_NO)
 		WHERE ROOM_NO = #{roomNo}
-		AND (CHAT_TYPE = 'T' OR CHAT_TYPE = 'I') 
+		AND (CHAT_TYPE = 'T' OR CHAT_TYPE = 'I' OR CHAT_TYPE = 'E') 
 		AND CHAT_NO > (SELECT INITIAL_CHAT_NO 
 					   FROM CHAT2_ENTER 
 					   WHERE ROOM_NO = #{roomNo}
@@ -202,7 +211,9 @@
 	<!-- 채팅방 참가(INSERT) -->
 	<insert id="insertChatEnter">
 		INSERT INTO CHAT2_ENTER
-		VALUES(SEQ_ENTER_NO.NEXTVAL, #{roomNo}, #{memberNo}, #{enterStatus}, DEFAULT)
+		VALUES(SEQ_ENTER_NO.NEXTVAL, #{roomNo}, #{memberNo}, #{enterStatus},
+				NVL((SELECT MAX(CHAT_NO) FROM CHAT2 WHERE ROOM_NO = #{roomNo}),0) ,
+				NVL((SELECT MAX(CHAT_NO) FROM CHAT2 WHERE ROOM_NO = #{roomNo}),0) )
 	</insert>
 	
 	<!-- 채팅방 초대(UPDATE) -->
@@ -268,7 +279,7 @@
 	</update>
 	
 	
-	<!-- 1. 입장 시 조회 처리 : UNREAD_CHAT_COUNT 0으로 만들기 J -->
+	<!-- 2. 입장 시 조회 처리 : UNREAD_CHAT_COUNT 0으로 만들기 J -->
 	<update id="updateUnreadCount">
 		UPDATE CHAT2_ENTER
 		SET LAST_READ_CHAT_NO = (SELECT MAX(CHAT_NO)
@@ -279,14 +290,30 @@
 	</update>
 	
 	
+	<!-- 1. 입장 시 조회 처리 : n명 읽음 + 1 -->
+	<update id="updateReadCount">
+		UPDATE CHAT2
+		SET READ_COUNT = READ_COUNT + 1
+		WHERE ROOM_NO = #{roomNo}
+		AND CHAT_NO > (SELECT LAST_READ_CHAT_NO
+					   FROM CHAT2_ENTER
+					   WHERE ROOM_NO = #{roomNo}
+					   AND MEMBER_NO = #{memberNo}
+					   AND ENTER_STATUS = 'Y')	
+	</update>
 	
 	
 	
+	<!-- 이모티콘 카테고리 리스트 -->
+	<select id="selectEmoticonCategoryList" resultMap="emoticon_rm">
+		SELECT * FROM EMOTICON_CATEGORY
+	</select>
 	
-	
-	
-	
-	
+	<!-- 이모티콘 리슽트 -->
+	<select id="selectEmoticonList" parameterType="_int" resultMap="emoticon_rm">
+		SELECT * FROM EMOTICON
+		WHERE EMOTICON_CATEGORY_NO = #{emoticonCategoryNo}
+	</select>
 	
 	<!-- 위젯 SQL 영역 -->
 	
@@ -317,7 +344,7 @@
 			      JOIN (SELECT MAX(CHAT_NO) AS LAST_CHAT_NO
 			            FROM CHAT2
 			            GROUP BY ROOM_NO) C_SUB ON (C_SUB.LAST_CHAT_NO = C.CHAT_NO)
-				  WHERE (C.CHAT_TYPE = 'T' OR C.CHAT_TYPE = 'I') ) USING(ROOM_NO)
+				  WHERE (C.CHAT_TYPE = 'T' OR C.CHAT_TYPE = 'I' OR C.CHAT_TYPE = 'E') ) USING(ROOM_NO)
 			------------------
 			LEFT JOIN (SELECT ROOM_NO, ROOM_NAME, CR.ROOM_TYPE,
 			   		     CASE WHEN ROOM_TYPE > 0 THEN (SELECT POST_TITLE 
