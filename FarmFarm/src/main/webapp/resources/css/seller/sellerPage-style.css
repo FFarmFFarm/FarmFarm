@@ -409,7 +409,7 @@ margin-top: 10px;
 }
 
 /* 검색 결과가 없는 경우 사용할 페이지 박스 */
-#resultIsEmpty{
+/* #resultIsEmpty{
     margin-top: 200px;
 
     width: 100%;
@@ -430,4 +430,4 @@ margin-top: 10px;
 #resultIsEmpty > span{
     font-size: 30px;
     color: var(--main-font-color);
-}
+} */

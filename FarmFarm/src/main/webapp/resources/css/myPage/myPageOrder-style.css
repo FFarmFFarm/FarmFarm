@@ -199,6 +199,7 @@ a.ordered > i {
 .order-status > * {
   font-size: var(--small-font-size);
   color: var(--sub-font-color);
+  margin-right: 10px;
 }
 
 .order-shipping {

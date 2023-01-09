@@ -336,7 +336,7 @@ if(inquireSock != undefined) {
           
         } else {
           const receive = document.createElement('div');
-          receive.classList.add('send');
+          receive.classList.add('receive');
           
           const div = document.createElement('div');
           div.classList.add('img-container');

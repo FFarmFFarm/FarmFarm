@@ -178,4 +178,14 @@ public class ProductDetailDAO {
 
 
 
+	/** 상품 재고 조회
+	 * @param productNo
+	 * @return
+	 */
+	public int productStock(int productNo) {
+		return sqlSession.selectOne("productDetailMapper.productStock", productNo);
+	}
+
+
+
 }
