@@ -379,15 +379,18 @@ public class MyPageServiceImpl implements MyPageService {
 	 * @return
 	 */
 	@Override
-	public int secession(String memberPw, int memberNo) {
+	public int secession(String memberPw, int memberNo, int authority) {
 		// 비밀번호 조회
 		String encPw = dao.selectEncPw(memberNo);
 		
+		int result = 0;
 		if(bcrypt.matches(memberPw, encPw)) {
-			return dao.secession(memberNo);
+			if(authority == 1) {
+				String condition = "WHERE MEMBER_NO=" + memberNo;
+				result = dao.updateSoldout(condition);
+			}
 		}
-
-		return 0;
+		return dao.secession(memberNo);
 	}
 	
 	/** 주문 하나 조회
