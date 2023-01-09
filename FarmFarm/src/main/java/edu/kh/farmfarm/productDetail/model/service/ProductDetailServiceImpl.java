@@ -73,6 +73,15 @@ public class ProductDetailServiceImpl implements ProductDetailService{
 		return dao.removeWish(product);
 	}
 	
+	
+	/** 상품 재고 조회
+	 *
+	 */
+	@Override
+	public int productStock(int productNo) {
+		return dao.productStock(productNo);
+	}
+	
 	/** 리뷰 상세조회
 	 *
 	 */

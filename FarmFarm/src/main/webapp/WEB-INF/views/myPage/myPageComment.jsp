@@ -34,13 +34,13 @@
           <span class="comment-list-title">작성 댓글</span>
           <div class="list-category">
             <span class="comment-category">댓글</span>
-            <span class="comment-reg-date">작성일</span>
+            <span class="comment-reg-date main-font-size">작성일</span>
           </div>
 
           <div class="comment-list-container" id="commentListContainer">
             <c:if test="${empty commentList}">
-            <div class="comment">
-              <div class="comment-container">
+            <div class="empty-list">
+              <div >
                 작성 댓글이 없습니다
               </div>
             </div>

@@ -35,13 +35,13 @@
 
   
     <section class="list-container">
-       
+
     <jsp:include page="/WEB-INF/views/myPage/myPageNav.jsp"/>
 
       <div class="order-list" >
         <span class="order-list-title">주문 내역</span>
         <c:if test="${empty orderList}">
-          <div class="order-div">주문 내역이 없습니다.</div>
+          <div class="empty-list">주문 내역이 없습니다.</div>
         </c:if>
 
 
@@ -53,7 +53,7 @@
             <div class="order-info-container">
             <div class="order-info">
               <span class="order-no" id="${order.orderNo}">주문번호 <span>${order.orderNo}</span></span>
-              <span class="order-reg-date">2022.12.15</span>
+              <span class="order-reg-date">${order.orderDate}</span>
             </div>
           </div>
 
@@ -80,10 +80,10 @@
                 </c:if>
                 <c:if test="${order.orderStatus == 1}">
                   <c:if test="${product.productStatus == 0}">
-                    <span class="order-shipping" id="${order.invoiceNo}">배송중</span>
+                    <span class="order-shipping" id="${order.invoiceNo}">배송조회</span>
                   </c:if>
                   <c:if test="${product.productStatus == 1}">
-                    <span class="order-shipping">반품 진행중</span>
+                    <span>반품 진행중</span>
                   </c:if>
                   <c:if test="${product.productStatus == 2}">
                     <span>반품 완료</span>
@@ -95,9 +95,12 @@
                 <c:if test="${order.orderStatus == 3}">
                   <c:if test="${product.productStatus == 0}">
                     <span>구매확정</span>
+                  <c:if test="${! empty order.invoiceNo}">
+                    <span class="order-shipping" id="${order.invoiceNo}">배송조회</span>
+                  </c:if>
                   </c:if>
                   <c:if test="${product.productStatus == 1}">
-                    <span class="order-shipping">반품 진행중</span>
+                    <span>반품 진행중</span>
                   </c:if>
                   <c:if test="${product.productStatus == 2}">
                     <span>반품 완료</span>
