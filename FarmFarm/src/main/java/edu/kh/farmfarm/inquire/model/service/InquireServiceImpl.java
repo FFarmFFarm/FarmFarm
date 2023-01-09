@@ -132,6 +132,9 @@ public class InquireServiceImpl implements InquireService {
 		return temp;
 	}
 	
+	/** 메세지 정보 조회
+	 *
+	 */
 	@Override
 	public Message selectMessage(int messageNo) {
 		return dao.selectMessage(messageNo);
