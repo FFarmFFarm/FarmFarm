@@ -105,6 +105,10 @@
 </select>
 
 
+<select id="productStock" resultType="_int">
+	SELECT STOCK FROM PRODUCT WHERE PRODUCT_NO = #{productNo}
+</select>
+
 <!-- 리뷰 이미지 전체 목록 조회 -->
 <select id="selectReviewImgAll" resultMap="reviewImg_rm">
 	SELECT REVIEW_IMG_NO , ri.REVIEW_NO , REVIEW_IMG_PATH ,
