@@ -22,7 +22,7 @@
 
 .report-modal{
     background-color: white;
-    width: 360px;
+    width: 350px;
     /* height: 460px; */
     height: 490px;
     border-radius: 10px;
@@ -60,7 +60,7 @@
 
 .report-form-div{
     height: 380px;
-    margin-top: 10px;
+    margin-top: 5px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -68,7 +68,7 @@
 }
 
 .report-form{
-    font-size: 'var(--main-font-size)';
+    font-size: var(--main-font-size);
 
     display: flex;
     flex-direction: column;
@@ -91,7 +91,7 @@
     border:none;
     border: 1px solid lightgray;
     padding: 4px;
-    font-size: var(--main-font-size);
+    font-size: 13px;
     /* font-size: 13px; */
     /* line-height: 20px; */
 }
