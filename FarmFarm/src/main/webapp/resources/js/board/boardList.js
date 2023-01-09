@@ -1,14 +1,42 @@
 const boardSearch = document.querySelector(".board-search");
+
 if(boardSearch != null){
+
     // 게시글 목록을 ajax로 불러와봅시다!
     // 불러오는 부분을 만들어서 appen 시켜주기
+
+   
 
     // board-list-title의 원래 모양을 저장을 위한 변수선언
     let beforeBoardListTitle;
 
-    // let key;
+    // if(location.search != ''){
+    //     const params = new URL(location.href).searchParams;
 
-    // console.log("key 3 : " + key);
+    //     const key = params.get("key");
+    //     const query = params.get("query");
+    //     let sort = params.get("sort");
+    //     let cp = params.get("cp");
+        
+    //     // if(key == null || key == ""){
+    //     //     key == 't';
+    //     // }
+    //     // if(query == null){
+    //     //     query == "cv";
+    //     // }
+    //     // if(sort == null){
+    //     //     sort == 'new';
+    //     // }
+        
+    //     console.log("목록으로 cp : "+cp);
+    //     console.log("목록으로 key : "+key);
+    //     console.log("목록으로 query : "+query);
+    //     console.log("목록으로 sort : "+sort);
+
+    //     // showBoardList(cp, key, query, sort);
+    // }
+
+
 
     const showBoardList = (cp, sort, query, key)=>{
 
@@ -54,6 +82,10 @@ if(boardSearch != null){
                 // }else{
                 //     sURL = "";
                 // }
+                console.log("확인해보자2 cp : "+cp);
+                console.log("확인해보자2 sort : "+sort);
+                console.log("확인해보자2 key : "+key);
+                console.log("확인해보자2 query : "+query);
 
                 // 리스트들을 감싸고 있는거 없애주기
                 const boardListTop = document.querySelector(".board-list-top");
@@ -265,6 +297,10 @@ if(boardSearch != null){
 
                 }
                 urlChange(cp, sort, key, query);
+                console.log("확인해보자 cp : "+cp);
+                console.log("확인해보자 sort : "+sort);
+                console.log("확인해보자 key : "+key);
+                console.log("확인해보자 query : "+query);
             },
             error : ()=>{
                 alert("리스트 조회 ajax 통신 시류ㅐㅠㅜㅠㅜ");
@@ -272,6 +308,28 @@ if(boardSearch != null){
         })
 
     }
+
+    ///////////////////////////////////////////////////
+        if(location.search != null){
+
+            console.log("목록으로 cp : "+cp);
+            console.log("목록으로 key : "+key);
+            console.log("목록으로 query : "+query);
+            console.log("목록으로 sort : "+sort);
+
+        //     // if(key == null){
+        //     //     key == 't';
+        //     // }
+        //     // if(query == null){
+        //     //     query == "";
+        //     // }
+        //     // if(sort == null){
+        //     //     sort == 'new';
+        //     // }
+
+            showBoardList(cp, sort, query, key);
+        }
+        ///////////////////////////////////////////////////
 
 
     // 와글와글 게시판 이름 바꿔주기 + 현재 게시판 알려주기
@@ -358,6 +416,7 @@ if(boardSearch != null){
 
     // 정렬관련
     const boardSort = document.querySelector(".board-sort");
+    const tempSort = document.getElementById("tempSort");
 
     if(addsort != ""){
         if(addsort == 'view'){
@@ -377,14 +436,17 @@ if(boardSearch != null){
         }
     }else{
         if(sort == 'view'){
+            tempSort.setAttribute("value", "view");
             const boardSort = document.querySelector(".board-sort");
             boardSort.innerHTML = "조회수 ";
         }
         if(sort == 'like'){
+            tempSort.setAttribute("value", "like");
             const boardSort = document.querySelector(".board-sort");
             boardSort.innerHTML = "좋아요 ";
         }
         if(sort == 'new'){
+            tempSort.setAttribute("value", "new");
             const boardSort = document.querySelector(".board-sort");
             boardSort.innerHTML = "최신순 ";
         }
@@ -454,5 +516,27 @@ if(boardSearch != null){
         // }
 
         history.pushState(state, title, reUrl);
+
+        // if(location.search != ''){
+
+        //     console.log("목록으로 cp : "+cp);
+        //     console.log("목록으로 key : "+key);
+        //     console.log("목록으로 query : "+query);
+        //     console.log("목록으로 sort : "+sort);
+
+        //     if(key == null){
+        //         key == 't';
+        //     }
+        //     if(query == null){
+        //         query == "";
+        //     }
+        //     if(sort == null){
+        //         sort == 'new';
+        //     }
+
+        //     showBoardList(cp, key, query, sort);
+        // }
     }
+
+
 }
