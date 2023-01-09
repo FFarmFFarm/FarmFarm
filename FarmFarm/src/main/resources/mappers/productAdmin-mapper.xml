@@ -312,9 +312,9 @@
 					</when>
 				</choose>
 			</when>
-			<otherwise>
-				WHERE ORDER_DATE BETWEEN #{startDate} AND #{endDate}
-			</otherwise>
+			<when test='query == null and query == "" and startDate != null and startDate != ""'>
+				WHERE ORDER_DATE BETWEEN #{startDate} AND #{endDate}			
+			</when>
 		</choose>
 	</select>
 	
@@ -357,8 +357,6 @@
 			<when test='query == null and query == "" and startDate != null and startDate != ""'>
 				WHERE ORDER_DATE BETWEEN #{startDate} AND #{endDate}			
 			</when>
-			<otherwise>
-			</otherwise>
 		</choose>
 		ORDER BY ORDER_NO DESC
 	</select>
