@@ -4,21 +4,20 @@ if (inquireRoomList != undefined) {
   for (let i = 0; i < inquireRoomList.length; i++) {
     inquireRoomList[i].addEventListener('click', () => {
       
-
+      
       /* 해당 상담방 메세지 목록 불러오기 */
       selectMessageList(inquireRoomList[i].id);
       memberInquireNo = inquireRoomList[i].id;
-
+      
       /* unread count 아이콘 제거 */
       const unreadCount = document.getElementsByClassName('unread-message-count');
-
+      
       
       if (unreadCount[i] != undefined) {
         if (!unreadCount[i].classList.contains('hide')) {
           unreadCount[i].classList.add('hide');
         }
       }
-
 
     })
   }
@@ -37,7 +36,7 @@ const selectMessageList = inquireNo => {
       fillInquireRoom(messageList);
 
       /* 상담방 목록 재조회 */
-      selectInquireList();
+      selectInquireList(inquireNo);
 
     },
     error: (error) => {
@@ -130,14 +129,14 @@ const fillInquireRoom = (messageList) => {
 
 
 /* 상담방 목록 조회 */
-const selectInquireList = () => { 
+const selectInquireList = (inquireNo) => { 
   $.ajax({
     url: "/inquire/list",
     type: 'GET',
     dataType: 'json',
     success: (inquireList) => {
       console.log(inquireList);
-      fillInquireList(inquireList);
+      fillInquireList(inquireList, inquireNo);
     },
     error: () => { 
       console.log('error');
@@ -147,7 +146,7 @@ const selectInquireList = () => {
 
 
 /* 조회해온 상담방 목록 출력 */
-const fillInquireList = (inquireList) => { 
+const fillInquireList = (inquireList, inquireNo) => { 
 
   const roomList = document.getElementById('roomList');
   roomList.innerHTML = '';
@@ -157,7 +156,12 @@ const fillInquireList = (inquireList) => {
     if (inquire.messageCount > 1) {
 
       const messagePreviewBox = document.createElement('div');
-      messagePreviewBox.classList.add('message-preview-box');
+      if(inquireNo == inquire.inquireNo) {
+        messagePreviewBox.classList.add('message-preview-box', 'message-box-clicked');
+      } else {
+        messagePreviewBox.classList.add('message-preview-box');
+      }
+
 
       const profileImg = document.createElement('div');
       profileImg.classList.add('profile-img');

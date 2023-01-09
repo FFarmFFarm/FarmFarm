@@ -41,7 +41,7 @@
       <div class="order-list" >
         <span class="order-list-title">주문 내역</span>
         <c:if test="${empty orderList}">
-          <div class="order-div">주문 내역이 없습니다.</div>
+          <div class="empty-list">주문 내역이 없습니다.</div>
         </c:if>
 
 

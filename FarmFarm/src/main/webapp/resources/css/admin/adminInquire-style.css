@@ -234,6 +234,7 @@ main{
     cursor: pointer;
 }
 
+
 /* 프로필 이미지 */
 .profile-img{
     width: 40px;
@@ -917,4 +918,14 @@ main{
 
 .hide {
     display: none;
+}
+
+
+.message-box-clicked {
+    background-color: var(--point-color);
+}
+
+.message-box-clicked * {
+    color: white;
+    
 }
