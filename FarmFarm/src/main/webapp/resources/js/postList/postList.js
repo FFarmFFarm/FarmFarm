@@ -252,9 +252,9 @@ const getAllpostList = () => {
 }
 
 /* category와 cp 정보를 전달받아 처리하는 ajax */
-const getCustomList = (category, cp) => {
+const getCustomList = (category, cp, sort) => {
 
-    let sort = getSortOption();
+    // let sort = getSortOption();
     let exceptFl = getExceptOption();
 
     $.ajax({
@@ -273,9 +273,9 @@ const getCustomList = (category, cp) => {
 };
 
 /* keyword와 category, cp 정보를 전달받아 처리하는 ajax */
-const getCustomList2 = (keyword, category, cp) => {
+const getCustomList2 = (keyword, category, cp, sort) => {
 
-    let sort = getSortOption();
+    // let sort = getSortOption();
     let exceptFl = getExceptOption();
     console.log(exceptFl);
     $.ajax({
@@ -313,17 +313,26 @@ const initialList = () => {
         // 두 번째 = 의 위치
         const secondEqualSign = url.indexOf('=', firstAndSign);
 
+        // 두 번째 & 의 위치
+        const secondAndSign = url.indexOf('&', secondEqualSign);
+
+        // 세 번째 = 의 위치
+        const thridEqualSign = url.indexOf('=', secondAndSign);
+
         // 끝
         const urlLength = url.length;
 
         // 주소창에 기록된, 이전 카테고리 번호
         let beforeCategoryNo = url.substring(firstEqualSign + 1, firstAndSign);
 
-        // 주소창에 기록된,, 이전 페이지 번호
-        let beforePageNo = url.substring(secondEqualSign + 1, urlLength);
+        // 주소창에 기록된, 이전 페이지 번호
+        let beforePageNo = url.substring(secondEqualSign + 1, secondAndSign);
+
+        // 주소창에 기록된, sort 번호
+        let beforeSort = url.substring(thridEqualSign + 1, urlLength)
 
         // 정보를 다시 전달해 페이지를 만듦
-        getCustomList(beforeCategoryNo, beforePageNo);
+        getCustomList(beforeCategoryNo, beforePageNo, beforeSort);
 
     } else { // 검색어가 있는 경우
         // 첫 번째 = 의 위치
@@ -341,6 +350,12 @@ const initialList = () => {
         // 세 번째 = 의 위치
         const thirdEqualSign = url.indexOf('=', secondAndSign);
 
+        // 세 번째 & 의 위치
+        const thirdAndSign = url.indexOf('&', thirdEqualSign);
+
+        // 네 번째 = 의 위치
+        const fourthEqualSign = url.indexOf('=', thirdAndSign);
+
         // 끝
         const urlLength = url.length;
 
@@ -352,10 +367,13 @@ const initialList = () => {
         let beforeCategoryNo = url.substring(secondEqualSign + 1, secondAndSign);
 
         // 주소창에 기록된,, 이전 페이지 번호
-        let beforePageNo = url.substring(thirdEqualSign + 1, urlLength);
+        let beforePageNo = url.substring(thirdEqualSign + 1, thirdAndSign);
+
+        // sort
+        let beforeSortNo = url.substring(firstEqualSign + 1, urlLength);
 
         // 정보를 다시 전달해 페이지를 만듦
-        getCustomList2(beforeKeyword, beforeCategoryNo, beforePageNo);
+        getCustomList2(beforeKeyword, beforeCategoryNo, beforePageNo, beforeSortNo);
 
     }
     // 카테고리 업데이트
@@ -451,19 +469,19 @@ const resetBtnShow = (category) => {
 
 
 // history를 만드는 함수1
-const makeHistory1 = (category, cp) => {
+const makeHistory1 = (category, cp, sort) => {
     const state = { 'category': category };
     const title = '';
-    const url = '/post/list?' + 'category=' + category + '&cp=' + cp;
+    const url = '/post/list?' + 'category=' + category + '&cp=' + cp + '&sort=' + sort;
 
     history.pushState(state, title, url)
 }
 
 // history를 만드는 함수2
-const makeHistory2 = (keyword, category, cp) => {
+const makeHistory2 = (keyword, category, cp, sort) => {
     const state = { 'keyword': keyword };
     const title = '';
-    const url = '/post/list?' + 'keyword=' + keyword + '&category=' + category + '&cp=' + cp;
+    const url = '/post/list?' + 'keyword=' + keyword + '&category=' + category + '&cp=' + cp + '&sort=' + sort;
 
     history.pushState(state, title, url)
 }
@@ -528,13 +546,16 @@ const doSearch = () => {
     // 특수문자 제거
     keyword = replaceSpecialSymbols(keyword);
 
+    // 정렬
+    let sort = getSortOption();
+
     if (keyword.trim().length != 0) {
-        getCustomList2(keyword, 0, 1);
+        getCustomList2(keyword, 0, 1, sort);
 
         // 히스토리 업데이트
         const state = { 'keyword': keyword };
         const title = '';
-        const url = '/product/list?' + 'keyword=' + keyword + '&category=0&cp=1';
+        const url = '/product/list?' + 'keyword=' + keyword + '&category=0&cp=1&sort=' + sort;
 
         history.pushState(state, title, url);
 
@@ -575,13 +596,16 @@ for (let category of categoryList) {
         // 키워드 가져오기
         let keyword = getKeyword();
 
+        // 카테고리
+        let sort = getSortOption();
+
         // 선택한 정보로 페이지를 생성
         if (keyword.length == 0) {
-            getCustomList(category, cp);
-            makeHistory1(category, cp);
+            getCustomList(category, cp, sort);
+            makeHistory1(category, cp, sort);
         } else {
-            getCustomList2(keyword, category, cp);
-            makeHistory2(keyword, category, cp);
+            getCustomList2(keyword, category, cp, sort);
+            makeHistory2(keyword, category, cp, sort);
         }
     })
 };
@@ -608,6 +632,36 @@ resetCategory.addEventListener('click', () => {
     location.href = requestUrl;
 })
 
+// 정렬 옵션 선택 이벤트
+const sortOptionList = document.getElementsByName('sorting');
+for (let sortOption of sortOptionList) {
+    sortOption.addEventListener("click", () => {
+
+        // 카테고리 선택
+        let category = getCheckedCategory();
+
+        resetBtnShow(category);
+
+        // 페이지 초기화
+        let cp = 1;
+
+        // 키워드 가져오기
+        let keyword = getKeyword();
+
+        // 정렬 옵션
+        let sort = getSortOption();
+
+        // 선택한 정보로 페이지를 생성
+        if (keyword.length == 0) {
+            getCustomList(category, cp, sort);
+            makeHistory1(category, cp, sort);
+        } else {
+            getCustomList2(keyword, category, cp, sort);
+            makeHistory2(keyword, category, cp, sort);
+        }
+    })
+}
+
 /* 페이지 선택 이벤트 추가 함수 */
 const makePageBoxEvent = () => {
     const pageBoxList = document.getElementsByClassName('page-box');
@@ -624,11 +678,14 @@ const makePageBoxEvent = () => {
                 // 페이지 선택
                 let cp = pageBox.id;
 
+                // sort옵션
+                let sort = getSortOption();
+
                 // 선택한 정보로 페이지를 생성
-                getCustomList(category, cp);
+                getCustomList(category, cp, sort);
 
                 // history에 저장
-                makeHistory1(category, cp);
+                makeHistory1(category, cp, sort);
             } else { // 주소창에 키워드가 있는 경우(키워드 유지)
                 // 첫 번째 = 의 위치
                 const firstEqualSign = url.indexOf('=', 1);
@@ -642,14 +699,14 @@ const makePageBoxEvent = () => {
                 // 주소창 인코딩
                 let keyword = decodeURIComponent(keywordEncoded);
 
-                // 주소창 특문 제거
-                keyword = replaceSpecialSymbols('keyword');
+                // sort 옵션
+                let sort = getSortOption();
 
                 // 페이지 생성
-                getCustomList2(beforeKeyword, beforeCategoryNo, beforePageNo);
+                getCustomList2(beforeKeyword, beforeCategoryNo, beforePageNo, sort);
 
                 // history에 저장
-                makeHistory2(keyword, category, cp);
+                makeHistory2(keyword, category, cp, sort);
             }
         })
     }
