@@ -53,7 +53,7 @@
             <div class="order-info-container">
             <div class="order-info">
               <span class="order-no" id="${order.orderNo}">주문번호 <span>${order.orderNo}</span></span>
-              <span class="order-reg-date">2022.12.15</span>
+              <span class="order-reg-date">${order.orderDate}</span>
             </div>
           </div>
 
