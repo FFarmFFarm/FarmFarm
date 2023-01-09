@@ -147,14 +147,17 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	
-	// 판매자 인증 거절
+	
+	
+	// 판매자 인증 보류
 	@Override
-	public int sellerDeny(int hiddenNo) {
+	public int sellerDeny(int hiddenNo, String denyReason) {
 		
 		// 회원 권한을 인증 보류로 변경
-		int result = dao.sellerDeny(hiddenNo);
+		int result = dao.sellerDeny(hiddenNo, denyReason);
 		
 		if(result > 0) {
+			
 			// 판매자 인증 처리 일자 수정
 			result = dao.updateAuthDate(hiddenNo);
 		}
@@ -164,7 +167,11 @@ public class AdminServiceImpl implements AdminService{
 	
 	
 	
-	
+	// 판매자 인증 보류 사유 가져오기
+	@Override
+	public String selectDenyReason(int memberNo) {
+		return dao.selectDenyReason(memberNo);
+	}
 	
 	
 	
