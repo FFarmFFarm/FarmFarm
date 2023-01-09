@@ -35,9 +35,9 @@
     <main>
         <jsp:include page='/WEB-INF/views/admin/adminNav.jsp' />
         
-        <c:if test="${not empty param.key}">
+        <%-- <c:if test="${not empty param.key}">
             <c:set var="sURL" value="$key=${param.key}&query=${param.query}"/>
-        </c:if>
+        </c:if> --%>
 
         <section class="order-list-section">
             <div class="page-title">
@@ -54,11 +54,11 @@
                     ~
                     <input type="date" name="orderDate" id="endDate"
                     placeholder="종료일">
-                    <button id="search-period">기간검색</button>
+                    <button id="searchPeriod">기간검색</button>
                     <div class="button-area">
-                        <button id="this-month">당월조회</button>
-                        <button id="last-month">전월조회</button>
-                        <button id="period-all">전체조회</button>
+                        <button id="thisMonthBtn" name="dateFilter" value='0'>당월조회</button>
+                        <button id="lastMonthBtn" name="dateFilter" value='1'>전월조회</button>
+                        <button id="periodAll" name="dateFilter" value='2'>전체조회</button>
                     </div>
                 </div>
             </div>
@@ -67,9 +67,11 @@
                 <div class="part-title list-search">
                     <p>주문목록</p>
                     <div class="count-list">총
-                        <span>${map.orderListCount}</span>건
+                        <span class="count-list-no">${map.orderListCount}</span>건
                     </div>
-                    <form action="" method="get" id="productSearch" onsubmit="return true">
+
+                    <%-- 검색 --%>
+                    <div id="productSearch">
 
                         <select name="key" id="searchKey">
                             <option value="m">회원ID</option>
@@ -78,47 +80,51 @@
         
                         <input type="text" name="query"  id="searchQuery" placeholder="검색어 입력">
         
-                        <button>검색</button>
-                    </form>
+                        <button id="searchBtn">검색</button>
+                    </div>
                 </div>
 
                 <table class="order-list-table">
-                    <tr class="table-row table-head">
-                        <th>주문번호</th>
-                        <th>주문일</th>
-                        <th>주문회원</th>
-                        <th>품목수</th>
-                        <th>상품금액</th>
-                        <th>결제금액</th>
-                        <th>주문상태</th>
-                    </tr>
-                    <c:choose>
-                        <c:when test="${empty orderList}">
-                            <tr>
-                                <th colspan="7" class="no-result">주문내역이 존재하지 않습니다.</th>
-                            </tr>
-                        </c:when>
-                        <c:otherwise>
-                            <c:forEach items="${orderList}" var="order">
-
-                                <tr class="table-row table-info">
-                                    <td class="order-no" id="${order.orderNo}">${order.orderNo}</td>
-                                    <td>${order.orderDate}</td>
-                                    <td>${order.memberId}</td>
-                                    <td>${order.productCount}</td>
-                                    <td>${order.productSum}</td>
-                                    <td>${order.orderPrice}</td>
-                                    <td>
-                                        <c:if test="${order.orderStatus == 0}">결제완료</c:if>
-                                        <c:if test="${order.orderStatus == 1}">배송중</c:if>
-                                        <c:if test="${order.orderStatus == 2}">취소완료</c:if>
-                                        <c:if test="${order.orderStatus == 3}">구매확정</c:if>
-                                    </td>
+                    <thead>
+                        <tr class="table-row table-head">
+                            <th>주문번호</th>
+                            <th>주문일</th>
+                            <th>주문회원</th>
+                            <th>품목수</th>
+                            <th>상품금액</th>
+                            <th>결제금액</th>
+                            <th>주문상태</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orderListResult">
+                        <c:choose>
+                            <c:when test="${empty orderList}">
+                                <tr>
+                                    <th colspan="7" class="no-result">주문내역이 존재하지 않습니다.</th>
                                 </tr>
-                            
-                            </c:forEach>
-                        </c:otherwise>
-                    </c:choose>
+                            </c:when>
+                            <c:otherwise>
+                                <c:forEach items="${orderList}" var="order">
+
+                                    <tr class="table-row table-info">
+                                        <td class="order-no" id="${order.orderNo}">${order.orderNo}</td>
+                                        <td>${order.orderDate}</td>
+                                        <td>${order.memberId}</td>
+                                        <td>${order.productCount}</td>
+                                        <td>${order.productSum}</td>
+                                        <td>${order.orderPrice}</td>
+                                        <td>
+                                            <c:if test="${order.orderStatus == 0}">결제완료</c:if>
+                                            <c:if test="${order.orderStatus == 1}">배송중</c:if>
+                                            <c:if test="${order.orderStatus == 2}">취소완료</c:if>
+                                            <c:if test="${order.orderStatus == 3}">구매확정</c:if>
+                                        </td>
+                                    </tr>
+                                
+                                </c:forEach>
+                            </c:otherwise>
+                        </c:choose>
+                    </tbody>
                 </table>
             </div>
             
@@ -140,7 +146,7 @@
                         step="1">
                         <c:choose>
                             <c:when test="${i==pagination.currentPage}">
-                                <div class="page-box">
+                                <div class="current-page-box">
                                     <a class="current">${i}</a>
                                 </div>
                             </c:when>
