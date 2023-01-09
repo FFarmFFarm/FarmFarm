@@ -371,6 +371,9 @@ main{
     transition-duration: 0.3s;
     background-color: #fafafa;
 }
+.message-preview-box:hover *{
+    color: var(--main-font-color);
+}
 
 
 /* 채팅방 */
