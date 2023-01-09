@@ -59,6 +59,8 @@ const addWish = (productNo, wishBtn) => {
     success: (result) => {
       wishBtn.classList.remove('wish-unclicked');
       wishBtn.classList.add('wish-clicked');
+
+      messageModalOpen("찜 목록에 추가되었습니다.");
     },
     error: () => {
       console.log('찜 추가 중 오류 발생');
@@ -74,6 +76,8 @@ const removeWish = (productNo, wishBtn) => {
     success: (result) => {
       wishBtn.classList.remove('wish-clicked');
       wishBtn.classList.add('wish-unclicked');
+
+      messageModalOpen("찜 목록에서 제거되었습니다.");
     },
     error: () => {
       console.log('찜 취소 중 오류 발생');
@@ -782,6 +786,14 @@ const printReviewList = (reviewList, pagination, sortFL) => {
   productReviewList.innerHTML = "";
 
   /* 리뷰 목록에 리뷰 추가하기 */
+  if (reviewList.length == 0) {
+    const li = document.createElement('li');
+    li.classList.add('no-review');
+    li.innerText = "리뷰가 없습니다. 상품을 구입하고 첫 후기를 남겨주세요.";
+
+    productReviewList.append(li);
+  }
+  
   for (let review of reviewList) {
     const li = document.createElement('li');
     li.classList.add('review');

@@ -381,6 +381,13 @@ button:disabled:active {
 }
 
 /* 리뷰 하나 */
+.no-review {
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .review {
   display: flex;
   font-size: var(--main-font-size);
