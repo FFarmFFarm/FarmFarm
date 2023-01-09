@@ -289,33 +289,21 @@
 	<select id="getOrderListCount_search" resultType="_int">
 		SELECT COUNT(*) FROM "ORDER"
 		JOIN MEMBER USING(MEMBER_NO)
-		<choose>
-			<when test='query != null and query != "" and startDate != null and startDate != ""'>
+		<where>
+			<if test='query != null and query != ""'>
 				<choose>
 					<when test='key=="m"'>
-						WHERE MEMBER_ID LIKE '%${query}%'
-						AND ORDER_DATE BETWEEN #{startDate} AND #{endDate}
+						AND MEMBER_ID LIKE '%${query}%'
 					</when>
 					<when test='key=="o"'>
-						WHERE ORDER_NO LIKE '%${query}%'
-						AND ORDER_DATE BETWEEN #{startDate} AND #{endDate}
+						AND ORDER_NO LIKE '%${query}%'
 					</when>
 				</choose>
-			</when>
-			<when test='query != null and query != "" and startDate == null and startDate == ""'>
-				<choose>
-					<when test='key=="m"'>
-						WHERE MEMBER_ID LIKE '%${query}%'
-					</when>
-					<when test='key=="o"'>
-						WHERE ORDER_NO LIKE '%${query}%'
-					</when>
-				</choose>
-			</when>
-			<otherwise>
-				WHERE ORDER_DATE BETWEEN #{startDate} AND #{endDate}
-			</otherwise>
-		</choose>
+			</if>
+			<if test='startDate != null and startDate != ""'>
+				AND ORDER_DATE BETWEEN #{startDate} AND #{endDate}
+			</if>
+		</where>
 	</select>
 	
 	<!-- 검색한 주문 리스트 조회 -->
@@ -331,35 +319,21 @@
 			WHERE O.ORDER_NO = OP.ORDER_NO), '999,999,999,999') PRODUCT_SUM
 		FROM "ORDER" O
 		JOIN MEMBER USING(MEMBER_NO)
-		<choose>
-			<when test='query != null and query != "" and startDate != null and startDate != ""'>
+		<where>
+			<if test='query != null and query != ""'>
 				<choose>
 					<when test='key=="m"'>
-						WHERE MEMBER_ID LIKE '%${query}%'
-						AND ORDER_DATE BETWEEN #{startDate} AND #{endDate}
+						AND MEMBER_ID LIKE '%${query}%'
 					</when>
 					<when test='key=="o"'>
-						WHERE ORDER_NO LIKE '%${query}%'
-						AND ORDER_DATE BETWEEN #{startDate} AND #{endDate}
+						AND ORDER_NO LIKE '%${query}%'
 					</when>
 				</choose>
-			</when>
-			<when test='query != null and query != "" and startDate == null and startDate == ""'>
-				<choose>
-					<when test='key=="m"'>
-						WHERE MEMBER_ID LIKE '%${query}%'
-					</when>
-					<when test='key=="o"'>
-						WHERE ORDER_NO LIKE '%${query}%'
-					</when>
-				</choose>
-			</when>
-			<when test='query == null and query == "" and startDate != null and startDate != ""'>
-				WHERE ORDER_DATE BETWEEN #{startDate} AND #{endDate}			
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
+			</if>
+			<if test='startDate != null and startDate != ""'>
+				AND ORDER_DATE BETWEEN #{startDate} AND #{endDate}
+			</if>
+		</where>
 		ORDER BY ORDER_NO DESC
 	</select>
 	
