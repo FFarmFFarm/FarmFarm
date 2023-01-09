@@ -181,8 +181,12 @@ const fillChatWidget = (chatRoomList) => {
                         packUpElement(chatWidgetLastChatContent, 'chatWidget-last-chat-content', "-");
                     }
                 }
-    
-                packUpElement(chatWidgetLastChatTime, 'chatWidget-last-chat-time', chatRoom.lastChatTime);
+                
+                if(chatRoom.lastChatTime == undefined) {
+                    packUpElement(chatWidgetLastChatTime, 'chatWidget-last-chat-time', '');
+                } else {
+                    packUpElement(chatWidgetLastChatTime, 'chatWidget-last-chat-time', chatRoom.lastChatTime);
+                }
     
     
                 // input값 세팅
@@ -197,9 +201,15 @@ const fillChatWidget = (chatRoomList) => {
                 chatWidgetBox.append(chatWidgetThumbnailImg, chatWidgetRoomTitle, chatWidgetBoxLabel);
     
                 // unreadChatCount 세팅
+
+                
                 if (chatRoom.unreadChatCount > 0) { // 읽지 않은 채팅이 있는 경우
+                    let count = 0;
+                    if (chatRoom.unreadChatCount > 99) count = '99+';
+                    else count = chatRoom.unreadChatCount;
+
                     const chatWidgetUnreadChatCount = document.createElement('div'); // 개별 채팅방의 읽지 않은 메세지 개수
-                    packUpElement(chatWidgetUnreadChatCount, 'chatWidget-unread-chat-count', chatRoom.unreadChatCount);
+                    packUpElement(chatWidgetUnreadChatCount, 'chatWidget-unread-chat-count', count);
                     chatWidgetBox.append(chatWidgetUnreadChatCount);
                     chatRedDotOnly();
                 }

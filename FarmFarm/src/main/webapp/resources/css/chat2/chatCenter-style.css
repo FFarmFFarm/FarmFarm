@@ -335,8 +335,8 @@ body{
 
 /* 읽지 않은 채팅 개수 */
 .unread-chat-count{
-    width: 20px;
-    height: 20px;
+    width: 23px;
+    height: 23px;
     background-color: rgb(250, 83, 83);
     color: white;
     font-size: var(--small-font-size);

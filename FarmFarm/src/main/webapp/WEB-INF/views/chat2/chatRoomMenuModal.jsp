@@ -32,7 +32,7 @@
         <div id="inviteBody" class="chatRoom-menu-body">
           <span>회원 검색</span>
           <div class="search-nickname-box">
-            <input id="searchNicknameInput" type="text" placeholder="닉네임 입력">
+            <input id="searchNicknameInput" type="text" placeholder="닉네임 입력" spellcheck="false">
           </div>
           <span id="inviteMenuNotice">채팅방 초대 메시지를 전송합니다.</span>
           <div class="menu-confirm-btn">

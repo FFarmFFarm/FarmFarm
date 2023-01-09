@@ -133,7 +133,7 @@
 /* 이름 및 시간 */
 .chatWidget-box-label{
     border-top: 1px solid var(--line-color);
-    height: 24px;
+    /* height: 24px; */
     width: 200px;
     /* padding-bottom: 10px; */
     /* margin-bottom: 5px; */
@@ -206,8 +206,8 @@
     position: absolute;
 
     font-size: var(--main-font-size);
-    width: 20px;
-    height: 20px;
+    width: 23px;
+    height: 23px;
     border-radius: 50%;
 
     background-color: red;

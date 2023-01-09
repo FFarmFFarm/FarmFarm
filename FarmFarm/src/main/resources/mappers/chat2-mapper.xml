@@ -202,7 +202,9 @@
 	<!-- 채팅방 참가(INSERT) -->
 	<insert id="insertChatEnter">
 		INSERT INTO CHAT2_ENTER
-		VALUES(SEQ_ENTER_NO.NEXTVAL, #{roomNo}, #{memberNo}, #{enterStatus}, DEFAULT)
+		VALUES(SEQ_ENTER_NO.NEXTVAL, #{roomNo}, #{memberNo}, #{enterStatus},
+				NVL((SELECT MAX(CHAT_NO) FROM CHAT2 WHERE ROOM_NO = #{roomNo}),0) ,
+				NVL((SELECT MAX(CHAT_NO) FROM CHAT2 WHERE ROOM_NO = #{roomNo}),0) )
 	</insert>
 	
 	<!-- 채팅방 초대(UPDATE) -->

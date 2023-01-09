@@ -81,19 +81,19 @@
                               <i class="fa-solid fa-arrow-up-short-wide caret-icon"></i>
                               <i class="fa-solid fa-arrow-down-wide-short caret-icon"></i> 
                             </th> -->
-                            <th>
+                            <th class="report-list-type" id="thStatusFilter">
                               <span id="dropBtn2">
                                 <span id="dropBtn2Text">처리 상태</span>
                                 <i class="fa-solid fa-caret-down filter-icon" id="dropBtn2"></i>
                               </span>
-                              <div class="drop-menu" id="dropMenu2">
+                              <div class="drop-menu2" id="dropMenu2">
                                 <ul class="drop-ul" id="dropUl2">
-                                    <li class="typeFilter" id="t0">전체</li>
-                                    <li class="typeFilter" id="t1">일반 회원</li>
-                                    <li class="typeFilter" id="t2">판매자</li>
-                                    <li class="typeFilter" id="t3">판매 게시글</li>
-                                    <li class="typeFilter" id="t4">커뮤니티 게시글</li>
-                                    <li class="typeFilter" id="t5">커뮤니티 댓글</li>
+                                    <li class="processFilter" id="p0">전체</li>
+                                    <li class="processFilter" id="p1">접수</li>
+                                    <li class="processFilter" id="p2">반려</li>
+                                    <li class="processFilter" id="p3">회원 정지</li>
+                                    <li class="processFilter" id="p4">회원 탈퇴</li>
+                                    <li class="processFilter" id="p5">삭제</li>
                                 </ul>
                               </div>
                             </th>
@@ -152,7 +152,7 @@
                                 </c:if> 
 
                                 <c:if test="${report.reportType eq 'M'}">
-                                  <c:if test="${report.memberDelFl eq 'N'&& report.reportPenalty eq 'Y'}">
+                                  <c:if test="${report.memberDelFl eq 'N'&& (report.reportPenalty eq 'Y' || report.reportPenalty eq 'A')}">
                                     <td>정지</td>
                                   </c:if>
                                   <c:if test="${report.memberDelFl eq 'Y'}">
@@ -309,6 +309,7 @@
     <script>
       var typeFilter = 0;
       var sortFilter = 'default';
+      var processFilter = 0;
       var cp = 1;
     </script>
 
