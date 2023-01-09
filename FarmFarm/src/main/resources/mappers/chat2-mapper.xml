@@ -298,7 +298,8 @@
 		AND CHAT_NO > (SELECT LAST_READ_CHAT_NO
 					   FROM CHAT2_ENTER
 					   WHERE ROOM_NO = #{roomNo}
-					   AND MEMBER_NO = #{memberNo})	
+					   AND MEMBER_NO = #{memberNo}
+					   AND ENTER_STATUS = 'Y')	
 	</update>
 	
 	
