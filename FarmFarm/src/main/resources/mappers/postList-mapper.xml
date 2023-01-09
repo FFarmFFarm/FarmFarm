@@ -150,5 +150,11 @@
 		WHERE POST_NO = #{postNo}
 	</select>
 
+<!-- 판매자가 탈퇴시 판매글 soldout 처리 -->
+<update id="updateSoldout">
+	UPDATE "POST" SET
+	POST_SOLDOUT_FL = 1
+	${condition}
+</update>
 
 </mapper>
