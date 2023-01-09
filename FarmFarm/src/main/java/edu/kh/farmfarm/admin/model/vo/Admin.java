@@ -60,4 +60,6 @@ public class Admin {
 	private int contentNo;  // 게시글 번호 (판매글, 커뮤니티게시글)
 	private String commentMemberId;  // 댓글 쓴 회원 아이디
 	private int commentBoardNo; // 댓글이 달린 게시글 번호
+	
+	private String authDenyReason; // 판매자인증 보류 사유
 }

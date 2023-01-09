@@ -31,12 +31,27 @@ body{
 
 .notice-text2{
     margin-top: 30px;
-    font-family: "S-CoreDream-4Legular";
+    /* font-family: "S-CoreDream-4Legular"; */
     font-size: var(--medium-font-size);
     color: var(--point-color);
     font-weight: bolder;
+    line-height: 30px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
+
+.notice-text2 span{
+    font-family: "S-CoreDream-4Legular";
+}
+
+.notice-span{
+    color: black;
+    background-color: yellow;
+}
 
 #buttonArea{
     width: 100%;
