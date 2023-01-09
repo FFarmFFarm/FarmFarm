@@ -194,6 +194,8 @@
 
         const loginYN = "${loginMember}";
 
+        var memberNo = "${loginMember.memberNo}"; /* 여기 추가했습니다. */
+
     </script>
     <script src="/resources/js/board/boardList.js"> </script>
     <script src="/resources/js/member/memberModal.js"> </script>

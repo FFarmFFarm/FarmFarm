@@ -190,8 +190,10 @@ public class AdminServiceImpl implements AdminService{
 		
 		int result = 0;
 		
+		// 업로드된 파일이 있다면
 		if(farmImg.getSize() > 0) {
 			
+			// 원본 파일명을 변경된 파일명으로 변경
 			rename = Util.fileRename(farmImg.getOriginalFilename()); 
 			
 			farmImage.setMemberNo(memberNo);
@@ -200,6 +202,7 @@ public class AdminServiceImpl implements AdminService{
 			result = dao.updateSellerImage(farmImage);
 			
 			if(result > 0) {
+				// 실제 파일로 변환
 				farmImg.transferTo(new File(folderPath + rename));
 			}
 			
