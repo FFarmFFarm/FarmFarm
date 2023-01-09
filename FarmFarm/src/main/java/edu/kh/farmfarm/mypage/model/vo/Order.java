@@ -27,6 +27,9 @@ public class Order {
 	private String productSum;
 	private String orderAddress;
 	
+	private String startDate;
+	private String endDate;
+	
 	private List<Product> productList;
 	
 }

@@ -195,24 +195,33 @@ public class ProductAdminController {
 	// 주문리스트 관리
 	@GetMapping("/admin/orderList")
 	public String orderList(Model model,
-		@RequestParam(value="cp", required=false, defaultValue="1")int cp,
-		@RequestParam Map<String, Object> pm) {
+		@RequestParam(value="cp", required=false, defaultValue="1")int cp) {
 		
-		if(pm.get("key") == null) { // 검색 아닌 경우
 			
-			Map<String, Object> map = service.selectOrderList(cp);
+		Map<String, Object> map = service.selectOrderList(cp);
+		
+		model.addAttribute("map", map);
 			
-			model.addAttribute("map", map);
-			
-		} else { // 검색인 경우
-			
-			Map<String, Object> map = service.selectOrderList(pm, cp);
-
-			model.addAttribute("map", map);
-		}
 				
 		return "productAdmin/productOrderList";
 	}
+	
+	
+	// 기간 조회 + 기간 내 검색 주문리스트
+	@ResponseBody
+	@GetMapping("/admin/orderList/period")
+	public String searchPeriod(
+			@RequestParam(value = "cp", required = false, defaultValue = "1") int cp,
+			@RequestParam Map<String, Object> pm
+			) {
+		
+		Map<String, Object> orderMap = service.selectOrderList(pm, cp);
+		
+		
+		return new Gson().toJson(orderMap);
+	}
+	
+	
 	
 	// 주문 상세조회
 	@ResponseBody
