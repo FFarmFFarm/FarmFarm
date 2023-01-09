@@ -81,6 +81,9 @@ for(let i of dateFilter){
         let thisEndDate = thisMonth();
 
         console.log(thisStartDate, thisEndDate);
+
+        document.getElementById("searchQuery").value = "";
+        
         selectSearchList(cp, thisStartDate, thisEndDate);
         
         document.getElementById("startDate").value = thisStartDate;
@@ -96,17 +99,26 @@ for(let i of dateFilter){
         lastStartDate = lastStartDate + "-01";
         
         let lastEndDate = lastMonth();
+
+        document.getElementById("searchQuery").value = "";
         
         selectSearchList(cp, lastStartDate,lastEndDate);
         
         document.getElementById("startDate").value = lastStartDate;
         document.getElementById("endDate").value = lastEndDate;
 
+
         break;
 
       case '2' : // 전체조회
 
+        document.getElementById("startDate").value = "";
+        document.getElementById("endDate").value = "";
+
+        document.getElementById("searchQuery").value = "";
+
         selectSearchList(cp);
+
 
         break;
 
@@ -206,6 +218,8 @@ const fillProductList = (orderMap, startDate, endDate)=>{
 
     const noResult = document.createElement("th");
     noResult.classList.add("no-result");
+
+    noResult.setAttribute("colspan", "7");
 
     noResult.innerText = "조회 결과가 없습니다";
 

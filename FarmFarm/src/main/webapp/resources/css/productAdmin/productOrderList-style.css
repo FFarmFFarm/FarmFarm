@@ -360,9 +360,3 @@ td, tr{
     font-weight: 600;
     color: var(--point-color);
 }
-
-
-.no-result{
-    height: 200px;
-    padding-top: 100px;
-}
