@@ -1,0 +1,140 @@
+@import '../root-style.css';
+
+*{
+    box-sizing: border-box;
+}
+
+
+/* 컨테이너 숨기기 */
+.emoticon-hide{
+    height: 0;
+    width: 0;
+    opacity: 0;
+}
+
+/* emoticon 컨테이너 */
+.emoticon-container{
+    background-color: white;
+    box-shadow: 2px 2px 10px 0px #bcbcbc;
+
+    width: 300px;
+    height: 300px;
+
+    /* display: flex; */
+    flex-direction: column;
+
+    border-radius: 10px;
+    overflow: hidden;
+
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    z-index: 3;
+
+    transition-duration: 0.1s;
+}
+
+
+
+.emoticon-container-header{
+    width: 290px;
+    height: 30px;
+    background-color: var(--point-color);
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 15px;
+    margin: 5px;
+    border-radius: 10px;
+}
+
+/* 닫기 버튼 */
+.emoticon-close-btn{
+    cursor: pointer;
+}
+
+.emoticon-close-btn:hover{
+    font-size: 20px;
+}
+
+.emoticon-empty{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--sub-font-color);
+}
+
+/* emoticon 카테고리 리스트 */
+.emoticon-category-list{
+    background-color: white;
+    height: 70px;
+    width: 300px;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
+
+    border-top: 1px solid var(--line-color);
+}
+
+.emoticon-category-list::-webkit-scrollbar{
+    display: none;
+}
+
+.emoticon-category-box{
+    width: 70px;
+    height: 70px;
+    background-color: rgb(0,0,0,0.1);
+
+    border-radius: 10px;
+
+    cursor: pointer;
+}
+
+.emoticon-category-box:hover{
+    opacity: 0.5;
+}
+
+.emoticon-category-box > img{
+    width: 100%;
+    height: 100%;
+}
+
+/* emoticon 리스트 */
+.emoticon-list {
+    padding: 5px 0px;
+    width: 300px;
+    height: 190px;
+    
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+}
+
+.emoticon-list::-webkit-scrollbar {
+    display: none;
+}
+
+.emoticon-list-box{
+    width: 33%;
+    height: 100px;
+}
+
+.emoticon-list-box > img{
+    width: 100%;
+    height: 100%;
+
+    cursor: pointer;
+}
+
+.emoticon-list-box:hover{
+    opacity: 0.5;
+}

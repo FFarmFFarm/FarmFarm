@@ -16,6 +16,7 @@ import edu.kh.farmfarm.chat2.model.vo.Chat2;
 import edu.kh.farmfarm.chat2.model.vo.Chat2Enter;
 import edu.kh.farmfarm.chat2.model.vo.Chat2Img;
 import edu.kh.farmfarm.chat2.model.vo.Chat2Room;
+import edu.kh.farmfarm.chat2.model.vo.Emoticon;
 import edu.kh.farmfarm.common.Util;
 import edu.kh.farmfarm.member.model.VO.Member;
 
@@ -350,18 +351,7 @@ public class Chat2ServiceImpl implements Chat2Service {
 		return dao.deleteChatEnter(chat2Enter);
 	}
 
-	// 입장 시 시스템 메시지
-//	@Override
-//	@Transactional(rollbackFor = Exception.class)
-//	public int insertNewSystemChat(int roomNo, String chatContent) {
-//		Chat2 chat = new Chat2();
-//		chat.setRoomNo(roomNo);
-//		chat.setChatContent(chatContent);
-//		return dao.insertNewSystemChat(chat);
-//	}
-
-
-	// 1. 입장 시 조회 처리 : UNREAD_CHAT_COUNT 0으로 만들기 J
+	// 2. 입장 시 조회 처리 : UNREAD_CHAT_COUNT 0으로 만들기 J
 	@Override
 	public int updateUnreadCount(int memberNo, int roomNo) {
 		
@@ -371,6 +361,29 @@ public class Chat2ServiceImpl implements Chat2Service {
 		
 		return dao.updateUnreadCount(updateMap);
 		
+	}
+	
+	// 1. 입장 시 조회 처리 : n명 읽음 + 1;
+	@Override
+	public int updateReadCount(int memberNo, int roomNo) {
+		
+		Map<String, Object> updateMap = new HashMap<String, Object>();
+		updateMap.put("memberNo", memberNo);
+		updateMap.put("roomNo", roomNo);
+		
+		return dao.updateReadCount(updateMap);
+	}
+
+
+	// 이모티콘 카테고리 리스트
+	@Override
+	public List<Emoticon> selectEmoticonCategoryList() {
+		return dao.selectEmoticonCategoryList();
+	}
+
+	@Override
+	public List<Emoticon> selectEmoticonList(int emoticonCategoryNo) {
+		return dao.selectEmoticonList(emoticonCategoryNo);
 	}
 
 
