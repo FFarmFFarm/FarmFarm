@@ -163,7 +163,7 @@
                         step="1">
                         <c:choose>
                             <c:when test="${i==pagination.currentPage}">
-                                <div class="page-box">
+                                <div class="current-page-box">
                                     <a class="current">${i}</a>
                                 </div>
                             </c:when>

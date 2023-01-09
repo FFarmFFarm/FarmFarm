@@ -182,7 +182,7 @@ main{
     height: 25px;
 }
 
-#search-period{
+#searchPeriod{
     width: 100px;
     background-color: var(--background-color);
     border: 1px solid #d8d8d8;
@@ -314,11 +314,11 @@ td, tr{
 
 /* 페이지 박스 */
 .page-box{
+    background-color: var(--background-color);
     color: var(--sub-font-color);
     border: 1px solid var(--line-color);
     width: 30px;
     height: 30px;
-    background-color: var(--background-color);
     
     display: flex;
     justify-content: center;
@@ -338,4 +338,31 @@ td, tr{
     color: var(--main-font-color);
     font-weight: 600;
     transition-duration: 0.1s;
+}
+
+/* 현재 페이지 */
+.current-page-box{
+    background-color: var(--background-color);
+    border: 1px solid var(--line-color);
+
+    width: 30px;
+    height: 30px;
+
+    font-weight: 600;
+    color: var(--point-color);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.current-page-box>a{
+    font-weight: 600;
+    color: var(--point-color);
+}
+
+
+.no-result{
+    height: 200px;
+    padding-top: 100px;
 }

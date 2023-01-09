@@ -98,6 +98,7 @@ public class ProductAdminDAO {
 		return sqlSession.insert("productAdmin.stockUp", map);
 	}
 
+	
 	/** 판매자 재고 감소
 	 * @param productAmount
 	 * @return result
@@ -105,6 +106,7 @@ public class ProductAdminDAO {
 	public int stockDown(Map<String, Object> map) {
 		return sqlSession.insert("productAdmin.stockDown", map);
 	}
+	
 	
 	/** 판매 상품 삭제
 	 * @param productNo
@@ -114,6 +116,7 @@ public class ProductAdminDAO {
 		return sqlSession.update("productAdmin.deleteProduct", productNo);
 	}
 
+	
 	/** 상품 수정페이지로 이동
 	 * @param productNo
 	 * @return product
@@ -121,6 +124,7 @@ public class ProductAdminDAO {
 	public Product selectProductDetail(int productNo) {
 		return sqlSession.selectOne("productAdmin.selectProductDetail", productNo);
 	}
+	
 
 	/** 상품 수정
 	 * @param product
@@ -130,6 +134,7 @@ public class ProductAdminDAO {
 		return sqlSession.update("productAdmin.updateProduct", product);
 	}
 
+	
 	/** 상품 이미지 삭제
 	 * @param condition
 	 * @return result
@@ -137,6 +142,7 @@ public class ProductAdminDAO {
 	public int productImgDelete(String condition) {
 		return sqlSession.delete("productAdmin.productImgDelete", condition);
 	}
+	
 
 	/** 상품 이미지 업데이트
 	 * @param img
@@ -145,6 +151,7 @@ public class ProductAdminDAO {
 	public int productImgUpdate(ProductImg img) {
 		return sqlSession.update("productAdmin.productImgUpdate", img);
 	}
+	
 
 	/** 상품 이미지 삽입
 	 * @param img
@@ -153,6 +160,7 @@ public class ProductAdminDAO {
 	public int productImgInsert(ProductImg img) {
 		return sqlSession.insert("productAdmin.productImgInsert", img);
 	}
+	
 
 	/** 상품 상태 변경
 	 * @param map
@@ -161,6 +169,7 @@ public class ProductAdminDAO {
 	public int soldoutProduct(Map<String, Object> map) {
 		return sqlSession.update("productAdmin.soldoutProduct", map);
 	}
+	
 
 	/** 주문 목록 수 조회
 	 * @return
@@ -168,6 +177,7 @@ public class ProductAdminDAO {
 	public int getOrderListCount() {
 		return sqlSession.selectOne("productAdmin.orderListCount");
 	}
+	
 
 	/** 주문 리스트 조회
 	 * @param pagination
@@ -206,7 +216,33 @@ public class ProductAdminDAO {
 		
 		return sqlSession.selectList("productAdmin.selectOrderList_search", pm, rowBounds);
 	}
+	
+	
 
+	/** 주문 기간 조회 리스트 수
+	 * @param dateMap
+	 * @return periodListCount
+	 */
+//	public int getPeriodListCount(Map<String, Object> dateMap) {
+//		return sqlSession.selectOne("productAdmin.getPeriodListCount", dateMap);
+//	}
+
+	
+	/** 주문 기간 리스트 조회
+	 * @param pagination
+	 * @param dateMap
+	 * @return periodList
+	 */
+//	public List<Order> selectOrderPeriod(Pagination pagination, Map<String, Object> dateMap) {
+//		
+//		int offset = (pagination.getCurrentPage()-1)*pagination.getLimit();
+//		
+//		RowBounds rowBounds = new RowBounds(offset, pagination.getLimit());
+//		
+//		return sqlSession.selectList("productAdmin.selectOrderPeriod", dateMap, rowBounds);
+//	}
+
+	
 	/** 주문 상세조회
 	 * @param orderNo
 	 * @return
@@ -215,6 +251,7 @@ public class ProductAdminDAO {
 		return sqlSession.selectOne("productAdmin.selectOrderDetail", orderNo);
 	}
 
+	
 	/** 주문 상태 업데이트
 	 * @param map
 	 * @return
@@ -222,6 +259,7 @@ public class ProductAdminDAO {
 	public int orderStatus(Map<String, Object> map) {
 		return sqlSession.update("productAdmin.updateOrderStatus", map);
 	}
+	
 
 	/** 송장 등록
 	 * @param orderNo
@@ -231,6 +269,7 @@ public class ProductAdminDAO {
 		return sqlSession.insert("productAdmin.enrollInvocie", map);
 	}
 
+	
 	/** 주문상태 업데이트(배송)
 	 * @param orderNo
 	 * @return result
@@ -239,6 +278,7 @@ public class ProductAdminDAO {
 		return sqlSession.update("productAdmin.updateDeliveryStatus", map);
 	}
 
+	
 	/** 반품 목록 수 조회
 	 * @return
 	 */
@@ -246,6 +286,7 @@ public class ProductAdminDAO {
 		return sqlSession.selectOne("productAdmin.returnListCount");
 	}
 
+	
 	/** 반품 목록 조회
 	 * @param pagination
 	 * @return map
@@ -259,6 +300,7 @@ public class ProductAdminDAO {
 		return sqlSession.selectList("productAdmin.selectReturnList", 0, rowBounds);
 	
 	}
+	
 
 	/** 반품 상세 조회
 	 * @param returnNo
