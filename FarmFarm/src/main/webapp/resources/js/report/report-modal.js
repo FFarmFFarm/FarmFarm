@@ -48,7 +48,7 @@ reportBtn.addEventListener("click", () => {
     // 채팅방 회원 신고
     if(pathname == "chat") {
         reportType = "M";
-        reportTargetNo = memberNo2;
+        reportTargetNo = selectedChatNo;
     }
 
 

@@ -170,7 +170,7 @@
     <div id="receivedBubbleContextMenu" class="context-menu">
       <ul class="context-menu-box">
         <!-- <li id="copyChat" class="context-menu-list">복사하기</li> -->
-        <li id="reportChat" class="context-menu-list">신고하기</li>
+        <li id="reportBtn" class="context-menu-list">신고하기</li>
       </ul>
     </div>
 
@@ -183,6 +183,9 @@
 
     <!-- 채팅방 내부 드롭다운 메뉴 -->
     <jsp:include page="/WEB-INF/views/chat2/chatRoomMenuModal.jsp" />
+
+    <!-- 신고하기 모달창 -->
+    <jsp:include page="/WEB-INF/views/report/report-modal.jsp"/> 
 
     <!-- https://github.com/sockjs/sockjs-client -->
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
@@ -198,6 +201,10 @@
     <script src="/resources/js/chat2/chatService.js"></script>
     <script src="/resources/js/chat2/chatCenter.js"></script>
     <script src="/resources/js/chat2/chatContext.js"></script>
+
+    <!-- 신고하기 모달 -->
+    <script src="/resources/js/report/report-modal-common.js"></script>
+    <script src="/resources/js/report/report-modal.js"></script>
 
 </body>
 
