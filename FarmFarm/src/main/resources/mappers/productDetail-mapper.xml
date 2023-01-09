@@ -15,6 +15,7 @@
       <result property="stock" column="STOCK" />
       <result property="productMessage" column="PRODUCT_MESSAGE" />
       <result property="categoryName" column="CATEGORY_NAME" />
+      <result property="categoryNo" column="CATEGORY_NO" />
       <result property="wishCheck" column="WISH_CHECK" />
       <result property="soldoutFl" column="SOLDOUT_FL" />
       
@@ -88,7 +89,7 @@
 <select id="selectProduct" resultMap="product_rm">
 	SELECT PRODUCT_NO, PRODUCT_NAME, REG_DATE, SOLDOUT_FL,
 		TO_CHAR(PRODUCT_PRICE, 'FM999,999,999,999') PRODUCT_PRICE, 
-		STOCK, 
+		STOCK, CATEGORY_NO,
 		PRODUCT_MESSAGE, CATEGORY_NAME, #{memberNo} MEMBER_NO,
 		(SELECT COUNT(*) FROM WISH w WHERE MEMBER_NO = #{memberNo} AND w.PRODUCT_NO = p.PRODUCT_NO) WISH_CHECK
 	FROM PRODUCT p
@@ -141,10 +142,10 @@
 	JOIN "MEMBER" m USING(MEMBER_NO)
 	WHERE PRODUCT_NO = #{productNo} AND REVIEW_DEL_FL = 'N'	
 	<if test='sortFl.equals("R")'>
-	ORDER BY LIKE_COUNT DESC, CREATE_DATE
+	ORDER BY LIKE_COUNT DESC, CREATE_DATE DESC
 	</if>
 	<if test='sortFl.equals("N")'>
-	ORDER BY CREATE_DATE, LIKE_COUNT
+	ORDER BY CREATE_DATE DESC, LIKE_COUNT DESC
 	</if>
 </select>
 

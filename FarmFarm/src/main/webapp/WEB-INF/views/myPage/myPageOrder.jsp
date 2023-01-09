@@ -41,7 +41,7 @@
       <div class="order-list" >
         <span class="order-list-title">주문 내역</span>
         <c:if test="${empty orderList}">
-          <div class="order-div">주문 내역이 없습니다.</div>
+          <div class="empty-list">주문 내역이 없습니다.</div>
         </c:if>
 
 
@@ -53,7 +53,7 @@
             <div class="order-info-container">
             <div class="order-info">
               <span class="order-no" id="${order.orderNo}">주문번호 <span>${order.orderNo}</span></span>
-              <span class="order-reg-date">2022.12.15</span>
+              <span class="order-reg-date">${order.orderDate}</span>
             </div>
           </div>
 
