@@ -37,4 +37,12 @@ public class DupController {
 		int result = service.nicknameDupCheck(memberNickname);
 		return result;
 	}
+	
+	// 전화번호 중복 검사 
+	@GetMapping("/tellDupCheck")
+	@ResponseBody
+	public int tellDupCheck(String to) {
+		int result = service.tellDupCheck(to);
+		return result;
+	}
 }

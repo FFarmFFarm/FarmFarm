@@ -47,6 +47,13 @@
 		AND MEMBER_DEL_FL = 'N'
 	</select>
 	
+	<!-- 전화번호 닉네임 중복 검사 -->
+	<select id="tellDupCheck" parameterType="String" resultType="_int">
+		SELECT COUNT(*) FROM "MEMBER"
+		WHERE MEMBER_TEL = #{to}
+		AND MEMBER_DEL_FL = 'N'
+	</select>
+	
 
 
 

@@ -26,6 +26,11 @@ body{
     margin-top: 70px;
 }
 
+.container-sub-fail{
+    margin: 0 auto;
+    margin-top: 145px;
+}
+
 .success-page{
     margin-bottom: 100px;
 }
@@ -70,6 +75,14 @@ body{
     font-size: var(--main-font-size);
     color: var(--point-color);
     margin: 4px 0 0 13px;
+}
+
+.fail-title{
+    text-align: center;
+    color: var(--main-font-color);
+    font-weight: 600;
+    font-size: 24px;
+    margin-bottom: 10px;
 }
 
 .title{
