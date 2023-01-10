@@ -82,6 +82,8 @@ const selectNotifyWidgetList = () => {
 
             const notifyList = response.data.notifyList;
 
+            redDotOff();
+
             fillNotifyWidget(notifyList);
         }
 
@@ -181,6 +183,9 @@ const fillNotifyWidget = (notifyList) => {
             case 201: icon = '<i class="fa-solid fa-comment-dots"></i>'; break;
             case 202: icon = '<i class="fa-solid fa-comment-dots"></i>'; break;
             case 301: icon = '<i class="fa-solid fa-envelope-open-text"></i>'; break;
+            case 302: icon = '<i class="fa-solid fa-truck"></i>'; break;
+            case 303: icon = '<i class="fa-solid fa-envelope-open"></i>'; break;
+            // case (원하는 notifyTypeNo) : notifyReceiverIcon.innerHTML = (원하는 아이콘); break
         }
 
         packupWidgetElement(notifyWidgetIcon, 'notify-widget-icon', icon);
@@ -267,18 +272,21 @@ const deleteWidgetNotify = (parent) => {
     axios.post('/notify/delete', formData
     ).then(function (response) {
         console.log('알림이 삭제 되었습니다.')
+
+        // 동기화하기
+        parent.classList.add('hide');
+
+        selectNotifyWidgetList();
+
     }).catch(function (error) {
         console.log('읽음 처리 과정에서 오류가 발생했습니다.')
         console.log(error)
     })
 
-    // 동기화하기
-    parent.classList.add('hide');
 
-    selectNotifyWidgetList();
 
     // 요소가 없는지 확인해서 없으면 empty-box 노출
-    checkEmpty();
+    // checkEmpty();
 }
 
 /* 알림 읽음처리 */
@@ -292,6 +300,12 @@ const readThisWidgetNotify = (parent) => {
     axios.post('/notify/update', formData
     ).then(function (response) {
         console.log('알림이 읽음 처리 되었습니다.')
+
+        // 동기화하기
+        parent.classList.add('hide');
+
+        selectNotifyWidgetList();
+
     }).catch(function (error) {
         console.log('읽음 처리 과정에서 오류가 발생했습니다.')
         console.log(error)
