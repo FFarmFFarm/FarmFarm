@@ -12,7 +12,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>회원 관리</title>
+        <title>상담 관리</title>
         <link rel="stylesheet" href="/resources/css/common/header-style.css">
         <link rel="stylesheet" href="/resources/css/admin/adminNav-style.css">
         <link rel="stylesheet" href="/resources/css/admin/adminInquire-style.css" />
@@ -34,7 +34,7 @@
                 <div class="page-title" id="pageTitle">
                     <p>상담 관리</p>
                 </div>
-                   <!-- 본문 영역 -->
+                <!-- 본문 영역 -->
                 <div class="inquire-container" role="main">
 
                     <!-- 좌측 사이드바 채팅방 목록 -->

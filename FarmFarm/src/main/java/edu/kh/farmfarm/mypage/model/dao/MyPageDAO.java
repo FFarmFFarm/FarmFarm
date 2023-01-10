@@ -281,6 +281,11 @@ public class MyPageDAO {
 	}
 
 
+	public int updateSoldout(String condition) {
+		return sqlSession.update("postListMapper.updateSoldout",condition);
+	}
+
+
 
 
 

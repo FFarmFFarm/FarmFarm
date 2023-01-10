@@ -72,7 +72,7 @@
           <input type="hidden" name="pList[0].productNo" value="${product.productNo}">
           <input type="hidden" name="pList[0].productImg" value="${productImgList[0].productImgAddress}">
           <input type="hidden" name="pList[0].productPrice" value="${fn:replace(product.productPrice, ',', '')}">
-          <span class="product-category">${product.categoryName}</span>
+          <a href="http://localhost/product/list?category=${product.categoryNo}&cp=1&sort=rates" class="product-category">${product.categoryName}</a>
           <span class="product-name" id="productName">${product.productName}</span>
           <span class="product-message">${product.productMessage}</span>
           <span class="product-price">${product.productPrice}<span>원</span></span>
@@ -248,7 +248,7 @@
           <c:forEach var="review" items="${reviewList}">
             <li class="review" id="${review.reviewNo}">
               <div class="review-writer">
-                 <c:if test="${empty review.profileImg}">
+                <c:if test="${empty review.profileImg}">
                 <img
                 src="/resources/images/member/profile/profile.png"
                 alt=""

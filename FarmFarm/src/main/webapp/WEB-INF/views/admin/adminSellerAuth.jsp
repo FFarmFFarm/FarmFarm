@@ -144,6 +144,17 @@
                         <span class="auth-image" id="authImage">
                             <!-- <img src="/resources/images/myPage/background/bgImg2.jpg" class="aImg"> -->
                         </span>
+
+                        <form class="update-image-form" id="updateImgForm">
+                            <div class="update-farmImg-div" id="updateFarmImgDiv">
+                                <div class="flex-div">
+                                    <img src="" class="">
+                                    <input type="file" name="updateFarmImg" class="update-input" id="updateFarmImg" accept="image/*">
+                                    <button type="submit" id="submitBtn">사진 등록</button>
+                                </div>
+                            </div>
+                        </form>
+                        <span  class="update-image-btn" id="updateImageSpan">사진 업데이트</span>
                     </div>
 
                     <div class="seller-auth-div">
@@ -218,6 +229,11 @@
         </div>
     </div>
 
+    <!-- 사진 업데이트 모달 (작게) -->
+    <!-- <div class="image-update-modal" id="imageUpdateModal">
+        <input type="file" name="updateFarmImg" class="update-input" id="updateFarmImg" accept="image/*">
+        <button class="update-button" id="updateBtn">수정</button>
+    </div> -->
 
 
     <!-- 증빙사진 모달 //  팝업창 열리는 것으로 대체-->

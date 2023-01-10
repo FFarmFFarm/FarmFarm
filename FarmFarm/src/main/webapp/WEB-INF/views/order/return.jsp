@@ -36,7 +36,7 @@
             <div class="order-info-container">
               <div class="order-info">
                 <span class="order-no" id="${order.orderNo}">주문번호 <span>${order.orderNo}</span></span>
-                <span class="order-reg-date">2022.12.15</span>
+                <span class="order-reg-date">${order.orderDate}</span>
               </div>
             </div>
             
@@ -91,16 +91,17 @@
           <div class="account-info">
             <div>
               <label for="accontName">예금주: </label>
-              <input type="text" name="accountName" id="accontName" required>
+              <input type="text" name="accountName" id="accountName" required style='ime-mode:active'>
             </div>
             <div>
               <label for="accountNo">계좌번호: </label>
-              <input type="text" name="accountNo" id="accountNo" required>
+              <input type="text" name="accountNo" id="accountNo" required oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" maxlength="14">
             </div>
+              <span style="font-size:13px; color:#7e7e7e; margin-left:85px;">'-' 를 제외한 숫자만 입력해주세요</span>
           </div>
         </div>
 
-        <button class="return-btn" type="button" onclick="returnSubmit()">제출하기</button>
+        <button class="return-btn" type="button" onclick="returnSubmit(event)">제출하기</button>
 
       </form>
  

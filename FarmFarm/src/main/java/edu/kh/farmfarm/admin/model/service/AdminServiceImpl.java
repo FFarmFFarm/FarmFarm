@@ -1,12 +1,15 @@
 package edu.kh.farmfarm.admin.model.service;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.farmfarm.admin.model.dao.AdminDAO;
 import edu.kh.farmfarm.admin.model.vo.Admin;
@@ -173,6 +176,40 @@ public class AdminServiceImpl implements AdminService{
 		return dao.selectDenyReason(memberNo);
 	}
 	
+	
+	
+	// 판매자 인증 사진 업데이트
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int updateSellerImage(int memberNo, String webPath, String folderPath, 
+								MultipartFile farmImg) throws IOException {
+		
+		// 이미지 삽입
+		String rename = null;
+		Seller farmImage = new Seller();
+		
+		int result = 0;
+		
+		// 업로드된 파일이 있다면
+		if(farmImg.getSize() > 0) {
+			
+			// 원본 파일명을 변경된 파일명으로 변경
+			rename = Util.fileRename(farmImg.getOriginalFilename()); 
+			
+			farmImage.setMemberNo(memberNo);
+			farmImage.setFarmImg(rename);
+			
+			result = dao.updateSellerImage(farmImage);
+			
+			if(result > 0) {
+				// 실제 파일로 변환
+				farmImg.transferTo(new File(folderPath + rename));
+			}
+			
+		}
+		
+		return result;
+	}
 	
 	
 	

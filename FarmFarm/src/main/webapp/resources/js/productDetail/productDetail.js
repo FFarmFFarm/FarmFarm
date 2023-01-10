@@ -59,6 +59,8 @@ const addWish = (productNo, wishBtn) => {
     success: (result) => {
       wishBtn.classList.remove('wish-unclicked');
       wishBtn.classList.add('wish-clicked');
+
+      messageModalOpen("찜 목록에 추가되었습니다.");
     },
     error: () => {
       console.log('찜 추가 중 오류 발생');
@@ -74,6 +76,8 @@ const removeWish = (productNo, wishBtn) => {
     success: (result) => {
       wishBtn.classList.remove('wish-clicked');
       wishBtn.classList.add('wish-unclicked');
+
+      messageModalOpen("찜 목록에서 제거되었습니다.");
     },
     error: () => {
       console.log('찜 취소 중 오류 발생');
@@ -133,10 +137,29 @@ if (document.getElementById('orderBtn') != undefined) {
     if (loginMember == '') {
       loginConfirmOpen();
     } else {
-      if(authority == 0) {
+      if (authority == 0) {
 
-        const form = document.getElementById('orderPage');
-        form.submit();
+        const amount = document.getElementById('productAmount').innerText;
+        
+        // 상품 실 재고 확인 후 주문 수량 이상일 때만 주문 가능하게
+        $.ajax({
+          url: "/product/stock",
+          data: { "productNo": getProductNo() },
+          success: (stock) => {
+
+            console.log("현재 상품 재고 수량: " + stock);
+            // !실재고 수량이 0보다 크고 선택된 수량보다 같거나 클때만 주문서로 이동
+            if (stock >= amount && stock != 0) {
+              const form = document.getElementById('orderPage');
+              form.submit();
+            } else if (stock <= 0) {
+              messageModalOpen("해당 상품은 현재 품절입니다. 다음에 다시 구매해주세요.");
+            } else {
+              messageModalOpen("선택된 수량이 상품의 재고 수량보다 많습니다.");
+            }
+          }
+        })
+
       } else if(authority ==1) {
         alert('일반 회원 계정으로 로그인해주세요');
       } else if (authority == 2) {
@@ -782,6 +805,14 @@ const printReviewList = (reviewList, pagination, sortFL) => {
   productReviewList.innerHTML = "";
 
   /* 리뷰 목록에 리뷰 추가하기 */
+  if (reviewList.length == 0) {
+    const li = document.createElement('li');
+    li.classList.add('no-review');
+    li.innerText = "리뷰가 없습니다. 상품을 구입하고 첫 후기를 남겨주세요.";
+
+    productReviewList.append(li);
+  }
+  
   for (let review of reviewList) {
     const li = document.createElement('li');
     li.classList.add('review');
