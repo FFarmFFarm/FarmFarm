@@ -10,7 +10,7 @@
                     <meta charset="UTF-8">
                     <meta http-equiv="X-UA-Compatible" content="IE=edge">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>FarmFarm | 비밀번호 찾기 </title>
+                    <title>팜팜 | 비밀번호 찾기 </title>
 
                     <link rel="stylesheet" href="/resources/css/member/find-style.css">
 

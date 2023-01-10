@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>팜팜 채팅 2.0</title>
+    <title>팜팜 | 채팅</title>
 
     <link rel="stylesheet" href="/resources/css/chat2/chatCenter-style.css">
     <link rel="stylesheet" href="/resources/css/chat2/newChatRoomModal-style.css">
