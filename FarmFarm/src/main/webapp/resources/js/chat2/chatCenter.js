@@ -185,7 +185,7 @@ document.querySelector('#newChatRoomConfirmBtn').addEventListener('click', () =>
     // 채팅방 이름 정규식 표현으로 걸러내기
     let notice = document.getElementById('inputNewChatRoomNameNotice');
     let newRoomName = document.getElementById('inputNewChatRoomName');
-    let regEx = /^[ㄱ-힣\d][ㄱ-힣\d\s]{2,9}[ㄱ-힣d]$/;
+    let regEx = /^[ㄱ-힣\d][ㄱ-힣\d\s]{1,8}[ㄱ-힣d]$/;
     notice.classList.remove('error');
 
     if(newRoomName.value.length == 0) { // 공백인 경우

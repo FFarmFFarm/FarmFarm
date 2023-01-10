@@ -32,6 +32,9 @@
             <i class="fa-solid fa-bell"></i>
             &nbsp;
             알림 센터
+            <div id="termLimitNotice">
+              30일 이내의 알림만 표시됩니다 |
+            </div>
             <div id="notifyReadAll"> 
               모두 읽음으로 표시
             </div>
@@ -80,7 +83,7 @@
                   </div>
                 </label>
 
-                <input type="radio" id="categoryInquiry" name="notifyCategory"> 
+                <!-- <input type="radio" id="categoryInquiry" name="notifyCategory"> 
                 <label for="categoryInquiry" class="category-item">
                   <div class="category-img">
                     <i class="fa-solid fa-circle-question"></i>
@@ -88,7 +91,7 @@
                   <div class=category-name>
                     문의
                   </div>
-                </label>
+                </label> -->
 
             </div>
             

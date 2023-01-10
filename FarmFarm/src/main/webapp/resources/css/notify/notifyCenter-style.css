@@ -29,6 +29,15 @@ a.alert > i {
   position: relative;
 }
 
+/* 30일 안내 */
+#termLimitNotice {
+    position: absolute;
+    bottom: 3px;
+    right: 115px;
+    font-size: var(--main-font-size);
+    font-weight: 400;
+}
+
 /* 모두 읽음으로 표시 */
 #notifyReadAll{
   position: absolute;  

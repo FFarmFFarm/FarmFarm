@@ -138,7 +138,7 @@ public class MemberController {
 			}
 		} else {
 				path = referer;
-				ra.addFlashAttribute("message", "아이디, 비번을 확인해주세요.");
+				ra.addFlashAttribute("message", "아이디, 비밀번호 확인해주세요.");
 		}
 
 		return "redirect:" + path;
