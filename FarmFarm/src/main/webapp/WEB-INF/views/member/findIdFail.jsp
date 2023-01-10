@@ -21,15 +21,15 @@
                 <img src="/resources/images/mainLogo.png">
             </div>
             <div class="container">
-                <div class="container-sub">
+                <div class="container-sub-fail">
                     <div class="form-wrap">
-                        <div class="title">등록된 아이디가 없습니다.</div>
+                        <div class="fail-title">등록된 아이디가 없습니다.</div>
                         <div class="subtitle">확인 후 다시 시도해주세요.</div>
                     </div>
         
                     <div class="success-wrap">
                         <div class="success-btn">
-                            <a href="/findId">이메일 찾기</a>
+                            <a href="/findId">아이디 찾기</a>
                         </div>
             
                         <div class="success-btn">
