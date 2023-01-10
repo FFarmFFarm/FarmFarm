@@ -167,7 +167,7 @@
       </div>
 
 
-      <h3 class="product-title">우리 농장에서는 이런 물건을 팔아요</h3>
+      <h3 class="product-title">우리 농장에서는 신선한 농산물을 팔아요!</h3>
       <div class="product-wrap">
             <c:forEach items="${postMap}" var="post" begin="0" end="3" step="1" >
             <a href="/post/${post.postNo}">
