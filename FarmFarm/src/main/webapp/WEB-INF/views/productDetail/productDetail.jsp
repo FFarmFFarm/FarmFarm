@@ -72,7 +72,7 @@
           <input type="hidden" name="pList[0].productNo" value="${product.productNo}">
           <input type="hidden" name="pList[0].productImg" value="${productImgList[0].productImgAddress}">
           <input type="hidden" name="pList[0].productPrice" value="${fn:replace(product.productPrice, ',', '')}">
-          <a href="http://localhost/product/list?category=${product.categoryNo}&cp=1&sort=rates" class="product-category">${product.categoryName}</a>
+          <span class="product-category" onclick="goToList('${product.categoryNo}')">${product.categoryName}</span>
           <span class="product-name" id="productName">${product.productName}</span>
           <span class="product-message">${product.productMessage}</span>
           <span class="product-price">${product.productPrice}<span>원</span></span>
@@ -349,7 +349,8 @@
     var loginMember = "${loginMember}";
     var cp = "${pagination.currentPage}"
     var sortFl = 'R';
-    var authority = "${loginMember.authority}"
+    var authority = "${loginMember.authority}";
+    var categoryNo = "${order.categoryNo}";
 
   </script>
 
