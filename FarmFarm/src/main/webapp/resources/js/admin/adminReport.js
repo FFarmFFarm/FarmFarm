@@ -752,6 +752,8 @@ const makePageBox = (elementName, inputHtml, inputId, className) => {
 // optimize : 페이지네이션 박스 생성  // 전체조회 페이지네이션 함수랑 조금 다름
 const printPagination = (adminPaginationArea, pagination) => {
 
+    cp=pagination.currentPage;
+
     const adminPagination = document.createElement('ul');
     adminPagination.className = 'admin-pagination';
 
@@ -934,6 +936,7 @@ accountKickOutBtn.addEventListener('click', () => {
                 reportDetailModalClose();
 
                 selectNewReportList(cp);
+           
                 
                 console.log("강제 탈퇴 완료");
                 messageModalOpen("해당 계정이 강제 탈퇴되었습니다.");
@@ -1034,7 +1037,7 @@ contentDeleteBtn.addEventListener('click', () => {
 // * (게시글) 반려
 contentLeaveBtn.addEventListener('click', () => {
     console.log("게시글 반려 클릭");
-    console.log(hiddenContentNo);
+    // console.log(hiddenContentNo);
 
     $.ajax({
         url: "/report/LeaveContent",

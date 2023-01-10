@@ -31,7 +31,7 @@ const selectReportList = (cp) => {
         success: (map) => {
             printReportList(map.reportAllList, map.pagination);
             console.log("전체 신고 내역 조회 성공");
-            console.log(sortFilter);
+            // console.log(sortFilter);
         },
         error: () => {
             console.log("전체 신고 내역 조회 실패");
@@ -150,10 +150,6 @@ const printReportList = (reportAllList, pagination) => {
 
         // 신고 대상 (아이디/게시글)
         const td3 = document.createElement('td');
-
-        console.log(report.reportType);
-        console.log(report.title);
-
 
         if(report.title != null){
             if(report.reportType == 'B' || report.reportType == 'P'){
@@ -837,6 +833,8 @@ const makePageBox = (elementName, inputHtml, inputId, className) => {
 
 // optimize : 페이지네이션 박스 생성  // 전체조회 페이지네이션 함수랑 조금 다름
 const printPagination = (adminPaginationArea, pagination) => {
+
+    cp=pagination.currentPage;
 
     const adminPagination = document.createElement('ul');
     adminPagination.className = 'admin-pagination';
