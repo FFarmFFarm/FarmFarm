@@ -29,7 +29,7 @@
 		       ,(SELECT (TO_DATE(SYSDATE-30,'YY-MM-DD') + LEVEL) AS SD
 						FROM DUAL 
 						<![CDATA[CONNECT BY LEVEL <= 31]]>) b
-		WHERE b.SD = a.SIGNUP_DATE(+)
+		WHERE TO_CHAR(b.SD, 'YYYY-MM-DD') = a.SIGNUP_DATE(+)
 		GROUP BY b.SD
 		ORDER BY b.SD 
   </select>
@@ -48,7 +48,7 @@
 		      , (SELECT (TO_DATE(SYSDATE-30,'YY-MM-DD') + LEVEL) AS OD
 				FROM dual 
 				<![CDATA[CONNECT BY LEVEL <= 31]]>) b
-		WHERE b.OD = a.ORDER_DATE(+)
+		WHERE TO_CHAR(b.OD, 'YYYY-MM-DD') = a.ORDER_DATE(+)
 		GROUP BY b.OD
 		ORDER BY b.OD
   </select>
