@@ -390,7 +390,7 @@ main{
 }
 
 .update-input{
-    width: 150px;
+    width: 170px;
     min-width: 170px;
     background-color: var(--modal-background-color);
     color: white;

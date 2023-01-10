@@ -51,7 +51,6 @@
     
     <script>
         var radioResult;
-        var loginMemberNo = ${loginMember.memberNo};
     </script>
     
     <script src="/resources/js/common/common.js"></script> 
