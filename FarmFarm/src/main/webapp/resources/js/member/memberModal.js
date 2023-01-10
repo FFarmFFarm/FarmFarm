@@ -52,8 +52,6 @@
     for(let wPro of writerProfile){
       wPro.addEventListener("click", e=>{
 
-        console.log(e.target);
-
         if(e.target.id != 0) {
           modal.classList.toggle("show");
           modalImage.setAttribute("src", wPro.getAttribute("src"));
