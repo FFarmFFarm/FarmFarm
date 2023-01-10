@@ -52,17 +52,17 @@ button {
   position: absolute;
   top: 20px;
   right: 60px;
-
   display: inline-block;
   font-size: var(--title-font-size);
   color: var(--sub-font-color);
   opacity: 0.5;
-
+  
   border-radius: 50%;
   border: none;
-
+  
   cursor: pointer;
 }
+
 
 .bg-change-btn:hover {
   opacity: 1;
