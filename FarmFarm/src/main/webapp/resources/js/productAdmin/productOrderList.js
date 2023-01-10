@@ -650,9 +650,9 @@ const enrollInvoice = (orderNo, invoiceNo)=>{
         /* 주문 상태 변경에 따른 알림을 전송하고 싶습니다. 괜찮을까요? */
         pushOrderStatusNotify(orderNo, 302);
 
-/*         setTimeout(() => {
+        setTimeout(() => {
           window.location.reload();
-        }, "1000"); */
+        }, "1000");
       }
     },
     error: ()=>{
