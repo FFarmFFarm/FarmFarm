@@ -68,19 +68,17 @@
                     </div>
                         <%-- <i class="fa-sharp fa-solid fa-angle-left" id="iconLeft"></i> --%>
                 </div>
-                <div class="graph-container2">
-                    <div class="sales graph2">
-                        <div class="board-graph" id="thisWeekSales">
-                            <span class="graph-title">이번주 팜팜매출</span>
-                            <canvas id="salesChart" width="450px"></canvas>
-                            <%-- <i class="fa-sharp fa-solid fa-angle-left" id="iconLeft"></i> --%>
-                        </div>
+                <div class="sales graph2">
+                    <div class="board-graph" id="thisWeekSales">
+                        <span class="graph-title">이번주 팜팜매출</span>
+                        <canvas id="salesChart" width="700px"></canvas>
+                        <%-- <i class="fa-sharp fa-solid fa-angle-left" id="iconLeft"></i> --%>
                     </div>
-                    <div class="ranking graph2">
-                        <div class="board-graph" id="productRanking">
-                            <span class="graph-title">팜팜 TOP 5</span>
-                            <canvas id="rankingChart" width="700px" height="300px"></canvas>
-                        </div>
+                </div>
+                <div class="ranking graph2">
+                    <div class="board-graph" id="productRanking">
+                        <span class="graph-title">팜팜 TOP 5</span>
+                        <canvas id="rankingChart" width="800px" height="400px"></canvas>
                     </div>
                 </div>
             </section>

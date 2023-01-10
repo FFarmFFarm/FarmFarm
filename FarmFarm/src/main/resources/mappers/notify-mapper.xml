@@ -16,6 +16,17 @@
 	      <result property="notifyStatus" column="NOTIFY_STATUS" />
 	 </resultMap>
 	 
+	 <resultMap type="NotifyOrder" id="notifyOrder_rm">
+        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+	     <id property = "orderNo" column="ORDER_NO"/>
+	     <!-- 나머지 일반 컬럼 -->
+	      <result property="memberNo" column="MEMBER_NO" />
+	      <result property="productName" column="PRODUCT_NAME" />
+	      <result property="orderProductCount" column="ORDER_PRODUCT_COUNT" />
+	 </resultMap>
+	 
+	 
+	 
 	 <!-- 알림을 DB에 저장 -->
 	 <insert id="insertNewNotify" parameterType="edu.kh.farmfarm.notify.model.vo.Notify" useGeneratedKeys="true">
 	 	INSERT INTO NOTIFY
@@ -36,6 +47,7 @@
 	 	       (SELECT NOTIFY_TITLE FROM NOTIFY_TYPE ALAT WHERE ALAT.NOTIFY_TYPE_NO = ALA.NOTIFY_TYPE_NO) AS NOTIFY_TITLE 
 	 	FROM NOTIFY ALA
 	 	WHERE MEMBER_NO = #{memberNo}
+	 	AND NOTIFY_DATE > TRUNC(SYSDATE, 'dd') - 30
 	 	AND NOTIFY_STATUS != -1
 	 	ORDER BY NOTIFY_NO DESC)
 	 	<![CDATA[
@@ -51,6 +63,7 @@
 	 	       (SELECT NOTIFY_TITLE FROM NOTIFY_TYPE ALAT WHERE ALAT.NOTIFY_TYPE_NO = ALA.NOTIFY_TYPE_NO) AS NOTIFY_TITLE 
 	 	FROM NOTIFY ALA
 	 	WHERE MEMBER_NO = #{memberNo}
+	 	AND NOTIFY_DATE > TRUNC(SYSDATE, 'dd') - 30
 	 	AND NOTIFY_STATUS != -1
 	 	ORDER BY NOTIFY_NO DESC
 	 </select>
@@ -79,6 +92,20 @@
 		SELECT NOTIFY_TITLE
 		FROM NOTIFY_TYPE
 		WHERE NOTIFY_TYPE_NO = #{notifyTypeNo}
+	</select>
+	
+	
+	<!-- 상품 주문 상태 변경 알림 -->
+	<select id="selectTransaction" parameterType="_int" resultMap="notifyOrder_rm">
+	 	SELECT * FROM
+	 	(SELECT ORDER_NO,
+	 		   (SELECT MEMBER_NO FROM "ORDER" O WHERE OP.ORDER_NO = O.ORDER_NO) AS MEMBER_NO,
+	 		   (SELECT PRODUCT_NAME FROM "PRODUCT" P WHERE OP.PRODUCT_NO = P.PRODUCT_NO) AS PRODUCT_NAME,
+	 		   (SELECT COUNT(*) FROM "ORDER_PRODUCT" WHERE ORDER_NO = #{orderNo}) AS ORDER_PRODUCT_COUNT
+	 	FROM ORDER_PRODUCT OP
+	 	WHERE ORDER_NO = #{orderNo}
+	 	ORDER BY PRODUCT_NO)
+	 	WHERE ROWNUM = 1
 	</select>
 	
 </mapper>

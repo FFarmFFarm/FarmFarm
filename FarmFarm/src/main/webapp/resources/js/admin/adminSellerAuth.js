@@ -183,7 +183,7 @@ const printSellerAuthPaper = (authPaper) => {
     if(authPaper.farmImg != null) {
         img.src = '/resources/images/seller/' + authPaper.farmImg;
     } else {
-        img.src = "/resources/images/logo-square.png";
+        // img.src = "/resources/images/logo-square.png";
     }
 
     //조립
