@@ -424,8 +424,3 @@ input[type="number"]::-webkit-inner-spin-button {
     color: var(--point-color);
 }
 
-
-.no-result{
-    height: 200px;
-    padding-top: 100px;
-}

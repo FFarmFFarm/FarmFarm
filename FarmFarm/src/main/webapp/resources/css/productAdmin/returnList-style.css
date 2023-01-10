@@ -191,6 +191,12 @@ td, tr{
     height: 50px;
 }
 
+.table-info:hover{
+    background-color: #eef4ed;
+    transition-duration: 0.1s;
+    cursor: pointer;
+}
+
 .table-head{
     height: 40px;
     font-size: var(--main-font-size);
@@ -263,10 +269,4 @@ td, tr{
 .current-page-box>a{
     font-weight: 600;
     color: var(--point-color);
-}
-
-
-.no-result{
-    height: 200px;
-    padding-top: 100px;
 }

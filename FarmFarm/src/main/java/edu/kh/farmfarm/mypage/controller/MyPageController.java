@@ -309,7 +309,7 @@ public class MyPageController {
 			RedirectAttributes ra,
 			@RequestHeader("referer") String referer) {
 		
-		int result = service.secession(memberPw, loginMember.getMemberNo());
+		int result = service.secession(memberPw, loginMember.getMemberNo(), loginMember.getAuthority());
 		
 		String message = null;
 		String path = null;

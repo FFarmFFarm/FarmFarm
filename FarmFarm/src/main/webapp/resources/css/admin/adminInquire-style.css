@@ -24,7 +24,7 @@ main{
 
 
 /* todo: 카테고리 선택 부분 _카테고리별로 다르게 표시! */
-.admin-nav-sub:first-of-type{
+.admin-nav-sub:nth-of-type(4){
     height: 30px;
     padding-top: 5px;
     background-color: #eef4ed;
@@ -234,6 +234,7 @@ main{
     cursor: pointer;
 }
 
+
 /* 프로필 이미지 */
 .profile-img{
     width: 40px;
@@ -369,6 +370,9 @@ main{
     transform: translateY(-2px);
     transition-duration: 0.3s;
     background-color: #fafafa;
+}
+.message-preview-box:hover *{
+    color: var(--main-font-color);
 }
 
 
@@ -917,4 +921,14 @@ main{
 
 .hide {
     display: none;
+}
+
+
+.message-box-clicked {
+    background-color: var(--point-color);
+}
+
+.message-box-clicked * {
+    color: white;
+    
 }

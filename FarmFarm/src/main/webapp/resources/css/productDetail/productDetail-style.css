@@ -98,6 +98,11 @@ button:disabled:active {
   color: var(--sub-font-color);
   font-weight: bold;
   margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.product-category:hover {
+  text-decoration: underline;
 }
 
 /* 상품 이름(제목) */
@@ -381,6 +386,13 @@ button:disabled:active {
 }
 
 /* 리뷰 하나 */
+.no-review {
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .review {
   display: flex;
   font-size: var(--main-font-size);

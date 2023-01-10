@@ -61,6 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
         success: (unreadCount) => {
             if (unreadCount > 0) {
                 document.getElementById('newMessage').classList.remove('hide');
+            } else {
+                document.getElementById('newMessage').classList.add('hide');
             }
         },
         error: () => { }

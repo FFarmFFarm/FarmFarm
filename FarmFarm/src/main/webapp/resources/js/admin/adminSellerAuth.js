@@ -183,7 +183,7 @@ const printSellerAuthPaper = (authPaper) => {
     if(authPaper.farmImg != null) {
         img.src = '/resources/images/seller/' + authPaper.farmImg;
     } else {
-        img.src = "/resources/images/logo-square.png";
+        // img.src = "/resources/images/logo-square.png";
     }
 
     //조립
@@ -645,4 +645,87 @@ for(let i=0; i<sAddress.length; i++){
 
 
 
-// fixme: 보류
+// todo: 사진 업데이트
+// const imageUpdateModal = document.getElementById('imageUpdateModal');
+
+// // 사진 업데이트 버튼 누르면, 수정 주소 띄우는 창 열림
+// document.getElementById('updateImageBtn').addEventListener('click', () => {
+//     imageUpdateModal.style.display = "flex";
+// })
+
+
+
+// todo: 보류된 경우, 회원한테 사진을 다시 받았다면, 사진 등록해주기
+// input type="file"은 꾸밀 수가 없기 때문에
+// label 타입으로 클릭을 대신하고
+// input 태그는 숨기자
+const updateFarmImg = document.getElementById('updateFarmImg');
+
+
+// '사진 업데이트' 클릭되면
+document.getElementById('updateImageSpan').addEventListener('click', () => {
+
+    // 검은 화면 나오고
+    document.getElementById('updateFarmImgDiv').style.display = 'block';
+
+    // input태그는 숨김
+    // updateFarmImg.style.display = 'none';
+
+    // input type=file 창 자동으로 열림
+    updateFarmImg.click();
+
+})
+
+
+
+// todo: 사진 재등록 / 업데이트
+document.getElementById('submitBtn').addEventListener('click', () => {
+
+    // input file태그에 지정된 파일 얻어오기
+    var formData = new FormData();  // FormData 객체 생성
+    formData.append("memberNo", hiddenNo);  // 추가 파라미터 삽입
+    formData.append("farmImg", document.getElementById('updateFarmImg').files[0]);  // 실제 input file 데이터 삽입
+    console.log("hiddenNo: " + hiddenNo);
+    
+    $.ajax({
+        url: "/admin/sellerAuth/updateImage",
+        data: formData,  
+        type: "POST",
+        enctype: "multipart/form-data",
+        processData: false,  // 프로세스 데이터 설정 : 반드시 false로 해야 formData값을 인식함!
+        contentType: false,  // 헤더의 ContentType을 설정 : false로 해야 formData값을 인식함.
+        success: (result) => {
+
+            if(result > 0){
+
+                //fixme: 여기 아래 적용이 안됨.
+                selectSellerList(cp);
+                selectAuthPaper(hiddenNo);
+
+                console.log("판매자 인증 사진 업데이트");
+
+                //fixme: 너무 빨리 떠서 느리게 했지만 먹히지 않음.
+                // setTimeOut(() => messageModalOpen("인증 사진이 업데이트 되었습니다."), 1000);
+                messageModalOpen("인증 사진이 업데이트 되었습니다.")
+            }
+        },
+        error: () => {
+            console.log("판매자 인증 사진 업데이트 실패");
+        }
+    })
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // const updateFarmImg = updateInput.value.substr(updateInput.value.lastIndexOf("\\")+1);

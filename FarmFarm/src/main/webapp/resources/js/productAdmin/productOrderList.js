@@ -81,6 +81,9 @@ for(let i of dateFilter){
         let thisEndDate = thisMonth();
 
         console.log(thisStartDate, thisEndDate);
+
+        document.getElementById("searchQuery").value = "";
+        
         selectSearchList(cp, thisStartDate, thisEndDate);
         
         document.getElementById("startDate").value = thisStartDate;
@@ -92,21 +95,30 @@ for(let i of dateFilter){
       case '1' : // 전월조회
         // 2022-12-01 ~ 2022-12-31
         
-        let startDate = lastMonth().slice(0,7);
-        startDate = startDate + "-01";
+        let lastStartDate = lastMonth().slice(0,7);
+        lastStartDate = lastStartDate + "-01";
         
-        let endDate = lastMonth();
+        let lastEndDate = lastMonth();
+
+        document.getElementById("searchQuery").value = "";
         
-        selectSearchList(cp, startDate,endDate);
+        selectSearchList(cp, lastStartDate,lastEndDate);
         
-        document.getElementById("startDate").value = startDate;
-        document.getElementById("endDate").value = endDate;
+        document.getElementById("startDate").value = lastStartDate;
+        document.getElementById("endDate").value = lastEndDate;
+
 
         break;
 
       case '2' : // 전체조회
 
+        document.getElementById("startDate").value = "";
+        document.getElementById("endDate").value = "";
+
+        document.getElementById("searchQuery").value = "";
+
         selectSearchList(cp);
+
 
         break;
 
@@ -120,6 +132,7 @@ for(let i of dateFilter){
 
 // 검색버튼 event
 const searchBtn = document.getElementById("searchBtn");
+const searchQuery = document.getElementById("searchQuery");
 
 searchBtn.addEventListener("click", ()=>{
 
@@ -131,7 +144,7 @@ searchBtn.addEventListener("click", ()=>{
   let startDate = document.getElementById("startDate").value;
   let endDate = document.getElementById("endDate").value;
 
-  if(query == null){
+  if(query == ""){
     messageModalOpen("검색어를 입력해주세요");
   } else {
 
@@ -141,6 +154,30 @@ searchBtn.addEventListener("click", ()=>{
   
 
 });
+
+searchQuery.addEventListener('keydown', (e) => {
+
+  const keyCode = e.keyCode;
+
+  if(keyCode == 13){  // 엔터키
+    
+    let cp = 1;
+
+    let key = document.getElementById("searchKey").value;
+    let query = document.getElementById("searchQuery").value;
+  
+    let startDate = document.getElementById("startDate").value;
+    let endDate = document.getElementById("endDate").value;
+  
+    if(query == ""){
+      messageModalOpen("검색어를 입력해주세요");
+    } else {
+  
+      // 검색어가 있는 경우
+      selectSearchList(cp, startDate, endDate, key, query);
+    }
+  } 
+})
 
 
 // 기간에 따라서 목록 조회해오는 ajax + 검색 결과
@@ -206,6 +243,8 @@ const fillProductList = (orderMap, startDate, endDate)=>{
 
     const noResult = document.createElement("th");
     noResult.classList.add("no-result");
+
+    noResult.setAttribute("colspan", "7");
 
     noResult.innerText = "조회 결과가 없습니다";
 
@@ -344,8 +383,11 @@ const makePageBoxEvent = (startDate, endDate) => {
         cp = 1;
       }
 
+      let key = document.getElementById("searchKey").value;
+      let query = document.getElementById("searchQuery").value;
+
       // 선택한 정보로 페이지를 생성
-      selectSearchList(cp, startDate, endDate);
+      selectSearchList(cp, startDate, endDate, key, query);
 
     })
   }

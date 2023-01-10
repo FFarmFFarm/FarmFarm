@@ -274,23 +274,28 @@ if(shippingBtn != undefined) {
   for(let btn of shippingBtn) {
     btn.addEventListener('click', () => {
       
-      // 배송 조회 api 요청
-      $.ajax({
-        url: "https://apis.tracker.delivery/carriers/kr.logen/tracks/" + btn.id,
-        dataType: 'json',
-        success: (response) => {
-          console.log(response);
-          fillShipping(response);
-          displayFlex(document.getElementById('shippingContainer'));
-        },
-        error: (response) => {
-          fillShippingError(response.responseJSON.message);
-          displayFlex(document.getElementById('shippingContainer'));
-        }
-      })
+      shippingAPI(btn.id);
 
     });
   }
+}
+
+
+const shippingAPI = (invoiceNo) => { 
+  // 배송 조회 api 요청
+  $.ajax({
+    url: "https://apis.tracker.delivery/carriers/kr.cjlogistics/tracks/" + invoiceNo,
+    dataType: 'json',
+    success: (response) => {
+      console.log(response);
+      fillShipping(response);
+      displayFlex(document.getElementById('shippingContainer'));
+    },
+    error: (response) => {
+      fillShippingError(response.responseJSON.message);
+      displayFlex(document.getElementById('shippingContainer'));
+    }
+  })
 }
 
 /* 배송조회창 끄기 */
@@ -582,42 +587,63 @@ const printOrderList = (orderList, pagination) => {
 
       if (order.orderStatus == 1) {
         if (product.productStatus == 0) {
-          span5.innerText = '배송중';
+          span5.innerText = '배송조회';
           span5.classList.add('order-shipping');
+          orderStatus.append(span5);
+          
+          span5.addEventListener('click', () => { 
+            shippingAPI(order.invoiceNo);
+          })
         }
 
         if (product.productStatus == 1) {
           span5.innerText = '반품 진행중';
           span5.classList.add('order-shipping');
+          orderStatus.append(span5);
         }
 
         if (product.productStatus == 2) {
           span5.innerText = '반품완료';
           span5.classList.add('order-shipping');
+          orderStatus.append(span5);
         }
-        orderStatus.append(span5);
       }
 
       if (order.orderStatus == 2) {
         span4.innerText = '취소완료';
         orderStatus.append(span4);
       }
-
+      
       if (order.orderStatus == 3) {
 
         if (product.productStatus == 0) {
           span4.innerText = '구매확정';
+          if (order.invoiceNo != undefined) { 
+            span5.innerText = '배송조회';
+            span5.classList.add('order-shipping');
+            orderStatus.append(span4, span5);
+            
+            span5.addEventListener('click', () => { 
+              shippingAPI(order.invoiceNo);
+            })
+          }
         }
 
         if (product.productStatus == 1) {
           span4.innerText = '반품 진행중';
+          orderStatus.append(span4);
         }
-
+        
         if (product.productStatus == 2) {
           span4.innerText = '반품 완료';
+          orderStatus.append(span4);
         }
 
-        orderStatus.append(span4);
+        if (product.productStatus == 3) {
+          span4.innerText = '반품 반려';
+          orderStatus.append(span4);
+        }
+
       }
 
       orderTotal.append(orderStatus);

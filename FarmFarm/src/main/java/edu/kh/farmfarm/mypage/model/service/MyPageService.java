@@ -106,9 +106,10 @@ public interface MyPageService {
 
 	/** 마이페이지 회원 탈퇴 
 	 * @param authority 
+	 * @param authority 
 	 * @return
 	 */
-	int secession(String memberPw, int memberNo);
+	int secession(String memberPw, int memberNo, int authority);
 	/** 찜 삭제
 	 * @param map
 	 * @return

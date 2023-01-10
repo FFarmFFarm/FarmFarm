@@ -1,4 +1,5 @@
 /* 문서 로딩 완료 후 수행 */
+/* 읽지 않은 메세지 수 체크 후 상담 아이콘에 표시 */
 document.addEventListener('DOMContentLoaded', () => { 
   $.ajax({
     url: "/inquire/unreadCheck",
@@ -186,6 +187,7 @@ const fillInquireModal = (messageList) => {
           div.classList.add('img-container');
   
           div.innerHTML = message.messageContent;
+
   
           send.append(messageTime, div);
           inquireContent.append(send);
@@ -198,6 +200,7 @@ const fillInquireModal = (messageList) => {
           div.classList.add('img-container');
   
           div.innerHTML =  message.messageContent;
+
 
           const messageTime = document.createElement('div');
           messageTime.classList.add('message-time');
@@ -333,7 +336,7 @@ if(inquireSock != undefined) {
           
         } else {
           const receive = document.createElement('div');
-          receive.classList.add('send');
+          receive.classList.add('receive');
           
           const div = document.createElement('div');
           div.classList.add('img-container');

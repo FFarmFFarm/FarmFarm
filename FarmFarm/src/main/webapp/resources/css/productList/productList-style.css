@@ -318,6 +318,15 @@ body{
     margin: 0px 5px;
 }
 
+.except{
+    display: flex;
+}
+
+#except{
+    margin-right: 4px;
+    margin-top: 1px;
+}
+
 
 /* view-options */
 input[name='sorting'] {
