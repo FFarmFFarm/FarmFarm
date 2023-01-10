@@ -19,38 +19,16 @@
   
   
   <select id="selectSignUpGraph" resultMap="graph_rm">
-		SELECT TO_CHAR(b.SD, 'MM-DD') AS SIGNUP_DATE
-		       ,NVL(SUM(a.cnt), 0) AS SIGNUP_COUNT
-		FROM ( SELECT TO_CHAR(SIGNUP_DATE, 'YYYY-MM-DD') AS SIGNUP_DATE ,COUNT(*) cnt
-		        FROM MEMBER
-		        WHERE SIGNUP_DATE BETWEEN SYSDATE-31 AND SYSDATE
-		        GROUP BY SIGNUP_DATE
-		        ) a
-		       ,(SELECT (TO_DATE(SYSDATE-30,'YY-MM-DD') + LEVEL) AS SD
-						FROM DUAL 
-						<![CDATA[CONNECT BY LEVEL <= 31]]>) b
-		WHERE b.SD = a.SIGNUP_DATE(+)
-		GROUP BY b.SD
-		ORDER BY b.SD 
+  		<![CDATA[
+		SELECT SIGNUP_DATE, (SELECT COUNT(*) FROM MEMBER m WHERE TO_CHAR(m.SIGNUP_DATE, 'YYYY-MM-DD') = a.SIGNUP_DATE) SIGNUP_COUNT
+ 		FROM (SELECT TO_CHAR(SYSDATE - 31 + LEVEL, 'YYYY-MM-DD') SIGNUP_DATE FROM DUAL CONNECT BY LEVEL <=31) a]]>
   </select>
   
   
   <select id="selectOrderGraph" resultMap="graph_rm">
-	  SELECT TO_CHAR(b.OD, 'MM-DD') AS ORDER_DATE
-	    	 , NVL(SUM(a.cnt), 0) AS ORDER_COUNT
-		FROM ( SELECT TO_CHAR(ORDER_DATE, 'YYYY-MM-DD') AS ORDER_DATE
-		              ,COUNT(*) cnt
-		        FROM "ORDER"
-		        WHERE ORDER_DATE BETWEEN SYSDATE-31
-		                             AND SYSDATE
-		        GROUP BY ORDER_DATE
-		        ) a
-		      , (SELECT (TO_DATE(SYSDATE-30,'YY-MM-DD') + LEVEL) AS OD
-				FROM dual 
-				<![CDATA[CONNECT BY LEVEL <= 31]]>) b
-		WHERE b.OD = a.ORDER_DATE(+)
-		GROUP BY b.OD
-		ORDER BY b.OD
+	  <![CDATA[
+		SELECT ORDER_DATE, (SELECT COUNT(*) FROM "ORDER" o WHERE TO_CHAR(o.ORDER_DATE , 'YYYY-MM-DD') = a.ORDER_DATE) ORDER_COUNT
+	 	FROM (SELECT TO_CHAR(SYSDATE - 31 + LEVEL, 'YYYY-MM-DD') ORDER_DATE FROM DUAL CONNECT BY LEVEL <=31) a]]>
   </select>
   
   <select id="orderWeekList" resultMap="graph_rm">
@@ -72,7 +50,9 @@
 		AND PRODUCT_STATUS = 0), 0)) PRODUCT_SUM
 	FROM PRODUCT P
 	ORDER BY PRODUCT_SUM DESC)a
-	WHERE ROWNUM&lt;=5
+	<![CDATA[
+	WHERE ROWNUM<=5
+	]]>
   </select>
   
   
