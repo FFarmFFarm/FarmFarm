@@ -336,7 +336,7 @@ const selectImgReview = () => {
   const productNo = getProductNo();
 
   $.ajax({
-    url: "/review/imgList",
+    url: "/select/reviewImgList",
     data: { "productNo": productNo },
     dataType: "json",
     success: (reviewList) => {
@@ -436,7 +436,7 @@ const selectReview = (reviewNo, loginMemberNo) => {
   }
 
   $.ajax({
-    url: '/review/select/' + reviewNo,
+    url: '/select/review/' + reviewNo,
     data: { "memberNo": loginMemberNo },
     dataType: 'json',
     success: (review) => {
@@ -1140,7 +1140,7 @@ const selectReviewUpdate = (reviewNo) => {
   console.log(reviewNo);
 
   $.ajax({
-    url: '/review/select/' + reviewNo,
+    url: '/select/review/' + reviewNo,
     data: { "memberNo": loginMemberNo },
     dataType: 'json',
     success: (review) => {
