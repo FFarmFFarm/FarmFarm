@@ -21,4 +21,9 @@ public class DupDAO {
 	public int nicknameDupCheck(String memberNickname) {
 		return sqlSession.selectOne("dupMapper.nicknameDupCheck",memberNickname);
 	}
+
+	// 전화번호 중복 검사 
+	public int tellDupCheck(String to) {
+		return sqlSession.selectOne("dupMapper.tellDupCheck", to);
+	}
 }

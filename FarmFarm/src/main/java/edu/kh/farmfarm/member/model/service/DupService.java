@@ -8,4 +8,6 @@ public interface DupService {
 
 	int nicknameDupCheck(String memberNickname);
 
+	int tellDupCheck(String to);
+
 }
