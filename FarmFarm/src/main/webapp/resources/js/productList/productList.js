@@ -599,7 +599,6 @@ const categoryList = document.getElementsByName('types');
 
 for(let category of categoryList) {
     category.addEventListener("click", () => {
-
         // 카테고리 선택
         let category = getCheckedCategory();
 
@@ -613,6 +612,9 @@ for(let category of categoryList) {
 
         // 카테고리
         let sort = getSortOption();
+
+        // 제외옵션
+        let exceptFl = getExceptOption();
 
         // 선택한 정보로 페이지를 생성
         if(keyword.length == 0) {
@@ -662,6 +664,9 @@ for(let sortOption of sortOptionList) {
 
         // 정렬 옵션
         let sort = getSortOption();
+
+        // 제외옵션
+        let exceptFl = getExceptOption();
 
         // 선택한 정보로 페이지를 생성
         if (keyword.length == 0) {

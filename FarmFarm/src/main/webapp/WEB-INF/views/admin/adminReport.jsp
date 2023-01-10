@@ -35,7 +35,7 @@
         <!-- 오른쪽 -->
         <section class="admin-content-section">
             <div class="page-title" id="pageTitle">
-              <p>미처리 신고</p>
+              <a href="/admin/report"><p>미처리 신고</p></a>
             </div>
 
             <div class="report-total-div">
