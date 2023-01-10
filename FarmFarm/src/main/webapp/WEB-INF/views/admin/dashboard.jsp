@@ -79,7 +79,7 @@
                     <div class="ranking graph2">
                         <div class="board-graph" id="productRanking">
                             <span class="graph-title">팜팜 TOP 5</span>
-                            <canvas id="rankingChart" width="300px"></canvas>
+                            <canvas id="rankingChart" width="700px" height="300px"></canvas>
                         </div>
                     </div>
                 </div>

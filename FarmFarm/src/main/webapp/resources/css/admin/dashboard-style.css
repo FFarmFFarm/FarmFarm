@@ -151,7 +151,7 @@ main{
 }
 
 .graph-container2{
-    display: flex;
+    /* display: flex; */
 }
 
 .graph2{
@@ -165,8 +165,8 @@ main{
 }
 
 .ranking { 
-    width: 45%;
-    margin-left: 30px;
+    width: 100%;
+    padding: 10px 10px;
 }
 
 .ranking-container {
