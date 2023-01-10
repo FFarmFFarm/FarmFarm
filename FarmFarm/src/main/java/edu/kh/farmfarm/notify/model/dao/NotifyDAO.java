@@ -100,7 +100,7 @@ public class NotifyDAO {
 	 * @param orderNo
 	 * @return
 	 */
-	public List<NotifyOrder> selectTransaction(int orderNo) {
+	public NotifyOrder selectTransaction(int orderNo) {
 		return sqlSession.selectOne("notifyMapper.selectTransaction", orderNo);
 	}
 

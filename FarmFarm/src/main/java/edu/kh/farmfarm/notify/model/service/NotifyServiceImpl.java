@@ -85,7 +85,7 @@ public class NotifyServiceImpl implements NotifyService {
 
 	// 상품 주문 알림 발생을 위한 정보 요청
 	@Override
-	public List<NotifyOrder> selectTransaction(int orderNo) {
+	public NotifyOrder selectTransaction(int orderNo) {
 		return dao.selectTransaction(orderNo);
 	}
 

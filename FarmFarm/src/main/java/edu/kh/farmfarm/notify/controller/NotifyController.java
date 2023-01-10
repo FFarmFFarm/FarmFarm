@@ -110,8 +110,12 @@ public class NotifyController {
 	@PostMapping("/notify/select/transaction")
 	@ResponseBody
 	public String selectTransaction(int orderNo) {
-		List<NotifyOrder> transactionInfo = service.selectTransaction(orderNo);
+		NotifyOrder notifyOrder = service.selectTransaction(orderNo);
 		
-		return new Gson().toJson(transactionInfo);
+		Map<String, Object> notifyMap = new HashMap<String, Object>();
+		
+		notifyMap.put("notifyOrder", notifyOrder);
+		
+		return new Gson().toJson(notifyMap);
 	}
 }

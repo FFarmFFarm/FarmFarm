@@ -65,7 +65,7 @@ public interface NotifyService {
 	 * @param orderNo
 	 * @return
 	 */
-	List<NotifyOrder> selectTransaction(int orderNo);
+	NotifyOrder selectTransaction(int orderNo);
 
 	
 	
