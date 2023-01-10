@@ -112,7 +112,9 @@ const fillNotifyReceiverContainer = (notify) => {
         case 101:  notifyReceiverIcon.innerHTML = '<i class="fa-solid fa-message"></i>'; break;
         case 201:  notifyReceiverIcon.innerHTML = "<i class='fa-regular fa-comment-dots'></i>"; break;
         case 202:  notifyReceiverIcon.innerHTML = "<i class='fa-regular fa-comment-dots'></i>"; break;
-        case 202: notifyReceiverIcon.innerHTML = '<i class="fa-solid fa-envelope-open-text"></i>'; break;
+        case 301: notifyReceiverIcon.innerHTML = '<i class="fa-solid fa-envelope-open-text"></i>'; break;
+        case 302: notifyReceiverIcon.innerHTML = '<i class="fa-solid fa-truck"></i>'; break;
+        case 303: notifyReceiverIcon.innerHTML = '<i class="fa-solid fa-envelope-open"></i>'; break;
         // case (원하는 notifyTypeNo) : notifyReceiverIcon.innerHTML = (원하는 아이콘); break
     }
 

@@ -437,7 +437,7 @@ const makeSentChat = (chat, newChatTime) => {
     // read-count 보여주기!
     if(chat.readCount >= 0) { // readCount가 0보다 클 때만
         const sentBubbleReadCount = document.createElement('div');
-        packUpElement(sentBubbleReadCount, 'sent-bubble-read-count', chat.readCount + '명 읽음');
+        packUpElement(sentBubbleReadCount, 'sent-bubble-read-count', null);
         sentBubble.append(sentBubbleReadCount);
     }
 
@@ -496,7 +496,7 @@ const makeReceivedChat = (chat, newChatTime) => {
     // read-count 출력하기!
     if (chat.readCount >= 0) { // readCount가 0보다 클 때만
         const receivedBubbleReadCount = document.createElement('div');
-        packUpElement(receivedBubbleReadCount, 'received-bubble-read-count', chat.readCount + '명 읽음');
+        packUpElement(receivedBubbleReadCount, 'received-bubble-read-count', null);
         receivedBubble.append(receivedBubbleReadCount);
     }
 
@@ -811,21 +811,21 @@ const updateChatEnterAgree = (inviteBtnArea) => {
             selectChatRoomList();
             console.log('초대를 승인했습니다.');
 
-            let formData2 = new FormData();
+            // let formData2 = new FormData();
 
-            formData2.append("roomNo", response.data.roomNo);
-            formData2.append("chatContent", myMemberNickname + "님이 입장했어요!");
+            // formData2.append("roomNo", response.data.roomNo);
+            // formData2.append("chatContent", myMemberNickname + "님이 입장했어요!");
 
-            // 입장 메세지를 전달합니다.
+            // // 입장 메세지를 전달합니다.
             
-            axios.post("/chat/insert/system", formData2
-                ).then(function(response){
-                    console.log('입장 메세지를 보냈어요');
+            // axios.post("/chat/insert/system", formData2
+            //     ).then(function(response){
+            //         console.log('입장 메세지를 보냈어요');
 
-                }).catch(function(error){
-                    console.log('error');
-                    console.log(error)
-                })
+            //     }).catch(function(error){
+            //         console.log('error');
+            //         console.log(error)
+            //     })
 
         }).catch(function(error){
             console.log('error');

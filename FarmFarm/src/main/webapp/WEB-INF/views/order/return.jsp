@@ -8,7 +8,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>반품 신청</title>
+    <title>팜팜 | 반품 신청</title>
     <script
       src="https://kit.fontawesome.com/591746f9e8.js"
       crossorigin="anonymous"

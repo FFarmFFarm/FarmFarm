@@ -186,10 +186,10 @@
     margin-top: 4px;
 }
 
-.post-title{
+/* .post-title{
     width: 170px;
     height: 20px;
-    /* padding: 5px 0px; */
+    padding: 5px 0px;
     font-size: var(--main-font-size);
     color: var(--main-font-color);
 
@@ -200,7 +200,7 @@
 
     margin-bottom: 4px;
 }
-
+ */
 /* 채팅방 안읽은 개수 알림 */
 .chatWidget-unread-chat-count{
     position: absolute;

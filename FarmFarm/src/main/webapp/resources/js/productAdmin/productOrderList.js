@@ -621,6 +621,7 @@ orderStatus.addEventListener("change",(e)=>{
       success: (result)=>{
         if(result>0){
           messageModalOpen("주문 상태가 변경되었습니다.");
+
           setTimeout(() => {
             window.location.reload();
           }, "1000");
@@ -645,6 +646,10 @@ const enrollInvoice = (orderNo, invoiceNo)=>{
     success: (result)=>{
       if(result>0){
         messageModalOpen("송장번호가 입력되었습니다.");
+
+        /* 주문 상태 변경에 따른 알림을 전송하고 싶습니다. 괜찮을까요? */
+        pushOrderStatusNotify(orderNo, 302);
+
         setTimeout(() => {
           window.location.reload();
         }, "1000");
@@ -813,3 +818,62 @@ const makeTracking = (r)=>{
 
 }
 
+// < 주문 정보가 변경되면, 구매자에게 알림을 보내는 함수입니다. >
+// 1) orderNo를 이용해 구매자 정보를 찾고,
+// 2) orderStatus에 맞는 알림을 작성해 전송합니다!
+const pushOrderStatusNotify = (orderNo, typeNo) => {
+
+  // 1. 구매자 번호를 확인
+  $.ajax({
+    url: "/notify/select/transaction",
+    data: {
+      "orderNo":orderNo
+    },
+    type: "post",
+    dataType: "JSON",
+    success : result =>{
+      console.log('알림 전송에 성공하였습니다.')
+
+      let notifyOrder = result.notifyOrder;
+      // let typeNo;
+      let notifyContent;
+      let orderProductCount = notifyOrder.orderProductCount - 1;
+      console.log("result" + result);
+
+      // 2. result에서 memberNo를 꺼내고, orderStatus를 확인해 알맞은 알림을 보냅니다.
+      // oStatus 1 배송중
+      // oStatus 2 주문취소
+
+      // switch(oStatus){
+      //   case 1: {
+      //     typeNo = 302;
+      //     break;
+      //   }
+      //   case 2: {
+      //     typeNo = 303;
+      //     break;
+      //   }
+      // }
+
+      if (notifyOrder.orderProductCount > 1) {
+        notifyContent = "상품명 : " + notifyOrder.productName + " 외 " + orderProductCount + "건";
+      } else {
+        notifyContent = "상품명 : " + notifyOrder.productName;
+      }
+
+      let obj = {
+        "notifyTypeNo":typeNo,
+        "memberNo": notifyOrder.memberNo,
+        "notifyContent":notifyContent,
+        "quickLink":"/myPage"
+      }
+
+      notifySock.send(JSON.stringify(obj));
+    },
+    error : ()=>{
+      console.log('알림 전송에 실패하였습니다.')
+    }
+
+  });
+
+};

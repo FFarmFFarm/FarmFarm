@@ -34,7 +34,7 @@
         <!-- 오른쪽 -->
         <section class="admin-content-section">
             <div class="page-title" id="pageTitle">
-              <p>전체 신고 내역</p>
+              <a href="/admin/reportList"><p>전체 신고 내역</p></a>
             </div>
 
             <div class="report-total-div">
@@ -134,7 +134,7 @@
                                   <td class="rTitle">${report.title}</td>
                                 </c:if>
                                 <c:if test="${report.reportType eq 'C'}">
-                                  <td>report.commentMemberId</td>
+                                  <td>${report.commentMemberId}</td>
                                 </c:if>
                               </c:if>
 

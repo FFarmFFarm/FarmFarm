@@ -681,7 +681,7 @@ const ringCommentNotify = (type, typeNo, inputNo, inputComment, commentNo) => {
 
         * 고려해볼만한 사항
         1) 댓글 삽입의 결과로 상대방 회원의 번호를 받아오면 더 빠르게 처리할 수 있을 듯! -> 수정이 필요하니까 이야기해보기
-        2) 알림창을 눌렀을 때, 해당 페이지로 즉시 이동하게 하려면? -> location.href를 사용해서 해결!
+        2) 알림창을 눌렀을 때, 해당 페이지로 즉시 이동하게 하려면? -> location.href를 사용해서 해결! -> 주소값을 수정해봄
 
     */
     // 1) 상대방의 번호 확인
@@ -700,7 +700,7 @@ const ringCommentNotify = (type, typeNo, inputNo, inputComment, commentNo) => {
                 "notifyTypeNo":typeNo,
                 "memberNo":result,
                 "notifyContent":inputComment,
-                "quickLink":location.href+"#co"+commentNo
+                "quickLink":location.pathname + location.search + "#co" + commentNo
             }
 
             notifySock.send(JSON.stringify(obj));
