@@ -96,6 +96,10 @@
                     <button type="button" id="boardUpdate">수정하기</button>
                     <button  type="button" id="boardDelete">삭제하기</button>
                 </c:if>
+                <c:if test="${loginMember.memberNo == board.memberNo && loginMember.authority != 2}">
+                    <button type="button" id="boardUpdate">수정하기</button>
+                    <button  type="button" id="boardDelete">삭제하기</button>
+                </c:if>
                 <c:if test="${loginMember.memberNo != board.memberNo && loginMember.authority == 2}">
                     <button  type="button" id="adminBoardDelete">삭제하기</button>
                 </c:if>
