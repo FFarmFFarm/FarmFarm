@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FarmFarm | 아이디 찾기 실패 </title>
+    <title>팜팜 | 아이디 찾기 실패 </title>
 
     <link rel="stylesheet" href="/resources/css/member/findSuccess-style.css">
 
