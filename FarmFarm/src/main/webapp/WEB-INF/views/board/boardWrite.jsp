@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>와글와글 글쓰기</title>
+    <title>팜팜 | 와글와글</title>
     <script src="https://kit.fontawesome.com/345198b845.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/resources/css/board/boardWrite-style.css">
     <link rel="stylesheet" href="/resources/css/common/header-style.css" />

@@ -479,10 +479,10 @@
 		<if test='sortFilter != null and sortFilter != ""'>
 			<choose>
 				<when test='sortFilter == "up"'>
-					ORDER BY REPORT_VOLUME ASC
+					ORDER BY REPORT_VOLUME ASC, REPORT_NO DESC
 				</when>
 				<when test='sortFilter == "down"'>
-					ORDER BY REPORT_VOLUME DESC
+					ORDER BY REPORT_VOLUME DESC, REPORT_NO DESC
 				</when>
 				<when test='sortFilter == "default"'>
 						ORDER BY REPORT_NO
@@ -867,10 +867,10 @@
 		<if test='sortFilter != null and sortFilter != ""'>
 			<choose>
 				<when test='sortFilter == "up"'>
-					ORDER BY REPORT_VOLUME ASC
+					ORDER BY REPORT_VOLUME ASC, REPORT_NO DESC
 				</when>
 				<when test='sortFilter == "down"'>
-					ORDER BY REPORT_VOLUME DESC
+					ORDER BY REPORT_VOLUME DESC, REPORT_NO DESC
 				</when>
 				<when test='sortFilter == "default"'>
 						ORDER BY REPORT_NO
@@ -978,12 +978,10 @@
 		<if test='sortFilter != null and sortFilter != ""'>
 			<choose>
 				<when test='sortFilter == "up"'>
-					ORDER BY REPORT_VOLUME ASC
-					AND REPORT_NO DESC
+					ORDER BY REPORT_VOLUME ASC, REPORT_NO DESC
 				</when>
 				<when test='sortFilter == "down"'>
-					ORDER BY REPORT_VOLUME DESC
-					AND REPORT_NO DESC
+					ORDER BY REPORT_VOLUME DESC, REPORT_NO DESC
 				</when>
 				<when test='sortFilter == "default"'>
 						ORDER BY REPORT_NO
