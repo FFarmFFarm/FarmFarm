@@ -191,6 +191,12 @@ td, tr{
     height: 50px;
 }
 
+.table-info:hover{
+    background-color: #eef4ed;
+    transition-duration: 0.1s;
+    cursor: pointer;
+}
+
 .table-head{
     height: 40px;
     font-size: var(--main-font-size);

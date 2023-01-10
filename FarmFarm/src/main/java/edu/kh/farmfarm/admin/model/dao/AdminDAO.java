@@ -73,10 +73,18 @@ public class AdminDAO {
 		// 주문 수
 		List<Graph> orderGraphList = sqlSession.selectList("graphMapper.selectOrderGraph");
 		
+		// 7일 매출
+		List<Graph> orderWeekList = sqlSession.selectList("graphMapper.orderWeekList");
+		
+		// top 5
+		List<Graph> productRankingList = sqlSession.selectList("graphMapper.productRankingList");
+		
 		
 		Map<String, Object> graphMap = new HashMap<String, Object>();
 		graphMap.put("signUpGraphList", singUpGraphList);
 		graphMap.put("orderGraphList", orderGraphList);
+		graphMap.put("orderWeekList", orderWeekList);
+		graphMap.put("productRankingList", productRankingList);
 		
 		return graphMap;
 	}

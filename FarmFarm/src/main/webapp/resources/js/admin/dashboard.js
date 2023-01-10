@@ -27,10 +27,11 @@ function showGraph(){
     success: (graphMap) => {
 
       let signUpDateArr = [];
-
+      
       for(let i=0; i<graphMap.signUpGraphList.length; i++) {
         signUpDateArr[i] = graphMap.signUpGraphList[i].signUpDate;
       }
+      console.log(signUpDateArr);
 
       let signUpCountArr = [];
 
@@ -67,6 +68,8 @@ function showGraph(){
 
       let productNameArr = [];
 
+      console.log(graphMap.orderWeekList);
+
       for(let i=0; i<graphMap.productRankingList.length; i++){
         productNameArr[i] = graphMap.productRankingList[i].productName;
       }
@@ -77,7 +80,10 @@ function showGraph(){
         productSumArr[i] = graphMap.productRankingList[i].productSum;
       }
 
-
+      console.log(graphMap.productRankingList);
+      console.log(productNameArr);
+      console.log(productSumArr);
+// 
       // 가입자 수
       new Chart(document.getElementById('signUpChart'), {
         type: 'bar',
@@ -167,7 +173,7 @@ function showGraph(){
 
 
       // 이번주 총 매출액
-      new Chart(document.getElementById('thisWeekSales'), {
+      new Chart(document.getElementById('salesChart'), {
         type: 'bar',
         data: {
           labels: orderWeekArr,  // x축
@@ -175,9 +181,7 @@ function showGraph(){
              //데이터
               data: orderSumArr,
               fill: false,
-              backgroundColor: 'rgba(43, 140, 68)',
-              borderColor: 'rgba(43, 140, 68)',
-              borderWidth: 1
+              backgroundColor: ["#cff09e", "#CFF0C2", "#a8dba8", "#A8DBC3","#79bd9a", "#79BDB2","#3b8686"]
           }]
         },
           options: {
@@ -190,7 +194,7 @@ function showGraph(){
                   ticks:{
                     beginAtZero: true,
                     // stepSize
-                    max: 40,   //y축 값
+                    // max: 40,   //y축 값
                     fontColor: 'rgba(43, 140, 68)',
                     fontSize: 10
                   },
@@ -214,7 +218,7 @@ function showGraph(){
 
 
       // 판매 상위 삼품 top 5
-      new Chart(document.getElementById('productRanking'), {
+      new Chart(document.getElementById('rankingChart'), {
         type: 'bar',
         data: {
           labels: productNameArr,  // y축
@@ -222,14 +226,12 @@ function showGraph(){
              //데이터
               data: productSumArr, // x축
               fill: false,
-              backgroundColor: 'rgba(43, 140, 68)',
-              borderColor: 'rgba(43, 140, 68)',
-              borderWidth: 1
+              axis: 'x',
+              backgroundColor: ["#cff09e", "#a8dba8", "#79bd9a", "#3b8686", "#3C7470"]
           }]
         },
           options: {
-            responsive: false,
-            indexAxis: 'y',
+            indexAxis: 'x',
             legend:{ 
               display: false      // 라벨 없애기
             },
@@ -237,13 +239,8 @@ function showGraph(){
               yAxes: [{
                   ticks:{
                     beginAtZero: true,
-                    // stepSize
-                    // max: 40,   //y축 값
                     fontColor: 'rgba(43, 140, 68)',
                     fontSize: 10
-                  },
-                  gridLines: {
-                    // color: 'rgba(43, 140, 68)'
                   }
               }],
               xAxes: [{
