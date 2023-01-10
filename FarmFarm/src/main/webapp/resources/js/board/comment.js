@@ -246,7 +246,11 @@ function selectCommentList(){
                             if(memberNo == comment.memberNo && comment.commentDelFl == 'N'){
                                 writeTimeReply.append(commentReply, commentUpdate, commentDelete);
                             }if(memberNo != comment.memberNo && comment.commentDelFl == 'N'){
-                                writeTimeReply.append(commentReply, commentReport);
+                                if(comment.memberNo == 0){
+                                    writeTimeReply.append(commentReply);
+                                }else{
+                                    writeTimeReply.append(commentReply, commentReport);
+                                }
                             }
                         }
 
@@ -264,14 +268,17 @@ function selectCommentList(){
                     });
 
                     // x버튼 동작
-                    modalClose.addEventListener("click", () => {
-                        // hide 클래스를 추가해서 0.5초 동안 투명해지는 애니메이션 수행
-                        modal.classList.toggle("hide");
-                        // 0.5초 후에 show, hide 클래스를 모두 제거
-                        setTimeout(() => {
-                            modal.classList.remove("show", "hide");
-                        }, 500);
-                    });
+                    if(modalClose != undefined){
+                        modalClose.addEventListener("click", () => {
+                            // hide 클래스를 추가해서 0.5초 동안 투명해지는 애니메이션 수행
+                            modal.classList.toggle("hide");
+                            // 0.5초 후에 show, hide 클래스를 모두 제거
+                            setTimeout(() => {
+                                modal.classList.remove("show", "hide");
+                            }, 500);
+                        });
+
+                    }
                     
                 }
                 commentArea1.append(commentCount, commentWrite, commentList);

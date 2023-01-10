@@ -50,10 +50,14 @@
     const modalImage = document.getElementById("modal-text");
 
     for(let wPro of writerProfile){
-      wPro.addEventListener("click", ()=>{
-        modal.classList.toggle("show");
-        modalImage.setAttribute("src", wPro.getAttribute("src"));
-        selectMember(wPro.id);
+      wPro.addEventListener("click", e=>{
+
+        if(e.target.id != 0) {
+          modal.classList.toggle("show");
+          modalImage.setAttribute("src", wPro.getAttribute("src"));
+          selectMember(wPro.id);
+        }
+    
       });
     }
 
