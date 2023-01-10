@@ -142,6 +142,37 @@ main{
     align-items: center;
 }
 
+
+.graph-container2{
+    width: 900px;
+    height: 460px;
+    border-radius: 10px;
+    margin-top: 30px;
+}
+
+.graph-container2{
+    /* display: flex; */
+}
+
+.graph2{
+    background-color: white;
+    border-radius: 10px;
+}
+
+
+.sales {
+    width: 55%;
+}
+
+.ranking { 
+    width: 100%;
+    padding: 10px 10px;
+}
+
+.ranking-container {
+}
+
+
 #signUpGraph{
     position: relative;
     display: flex;
