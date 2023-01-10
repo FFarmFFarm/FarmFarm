@@ -12,14 +12,16 @@
       const modalClose = document.getElementById("modal-close");
       const modalImage = document.getElementById("modal-text");
 
-      if(loginYN != ""){
+      if(loginYN != ""){ 
 
         for(let th of boardWriter){
+          if(th.innerText != "관리자"){ /* 여기 추가했습니다. */
             th.addEventListener("click", () => {
                 modal.classList.toggle("show");
                 modalImage.setAttribute("src", th.getAttribute("src"));
                 selectMember(th.id);
             });
+          }
         }
         
         // x버튼 동작
@@ -114,4 +116,3 @@ const selectMember = (memberNo) => {
   })
 
 }
-

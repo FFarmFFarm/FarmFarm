@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
@@ -360,6 +363,35 @@ public class AdminController {
 		return result;
 	}
 	
+	
+	
+	// 판매자 인증 사진 업데이트 (form태그 jsp)
+	@PostMapping("/admin/sellerAuth/updateImage")
+	@ResponseBody
+	public int updateSellerImage(@SessionAttribute(value="loginMember") Member loginMember, 
+									@RequestParam(value="memberNo", required=false) int memberNo, 
+									@RequestParam(value = "farmImg", required = false) MultipartFile farmImg, 
+									HttpSession session) throws Exception{
+		
+		String webPath = "/resources/images/seller/";
+		String folderPath = session.getServletContext().getRealPath(webPath);
+		
+		
+		// 관리자인지 확인 (관리자면 result==1)
+		int result = service.checkAdmin();
+		
+		if(result == 1 && loginMember != null) {
+
+			// 해당 회원번호의 인증사진 업데이트
+			result = service.updateSellerImage(memberNo, webPath, folderPath, farmImg);
+			
+		} else {
+			System.out.println("관리자만 접근 가능합니다.");
+		}
+		
+		return result;
+
+	}
 	
 	
 	

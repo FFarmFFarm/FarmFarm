@@ -50,7 +50,7 @@
           <div class="swiper-pagination"></div>
         </div>
         <div class="summary-area">
-          <span class="product-category">${post.categoryName}</span>
+          <span class="product-category" onclick="goToList('${post.categoryNo}')">${post.categoryName}</span>
           <span class="product-name"
             >${post.postTitle}</span
           >
@@ -89,9 +89,11 @@
         <button type="button" class="share-btn" id="shareBtn">
           <i class="fa-solid fa-share"></i>
         </button>
-        <button type="button" class="report-btn" id="reportBtn">
-          <i class="fa-solid fa-circle-exclamation"></i>
-        </button>
+        <c:if test="${post.memberNo != loginMember.memberNo}"> <!-- 여기 추가했습니다. -->
+          <button type="button" class="report-btn" id="reportBtn">
+            <i class="fa-solid fa-circle-exclamation"></i>
+          </button>
+        </c:if>
       </section>
       <section class="product-menu">
         <a href="#productDetail">상세 설명</a>

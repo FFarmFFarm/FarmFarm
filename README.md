@@ -418,7 +418,7 @@
         <br><br>
         <h4>📜ERD📜</h4>
         <img src="https://user-images.githubusercontent.com/110653581/211257039-bdf7ad8f-da8b-4443-b930-7472c36ae91a.png" />
-        ERD 주소 : https://www.erdcloud.com/d/pbYHmgRCTuwP6MJwB
+        ERD 주소 : https://www.erdcloud.com/d/xpKBdcyyrs6Ef2k9F
         <br>
         <br><br>
         <h4>📜와이어프레임 : Figma📜</h4>
@@ -439,6 +439,30 @@
         <br>
 </div>
 <br><br>
+
+-----------------------
+<br><br>
+<div align="center">
+<h3>✍️기술 설명✍️</h3>
+<img alt="회원가입" src="https://user-images.githubusercontent.com/110653581/211439951-b2db3043-ffc5-4660-9665-c42a7698f4d7.png">
+<h4>⬆회원가입⬆</h4>
+<br><br>
+<img alt="주문내역" src="https://user-images.githubusercontent.com/110653581/211440376-744dee48-1461-49b4-9c6e-37f26f6e4030.png">
+<h4>⬆주문서/마이페이지(주문 내역)⬆</h4>
+<br><br>
+<img alt="판매자페이지" src="https://user-images.githubusercontent.com/110653581/211440405-b80398e7-3048-404a-bdd0-f1f028a0ced0.png">
+<h4>⬆판매자/판매관리/주문관리⬆</h4>
+<br><br>
+<img alt="커뮤니티" src="https://user-images.githubusercontent.com/110653581/211440473-4c4bfd3b-fd70-472b-bdaf-c85c180043d5.png">
+<h4>⬆커뮤니티 게시판⬆</h4>
+<br><br>
+<img alt="채팅" src="https://user-images.githubusercontent.com/110653581/211440524-338a60fe-44a2-42bb-b66a-3acef18a0aa2.png">
+<h4>⬆채팅⬆</h4>
+<br><br>
+<img width="1054" alt="관리자" src="https://user-images.githubusercontent.com/110653581/211440559-3842ab9f-e9d9-42dc-b065-133d2a48b3c6.png">
+<h4>⬆관리자 페이지(회원 관리,판매자인증,신고 관리)⬆</h4>
+<br><br>
+</div>
 
 -----------------------
 <br><br>

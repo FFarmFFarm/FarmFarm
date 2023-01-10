@@ -1,7 +1,10 @@
 package edu.kh.farmfarm.admin.model.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import edu.kh.farmfarm.admin.model.vo.Admin;
 import edu.kh.farmfarm.admin.model.vo.Graph;
@@ -79,6 +82,27 @@ public interface AdminService {
 	int sellerDeny(int hiddenNo, String denyReason);
 	
 	
+	/** 판매자 인증 보류 사유 가져오기
+	 * @param memberNo
+	 * @return
+	 */
+	String selectDenyReason(int memberNo);
+
+
+	/** 판매자 인증 사진 업데이트
+	 * @param hiddenNo
+	 * @param webPath
+	 * @param folderPath
+	 * @param updateFarmImg
+	 * @return result
+	 * @throws IOException 
+	 */
+	int updateSellerImage(int memberNo, String webPath, String folderPath, MultipartFile farmImg) throws IOException;
+
+
+	
+	
+	
 
 	/** 미처리 신고 조회
 	 * @param sortFilter
@@ -119,12 +143,6 @@ public interface AdminService {
 	 */
 	Admin selectReportDetail(int hiddenReportNo);
 
-
-	/** 판매자 인증 보류 사유 가져오기
-	 * @param memberNo
-	 * @return
-	 */
-	String selectDenyReason(int memberNo);
 
 
 

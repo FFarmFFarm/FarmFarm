@@ -35,27 +35,46 @@ var reportTargetNo;
 // todo: 판매글, 판매자 신고
 reportBtn.addEventListener("click", () => {
 
-     // 신고 모달 열리기
-     openReportModal();
-
     // 판매자 신고
+    // 본인 계정 : 신고버튼 없음.
     if(pathname == "seller") {
-        reportType = "M";
-        reportTargetNo = targetNo;
+        if(reportTargetNo == 0){
+            messageModalOpen("관리자는 신고 대상이 아닙니다.");
+        } else {
+            // 신고 모달 열리기
+            openReportModal();
+            reportType = "M";
+            reportTargetNo = targetNo;
+        }
     }
 
 
     // 채팅방 회원 신고
+    // 상담사 신고기능 없음
+    // 일반 채팅: 상대방 신고기능만 있음.
     if(pathname == "chat") {
-        reportType = "M";
-        reportTargetNo = selectedChatNo;
+
+        if(reportTargetNo == 0){
+            messageModalOpen("관리자는 신고 대상이 아닙니다.");
+        } else {
+            // 신고 모달 열리기
+            openReportModal();
+            reportType = "M";
+            reportTargetNo = selectedChatNo;
+        }
     }
 
 
     // 판매 게시글 신고 (사고팔고)
     if(pathname == "post"){
-        reportType = "P";
-        reportTargetNo = targetNo;  //postNo
+        if(reportTargetNo == 0){
+            messageModalOpen("관리자는 신고 대상이 아닙니다.");
+        } else {
+            // 신고 모달 열리기
+            openReportModal();
+            reportType = "P";
+            reportTargetNo = targetNo;  //postNo
+        }
     }
 });
 

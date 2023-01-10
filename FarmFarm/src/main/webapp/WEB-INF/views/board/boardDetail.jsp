@@ -87,7 +87,10 @@
                         </c:if>
                         &nbsp; 좋아요&nbsp;<span id="likeCount">${board.likeCount}</span>
                     </button>
-                    <button class="board-report report-btn" id="reportBoardBtn">신고</button>
+                    <!-- 여기 추가했습니다. -->
+                    <c:if test="${board.memberNickname != '관리자'}"> 
+                        <button class="board-report report-btn" id="reportBoardBtn">신고</button>
+                    </c:if>
                 </c:if>
                 <c:if test="${loginMember.memberNo == board.memberNo}">
                     <button type="button" id="boardUpdate">수정하기</button>
