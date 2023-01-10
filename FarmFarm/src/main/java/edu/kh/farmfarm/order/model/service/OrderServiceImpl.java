@@ -62,18 +62,18 @@ public class OrderServiceImpl implements OrderService{
 		
 		
 		List<Product> pList = new ArrayList<Product>(productList);
-		
-		
+//		
+//		
 	
 		for(int i=0; i<pList.size(); i++) {
 			productList.get(i).setReturnNo(returnNo);
 			
-			if(pList.get(i).getProductNo() == 0) {
-				productList.remove(i);
-			}
+//			if(pList.get(i).getProductNo() == 0) {
+//				productList.remove(i);
+//			}
 			
 		}
-		
+//		
 
 		if(returnNo > 0) {
 			returnNo = dao.insertReturnProduct(productList);
