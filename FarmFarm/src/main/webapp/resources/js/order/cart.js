@@ -132,6 +132,10 @@ selectAll.addEventListener("change", (e) => {
         select.checked=true;
 
         countCheck +=1;
+
+        orderBtn.disabled = false;
+        deleteBtn.disabled = false;
+
         for(let checkbox of checkIcon){
           checkbox.classList.remove("fa-regular"); 
           checkbox.classList.add("fa-solid");
