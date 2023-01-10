@@ -25,6 +25,16 @@
                             <div class="form-wrap">
                                 <div class="find-title">아이디 찾기</div>
                                 <form action="/findId" method="post" id="findFrm">
+                                    <div class="selectAll">
+                                        <div class="select">
+                                            <input type="radio" name="select" id="select0" value="0">
+                                            <label for="select0" class="select0">구매자</label>
+                                        </div>
+                                        <div class="select selectstart">
+                                            <input type="radio" name="select" id="select1" value="1">
+                                            <label for="select1" class="select1">판매자</label>
+                                        </div>
+                                    </div>
                                     <section class="find">
                                         <input type="text" name="memberName" id="memberName" placeholder="이름"
                                             autocomplete="off" maxlegnth="50" value="${tempMember.memberName}">
