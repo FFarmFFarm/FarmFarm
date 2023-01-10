@@ -49,7 +49,10 @@ public class FindController {
 	 * @return
 	 */
 	@PostMapping("/findId")
-	public String findId(Member inputMember, Model model) {
+	public String findId(Member inputMember, Model model,
+			@RequestParam (value="select", required = false) int select) {
+		inputMember.setAuthority(select);
+		
 		Member member = service.findId(inputMember);
 		
 		String path = null;
