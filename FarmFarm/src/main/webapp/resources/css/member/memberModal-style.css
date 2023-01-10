@@ -12,7 +12,7 @@
 
     background-color: var(--modal-background-color);
 
-    z-index: 2000;
+    z-index: 1900;
     
     /* //todo */
     display: none;
