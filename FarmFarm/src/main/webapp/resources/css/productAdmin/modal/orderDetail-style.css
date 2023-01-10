@@ -22,7 +22,8 @@
   background-color: var(--background-color);
 
   width: 800px;
-  height: 1000px;
+  min-height: 470px;
+  max-height: 800px;
   overflow-y: scroll;
   -ms-overflow-style: none;
 }
