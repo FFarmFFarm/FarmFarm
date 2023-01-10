@@ -974,7 +974,10 @@ const printReviewList = (reviewList, pagination, sortFL) => {
     li.append(reviewWriter, reviewContent);
     productReviewList.append(li);
 
-    scrollToTag(document.getElementById('productReview'));
+    if(document.getElementById('productReview') != undefined) {
+
+      scrollToTag(document.getElementById('productReview'));
+    }
 
 
 
