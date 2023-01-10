@@ -117,10 +117,13 @@
                     <img src="resources/images/main/bg2.png">
                 </div>
                 <div class="main-background swiper-slide">
-                    <img src="resources/images/main/farm.png">
+                    <img src="resources/images/main/dd.png">
                 </div>
                 <div class="main-background swiper-slide">
                     <img src="resources/images/main/ss.png">
+                </div>
+                <div class="main-background swiper-slide">
+                    <img src="resources/images/main/farm.png">
                 </div>
             </div>
             <div class="swiper-pagination"></div>
