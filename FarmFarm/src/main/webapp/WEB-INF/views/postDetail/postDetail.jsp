@@ -50,7 +50,7 @@
           <div class="swiper-pagination"></div>
         </div>
         <div class="summary-area">
-          <span class="product-category">${post.categoryName}</span>
+          <span class="product-category" onclick="goToList('${post.categoryNo}')">${post.categoryName}</span>
           <span class="product-name"
             >${post.postTitle}</span
           >

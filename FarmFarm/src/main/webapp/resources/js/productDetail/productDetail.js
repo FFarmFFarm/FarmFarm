@@ -18,6 +18,19 @@ const getProductNo = () => {
 }
 
 
+// 카테고리 누르면 리스트로 이동하는 함수
+const goToList = (categoryNo) => {
+
+  let listPath = window.location.href;
+  console.log(listPath);
+  listPath = listPath.substring(0, listPath.lastIndexOf('/')+1);
+
+  listPath = listPath + "list?category=" + categoryNo + '&cp=1&sort=views';
+
+  location.href = listPath;
+}
+
+
 /* 링크 복사 */
 const shareBtn = document.getElementById('shareBtn');
 shareBtn.addEventListener('click', () => {
