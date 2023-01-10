@@ -80,7 +80,8 @@ const checkObj = {
     "memberNickname"  : false,
     "agreeInput1"         : false, // 동의
     "agreeInput"         : false, // 동의
-    "farmImg"         : false // 사진
+    "farmImg"         : false, // 사진
+    "to"         : false
     // "userNum" :false
 };
 
@@ -111,6 +112,7 @@ if(document.getElementById("signUpFrm") != null){
                     case "agreeInput1" : str = "농장인증 절차 확인을 확인해주세요."; break;
                     case "agreeInput" : str = "개인 정보 수집 및 이용동의를 확인해주세요."; break;
                     case "farmImg" : str = "농장 인증을 해주세요."; break;
+                    case "to" : str = "전화번호를 확인해주세요."; break;
                     // case "userNum" : str = "전화번호 인증을 해주세요."; break;
                 }
 
@@ -431,12 +433,46 @@ memberTel.addEventListener("input", function(){
     const regEx = /^0(1[01679]|2|[3-6][1-5]|70)[1-9]\d{2,3}\d{4}$/;
 
     if(regEx.test(memberTel.value)){ // 유효한 경우
+
         telMessage.innerText = "유효한 전화번호 형식입니다."
         telMessage.classList.add("confirm");
         telMessage.classList.remove("error");
         checkObj.memberTel = true;
-        
-    } else{ // 유효하지 않은 경우
+    
+        $.ajax({
+            url : "/tellDupCheck", // 비동기 통신을 진행할 서버 요청 주소
+            data : { "to" : memberTel.value }, // JS -> 서버로 전달할 값(여러개 가능)
+            type : "GET", // 데이터 전달 방식(GET/POST) -> GET 방식을 많이 사용
+            success : (result) => { // 비동기 통신을 성공해서 응답을 받았을 때
+                // result : 서버로부터 전달 받은 응답 데이터
+                //          (매개변수 이름은 자유)
+    
+                console.log(result);
+    
+                if(result == 0){ // 중복 X
+                    telMessage.innerText = "사용 가능한 전화번호 입니다.";
+                    telMessage.classList.add("confirm");
+                    telMessage.classList.remove("error");
+    
+                    checkObj.memberTel = true;
+                } else {
+                    telMessage.innerText = "이미 사용 중인 전화번호 입니다.";
+                    telMessage.classList.add("error");
+                    telMessage.classList.remove("confirm");
+    
+                    checkObj.memberTel = false;
+                }
+            },
+            error : () => { // 비동기 통신이 실패했을 때 수행
+                console.log("ajax 통신 실패");
+            },
+            complete : () => { // succecc, error 수행여부 관계없이 무조건 수행
+                console.log("중복 검사 수행 완료");
+                
+            }
+        });
+    
+    } else{
         telMessage.innerText = "전화번호 형식이 유효하지 않습니다."
         telMessage.classList.add("error");
         telMessage.classList.remove("confirm");
@@ -445,13 +481,6 @@ memberTel.addEventListener("input", function(){
 
 });
 
-// document.getElementById("send").addEventListener("click",(e)=>{
-//     if(memberTel.value.trim().length == 0){
-//         checkObj.memberTel = false;
-//         alert('전화번호를 작성해주세요.');
-//         return;
-//     } 
-// })
 
 // 전화번호 인증번호
 if(document.getElementById("signUpFrm") != null){
@@ -479,6 +508,10 @@ if(document.getElementById("signUpFrm") != null){
         }
     });
 }
+
+
+
+
 
 // 생일 유효성 검사
 const memberBirth = document.getElementById("memberBirth");
