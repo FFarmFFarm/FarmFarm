@@ -180,15 +180,15 @@ function showGraph(){
           datasets:[{
              //데이터
               data: orderSumArr,
-              fill: false,
+              // fill: false,
               backgroundColor: ["#cff09e", "#CFF0C2", "#a8dba8", "#A8DBC3","#79bd9a", "#79BDB2","#3b8686"]
           }]
         },
           options: {
             responsive: false,
-            // legend:{ 
-            //   display: false      // 라벨 없애기
-            // },
+            legend:{ 
+              display: false      // 라벨 없애기
+            },
             scales: {
               yAxes: [{
                   ticks:{
@@ -231,26 +231,32 @@ function showGraph(){
           }]
         },
           options: {
-            indexAxis: 'x',
+            indexAxis: 'y',
             legend:{ 
               display: false      // 라벨 없애기
             },
             scales: {
               yAxes: [{
-                  ticks:{
+                display: false,
+                ticks:{
                     beginAtZero: true,
                     fontColor: 'rgba(43, 140, 68)',
                     fontSize: 10
-                  }
+                  },
+                grid: {
+                  drawBorder: false
+                }
+                
               }],
               xAxes: [{
                 ticks:{
+                  mirror: true,
                   fontColor: 'rgba(43, 140, 68)',
                   fontSize: 10
                 },
                 gridLines: {
-                  color: 'white'
-                  // color: 'rgba(43, 140, 68)'
+                  drawBorder: false,
+                  display: false
                 }
               }]
             }
