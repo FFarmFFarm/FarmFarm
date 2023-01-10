@@ -101,6 +101,7 @@ const selectMember = (memberNo) => {
       };
 
       memberNickname.innerText = member.memberNickname;
+      memberNickname.setAttribute("id", member.memberNo);
       modalSignUpDate.innerText = "가입일 :" + member.signUpDate;
     }, 
     error : ()=>{

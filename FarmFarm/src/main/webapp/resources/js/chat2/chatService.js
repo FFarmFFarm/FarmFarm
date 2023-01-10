@@ -811,21 +811,21 @@ const updateChatEnterAgree = (inviteBtnArea) => {
             selectChatRoomList();
             console.log('초대를 승인했습니다.');
 
-            let formData2 = new FormData();
+            // let formData2 = new FormData();
 
-            formData2.append("roomNo", response.data.roomNo);
-            formData2.append("chatContent", myMemberNickname + "님이 입장했어요!");
+            // formData2.append("roomNo", response.data.roomNo);
+            // formData2.append("chatContent", myMemberNickname + "님이 입장했어요!");
 
-            // 입장 메세지를 전달합니다.
+            // // 입장 메세지를 전달합니다.
             
-            axios.post("/chat/insert/system", formData2
-                ).then(function(response){
-                    console.log('입장 메세지를 보냈어요');
+            // axios.post("/chat/insert/system", formData2
+            //     ).then(function(response){
+            //         console.log('입장 메세지를 보냈어요');
 
-                }).catch(function(error){
-                    console.log('error');
-                    console.log(error)
-                })
+            //     }).catch(function(error){
+            //         console.log('error');
+            //         console.log(error)
+            //     })
 
         }).catch(function(error){
             console.log('error');

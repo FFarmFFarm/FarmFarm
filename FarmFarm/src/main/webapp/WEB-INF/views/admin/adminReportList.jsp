@@ -134,7 +134,7 @@
                                   <td class="rTitle">${report.title}</td>
                                 </c:if>
                                 <c:if test="${report.reportType eq 'C'}">
-                                  <td>report.commentMemberId</td>
+                                  <td>${report.commentMemberId}</td>
                                 </c:if>
                               </c:if>
 

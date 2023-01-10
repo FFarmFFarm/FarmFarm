@@ -6,6 +6,7 @@ import java.util.Map;
 import com.google.gson.JsonElement;
 
 import edu.kh.farmfarm.notify.model.vo.Notify;
+import edu.kh.farmfarm.notify.model.vo.NotifyOrder;
 
 public interface NotifyService {
 
@@ -59,6 +60,12 @@ public interface NotifyService {
 	 * @return
 	 */
 	String selectNotifyTitle(int notifyTypeNo);
+
+	/** 상품 주문 알림 발생을 위한 정보 요청
+	 * @param orderNo
+	 * @return
+	 */
+	NotifyOrder selectTransaction(int orderNo);
 
 	
 	
