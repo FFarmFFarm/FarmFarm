@@ -4,8 +4,8 @@
 
 <body>
   <!-- 프로필 클릭 시 모달창 출력 -->
-  <c:if test="${board.memberNickname != '관리자' || board.memberNo != 0}"> <!-- 여기 추가했습니다. -->
-    <div class="modal">
+  <%-- <c:if test="${board.memberNickname != '관리자' || board.memberNo != 0}"> <!-- 여기 추가했습니다. --> --%>
+    <div class="modal" id="memberModal">
       <div class="container" id="modal-text">
           <div class="container-sub">
               <div class="modal-middle">
@@ -29,5 +29,5 @@
           </div>
       </div>
     </div>
-  </c:if>
+  <%-- </c:if> --%>
 </body>

@@ -485,14 +485,14 @@ if(boardSearch != null){
         history.pushState(state, title, reUrl);
     }
 
-}
-// 판매자가 게시글 클릭 시 메세지 모달 띄우기
-if(authority == 1){
-    goBoard = document.getElementsByClassName("goBoard");
-    for(let go of goBoard){
-        go.addEventListener("click", ()=>{
-            messageModalOpen("판매자는 게시글 조회가 불가능합니다.");
-    
-        })
+    // 판매자가 게시글 클릭 시 메세지 모달 띄우기
+    if(authority == 1){
+        goBoard = document.getElementsByClassName("goBoard");
+        for(let go of goBoard){
+            go.addEventListener("click", ()=>{
+                messageModalOpen("판매자는 게시글 조회가 불가능합니다.");
+        
+            })
+        }
     }
 }

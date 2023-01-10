@@ -208,7 +208,7 @@
     </script>
     <script src="/resources/js/board/boardList.js"> </script>
     <script src="/resources/js/member/memberModal.js"> </script>
-    <script src="/resources/js/common/common.js"> </script>
+    <%-- <script src="/resources/js/common/common.js"> </script> --%>
     <script src="/resources/js/report/report-modal-common.js"></script>
     <script src="/resources/js/report/report-modal-boardList.js"></script>
     <script src="/resources/js/member/memberModal.js"> </script>
