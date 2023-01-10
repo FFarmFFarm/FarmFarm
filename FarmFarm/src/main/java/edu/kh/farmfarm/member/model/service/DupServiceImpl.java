@@ -25,4 +25,10 @@ public class DupServiceImpl implements DupService {
 	public int nicknameDupCheck(String memberNickname) {
 		return dao.nicknameDupCheck(memberNickname);
 	}
+
+	// 전화번호 중복 검사 
+	@Override
+	public int tellDupCheck(String to) {
+		return dao.tellDupCheck(to);
+	}
 }

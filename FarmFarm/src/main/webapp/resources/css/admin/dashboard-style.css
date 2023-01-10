@@ -150,27 +150,23 @@ main{
     margin-top: 30px;
 }
 
-.graph-container2{
-    /* display: flex; */
-}
 
 .graph2{
     background-color: white;
     border-radius: 10px;
+    width: 900px;
+    padding: 30px;
+    margin-top: 30px;
 }
 
 
 .sales {
-    width: 55%;
 }
 
 .ranking { 
-    width: 100%;
-    padding: 10px 10px;
+    margin-bottom: 50px;
 }
 
-.ranking-container {
-}
 
 
 #signUpGraph{
