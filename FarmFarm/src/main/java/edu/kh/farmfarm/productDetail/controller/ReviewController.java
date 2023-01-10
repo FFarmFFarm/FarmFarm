@@ -36,7 +36,7 @@ public class ReviewController {
 	 * @param reviewNo
 	 * @return
 	 */
-	@GetMapping("/review/select/{reviewNo}")
+	@GetMapping("/select/review/{reviewNo}")
 	public String reviewDetail(int memberNo, 
 			@PathVariable("reviewNo")int reviewNo) {
 		
@@ -54,7 +54,7 @@ public class ReviewController {
 	 * @param productNo
 	 * @return
 	 */
-	@GetMapping("/review/imgList")
+	@GetMapping("/select/reviewImgList")
 	public String selectImgReview(int productNo) {
 		
 		List<Review> reviewList = service.selectImgReview(productNo);
