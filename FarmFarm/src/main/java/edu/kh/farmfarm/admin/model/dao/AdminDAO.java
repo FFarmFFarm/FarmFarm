@@ -14,6 +14,7 @@ import edu.kh.farmfarm.admin.model.vo.Admin;
 import edu.kh.farmfarm.admin.model.vo.Graph;
 import edu.kh.farmfarm.common.Pagination;
 import edu.kh.farmfarm.member.model.VO.Member;
+import edu.kh.farmfarm.seller.model.vo.Seller;
 
 @Repository
 public class AdminDAO {
@@ -240,6 +241,14 @@ public class AdminDAO {
 	}
 
 	
+
+	/** 판매자 인증사진 업데이트
+	 * @param farmImg
+	 * @return result
+	 */
+	public int updateSellerImage(Seller farmImage) {
+		return sqlSession.update("updateSellerImage", farmImage);
+	}
 	
 	
 	
@@ -354,6 +363,9 @@ public class AdminDAO {
 	public Admin selectReportDetail(int hiddenReportNo) {
 		return sqlSession.selectOne("adminMapper.selectReportDetail", hiddenReportNo);
 	}
+
+
+
 
 
 
