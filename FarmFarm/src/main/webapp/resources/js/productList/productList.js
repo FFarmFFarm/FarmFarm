@@ -181,7 +181,7 @@ const createProductBox = (productMap) => {
             productBox.append(productContent, productDetail);
             // console.log(product.stock)
             // 만약 품절이면 soldOut처리
-            if (product.stock == 0 || product.soldoutFl === 'Y') {
+            if (product.stock < 1 || product.soldoutFl === 'Y') {
                 const soldOutBlind = document.createElement('div');
                 soldOutBlind.classList.add('sold-out-blind');
                 soldOutBlind.innerHTML = "<img src='/resources/images/postList/out-of-stock.png'>";
