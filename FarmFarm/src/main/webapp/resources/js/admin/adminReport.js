@@ -431,7 +431,7 @@ const printNewReportDetail = (newReportDetail) => {
             }
         }
         if(newReportDetail.reportType == 'B'){ // 커뮤니티 게시글
-            move.href = "/board/1"; 
+            move.href = "/board/"+ newReportDetail.boardType + "/" + newReportDetail.reportTargetNo; 
             move.innerHTML = "[ " + newReportDetail.title + " ]";
         }
 
@@ -441,7 +441,7 @@ const printNewReportDetail = (newReportDetail) => {
         }
 
         if(newReportDetail.reportType == 'C'){ //커뮤니티 댓글
-            // move.href = "/board/" + newReportDetail.commentBoardNo;
+            move.href = "/board/" + newReportDetail.boardType + "/" + newReportDetail.commentBoardNo + "?cp=" + cp + "#co" + newReportDetail.contentNo;
             move.innerHTML = "[ " + newReportDetail.commentMemberId + " ]";
         }
 

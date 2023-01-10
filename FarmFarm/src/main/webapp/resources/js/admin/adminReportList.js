@@ -520,27 +520,29 @@ const printReportDetail = (reportDetail) => {
 
     if(reportDetail.reportType != null){
         const move = document.createElement('a');
+        move.className = "move";
         move.target = "_blank";
         td12Detail.style.cursor = "pointer";
         
         
         if(reportDetail.reportType == 'M'){
             
-            if(reportDetail.authority == 0){
+            if(reportDetail.authority == 0){  // 일반 회원
                 // 마이페이지는 자기자신만 들어감
-                td12Detail.innerHTML = reportDetail.memberId +"(" + newReportDetail.memberNickname + ")";
+                td12Detail.innerHTML = reportDetail.memberId +"(" + reportDetail.memberNickname + ")";
                 td12Detail.style.cursor = "default";
 
-            } else if(reportDetail.authority == 1){
+            } else if(reportDetail.authority == 1){  // 판매자
                 move.href = "/seller/" + reportDetail.reportTargetNo;
-                move.innerHTML = reportDetail.memberId +"(" + newReportDetail.memberNickname + ")";
+                move.innerHTML = reportDetail.memberId +"(" + reportDetail.memberNickname + ")";
 
             } else {
-                move.innerHTML = reportDetail.memberId +"(" + newReportDetail.memberNickname + ")";
+                move.innerHTML = reportDetail.memberId +"(" + reportDetail.memberNickname + ")";
             }
         }
+
         if(reportDetail.reportType == 'B'){
-            move.href = "/board/1"; 
+            move.href = "/board/" + reportDetail.boardType + "/" + reportDetail.reportTargetNo;
             move.innerHTML = "[ " + reportDetail.title + " ]";
         }
 
@@ -551,7 +553,7 @@ const printReportDetail = (reportDetail) => {
         }
 
         if(reportDetail.reportType == 'C'){ //커뮤니티 댓글
-            // move.href = "/board/" + newReportDetail.commentBoardNo;
+            move.href = "/board/" + reportDetail.boardType + "/" + reportDetail.commentBoardNo + "?cp=" + cp + "#co" + reportDetail.commentNo;
             move.innerHTML = "[ " + reportDetail.commentMemberId + " ]";
         }
 
