@@ -418,7 +418,7 @@
         <br><br>
         <h4>📜ERD📜</h4>
         <img src="https://user-images.githubusercontent.com/110653581/211257039-bdf7ad8f-da8b-4443-b930-7472c36ae91a.png" />
-        ERD 주소 : https://www.erdcloud.com/d/pbYHmgRCTuwP6MJwB
+        ERD 주소 : https://www.erdcloud.com/d/xpKBdcyyrs6Ef2k9F
         <br>
         <br><br>
         <h4>📜와이어프레임 : Figma📜</h4>
