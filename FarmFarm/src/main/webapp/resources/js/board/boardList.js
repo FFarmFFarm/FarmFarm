@@ -5,38 +5,8 @@ if(boardSearch != null){
     // 게시글 목록을 ajax로 불러와봅시다!
     // 불러오는 부분을 만들어서 appen 시켜주기
 
-   
-
     // board-list-title의 원래 모양을 저장을 위한 변수선언
     let beforeBoardListTitle;
-
-    // if(location.search != ''){
-    //     const params = new URL(location.href).searchParams;
-
-    //     const key = params.get("key");
-    //     const query = params.get("query");
-    //     let sort = params.get("sort");
-    //     let cp = params.get("cp");
-        
-    //     // if(key == null || key == ""){
-    //     //     key == 't';
-    //     // }
-    //     // if(query == null){
-    //     //     query == "cv";
-    //     // }
-    //     // if(sort == null){
-    //     //     sort == 'new';
-    //     // }
-        
-    //     console.log("목록으로 cp : "+cp);
-    //     console.log("목록으로 key : "+key);
-    //     console.log("목록으로 query : "+query);
-    //     console.log("목록으로 sort : "+sort);
-
-    //     // showBoardList(cp, key, query, sort);
-    // }
-
-
 
     const showBoardList = (cp, sort, query, key)=>{
 
@@ -63,25 +33,10 @@ if(boardSearch != null){
                 console.log(query);
                 console.log("ok");
 
-                // let sURL;
-                // if(query != ""){
-                //     sURL = "&key="+key+"&query="+query;
-                // }else{
-                //     sURL = "";
-                // }
-
-                // let soURL;
-                // if(sort != ""){
-                //     soURL = "&sort="+sort;
-                // }else{
-                //     soURL = "";
-                // }
                 let sURL;
-                // if(query != ""){
-                    sURL = "&key="+key+"&query="+query+"&sort="+sort;
-                // }else{
-                //     sURL = "";
-                // }
+
+                sURL = "&key="+key+"&query="+query+"&sort="+sort;
+
                 console.log("확인해보자2 cp : "+cp);
                 console.log("확인해보자2 sort : "+sort);
                 console.log("확인해보자2 key : "+key);
@@ -113,10 +68,9 @@ if(boardSearch != null){
                         const goBoard = document.createElement("a");
                         goBoard.classList.add("goBoard");
                         // goBoard.setAttribute("href", "/board/"+boardTypeNo+"/"+board.boardNo+"?cp="+pagination.currentPage+sURL+soURL);
-                        goBoard.setAttribute("href", "/board/"+boardTypeNo+"/"+board.boardNo+"?cp="+pagination.currentPage+sURL);
                         goBoard.innerHTML = board.boardTitle+"&nbsp;("+board.commentCount+")";
                         boardTitle.append(goBoard);
-
+                        
                         const boardWriter = document.createElement("span");
                         boardWriter.classList.add("board-writer");
                         boardWriter.setAttribute("id", board.memberNo);
@@ -129,8 +83,17 @@ if(boardSearch != null){
                         const boardView = document.createElement("span");
                         boardView.classList.add("board-view");
                         boardView.innerText = board.boardView;
-
+                        
                         boardListArea.append(li);
+                        
+                        if(authority != 1){
+                            goBoard.setAttribute("href", "/board/"+boardTypeNo+"/"+board.boardNo+"?cp="+pagination.currentPage+sURL);
+                        }else{
+                            goBoard.addEventListener("click", ()=>{
+                                messageModalOpen("판매자는 게시글 조회가 불가능합니다.");
+                            })
+                        }
+
                         li.append(boardNo, boardTitle, boardWriter, boardDate, boardView);
                     }
                 }
@@ -206,7 +169,7 @@ if(boardSearch != null){
                     nextLi.before(pageNumLi);
                 }
                 
-                if(loginYN != ""){
+                if(loginYN != "" && authority != 1){
                     const writeA = document.createElement("a");
                     writeA.classList.add("board-write");
                     writeA.setAttribute("href", "/board/write/"+boardTypeNo);
@@ -516,35 +479,20 @@ if(boardSearch != null){
 
         const state = {'cp':cp, 'sort':sort, 'key':key, 'query':query}
         const title = '';
-        // const reUrl = "";
-        // if(key != null){
-            const reUrl = "/board/"+boardTypeNo+"?cp="+cp+"&key="+key+"&query="+query+"&sort="+sort;
-        // }else{
-        //     reUrl = "/board/"+boardTypeNo+"?cp="+cp+"&sort="+sort;
-        // }
+
+        const reUrl = "/board/"+boardTypeNo+"?cp="+cp+"&key="+key+"&query="+query+"&sort="+sort;
 
         history.pushState(state, title, reUrl);
-
-        // if(location.search != ''){
-
-        //     console.log("목록으로 cp : "+cp);
-        //     console.log("목록으로 key : "+key);
-        //     console.log("목록으로 query : "+query);
-        //     console.log("목록으로 sort : "+sort);
-
-        //     if(key == null){
-        //         key == 't';
-        //     }
-        //     if(query == null){
-        //         query == "";
-        //     }
-        //     if(sort == null){
-        //         sort == 'new';
-        //     }
-
-        //     showBoardList(cp, key, query, sort);
-        // }
     }
 
-
+}
+// 판매자가 게시글 클릭 시 메세지 모달 띄우기
+if(authority == 1){
+    goBoard = document.getElementsByClassName("goBoard");
+    for(let go of goBoard){
+        go.addEventListener("click", ()=>{
+            messageModalOpen("판매자는 게시글 조회가 불가능합니다.");
+    
+        })
+    }
 }
