@@ -412,35 +412,41 @@ const printNewReportDetail = (newReportDetail) => {
     if(newReportDetail.reportType != null){
         const move = document.createElement('a');
         move.target = "_blank";
+        move.className = "move";
         td12Detail.style.cursor = "pointer";
         
         
         if(newReportDetail.reportType == 'M'){
+            move.classList.add('move');
             
             if(newReportDetail.authority == 0){
                 // 마이페이지는 자기자신만 들어감
-                move.innerHTML = newReportDetail.memberId +"(" + newReportDetail.memberNickname + ")" ;
+                move.innerHTML = newReportDetail.memberId +" (" + newReportDetail.memberNickname + ")" ;
                 td12Detail.style.cursor = "default";
+                move.classList.remove('move');
 
             } else if(newReportDetail.authority == 1){
                 move.href = "/seller/" + newReportDetail.reportTargetNo;
-                move.innerHTML = newReportDetail.memberId +"(" + newReportDetail.memberNickname + ")";
+                move.innerHTML = newReportDetail.memberId +" (" + newReportDetail.memberNickname + ")";
 
             } else {
-                move.innerHTML = newReportDetail.memberId +"(" + newReportDetail.memberNickname + ")";
+                move.innerHTML = newReportDetail.memberId +" (" + newReportDetail.memberNickname + ")";
             }
         }
         if(newReportDetail.reportType == 'B'){ // 커뮤니티 게시글
+            move.classList.add('move');
             move.href = "/board/"+ newReportDetail.boardType + "/" + newReportDetail.reportTargetNo; 
             move.innerHTML = "[ " + newReportDetail.title + " ]";
         }
 
         if(newReportDetail.reportType == 'P'){ //판매글
+            move.classList.add('move');
             move.href = "/post/" + newReportDetail.reportTargetNo;
             move.innerHTML = "[ " + newReportDetail.title + " ]";
         }
 
         if(newReportDetail.reportType == 'C'){ //커뮤니티 댓글
+            move.classList.add('move');
             move.href = "/board/" + newReportDetail.boardType + "/" + newReportDetail.commentBoardNo + "?cp=" + cp + "#co" + newReportDetail.contentNo;
             move.innerHTML = "[ " + newReportDetail.commentMemberId + " ]";
         }
