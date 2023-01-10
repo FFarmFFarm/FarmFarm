@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>와글와글 게시글 보기</title>
+    <title>팜팜 | 와글와글</title>
     <link rel="stylesheet" href="/resources/css/board/boardDetail-style.css">
     <link rel="stylesheet" href="/resources/css/common/header-style.css" />
     <link rel="stylesheet" href="/resources/css/common/footer-style.css" />
@@ -132,7 +132,7 @@
 
     <script src="/resources/js/board/boardDetail.js"> </script>
     <script src="/resources/js/board/comment.js"> </script>
-    <script src="/resources/js/common/common.js"> </script>
+    <%-- <script src="/resources/js/common/common.js"> </script> --%>
 
     <script src="/resources/js/board/boardList.js"> </script>
 

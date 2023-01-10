@@ -150,7 +150,7 @@
                             <input id="imageInput" type="file" accept="image/*" name="messageImg" hidden>
                             </form>
                         </label>
-                        <input id="inputBox" type="text" placeholder="메세지를 입력하세요">
+                        <input id="inputBox" type="text" placeholder="메세지를 입력하세요" spellcheck="false">
                         <button id="sendBtn">
                         <i class="fa-solid fa-paper-plane"></i>
                         </button>

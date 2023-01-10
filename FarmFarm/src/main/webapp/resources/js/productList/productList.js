@@ -564,6 +564,9 @@ const doSearch = () => {
     // 정렬
     let sort = getSortOption();
 
+    // 제외옵션
+    let exceptFl = getExceptOption();
+    
     if (keyword.trim().length != 0) {
         getCustomList2(keyword, 0, 1, sort);
 

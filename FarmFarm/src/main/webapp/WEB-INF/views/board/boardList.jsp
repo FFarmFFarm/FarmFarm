@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>와글와글 | 커뮤니티</title>
+    <title>팜팜 | 와글와글</title>
     <script src="https://kit.fontawesome.com/345198b845.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/resources/css/board/boardList-style.css">
     <link rel="stylesheet" href="/resources/css/common/header-style.css" />
@@ -105,8 +105,11 @@
                                         <span class="board-img"></span>
                                     </c:if> --%>
                                     <span class="board-title">
-                                        <a href="/board/${boardTypeNo}/${board.boardNo}?cp=${pagination.currentPage}${sURL}" class="goBoard">
-                                            ${board.boardTitle}&nbsp;(${board.commentCount})</a>
+                                        <c:if test="${loginMember.authority != 1}">
+                                            <a href="/board/${boardTypeNo}/${board.boardNo}?cp=${pagination.currentPage}${sURL}" class="goBoard">
+                                                ${board.boardTitle}&nbsp;(${board.commentCount})</a>
+                                        </c:if>
+                                        <c:if test="${loginMember.authority == 1}"><a class="goBoard">${board.boardTitle}&nbsp;(${board.commentCount})</a></c:if>
                                     </span>
                                     <span class="board-writer" id="${board.memberNo}">${board.memberNickname}</span>
                                     <span class="board-date">${board.boardDate}</span>
@@ -156,7 +159,7 @@
 
                     </ul>
 
-                    <c:if test="${!empty loginMember}">
+                    <c:if test="${!empty loginMember && loginMember.authority != 1}">
                         <a href="/board/write/${boardTypeNo}" class="board-write">글쓰기</a>
                     </c:if>
                 </div>
@@ -171,6 +174,10 @@
     <%-- 로그인 모달창 --%>
     <jsp:include page="/WEB-INF/views/common/modal/loginConfirm.jsp"/>
     <%-- <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/> --%>
+
+
+    <%-- 메세지 모달창 --%>
+    <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/> 
 
     </main>
 
@@ -196,12 +203,15 @@
 
         var memberNo = "${loginMember.memberNo}"; /* 여기 추가했습니다. */
 
+        authority = "${loginMember.authority}";
+
     </script>
     <script src="/resources/js/board/boardList.js"> </script>
     <script src="/resources/js/member/memberModal.js"> </script>
     <script src="/resources/js/common/common.js"> </script>
     <script src="/resources/js/report/report-modal-common.js"></script>
     <script src="/resources/js/report/report-modal-boardList.js"></script>
+    <script src="/resources/js/member/memberModal.js"> </script>
 
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 

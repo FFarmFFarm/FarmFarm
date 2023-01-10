@@ -123,3 +123,30 @@ main{
     color: black;
     font-size: 14px;
 }
+
+.selectAll{
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
+}
+
+.selectstart{
+    margin-left: 30px;
+}
+
+.select{
+    display: flex;
+    align-items: center;
+}
+
+#select0, #select1{
+    width: 25px;
+    height: 25px;
+    margin-top: 0;
+}
+
+.select0, .select1{
+    margin-left: 10px;
+    height: 25px;
+}
+

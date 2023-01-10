@@ -98,6 +98,7 @@
 		SELECT MEMBER_ID, TO_CHAR(SIGNUP_DATE, 'YYYY"년"MM"월"DD"일"') SIGNUP_DATE FROM "MEMBER" 
 		WHERE MEMBER_NAME = #{memberName}
 		AND MEMBER_TEL = #{to}
+		AND AUTHORITY = #{authority}
 	</select>
 
 	<!-- 비밀번호 찾기 -->
