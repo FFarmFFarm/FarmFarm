@@ -100,7 +100,7 @@ const selectMember = (memberNo) => {
         img.setAttribute("src", member.profileImg);
         modalImgarea;
       }else {
-        img.setAttribute("src", "/resources/images/myPage/profile/profileImg.png");
+        img.setAttribute("src", "/resources/images/default/profileImg.png");
         modalImgarea;
       };
 
