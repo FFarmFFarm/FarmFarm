@@ -792,7 +792,7 @@ if (reviewNext != undefined) {
 /* cp를 전달받아 리뷰를 조회하는 Function */
 const selectReviewList = (productNo, cp) => {
   $.ajax({
-    url: '/review/select',
+    url: '/select/review',
     data: { "productNo": productNo, "cp": cp, "sortFl": sortFl },
     dataType: 'json',
     success: (map) => {
@@ -1064,7 +1064,7 @@ document.getElementById('sortNewest').addEventListener('click', (e) => {
 /* sortFl을 전달받아 리뷰를 조회하는 Function */
 const selectReviewListBySort = (productNo, sortFL) => {
   $.ajax({
-    url: '/review/select',
+    url: '/select/review',
     data: { "productNo": productNo, "sortFl": sortFL },
     dataType: 'json',
     success: (map) => {

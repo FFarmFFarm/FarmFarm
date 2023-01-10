@@ -102,7 +102,7 @@ public class ReviewController {
 	 * @param cp
 	 * @return
 	 */
-	@GetMapping("/review/select")
+	@GetMapping("/select/review")
 	public String selectReviewList(int productNo,
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			@RequestParam(name = "sortFl", required = false, defaultValue = "R") String sortFl,
