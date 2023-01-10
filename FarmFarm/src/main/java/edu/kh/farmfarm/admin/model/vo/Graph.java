@@ -17,5 +17,13 @@ public class Graph {
 	private String orderDate;
 	private int orderCount;
 	
+	// 일주일 매출
+	private String orderWeek;
+	private String orderSum;
+	
+	// top5
+	private String productName;
+	private String productSum;
+	
 
 }

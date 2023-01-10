@@ -20,6 +20,15 @@
 .order-modal{
   width: 800px;
   background-color: var(--background-color);
+
+  width: 800px;
+  height: 1000px;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+}
+
+.order-modal::-webkit-scrollbar{
+ display:none;
 }
 
 /* 뒤로가기 */
@@ -105,6 +114,9 @@ td, tr{
   width : 26%;
 }
 
+#orderDetailBody{
+  overflow-y: scroll;
+}
 
 #orderStatus{
   font-size: var(--small-font-size);
