@@ -396,6 +396,7 @@
 		FROM RETURN R
 		JOIN "ORDER" USING (ORDER_NO)
 		JOIN MEMBER USING(MEMBER_NO)
+		ORDER BY RETURN_NO DESC
 	</select>
 	
 	<!-- 반품 상세 조회 -->
