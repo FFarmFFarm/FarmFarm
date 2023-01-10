@@ -178,7 +178,7 @@
       </section>
       <section class="product-menu">
         <a href="#productDetail">상세 설명</a>
-        <a href="#productReview">후기(<span>${reviewCount}</span>)</a>
+        <span onclick="scrollToTag(document.getElementById('productReview'))">후기(<span>${reviewCount}</span>)</span>
       </section>
       <section class="product-detail" id="productDetail">
         <c:forEach var="productImg" items="${productImgList}">
