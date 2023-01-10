@@ -92,6 +92,11 @@ button:active {
   color: var(--sub-font-color);
   font-weight: bold;
   margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.product-category:hover {
+  text-decoration: underline;
 }
 
 /* 상품 이름(제목) */
