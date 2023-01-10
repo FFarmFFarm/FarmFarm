@@ -189,8 +189,8 @@
 
                                                 //휴대폰번호 인증번호 보내기 버튼 클릭 이벤트
                                                 $('#send').click(function() {
-                            if(memberTel.value.trim().length == 0){
-                              checkObj.memberTel = false;
+                            if(to.value.trim().length == 0){
+                              checkObj.to = false;
                               alert('전화번호를 작성해주세요.');
                               return;
                             } else{
@@ -203,7 +203,7 @@
                                     },
                                     success: function(data) {
                                         const checkNum = data;
-                                        const memberTel = $('#to');
+                                        const to = $('#to');
                                           alert('인증번호가 전송되었습니다.');
                                         
                                           $('#enterBtn').click(function() {	

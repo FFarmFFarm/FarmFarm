@@ -287,9 +287,9 @@ document.getElementById('categoryBoard').addEventListener('click', (e)=>{
     if(e.target.checked) typeFilter('board');
 })
 
-document.getElementById('categoryInquiry').addEventListener('click', (e)=>{
-    if(e.target.checked) typeFilter('inquiry');
-})
+// document.getElementById('categoryInquiry').addEventListener('click', (e)=>{
+//     if(e.target.checked) typeFilter('inquiry');
+// })
 
 document.getElementById('categoryChat').addEventListener('click', (e)=>{
     if(e.target.checked) typeFilter('chat');

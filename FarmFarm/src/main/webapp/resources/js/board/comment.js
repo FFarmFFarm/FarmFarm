@@ -246,7 +246,11 @@ function selectCommentList(){
                             if(memberNo == comment.memberNo && comment.commentDelFl == 'N'){
                                 writeTimeReply.append(commentReply, commentUpdate, commentDelete);
                             }if(memberNo != comment.memberNo && comment.commentDelFl == 'N'){
-                                writeTimeReply.append(commentReply, commentReport);
+                                if(comment.memberNo == 0){
+                                    writeTimeReply.append(commentReply);
+                                }else{
+                                    writeTimeReply.append(commentReply, commentReport);
+                                }
                             }
                         }
 

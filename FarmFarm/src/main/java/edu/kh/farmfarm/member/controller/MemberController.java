@@ -102,7 +102,9 @@ public class MemberController {
 //						만약 previousPage가 로그인 페이지면 메인페이지로 이동 시키기
 //						p.substring(p.lastIndexOf('/'), p.length)
 						
-						if(previousPage.substring(previousPage.lastIndexOf("/"), previousPage.length()).equals("/login")||previousPage.substring(previousPage.lastIndexOf("/"), previousPage.length()).equals("/signUpSuccess")) {
+						if(previousPage.substring(previousPage.lastIndexOf("/"), previousPage.length()).equals("/login")||previousPage.substring(previousPage.lastIndexOf("/"), previousPage.length()).equals("/signUpSuccess")
+								||previousPage.substring(previousPage.lastIndexOf("/"), previousPage.length()).equals("/findId")
+								||previousPage.substring(previousPage.lastIndexOf("/"), previousPage.length()).equals("/findPw")) {
 							path = "/";
 						} else {
 							path = previousPage;
