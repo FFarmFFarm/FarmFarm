@@ -1129,10 +1129,11 @@ body{
     border-radius: 5px;
     width: 80px;
     
-    position: fixed;
+    position: absolute;
     overflow: hidden;
 
     display: none;
+    z-index: 5;
 }
 
 /* context-menu-box */
