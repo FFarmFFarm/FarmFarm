@@ -27,10 +27,11 @@ function showGraph(){
     success: (graphMap) => {
 
       let signUpDateArr = [];
-
+      
       for(let i=0; i<graphMap.signUpGraphList.length; i++) {
         signUpDateArr[i] = graphMap.signUpGraphList[i].signUpDate;
       }
+      console.log(signUpDateArr);
 
       let signUpCountArr = [];
 
@@ -52,6 +53,37 @@ function showGraph(){
         orderCountArr[i] = graphMap.orderGraphList[i].orderCount;
       }
 
+
+      let orderWeekArr= [];
+
+      for(let i=0; i<graphMap.orderWeekList.length; i++) {
+        orderWeekArr[i] = graphMap.orderWeekList[i].orderWeek;
+      }
+
+      let orderSumArr = [];
+
+      for(let i=0; i<graphMap.orderWeekList.length; i++){
+        orderSumArr[i] = graphMap.orderWeekList[i].orderSum;
+      }
+
+      let productNameArr = [];
+
+      console.log(graphMap.orderWeekList);
+
+      for(let i=0; i<graphMap.productRankingList.length; i++){
+        productNameArr[i] = graphMap.productRankingList[i].productName;
+      }
+
+      let productSumArr = [];
+
+      for(let i=0; i<graphMap.productRankingList.length; i++) {
+        productSumArr[i] = graphMap.productRankingList[i].productSum;
+      }
+
+      console.log(graphMap.productRankingList);
+      console.log(productNameArr);
+      console.log(productSumArr);
+// 
       // 가입자 수
       new Chart(document.getElementById('signUpChart'), {
         type: 'bar',
@@ -120,7 +152,49 @@ function showGraph(){
                   ticks:{
                     beginAtZero: true,
                     // stepSize
-                    max: 40,   //y축 값
+                    // max: 40,   //y축 값
+                    fontColor: 'rgba(43, 140, 68)',
+                    fontSize: 10
+                  }
+              }],
+              xAxes: [{
+                ticks:{
+                  fontColor: 'rgba(43, 140, 68)',
+                  fontSize: 10
+                },
+                gridLines: {
+                  color: 'white'
+                  // color: 'rgba(43, 140, 68)'
+                }
+              }]
+            }
+        }
+      });
+
+
+      // 이번주 총 매출액
+      new Chart(document.getElementById('salesChart'), {
+        type: 'bar',
+        data: {
+          labels: orderWeekArr,  // x축
+          datasets:[{
+             //데이터
+              data: orderSumArr,
+              fill: false,
+              backgroundColor: ["#cff09e", "#CFF0C2", "#a8dba8", "#A8DBC3","#79bd9a", "#79BDB2","#3b8686"]
+          }]
+        },
+          options: {
+            responsive: false,
+            // legend:{ 
+            //   display: false      // 라벨 없애기
+            // },
+            scales: {
+              yAxes: [{
+                  ticks:{
+                    beginAtZero: true,
+                    // stepSize
+                    // max: 40,   //y축 값
                     fontColor: 'rgba(43, 140, 68)',
                     fontSize: 10
                   },
@@ -141,6 +215,49 @@ function showGraph(){
             }
         }
       });
+
+
+      // 판매 상위 삼품 top 5
+      new Chart(document.getElementById('rankingChart'), {
+        type: 'bar',
+        data: {
+          labels: productNameArr,  // y축
+          datasets:[{
+             //데이터
+              data: productSumArr, // x축
+              fill: false,
+              axis: 'x',
+              backgroundColor: ["#cff09e", "#a8dba8", "#79bd9a", "#3b8686", "#3C7470"]
+          }]
+        },
+          options: {
+            indexAxis: 'x',
+            legend:{ 
+              display: false      // 라벨 없애기
+            },
+            scales: {
+              yAxes: [{
+                  ticks:{
+                    beginAtZero: true,
+                    fontColor: 'rgba(43, 140, 68)',
+                    fontSize: 10
+                  }
+              }],
+              xAxes: [{
+                ticks:{
+                  fontColor: 'rgba(43, 140, 68)',
+                  fontSize: 10
+                },
+                gridLines: {
+                  color: 'white'
+                  // color: 'rgba(43, 140, 68)'
+                }
+              }]
+            }
+        }
+      });
+
+
       console.log("성공");
     },
     error: () => { console.log("그래프 불러오기 실패");}

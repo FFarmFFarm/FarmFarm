@@ -132,6 +132,7 @@ for(let i of dateFilter){
 
 // 검색버튼 event
 const searchBtn = document.getElementById("searchBtn");
+const searchQuery = document.getElementById("searchQuery");
 
 searchBtn.addEventListener("click", ()=>{
 
@@ -153,6 +154,30 @@ searchBtn.addEventListener("click", ()=>{
   
 
 });
+
+searchQuery.addEventListener('keydown', (e) => {
+
+  const keyCode = e.keyCode;
+
+  if(keyCode == 13){  // 엔터키
+    
+    let cp = 1;
+
+    let key = document.getElementById("searchKey").value;
+    let query = document.getElementById("searchQuery").value;
+  
+    let startDate = document.getElementById("startDate").value;
+    let endDate = document.getElementById("endDate").value;
+  
+    if(query == ""){
+      messageModalOpen("검색어를 입력해주세요");
+    } else {
+  
+      // 검색어가 있는 경우
+      selectSearchList(cp, startDate, endDate, key, query);
+    }
+  } 
+})
 
 
 // 기간에 따라서 목록 조회해오는 ajax + 검색 결과
