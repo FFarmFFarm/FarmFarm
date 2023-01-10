@@ -36,6 +36,7 @@
 		<typeAlias type="edu.kh.farmfarm.report.model.vo.Report" alias="Report"/>
 		<typeAlias type="edu.kh.farmfarm.common.SearchItem" alias="SearchItem"/>
 		<typeAlias type="edu.kh.farmfarm.notify.model.vo.Notify" alias="Notify"/>
+		<typeAlias type="edu.kh.farmfarm.notify.model.vo.NotifyOrder" alias="NotifyOrder"/>
 		<typeAlias type="edu.kh.farmfarm.seller.model.vo.Seller" alias="Seller"/>
 		<typeAlias type="edu.kh.farmfarm.admin.model.vo.Admin" alias="Admin"/>
 		<typeAlias type="edu.kh.farmfarm.order.model.vo.Return" alias="Return"/>
