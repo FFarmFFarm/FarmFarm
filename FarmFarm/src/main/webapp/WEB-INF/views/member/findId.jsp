@@ -34,7 +34,7 @@
                                             <input type="radio" name="select" id="select1" value="1">
                                             <label for="select1" class="select1">판매자</label>
                                         </div>
-                                    </div>
+                                    </div>  
                                     <section class="find">
                                         <input type="text" name="memberName" id="memberName" placeholder="이름"
                                             autocomplete="off" maxlegnth="50" value="${tempMember.memberName}">
