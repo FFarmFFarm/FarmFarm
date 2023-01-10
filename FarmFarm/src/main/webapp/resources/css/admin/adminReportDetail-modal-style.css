@@ -210,6 +210,10 @@
     width: 190px;
 }
 
+.move:hover{
+    color: lightgray;
+}
+
 
 
 
