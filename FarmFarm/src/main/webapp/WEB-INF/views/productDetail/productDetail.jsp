@@ -350,7 +350,6 @@
     var cp = "${pagination.currentPage}";
     var sortFl = 'R';
     var authority = "${loginMember.authority}";
-    var categoryNo = "${order.categoryNo}";
 
   </script>
 
