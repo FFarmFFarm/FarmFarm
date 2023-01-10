@@ -92,11 +92,11 @@
                         <button class="board-report report-btn" id="reportBoardBtn">신고</button>
                     </c:if>
                 </c:if>
-                <c:if test="${loginMember.memberNo == board.memberNo}">
+                <c:if test="${loginMember.memberNo == board.memberNo && loginMember.authority == 2}">
                     <button type="button" id="boardUpdate">수정하기</button>
                     <button  type="button" id="boardDelete">삭제하기</button>
                 </c:if>
-                <c:if test="${loginMember.authority == 2}">
+                <c:if test="${loginMember.memberNo != board.memberNo && loginMember.authority == 2}">
                     <button  type="button" id="adminBoardDelete">삭제하기</button>
                 </c:if>
             </section>
