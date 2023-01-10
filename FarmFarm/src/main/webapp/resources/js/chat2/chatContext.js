@@ -95,12 +95,12 @@ addEventListener('contextmenu', (e)=>{
         contextMenu.style.top = y;
 
         // 각 칸에 이벤트를 부여함
-        document.querySelector('.report-modal').addEventListener('click', () => {
-            // 모달 그림자
-            document.getElementById('chatRoomMenuModal').classList.remove('hide');
-            // 삭제 모달 보이기
-            // document.querySelector('.report-menu').classList.remove('hide');
-        })
+        // document.querySelector('report-modal').addEventListener('click', () => {
+        //     // 모달 그림자
+        //     document.getElementById('chatRoomMenuModal').classList.remove('hide');
+        //     // 삭제 모달 보이기
+        //     // document.querySelector('.report-menu').classList.remove('hide');
+        // })
     } else { // 다른 영역 우클릭 시 닫음
         document.getElementById('receivedBubbleContextMenu').style.display = 'none';
     }

@@ -65,7 +65,7 @@ const selectReview = (reviewNo) => {
 
 
   $.ajax({
-    url: '/review/select/' + reviewNo,
+    url: '/select/review/' + reviewNo,
     data: { "memberNo": memberNo },
     dataType: 'json',
     success: (review) => {
