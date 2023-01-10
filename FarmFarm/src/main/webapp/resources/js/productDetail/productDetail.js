@@ -336,7 +336,7 @@ const selectImgReview = () => {
   const productNo = getProductNo();
 
   $.ajax({
-    url: "/review/imgList",
+    url: "/select/reviewImgList",
     data: { "productNo": productNo },
     dataType: "json",
     success: (reviewList) => {
@@ -436,7 +436,7 @@ const selectReview = (reviewNo, loginMemberNo) => {
   }
 
   $.ajax({
-    url: '/review/select/' + reviewNo,
+    url: '/select/review/' + reviewNo,
     data: { "memberNo": loginMemberNo },
     dataType: 'json',
     success: (review) => {
@@ -792,7 +792,7 @@ if (reviewNext != undefined) {
 /* cp를 전달받아 리뷰를 조회하는 Function */
 const selectReviewList = (productNo, cp) => {
   $.ajax({
-    url: '/review/select',
+    url: '/select/review',
     data: { "productNo": productNo, "cp": cp, "sortFl": sortFl },
     dataType: 'json',
     success: (map) => {
@@ -974,7 +974,10 @@ const printReviewList = (reviewList, pagination, sortFL) => {
     li.append(reviewWriter, reviewContent);
     productReviewList.append(li);
 
-    scrollToTag(document.getElementById('productReview'));
+    if(document.getElementById('productReview') != undefined) {
+
+      scrollToTag(document.getElementById('productReview'));
+    }
 
 
 
@@ -1061,7 +1064,7 @@ document.getElementById('sortNewest').addEventListener('click', (e) => {
 /* sortFl을 전달받아 리뷰를 조회하는 Function */
 const selectReviewListBySort = (productNo, sortFL) => {
   $.ajax({
-    url: '/review/select',
+    url: '/select/review',
     data: { "productNo": productNo, "sortFl": sortFL },
     dataType: 'json',
     success: (map) => {
@@ -1137,7 +1140,7 @@ const selectReviewUpdate = (reviewNo) => {
   console.log(reviewNo);
 
   $.ajax({
-    url: '/review/select/' + reviewNo,
+    url: '/select/review/' + reviewNo,
     data: { "memberNo": loginMemberNo },
     dataType: 'json',
     success: (review) => {
