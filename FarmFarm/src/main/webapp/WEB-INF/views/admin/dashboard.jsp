@@ -21,6 +21,8 @@
 
         <script src="https://kit.fontawesome.com/d4fbceca97.js" crossorigin="anonymous"></script>
 
+        <script src="/resources/js/chart/chart.js"></script>
+
     </head>
     <body>
         <jsp:include page="/WEB-INF/views/common/adminHeader.jsp"/> 
@@ -91,8 +93,9 @@
         <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
      
         <!-- chart.js -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script> -->
             
+
         <script src="/resources/js/admin/dashboard.js"></script>
 
     </body>
