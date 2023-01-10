@@ -347,7 +347,7 @@
     var loginMemberNo = "${loginMember.memberNo}";
     var stock = "${product.stock}";
     var loginMember = "${loginMember}";
-    var cp = "${pagination.currentPage}";
+    var cp = 1;
     var sortFl = 'R';
     var authority = "${loginMember.authority}";
 
