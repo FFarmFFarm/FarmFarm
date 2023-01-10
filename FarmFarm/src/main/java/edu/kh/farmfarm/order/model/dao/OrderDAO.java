@@ -43,9 +43,11 @@ public class OrderDAO {
 		
 			
 		for(Product product : productList) {
+			if(product.getProductNo() != 0) {
 			
 			sqlSession.insert("orderMapper.insertReturnProduct", product);
 			sqlSession.update("orderMapper.updateProductStatus", product);
+			}
 			
 		}
 	

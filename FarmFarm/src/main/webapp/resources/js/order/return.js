@@ -19,6 +19,22 @@ const returnSubmit = (event) => {
   const form = document.getElementById('returnForm');
   const checkbox = document.getElementsByClassName('productNo');
 
+  
+  for (let i = 0; i < checkbox.length; i++) {
+
+    if (!checkbox[i].checked) {
+
+      // 체크되지 않은 체크박스 제출 X
+      checkbox[i].setAttribute('disabled', 'true');
+      // 수량 가져와서 제출안되게
+      const amount = document.getElementById('amount' + i);
+      amount.setAttribute('disabled', 'true');
+
+    } else {
+      console.log(checkbox[i].checked);
+    }
+  }
+
 
   // 체크박스중 하나라도 선택돼있으면 key = true
   for (let box of checkbox) {
@@ -70,27 +86,6 @@ const returnSubmit = (event) => {
   }
 
 
-  for (let i = 0; i < checkbox.length; i++) {
-
-    if (!checkbox[i].checked) {
-
-
-      // 체크되지 않은 체크박스 제출 X
-      checkbox[i].setAttribute('disabled', 'true');
-
-      // 수량 가져와서 제출안되게
-      const amount = document.getElementById('amount' + i);
-
-      amount.setAttribute('disabled', 'true');
-
-
-    } else {
-      console.log(checkbox[i].checked);
-    }
-
-
-
-  }
 
   setTimeout(() => {
     form.submit();
