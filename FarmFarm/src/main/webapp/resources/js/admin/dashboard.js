@@ -199,8 +199,9 @@ function showGraph(){
                     fontSize: 10
                   },
                   gridLines: {
-                    // color: 'rgba(43, 140, 68)'
-                  }
+                    drawBorder: false//축과 데이터의 경계선 표시 여부
+                     
+                    }
               }],
               xAxes: [{
                 ticks:{
@@ -208,35 +209,36 @@ function showGraph(){
                   fontSize: 10
                 },
                 gridLines: {
-                  color: 'white'
-                  // color: 'rgba(43, 140, 68)'
-                }
+                  drawBorder: false//축과 데이터의 경계선 표시 여부
+                    
+                  }
               }]
             },
             animation:false,
           showValue: {
             fontStyle: 'Helvetica', //Default Arial
             fontSize: 20
+            
           }
         }
       });
 
       Chart.plugins.register({
         afterDraw: function (chart, easing) {
-          if (chart.config.options.showValue) {
+          if (chart.config.options.showValue2) {
               var ctx = chart.chart.ctx;
               // var fontSize = chart.config.options.showValue.fontSize || "3";
               // var fontStyle = chart.config.options.showValue.fontStyle || "normal";
               // ctx.font =  fontSize + "px " + fontStyle;
-              ctx.textAlign = chart.config.options.showValue.textAlign || "start";
-              ctx.textBaseline = chart.config.options.showValue.textAlign || "top";
+              ctx.textAlign = chart.config.options.showValue2.textAlign || "start";
+              ctx.textBaseline = chart.config.options.showValue2.textAlign || "top";
               var fontSize = 13;
               var fontStyle = 'normal';
               var fontFamily = 'Helvetica Neue';
               ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
         
               chart.config.data.datasets.forEach(function (dataset, i) {
-                  ctx.fillStyle = dataset.fontColor || chart.config.options.showValue.textColor || "#bbb";
+                  ctx.fillStyle = dataset.fontColor || chart.config.options.showValue2.textColor || "#bbb";
                   dataset.data.forEach(function (data, j) {
                      if(dataset.hideValue != true){
                         var txt = Math.round(data*100)/100;
@@ -247,7 +249,7 @@ function showGraph(){
                         xCoordinateResult =  xCoordinate + 10
       
                         if(dataset.type == 'line'){
-                          yCoordinateResult = yCoordinate + 21 > chart.scales[chart.options.scales.xAxes[0].id].top ? chart.scales[chart.options.scales.xAxes[0].id].top :  yCoordinate + 21;
+                          yCoordinateResult = yCoordinate + 10 > chart.scales[chart.options.scales.xAxes[0].id].top ? chart.scales[chart.options.scales.xAxes[0].id].top :  yCoordinate + 10;
                         } else{
                           yCoordinateResult = yCoordinate - 10;
                         }
@@ -286,14 +288,14 @@ function showGraph(){
             yAxes: [{
               gridLines: {
                 drawBorder: false,//축과 데이터의 경계선 표시 여부
-                        display: false
-                		  },
+                  display: false
+                },
                 ticks:{
                   z: 2,
                   // mirror:true,
                   beginAtZero: true,
-                  fontColor: 'black',
-                  fontSize: 11,
+                  fontColor: 'rgba(43, 140, 68)',
+                  fontSize: 12,
                   // padding: -550
                 }
               }],
@@ -314,7 +316,7 @@ function showGraph(){
             }]
           },
           animation:false,
-          showValue: {
+          showValue2: {
             fontStyle: 'Helvetica', //Default Arial
             fontSize: 10,
           }
