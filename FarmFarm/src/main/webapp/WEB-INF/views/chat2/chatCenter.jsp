@@ -112,6 +112,7 @@
           <!-- 채팅창 메인 -->
           <div id="roomBody">
 
+
             <!-- 채팅방 메세지 예시 -->
             <div id="readingArea">
 
