@@ -418,30 +418,30 @@ function tempFn(){
 
 
 // 전화번호 유효성 검사
-const memberTel = document.getElementById("to");
+const to = document.getElementById("to");
 const telMessage = document.getElementById("telMessage");
 
-memberTel.addEventListener("input", function(){
-    if(memberTel.value.trim().length == 0){
+to.addEventListener("input", function(){
+    if(to.value.trim().length == 0){
         telMessage.innerText = "전화번호를 입력해주세요.(- 제외)";
         telMessage.classList.remove("confirm", "error");
-        checkObj.memberTel = false;
+        checkObj.to = false;
         return;
     } 
 
     // 전화번호 정규표현식 검사
     const regEx = /^0(1[01679]|2|[3-6][1-5]|70)[1-9]\d{2,3}\d{4}$/;
 
-    if(regEx.test(memberTel.value)){ // 유효한 경우
+    if(regEx.test(to.value)){ // 유효한 경우
 
         telMessage.innerText = "유효한 전화번호 형식입니다."
         telMessage.classList.add("confirm");
         telMessage.classList.remove("error");
-        checkObj.memberTel = true;
+        checkObj.to = true;
     
         $.ajax({
             url : "/tellDupCheck", // 비동기 통신을 진행할 서버 요청 주소
-            data : { "to" : memberTel.value }, // JS -> 서버로 전달할 값(여러개 가능)
+            data : { "to" : to.value }, // JS -> 서버로 전달할 값(여러개 가능)
             type : "GET", // 데이터 전달 방식(GET/POST) -> GET 방식을 많이 사용
             success : (result) => { // 비동기 통신을 성공해서 응답을 받았을 때
                 // result : 서버로부터 전달 받은 응답 데이터
@@ -454,13 +454,13 @@ memberTel.addEventListener("input", function(){
                     telMessage.classList.add("confirm");
                     telMessage.classList.remove("error");
     
-                    checkObj.memberTel = true;
+                    checkObj.to = true;
                 } else {
                     telMessage.innerText = "이미 사용 중인 전화번호 입니다.";
                     telMessage.classList.add("error");
                     telMessage.classList.remove("confirm");
     
-                    checkObj.memberTel = false;
+                    checkObj.to = false;
                 }
             },
             error : () => { // 비동기 통신이 실패했을 때 수행
@@ -476,7 +476,7 @@ memberTel.addEventListener("input", function(){
         telMessage.innerText = "전화번호 형식이 유효하지 않습니다."
         telMessage.classList.add("error");
         telMessage.classList.remove("confirm");
-        checkObj.memberTel = false;
+        checkObj.to = false;
     }
 
 });
@@ -486,8 +486,8 @@ memberTel.addEventListener("input", function(){
 if(document.getElementById("signUpFrm") != null){
     document.getElementById("signUpFrm").addEventListener("submit",(e)=>{
 
-        if(memberTel.value.trim().length == 0){
-           checkObj.memberTel = false;
+        if(to.value.trim().length == 0){
+           checkObj.to = false;
            alert('전화번호를 작성해주세요.');
            return;
         } 

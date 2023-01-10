@@ -61,7 +61,7 @@
 
                                     <li class="product-item" id="${cart.productNo}">
                                     <c:choose>
-                                        <c:when test="${cart.stock eq 0 || cart.soldoutFl eq 'Y'}">
+                                        <c:when test="${cart.stock < 1 || cart.soldoutFl eq 'Y'}">
                                             <label class="uncheck-label">
                                                 <i class="fa-regular fa-circle-check" name="unCheckIcon"></i>
                                                 <input type="checkbox" class="select-one" 
@@ -91,14 +91,14 @@
                                             </a>
                                         </div>
                                         <div class="product-amount-btn">
-                                            <c:if test="${cart.stock eq 0 || cart.soldoutFl eq 'Y'}">
+                                            <c:if test="${cart.stock < 1 || cart.soldoutFl eq 'Y'}">
                                                 <button type="button" class="minus-btn" disabled><i class="fa-solid fa-minus"></i></button>
                                                 <input type="number" min="1" class="product-amount"
-                                                value="${cart.productAmount}" name="pList[${vs.index}].productAmount">
+                                                value="0" name="pList[${vs.index}].productAmount">
                                                 <button type="button" class="plus-btn" disabled><i class="fa-solid fa-plus"></i></button>
                                                 <span id="${cart.stock}" name="stock">품절된 상품입니다</span>
                                             </c:if>
-                                            <c:if test="${cart.stock ne 0 && cart.soldoutFl eq 'N' && cart.stock ge cart.productAmount}">
+                                            <c:if test="${cart.stock > 0 && cart.soldoutFl eq 'N' && cart.stock ge cart.productAmount}">
                                                 <button type="button" class="minus-btn"><i class="fa-solid fa-minus"></i></button>
                                                 <input type="number" min="1" class="product-amount"
                                                 value="${cart.productAmount}" name="pList[${vs.index}].productAmount">
@@ -107,9 +107,16 @@
                                             </c:if>
                                         </div>
                                         <div class="price-box">
-                                            <span class="product-total-price"
-                                            id="${cart.productPrice}">${cart.productTotalPrice}</span>
-                                            <span>원</span>
+                                            <c:if test="${cart.stock < 1 || cart.soldoutFl eq 'Y'}">
+                                                <span class="product-total-price"
+                                                id="${cart.productPrice}">0</span>
+                                                <span>원</span>
+                                            </c:if>
+                                            <c:if test="${cart.stock > 0 && cart.soldoutFl eq 'N' && cart.stock ge cart.productAmount}">
+                                                <span class="product-total-price"
+                                                id="${cart.productPrice}">${cart.productTotalPrice}</span>
+                                                <span>원</span>
+                                            </c:if>
                                         </div>
                                         <button type="button" class="cancel-item"><i class="fa-solid fa-xmark"></i></button>
                                     </li>
