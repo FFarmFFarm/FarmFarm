@@ -314,9 +314,18 @@ const printSellerAuthPaper = (authPaper) => {
     tdAuthDate1.innerText = "판매자 승인 일자";
 
 
-
     const tdAuthDate2 = document.createElement("td");
     tdAuthDate2.classList.add('detail-content');
+
+
+    // 사유
+    const authTr10 = document.createElement("tr");
+    const tdAuthDate3 = document.createElement("td");
+    tdAuthDate3.classList.add("detail-bold");
+    tdAuthDate3.innerText = "사유";
+
+    const tdAuthDate4 = document.createElement("td");
+    tdAuthDate4.classList.add('detail-content');
 
     if(authPaper.authDate != null) {
 
@@ -326,6 +335,7 @@ const printSellerAuthPaper = (authPaper) => {
 
         if(authPaper.authority == 4){ // 인증 보류
             tdAuthDate2.innerText = "보류 (" + authPaper.authDate + ")";
+            tdAuthDate4.innerText = authPaper.authDenyReason;
         } //
 
     } else {
@@ -362,11 +372,19 @@ const printSellerAuthPaper = (authPaper) => {
     //     authDenyBtn.disabled = false;
     // }
 
-
     authTr9.append(tdAuthDate1, tdAuthDate2);
+    
+    if(authPaper.authority == 4){
+        authTr10.append(tdAuthDate3, tdAuthDate4);
 
-    // 전체 조립
-    sellerAuthTable.append(authTr1, authTr2, authTr3, authTr4, authTr5, authTr6, authTr7, authTr8, authTr9)
+        // 전체 조립
+        sellerAuthTable.append(authTr1, authTr2, authTr3, authTr4, authTr5, authTr6, authTr7, authTr8, authTr9, authTr10);
+        
+    } else{
+        // 전체 조립
+        sellerAuthTable.append(authTr1, authTr2, authTr3, authTr4, authTr5, authTr6, authTr7, authTr8, authTr9);
+    }
+
 }
 
 
