@@ -838,6 +838,8 @@ const makePageBox = (elementName, inputHtml, inputId, className) => {
 // optimize : 페이지네이션 박스 생성  // 전체조회 페이지네이션 함수랑 조금 다름
 const printPagination = (adminPaginationArea, pagination) => {
 
+    cp = pagination.currentPage;
+
     const adminPagination = document.createElement('ul');
     adminPagination.className = 'admin-pagination';
 
