@@ -1,33 +1,38 @@
 /* 상담방 목록 중 하나 클릭했을 때 */
 const inquireRoomList = document.getElementsByClassName('message-preview-box');
-if (inquireRoomList != undefined) { 
+if (inquireRoomList != undefined) {
   for (let i = 0; i < inquireRoomList.length; i++) {
     inquireRoomList[i].addEventListener('click', () => {
-      
-      
+
+      const inputBox = document.getElementById('inputBox');
+      if (inputBox != undefined) {
+        inputBox.value = '';
+      }
+
       /* 해당 상담방 메세지 목록 불러오기 */
       selectMessageList(inquireRoomList[i].id);
       memberInquireNo = inquireRoomList[i].id;
-      
+
       /* unread count 아이콘 제거 */
       const unreadCount = document.getElementsByClassName('unread-message-count');
-      
-      
+
+
       if (unreadCount[i] != undefined) {
         if (!unreadCount[i].classList.contains('hide')) {
           unreadCount[i].classList.add('hide');
         }
       }
 
+
     })
   }
 }
 
 /* 상담방 메세지 목록 조회하는 함수 */
-const selectMessageList = inquireNo => { 
+const selectMessageList = inquireNo => {
   $.ajax({
     url: "/inquire/message/list",
-    data: {'inquireNo': inquireNo},
+    data: { 'inquireNo': inquireNo },
     type: 'GET',
     dataType: 'json',
     success: (messageList) => {
@@ -38,6 +43,12 @@ const selectMessageList = inquireNo => {
       /* 상담방 목록 재조회 */
       selectInquireList(inquireNo);
 
+      const inputBox = document.getElementById('inputBox');
+      if (inputBox != undefined) {
+        inputBox.value = '';
+        inputBox.focus();
+      }
+
     },
     error: (error) => {
       console.log(error);
@@ -47,7 +58,7 @@ const selectMessageList = inquireNo => {
 
 
 /* 상담방 메세지 목록 채우기 */
-const fillInquireRoom = (messageList) => { 
+const fillInquireRoom = (messageList) => {
 
 
   const readingArea = document.getElementById('readingArea');
@@ -66,20 +77,20 @@ const fillInquireRoom = (messageList) => {
   dateLabelLine.append(dateLabel);
   readingArea.append(dateLabelLine);
 
-  for(let item of messageList) { 
+  for (let item of messageList) {
 
     if (item.messageDate != temp) {
-      
+
       const dateLabelLine = document.createElement('div');
       dateLabelLine.className = 'date-label-line';
-      
+
       const dateLabel = document.createElement('div');
       dateLabel.classList.add('date-label');
       dateLabel.innerHTML = item.messageDate;
-      
+
       dateLabelLine.append(dateLabel);
       readingArea.append(dateLabelLine);
-      
+
       temp = item.messageDate;
     }
 
@@ -93,19 +104,19 @@ const fillInquireRoom = (messageList) => {
 
     message.append(messageBubble);
     messageBubble.append(messageTime);
-    
+
     /* 로그인한 회원 본인이 보낸 경우 */
     if (loginMemberNo == item.sendMemberNo) {
       message.classList.add('sent-message');
       messageBubble.classList.add('sent-bubble');
       messageTime.classList.add('sent-bubble-time');
-      
+
       /* 로그인한 회원 본인이 받은 메세지인 경우 */
     } else {
       message.classList.add('received-message');
       messageBubble.classList.add('received-bubble');
       messageTime.classList.add('received-bubble-time');
-      
+
     }
 
     readingArea.append(message);
@@ -129,7 +140,7 @@ const fillInquireRoom = (messageList) => {
 
 
 /* 상담방 목록 조회 */
-const selectInquireList = (inquireNo) => { 
+const selectInquireList = (inquireNo) => {
   $.ajax({
     url: "/inquire/list",
     type: 'GET',
@@ -138,7 +149,7 @@ const selectInquireList = (inquireNo) => {
       console.log(inquireList);
       fillInquireList(inquireList, inquireNo);
     },
-    error: () => { 
+    error: () => {
       console.log('error');
     }
   });
@@ -146,17 +157,17 @@ const selectInquireList = (inquireNo) => {
 
 
 /* 조회해온 상담방 목록 출력 */
-const fillInquireList = (inquireList, inquireNo) => { 
+const fillInquireList = (inquireList, inquireNo) => {
 
   const roomList = document.getElementById('roomList');
   roomList.innerHTML = '';
 
-  
+
   for (let inquire of inquireList) {
     if (inquire.messageCount > 1) {
 
       const messagePreviewBox = document.createElement('div');
-      if(inquireNo == inquire.inquireNo) {
+      if (inquireNo == inquire.inquireNo) {
         messagePreviewBox.classList.add('message-preview-box', 'message-box-clicked');
       } else {
         messagePreviewBox.classList.add('message-preview-box');
@@ -170,43 +181,43 @@ const fillInquireList = (inquireList, inquireNo) => {
 
       profileImg.append(img);
 
-      if (inquire.profileImg != undefined) { 
+      if (inquire.profileImg != undefined) {
         img.src = inquire.profileImg;
       } else {
         img.src = '/resources/images/chatting/farmer.png';
       }
 
       messagePreviewBox.append(profileImg);
-      
+
       const messageBoxLabel = document.createElement('div');
       messageBoxLabel.classList.add('message-box-label');
-      
+
       const messageInfo = document.createElement('div');
       messageInfo.classList.add('message-info');
-      
+
       const memberNickname = document.createElement('div');
       memberNickname.classList.add('member-nickname');
       memberNickname.innerHTML = inquire.memberNickname;
-      
+
       const lastMessageTime = document.createElement('div');
       lastMessageTime.classList.add('last-message-time');
       lastMessageTime.innerHTML = inquire.lastSendTime;
 
       const unreadMessage = document.createElement('div');
       unreadMessage.innerHTML = inquire.unreadCount;
-      
+
       if (inquire.unreadCount == 0) {
         unreadMessage.classList.add('unread-message-count', 'hide');
-        
+
       } else if (inquire.unreadCount > 0) {
         unreadMessage.classList.add('unread-message-count');
         unreadMessage.innerHTML = inquire.unreadCount;
       }
 
       messageInfo.append(memberNickname, lastMessageTime, unreadMessage);
-      
+
       messageBoxLabel.append(messageInfo);
-      
+
       messagePreviewBox.append(messageBoxLabel);
 
       const lastMessage = document.createElement('div');
@@ -214,29 +225,29 @@ const fillInquireList = (inquireList, inquireNo) => {
 
       if (inquire.lastSendImgFl == 'N') {
         lastMessage.innerHTML = inquire.lastMessage;
-        
+
       } else {
-        
+
         lastMessage.innerHTML = '사진';
       }
 
       messageBoxLabel.append(lastMessage);
-      
+
       roomList.append(messagePreviewBox);
 
-      
-      messagePreviewBox.addEventListener('click', () => { 
+
+      messagePreviewBox.addEventListener('click', () => {
         /* 해당 상담방 메세지 목록 불러오기 */
         selectMessageList(inquire.inquireNo);
         memberInquireNo = inquire.inquireNo;
 
         /* unread count 아이콘 제거 */
-          if (!unreadMessage.classList.contains('hide')) {
-            unreadMessage.classList.add('hide');
-          }
+        if (!unreadMessage.classList.contains('hide')) {
+          unreadMessage.classList.add('hide');
+        }
 
       })
-            
+
     }
   }
 }
@@ -255,8 +266,8 @@ if (loginMemberNo != "") {
 const sendBtn = document.getElementById('sendBtn');
 const inputMessage = document.getElementById('inputBox');
 
-sendBtn.addEventListener('click', () => { 
-  if(inputMessage.value.trim().length > 0) {
+sendBtn.addEventListener('click', () => {
+  if (inputMessage.value.trim().length > 0) {
     sendInquire();
 
   } else {
@@ -265,10 +276,10 @@ sendBtn.addEventListener('click', () => {
 })
 
 inputMessage.addEventListener('keypress', (e) => {
-  if(e.key == 'Enter') {
-    if(inputMessage.value.trim().length > 0) {
+  if (e.key == 'Enter') {
+    if (inputMessage.value.trim().length > 0) {
       sendInquire();
-  
+
     } else {
       messageModalOpen("메세지를 입력해주세요")
     }
@@ -278,7 +289,7 @@ inputMessage.addEventListener('keypress', (e) => {
 
 /* 상담 메세지 전송 */
 const sendInquire = () => {
-  if(inputMessage.value.trim().length == 0) {
+  if (inputMessage.value.trim().length == 0) {
     messageModalOpen("메세지를 입력해주세요");
   } else {
     var obj = {
@@ -296,10 +307,10 @@ const sendInquire = () => {
 
 /* 상담방에 이미지가 전송됐을 때 */
 const inquireImage = document.getElementById('imageInput');
-if(inquireImage!=undefined) {
+if (inquireImage != undefined) {
   inquireImage.addEventListener('change', e => {
 
-    if(e.target.files[0] != undefined) {
+    if (e.target.files[0] != undefined) {
 
       const form = document.getElementById('inquireImgForm');
       const formData = new FormData(form);
@@ -316,11 +327,11 @@ if(inquireImage!=undefined) {
             "sendMemberNo": loginMemberNo,
             "inquireNo": memberInquireNo,
             "messageContent": data,
-            "imgFl":'Y'
+            "imgFl": 'Y'
           };
 
-        inquireSock.send(JSON.stringify(obj));
-        form.reset();
+          inquireSock.send(JSON.stringify(obj));
+          form.reset();
         },
         error: () => {
           console.log('error');
@@ -334,32 +345,32 @@ if(inquireImage!=undefined) {
 
 
 /* WebSocket 객체가 서버로부터 메세지를 통지받으면 자동으로 실행되는 콜백함수 */
-inquireSock.onmessage = function(e) {
+inquireSock.onmessage = function (e) {
 
   const msg = JSON.parse(e.data);
   console.log(msg);
 
-      
-  
-  
+
+
+
   if (memberInquireNo == msg.inquireNo) {
     /* 방금온 메세지 읽음처리 */
     updateMessageRead(msg.inquireNo);
-    
+
     const readingArea = document.getElementById('readingArea');
-    
-  
-  if (msg.messageDate != msg.lastMessageDate) {
-    const dateLabelLine = document.createElement('div');
-    dateLabelLine.className = 'date-label-line';
-  
-    const dateLabel = document.createElement('div');
-    dateLabel.classList.add('date-label');
-    dateLabel.innerHTML = item.messageDate;
-  
-    dateLabelLine.append(dateLabel);
-    readingArea.append(dateLabelLine);
-  }
+
+
+    if (msg.messageDate != msg.lastMessageDate) {
+      const dateLabelLine = document.createElement('div');
+      dateLabelLine.className = 'date-label-line';
+
+      const dateLabel = document.createElement('div');
+      dateLabel.classList.add('date-label');
+      dateLabel.innerHTML = item.messageDate;
+
+      dateLabelLine.append(dateLabel);
+      readingArea.append(dateLabelLine);
+    }
 
     const message = document.createElement('div');
 
@@ -371,19 +382,19 @@ inquireSock.onmessage = function(e) {
 
     message.append(messageBubble);
     messageBubble.append(messageTime);
-    
+
     /* 로그인한 회원 본인이 보낸 경우 */
     if (loginMemberNo == msg.sendMemberNo) {
       message.classList.add('sent-message');
       messageBubble.classList.add('sent-bubble');
       messageTime.classList.add('sent-bubble-time');
-      
+
       /* 로그인한 회원 본인이 받은 메세지인 경우 */
     } else {
       message.classList.add('received-message');
       messageBubble.classList.add('received-bubble');
       messageTime.classList.add('received-bubble-time');
-      
+
     }
 
     readingArea.append(message);
@@ -391,7 +402,7 @@ inquireSock.onmessage = function(e) {
 
 
     readingArea.scrollTo(0, readingArea.scrollHeight);
-    
+
 
   } else {
 
@@ -406,11 +417,11 @@ inquireSock.onmessage = function(e) {
 const updateMessageRead = (inquireNo) => {
   $.ajax({
     url: "/inquire/message/read",
-    data: {"inquireNo":inquireNo},
+    data: { "inquireNo": inquireNo },
     success: (result) => {
       console.log('메세지 읽음처리');
     },
-    error: ()=>{
+    error: () => {
       console.log('error');
     }
   })
@@ -418,13 +429,13 @@ const updateMessageRead = (inquireNo) => {
 
 const searchBar = document.getElementById('searchBar');
 searchBar.addEventListener('keypress', (e) => {
-  if(e.key == 'Enter') {
+  if (e.key == 'Enter') {
     chatSearch();
   }
 })
 
 /* 검색창 만들기 이벤트 */
-document.getElementById('searchBtn').addEventListener('click', ()=>{
+document.getElementById('searchBtn').addEventListener('click', () => {
 
   chatSearch();
 })
@@ -432,35 +443,35 @@ document.getElementById('searchBtn').addEventListener('click', ()=>{
 const chatSearch = () => {
   let input = document.getElementById('searchBar');
 
-  if(input.value.trim().length == 0) {
-      input.focus();
+  if (input.value.trim().length == 0) {
+    input.focus();
   } else {
 
-      console.log('검색중이에요.........')
+    console.log('검색중이에요.........')
 
-      // 버튼 보여주세요
-      document.getElementById('resetRoomSearch').style.display='block';
+    // 버튼 보여주세요
+    document.getElementById('resetRoomSearch').style.display = 'block';
 
-      let roomList = document.getElementsByClassName('message-preview-box');
-      
-      for(room of roomList) {
-          room.style.display = 'flex';
-          let roomName = room.children[1].children[0].innerText;
-          console.log('방제 : ' + roomName);
-  
-          if(!roomName.includes(input.value)) {
-              room.style.display='none';
-          } 
+    let roomList = document.getElementsByClassName('message-preview-box');
+
+    for (room of roomList) {
+      room.style.display = 'flex';
+      let roomName = room.children[1].children[0].innerText;
+      console.log('방제 : ' + roomName);
+
+      if (!roomName.includes(input.value)) {
+        room.style.display = 'none';
       }
+    }
 
   }
 }
 
 
 /* 초기화 버튼 클릭 시 */
-document.getElementById('resetRoomSearch').addEventListener('click', (e)=>{
+document.getElementById('resetRoomSearch').addEventListener('click', (e) => {
   // e.target.parent.style.display='none'; // 버튼 숨김
   document.getElementById('resetRoomSearch').style.display = 'none';
-  document.getElementById('searchBar').value=''; // 채팅방 검색창 초기화
+  document.getElementById('searchBar').value = ''; // 채팅방 검색창 초기화
   selectInquireList(); // 목록 가져옴
 })
