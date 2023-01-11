@@ -266,6 +266,9 @@ const selectChatList = (roomNo) => {
             document.getElementById('inputImgPreviewBox').style.height = 0;
             document.getElementById('inputImgPreviewBox').style.opacity = 0;
 
+            // 텍스트 비우기
+            document.getElementById('inputBox').value='';
+
             // UnreadCount를 0으로 만듦
             updateReadCount();
             updateUnreadCount();
