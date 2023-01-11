@@ -33,8 +33,8 @@
                 <a href="/myPage/secession" class="secession">
                   <span>회원 탈퇴</span><i class="fa-solid fa-chevron-right"></i
                 ></a>
-            </c:when>
-            <c:otherwise>
+                
+
                 <a href="/myPage/profile" class="setting">
                   <span>개인 정보 수정</span><i class="fa-solid fa-chevron-right"></i
                 ></a>
@@ -43,8 +43,7 @@
                 ></a>
                 <a href="/myPage/secession" class="secession">
                   <span>회원 탈퇴</span><i class="fa-solid fa-chevron-right"></i
-                ></a>
-
-            </c:otherwise>
+                >
+              </c:when>
           </c:choose>
         </section>
