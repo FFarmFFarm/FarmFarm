@@ -37,8 +37,24 @@ public class Chat2Controller {
 	
 	// 채팅방 페이지로 이동(임시)
 	@GetMapping("/center")
-	public String forwardChatPage() {
-		return "chat2/chatCenter";
+	public String forwardChatPage(
+			HttpSession session) {
+		
+		String path = "";
+		
+		if(session.getAttribute("loginMember") != null) { 
+			Member loginMember = (Member)(session.getAttribute("loginMember"));
+			if(loginMember.getAuthority() == 0 || loginMember.getAuthority() == 1) {
+				path = "/chat2/chatCenter"; 
+			} else { 
+				path = "redirect:/";
+			}
+		} else {
+			path = "redirect:/";
+		}
+		
+		return path; 
+		
 	}
 	
 	// 채팅 페이지로 이동하기 전 걸러내는 메서드
@@ -50,7 +66,8 @@ public class Chat2Controller {
 		if(session.getAttribute("loginMember") != null) { 
 			path = "/chat/center"; 
 		} else {
-			ra.addFlashAttribute("message", "로그인 후 이용가능합니다."); path = "/login"; 
+			ra.addFlashAttribute("message", "로그인 후 이용가능합니다."); 
+			path = "/login"; 
 		} 
 		
 		return "redirect:" + path; 
