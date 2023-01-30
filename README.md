@@ -481,33 +481,34 @@
 
 
 
-# :pushpin: Fiesta
->SNS(Instagram) 클론 프로젝트
->데모 사이트 링크
+# :pushpin: FarmFarm
+> **농산물 직거래 플랫폼 및 농사 용품 판매 쇼핑몰**
+> **[FarmFarm 바로가기](http://129.154.53.250:8080) (Test ID: user01 PW: pass01! | Admin ID: admin01 PW: admin01!)**
 
 </br>
 
 ## 1. 제작 기간 & 참여 인원
-- 2022년 10월 18일 ~ 12월 10일
-- 5인 팀 프로젝트
-- 역할: 팀장, 메인페이지(게시글 조회/삭제, 댓글 등록/삭제, 신고 등록, 좋아요/북마크)
+- 2022년 12월 12일 ~ 2023년 1월 11일
+- 6인 팀 프로젝트
+
+
 
 </br>
 
 ## 2. 사용 기술
+
 #### `Back-end`
+
   - Java 11
-  - Spring(3.9.18)
+  - Spring 3.9.18
   - Maven
-  - Spring Data JPA
-  - QueryDSL
-  - H2
-  - MySQL 5.7
+  - Oracle 21C
+  - Apache Tomcat 9.0
   - Spring Security
-  - Jsoup
+  - Mybatis
 #### `Front-end`
-  - Vue.js 3.0
-  - Element UI
+  - HTML/CSS
+  - Javascript
 
 </br>
 
