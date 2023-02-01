@@ -792,13 +792,13 @@ if (reviewNext != undefined) {
 /* cp를 전달받아 리뷰를 조회하는 Function */
 const selectReviewList = (productNo, cp) => {
   $.ajax({
-    url: '/review/select',
+    url: '/select/review',
     data: { "productNo": productNo, "cp": cp, "sortFl": sortFl },
     dataType: 'json',
     success: (map) => {
       printReviewList(map.reviewList, map.pagination);
-
       cp = map.pagination.currentPage;
+
     },
     error: () => {
       console.log("리뷰 불러오기 중 에러 발생");
@@ -995,10 +995,10 @@ const printReviewList = (reviewList, pagination, sortFL) => {
   nextBtn.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
   nextBtn, id = 'reviewNext';
 
-  if (pagination.currentPage == 1 && pagination.maxPage > 1 && pagination.prevPage > 0) {
+  if (pagination.currentPage == 1 && pagination.maxPage > 1) {
     paginationArea.innerHTML = "";
     paginationArea.appendChild(nextBtn);
-  } else if (pagination.maxPage > pagination.currentPage) {
+  } else if (pagination.maxPage > pagination.currentPage && pagination.prevPage < pagination.currentPage && pagination.currentPage > 1) {
     paginationArea.innerHTML = "";
     paginationArea.append(preBtn, nextBtn);
   } else if (pagination.currentPage > pagination.prevPage && pagination.currentPage > 1) {
@@ -1038,6 +1038,7 @@ const printReviewList = (reviewList, pagination, sortFL) => {
 document.getElementById('sortRecommend').addEventListener('click', (e) => {
 
   if (!e.target.classList.contains('sort-clicked')) {
+    cp=1;
     sortFl = 'R';
     const productNo = getProductNo();
     selectReviewList(productNo);
@@ -1050,7 +1051,7 @@ document.getElementById('sortRecommend').addEventListener('click', (e) => {
 document.getElementById('sortNewest').addEventListener('click', (e) => {
 
   if (!e.target.classList.contains('sort-clicked')) {
-
+    cp=1;
     sortFl = 'N';
     const productNo = getProductNo();
     selectReviewList(productNo);
@@ -1064,7 +1065,7 @@ document.getElementById('sortNewest').addEventListener('click', (e) => {
 /* sortFl을 전달받아 리뷰를 조회하는 Function */
 const selectReviewListBySort = (productNo, sortFL) => {
   $.ajax({
-    url: '/review/select',
+    url: '/select/review',
     data: { "productNo": productNo, "sortFl": sortFL },
     dataType: 'json',
     success: (map) => {

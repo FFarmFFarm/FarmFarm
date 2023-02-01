@@ -52,6 +52,7 @@
 		FROM CART C
 		JOIN PRODUCT P ON(C.PRODUCT_NO = P.PRODUCT_NO)
 		WHERE C.MEMBER_NO = #{memberNo}
+		ORDER BY SOLDOUT_FL
 	</select>
   
 	<!-- 장바구니 확인 -->
