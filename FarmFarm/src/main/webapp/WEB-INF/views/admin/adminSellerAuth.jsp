@@ -137,7 +137,7 @@
                 <span class="board-title">인증 신청서 조회</span>
 
                 <div class="select-auth-paper" id="authPaper">
-                    <!-- todo: el쓰는부분 ajax로 -->
+                    <!-- todo: el쓰는부분 ajax로 대체 -->
 
                     <div class="seller-auth-image">
                         <span class="auth-image-title" id="authImageTitle">증빙 자료(인증사진)</span>
@@ -252,9 +252,9 @@
 
     <%-- jquery --%>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-
+    
+    <script src="/resources/js/common/common.js"></script> 
     <script src="/resources/js/admin/adminSellerAuth.js"></script> 
     <script src="/resources/js/admin/adminModal.js"></script> 
-    <script src="/resources/js/common/common.js"></script> 
 </body>
 </html>

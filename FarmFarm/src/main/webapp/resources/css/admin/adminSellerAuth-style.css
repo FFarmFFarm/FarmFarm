@@ -460,6 +460,10 @@ main{
     font-size: var(--main-font-size);
 }
 
+.detail-content-bold{
+    font-weight: bold;
+}
+
 
 
 
