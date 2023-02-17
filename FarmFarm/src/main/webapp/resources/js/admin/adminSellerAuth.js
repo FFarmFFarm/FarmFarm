@@ -730,11 +730,9 @@ document.getElementById('submitBtn').addEventListener('click', () => {
                 // window.name = hiddenNo;
 
                 //fixme: 여기 아래 적용이 안됨. -> 파일 올리면 자동으로 새로고침이 됨.
-                // 세션에 저장해서 사용해보기
+                // fix: 세션에 저장해서 사용해보기
                 // // selectSellerList(cp);
                 // selectAuthPaper(hiddenNo);
-
-                // console.log("판매자 인증 사진 업데이트");
 
                 // //fixme: 너무 빨리 떠서 느리게 했지만 먹히지 않음.
                 // // setTimeOut(() => messageModalOpen("인증 사진이 업데이트 되었습니다."), 1000);
