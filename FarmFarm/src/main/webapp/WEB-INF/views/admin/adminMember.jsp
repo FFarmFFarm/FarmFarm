@@ -126,7 +126,7 @@
                                                 <c:if test="${member.reportPenalty eq 'N' || member.reportPenalty eq 'A'}">
                                                     <td>활동중</td>
                                                 </c:if>
-                                                <c:if test="${member.reportPenalty eq 'Y'&& member.memberDelFl eq 'N'}">
+                                                <c:if test="${member.reportPenalty eq 'Y'}">
                                                     <td>정지</td>
                                                 </c:if>
                                             </c:if>
@@ -232,7 +232,7 @@
                         </span>
 
                         <span class="member-history-title line">계정 상태</span>
-                        <span class="member-history">
+                        <span class="member-history" id="memberHistorySpan">
                             <table class="member-history-table" id="historyTable">
                                 <%--
                                     <thead>

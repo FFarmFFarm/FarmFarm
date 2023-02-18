@@ -14,8 +14,10 @@ var keyword;
 var memberSelectTable = document.getElementById("memberSelectTable");
 
 
-// optimize : 전체 회원 정보 조회 함수
-// cp를 받아 게시글 목록 조회
+// optimize 
+/** 전체 회원 정보 조회 함수 
+ * @param cp
+*/
 const selectMemberList = (cp) => {
     $.ajax({
         url: "/admin/selectMemberList",
@@ -41,7 +43,10 @@ const selectMemberList = (cp) => {
 }
 
 
-//optimize: 상세 회원 정보 조회 함수
+//optimize
+/** 상세 회원 정보 조회 함수 
+ * @param hiddenNo
+*/
 const selectMemberDetail = (hiddenNo) => {
     $.ajax({
         url: "/admin/selectMemberDetail",
@@ -81,7 +86,11 @@ const selectMemberDetail = (hiddenNo) => {
 
 
 
-// optimize 조회해온 회원 목록을 화면에 출력하는 함수
+// optimize
+/** 조회해온 회원 목록을 화면에 출력하는 함수 
+ * @param memberList
+ * @param pagination
+*/
 const printMemberList = (memberList, pagination) => {
 
     console.log("회원 전체 조회");
@@ -257,9 +266,11 @@ const printMemberList = (memberList, pagination) => {
 
 
 // todo: 상세 조회
+/** 회원 상세 정보 조회 함수
+ * @param memberDetailInfo
+ * @param memberHistoryList
+ */
 const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
-
-    console.log("상세조회 만드는 함수..");
 
     const middleBoard = document.getElementById("middleBoard");
     const detailTable = document.getElementById("detailTable");
@@ -405,7 +416,7 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
             tdStatus.innerText = "활동중";
         }
 
-        if (memberDetailInfo.reportType != null) {
+        if (memberDetailInfo.reportType == 'M') {
             if (memberDetailInfo.reportPenalty == null) {
                 tdStatus.innerText = "신고접수";
             }
@@ -414,7 +425,7 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
                 tdStatus.innerText = "활동중";
             }
 
-            if (memberDetailInfo.reportPenalty == 'Y' && memberDetailInfo.memberDelFl == 'N') {
+            if (memberDetailInfo.reportPenalty == 'Y') {
                 tdStatus.innerText = "정지";
             }
         }
@@ -448,7 +459,7 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
     address.innerText = "주소";
 
     const tdAddress = document.createElement("td");
-    tdAddress.colSpan = "2";
+    tdAddress.colSpan = "3";
 
     const add = memberDetailInfo.memberAddress;
     tdAddress.innerText = add;
@@ -475,7 +486,7 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
 
     const th1 = document.createElement("th");
     th1.style.width = "160px";
-    th1.innerText = "일자";
+    th1.innerText = "처리 일자";
 
     const th2 = document.createElement("th");
     th2.style.width = "130px";
@@ -486,98 +497,148 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
     th3.innerText = "비고";
 
 
+    tr1.append(th1, th2, th3);
+    theadHistory.append(tr1);
+
     // 2) 가입
     var td4;
 
+    const tbody = document.createElement("tbody");
     const tr2 = document.createElement("tr");
     tr2.classList.add("row2");
 
-    for (let history of memberHistoryList) {
+    // for (let history of memberHistoryList) {
         td4 = document.createElement("td");
-        td4.innerText = history.signUpDate;
-    }
+        td4.innerText = memberDetailInfo.signUpDate;
+    // }
 
     const td5 = document.createElement("td");
     td5.innerText = "가입";
 
+    
     const td6 = document.createElement("td");
     // td6.innerText = "";
 
 
+    // 강제 탈퇴 버튼
+    const adminDelBtn = document.getElementById('adminDelBtn');
+
+    if (memberDetailInfo.memberDelFl == 'Y') {
+        
+        td6.innerText = "탈퇴";
+
+        // 가입일자, 가입 상태에 취소선 긋기
+        td4.style.textDecoration = 'line-through';
+        td5.style.textDecoration = 'line-through';
+
+        // 강제 탈퇴 버튼 비활성화
+        adminDelBtn.style.backgroundColor = 'lightgray';
+        adminDelBtn.style.cursor = 'default';
+        adminDelBtn.disabled = true;
+
+    } else{
+        // 강제 탈퇴 버튼 활성화
+        adminDelBtn.style.backgroundColor = '#C43819';
+        adminDelBtn.style.cursor = 'pointer';
+        adminDelBtn.disabled = false;
+    }
+
     // * 반복문 시작
+    
     const tbodyHistory = document.createElement("tbody");
 
     for (let history of memberHistoryList) {
+
         const trReport = document.createElement("tr");
         const tdReportDate = document.createElement("td");
         const tdReport = document.createElement("td");
         const tdReportReason = document.createElement("td");
 
 
-        if (history.reportPenalty == null) {
-            tdReportDate.innerHTML = "";
-            tdReport.innerHTML = "";
-            tdReportReason.innerHTML = "";
+        let volume = history.reportVolume;
+        console.log(parseInt(volume));
+
+
+        if(volume <= 3) {
+            document.getElementById("memberHistorySpan").style.height = 'auto';
+        } else {
+            document.getElementById("memberHistorySpan").style.height = '400px';
         }
+
+        // if (history.reportPenalty == null) {
+            // tdReportDate.innerHTML = "";
+            // tdReport.innerHTML = "";
+            // tdReportReason.innerHTML = "";
+        // }
 
 
         // 3) 신고 처리 내역
+        
+        if (history.processDate != null){
+            if (history.memberDelFl == 'N') {
+                // 강제 탈퇴 버튼 활성화
+                adminDelBtn.style.backgroundColor = '#C43819';
+                adminDelBtn.style.cursor = 'pointer';
+                adminDelBtn.disabled = false;
 
-        // 강제 탈퇴 버튼
-        const adminDelBtn = document.getElementById('adminDelBtn');
 
-        if (history.memberDelFl == 'N') {
-            if (history.reportPenalty == 'Y' || history.reportPenalty == 'A') {
-                tdReportDate.innerText = history.processDate;
-                tdReport.innerText = "정지";
-                tdReportReason.innerText = history.reportReason;
+                if (history.reportPenalty == 'Y' || history.reportPenalty == 'A') {
+                    tdReportDate.innerText = history.reportDate;
+                    // tdReportDate.innerText = history.processDate;
+                    // fixme: 원래 processDate가 맞음. 정지 계정이 활성화된 시각임.
+                    // 원래 정지 해제 스케줄링을 매 초로 했었는데 부하가 너무 심해서
+                    // 하루에 한 번으로 바꿔놓은 상태
+                    // 모든 정지 해제 시간이 똑같이 나옴.
+                    // 일단은 신고시간으로 바꿔놓음. 마지막에 스케줄링 바꾸면서 같이 바꿀것!
+                    tdReport.innerText = "정지";
+                    tdReportReason.innerText = history.reportReason;
+                }
+    
+                // 강제 탈퇴 버튼 활성화
+                adminDelBtn.style.backgroundColor = '#C43819';
+                adminDelBtn.style.cursor = 'pointer';
+                adminDelBtn.disabled = false;
+                
+                // }
+                
+                
+                if(volume == 1){
+                    tdReportReason.innerText = history.reportReason
+                } else if (volume > 1) {
+                    tdReportReason.innerText = history.reportReason + " 외 " + (volume -1) + "건";
+                }
             }
 
-            // 강제 탈퇴 버튼 활성화
-            adminDelBtn.style.backgroundColor = '#C43819';
-            adminDelBtn.style.cursor = 'pointer';
-            adminDelBtn.disabled = false;
-        }
-
-        if (history.memberDelFl == 'Y') {
-            td6.innerText = "회원 탈퇴";
-
-            // if(history.reportPenalty == 'Y'){
-            adminDelBtn.addEventListener('click', () => {
-                tdReportDate.innerText = history.processDate;
-                tdReport.innerText = "강제 탈퇴";
-                tdReportReason.innerText = history.reportReason;
-            })
-            // }
-
-            // 가입일자, 가입 상태에 취소선 긋기
-            td4.style.textDecoration = 'line-through';
-            td5.style.textDecoration = 'line-through';
-
-            // 강제 탈퇴 버튼 비활성화
-            adminDelBtn.style.backgroundColor = 'lightgray';
-            adminDelBtn.style.cursor = 'default';
-            adminDelBtn.disabled = true;
-        }
-
-        if (history.processDate != null) {
-            tdReportReason.innerText = history.reportReason;
         } else {
+            tdReportDate.innerHTML = "";
+            tdReport.innerHTML = "";
             tdReportReason.innerText = "";
         }
 
+        // 강제 탈퇴 버튼 누르면,
+        // if(history.reportPenalty == 'Y'){
+        // adminDelBtn.addEventListener('click', () => {
 
-        //조립
-        tr1.append(th1, th2, th3);
-        tr2.append(td4, td5, td6);
+        //     // 가입일자, 가입 상태에 취소선 긋기
+        //     td4.style.textDecoration = 'line-through';
+        //     td5.style.textDecoration = 'line-through';
 
-        if (history.reportPenalty != null) {
-            trReport.append(tdReportDate, tdReport, tdReportReason);
-            tbodyHistory.append(trReport);
-        }
+        //     // 강제 탈퇴 버튼 비활성화
+        //     adminDelBtn.style.backgroundColor = 'lightgray';
+        //     adminDelBtn.style.cursor = 'default';
+        //     adminDelBtn.disabled = true;
+        // })
+
+        // 신고 처리 내역이 있을 때 조립
+        // if (history.reportPenalty != null) {
+        // }
+        trReport.append(tdReportDate, tdReport, tdReportReason);
+        tbodyHistory.append(trReport);
     }
-    theadHistory.append(tr1);
-    historyTable.append(theadHistory, tr2, tbodyHistory);
+    
+    tr2.append(td4, td5, td6);
+    tbody.append(tr2);
+    historyTable.append(theadHistory, tbody, tbodyHistory);
 
 }
 
