@@ -15,7 +15,8 @@ var hiddenAuthority = 0; // authority
 var allNew = 'new'; // 전체 신고 조회 누적 모달하고 구분하기 위해. reportPenalty = null
 
 
-//optimize: 미처리 신고 조회 함수 ajax
+//optimize
+/** 미처리 신고 조회 함수 ajax */
 const selectNewReportList = (cp) => {
 
     $.ajax({
@@ -35,7 +36,8 @@ const selectNewReportList = (cp) => {
 
 
 
-//optimize: 미처리 신고 상세 모달창 함수 ajax
+//optimize
+/** 미처리 신고 상세 모달창 함수 ajax */
 const selectNewReportDetail = (hiddenReportNo) => {
     $.ajax({
         url: "/admin/selectNewReportDetail",
@@ -55,7 +57,8 @@ const selectNewReportDetail = (hiddenReportNo) => {
 
 
 
-//optimize: 신고 누적 기록 모달창 함수 ajax
+//optimize
+/**신고 누적 기록 모달창 함수 ajax */
 const selectReportAccumulate = (hiddenReportType, hiddenMemberNo, hiddenContentNo) => {
     $.ajax({
         url: "/admin/selectReportAccumulate",
@@ -88,7 +91,8 @@ const selectReportAccumulate = (hiddenReportType, hiddenMemberNo, hiddenContentN
 
 
 
-// optimize: 미처리 신고 내역 출력 함수 
+// optimize
+/** 미처리 신고 내역 출력 함수  */
 const printNewReportList = (newReportList, pagination, reportListCount, reportAllListCount) => {
 
     // 출력 전 내용 지우기
