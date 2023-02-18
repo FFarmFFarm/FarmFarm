@@ -76,9 +76,9 @@
 			WHERE (AUTHORITY = 1 OR AUTHORITY = 3 OR AUTHORITY = 4)
 		</if>
 		<if test='keyword != null'>
-				AND (MEMBER_ID LIKE('%${keyword}%') OR MEMBER_ID LIKE LOWER('%${keyword}%') OR MEMBER_ID LIKE UPPER('%${keyword}%')
-				OR 	MEMBER_NICKNAME LIKE ('%${keyword}%') OR MEMBER_NICKNAME LIKE LOWER('%${keyword}%') OR MEMBER_NICKNAME LIKE ('%${keyword}%')
-				OR MEMBER_NO LIKE ('%${keyword}%'))
+			AND (LOWER(MEMBER_ID) LIKE LOWER('%${keyword}%')
+			OR LOWER(MEMBER_NICKNAME) LIKE LOWER('%${keyword}%')
+			OR MEMBER_NO LIKE ('%${keyword}%'))
 		</if>
 	</select>
 
@@ -98,8 +98,8 @@
 			WHERE (AUTHORITY = 1 OR AUTHORITY = 3 OR AUTHORITY = 4)
 		</if>
 		<if test='keyword != null'>
-				AND (MEMBER_ID LIKE('%${keyword}%') OR MEMBER_ID LIKE LOWER('%${keyword}%') OR MEMBER_ID LIKE UPPER('%${keyword}%')
-				OR 	MEMBER_NICKNAME LIKE ('%${keyword}%') OR MEMBER_NICKNAME LIKE LOWER('%${keyword}%') OR MEMBER_NICKNAME LIKE ('%${keyword}%')
+				AND (LOWER(MEMBER_ID) LIKE LOWER('%${keyword}%')
+				OR LOWER(MEMBER_NICKNAME) LIKE LOWER('%${keyword}%')
 				OR MEMBER_NO LIKE ('%${keyword}%'))
 		</if>
 	</select>
