@@ -725,12 +725,12 @@ document.getElementById('submitBtn').addEventListener('click', () => {
         success: (result) => {
             if (result > 0) {
                 
+                //fixme: 여기 아래 적용이 안됨. -> 파일 올리면 자동으로 새로고침이 됨.
+                // fix: 세션에 저장해서 사용해보기
                 sessionStorage.setItem("updateImg", 1);
                 sessionStorage.setItem("hiddenNo", hiddenNo);
                 // window.name = hiddenNo;
 
-                //fixme: 여기 아래 적용이 안됨. -> 파일 올리면 자동으로 새로고침이 됨.
-                // fix: 세션에 저장해서 사용해보기
                 // // selectSellerList(cp);
                 // selectAuthPaper(hiddenNo);
 
