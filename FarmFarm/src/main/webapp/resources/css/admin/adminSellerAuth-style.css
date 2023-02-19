@@ -199,7 +199,6 @@ main{
 }
 
 .auth-list-table td{
-    padding-bottom: 10px;
     height: 31px;
 }
 
@@ -458,6 +457,10 @@ main{
 .detail-content{
     width: 240px;
     font-size: var(--main-font-size);
+}
+
+.detail-content-bold{
+    font-weight: bold;
 }
 
 

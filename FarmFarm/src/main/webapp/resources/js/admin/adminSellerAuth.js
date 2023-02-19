@@ -13,7 +13,8 @@ var keyword;
 
 
 
-// optimize: 판매자 정보 조회 함수 ajax
+// optimize: 
+/** 판매자 정보 조회 함수 ajax */
 const selectSellerList = (cp) => {
     $.ajax({
         url: "/admin/selectSellerList",
@@ -32,7 +33,8 @@ const selectSellerList = (cp) => {
 
 
 
-// optimize: 인증 신청서 조회 함수 ajax
+// optimize
+/** 인증 신청서 조회 함수 ajax */
 const selectAuthPaper = (hiddenNo) => {
     $.ajax({
         url: "/admin/selectAuthPaper",
@@ -51,8 +53,8 @@ const selectAuthPaper = (hiddenNo) => {
 
 
 
-// optimize : 판매자 정보 출력 함수
-
+// optimize
+/** 판매자 정보 출력 함수 */
 const printSellerList = (sellerList, pagination) => {
 
     // 스크롤
@@ -156,7 +158,8 @@ const printSellerList = (sellerList, pagination) => {
 
 
 
-// optimize: 인증신청서 조회
+// optimize
+/** 인증신청서 조회 */
 const printSellerAuthPaper = (authPaper) => {
 
     // 인증신청서 보이기
@@ -316,6 +319,7 @@ const printSellerAuthPaper = (authPaper) => {
 
     const tdAuthDate2 = document.createElement("td");
     tdAuthDate2.classList.add('detail-content');
+    tdAuthDate2.classList.add('detail-content-bold');
 
 
     // 사유
@@ -389,7 +393,8 @@ const printSellerAuthPaper = (authPaper) => {
 
 
 
-// optimize: 판매자 보류 모달
+// optimize
+/** 판매자 보류 모달 */
 const adminModalContainer = document.getElementById('adminModalContainer');
 
 document.getElementById('authDenyBtn').addEventListener('click', () => {
@@ -413,7 +418,8 @@ const makePageBox = (elementName, inputHtml, inputId, className) => {
 }
 
 
-// optimize : 페이지네이션 박스 생성  // 전체조회 페이지네이션 함수랑 조금 다름
+// optimize  // 전체조회 페이지네이션 함수랑 조금 다름
+/** 페이지네이션 박스 생성 */
 const printPagination = (adminPaginationArea, pagination) => {
 
     cp = pagination.currentPage;
@@ -680,7 +686,7 @@ for (let i = 0; i < sAddress.length; i++) {
 // todo: 보류된 경우, 회원한테 사진을 다시 받았다면, 사진 등록해주기
 // input type="file"은 꾸밀 수가 없기 때문에
 // label 타입으로 클릭을 대신하고
-// input 태그는 숨기자
+// input 태그는 숨기기
 const updateFarmImg = document.getElementById('updateFarmImg');
 
 
@@ -717,34 +723,45 @@ document.getElementById('submitBtn').addEventListener('click', () => {
         processData: false,  // 프로세스 데이터 설정 : 반드시 false로 해야 formData값을 인식함!
         contentType: false,  // 헤더의 ContentType을 설정 : false로 해야 formData값을 인식함.
         success: (result) => {
-
             if (result > 0) {
+                
+                //fixme: 여기 아래 적용이 안됨. -> 파일 올리면 자동으로 새로고침이 됨.
+                // fix: 세션에 저장해서 사용해보기
+                sessionStorage.setItem("updateImg", 1);
+                sessionStorage.setItem("hiddenNo", hiddenNo);
+                // window.name = hiddenNo;
 
-                //fixme: 여기 아래 적용이 안됨.
-                selectSellerList(cp);
-                selectAuthPaper(hiddenNo);
+                // // selectSellerList(cp);
+                // selectAuthPaper(hiddenNo);
 
-                console.log("판매자 인증 사진 업데이트");
-
-                //fixme: 너무 빨리 떠서 느리게 했지만 먹히지 않음.
-                // setTimeOut(() => messageModalOpen("인증 사진이 업데이트 되었습니다."), 1000);
-                messageModalOpen("인증 사진이 업데이트 되었습니다.")
+                // //fixme: 너무 빨리 떠서 느리게 했지만 먹히지 않음.
+                // // setTimeOut(() => messageModalOpen("인증 사진이 업데이트 되었습니다."), 1000);
+                // messageModalOpen("인증 사진이 업데이트 되었습니다.")
             }
         },
         error: () => {
             console.log("판매자 인증 사진 업데이트 실패");
         }
     })
-
 })
 
 
+// 이미지 업데이트 후 인증신청서 조회하기
+if(sessionStorage.getItem("updateImg") == 1){
+    // hiddenNo = window.name;
+    hiddenNo = sessionStorage.getItem("hiddenNo");
+    console.log("hiddenNo : "+ hiddenNo);
 
+    selectSellerList(cp);
+    selectAuthPaper(hiddenNo);
+    messageModalOpen("인증 사진이 업데이트 되었습니다.")
 
+    console.log("판매자 인증 사진 업데이트");
 
-
-
-
+    // 원래대로 돌려놓기
+    sessionStorage.setItem("updateImg", 0);
+    hiddenNo = 0;
+}
 
 
 
