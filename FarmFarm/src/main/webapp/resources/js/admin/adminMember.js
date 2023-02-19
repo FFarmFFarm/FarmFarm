@@ -15,9 +15,7 @@ var memberSelectTable = document.getElementById("memberSelectTable");
 
 
 // optimize 
-/** 전체 회원 정보 조회 함수 
- * @param cp
-*/
+/** 전체 회원 정보 조회 함수 */
 const selectMemberList = (cp) => {
     $.ajax({
         url: "/admin/selectMemberList",
@@ -26,14 +24,7 @@ const selectMemberList = (cp) => {
         type: "GET",
         success: (map) => {
 
-            //fixme: 검색 결과가 없습니다.
-            // if(map.memberListCount == 0){
-            //     searchNoResult();
-            // } else {
-            // }
-
             printMemberList(map.memberList, map.pagination);
-
 
         },
         error: () => {
@@ -62,26 +53,6 @@ const selectMemberDetail = (hiddenNo) => {
     })
 }
 
-
-
-
-
-
-// // cp를 받아 게시글 목록 조회
-// const selectMemberListFiltering = () => {
-//     $.ajax({
-//         url: "/admin/selectMemberList",
-//         data: {"cp":cp, "authFilter": authFilter, "statFilter":statFilter},
-//         dataType: "JSON",
-//         type: "GET",
-//         success: (map) => {
-//             printMemberList(map.memberList, map.pagination);
-//         }, 
-//             error: () => {
-//             console.log("필터링하여 회원 정보 조회 실패");
-//         }
-//     });
-// }
 
 
 
@@ -223,7 +194,7 @@ const printMemberList = (memberList, pagination) => {
 
             if (member.reportType != null) {
                 if (member.reportPenalty == null) {
-                    td8.innerText = "신고접수";
+                    td8.innerText = "활동중";  //신고접수
                 }
 
                 if (member.reportPenalty == 'N' || member.reportPenalty == 'A') {
@@ -418,7 +389,7 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
 
         if (memberDetailInfo.reportType == 'M') {
             if (memberDetailInfo.reportPenalty == null) {
-                tdStatus.innerText = "신고접수";
+                tdStatus.innerText = "활동중(신고접수)";
             }
 
             if (memberDetailInfo.reportPenalty == 'N' || memberDetailInfo.reportPenalty == 'A') {
@@ -556,12 +527,11 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
 
 
         let volume = history.reportVolume;
-        console.log(parseInt(volume));
 
-
-        if(volume <= 3) {
-            document.getElementById("memberHistorySpan").style.height = 'auto';
-        } else {
+        if(volume <= 2 || history.reportPenalty == null) {
+            document.getElementById("memberHistorySpan").style.height = '150px';
+            document.getElementById("memberHistorySpan").style.overflow = 'hidden';
+        } else  {
             document.getElementById("memberHistorySpan").style.height = '400px';
         }
 
@@ -589,9 +559,16 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
                     // 원래 정지 해제 스케줄링을 매 초로 했었는데 부하가 너무 심해서
                     // 하루에 한 번으로 바꿔놓은 상태
                     // 모든 정지 해제 시간이 똑같이 나옴.
-                    // 일단은 신고시간으로 바꿔놓음. 마지막에 스케줄링 바꾸면서 같이 바꿀것!
+                    // 일단은 신고시간으로 바꿔놓음. 마지막에 스케줄링 바꾸면서 같이 바꿀 것!
                     tdReport.innerText = "정지";
                     tdReportReason.innerText = history.reportReason;
+
+                    if(volume == 1){
+                        tdReportReason.innerText = history.reportReason
+                    } else if (volume > 1) {
+                        tdReportReason.innerText = history.reportReason + " 외 " + (volume -1) + "건";
+                    }
+
                 }
     
                 // 강제 탈퇴 버튼 활성화
@@ -600,13 +577,9 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
                 adminDelBtn.disabled = false;
                 
                 // }
+
                 
-                
-                if(volume == 1){
-                    tdReportReason.innerText = history.reportReason
-                } else if (volume > 1) {
-                    tdReportReason.innerText = history.reportReason + " 외 " + (volume -1) + "건";
-                }
+
             }
 
         } else {
@@ -807,58 +780,62 @@ const getFilterNum = (string) => {
 }
 
 
-// 판매자인증 필터 authFilter  ..  반복문 실패...
-// 0 전체, 1 미등록, 2 판매자, 3 인증대기
-// for(auth of authFiltering){
-//     auth.addEventListener("click", ()=>{
-//         console.log(auth);
-//         let authFl = getFilterNum(auth.id);
-//         authFilter = authFl;  
-//         selectMemberList();
-//         console.log(authFilter);
-//     })
-// }
+
 const dropBtn1Text = document.getElementById("dropBtn1Text");
 const dropBtn2Text = document.getElementById("dropBtn2Text")
 
-document.getElementById("a0").addEventListener("click", () => {
-    numCount = (cp - 1) * 15;
-    let authFl = getFilterNum("a0");
-    authFilter = authFl;
-    selectMemberList();
-    dropBtn1Text.innerText = "판매자 등록";
-})
+// 판매자인증 필터 authFilter  ..  반복문 실패...
+// 0 전체, 1 미등록, 2 판매자, 3 인증대기
+// fix: 깔끔하게 수정하기!
+var dropBtn1TextArr = ['판매자 등록', '미등록', '판매자', '인증 대기', '인증 보류'];
 
-document.getElementById("a1").addEventListener("click", () => {
-    numCount = (cp - 1) * 15;
-    let authFl = getFilterNum("a1");
-    authFilter = authFl;
-    selectMemberList();
-    dropBtn1Text.innerText = "미등록";
-})
+for(let i=0; i<dropBtn1TextArr.length; i++){
+    document.getElementById("a" + i).addEventListener("click", () => {
+        numCount = (cp - 1) * 15;
+        authFilter = i;  // statFilter : jsp에서 전역변수로 선언함.
+        selectMemberList();
+        dropBtn1Text.innerText = dropBtn1TextArr[i];
+    })
+}
 
-document.getElementById("a2").addEventListener("click", () => {
-    numCount = (cp - 1) * 15;
-    let authFl = getFilterNum("a2");
-    authFilter = authFl;
-    selectMemberList();
-    dropBtn1Text.innerText = "판매자";
-})
+// document.getElementById("a0").addEventListener("click", () => {
+//     numCount = (cp - 1) * 15;
+//     let authFl = getFilterNum("a0");
+//     authFilter = authFl;
+//     selectMemberList();
+//     dropBtn1Text.innerText = "판매자 등록";
+// })
 
-document.getElementById("a3").addEventListener("click", () => {
-    numCount = (cp - 1) * 15;
-    let authFl = getFilterNum("a3");
-    authFilter = authFl;
-    selectMemberList();
-    dropBtn1Text.innerText = "인증 대기";
-})
-document.getElementById("a4").addEventListener("click", () => {
-    numCount = (cp - 1) * 15;
-    let authFl = getFilterNum("a4");
-    authFilter = authFl;
-    selectMemberList();
-    dropBtn1Text.innerText = "인증 보류";
-})
+// document.getElementById("a1").addEventListener("click", () => {
+//     numCount = (cp - 1) * 15;
+//     let authFl = getFilterNum("a1");
+//     authFilter = authFl;
+//     selectMemberList();
+//     dropBtn1Text.innerText = "미등록";
+// })
+
+// document.getElementById("a2").addEventListener("click", () => {
+//     numCount = (cp - 1) * 15;
+//     let authFl = getFilterNum("a2");
+//     authFilter = authFl;
+//     selectMemberList();
+//     dropBtn1Text.innerText = "판매자";
+// })
+
+// document.getElementById("a3").addEventListener("click", () => {
+//     numCount = (cp - 1) * 15;
+//     let authFl = getFilterNum("a3");
+//     authFilter = authFl;
+//     selectMemberList();
+//     dropBtn1Text.innerText = "인증 대기";
+// })
+// document.getElementById("a4").addEventListener("click", () => {
+//     numCount = (cp - 1) * 15;
+//     let authFl = getFilterNum("a4");
+//     authFilter = authFl;
+//     selectMemberList();
+//     dropBtn1Text.innerText = "인증 보류";
+// })
 
 
 
@@ -866,50 +843,55 @@ document.getElementById("a4").addEventListener("click", () => {
 
 // 상태 필터 ststFilter
 // 0 전체, 1 활동중, 2 신고 접수, 3 정지, 4 탈퇴
-// for(stat of statFiltering){
-//     stat.addEventListener("click", () => {
-//         let statFl = getFilterNum(stat.id);
-//         statFilter = statFl;
-//         selectMemberList();
-//     })
-// }
+// fix: 깔끔하게 수정하기!
+// var dropBtn2TextArr = ['상태', '활동중', '신고접수', '정지', '탈퇴'];
+var dropBtn2TextArr = ['상태', '활동중', '정지', '탈퇴'];
+
+for(let i=0; i<dropBtn2TextArr.length; i++){
+    document.getElementById("s" + i).addEventListener("click", () => {
+        numCount = (cp - 1) * 15;
+        statFilter = i;  // statFilter : jsp에서 전역변수로 선언함.
+        selectMemberList();
+        dropBtn2Text.innerText = dropBtn2TextArr[i];
+    })
+}
 
 
-document.getElementById("s0").addEventListener("click", () => {
-    numCount = (cp - 1) * 15;
-    let statFl = getFilterNum("s0");
-    statFilter = statFl;  // statFilter : jsp에서 전역변수로 선언함.
-    selectMemberList();
-    dropBtn2Text.innerText = "상태";
-})
-document.getElementById("s1").addEventListener("click", () => {
-    numCount = (cp - 1) * 15;
-    let statFl = getFilterNum("s1");
-    statFilter = statFl;
-    selectMemberList();
-    dropBtn2Text.innerText = "활동중";
-})
-document.getElementById("s2").addEventListener("click", () => {
-    numCount = (cp - 1) * 15;
-    let statFl = getFilterNum("s2");
-    statFilter = statFl;
-    selectMemberList();
-    dropBtn2Text.innerText = "신고접수";
-})
-document.getElementById("s3").addEventListener("click", () => {
-    numCount = (cp - 1) * 15;
-    let statFl = getFilterNum("s3");
-    statFilter = statFl;
-    selectMemberList();
-    dropBtn2Text.innerText = "정지";
-})
-document.getElementById("s4").addEventListener("click", () => {
-    numCount = (cp - 1) * 15;
-    let statFl = getFilterNum("s4");
-    statFilter = statFl;
-    selectMemberList();
-    dropBtn2Text.innerText = "탈퇴";
-})
+// document.getElementById("s0").addEventListener("click", () => {
+//     numCount = (cp - 1) * 15;
+//     let statFl = getFilterNum("s0");
+//     statFilter = statFl;  // statFilter : jsp에서 전역변수로 선언함.
+//     selectMemberList();
+//     dropBtn2Text.innerText = "상태";
+// })
+// document.getElementById("s1").addEventListener("click", () => {
+//     numCount = (cp - 1) * 15;
+//     let statFl = getFilterNum("s1");
+//     statFilter = statFl;
+//     selectMemberList();
+//     dropBtn2Text.innerText = "활동중";
+// })
+// document.getElementById("s2").addEventListener("click", () => {
+//     numCount = (cp - 1) * 15;
+//     let statFl = getFilterNum("s2");
+//     statFilter = statFl;
+//     selectMemberList();
+//     dropBtn2Text.innerText = "신고접수";
+// })
+// document.getElementById("s3").addEventListener("click", () => {
+//     numCount = (cp - 1) * 15;
+//     let statFl = getFilterNum("s3");
+//     statFilter = statFl;
+//     selectMemberList();
+//     dropBtn2Text.innerText = "정지";
+// })
+// document.getElementById("s4").addEventListener("click", () => {
+//     numCount = (cp - 1) * 15;
+//     let statFl = getFilterNum("s4");
+//     statFilter = statFl;
+//     selectMemberList();
+//     dropBtn2Text.innerText = "탈퇴";
+// })
 
 
 
@@ -964,6 +946,8 @@ document.getElementById("adminDelSubmitBtn").addEventListener('click', () => {
 // 1) 버튼 눌러서검색
 document.getElementById("memberSearchBtn").addEventListener('click', () => {
     doSearch();
+    dropMenu1.style.display = "none";
+    dropMenu2.style.display = "none";
 })
 
 // 2) 엔터키로 검색
@@ -973,6 +957,8 @@ document.getElementById("adminMemberkeyword").addEventListener('keydown', (e) =>
 
     if (keyCode == 13) {  // 엔터키
         doSearch();
+        dropMenu1.style.display = "none";
+        dropMenu2.style.display = "none";
     }
 })
 
@@ -980,6 +966,15 @@ document.getElementById("adminMemberkeyword").addEventListener('keydown', (e) =>
 const doSearch = () => {
     numCount = (cp - 1) * 15;  //순번 정렬
     keyword = document.getElementById("adminMemberkeyword").value; // 입력한 검색어 
+
+    // 재검색 시, 초기화
+    if((authFilter > 0 && keyword !=null) || (statFilter > 0 && keyword !=null )){
+        authFilter = 0;
+        statFilter = 0;
+        document.getElementById("dropBtn1Text").innerText = "판매자 등록";
+        document.getElementById("dropBtn2Text").innerText = "상태";
+    }
+
     selectMemberList(cp);
 }
 
