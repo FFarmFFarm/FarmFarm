@@ -724,19 +724,19 @@ document.getElementById('submitBtn').addEventListener('click', () => {
         contentType: false,  // 헤더의 ContentType을 설정 : false로 해야 formData값을 인식함.
         success: (result) => {
             if (result > 0) {
+                document.getElementById('updateFarmImgDiv').style.display = 'none';
                 
                 //fixme: 여기 아래 적용이 안됨. -> 파일 올리면 자동으로 새로고침이 됨.
-                // fix: 세션에 저장해서 사용해보기
-                sessionStorage.setItem("updateImg", 1);
-                sessionStorage.setItem("hiddenNo", hiddenNo);
+                // fix: button type button 으로 바꾸고 해결
+                selectSellerList(cp);
+                selectAuthPaper(hiddenNo);
+          
+                // sessionStorage.setItem("updateImg", 1);
+                // sessionStorage.setItem("hiddenNo", hiddenNo);
                 // window.name = hiddenNo;
-
-                // // selectSellerList(cp);
-                // selectAuthPaper(hiddenNo);
-
-                // //fixme: 너무 빨리 떠서 느리게 했지만 먹히지 않음.
+                
                 // // setTimeOut(() => messageModalOpen("인증 사진이 업데이트 되었습니다."), 1000);
-                // messageModalOpen("인증 사진이 업데이트 되었습니다.")
+                messageModalOpen("인증 사진이 업데이트 되었습니다.")
             }
         },
         error: () => {
@@ -747,21 +747,21 @@ document.getElementById('submitBtn').addEventListener('click', () => {
 
 
 // 이미지 업데이트 후 인증신청서 조회하기
-if(sessionStorage.getItem("updateImg") == 1){
-    // hiddenNo = window.name;
-    hiddenNo = sessionStorage.getItem("hiddenNo");
-    console.log("hiddenNo : "+ hiddenNo);
+// if(sessionStorage.getItem("updateImg") == 1){
+//     // hiddenNo = window.name;
+//     hiddenNo = sessionStorage.getItem("hiddenNo");
+//     console.log("hiddenNo : "+ hiddenNo);
 
-    selectSellerList(cp);
-    selectAuthPaper(hiddenNo);
-    messageModalOpen("인증 사진이 업데이트 되었습니다.")
+//     selectSellerList(cp);
+//     selectAuthPaper(hiddenNo);
+//     messageModalOpen("인증 사진이 업데이트 되었습니다.")
 
-    console.log("판매자 인증 사진 업데이트");
+//     console.log("판매자 인증 사진 업데이트");
 
-    // 원래대로 돌려놓기
-    sessionStorage.setItem("updateImg", 0);
-    hiddenNo = 0;
-}
+//     // 원래대로 돌려놓기
+//     sessionStorage.setItem("updateImg", 0);
+//     hiddenNo = 0;
+// }
 
 
 

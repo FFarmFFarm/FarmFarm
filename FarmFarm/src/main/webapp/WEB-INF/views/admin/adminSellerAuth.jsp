@@ -150,7 +150,7 @@
                                 <div class="flex-div">
                                     <img src="" class="">
                                     <input type="file" name="updateFarmImg" class="update-input" id="updateFarmImg" accept="image/*">
-                                    <button type="submit" id="submitBtn">사진 등록</button>
+                                    <button type="button" id="submitBtn">사진 등록</button>
                                 </div>
                             </div>
                         </form>
