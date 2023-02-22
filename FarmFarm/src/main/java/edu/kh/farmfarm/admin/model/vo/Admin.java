@@ -56,6 +56,7 @@ public class Admin {
 	
 	private String title;  //게시글 제목 (판매글, 커뮤니티게시글)
 	private String content; // 게시글 내용 (판매글, 커뮤니티게시글)
+	private int ranking; // 누적횟수에서 가장 최근 값
 	private int reportVolume;  // 한 타겟당 누적 신고 횟수
 	private int contentNo;  // 게시글 번호 (판매글, 커뮤니티게시글)
 	private String commentMemberId;  // 댓글 쓴 회원 아이디
@@ -63,4 +64,6 @@ public class Admin {
 	private String boardType;  // 게시판 타입 번호
 	
 	private String authDenyReason; // 판매자인증 보류 사유
+	
+	private int duplFlag; // 신고타입은 같고 reportTargetNo가 다를 때, 구분하기 
 }

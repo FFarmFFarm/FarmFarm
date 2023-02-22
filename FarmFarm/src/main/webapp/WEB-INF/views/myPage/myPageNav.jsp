@@ -4,8 +4,8 @@
 
         <section class="mypage-nav">
           <span class="mypage-nav-title">마이팜팜</span>
-          <c:choose>
-            <c:when test="${loginMember.authority == 0}">
+
+            <c:if test="${loginMember.authority == 0}">
                 <a href="/myPage" class="ordered">
                   <span>주문 내역</span><i class="fa-solid fa-chevron-right"></i
                 ></a>
@@ -33,8 +33,8 @@
                 <a href="/myPage/secession" class="secession">
                   <span>회원 탈퇴</span><i class="fa-solid fa-chevron-right"></i
                 ></a>
-            </c:when>
-            <c:otherwise>
+            </c:if>
+            <c:if test="${loginMember.authority == 1}">
                 <a href="/myPage/profile" class="setting">
                   <span>개인 정보 수정</span><i class="fa-solid fa-chevron-right"></i
                 ></a>
@@ -44,7 +44,5 @@
                 <a href="/myPage/secession" class="secession">
                   <span>회원 탈퇴</span><i class="fa-solid fa-chevron-right"></i
                 ></a>
-
-            </c:otherwise>
-          </c:choose>
+            </c:if>
         </section>

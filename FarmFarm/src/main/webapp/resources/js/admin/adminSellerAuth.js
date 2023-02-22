@@ -13,11 +13,12 @@ var keyword;
 
 
 
-// optimize: 판매자 정보 조회 함수 ajax
+// optimize: 
+/** 판매자 정보 조회 함수 ajax */
 const selectSellerList = (cp) => {
     $.ajax({
         url: "/admin/selectSellerList",
-        data: {"cp": cp, "sellerFilter": sellerFilter, "keyword":keyword},
+        data: { "cp": cp, "sellerFilter": sellerFilter, "keyword": keyword },
         dataType: "JSON",
         type: "GET",
         success: (map) => {
@@ -32,11 +33,12 @@ const selectSellerList = (cp) => {
 
 
 
-// optimize: 인증 신청서 조회 함수 ajax
+// optimize
+/** 인증 신청서 조회 함수 ajax */
 const selectAuthPaper = (hiddenNo) => {
     $.ajax({
         url: "/admin/selectAuthPaper",
-        data: {"hiddenNo": hiddenNo},
+        data: { "hiddenNo": hiddenNo },
         type: "POST",
         success: (authPaper) => {
             printSellerAuthPaper(authPaper);
@@ -51,12 +53,12 @@ const selectAuthPaper = (hiddenNo) => {
 
 
 
-// optimize : 판매자 정보 출력 함수
-
+// optimize
+/** 판매자 정보 출력 함수 */
 const printSellerList = (sellerList, pagination) => {
 
     // 스크롤
-    window.scrollTo({top: 0, behavior: 'smooth'});
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 
     // 출력 전 내용 지우기
     const tbody = document.getElementById("tbody");
@@ -64,13 +66,13 @@ const printSellerList = (sellerList, pagination) => {
     const adminPaginationArea = document.getElementById("adminPaginationArea");
     adminPaginationArea.innerText = ""; // 페이지박스
 
-    
-    for(let seller of sellerList) {
-        
+
+    for (let seller of sellerList) {
+
         /*아이디 10자
         닉네임 10자
-        주소 25자*/ 
-        
+        주소 25자*/
+
         // todo: 판매자 전체 조회
         const tr = document.createElement('tr');
         tr.className = 'auth-list-row';
@@ -78,7 +80,7 @@ const printSellerList = (sellerList, pagination) => {
         // no
         const td1 = document.createElement("td");
         td1.classList.add('member-seq');
-        
+
         numCount++;
         td1.innerText = numCount;
 
@@ -90,7 +92,7 @@ const printSellerList = (sellerList, pagination) => {
         const td3 = document.createElement("td");
         td3.className = 'sId';
 
-        if(seller.memberId.length > 9) {
+        if (seller.memberId.length > 9) {
             td3.innerText = seller.memberId.substring(0, 9) + '...';
         } else {
             td3.innerText = seller.memberId;
@@ -100,7 +102,7 @@ const printSellerList = (sellerList, pagination) => {
         const td4 = document.createElement("td");
         td4.className = 'sNickname';
 
-        if(seller.memberNickname.length > 9) {
+        if (seller.memberNickname.length > 9) {
             td4.innerText = seller.memberNickname.substring(0, 9) + '...';
         } else {
             td4.innerText = seller.memberNickname;
@@ -113,9 +115,9 @@ const printSellerList = (sellerList, pagination) => {
 
         // 주소
         const td6 = document.createElement("td");
-        if(seller.memberAddress.length > 24){
+        if (seller.memberAddress.length > 24) {
             // sql에서 ,, 제거해서 가져옴
-            td6.innerText = seller.memberAddress.substring(0,24) + '...';
+            td6.innerText = seller.memberAddress.substring(0, 24) + '...';
         } else {
             td6.innerText = seller.memberAddress;
         }
@@ -126,12 +128,12 @@ const printSellerList = (sellerList, pagination) => {
 
         // 판매자 인증
         const td8 = document.createElement("td");
-       
-        if(seller.authority == 3){ td8.innerText = "접수"; }
-        if(seller.authority == 4){ td8.innerText = "보류"; }
-        if(seller.authority == 1){ td8.innerText = "인증 완료"; }
-        
-        
+
+        if (seller.authority == 3) { td8.innerText = "접수"; }
+        if (seller.authority == 4) { td8.innerText = "보류"; }
+        if (seller.authority == 1) { td8.innerText = "인증 완료"; }
+
+
         tr.append(td1, td2, td3, td4, td5, td6, td7, td8);
         tbody.append(tr);
 
@@ -146,7 +148,7 @@ const printSellerList = (sellerList, pagination) => {
         })
     }
 
-        
+
     // todo: 페이지네이션 박스
     printPagination(adminPaginationArea, pagination);
 }
@@ -156,14 +158,15 @@ const printSellerList = (sellerList, pagination) => {
 
 
 
-// optimize: 인증신청서 조회
+// optimize
+/** 인증신청서 조회 */
 const printSellerAuthPaper = (authPaper) => {
 
     // 인증신청서 보이기
     document.getElementById("selectAuthPaperDiv").style.display = "block";
-    
+
     // 스크롤 위치
-    window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
 
     const authImage = document.getElementById("authImage");
     const sellerAuthTable = document.getElementById("sellerAuthTable");
@@ -173,21 +176,21 @@ const printSellerAuthPaper = (authPaper) => {
     authImage.innerHTML = "";
     // 내용 
     sellerAuthTable.innerText = "";
-    
+
 
     // * 인증신청서  --------------------
     // 증빙사진
     const img = document.createElement("img");
 
     // fixme: 인증 사진 저장 경로 확인하기!
-    if(authPaper.farmImg != null) {
+    if (authPaper.farmImg != null) {
         img.src = '/resources/images/seller/' + authPaper.farmImg;
     } else {
         // img.src = "/resources/images/logo-square.png";
     }
 
     //조립
-    authImage.append(img);    
+    authImage.append(img);
 
 
 
@@ -197,7 +200,7 @@ const printSellerAuthPaper = (authPaper) => {
     })
 
 
-    
+
     // -- 신청서 내용 
     // ? 앞에 회원 전체 조회 할때는 통째로 다시 만듦/
     // ? 이번에는 내용만 다시 만들어서 붙여보기!
@@ -285,7 +288,7 @@ const printSellerAuthPaper = (authPaper) => {
     const tdAddress1 = document.createElement("td");
     tdAddress1.classList.add("detail-bold");
     tdAddress1.innerText = "주소";
-    
+
     const tdAddress2 = document.createElement("td");
     tdAddress2.classList.add('detail-content');
     tdAddress2.innerText = authPaper.memberAddress;  // sql에서 ,, 제거해서 가져옴
@@ -316,6 +319,7 @@ const printSellerAuthPaper = (authPaper) => {
 
     const tdAuthDate2 = document.createElement("td");
     tdAuthDate2.classList.add('detail-content');
+    tdAuthDate2.classList.add('detail-content-bold');
 
 
     // 사유
@@ -327,13 +331,13 @@ const printSellerAuthPaper = (authPaper) => {
     const tdAuthDate4 = document.createElement("td");
     tdAuthDate4.classList.add('detail-content');
 
-    if(authPaper.authDate != null) {
+    if (authPaper.authDate != null) {
 
-        if(authPaper.authority == 1){ //판매자
+        if (authPaper.authority == 1) { //판매자
             tdAuthDate2.innerText = authPaper.authDate;
         }
 
-        if(authPaper.authority == 4){ // 인증 보류
+        if (authPaper.authority == 4) { // 인증 보류
             tdAuthDate2.innerText = "보류 (" + authPaper.authDate + ")";
             tdAuthDate4.innerText = authPaper.authDenyReason;
         } //
@@ -341,18 +345,18 @@ const printSellerAuthPaper = (authPaper) => {
     } else {
         tdAuthDate2.innerText = "승인 대기중";
     }
-    
+
     // 승인 버튼
     const authApproveBtn = document.getElementById("authApproveBtn");
     // 보류 버튼
     const authDenyBtn = document.getElementById("authDenyBtn");
 
     // 이미 승인되어 판매자인 회원은, 승인버튼 비활성화
-    if(authPaper.authDate != null && authPaper.authority == 1){
+    if (authPaper.authDate != null && authPaper.authority == 1) {
         authApproveBtn.style.backgroundColor = 'lightgray';
         authApproveBtn.style.cursor = 'default';
         authApproveBtn.disabled = true;
-    } else{
+    } else {
         // 그 외에는 다시 활성화
         authApproveBtn.style.backgroundColor = '#2b8c44';
         authApproveBtn.style.cursor = 'pointer';
@@ -373,14 +377,14 @@ const printSellerAuthPaper = (authPaper) => {
     // }
 
     authTr9.append(tdAuthDate1, tdAuthDate2);
-    
-    if(authPaper.authority == 4){
+
+    if (authPaper.authority == 4) {
         authTr10.append(tdAuthDate3, tdAuthDate4);
 
         // 전체 조립
         sellerAuthTable.append(authTr1, authTr2, authTr3, authTr4, authTr5, authTr6, authTr7, authTr8, authTr9, authTr10);
-        
-    } else{
+
+    } else {
         // 전체 조립
         sellerAuthTable.append(authTr1, authTr2, authTr3, authTr4, authTr5, authTr6, authTr7, authTr8, authTr9);
     }
@@ -389,7 +393,8 @@ const printSellerAuthPaper = (authPaper) => {
 
 
 
-// optimize: 판매자 보류 모달
+// optimize
+/** 판매자 보류 모달 */
 const adminModalContainer = document.getElementById('adminModalContainer');
 
 document.getElementById('authDenyBtn').addEventListener('click', () => {
@@ -413,8 +418,11 @@ const makePageBox = (elementName, inputHtml, inputId, className) => {
 }
 
 
-// optimize : 페이지네이션 박스 생성  // 전체조회 페이지네이션 함수랑 조금 다름
+// optimize  // 전체조회 페이지네이션 함수랑 조금 다름
+/** 페이지네이션 박스 생성 */
 const printPagination = (adminPaginationArea, pagination) => {
+
+    cp = pagination.currentPage;
 
     const adminPagination = document.createElement('ul');
     adminPagination.className = 'admin-pagination';
@@ -426,13 +434,13 @@ const printPagination = (adminPaginationArea, pagination) => {
     makePageBox(prevPage, '<i class="fa-solid fa-angle-left"></i>', pagination.prevPage, 'page-box');
 
     adminPagination.append(firstPage, prevPage);
-    
+
     // 번호 페이지
-    for(let i=pagination.startPage; i <= pagination.endPage; i++){
+    for (let i = pagination.startPage; i <= pagination.endPage; i++) {
 
         const numPage = document.createElement('li');
 
-        if(i == pagination.currentPage){
+        if (i == pagination.currentPage) {
             makePageBox(numPage, i, i, 'current-page-box');
         } else {
             makePageBox(numPage, i, i, 'page-box');
@@ -467,7 +475,7 @@ const printPagination = (adminPaginationArea, pagination) => {
 // -- jsp
 // optimize : 페이지박스 각각에 cp 값 추가 + 전체 회원 조회
 const pageBox = document.getElementsByClassName("page-box");
-for(let page of pageBox){
+for (let page of pageBox) {
     page.addEventListener('click', () => {
         let cp = page.id;
         selectSellerList(cp);
@@ -479,7 +487,7 @@ for(let page of pageBox){
 //optimize: 페이지네이션 박스 클릭하면, 전체 회원 조회 
 const selectSellerListEvent = (element, cp) => {
     element.addEventListener('click', () => {
-        numCount = (cp-1)*10;
+        numCount = (cp - 1) * 10;
         selectSellerList(cp);
     })
 }
@@ -491,7 +499,7 @@ const authListRow = document.getElementsByClassName('auth-list-row');
 // const hiddenMemberId = document.getElementsByClassName('hidden-memberId');
 const hiddenMemberNo = document.getElementsByClassName('hidden-memberNo');
 
-for(let i=0; i<authListRow.length; i++){
+for (let i = 0; i < authListRow.length; i++) {
     authListRow[i].addEventListener('click', () => {
         // hiddenId = hiddenMemberId[i].value;
         // selectAuthPaper(hiddenId);
@@ -508,22 +516,22 @@ const watingSellerBtn = document.getElementById('watingSellerBtn'); // 인증 �
 const allSellerBtn = document.getElementById('allSellerBtn'); // 전체 판매자 보기
 
 watingSellerBtn.addEventListener('click', () => {
-    numCount = (cp-1)*15;
+    numCount = (cp - 1) * 15;
     sellerFilter = '0';
     selectSellerList();
 
     watingSellerBtn.style.display = 'none';
-    allSellerBtn.style.display = 'block'; 
+    allSellerBtn.style.display = 'block';
 })
 
 
-allSellerBtn.addEventListener('click', () => { 
-    numCount = (cp-1)*15;
+allSellerBtn.addEventListener('click', () => {
+    numCount = (cp - 1) * 15;
     sellerFilter = '1';
     selectSellerList();
 
     allSellerBtn.style.display = 'none';
-    watingSellerBtn.style.display ='flex';
+    watingSellerBtn.style.display = 'flex';
 })
 
 
@@ -532,14 +540,14 @@ allSellerBtn.addEventListener('click', () => {
 // todo: 판매자 승인 / 보류
 // 승인 
 document.getElementById('authApproveBtn').addEventListener('click', () => {
-    
+
     $.ajax({
         url: '/admin/sellerApprove',
-        data: {"hiddenNo": hiddenNo},
+        data: { "hiddenNo": hiddenNo },
         type: 'POST',
         success: (result) => {
 
-            if(result > 0){
+            if (result > 0) {
                 adminModalClose();
 
                 selectSellerList(cp);
@@ -559,22 +567,24 @@ document.getElementById('authApproveBtn').addEventListener('click', () => {
 
 // todo: 보류
 document.getElementById('denyBtn').addEventListener('click', () => {
-    
+
     const denyReason = document.getElementById('denyReason').value;
 
     $.ajax({
         url: '/admin/sellerDeny',
-        data: {"hiddenNo": hiddenNo,
-                "denyReason": denyReason},
+        data: {
+            "hiddenNo": hiddenNo,
+            "denyReason": denyReason
+        },
         type: 'POST',
         success: (result) => {
-    
-            if(result > 0){
+
+            if (result > 0) {
                 adminModalClose();
-    
+
                 selectSellerList(cp);
                 selectAuthPaper(hiddenNo);
-    
+
                 console.log("거절 완료");
                 messageModalOpen("판매자 인증이 보류되었습니다.");
             }
@@ -584,7 +594,7 @@ document.getElementById('denyBtn').addEventListener('click', () => {
         }
     })
 
-}) 
+})
 
 
 
@@ -601,14 +611,14 @@ document.getElementById("adminMemberkeyword").addEventListener('keydown', (e) =>
 
     const keyCode = e.keyCode;
 
-    if(keyCode == 13){  // 엔터키
+    if (keyCode == 13) {  // 엔터키
         doSearch();
-    } 
+    }
 })
 
 // 검색하는 함수
 const doSearch = () => {
-    numCount = (cp-1)*10;  //순번 정렬
+    numCount = (cp - 1) * 10;  //순번 정렬
     keyword = document.getElementById("adminMemberkeyword").value; // 입력한 검색어 
     selectSellerList(cp);
 }
@@ -633,8 +643,8 @@ const doSearch = () => {
 
 // jsp 첫 페이지  글자 자르기
 const sId = document.getElementsByClassName("sId");
-for(let i=0; i<sId.length; i++){
-    if(sId[i].innerText.length > 9){
+for (let i = 0; i < sId.length; i++) {
+    if (sId[i].innerText.length > 9) {
         sId[i].innerText = sId[i].innerText.substring(0, 9) + '...';
     } else {
         sId[i].innerText;
@@ -642,8 +652,8 @@ for(let i=0; i<sId.length; i++){
 }
 
 const sNickname = document.getElementsByClassName("sNickname");
-for(let i=0; i<sNickname.length; i++){
-    if(sNickname[i].innerText.length > 9){
+for (let i = 0; i < sNickname.length; i++) {
+    if (sNickname[i].innerText.length > 9) {
         sNickname[i].innerText = sNickname[i].innerText.substring(0, 9) + '...';
     } else {
         sNickname[i].innerText;
@@ -651,8 +661,8 @@ for(let i=0; i<sNickname.length; i++){
 }
 
 const sAddress = document.getElementsByClassName("sAddress");
-for(let i=0; i<sAddress.length; i++){
-    if(sAddress[i].innerText.length > 24){
+for (let i = 0; i < sAddress.length; i++) {
+    if (sAddress[i].innerText.length > 24) {
         sAddress[i].innerText = sAddress[i].innerText.substring(0, 24) + '...';
     } else {
         sAddress[i].innerText;
@@ -676,7 +686,7 @@ for(let i=0; i<sAddress.length; i++){
 // todo: 보류된 경우, 회원한테 사진을 다시 받았다면, 사진 등록해주기
 // input type="file"은 꾸밀 수가 없기 때문에
 // label 타입으로 클릭을 대신하고
-// input 태그는 숨기자
+// input 태그는 숨기기
 const updateFarmImg = document.getElementById('updateFarmImg');
 
 
@@ -704,26 +714,28 @@ document.getElementById('submitBtn').addEventListener('click', () => {
     formData.append("memberNo", hiddenNo);  // 추가 파라미터 삽입
     formData.append("farmImg", document.getElementById('updateFarmImg').files[0]);  // 실제 input file 데이터 삽입
     console.log("hiddenNo: " + hiddenNo);
-    
+
     $.ajax({
         url: "/admin/sellerAuth/updateImage",
-        data: formData,  
+        data: formData,
         type: "POST",
         enctype: "multipart/form-data",
         processData: false,  // 프로세스 데이터 설정 : 반드시 false로 해야 formData값을 인식함!
         contentType: false,  // 헤더의 ContentType을 설정 : false로 해야 formData값을 인식함.
         success: (result) => {
-
-            if(result > 0){
-
-                //fixme: 여기 아래 적용이 안됨.
+            if (result > 0) {
+                document.getElementById('updateFarmImgDiv').style.display = 'none';
+                
+                //fixme: 여기 아래 적용이 안됨. -> 파일 올리면 자동으로 새로고침이 됨.
+                // fix: button type button 으로 바꾸고 해결
                 selectSellerList(cp);
                 selectAuthPaper(hiddenNo);
-
-                console.log("판매자 인증 사진 업데이트");
-
-                //fixme: 너무 빨리 떠서 느리게 했지만 먹히지 않음.
-                // setTimeOut(() => messageModalOpen("인증 사진이 업데이트 되었습니다."), 1000);
+          
+                // sessionStorage.setItem("updateImg", 1);
+                // sessionStorage.setItem("hiddenNo", hiddenNo);
+                // window.name = hiddenNo;
+                
+                // // setTimeOut(() => messageModalOpen("인증 사진이 업데이트 되었습니다."), 1000);
                 messageModalOpen("인증 사진이 업데이트 되었습니다.")
             }
         },
@@ -731,16 +743,25 @@ document.getElementById('submitBtn').addEventListener('click', () => {
             console.log("판매자 인증 사진 업데이트 실패");
         }
     })
-
 })
 
 
+// 이미지 업데이트 후 인증신청서 조회하기
+// if(sessionStorage.getItem("updateImg") == 1){
+//     // hiddenNo = window.name;
+//     hiddenNo = sessionStorage.getItem("hiddenNo");
+//     console.log("hiddenNo : "+ hiddenNo);
 
+//     selectSellerList(cp);
+//     selectAuthPaper(hiddenNo);
+//     messageModalOpen("인증 사진이 업데이트 되었습니다.")
 
+//     console.log("판매자 인증 사진 업데이트");
 
-
-
-
+//     // 원래대로 돌려놓기
+//     sessionStorage.setItem("updateImg", 0);
+//     hiddenNo = 0;
+// }
 
 
 

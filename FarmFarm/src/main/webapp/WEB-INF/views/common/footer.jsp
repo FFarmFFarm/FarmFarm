@@ -5,13 +5,15 @@
         <div class="footer-btn">
             <!-- <a id="chatWidget"> -->
                 <!-- <button type="button" id="showChatWidget"> -->
-                <button type="button" class="btn-chat">
-                    <i class="fa-solid fa-comment-dots go-to-top-icon"></i>
-                    <div id="chatAlarmDot">
-                        <i class="fa-solid fa-circle"></i>
-                    </div>
-                </button>
-                <jsp:include page="/WEB-INF/views/chat2/chatWidget.jsp"/>
+                <c:if test="${loginMember.authority == 0 || loginMember.authority == 1}">
+                    <button type="button" class="btn-chat">
+                        <i class="fa-solid fa-comment-dots go-to-top-icon"></i>
+                        <div id="chatAlarmDot">
+                            <i class="fa-solid fa-circle"></i>
+                        </div>
+                    </button>
+                    <jsp:include page="/WEB-INF/views/chat2/chatWidget.jsp"/>
+                </c:if>
             <!-- </a> -->
             <a href="#">
                 <button type="button" class="btn-go-to-top" id="top_btn">
