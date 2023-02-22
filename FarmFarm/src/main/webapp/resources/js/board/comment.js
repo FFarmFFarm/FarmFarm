@@ -9,15 +9,15 @@ function selectCommentList(){
 
             console.log(coList);
 
-            // 댓글이 없다면!
+            // 댓글이 없다면
             if(coList.length == 0){
                 commentWriter.classList.add("emptyComment");
                 commentWriter.innerText = "첫 번째 댓글을 달아보세요";
                 
-            }else{ // 댓글이 있따면!!
+            }else{ // 댓글이 있다면
                 
                 
-                // 화면에 나온 댓글들을 싹 지웁니다
+                // 화면에 나온 댓글들을 지우기
                 const commentArea1 = document.querySelector(".comment-area");
                 commentArea1.innerHTML="";
 
@@ -74,7 +74,7 @@ function selectCommentList(){
 
                 const commentList = document.createElement("ul");
                 commentList.classList.add("comment-list");
-                // coList 요소들을 하나씩 꺼내볼까요~?
+                // coList 요소들을 하나씩 꺼내보기
                 for(let comment of coList){
                     
                     commentCount.innerText = "댓글 "+comment.commentCount;
@@ -82,7 +82,6 @@ function selectCommentList(){
                     const commentRow = document.createElement("li");
                     commentRow.classList.add("comment-row");
                     commentRow.setAttribute("id", "co" + comment.commentNo);
-        
                     
                     // 댓글 작성자의 인적사항
                     const commentWriter = document.createElement("div");
@@ -99,7 +98,6 @@ function selectCommentList(){
                     writerProfile.classList.add("writer-profile");
                     const profileImage = document.createElement("img");
                     profileImage.classList.add("proImg");
-                    // profileImage.setAttribute("onclick", "selectMember("+comment.memberNo+")");
                     profileImage.setAttribute("id", comment.memberNo);
                     if(comment.profileImg != null){ // 등록된 프로필 이미지 있음
                         profileImage.setAttribute("src", comment.profileImg);
@@ -112,10 +110,6 @@ function selectCommentList(){
                     writerName.classList.add("writer-name");
                     writerName.innerText = comment.memberNickname;
                     writerName.setAttribute("id", comment.memberNo);
-    
-                    // // 댓글 좋아용~
-                    // const commentLike = document.createElement("div");
-                    // commentLike.classList.add("comment-like");
     
                     // 댓글 내용 부분
                     const commentArea = document.createElement("div");
@@ -184,7 +178,6 @@ function selectCommentList(){
 
     
                     // 자~ append 해볼까
-
                     
                     commentWrite.append(commentForm);
                     commentForm.append(writeComment, commentSide);
@@ -297,18 +290,16 @@ const commentFunction=(checkok)=>{
 
     const writeComment = document.querySelector(".write-comment");
 
-
-
         // 1. 로그인이 되었는가
     
-        // 댓글 작성이 됐는지 확인을 해볼까요~?
+        // 댓글 작성이 됐는지 확인
         if(writeComment.value.trim().length == 0){
             messageModalOpen("댓글을 작성해주세요.");
             writeComment.value="";
             writeComment.focus();
             // e.preventDefault();
         }else{
-            // ajax로 댓글을 삽입해봅시다!
+            // ajax로 댓글을 삽입
             $.ajax({
                 url : "/board/comment/insert",
                 data : {"boardNo" : boardNo,
@@ -323,9 +314,9 @@ const commentFunction=(checkok)=>{
                         ringCommentNotify('board', 201, boardNo, writeComment.value, result);
 
                         messageModalOpen("댓글이 등록되었습니다.");
-                        writeComment.value=""; // 작성한 댓글 없애주기
-                        selectCommentList(); // 다시 ajax로 불러옵시다!
-                        // 댓글을 등록 시 스크롤 이동!! 
+                        writeComment.value=""; // 작성한 댓글 없애기
+                        selectCommentList(); // 다시 ajax로 불러오기
+                        // 댓글을 등록 시 스크롤 이동
                         window.scrollTo(0, document.querySelector('body').scrollHeight);
 
                     }else{
@@ -339,68 +330,66 @@ const commentFunction=(checkok)=>{
             });
 
         }
-    // });
     
 }
 
 
-// 답글 달기 해보자!
-// 답글 달기를 누르면 답글 다는 박스가 새로 생겨야 돼.
+// 답글 달기
 const showReply = (parentNo, btn)=>{
 
     // 답글 작성 중 다른 답글을 작성하고자 할 때
-    // 임시로 하나 만들어준거야
+    // 임시로 하나 만들어줌.
     const temp = document.getElementsByClassName("comment-co-content")
     if(temp.length > 0){
 
-        // 다른 답글에 다시 달래 했을 때 밑의 모든 자식들을 지워줄거야
+        // 다른 답글에 다시 달래 했을 때 밑의 모든 자식들을 지우기
         if(confirm("다른 답글을 작성 중입니다. 현재 답글에 작성하시겠습니까?")){
             temp[0].nextElementSibling.remove();
             temp[0].remove();
         }else{
-            // 아니라면 그냥 함수를 종료 시켜줄거야
+            // 아니라면 그냥 함수를 종료
             return;
         }
     }
-        // 답글을 작성할 부분들을 만들어 볼까요~?
+        // 답글을 작성할 부분들을 만들기
 
-        // 답글에 언급 시 넣어줄 닉네임을 얻어와볼까요!?
+        // 답글에 언급 시 넣어줄 닉네임 얻어오기
         const nicknameDiv = btn.parentElement;
         const nickname = nicknameDiv.id;
 
-        // textarea를 만들어볼게요~
+        // textarea를 만들어보기
         const textarea = document.createElement("textarea");
         textarea.classList.add("comment-co-content");
         textarea.setAttribute("spellcheck", "false");
         textarea.focus();
         textarea.value = "@"+nickname+" ";
 
-        // btn의 부모 요소 다음에 추가 해볼까요?
+        // btn의 부모 요소 다음에 추가
         btn.parentElement.after(textarea);
 
-        // 버튼들을 감쌀 div태그를 만들어볼게요
+        // 버튼들을 감쌀 div태그를 만들기
         const btnArea = document.createElement("div");
         // btnArea.classList.add("co-btn-area");
         
-        // 답글 보내기 버튼~
+        // 답글 보내기 버튼
         const sendCo  = document.createElement("button");
         sendCo.classList.add("send-co");
         sendCo.innerText = "답글 보내기";
         sendCo.setAttribute("onclick", "sendCo("+parentNo+", this)");
         
-        // 답글 취소 버튼~
+        // 답글 취소 버튼
         const cancleCo = document.createElement("button");
         cancleCo.classList.add("cancle-co");
         cancleCo.innerText = "취소";
         cancleCo.setAttribute("onclick", "cancleCo(this)");
         
-        // 버튼 공간에 버튼들을 넣어줄까요?
+        // 버튼 공간에 버튼 넣기
         btnArea.append(sendCo, cancleCo);
         
-        // 버튼 공간을 textarea다음에 넣어줘요~
+        // 버튼 공간을 textarea다음에 넣기
         textarea.after(btnArea);
         
-        // 자식인지 부모인지 확인을 해보고 textarea 크기를 따로 지정을 해주자~
+        // 자식인지 부모인지 확인을 해보고 textarea 크기를 따로 지정
         const commentRow = btn.parentElement.previousElementSibling;
         if(commentRow.classList.contains("child-content")){
             textarea.classList.add("ch-textarea");
@@ -412,18 +401,18 @@ const showReply = (parentNo, btn)=>{
         textarea.focus();
 }
 
-// 답글 취소를 누르면 없어지게 만들어보아요~~
+// 답글 취소를 누르면 없어지게 만들기
 function cancleCo(btn){
-    // 취소 버튼의 부모의 전 요소를 지워요
+    // 취소 버튼의 부모의 전 요소를 지우기
     btn.parentElement.previousElementSibling.remove();
-    // 취소 버튼의 부모를 지워요
+    // 취소 버튼의 부모를 지우기
     btn.parentElement.remove();
 }
 
-// 답글을 보내봐요~
+// 답글 보내기
 function sendCo(parentNo, btn){
 
-    // textarea 값을 지정해줄까요?
+    // textarea 값을 지정
     const textarea = btn.parentElement.previousElementSibling;
 
     // 원 댓글의 비밀댓글
@@ -443,19 +432,18 @@ function sendCo(parentNo, btn){
         console.log("존재해");
     }
 
-    // textarea의 값을 저장합니다.
+    // textarea의 값을 저장
     const commentContent = textarea.value;
     console.log(commentContent);
 
     if(commentContent.trim().length == 0){
         messageModalOpen("답글이 작성되지 않았어요. 답글을 작성해주세요.");
-        // alert("답글이 작성되지 않았어요. 답글을 작성해주세요");
         textarea.value="";
         textarea.focus();
         return;
     }
 
-    // ajax를 이용해서 답글을 등록해볼까요!
+    // ajax를 이용해서 답글을 등록
     $.ajax({
         url : "/board/comment/insert",
         data : {"boardNo" : boardNo,
@@ -470,7 +458,6 @@ function sendCo(parentNo, btn){
                 ringCommentNotify('comment', 202, parentNo, commentContent, result);
 
                 messageModalOpen("답글이 등록됐습니다.");
-                // alert("답글이 등록됐습니다.");
                 selectCommentList();
             }else{
                 alert("답글 등록 시류ㅐㅠㅠㅠㅜㅠㅜ");
@@ -485,14 +472,14 @@ function sendCo(parentNo, btn){
 
 
 
-// 댓글 수정 화면으로 바꿔 볼까요~?
+// 댓글 수정 화면 바꾸기
 
-// 수정 전 원래 모양을 저장합니다~
+// 수정 전 원래 모양을 저장
 let beforeCommentARea; 
 
 function showUpdateComment(commentNo, btn){
 
-    // 댓글 수정은 하나만 되야 하니까 임시로 만들어줘볼까?
+    // 댓글 수정은 하나만 되야 하니까 임시로 만들기
     const temp = document.getElementsByClassName("update-textarea");
 
     if(temp.length > 0){
@@ -509,24 +496,23 @@ function showUpdateComment(commentNo, btn){
     // 댓글 수정이 클릭 댓글 내용 나오는 부분
     const commentArea = btn.parentElement.parentElement;
 
-    // 댓글 수정 시 원래 내용을 저장해볼까요?
+    // 댓글 수정 시 원래 내용을 저장
     beforeCommentARea = commentArea.innerHTML;
 
-    // 댓글에 작성 되었떤 내용을을 얻어와볼까
+    // 댓글에 작성 되었던 내용 얻어오기
     let beforeContent  = btn.parentElement.previousElementSibling.innerHTML;
     let beforeContentDiv  = btn.parentElement.previousElementSibling;
 
-    // 댓글 부분을 싹 지워줍니다.
+    // 댓글 부분 지우기
     commentArea.innerHTML = "";
 
-    // 이들을 감싸고 있는 div를 만들어보자
+    // 이들을 감싸고 있는 div를 만들기
     const commentContent = document.createElement("div");
     commentContent.classList.add("comment-content");
 
-    // textarea 만들어주고 클래스도 추가해주자
+    // textarea 만들어주고 클래스도 추가
     const paTextarea  = document.createElement("textarea");
     paTextarea.setAttribute("spellcheck", "false");
-    // paTextarea.classList.add("update-textarea");
     // 자식이면
     if(commentRow.classList.contains("comment-child")){
         paTextarea.classList.add("update-child");
@@ -580,7 +566,7 @@ function showUpdateComment(commentNo, btn){
 
 };
 
-// 댓글 수정 취소를 해볼까요,,,,,
+// 댓글 수정 취소
 function deleteCancle(btn){
     if(confirm("댓글 수정을 취소하시겠습니까?")){
         btn.parentElement.parentElement.parentElement.innerHTML = beforeCommentARea;
@@ -588,7 +574,7 @@ function deleteCancle(btn){
 }
 
 
-// 댓글 수정을 해볼까요....
+// 댓글 수정
 function updateComment(commentNo, btn){
 
     const commentContent = btn.parentElement.previousElementSibling.value;
@@ -602,7 +588,6 @@ function updateComment(commentNo, btn){
 
             if(result>0){
                 messageModalOpen("댓글이 수정되었습니다.");
-                // alert("댓글이 수정되었습니다.");
                 selectCommentList();
             }else{
                 alert("댓글 수정 실패ㅜㅠ");
@@ -615,7 +600,7 @@ function updateComment(commentNo, btn){
 }
 
 
-// 댓글 삭제를 해봅시다!! 
+// 댓글 삭제
 const deleteComment = (commentNo)=>{
     
     if(confirm("댓글을 삭제하시겠습니까?")){
@@ -626,7 +611,6 @@ const deleteComment = (commentNo)=>{
             success : result=>{
                 if(result>0){
                     messageModalOpen("댓글이 삭제되었습니다.");
-                    // alert("댓글이 삭제되었습니다.");
                     selectCommentList();
                 }else{
                     alert("댓글 삭제 시류ㅐㅜㅠ");
@@ -648,7 +632,6 @@ const adDeleteComment = (commentNo)=>{
             success : result=>{
                 if(result>0){
                     messageModalOpen("댓글이 삭제되었습니다.");
-                    // alert("댓글이 삭제되었습니다.");
                     selectCommentList();
                 }else{
                     alert("댓글 삭제 시류ㅐㅜㅠ");
@@ -663,7 +646,7 @@ const adDeleteComment = (commentNo)=>{
 
 
 
-/* 댓글 알림을 발생시킬 수 있는 함수입니다. */
+/* 댓글 알림을 발생시킬 수 있는 함수 */
 const ringCommentNotify = (type, typeNo, inputNo, inputComment, commentNo) => {
 
     /* 댓글 알림 */
@@ -734,17 +717,3 @@ lockCheck.addEventListener("change", (e)=>{
         console.log("no");
     }
 });
-
-
-// window.addEventListener("click", e=>{
-//     let target = e.target;
-//     console.log(target);
-//     // let temp = target.id;
-//     // console.log("temp:"+temp);
-
-//     // if(temp == "co"+570){
-//     //     console.log("yeah");
-//     // }else{
-//     //     console.log("oh NO");
-//     // }
-// })

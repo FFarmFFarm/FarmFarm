@@ -1,5 +1,5 @@
 
-// 해당 게시판에 언더바 나오게 하기~
+// 해당 게시판에 언더바 나오게하기
 const type1 = document.getElementById("type1");
 const type2 = document.getElementById("type2");
 const type3 = document.getElementById("type3");
@@ -25,7 +25,7 @@ const updateImg = document.getElementsByClassName("board-input-img");
 const updatePrev = document.getElementsByClassName("board-preview");
 const updateImgDelete = document.getElementsByClassName("board-img-delete");
 
-// 기존에 있다가 삭제된 이미지의 순서를 기록합니다
+// 기존에 있다가 삭제된 이미지의 순서 기록
 const deleteSet = new Set();
 
 for(let i=0; i<updateImg.length; i++){
@@ -38,17 +38,17 @@ for(let i=0; i<updateImg.length; i++){
             // 파일 읽는 객체입니다.
             const reader = new FileReader();
     
-            // 자 파일을 읽어서 url에 저장을 해볼까요?
+            // 자 파일을 읽어서 url에 저장
             reader.readAsDataURL(e.target.files[0]);
     
             reader.onload = ee =>{
                 updatePrev[i].setAttribute("src", ee.target.result);
     
-                // 미리보기가 추가 되었으니 deleteSet에서 삭제를 해볼까요?
+                // 미리보기가 추가 되었으니 deleteSet에서 삭제
                 deleteSet.delete(i);
             }
 
-        }else{ // 취소를 눌러서 업로드 된 미리보기를 지웁니다...
+        }else{ // 취소를 눌러서 업로드 된 미리보기를 지우기
             updatePrev[i].removeAttribute("src");
         }
     });
@@ -56,7 +56,7 @@ for(let i=0; i<updateImg.length; i++){
     // 삭제 버튼을 눌렀을 경우
     updateImgDelete[i].addEventListener("click", ()=>{
 
-        // 미리보기에 이미지가 있을 경우에만 삭제해야겠지?
+        // 미리보기에 이미지가 있을 경우에만 삭제
         if(updatePrev[i].getAttribute("src") != ""){
 
             // 미리보기 삭제하기
@@ -73,7 +73,7 @@ for(let i=0; i<updateImg.length; i++){
 
 
 
-// 수정하기 버튼 누르기 전 검사!
+// 수정하기 버튼 누르기 전 검사
 const boardUpdate = document.querySelector(".board-update");
 
 boardUpdate.addEventListener("click", e=>{
@@ -91,7 +91,7 @@ boardUpdate.addEventListener("click", e=>{
         e.preventDefault();
     }
 
-    // 삭제된 이미지를 deleteImgList에 저장해볼까요?
+    // 삭제된 이미지를 deleteImgList에 저장
     document.getElementById("deleteImgList").value=Array.from(deleteSet);
 
     confirm("정말 수정하시겠습니까?");
