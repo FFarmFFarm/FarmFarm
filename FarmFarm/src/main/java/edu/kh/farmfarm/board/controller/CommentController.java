@@ -23,7 +23,7 @@ public class CommentController {
 	private CommentService serivce;
 	
 	
-	// 댓글 불러오기~
+	// 댓글 불러오기
 	@GetMapping("/board/comment/list")
 	public String commentList( int boardNo) {
 		List<Comment> coList = serivce.commentList(boardNo);
@@ -31,7 +31,7 @@ public class CommentController {
 	}
 	
 	
-	// 댓글 추가하기~
+	// 댓글 추가
 	@PostMapping("/board/comment/insert")
 	public int commentWrite(Comment comment,
 			@RequestParam(value="checkok", required = false, defaultValue="0") int checkok) {
@@ -46,7 +46,7 @@ public class CommentController {
 	}
 	
 	
-	// 댓글을 수정해볼까??
+	// 댓글을 수정
 	@PostMapping("/board/comment/update")
 	public int commentUpdate(Comment comment) {
 		return serivce.commentUpdate(comment);
@@ -54,7 +54,7 @@ public class CommentController {
 	
 	
 	
-	// 댓글을 삭제해봅시다!!
+	// 댓글을 삭제
 	@GetMapping("/board/comment/delete")
 	public int commentDelete(Comment comment) {
 		return serivce.commentDelete(comment);

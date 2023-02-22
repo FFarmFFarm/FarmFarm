@@ -3,7 +3,6 @@
     if(loginMember == ""){
     loginConfirmOpen();
     e.preventDefault();
-    // alert("로그인해라ㅡㅡ");
 }
 })();
 
@@ -53,7 +52,6 @@ for(let i=0; i<inputImg.length; i++){
         }
     });
 }
-
 
 
 const inputTitle = document.querySelector(".input-write-title");
