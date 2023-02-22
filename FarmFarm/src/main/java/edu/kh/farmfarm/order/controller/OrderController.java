@@ -51,6 +51,13 @@ public class OrderController {
 	private OrderService service;
 	
 	
+	/** 반품 신청
+	 * @param returnInfo
+	 * @param pList
+	 * @param referer
+	 * @param ra
+	 * @return
+	 */
 	@PostMapping("/return/{orderNo}")
 	public String returnOrder(Return returnInfo, ProductList pList, 
 			@RequestHeader(value = "referer") String referer, RedirectAttributes ra) {
@@ -76,6 +83,12 @@ public class OrderController {
 		return "redirect:" + path;
 	}
 	
+	
+	/** 주문서로 이동
+	 * @param pList
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("/orderPage")
 	public String orderPage(ProductList pList, Model model) {
 		
@@ -94,24 +107,24 @@ public class OrderController {
 	
 	
 	
+
 	/** 주문하기
 	 * @param order
 	 * @param pList
 	 * @param referer
 	 * @param loginMember
 	 * @param ra
-	 * @param impUid
-	 * @return
 	 * @throws IOException
 	 */
 	@PostMapping("/order")
 	public String order(Order order, ProductList pList, @RequestHeader("referer")String referer,
 			@SessionAttribute("loginMember")Member loginMember,
 			RedirectAttributes ra) throws IOException {
-		
 
+//		사용자 번호 얻어오기
 		order.setMemberNo(loginMember.getMemberNo());
 		
+//		주문정보와 주문할 상품목록을 매개변수로 하여 주문 내역 DB에 저장
 		int result = service.orderProduct(order, pList.getPList());
 		
 		String path = null;

@@ -93,11 +93,14 @@ public class OrderDAO {
 	 * @return
 	 */
 	public int orderCancel(int orderNo) {
+		// 주문 내역에 취소 정보 업데이트
 		int result = sqlSession.update("orderMapper.orderCancel", orderNo);
 		
 		if(result > 0) {
+			// 취소할 주문의 상품 목록 조회
 			List<Product> productList = sqlSession.selectList("orderMapper.cancelProductList", orderNo);
 			
+			// 취소한 모든 상품에 대한 취소 내역 추가
 			for(Product p : productList) {
 				
 				sqlSession.insert("orderMapper.cancelHistory", p);
@@ -106,11 +109,14 @@ public class OrderDAO {
 		
 		return result;
 	}
+	
+	
 
 	public Order selectImpUid(int orderNo) {
 		return sqlSession.selectOne("orderMapper.selectImpUid", orderNo);
 	}
 
+	
 	public int orderConfirm() {
 		return sqlSession.update("orderMapper.orderConfirm");
 	}
