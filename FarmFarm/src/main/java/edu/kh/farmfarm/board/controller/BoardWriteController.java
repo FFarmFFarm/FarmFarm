@@ -65,8 +65,6 @@ public class BoardWriteController {
 		String path = null;
 		String message = null;
 		
-//		int typeNo = board.getBoardTypeNo();
-		
 		if(boardNo > 0) {
 			message="게시글이 등록되었습니다.";
 			path = "/board/"+boardTypeNo+"/"+boardNo;
