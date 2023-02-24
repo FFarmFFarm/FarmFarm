@@ -42,12 +42,6 @@ goList.addEventListener("click", ()=>{
         sortt = "new";
     }
     
-    
-    console.log("목록으로 cp : "+cpp);
-    console.log("목록으로 key : "+keyy);
-    console.log("목록으로 query : "+queryy);
-    console.log("목록으로 sort : "+sortt);
-    
     const url = pathname.substring(0, pathname.lastIndexOf("/"))+queryString;
     location.href = url;
 
