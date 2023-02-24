@@ -39,21 +39,21 @@ public class BoardDetailServiceImpl implements BoardDetailService{
 	
 	
 	
-	// 게시글 좋아요 취소ㅠ
+	// 게시글 좋아요 취소
 	@Override
 	public int boardLikeDelete(Map<String, Object> likeMap) {
 		return dao.boardLikeDelete(likeMap);
 	}
 
 
-	// 게시글 좋아요~
+	// 게시글 좋아요
 	@Override
 	public int boardLikeInsert(Map<String, Object> likeMap) {
 		return dao.boardLikeInsert(likeMap);
 	}
 
 
-	// 조회수 증가~
+	// 조회수 증가
 	@Override
 	public int updateBoardView(int boardNo) {
 		return dao.updateBoardView(boardNo);
@@ -83,7 +83,7 @@ public class BoardDetailServiceImpl implements BoardDetailService{
 		// 게시글이 정상적으로 수정 되었습니다.
 		if(result>0) {
 			
-			// 삭제된 이미지가 있다면!
+			// 삭제된 이미지있음.
 			if(!deleteImgList.equals("")) {
 				
 				String condition = "WHERE BOARD_NO = " + board.getBoardNo() 
@@ -91,19 +91,19 @@ public class BoardDetailServiceImpl implements BoardDetailService{
 				
 				result = dao.updateDeleteImg(condition);
 				
-				// 이미지 삭제 실패...
+				// 이미지 삭제 실패
 				if(result == 0) {
 					throw new BoardUpdateException("이미지 삭제 실패");
 				}
 			} // if 끝
 			
-			// 새로운 이미지 삽입을 해볼까요~?
+			// 새로운 이미지 삽입
 			List<BoardImg> boardImgList = new ArrayList<BoardImg>();
 			List<String> renameList = new ArrayList<String>();
 			
 			for(int i=0; i<imgList.size(); i++) {
 				
-				if(imgList.get(i).getSize() > 0) { // 이미지가 있으면~
+				if(imgList.get(i).getSize() > 0) { // 이미지가 있으면
 					
 					BoardImg img = new BoardImg();
 					

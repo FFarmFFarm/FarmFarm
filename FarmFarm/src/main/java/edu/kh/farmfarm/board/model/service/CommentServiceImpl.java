@@ -16,14 +16,14 @@ public class CommentServiceImpl implements CommentService{
 	private CommentDAO dao;
 
 	
-	// 댓글 불러오기~~
+	// 댓글 불러오기
 	@Override
 	public List<Comment> commentList(int boardNo) {
 		return dao.commentList(boardNo);
 	}
 
 
-	// 댓글 추가하기~
+	// 댓글 추가하기
 	@Override
 	public int commentWrite(Comment comment) {
 		
@@ -59,7 +59,7 @@ public class CommentServiceImpl implements CommentService{
 	}
 
 
-	// 댓글 수정하기~~
+	// 댓글 수정하기
 	@Override
 	public int commentUpdate(Comment comment) {
 		
@@ -70,7 +70,7 @@ public class CommentServiceImpl implements CommentService{
 	}
 
 
-	// 댓글 삭제하기~~~
+	// 댓글 삭제하기
 	@Override
 	public int commentDelete(Comment comment) {
 		
