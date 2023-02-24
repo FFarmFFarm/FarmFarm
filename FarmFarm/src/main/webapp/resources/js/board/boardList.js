@@ -2,17 +2,10 @@ const boardSearch = document.querySelector(".board-search");
 
 if(boardSearch != null){
 
-    // 게시글 목록을 ajax로 불러와봅시다!
-    // 불러오는 부분을 만들어서 appen 시켜주기
-
-    // board-list-title의 원래 모양을 저장을 위한 변수선언
-    let beforeBoardListTitle;
-
     const showBoardList = (cp, sort, query, key)=>{
 
         // board-list-title의 원래 모양을 저장
         const boardListTitle = document.querySelector(".board-List-title");
-
 
         $.ajax({
             url : "/board/list/"+boardTypeNo,
@@ -46,7 +39,7 @@ if(boardSearch != null){
                 const boardListTop = document.querySelector(".board-list-top");
                 boardListTop.innerHTML = "";
 
-                // ul태그 부분을 만들어봅시당~
+                // ul태그 부분을 만들기
                 const boardListArea = document.createElement("ul");
                 boardListArea.classList.add("board-list-area")
             
@@ -67,7 +60,6 @@ if(boardSearch != null){
                         boardTitle.classList.add("board-title");
                         const goBoard = document.createElement("a");
                         goBoard.classList.add("goBoard");
-                        // goBoard.setAttribute("href", "/board/"+boardTypeNo+"/"+board.boardNo+"?cp="+pagination.currentPage+sURL+soURL);
                         goBoard.innerHTML = board.boardTitle+"&nbsp;("+board.commentCount+")";
                         boardTitle.append(goBoard);
                         
@@ -98,7 +90,7 @@ if(boardSearch != null){
                     }
                 }
 
-                // 페이지네이션 부분임돵
+                // 페이지네이션 부분
                 const boardWriteBottom = document.createElement("div");
                 boardWriteBottom.classList.add("board-write-bottom");
 
@@ -111,7 +103,6 @@ if(boardSearch != null){
                 firstLi.classList.add("pageLi");
                 const firstA = document.createElement("a");
                 firstA.setAttribute("href", "/board/"+boardTypeNo+"?cp=1"+sURL);
-                // firstA.setAttribute("href", "/board/"+boardTypeNo+"?cp=1"+sURL+soURL);
                 firstA.innerHTML = "&lt;&lt;";
                 firstLi.append(firstA);
                 
@@ -121,7 +112,6 @@ if(boardSearch != null){
                 prevLi.classList.add("pageLi");
                 const prevA = document.createElement("a");
                 prevA.setAttribute("href", "/board/"+boardTypeNo+"?cp="+pagination.prevPage+sURL);
-                // prevA.setAttribute("href", "/board/"+boardTypeNo+"?cp="+pagination.prevPage+sURL+soURL);
                 prevA.innerHTML = "&lt;";
                 prevLi.append(prevA);
                 
@@ -130,22 +120,20 @@ if(boardSearch != null){
                 nextLi.setAttribute("id", pagination.nextPage);
                 nextLi.classList.add("pageLi");
                 const nextA = document.createElement("a");
-                // nextA.setAttribute("href", "/board/"+boardTypeNo+"?cp="+pagination.nextPage+sURL+soURL);
                 nextA.setAttribute("href", "/board/"+boardTypeNo+"?cp="+pagination.nextPage+sURL);
                 nextA.innerHTML = "&gt;";
                 nextLi.append(nextA);
                 
-                // 끝 페이지로 이동동동
+                // 끝 페이지로 이동
                 const maxLi = document.createElement("li");
                 maxLi.setAttribute("id", pagination.maxPage);
                 maxLi.classList.add("pageLi");
                 const maxA = document.createElement("a");
                 maxA.setAttribute("href", "/board/"+boardTypeNo+"?cp="+pagination.maxPage+sURL);
-                // maxA.setAttribute("href", "/board/"+boardTypeNo+"?cp="+pagination.maxPage+sURL+soURL);
                 maxA.innerHTML = "&gt;&gt;";
                 maxLi.append(maxA);
                 
-                // 숫자가 나올 부분들임돵
+                // 숫자가 나올 부분
                 
                 boardPagination.append(firstLi, prevLi, nextLi, maxLi);
                 
@@ -162,7 +150,6 @@ if(boardSearch != null){
                     }else{
                         pageNumLi.setAttribute("id", i);
                         pageNumA.setAttribute("href", "/board/"+boardTypeNo+"?cp="+i+sURL)
-                        // pageNumA.setAttribute("href", "/board/"+boardTypeNo+"?cp="+i+sURL+soURL)
                         pageNumA.innerText=i;
                         pageNumLi.append(pageNumA);
                     }
@@ -193,7 +180,6 @@ if(boardSearch != null){
                     })
                 }
 
-                
                 const boardWriter = document.getElementsByClassName("board-writer");
                 if(boardWriter.length > 0){ 
             
@@ -227,7 +213,6 @@ if(boardSearch != null){
                     }
                 }
 
-
                 
                 // 페이지 선택 시
                 const pageLis = document.querySelectorAll(".pageLi > a");
@@ -259,7 +244,6 @@ if(boardSearch != null){
                         
                     })
 
-
                 }
                 urlChange(cp, sort, key, query);
                 console.log("확인해보자 cp : "+cp);
@@ -281,16 +265,6 @@ if(boardSearch != null){
             console.log("목록으로 key : "+key);
             console.log("목록으로 query : "+query);
             console.log("목록으로 sort : "+sort);
-
-        //     // if(key == null){
-        //     //     key == 't';
-        //     // }
-        //     // if(query == null){
-        //     //     query == "";
-        //     // }
-        //     // if(sort == null){
-        //     //     sort == 'new';
-        //     // }
 
             showBoardList(cp, sort, query, key);
         }
@@ -327,7 +301,6 @@ if(boardSearch != null){
     // 검색 시 검색어 유지시키기
     (()=>{
         const inputQuery = document.getElementById("inputQuery");
-        // const select = document.getElementById("search-key");
         const option = document.querySelectorAll("#search-key > option");
         
         if(inputQuery != null){
@@ -342,7 +315,6 @@ if(boardSearch != null){
 
                 // option의 value와 key가 일치할 때
                 if(op.value == key){
-                    // op.setAttribute("selected", true); // 밑에처럼 간단히 쓸 수도 있데
                     op.selected = true;
                 }
             }
@@ -443,7 +415,6 @@ if(boardSearch != null){
 
             console.log("1");
             
-            
             const cp = a.parentElement.id;
             
             if(sort == 'view'){
@@ -467,8 +438,6 @@ if(boardSearch != null){
             console.log("3");
 
             showBoardList(cp, sort, query, key);
-
-            // e.preventDefault();
 
         })
     };

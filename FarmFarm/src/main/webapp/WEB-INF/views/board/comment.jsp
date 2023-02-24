@@ -5,7 +5,6 @@
      <section class="comment-area">
             <div class="comment-count">댓글 ${board.commentCount}</div>
 
-            <%-- <form action="/comment/write/${boardNo}" class="comment-write"> --%>
             <div class="comment-write">
                 <div class="comment-form">
                     <textarea class="write-comment" name="commentContent" spellcheck="false" id=""></textarea>
@@ -19,12 +18,10 @@
                     </div>
                 </div>
             </div>
-            <%-- </form> --%>
 
             <ul class="comment-list">
                 <c:if test="${!empty board.commentList}">
                     <c:forEach var="comment" items="${board.commentList}">
-                        <%-- <li id="commentRow" class="comment-row  <c:if test="${comment.commentParent != 0 }"> comment-child </c:if>"> --%>
                         <li id="co${comment.commentNo}" class="comment-row  <c:if test="${comment.commentParent != 0 }"> comment-child </c:if>">
 
                             <div class="comment-writer">
@@ -70,12 +67,11 @@
                                 </c:choose>
                             </div>	
 
-                            <div class="content-area"> <%-- 댓글 나오는 부분들 등등 입니다~ --%>
+                            <div class="content-area"> <%-- 댓글 나오는 부분들 --%>
                                 <%-- 자식이라면~ --%>
                                 <c:choose>
                                     <%-- 자식이라면~ --%>
                                     <c:when test="${comment.commentParent > 0}">
-
 
                                         <c:choose>
                                             <c:when test="${comment.commentDelFl == 'S'}">
@@ -157,7 +153,7 @@
                                                 </c:if>
                                                 <c:if test="${loginMember.memberNo != comment.memberNo && loginMember.memberNo == board.memberNo}">
                                                     <button onclick="showReply(${comment.commentNo}, this)" class="comment-reply">| &nbsp;&nbsp;답글달기&nbsp;&nbsp;</button> 
-                                                    <c:if test="${not empty comment.memberNo}"> <!-- 여기 추가했습니다. -->
+                                                    <c:if test="${not empty comment.memberNo}">
                                                         <c:if test="${comment.memberNo != 0}"> 
                                                             <button type="button" class="comment-reply report-comment-btn" id="reportComment1">| &nbsp;&nbsp;신고하기&nbsp;&nbsp;</button> 
                                                             <input type="hidden" class="targetCommentNo" value="${comment.commentNo}">
@@ -165,12 +161,11 @@
                                                     </c:if>
                                                 </c:if>
                                                 <c:if test="${loginMember.memberNo == comment.parentNo && loginMember.memberNo != comment.memberNo}">
-                                                <%-- <c:if test="${loginMember.memberNo == comment.parentNo && loginMember.memberNo != board.memberNo}"> --%>
                                                     <button onclick="showReply(${comment.commentNo}, this)" class="comment-reply">| &nbsp;&nbsp;답글달기&nbsp;&nbsp;</button> 
-                                                    <c:if test="${not empty comment.memberNo}"> <!-- 여기 추가했습니다. -->
-                                                       <c:if test="${comment.memberNo != 0}"> 
-                                                           <button type="button" class="comment-reply report-comment-btn" id="reportComment2">| &nbsp;&nbsp;신고하기&nbsp;&nbsp;</button> 
-                                                           <input type="hidden" class="targetCommentNo" value="${comment.commentNo}">
+                                                    <c:if test="${not empty comment.memberNo}">
+                                                        <c:if test="${comment.memberNo != 0}"> 
+                                                            <button type="button" class="comment-reply report-comment-btn" id="reportComment2">| &nbsp;&nbsp;신고하기&nbsp;&nbsp;</button> 
+                                                            <input type="hidden" class="targetCommentNo" value="${comment.commentNo}">
                                                         </c:if>
                                                     </c:if>
                                                 </c:if>
@@ -184,7 +179,7 @@
                                                 </c:if>
                                                 <c:if test="${loginMember.memberNo != comment.memberNo  && comment.commentDelFl == 'N'}">
                                                     <button onclick="showReply(${comment.commentNo}, this)" class="comment-reply">| &nbsp;&nbsp;답글달기&nbsp;&nbsp;</button> 
-                                                    <c:if test="${not empty comment.memberNo}"> <!-- 여기 추가했습니다. -->
+                                                    <c:if test="${not empty comment.memberNo}">
                                                         <c:if test="${comment.memberNo != 0}"> 
                                                             <button type="button" class="comment-reply report-comment-btn" id="reportComment3">| &nbsp;&nbsp;신고하기&nbsp;&nbsp;</button> 
                                                             <input type="hidden" class="targetCommentNo" value="${comment.commentNo}">

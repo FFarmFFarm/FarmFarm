@@ -28,19 +28,19 @@ public class BoardDetailDAO {
 	}
 
 
-	// 게시글 좋아요 취소ㅜ
+	// 게시글 좋아요 취소
 	public int boardLikeDelete(Map<String, Object> likeMap) {
 		return sqlSession.delete("boardMapper.boardLikeDelete", likeMap);
 	}
 
 
-	// 게시글 좋아요~
+	// 게시글 좋아요
 	public int boardLikeInsert(Map<String, Object> likeMap) {
 		return sqlSession.insert("boardMapper.boardLikeInsert", likeMap);
 	}
 
 
-	// 조회수 증가~
+	// 조회수 증가
 	public int updateBoardView(int boardNo) {
 		return sqlSession.update("boardMapper.updateBoardView", boardNo);
 	}
@@ -70,7 +70,7 @@ public class BoardDetailDAO {
 	}
 
 
-	// 게시글 수정 - 이미지 삽입하기...
+	// 게시글 수정 - 이미지 삽입하기
 	public int boardImgInsert(BoardImg img) {
 		return sqlSession.insert("boardMapper.boardImgInsert", img);
 	}
