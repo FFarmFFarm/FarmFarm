@@ -23,17 +23,9 @@ if(boardSearch != null){
                 const query = boardMap.query;
                 const sort = boardMap.sort;
 
-                console.log(query);
-                console.log("ok");
-
                 let sURL;
 
                 sURL = "&key="+key+"&query="+query+"&sort="+sort;
-
-                console.log("확인해보자2 cp : "+cp);
-                console.log("확인해보자2 sort : "+sort);
-                console.log("확인해보자2 key : "+key);
-                console.log("확인해보자2 query : "+query);
 
                 // 리스트들을 감싸고 있는거 없애주기
                 const boardListTop = document.querySelector(".board-list-top");
@@ -236,9 +228,6 @@ if(boardSearch != null){
                             boardSort.innerHTML = "최신순 ";
                             showBoardList(cp, sort, query, key);
                         }
-                        console.log(cp);
-                        console.log(sort);
-                        console.log(query);
 
                         e.preventDefault();
                         
@@ -246,13 +235,9 @@ if(boardSearch != null){
 
                 }
                 urlChange(cp, sort, key, query);
-                console.log("확인해보자 cp : "+cp);
-                console.log("확인해보자 sort : "+sort);
-                console.log("확인해보자 key : "+key);
-                console.log("확인해보자 query : "+query);
             },
             error : ()=>{
-                alert("리스트 조회 ajax 통신 시류ㅐㅠㅜㅠㅜ");
+                alert("리스트 조회 ajax 통신 실패");
             }
         })
 
@@ -260,11 +245,6 @@ if(boardSearch != null){
 
     ///////////////////////////////////////////////////
         if(location.search != ""){
-
-            console.log("목록으로 cp : "+cp);
-            console.log("목록으로 key : "+key);
-            console.log("목록으로 query : "+query);
-            console.log("목록으로 sort : "+sort);
 
             showBoardList(cp, sort, query, key);
         }
@@ -319,11 +299,10 @@ if(boardSearch != null){
                 }
             }
 
-            console.log("key2:"+key);
         }
     })();
 
-    // 로그인안된 회원은 못가게 막아보자
+    // 로그인 안된 회원은 게시글 조회 안되게 이벤트 설정.
     const goBoard = document.getElementsByClassName("goBoard");
     for(let go of goBoard){
         go.addEventListener("click", e=>{
@@ -335,7 +314,7 @@ if(boardSearch != null){
     }
 
 
-    // 정렬을 누르면 밑에 정렬이 뜨게 만들어 볼까~~?
+    // 정렬을 누르면 밑에 정렬 항목이 뜨게 함.
     const boardNowSort = document.querySelector(".board-now-sort");
     const boardSelectSort = document.querySelector(".board-select-sort");
     boardNowSort.addEventListener("click", ()=>{
@@ -413,8 +392,6 @@ if(boardSearch != null){
     for(let a of pageLis){
         a.addEventListener("click", (e)=>{
 
-            console.log("1");
-            
             const cp = a.parentElement.id;
             
             if(sort == 'view'){
@@ -432,10 +409,6 @@ if(boardSearch != null){
                 boardSort.innerHTML = "최신순 ";
                 showBoardList(cp, sort, query, key);
             }
-            console.log("2");
-            console.log("cp"+cp);
-            console.log(sort);
-            console.log("3");
 
             showBoardList(cp, sort, query, key);
 

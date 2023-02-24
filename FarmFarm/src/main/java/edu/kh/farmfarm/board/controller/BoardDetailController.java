@@ -186,21 +186,48 @@ public class BoardDetailController {
 		
 	
 	
-	// 게시글 수정하기 페이지 이동
+	// 게시글 수정하기 페이지 이동 - 수정 전
+//	@GetMapping("/board/{boardTypeNo}/{boardNo}/update")
+//	public String boardUpdatePage(
+//			@PathVariable("boardTypeNo") int boardTypeNo,
+//			@PathVariable("boardNo") int boardNo,
+//			Model model) {
+//		
+//		Board board = serivce.boardDetail(boardNo);
+//		
+//		// 개행문자 처리
+//		board.setBoardContent(Util.newLineClear(board.getBoardContent()));
+//		
+//		model.addAttribute("board", board);
+//		
+//		return "board/boardUpdate";
+//	}
+	
+	// 게시글 수정하기 페이지 이동 - 수정 후
 	@GetMapping("/board/{boardTypeNo}/{boardNo}/update")
 	public String boardUpdatePage(
 			@PathVariable("boardTypeNo") int boardTypeNo,
 			@PathVariable("boardNo") int boardNo,
+			@SessionAttribute(value="loginMember", required = false) Member loginMember,
 			Model model) {
 		
 		Board board = serivce.boardDetail(boardNo);
+		String path = null;
 		
-		// 개행문자 처리
-		board.setBoardContent(Util.newLineClear(board.getBoardContent()));
+		int loginNo = loginMember.getMemberNo();
+		int boMemNo = board.getMemberNo();
 		
-		model.addAttribute("board", board);
+		if(loginNo == boMemNo) {
+			// 개행문자 처리
+			board.setBoardContent(Util.newLineClear(board.getBoardContent()));
+			
+			model.addAttribute("board", board);
+			path = "board/boardUpdate";
+		}else {
+			path = "common/error";
+		}
 		
-		return "board/boardUpdate";
+		return path;
 	}
 	
 	
