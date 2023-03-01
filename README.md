@@ -477,7 +477,7 @@ AND DUPL_FLAG = 1 <!--reportTargetNo가 같을 때 신고 타입 'M'인 경우�
 	
 <br>
 	
-<h4>(2) 회원 강제 탈퇴, 정지 / 게시글 삭제 등의 기능 구현</h4>
+<h4>(2) 회원 강제 탈퇴, 정지 / 게시글 삭제 등의 신고 처리 기능 구현</h4>
 	
 <details>
 <summary>신고처리 Service</summary>
