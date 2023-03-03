@@ -163,8 +163,8 @@ public class ReviewController {
 	 * @param reviewNo
 	 * @return result
 	 */
-	@DeleteMapping("/review/delete")
-	public int deleteReview(int reviewNo) {
+	@DeleteMapping("/review/{reviewNo}")
+	public int deleteReview(@PathVariable("reviewNo") int reviewNo) {
 		
 		return service.deleteReview(reviewNo);
 	}

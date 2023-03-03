@@ -426,7 +426,7 @@ const deleteReview = (reviewNo) => {
   //   }
   // })
 
-  axios.delete('/review/delete', { params: { "reviewNo": reviewNo } })
+  axios.delete('/review/' + reviewNo)
   .then((response) => {
     messageModalOpen("삭제되었습니다.");
     selectReviewList(1);
