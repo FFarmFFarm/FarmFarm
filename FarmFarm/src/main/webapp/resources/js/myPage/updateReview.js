@@ -157,7 +157,6 @@ for (let i = 0; i < inputFile.length; i++) {
         inputLabel[i].style.display = 'none';
         displayFlexNoLock(xBtn[i]);
 
-        deleteSet.delete(i);
 
       };
     } else {

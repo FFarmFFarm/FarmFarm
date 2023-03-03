@@ -488,16 +488,16 @@ button:disabled:active {
   width: fit-content;
   cursor: pointer;
   overflow: hidden;
-  width: 100px;
   height: 100px;
+  display: flex;
 }
 .review-one-img{
     border: none;
 }
 
 .review-img > img {
-    width: 100%;
-    height: 100%;
+    width: 100px;
+    height: 100px;
     object-fit: cover;
 }
 
