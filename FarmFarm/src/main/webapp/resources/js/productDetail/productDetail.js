@@ -1226,6 +1226,8 @@ const deleteSet = new Set();
 
 for (let i = 0; i < inputFile.length; i++) {
   inputFile[i].addEventListener('change', (e) => {
+    console.log("파일 변경 감지");
+
     const file = inputFile[i].files[0];
 
     if (file) {
@@ -1235,12 +1237,11 @@ for (let i = 0; i < inputFile.length; i++) {
 
       reader.onload = (e) => {
 
-        reviewImage[i].setAttribute('src', event.target.result);
+        reviewImage[i].setAttribute('src', e.target.result);
         displayFlexNoLock(reviewImage[i]);
         inputLabel[i].style.display = 'none';
         displayFlexNoLock(xBtn[i]);
 
-        deleteSet.delete(i);
 
       };
     } else {
@@ -1252,6 +1253,8 @@ for (let i = 0; i < inputFile.length; i++) {
       xBtn[i].classList.add('hide');
       xBtn[i].classList.remove('appear');
 
+      deleteSet.add(i);
+      console.log(i + "번 이미지 delete set 추가!");
     }
   });
 
@@ -1269,6 +1272,7 @@ for (let i = 0; i < inputFile.length; i++) {
       inputFile[i].value = '';
 
       deleteSet.add(i);
+      console.log(i + "번 이미지 delete set 추가!");
     }
 
   })

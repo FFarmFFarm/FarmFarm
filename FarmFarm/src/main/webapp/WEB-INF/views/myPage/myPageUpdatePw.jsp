@@ -40,7 +40,7 @@
         <jsp:include page="/WEB-INF/views/myPage/myPageNav.jsp"/>
         <div class="board-list">
           <span class="board-list-title">비밀번호 변경</span> ${loginMember.memberPw}
-              <form  action="/myPage/updatePw" id="updatePwFrm" class="profile-form" method="post">
+              <form  action="/myPage/updatePw" id="updatePwFrm" class="profile-form" method="put">
                 <section class="update">
                   <div class="title">현재 비밀번호</div>
                   <input type="password" name="currentPw" id="currentPw" placeholder="현재 비밀번호" maxlegnth="20">

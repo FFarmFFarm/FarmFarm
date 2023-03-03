@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,14 +24,18 @@ import edu.kh.farmfarm.inquire.model.vo.InquireRoom;
 import edu.kh.farmfarm.inquire.model.vo.Message;
 import edu.kh.farmfarm.member.model.VO.Member;
 
-@Controller
+@RestController
 public class InquireController {
 	
 	@Autowired
 	private InquireService service;
 	
+	/** 상담 입장
+	 * @param memberNo2
+	 * @param loginMember
+	 * @return inquireNo
+	 */
 	@GetMapping("/inquire/enter")
-	@ResponseBody
 	public int inquireEnter(int memberNo2, @SessionAttribute("loginMember")Member loginMember) {
 		
         Map<String, Integer> map = new HashMap<String, Integer>();
@@ -48,8 +53,12 @@ public class InquireController {
 	}
 	
 	
+	/** 상담방 선택
+	 * @param inquireNo
+	 * @param loginMember
+	 * @return messageList
+	 */
 	@GetMapping("/inquire/select")
-	@ResponseBody
 	public String selectInquire(int inquireNo, @SessionAttribute("loginMember") Member loginMember) {
 		Map<String , Object> paramMap = new HashMap<String, Object>();
 		
@@ -66,8 +75,11 @@ public class InquireController {
 	}
 	
 	
+	/** 상담 메세지 읽음 여부 확인
+	 * @param loginMember
+	 * @return unreadCount
+	 */
 	@GetMapping("/inquire/unreadCheck")
-	@ResponseBody
 	public int unreadCheck(@SessionAttribute("loginMember")Member loginMember) {
 		
 		int unreadCount = service.unreadCheck(loginMember.getMemberNo());
@@ -79,10 +91,9 @@ public class InquireController {
 	/** 전송된 사진을 서버에 저장
 	 * @param message
 	 * @param messageImg
-	 * @return
+	 * @return data
 	 */
 	@PostMapping("/inquire/imgUpload")
-	@ResponseBody
 	public String inquireImgUpload(@RequestParam(value="messageImg") MultipartFile messageImg,
 			HttpServletRequest req) throws Exception {
 		

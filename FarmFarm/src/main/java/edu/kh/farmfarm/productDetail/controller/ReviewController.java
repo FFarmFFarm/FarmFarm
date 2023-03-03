@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -142,7 +144,6 @@ public class ReviewController {
 			@RequestParam(value = "deleteList", required = false) String deleteList
 			) throws Exception {
 		
-		System.out.println(review.getReviewNo());
 		
 		review.setMemberNo(loginMember.getMemberNo());
 		
@@ -158,8 +159,12 @@ public class ReviewController {
 	}
 	
 	
-	@GetMapping("/review/delete")
-	public int deleteReview(int reviewNo) {
+	/** 후기 삭제
+	 * @param reviewNo
+	 * @return result
+	 */
+	@DeleteMapping("/review/{reviewNo}")
+	public int deleteReview(@PathVariable("reviewNo") int reviewNo) {
 		
 		return service.deleteReview(reviewNo);
 	}

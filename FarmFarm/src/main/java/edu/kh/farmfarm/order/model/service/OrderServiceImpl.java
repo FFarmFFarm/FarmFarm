@@ -136,24 +136,27 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public String getToken() throws IOException {
 
-
+		// 아임포트에 imp_key와 imp_secret을 담은 요청 전송
 		headers.setContentType(MediaType.APPLICATION_JSON);
-		
 		JSONObject body = new JSONObject();
 		body.put("imp_key", "6512320408078822");
 		body.put("imp_secret", "GCLUvY1ctKJUvFio3IOUoY42wMDMwrbSE1nfpJVkVvbvsYZWoTTnLLBAyQxcqsyWzWAXphVDEgbNy1Na");
 		
 		String token = null;
-		
+
 		try {
+			// 요청 성공 시 ImpToken 객체에 res 데이터를 담음
 			HttpEntity<JSONObject> entity = new HttpEntity<>(body , headers);
 			ImpToken impToken = restTemplate.postForObject("https://api.iamport.kr/users/getToken", entity, ImpToken.class);
-
 			
+			// ImpToken 객체에서 token 정보만 가져오기
 			token = impToken.getResponse().get("access_token").toString();
+			
 		} catch (Exception e) {
+			
 			e.printStackTrace();
 			System.out.println("getTokenError");
+			
 		} finally {
 			headers.clear();
 			body.clear();
@@ -201,10 +204,9 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public int paymentCancel(String token, Order order) throws IOException {
 		
-		
+		// 주문 취소 정보를 담은 요청 전송
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		headers.add("Authorization", token);
-		
 		JSONObject body = new JSONObject();
 		body.put("reason", "주문 취소");
 		body.put("imp_uid", order.getImpUid());
@@ -217,8 +219,7 @@ public class OrderServiceImpl implements OrderService{
 			
 			System.out.println(impToken.toString());
 			return 1;
-			
-			
+				
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("getBuyerInfo Error");

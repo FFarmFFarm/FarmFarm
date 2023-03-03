@@ -193,6 +193,7 @@
 	<select id="selectReviewImgList" resultMap="reviewImg_rm">
 		SELECT * FROM REVIEW_IMG ri
 		WHERE REVIEW_NO = #{reviewNo}
+		ORDER BY REVIEW_IMG_ORDER
 	</select>
 
 	<!-- 찜 수 조회 -->
