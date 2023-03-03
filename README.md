@@ -479,7 +479,7 @@
 
 
 
-
+<!--
 
 # :pushpin: FarmFarm
 > **농산물 직거래 플랫폼 및 농사 용품 판매 쇼핑몰**
@@ -875,3 +875,4 @@ public Page<Post> findAllByTagName(String tagName, Pageable pageable) {
 ## 6. 회고 / 느낀점
 >프로젝트 개발 회고 글: https://zuminternet.github.io/ZUM-Pilot-integer/
 
+-->

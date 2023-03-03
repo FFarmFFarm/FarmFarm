@@ -1291,5 +1291,15 @@ document.getElementById("reportSearchKeyword").addEventListener('keydown', (e) =
 const doSearch = () => {
     numCount = (cp-1)*15;  //순번 정렬
     keyword = document.getElementById("reportSearchKeyword").value; // 입력한 검색어 
+
+    
+    // 재검색 시, 초기화
+    if((typeFilter > 0 || processFilter > 0) && keyword !=null){
+        typeFilter = 0;
+        processFilter = 0;
+        document.getElementById("dropBtnText").innerText = "유형";
+        document.getElementById("dropBtn2Text").innerText = "처리 상태";
+    }
+    
     selectReportList(cp);
 }
