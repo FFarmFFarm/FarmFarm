@@ -409,20 +409,30 @@ const printReviewList = (reviewList, pagination) => {
 
 const deleteReview = (reviewNo) => {
 
-  $.ajax({
-    url: "/review/delete",
-    data: { "reviewNo": reviewNo },
-    success: (result) => {
+  // $.ajax({
+  //   url: "/review/delete",
+  //   type: 'delete',
+  //   data: { "reviewNo": reviewNo },
+  //   success: (result) => {
 
-      messageModalOpen("삭제되었습니다.");
+  //     messageModalOpen("삭제되었습니다.");
 
-      selectReviewList(1);
+  //     selectReviewList(1);
 
-    },
-    error: () => {
-      console.log("error");
+  //   },
+  //   error: () => {
+  //     console.log("error");
 
-    }
+  //   }
+  // })
+
+  axios.delete('/review/delete', { params: { "reviewNo": reviewNo } })
+  .then((response) => {
+    messageModalOpen("삭제되었습니다.");
+    selectReviewList(1);
   })
+  .catch((error) => {
+    console.log(error);
+  });
 
 }
