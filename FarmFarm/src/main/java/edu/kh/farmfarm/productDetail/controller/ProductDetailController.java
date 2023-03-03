@@ -27,6 +27,13 @@ public class ProductDetailController {
 	@Autowired
 	private ProductDetailService service;
 	
+	/** 상품 판매페이지로 이동
+	 * @param loginMember
+	 * @param productNo
+	 * @param model
+	 * @param sortFl
+	 * @return
+	 */
 	@GetMapping("/product/{productNo}")
 	public String myPageReview(
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
@@ -56,6 +63,11 @@ public class ProductDetailController {
 	}
 	
 	
+	/** 찜하기
+	 * @param productNo
+	 * @param memberNo
+	 * @return
+	 */
 	@GetMapping("/wish/add")
 	@ResponseBody
 	public int addWish(int productNo, int memberNo) {
@@ -67,6 +79,11 @@ public class ProductDetailController {
 		return service.addWish(product);
 	}
 	
+	/** 찜 취소하기
+	 * @param productNo
+	 * @param memberNo
+	 * @return
+	 */
 	@GetMapping("/wish/remove")
 	@ResponseBody
 	public int removeWish(int productNo, int memberNo) {
@@ -78,6 +95,10 @@ public class ProductDetailController {
 		return service.removeWish(product);
 	}
 	
+	/** 재고 확인
+	 * @param productNo
+	 * @return
+	 */
 	@GetMapping("/product/stock")
 	@ResponseBody
 	public int productStock(int productNo) {

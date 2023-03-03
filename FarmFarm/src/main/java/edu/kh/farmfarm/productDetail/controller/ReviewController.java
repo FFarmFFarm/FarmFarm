@@ -142,7 +142,6 @@ public class ReviewController {
 			@RequestParam(value = "deleteList", required = false) String deleteList
 			) throws Exception {
 		
-		System.out.println(review.getReviewNo());
 		
 		review.setMemberNo(loginMember.getMemberNo());
 		
@@ -158,6 +157,10 @@ public class ReviewController {
 	}
 	
 	
+	/** 후기 삭제
+	 * @param reviewNo
+	 * @return result
+	 */
 	@GetMapping("/review/delete")
 	public int deleteReview(int reviewNo) {
 		
