@@ -79,7 +79,7 @@
 <br>
 	
 <details>
-<summary><b>4.1 신고하기</b></summary>
+<summary><b>4.1. 신고하기</b></summary>
 <div markdown="1">
 	
 ![](https://user-images.githubusercontent.com/110653573/222202403-a3a38c67-fc1b-41f1-8853-d4f022a3f709.png)
@@ -250,7 +250,7 @@ public class ReportController {
 <br>
 	
 <details>
-<summary><b>4.2 ajax를 활용한 관리자페이지 기능 구현</b></summary>
+<summary><b>4.2. ajax를 활용한 관리자페이지 기능 구현</b></summary>
 <div markdown="1">
 
 
@@ -270,7 +270,7 @@ public class AdminController {
 	@Autowired
 	private AdminService service;
 	
-	//..(생략)..
+	//..(중략)..
 
 	// 전체 회원 조회 (정렬, 페이지네이션, 검색)
 	@GetMapping("/admin/memberList")
@@ -307,7 +307,7 @@ public class AdminController {
 		return new Gson().toJson(map);
 	}
 	
-	//..(생략)..
+	//..(중략)..
 }
 ```
 
@@ -325,7 +325,7 @@ public class AdminServiceImpl implements AdminService{
 	@Autowired
 	private AdminDAO dao;
 	
-	//..(생략)..
+	//..(중략)..
 	
 	// 전체 회원 조회 (정렬, 페이지네이션, 검색)
 	@Override
@@ -352,7 +352,7 @@ public class AdminServiceImpl implements AdminService{
 		return map;
 	}
 	
-	//..(생략)..
+	//..(중략)..
 
 }
 ```
@@ -372,7 +372,7 @@ public class AdminDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	//..(생략)..
+	//..(중략)..
 	
 	/** 전체 회원 조회(페이지네이션, 정렬 포함)
 	 * @param paramMap
@@ -388,7 +388,7 @@ public class AdminDAO {
 		return sqlSession.selectList("adminMapper.selectMemberList", paramMap, rowBounds);
 	}
 	
-	//..(생략)..
+	//..(중략)..
 	
 }
 ```
@@ -491,7 +491,7 @@ public class AdminProcessServiceImpl implements AdminProcessService{
 	private AdminProcessDAO dao;
 	
 	
-	//..(생략)..
+	//..(중략)..
 	
 	
 	// 회원 강제 탈퇴 (회원관리, 신고내역x)
@@ -579,7 +579,7 @@ public class AdminProcessServiceImpl implements AdminProcessService{
 	}
 	
 	
-	//..(생략)..
+	//..(중략)..
 	
 }
 ```
@@ -606,7 +606,7 @@ public class AdminProcessServiceImpl implements AdminProcessService{
 <br>	
  
 <details>
-<summary><b>4.3 @Scheduled를 활용하여 정지 계정 자동 활성화</b></summary>
+<summary><b>4.3. @Scheduled를 활용하여 정지 계정 자동 활성화</b></summary>
 <div markdown="1">
 	
 <br>
@@ -717,7 +717,7 @@ public class BannedAccountActivateScheduling {
 <br>
 	
 <details>
-<summary><b>4.4 Chart.js를 활용한 관리자 대시보드 그래프 구현</b></summary>
+<summary><b>4.4. Chart.js를 활용한 관리자 대시보드 그래프 구현</b></summary>
 <div markdown="1">
 	
 ![](https://user-images.githubusercontent.com/110653573/222223557-1e67c613-2ebd-4d30-b897-4e76a429af04.png)
@@ -738,15 +738,15 @@ public class BannedAccountActivateScheduling {
 
 </br></br>
 
-## 5. 핵심 트러블 슈팅
+## 5. 트러블 슈팅
 
 ### 5.1. Oracle Cloud 호스팅 중 예외 발생
 
-- Oracle Cloud를 통해 제작한 FarmFarm 프로젝트 파일을 호스팅 하였는데 **예상치 못한 예외가 발생**하였습니다.
-- DB에서 질의문 수행 도중 발생하는 오류였습니다. **로컬에서 서버를 돌렸을 시 문제없이 진행**되었기 때문에 팀원 모두 바로 원인을 찾지 못했습니다.
-- 원인은 Chart.js를 위한 주문 내역을 가지고 오는 **SQL문의 WHERE 절**에 있었습니다.
+- Oracle Cloud FarmFarm 프로젝트 파일을 호스팅하는 도중 **예상치 못한 예외가 발생**함.
+- 로컬에서 서버를 돌렸을 경우에는 문제 없이 진행되었기 때문에 팀원 모두 원인을 찾지 못하는 상황에서
+- 원인은 Chart.js를 수행하기 위한 **SQL문의 WHERE절**인 것을 발견함.
 
-</br></br>
+</br>
 
 <details>
 <summary><b>기존 코드</b></summary>
@@ -777,11 +777,11 @@ public class BannedAccountActivateScheduling {
 
 </br>
 
-- 기존 코드의 WHERE절을 보면 **CHAR 타입 데이터와 DATE 타입 데이터를 형변환 없이 비교**하고 있음을 알 수 있었습니다.
-- 로컬에서 실행할 때는 타입이 다른 날짜 데이터의 비교가 가능했지만 linux 환경에서 실행되는 Oracle Cloud 에 호스팅 된 페이지에서는 두 데이터의 **타입이 서로 달라 예외가 발생**했던 것이었습니다.
-- 여기서 타입만 수정해도 문제를 해결할 수는 있었겠지만, 더 빠르고 좋은 코드는 없을까 하는 고민을 하게 되었고 아래와 같이 **코드를 개선**하였습니다.
+- 기존 코드의 WHERE절을 보면 **CHAR 타입 데이터와 DATE 타입 데이터를 형변환 없이 비교**하고 있다는 것을 알 수 있음..
+- 로컬 서버 환경에서는 타입이 다른 날짜 데이터의 비교가 가능했지만, Linux 환경에서 Oracle Cloud에 호스팅 된 페이지에서는 두 데이터의 **타입이 서로 달라 예외가 발생**함.
+- 단순히 타입을 수정하는 것에서 문제를 해결하지 않고, SQL문을 보기좋은 코드로 바꿀 수 있도록 고민하여 아래와 같이 코드를 개선할 수 있었음.
 
-</br></br>
+</br>
 
 <details>
 <summary><b>개선된 코드</b></summary>
@@ -803,10 +803,32 @@ public class BannedAccountActivateScheduling {
 </details>
 
 
-
 </br></br>
 
-## 6. 그 외 트러블 슈팅
+### 5.2.
+
+- Oracle Cloud FarmFarm 프로젝트 파일을 호스팅하는 도중 **예상치 못한 예외가 발생**함.
+- 로컬에서 서버를 돌렸을 경우에는 문제 없이 진행되었기 때문에 팀원 모두 원인을 찾지 못하는 상황에서
+- 원인은 Chart.js를 수행하기 위한 **SQL문의 WHERE절**인 것을 발견함.
+
+</br>
+
+<details>
+<summary><b>기존 코드</b></summary>
+<div markdown="1">
+
+~~~xml
+ 
+~~~
+
+</div>
+</details>
+
+
+
+
+
+<!--## 6. 그 외 트러블 슈팅-->
 
     
 </br>
