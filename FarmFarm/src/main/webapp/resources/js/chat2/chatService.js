@@ -40,7 +40,7 @@ const connectToChattingSock = () => {
 
             if (chattingSock != null) {
 
-                console.log('채팅2 서버와 연결되었습니다.')
+                console.log('채팅 서버와 연결되었습니다.')
 
                 // /chat/shortcut 경로를 통해 페이지에 접근한 경우 사용
                 if (shortcutNo > 0) {
@@ -58,7 +58,7 @@ const connectToChattingSock = () => {
                 }
 
                 chattingSock.onclose = function (e) {
-                    console.log('채팅2 서버와 재연결을 시도합니다...');
+                    console.log('채팅 서버와 재연결을 시도합니다...');
                     console.log(e);
 
                     setTimeout(function () {
@@ -79,7 +79,7 @@ const connectToChattingSock = () => {
 /* 내 채팅방 목록을 요청하는 함수 feat : axios */
 const selectChatRoomList = () => {
 
-    console.log('목록을 가져오고 있어요...')
+    // console.log('목록을 가져오고 있어요...')
 
     // 채팅방 리스트가 들어갈 자리
     const chatPreviewArea = document.querySelector('.chat-preview-area');
@@ -224,7 +224,7 @@ const makeChatPreviewBox = (chatRoom) => {
 
 /* 채팅방 목록에 이벤트 부여 */
 const chatPreviewBoxEvent = (chatPreviewBox) => {
-    console.log('가져올게 잠깐만 ~ ')
+    // console.log('가져올게 잠깐만 ~ ')
     // document.getElementById('roomBodyBlinder').style.display='none';
 
     const roomNo = chatPreviewBox.id;
@@ -582,15 +582,17 @@ const sendImgToServer = () => {
             })
             .then(function (response) {
 
-                const newChatImgPath = response.data;
+                const list = response.data;
+                // const newChatImgPath = response.data;
 
                 // json 객체 만들기
                 let obj = {
+                    "chatNo": list[0],
                     "roomNo": selectedRoomNo,
                     "memberNo": myMemberNo,
                     "memberNickname":myMemberNickname,
                     "profileImg":myProfileImg,
-                    "chatContent": newChatImgPath,
+                    "chatContent": list[1],
                     "chatType":'I'
                 };
 
@@ -647,14 +649,14 @@ const onMessage = (chat) => {
 
         // 시간 데이터를 가공해서 연월일과 시분초로 분리
         const chatDate = chat.chatTime.substring(0, 10);
-        
+
         // chatTime를 잘라서 원하는 시간으로 만듦
         const newChatTime = makeNewChatTime(chat.chatTime);
 
         // 날짜가 바뀌었는지 확인
         if (nowDate != chatDate) {
             nowDate = chatDate;
-
+            
             const dateLabel = document.createElement('div');
             const dateLabelLine = document.createElement('div');
 
@@ -812,7 +814,7 @@ const updateChatEnterAgree = (inviteBtnArea) => {
     axios.post("/chat/update/chatEnter/approve", formData
         ).then(function(response){ // 성공하면 목록을 다시 불러옴
             selectChatRoomList();
-            console.log('초대를 승인했습니다.');
+            // console.log('초대를 승인했습니다.');
 
             // let formData2 = new FormData();
 
@@ -847,7 +849,7 @@ const updateChatEnterReject = (inviteBtnArea) => {
     axios.post("/chat/update/chatEnter/approve", formData
     ).then(function (response) { // 성공하면 목록을 다시 불러옴
         selectChatRoomList();
-        console.log('초대를 거절했습니다.');
+        // console.log('초대를 거절했습니다.');
     }).catch(function (error) {
         console.log('error');
         console.log(error);
@@ -858,7 +860,7 @@ const updateChatEnterReject = (inviteBtnArea) => {
 /* shortcut을 이용해서 접근한 경우 */
 const shortcut = (shortcutNo) => {
     
-    console.log('지름길로 왔어요~')
+    // console.log('지름길로 왔어요~')
 
     const roomNo = shortcutNo;
 
@@ -872,8 +874,6 @@ const shortcut = (shortcutNo) => {
             // 선택한 채팅방의 채팅 내역
             const chatRoom = response.data.chatRoom;
             const chatList = response.data.chatList;
-            console.log(chatRoom)
-            console.log(chatList)
 
             // 채팅 전송을 위해 전역 변수 세팅
             selectedRoomNo = roomNo;
