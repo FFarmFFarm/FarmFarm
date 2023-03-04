@@ -1,6 +1,6 @@
 /* 로딩되면.. */
 addEventListener('load', ()=>{
-    console.log('이모티콘을 불러옵니다.')
+    // console.log('이모티콘을 불러옵니다.')
     selectEmoticonCategoryList();
 })
 
