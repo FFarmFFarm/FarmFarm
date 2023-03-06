@@ -152,7 +152,7 @@ if (deleteMenuConfirmBtn) {
         axios.post("/chat/delete", formData
         ).then(function (response) {
             if (response.data > 0) {
-                console.log("삭제되었습니다.")
+                // console.log("삭제되었습니다.")
 
                 // 삭제 동기화를 위해서 채팅방을 불러옴
                 selectChatList2(selectedRoomNo);

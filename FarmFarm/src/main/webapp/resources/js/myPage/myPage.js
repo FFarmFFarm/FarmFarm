@@ -42,47 +42,50 @@ mypageImgInput.addEventListener('change', (e) => {
   }
 })
 
-
+/**
+ * 배경 이미지 기본으로 변경
+ */
 const XBtn = document.getElementById('XBtn');
 XBtn.addEventListener('click', () => {
   if(memberBgImg.src != "/resources/images/default/bgImg.png") {
 
     memberBgImg.src = "/resources/images/default/bgImg.png";
     
-    $.ajax({
-      url: '/myPage/default/bgImg',
-      success: (result) => {
-        console.log("성공")
-        if (result > 0) {
-          messageModalOpen("배경 이미지가 변경되었습니다.");
-        }
-      },
-    })
+
+    axios.put('/myPage/bgImg')
+    .then((result) => {
+      console.log("성공");
+      if (result > 0) {
+        messageModalOpen("배경 이미지가 변경되었습니다.");
+      }
+    }).catch((err) => {
+      console.log(error);
+    });
+
   }
     
 })
 
 
-/* 마이페이지 배경사진 변경 */
+/**
+ * 마이페이지 배경사진 변경
+ */
 const updateBgImg = () => {
 
   const form = document.getElementById('mypageImgForm');
   const formData = new FormData(form);
 
-  $.ajax({
-    url: '/myPage/update/bgImg',
-    type: 'POST',
-    data: formData,
+  axios.post('/myPage/bgImg', formData, {
     processData: false,
-    contentType: false,
-    success: (result) => {
-      console.log("성공")
-      if (result > 0) {
+    contentType: false
+  }).then((response) => {
+    console.log("성공")
+      if (response.data > 0) {
         messageModalOpen("배경 이미지가 변경되었습니다.");
       }
-    },
-    error: () => { }
-  })
+  }).catch((err) => {
+    console.log(err);
+  });
 
 }
 
@@ -98,7 +101,7 @@ const changeURL = (cp) => {
   renewURL = renewURL.replace(location.search, '');
 
   //새로 부여될 페이지 번호를 할당한다.
-  // page는 ajax에서 넘기는 page 번호를 변수로 할당해주거나 할당된 변수로 변경
+  // page는 axios에서 넘기는 page 번호를 변수로 할당해주거나 할당된 변수로 변경
   renewURL += '?cp=' + cp;
 
   //페이지 갱신 실행!

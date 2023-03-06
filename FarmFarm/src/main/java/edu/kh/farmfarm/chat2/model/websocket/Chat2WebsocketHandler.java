@@ -59,8 +59,6 @@ public class Chat2WebsocketHandler extends TextWebSocketHandler{
 		if(chat.getChatType().equals("I")) result = 1;
 		
 		
-		
-		
 		// 결과에 따라서 웹소켓 전달 여부를 결정
 		if(result > 0) { // 0보다 크면 > 삽입이 정상적으로 되었으므로 > 세션에 웹소켓 전달
 			
@@ -72,7 +70,7 @@ public class Chat2WebsocketHandler extends TextWebSocketHandler{
 				// 날짜를 생성해 chat 객체에 세팅함
 				LocalDateTime now = LocalDateTime.now();
 				
-				String sysdate = now.format(DateTimeFormatter.ofPattern("YYYY-MM-DD HH:mm:SS"));
+				String sysdate = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 				
 				chat.setChatTime(sysdate);
 				
@@ -88,10 +86,10 @@ public class Chat2WebsocketHandler extends TextWebSocketHandler{
 				
 				// 리스트에 회원 정보가 있으면.. 잘 될지 모르겠으니 점검 필수
 				if(enterMemberNoList.contains((Integer)memberNo)) {
-					System.out.println("같아!요");
+					System.out.println("같아요");
 					s.sendMessage(new TextMessage(new Gson().toJson(chat)));
 				} else {
-					System.out.println("달!라요");
+					System.out.println("달라요");
 				}
 			}
 			

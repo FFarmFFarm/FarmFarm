@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,7 +36,7 @@ public class InquireController {
 	 * @param loginMember
 	 * @return inquireNo
 	 */
-	@GetMapping("/inquire/enter")
+	@GetMapping("/inquire/join")
 	public int inquireEnter(int memberNo2, @SessionAttribute("loginMember")Member loginMember) {
 		
         Map<String, Integer> map = new HashMap<String, Integer>();
@@ -58,8 +59,8 @@ public class InquireController {
 	 * @param loginMember
 	 * @return messageList
 	 */
-	@GetMapping("/inquire/select")
-	public String selectInquire(int inquireNo, @SessionAttribute("loginMember") Member loginMember) {
+	@GetMapping("/inquire/{inquireNo}")
+	public String selectInquire(@PathVariable("inquireNo") int inquireNo, @SessionAttribute("loginMember") Member loginMember) {
 		Map<String , Object> paramMap = new HashMap<String, Object>();
 		
 		paramMap.put("inquireNo", inquireNo);
@@ -79,7 +80,7 @@ public class InquireController {
 	 * @param loginMember
 	 * @return unreadCount
 	 */
-	@GetMapping("/inquire/unreadCheck")
+	@GetMapping("/inquire/read")
 	public int unreadCheck(@SessionAttribute("loginMember")Member loginMember) {
 		
 		int unreadCount = service.unreadCheck(loginMember.getMemberNo());
@@ -93,7 +94,7 @@ public class InquireController {
 	 * @param messageImg
 	 * @return data
 	 */
-	@PostMapping("/inquire/imgUpload")
+	@PostMapping("/inquire/images")
 	public String inquireImgUpload(@RequestParam(value="messageImg") MultipartFile messageImg,
 			HttpServletRequest req) throws Exception {
 		

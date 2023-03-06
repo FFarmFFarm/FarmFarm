@@ -92,7 +92,7 @@ document.getElementById('submitBtn').addEventListener('click', () => {
     const formData = new FormData(form);
 
     $.ajax({
-      url: "/review/write",
+      url: "/review",
       data: formData,
       type: "POST",
       contentType: false,
@@ -249,20 +249,16 @@ document.getElementById('orderConfirmBtn').addEventListener('click', () => {
 /* 주문 구매 확정하는 Function */
 const orderConfirmation = (orderNo) => {
 
-  $.ajax({
-    url: "/order/confirm",
-    data: { "orderNo": orderNo },
-    success: (result) => {
-      if (result > 0) {
-        const message = '주문번호 ' + orderNo + '번 구매가 확정되었습니다.'
+  axios.put('/order/' + orderNo + '/confirm')
+  .then((result) => {
+    if (result > 0) {
+      const message = '주문번호 ' + orderNo + '번 구매가 확정되었습니다.'
 
-        messageModalOpen(message);
-      }
-    },
-    error: () => {
-      console.log('구매 확정 중 에러 발생');
+      messageModalOpen(message);
     }
-  })
+  }).catch((err) => {
+    console.log('구매 확정 중 에러 발생');
+  });
 
 }
 

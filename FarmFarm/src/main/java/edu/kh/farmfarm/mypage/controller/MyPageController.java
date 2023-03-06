@@ -77,7 +77,7 @@ public class MyPageController {
 	
 	
 	
-	/** 마이패이지 작성 게시글
+	/** 마이페이지 작성 게시글
 	 * @return
 	 */
 	@GetMapping("/board")

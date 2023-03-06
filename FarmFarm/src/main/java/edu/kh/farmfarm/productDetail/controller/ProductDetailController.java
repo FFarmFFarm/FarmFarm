@@ -7,8 +7,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -68,9 +70,10 @@ public class ProductDetailController {
 	 * @param memberNo
 	 * @return
 	 */
-	@GetMapping("/wish/add")
+	@PostMapping("/wish/{memberNo}/{productNo}")
 	@ResponseBody
-	public int addWish(int productNo, int memberNo) {
+	public int addWish(@PathVariable("memberNo") int memberNo, 
+			@PathVariable("productNo") int productNo) {
 		
 		Product product = new Product();
 		product.setProductNo(productNo);
@@ -84,9 +87,10 @@ public class ProductDetailController {
 	 * @param memberNo
 	 * @return
 	 */
-	@GetMapping("/wish/remove")
+	@DeleteMapping("/wish/{memberNo}/{productNo}")
 	@ResponseBody
-	public int removeWish(int productNo, int memberNo) {
+	public int removeWish(@PathVariable("memberNo") int memberNo, 
+			@PathVariable("productNo") int productNo) {
 		
 		Product product = new Product();
 		product.setProductNo(productNo);
@@ -99,9 +103,9 @@ public class ProductDetailController {
 	 * @param productNo
 	 * @return
 	 */
-	@GetMapping("/product/stock")
+	@GetMapping("/product/{productNo}/stock")
 	@ResponseBody
-	public int productStock(int productNo) {
+	public int productStock(@PathVariable("productNo") int productNo) {
 		
 		int stock = service.productStock(productNo);
 		
