@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -156,32 +157,43 @@ public class BoardDetailController {
 	}
 
 	
-	// 게시글 삭제
-	@GetMapping("/board/{boardTypeNo}/{boardNo}/delete")
-	public String boardDelete(
-			@PathVariable("boardTypeNo") int boardTypeNo,
-			@PathVariable("boardNo") int boardNo,
-			RedirectAttributes ra,
-			@RequestHeader("referer") String referer) {
+	// 게시글 삭제 - 수정 전 코드
+//	@GetMapping("/board/{boardTypeNo}/{boardNo}/delete")
+//	public String boardDelete(
+//			@PathVariable("boardTypeNo") int boardTypeNo,
+//			@PathVariable("boardNo") int boardNo,
+//			RedirectAttributes ra,
+//			@RequestHeader("referer") String referer) {
+//		
+//		int result = serivce.boardDelete(boardNo);
+//		
+//		String message = null;
+//		String path = null;
+//		
+//		// 삭제 성공!
+//		if(result>0) {
+//			message = "게시글을 삭제했습니다.";
+//			path = "/board/"+boardTypeNo;
+//			
+//		}else {
+//			message = "삭제 실패...";
+//			path = referer;
+//		}
+//		
+//		ra.addFlashAttribute("message", message);
+//		
+//		return "redirect:"+path;
+//	}
+	
+	// 게시글 삭제 - 수정 후 코드
+	@DeleteMapping("/board/{boardTypeNo}/{boardNo}")
+	@ResponseBody
+	public int boardDelete(
+			@PathVariable("boardNo") int boardNo) {
 		
 		int result = serivce.boardDelete(boardNo);
 		
-		String message = null;
-		String path = null;
-		
-		// 삭제 성공!
-		if(result>0) {
-			message = "게시글을 삭제했습니다.";
-			path = "/board/"+boardTypeNo;
-			
-		}else {
-			message = "삭제 실패...";
-			path = referer;
-		}
-		
-		ra.addFlashAttribute("message", message);
-		
-		return "redirect:"+path;
+		return result;
 	}
 		
 	

@@ -300,34 +300,64 @@ const commentFunction=(checkok)=>{
             // e.preventDefault();
         }else{
             // ajax로 댓글을 삽입
-            $.ajax({
-                url : "/board/comment/insert",
-                data : {"boardNo" : boardNo,
-                        "memberNo" : memberNo,
-                        "commentContent" : writeComment.value,
-                        "checkok" : checkok},
-                type : "post",
-                success : result=>{
+            // $.ajax({
+            //     url : "/board/comment/insert",
+            //     data : {"boardNo" : boardNo,
+            //             "memberNo" : memberNo,
+            //             "commentContent" : writeComment.value,
+            //             "checkok" : checkok},
+            //     type : "post",
+            //     success : result=>{
         
-                    if(result>0){
+            //         if(result>0){
                         
-                        ringCommentNotify('board', 201, boardNo, writeComment.value, result);
+            //             ringCommentNotify('board', 201, boardNo, writeComment.value, result);
 
-                        messageModalOpen("댓글이 등록되었습니다.");
-                        writeComment.value=""; // 작성한 댓글 없애기
-                        selectCommentList(); // 다시 ajax로 불러오기
-                        // 댓글을 등록 시 스크롤 이동
-                        window.scrollTo(0, document.querySelector('body').scrollHeight);
+            //             messageModalOpen("댓글이 등록되었습니다.");
+            //             writeComment.value=""; // 작성한 댓글 없애기
+            //             selectCommentList(); // 다시 ajax로 불러오기
+            //             // 댓글을 등록 시 스크롤 이동
+            //             window.scrollTo(0, document.querySelector('body').scrollHeight);
 
-                    }else{
-                        alert("댓글 등록에 실패했습니다...");
-                    }
-                },
-                error : (req, status, error)=>{
-                    alert("댓글 등록 ajax 통신오류...ㅜㅠ");
-                    console.log("댓글 등록 ajax 통신오류...ㅜㅠ");
+            //         }else{
+            //             alert("댓글 등록에 실패했습니다...");
+            //         }
+            //     },
+            //     error : (req, status, error)=>{
+            //         alert("댓글 등록 ajax 통신오류...ㅜㅠ");
+            //         console.log("댓글 등록 ajax 통신오류...ㅜㅠ");
+            //     }
+            // });
+
+            // axios를 이용한 댓글 달기
+            axios.post('/board/comment', {
+                'boardNo' : boardNo,
+                'memberNo' : memberNo,
+                'commentContent' : writeComment.value,
+                'checkok' : checkok
+            })
+            .then(function (response) {
+                console.log(response);
+                // console.log("코멘트 등록 됨 이프문 밖");
+                if(response.data > 0){
+                    // console.log("코멘트 등록 됨");
+                    ringCommentNotify('board', 201, boardNo, writeComment.value, response.data);
+                    
+                    
+                    messageModalOpen("댓글이 등록되었습니다.");
+                    writeComment.value=""; // 작성한 댓글 없애기
+                    selectCommentList(); // 다시 ajax로 불러오기
+                    // 댓글을 등록 시 스크롤 이동
+                    window.scrollTo(0, document.querySelector('body').scrollHeight);
+                    
+                }else{
+                    console.log("코멘트 등록 안됨");
+                    alert("댓글 등록에 실패했습니다...");
                 }
-            });
+
+            }).catch(function(error) {
+                console.log("댓글 등록 통신오류");
+            })
 
         }
     
@@ -444,29 +474,53 @@ function sendCo(parentNo, btn){
     }
 
     // ajax를 이용해서 답글을 등록
-    $.ajax({
-        url : "/board/comment/insert",
-        data : {"boardNo" : boardNo,
-                "memberNo" : memberNo,
-                "commentContent" : commentContent,
-                "commentParent" : parentNo,
-                "checkok" : checkok},
-        type : "post",
-        success : result=>{
-            if(result>0){
+    // $.ajax({
+    //     url : "/board/comment/insert",
+    //     data : {"boardNo" : boardNo,
+    //             "memberNo" : memberNo,
+    //             "commentContent" : commentContent,
+    //             "commentParent" : parentNo,
+    //             "checkok" : checkok},
+    //     type : "post",
+    //     success : result=>{
+    //         if(result>0){
 
-                ringCommentNotify('comment', 202, parentNo, commentContent, result);
+    //             ringCommentNotify('comment', 202, parentNo, commentContent, result);
 
-                messageModalOpen("답글이 등록됐습니다.");
-                selectCommentList();
-            }else{
-                alert("답글 등록 시류ㅐㅠㅠㅠㅜㅠㅜ");
-            }
-        },
-        error : ()=>{
-            alert("답글 ajax 통신 오류ㅠ");
+    //             messageModalOpen("답글이 등록됐습니다.");
+    //             selectCommentList();
+    //         }else{
+    //             alert("답글 등록 시류ㅐㅠㅠㅠㅜㅠㅜ");
+    //         }
+    //     },
+    //     error : ()=>{
+    //         alert("답글 ajax 통신 오류ㅠ");
+    //     }
+    // });
+
+    // axios를 이용한 댓글 달기
+    axios.post('/board/comment', {
+        "boardNo" : boardNo,
+        "memberNo" : memberNo,
+        "commentContent" : commentContent,
+        "commentParent" : parentNo,
+        "checkok" : checkok
+    })
+    .then(function (response) {
+        console.log(response);
+        if(response.data > 0){
+            ringCommentNotify('comment', 202, parentNo, commentContent, response.data);
+            
+            messageModalOpen("답글이 등록되었습니다.");
+            selectCommentList(); // 다시 ajax로 불러오기
+            
+        }else{
+            alert("답글 등록에 실패했습니다...");
         }
-    });
+
+    }).catch(function(error) {
+        console.log("답글 등록 통신오류");
+    })
 
 }
 
@@ -580,10 +634,10 @@ function updateComment(commentNo, btn){
     const commentContent = btn.parentElement.previousElementSibling.value;
 
     $.ajax({
-        url : "/board/comment/update",
+        url : "/board/comment",
+        type : 'put',
         data : {"commentNo" : commentNo,
                 "commentContent" : commentContent},
-        type : "post",
         success : result=>{
 
             if(result>0){
@@ -604,42 +658,70 @@ function updateComment(commentNo, btn){
 const deleteComment = (commentNo)=>{
     
     if(confirm("댓글을 삭제하시겠습니까?")){
-        $.ajax({
-            url : "/board/comment/delete",
-            data : {"commentNo" : commentNo,
-            "authority" : loginAuth},
-            success : result=>{
-                if(result>0){
+        // $.ajax({
+        //     url : "/board/comment",
+        //     type : 'delete',
+        //     data : {"commentNo" : commentNo,
+        //     "authority" : loginAuth},
+        //     success : result=>{
+        //         if(result>0){
+        //             messageModalOpen("댓글이 삭제되었습니다.");
+        //             selectCommentList();
+        //         }else{
+        //             alert("댓글 삭제 실패");
+        //         }
+        //     },
+        //     error : (req, status, error)=>{
+        //         alert("댓글 삭제 ajax 통신 실패")
+        //     }
+        // })
+
+        axios.delete('/board/comment/'+commentNo)
+            .then(function (response) {
+                console.log(response);
+                if(response.data > 0){
                     messageModalOpen("댓글이 삭제되었습니다.");
                     selectCommentList();
                 }else{
-                    alert("댓글 삭제 시류ㅐㅜㅠ");
+                    alert("삭제 실패 했습니다.");
                 }
-            },
-            error : (req, status, error)=>{
-                alert("댓글 삭제 ajax 통신 실패")
-            }
-        })
+            }).catch(function(error) {
+                console.log("게시글 삭제 통신 오류");
+            })
     }
     
 }
 const adDeleteComment = (commentNo)=>{
     if(confirm("관리자 권한으로 댓글을 삭제하시겠습니까?")){
-        $.ajax({
-            url : "/board/comment/delete",
-            data : {"commentNo" : commentNo,
-            "authority" : loginAuth},
-            success : result=>{
-                if(result>0){
-                    messageModalOpen("댓글이 삭제되었습니다.");
-                    selectCommentList();
-                }else{
-                    alert("댓글 삭제 시류ㅐㅜㅠ");
-                }
-            },
-            error : (req, status, error)=>{
-                alert("댓글 삭제 ajax 통신 실패")
+        // $.ajax({
+        //     url : "/board/comment",
+        //     type : 'delete',
+        //     data : {"commentNo" : commentNo,
+        //     "authority" : loginAuth},
+        //     success : result=>{
+        //         if(result>0){
+        //             messageModalOpen("댓글이 삭제되었습니다.");
+        //             selectCommentList();
+        //         }else{
+        //             alert("댓글 삭제 실패");
+        //         }
+        //     },
+        //     error : (req, status, error)=>{
+        //         alert("댓글 삭제 ajax 통신 실패")
+        //     }
+        // })
+
+        axios.delete('/board/comment/'+commentNo)
+        .then(function (response) {
+            console.log(response);
+            if(response.data > 0){
+                messageModalOpen("댓글이 삭제되었습니다.");
+                selectCommentList();
+            }else{
+                alert("삭제 실패 했습니다.");
             }
+        }).catch(function(error) {
+            console.log("게시글 삭제 통신 오류");
         })
     }
 }
