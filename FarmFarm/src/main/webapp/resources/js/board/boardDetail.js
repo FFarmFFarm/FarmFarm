@@ -105,15 +105,62 @@ if(likeBtn != null){
     });
 }
 
-// 게시글 작성자가 삭제하기
+// 게시글 작성자가 삭제하기 - 수정 전 코드
+// const boardDelete = document.getElementById("boardDelete");
+// if(boardDelete != null){
+    //     boardDelete.addEventListener("click", ()=>{
+        
+        //         if(confirm("게시글을 삭제하시겠습니까?")){
+            //             location.href = location.pathname+"/delete";
+            //         }
+            
+        //     })
+// };
+
+// 게시글 작성자가 삭제하기 - 수정 후 코드1
+// const boardDelete = document.getElementById("boardDelete");
+// if(boardDelete != null){
+    //     boardDelete.addEventListener("click", ()=>{
+        
+        //         if(confirm("게시글을 삭제하시겠습니까?")){
+            //             $.ajax({
+                //                 url : '/board/'+ boardTypeNo +"/"+ boardNo,
+                //                 type : 'delete',
+                //                 success : result=>{
+                    //                     if(result > 0){
+                        //                         location.href = '/board/'+boardTypeNo;
+                        //                         alert("삭제 되었습니다.");
+                        //                     }else{
+                            //                         alert("삭제 실패 했습니다.");
+                            //                     }
+                            //                 },
+                            //                 error : ()=>{
+//                     console.log("게시글 삭제 통신 오류");
+//                 }
+//             })
+//         }
+//     })
+// };
+
+// 게시글 작성자가 삭제하기 - 수정 후 코드2
 const boardDelete = document.getElementById("boardDelete");
 if(boardDelete != null){
     boardDelete.addEventListener("click", ()=>{
         
         if(confirm("게시글을 삭제하시겠습니까?")){
-            location.href = location.pathname+"/delete";
+            axios.delete('/board/'+ boardTypeNo +"/"+ boardNo)
+            .then(function (response) {
+                if(response.data > 0){
+                    location.href = '/board/'+boardTypeNo;
+                    console.log(response);
+                    alert("삭제 되었습니다.");
+                }else{
+                    alert("삭제 실패 했습니다.");
+                }
+            }).catch(function(error) {
+                console.log("게시글 삭제 통신 오류");
+            })
         }
-        
     })
 };
 
@@ -122,7 +169,18 @@ const adminBoardDelete = document.getElementById("adminBoardDelete");
 if(adminBoardDelete != null){
     adminBoardDelete.addEventListener("click", ()=>{
         if(confirm("관리자 권한으로 게시글을 삭제하시겠습니까?")){
-            location.href = location.pathname+"/delete";
+            axios.delete('/board/'+ boardTypeNo +"/"+ boardNo)
+            .then(function (response) {
+                if(response.data > 0){
+                    location.href = '/board/'+boardTypeNo;
+                    console.log(response);
+                    alert("삭제 되었습니다.");
+                }else{
+                    alert("삭제 실패 했습니다.");
+                }
+            }).catch(function(error) {
+                console.log("게시글 삭제 통신 오류");
+            })
         }
     })
 }

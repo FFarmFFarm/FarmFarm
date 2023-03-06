@@ -4,15 +4,21 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.google.gson.Gson;
 
 import edu.kh.farmfarm.board.model.service.CommentService;
+import edu.kh.farmfarm.member.model.VO.Member;
 import edu.kh.farmfarm.mypage.model.vo.Comment;
 
 @RestController
@@ -32,22 +38,27 @@ public class CommentController {
 	
 	
 	// 댓글 추가
-	@PostMapping("/board/comment/insert")
-	public int commentWrite(Comment comment,
-			@RequestParam(value="checkok", required = false, defaultValue="0") int checkok) {
+	@PostMapping("/board/comment")
+	@ResponseBody
+	public int commentWrite(@RequestBody Comment comment) {
 		
-		if(checkok != 0) { // 비밀 댓글인 경우
+		int check = comment.getCheckok();
+		
+		if(check != 0) { // 비밀 댓글인 경우
 			comment.setCommentDelFl("S");
 		}else {
 			comment.setCommentDelFl("N");
 		}
 		
-		return serivce.commentWrite(comment);
+		int result = serivce.commentWrite(comment);
+		
+		return result;
 	}
 	
 	
 	// 댓글을 수정
-	@PostMapping("/board/comment/update")
+	@PutMapping("/board/comment")
+	@ResponseBody
 	public int commentUpdate(Comment comment) {
 		return serivce.commentUpdate(comment);
 	}
@@ -55,8 +66,15 @@ public class CommentController {
 	
 	
 	// 댓글을 삭제
-	@GetMapping("/board/comment/delete")
-	public int commentDelete(Comment comment) {
+	@DeleteMapping("/board/comment/{commentNo}")
+	@ResponseBody
+	public int commentDelete(@PathVariable("commentNo") int commentNo,
+			@SessionAttribute("loginMember") Member loginMember) {
+		
+		Comment comment = new Comment();
+		comment.setCommentNo(commentNo);
+		comment.setAuthority(loginMember.getAuthority());
+		
 		return serivce.commentDelete(comment);
 	}
 
