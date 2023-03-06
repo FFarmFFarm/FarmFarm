@@ -27,7 +27,6 @@
 <td align="left" vertical-align="top"><h5>[서기]
 - 회의록 정리<br><br>
 
-
  [게시판 - 게시글]<br>
 :heavy_check_mark:게시글 목록 조회<br>
 :heavy_check_mark:게시글 목록에서 게시글 작성자 닉네임 클릭 시 <br>
@@ -131,7 +130,7 @@
 [상품문의 채팅방]<br>
 :heavy_check_mark:1 : 1 채팅<br>
 :heavy_check_mark:상품 문의 시 자동 개설<br><br>
-                           
+                           
 채팅위젯<br>
 :heavy_check_mark:채팅방 목록 조회(최대 6개)<br>
 :heavy_check_mark:목록 클릭 시 해당 채팅방으로 이동<br>
@@ -158,27 +157,26 @@
 :heavy_check_mark:실시간 시계 구현 <br><br>
 
 [카테고리별 게시판]<br>
-
 >공통 기능<br>
->:heavy_check_mark:관리자 페이지 화면 구현<br>
->:heavy_check_mark:전체 목록 조회 : 회원/판매자/신고 목록<br>
->:heavy_check_mark:상세 정보 조회 : 회원, 판매자 상세 정보,<br>
->신고 상세 정보 및 누적 신고 내역 조회<br>
->:heavy_check_mark:목록 페이지네이션 구현<br>
->:heavy_check_mark:비동기 검색 <br>
->: 회원, 판매자, 신고 목록 검색 가능<br>
->:heavy_check_mark:비동기 필터 정렬 <br>
->: 회원 구분, 계정 상태, 게시글 상태 및 신고 상태 구분<br><br>
+:heavy_check_mark:관리자 페이지 화면 구현<br>
+:heavy_check_mark:전체 목록 조회 : 회원/판매자/신고 목록<br>
+:heavy_check_mark:상세 정보 조회 : 회원, 판매자 상세 정보,<br>
+신고 상세 정보 및 누적 신고 내역 조회<br>
+:heavy_check_mark:목록 페이지네이션 구현<br>
+:heavy_check_mark:비동기 검색 <br>
+: 회원, 판매자, 신고 목록 검색 가능<br>
+:heavy_check_mark:비동기 필터 정렬 <br>
+: 회원 구분, 계정 상태, 게시글 상태 및 신고 상태 구분<br><br>
 
 >개별 기능<br>
->*회원 관리 : 비동기 회원 강제 탈퇴 기능<br>
->*판매자 인증 관리 : 판매자 승인, 보류 기능(비동기)<br>
->*신고 관리 <br>
->:heavy_check_mark:신고된 회원 강제 탈퇴, 정지, 반려 기능 (비동기)<br>
->:heavy_check_mark:신고된 게시글 삭제, 반려 기능<br>
->:heavy_check_mark:누적 신고 횟수 조회 <br>
->:heavy_check_mark:신고 횟수에 따른 오름차순, 내림차순 정렬<br>
->:heavy_check_mark:정지 회원 활성화 스케줄링 (7일 이후 자동 정지 해제)<br><br>
+*회원 관리 : 비동기 회원 강제 탈퇴 기능<br>
+*판매자 인증 관리 : 판매자 승인, 보류 기능(비동기)<br>
+*신고 관리 <br>
+:heavy_check_mark:신고된 회원 강제 탈퇴, 정지, 반려 기능 (비동기)<br>
+:heavy_check_mark:신고된 게시글 삭제, 반려 기능<br>
+:heavy_check_mark:누적 신고 횟수 조회 <br>
+:heavy_check_mark:신고 횟수에 따른 오름차순, 내림차순 정렬<br>
+:heavy_check_mark:정지 회원 활성화 스케줄링 (7일 이후 자동 정지 해제)<br><br>
 
 [신고하기]<br>
 :heavy_check_mark:신고 기능 (일반 회원, 판매자, 게시글, 댓글)<br>
@@ -270,7 +268,7 @@
 :heavy_check_mark:일반 회원 및 판매자 회원 실시간 상담 기능<br>
 :heavy_check_mark:애니메이션을 이용한 상담 모달 on/off 기능 구현<br>
 :heavy_check_mark:상담 채팅 수신 시 아이콘에 수신 표시<br>
-:heavy_check_mark:비동기 메세지 목록 출력<br>   
+:heavy_check_mark:비동기 메세지 목록 출력<br>   
 :heavy_check_mark:이미지 전송 구현<br><br>
 
 관리자<br>
@@ -363,9 +361,7 @@
 </tr>
 </tbody>
 </table>
-
 <h6>(이름 클릭시 개인 깃허브로 이동됩니다.)</h6>
-
 <br>
 </div>
 
@@ -373,9 +369,7 @@
 <br>
 
 -----------------------
-
 <br>
-
 <div align="center">
     <h3>📚Tech Stack📚</h3>
     <h5>🔥Platforms&Languge🔥</h5>
@@ -395,14 +389,11 @@
     <img src="https://img.shields.io/badge/Apache Tomcat-F8DC75?style=flat&logo=Apache Tomcat&logoColor=white" />
 </div>
 
-
 <br>
 <br>
 
 -----------------------
-
 <br>
-
 <div align="center"><h3>✍️개발 동기✍️</h3>
     최근 귀농, 숲세권 등 바쁜 현대 사회에서 벗어나 자연과 가까워지고싶은 욕구의 증가로 인하여 <br>
     작게는 집 베란다 화분에서부터 더 나아가 주말 농장, 텃밭 등을 찾는 수요가 늘고있다.<br>
@@ -447,13 +438,10 @@
         <br>
         <br>
 </div>
-
 <br><br>
 
 -----------------------
-
 <br><br>
-
 <div align="center">
 <h3>✍️기술 설명✍️</h3>
 <img alt="회원가입" src="https://user-images.githubusercontent.com/110653581/211439951-b2db3043-ffc5-4660-9665-c42a7698f4d7.png">
@@ -476,11 +464,8 @@
 <br><br>
 </div>
 
-
 -----------------------
-
 <br><br>
-
 <div align="center">
     <br>
     <h1>끝.</h1>
@@ -494,18 +479,15 @@
 
 
 
-
 <!--
 
 # :pushpin: FarmFarm
-
 > **농산물 직거래 플랫폼 및 농사 용품 판매 쇼핑몰**
 > **[FarmFarm 바로가기](http://129.154.53.250:8080) (Test ID: user01 PW: pass01! | Admin ID: admin01 PW: admin01!)**
 
 </br>
 
 ## 1. 제작 기간 & 참여 인원
-
 - 2022년 12월 12일 ~ 2023년 1월 11일
 - 6인 팀 프로젝트
 
@@ -524,21 +506,17 @@
   - Apache Tomcat 9.0
   - Spring Security
   - Mybatis
-
 #### `Front-end`
-
   - HTML/CSS
   - Javascript
 
 </br>
 
 ## 3. ERD 설계
-
 ![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/final_erd.png)
 
 
 ## 4. 핵심 기능
-
 이 서비스의 핵심 기능은 컨텐츠 등록 기능입니다.  
 사용자는 단지 컨텐츠의 카테고리를 선택하고, URL만 입력하면 끝입니다.  
 이 단순한 기능의 흐름을 보면, 서비스가 어떻게 동작하는지 알 수 있습니다.  
@@ -547,13 +525,10 @@
 <summary><b>핵심 기능 설명 펼치기</b></summary>
 <div markdown="1">
 
-
 ### 4.1. 전체 흐름
-
 ![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow1.png)
 
 ### 4.2. 사용자 요청
-
 ![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_vue.png)
 
 - **URL 정규식 체크** :pushpin: [코드 확인](https://github.com/Integerous/goQuality/blob/b587bbff4dce02e3bec4f4787151a9b6fa326319/frontend/src/components/PostInput.vue#L67)
@@ -578,12 +553,10 @@
 ![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_service1.png)
 
 - **Http 프로토콜 추가 및 trim()** :pushpin: [코드 확인]()
-
   - 사용자가 URL 입력 시 Http 프로토콜을 생략하거나 공백을 넣은 경우,  
-    올바른 URL이 될 수 있도록 Http 프로토콜을 추가해주고, 공백을 제거해줍니다.
+  올바른 URL이 될 수 있도록 Http 프로토콜을 추가해주고, 공백을 제거해줍니다.
 
 - **URL 접속 확인** :pushpin: [코드 확인]()
-
   - 화면단에서 모양새만 확인한 URL이 실제 리소스로 연결되는지 HttpUrlConnection으로 테스트합니다.
   - 이 때, 빠른 응답을 위해 Request Method를 GET이 아닌 HEAD를 사용했습니다.
   - (HEAD 메소드는 GET 메소드의 응답 결과의 Body는 가져오지 않고, Header만 확인하기 때문에 GET 메소드에 비해 응답속도가 빠릅니다.)
@@ -591,7 +564,6 @@
   ![](https://zuminternet.github.io/images/portal/post/2019-04-22-ZUM-Pilot-integer/flow_service2.png)
 
 - **Jsoup 이미지, 제목 파싱** :pushpin: [코드 확인]()
-
   - URL 접속 확인결과 유효하면 Jsoup을 사용해서 입력된 URL의 이미지와 제목을 파싱합니다.
   - 이미지는 Open Graphic Tag를 우선적으로 파싱하고, 없을 경우 첫 번째 이미지와 제목을 파싱합니다.
   - 컨텐츠에 이미지가 없을 경우, 미리 설정해둔 기본 이미지를 사용하고, 제목이 없을 경우 생략합니다.
@@ -611,22 +583,19 @@
 </br>
 
 ## 5. 핵심 트러블 슈팅
-
 ### 5.1. 컨텐츠 필터와 페이징 처리 문제
-
 - 저는 이 서비스가 페이스북이나 인스타그램 처럼 가볍게, 자주 사용되길 바라는 마음으로 개발했습니다.  
-  때문에 페이징 처리도 무한 스크롤을 적용했습니다.
+때문에 페이징 처리도 무한 스크롤을 적용했습니다.
 
 - 하지만 [무한스크롤, 페이징 혹은 “더보기” 버튼? 어떤 걸 써야할까](https://cyberx.tistory.com/82) 라는 글을 읽고 무한 스크롤의 단점들을 알게 되었고,  
-  다양한 기준(카테고리, 사용자, 등록일, 인기도)의 게시물 필터 기능을 넣어서 이를 보완하고자 했습니다.
+다양한 기준(카테고리, 사용자, 등록일, 인기도)의 게시물 필터 기능을 넣어서 이를 보완하고자 했습니다.
 
 - 그런데 게시물이 필터링 된 상태에서 무한 스크롤이 동작하면,  
-  필터링 된 게시물들만 DB에 요청해야 하기 때문에 아래의 **기존 코드** 처럼 각 필터별로 다른 Query를 날려야 했습니다.
+필터링 된 게시물들만 DB에 요청해야 하기 때문에 아래의 **기존 코드** 처럼 각 필터별로 다른 Query를 날려야 했습니다.
 
 <details>
 <summary><b>기존 코드</b></summary>
 <div markdown="1">
-
 
 ~~~java
 /**
@@ -675,13 +644,12 @@ public List<PostResponseDto> listFilteredByDate(String createdDate) {
 </details>
 
 - 이 때 카테고리(tag)로 게시물을 필터링 하는 경우,  
-  각 게시물은 최대 3개까지의 카테고리(tag)를 가질 수 있어 해당 카테고리를 포함하는 모든 게시물을 질의해야 했기 때문에  
+각 게시물은 최대 3개까지의 카테고리(tag)를 가질 수 있어 해당 카테고리를 포함하는 모든 게시물을 질의해야 했기 때문에  
 - 아래 **개선된 코드**와 같이 QueryDSL을 사용하여 다소 복잡한 Query를 작성하면서도 페이징 처리를 할 수 있었습니다.
 
 <details>
 <summary><b>개선된 코드</b></summary>
 <div markdown="1">
-
 
 ~~~java
 /**
@@ -712,11 +680,9 @@ public Page<Post> findAllByTagName(String tagName, Pageable pageable) {
 </br>
 
 ## 6. 그 외 트러블 슈팅
-
 <details>
 <summary>npm run dev 실행 오류</summary>
 <div markdown="1">
-
 
 - Webpack-dev-server 버전을 3.0.0으로 다운그레이드로 해결
 - `$ npm install —save-dev webpack-dev-server@3.0.0`
@@ -727,43 +693,38 @@ public Page<Post> findAllByTagName(String tagName, Pageable pageable) {
 <details>
 <summary>vue-devtools 크롬익스텐션 인식 오류 문제</summary>
 <div markdown="1">
-
-
+  
   - main.js 파일에 `Vue.config.devtools = true` 추가로 해결
   - [https://github.com/vuejs/vue-devtools/issues/190](https://github.com/vuejs/vue-devtools/issues/190)
-
+  
 </div>
 </details>
 
 <details>
 <summary>ElementUI input 박스에서 `v-on:keyup.enter="메소드명"`이 정상 작동 안하는 문제</summary>
 <div markdown="1">
-
-
+  
   - `v-on:keyup.enter.native=""` 와 같이 .native 추가로 해결
-
+  
 </div>
 </details>
 
 <details>
 <summary> Post 목록 출력시에 Member 객체 출력 에러 </summary>
 <div markdown="1">
-
-
+  
   - 에러 메세지(500에러)
     - No serializer found for class org.hibernate.proxy.pojo.javassist.JavassistLazyInitializer and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationConfig.SerializationFeature.FAIL_ON_EMPTY_BEANS)
   - 해결
     - Post 엔티티에 @ManyToOne 연관관계 매핑을 LAZY 옵션에서 기본(EAGER)옵션으로 수정
-
+  
 </div>
 </details>
     
-
 <details>
 <summary> 프로젝트를 git init으로 생성 후 발생하는 npm run dev/build 오류 문제 </summary>
 <div markdown="1">
-
-
+  
   ```jsx
     $ npm run dev
     npm ERR! path C:\Users\integer\IdeaProjects\pilot\package.json
@@ -777,103 +738,91 @@ public Page<Post> findAllByTagName(String tagName, Pageable pageable) {
     npm ERR! A complete log of this run can be found in:
     npm ERR!     C:\Users\integer\AppData\Roaming\npm-cache\_logs\2019-02-25T01_23_19_131Z-debug.log
   ```
-
+  
   - 단순히 npm run dev/build 명령을 입력한 경로가 문제였다.
-
+   
 </div>
 </details>    
 
 <details>
 <summary> 태그 선택후 등록하기 누를 때 `object references an unsaved transient instance - save the transient instance before flushing` 오류</summary>
 <div markdown="1">
-
-
+  
   - Post 엔티티의 @ManyToMany에 영속성 전이(cascade=CascadeType.ALL) 추가
     - JPA에서 Entity를 저장할 때 연관된 모든 Entity는 영속상태여야 한다.
     - CascadeType.PERSIST 옵션으로 부모와 자식 Enitity를 한 번에 영속화할 수 있다.
     - 참고
-      - [https://stackoverflow.com/questions/2302802/object-references-an-unsaved-transient-instance-save-the-transient-instance-be/10680218](https://stackoverflow.com/questions/2302802/object-references-an-unsaved-transient-instance-save-the-transient-instance-be/10680218)
-
+        - [https://stackoverflow.com/questions/2302802/object-references-an-unsaved-transient-instance-save-the-transient-instance-be/10680218](https://stackoverflow.com/questions/2302802/object-references-an-unsaved-transient-instance-save-the-transient-instance-be/10680218)
+   
 </div>
 </details>    
 
 <details>
 <summary> JSON: Infinite recursion (StackOverflowError)</summary>
 <div markdown="1">
-
-
+  
   - @JsonIgnoreProperties 사용으로 해결
     - 참고
-      - [http://springquay.blogspot.com/2016/01/new-approach-to-solve-json-recursive.html](http://springquay.blogspot.com/2016/01/new-approach-to-solve-json-recursive.html)
-      - [https://stackoverflow.com/questions/3325387/infinite-recursion-with-jackson-json-and-hibernate-jpa-issue](https://stackoverflow.com/questions/3325387/infinite-recursion-with-jackson-json-and-hibernate-jpa-issue)
-
+        - [http://springquay.blogspot.com/2016/01/new-approach-to-solve-json-recursive.html](http://springquay.blogspot.com/2016/01/new-approach-to-solve-json-recursive.html)
+        - [https://stackoverflow.com/questions/3325387/infinite-recursion-with-jackson-json-and-hibernate-jpa-issue](https://stackoverflow.com/questions/3325387/infinite-recursion-with-jackson-json-and-hibernate-jpa-issue)
+        
 </div>
 </details>  
     
-
 <details>
 <summary> H2 접속문제</summary>
 <div markdown="1">
-
-
+  
   - H2의 JDBC URL이 jdbc:h2:~/test 으로 되어있으면 jdbc:h2:mem:testdb 으로 변경해서 접속해야 한다.
         
-
 </div>
 </details> 
     
-
 <details>
 <summary> 컨텐츠수정 모달창에서 태그 셀렉트박스 드랍다운이 뒤쪽에 보이는 문제</summary>
 <div markdown="1">
-
-
+  
    - ElementUI의 Global Config에 옵션 추가하면 해결
      - main.js 파일에 `Vue.us(ElementUI, { zIndex: 9999 });` 옵션 추가(9999 이하면 안됌)
    - 참고
      - [https://element.eleme.io/#/en-US/component/quickstart#global-config](https://element.eleme.io/#/en-US/component/quickstart#global-config)
-
+        
 </div>
 </details> 
 
 <details>
 <summary> HTTP delete Request시 개발자도구의 XHR(XMLHttpRequest )에서 delete요청이 2번씩 찍히는 이유</summary>
 <div markdown="1">
-
-
+  
   - When you try to send a XMLHttpRequest to a different domain than the page is hosted, you are violating the same-origin policy. However, this situation became somewhat common, many technics are introduced. CORS is one of them.
 
-      In short, server that you are sending the DELETE request allows cross domain requests. In the process, there should be a **preflight** call and that is the **HTTP OPTION** call.
+        In short, server that you are sending the DELETE request allows cross domain requests. In the process, there should be a **preflight** call and that is the **HTTP OPTION** call.
 
-      So, you are having two responses for the **OPTION** and **DELETE** call.
+        So, you are having two responses for the **OPTION** and **DELETE** call.
 
-      see [MDN page for CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS).
+        see [MDN page for CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS).
 
     - 출처 : [https://stackoverflow.com/questions/35808655/why-do-i-get-back-2-responses-of-200-and-204-when-using-an-ajax-call-to-delete-o](https://stackoverflow.com/questions/35808655/why-do-i-get-back-2-responses-of-200-and-204-when-using-an-ajax-call-to-delete-o)
-
+        
 </div>
 </details> 
 
 <details>
 <summary> 이미지 파싱 시 og:image 경로가 달라서 제대로 파싱이 안되는 경우</summary>
 <div markdown="1">
-
-
+  
   - UserAgent 설정으로 해결
-      - [https://www.javacodeexamples.com/jsoup-set-user-agent-example/760](https://www.javacodeexamples.com/jsoup-set-user-agent-example/760)
-      - [http://www.useragentstring.com/](http://www.useragentstring.com/)
-
+        - [https://www.javacodeexamples.com/jsoup-set-user-agent-example/760](https://www.javacodeexamples.com/jsoup-set-user-agent-example/760)
+        - [http://www.useragentstring.com/](http://www.useragentstring.com/)
+        
 </div>
 </details> 
     
-
 <details>
 <summary> 구글 로그인으로 로그인한 사용자의 정보를 가져오는 방법이 스프링 2.0대 버전에서 달라진 것</summary>
 <div markdown="1">
-
-
+  
   - 1.5대 버전에서는 Controller의 인자로 Principal을 넘기면 principal.getName(0에서 바로 꺼내서 쓸 수 있었는데, 2.0대 버전에서는 principal.getName()의 경우 principal 객체.toString()을 반환한다.
-
     - 1.5대 버전에서 principal을 사용하는 경우
     - 아래와 같이 사용했다면,
 
@@ -903,31 +852,27 @@ public Page<Post> findAllByTagName(String tagName, Pageable pageable) {
                     (UsernamePasswordAuthenticationToken) SecurityContextHolder
                             .getContext().getAuthentication();
             Map<String, Object> map = (Map<String, Object>) token.getPrincipal();
-    
+
             String email = String.valueOf(map.get("email"));
             post.setMember(memberRepository.findByEmail(email));
     ```
-
+        
 </div>
 </details> 
     
-
 <details>
 <summary> 랭킹 동점자 처리 문제</summary>
 <div markdown="1">
-
-
+  
   - PageRequest의 Sort부분에서 properties를 "rankPoint"를 주고 "likeCnt"를 줘서 댓글수보다 좋아요수가 우선순위 갖도록 설정.
   - 좋아요 수도 똑같다면..........
         
-
 </div>
 </details> 
     
 </br>
 
 ## 6. 회고 / 느낀점
-
 >프로젝트 개발 회고 글: https://zuminternet.github.io/ZUM-Pilot-integer/
 
 -->
