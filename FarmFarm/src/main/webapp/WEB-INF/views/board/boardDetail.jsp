@@ -118,6 +118,9 @@
         let key = "${param.key}";
         // let sort = "${param.sort}";
     </script>
+
+    <%-- axios --%>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
     <jsp:include page="/WEB-INF/views/common/modal/message.jsp"/> 
