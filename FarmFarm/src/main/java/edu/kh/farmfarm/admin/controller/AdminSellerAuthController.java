@@ -26,9 +26,6 @@ import edu.kh.farmfarm.member.model.VO.Member;
 public class AdminSellerAuthController {
 	
 	@Autowired
-	private AdminService adminService;
-	
-	@Autowired
 	private AdminSellerAuthService service;
 
 	// 관리자페이지 - 판매자 관리 (판매자 인증)
@@ -57,12 +54,6 @@ public class AdminSellerAuthController {
 	
 	//--------
 	// 판매자 인증 ------------------------------------------------------------------------------------
-	// nav 판매자 인증 관리 페이지로 이동
-//	@GetMapping("/admin/seller")
-//	public String adminSellerAuthPage() {
-//		return "admin/adminSellerAuth";
-//	}
-	
 	
 	//-- jsp (첫페이지)
 	// 판매자 정보 조회
@@ -75,25 +66,13 @@ public class AdminSellerAuthController {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("sellerFilter", sellerFilter);
 		
-		// 관리자인지 확인 (관리자면 result==1)
-		int result = adminService.checkAdmin();
-		
-		
+		// 판매자 인증 조회 + 페이지네이션 + 정렬
 		Map<String, Object> map = new HashMap<String, Object>();
-		
-		if(result == 1 && loginMember != null) {
-
-			// 판매자 인증 조회 + 페이지네이션 + 정렬
-			map = service.selectSeller(paramMap, cp);
-	
-		} else {
-			System.out.println("관리자만 접근 가능합니다.");
-		}
-
-		
+		map = service.selectSeller(paramMap, cp);
 		model.addAttribute("map", map);
-		
+
 		return "admin/adminSellerAuth";
+		
 	}
 	
 	
@@ -113,22 +92,11 @@ public class AdminSellerAuthController {
 			paramMap.put("keyword", keyword);
 		}
 		
-		// 관리자인지 확인 (관리자면 result==1)
-		int result = adminService.checkAdmin();
-		
-		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		if(result == 1 && loginMember != null) {
-
-			// 판매자 인증 조회 + 페이지네이션 + 정렬
-			map = service.selectSeller(paramMap, cp);
+		// 판매자 인증 조회 + 페이지네이션 + 정렬
+		map = service.selectSeller(paramMap, cp);
 			
-	
-		} else {
-			System.out.println("관리자만 접근 가능합니다.");
-		}
-
 		return new Gson().toJson(map);
 	}
 	
@@ -139,19 +107,11 @@ public class AdminSellerAuthController {
 	@ResponseBody
 	public Admin selectAuthPaper(@SessionAttribute(value = "loginMember") Member loginMember,
 									int hiddenNo) {
-		// 관리자인지 확인 (관리자면 result==1)
-		int result = adminService.checkAdmin();
 		
 		Admin authPaper = new Admin();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
-		
-		if(result == 1 && loginMember != null) {
 
-			// 해당 회원번호의 인증신청서 조회
-			authPaper = service.selectAuthPaper(hiddenNo);
-	
-		} else {
-			System.out.println("관리자만 접근 가능합니다.");
-		}
+		// 해당 회원번호의 인증신청서 조회
+		authPaper = service.selectAuthPaper(hiddenNo);
 		
 		return authPaper;
 	}
@@ -162,22 +122,9 @@ public class AdminSellerAuthController {
 	@PostMapping("/admin/sellerApprove")
 	@ResponseBody
 	public int sellerApprove(@SessionAttribute(value = "loginMember") Member loginMember, int hiddenNo) {
-		
-		// 관리자인지 확인 (관리자면 result==1)
-		int result = adminService.checkAdmin();
-		
-		
-		if(result == 1 && loginMember != null) {
 
-			// 해당 회원번호의 인증 승인
-			result = service.sellerApprove(hiddenNo);
-	
-		} else {
-			System.out.println("관리자만 접근 가능합니다.");
-		}
-		
-		return result;
-
+		// 해당 회원번호의 인증 승인
+		return service.sellerApprove(hiddenNo);
 	}
 	
 	
@@ -189,20 +136,8 @@ public class AdminSellerAuthController {
 	public int sellerDeny(@SessionAttribute(value = "loginMember") Member loginMember, int hiddenNo,
 							@RequestParam(value="denyReason", required=false) String denyReason
 							) {
-		
-		// 관리자인지 확인 (관리자면 result==1)
-		int result = adminService.checkAdmin();
-		
-		if(result == 1 && loginMember != null) {
-
-			// 해당 회원번호의 인증 보류
-			result = service.sellerDeny(hiddenNo, denyReason);
-			
-		} else {
-			System.out.println("관리자만 접근 가능합니다.");
-		}
-		
-		return result;
+		// 해당 회원번호의 인증 보류
+		return service.sellerDeny(hiddenNo, denyReason);
 	}
 	
 	
@@ -217,25 +152,10 @@ public class AdminSellerAuthController {
 		
 		String webPath = "/resources/images/seller/";
 		String folderPath = session.getServletContext().getRealPath(webPath);
-		
-		
-		// 관리자인지 확인 (관리자면 result==1)
-		int result = adminService.checkAdmin();
-		
-		if(result == 1 && loginMember != null) {
 
-			// 해당 회원번호의 인증사진 업데이트
-			result = service.updateSellerImage(memberNo, webPath, folderPath, farmImg);
-			
-		} else {
-			System.out.println("관리자만 접근 가능합니다.");
-		}
-		
-		return result;
-
+		// 해당 회원번호의 인증사진 업데이트
+		return service.updateSellerImage(memberNo, webPath, folderPath, farmImg);
 	}
-	
-	
 	
 	
 	

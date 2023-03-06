@@ -12,13 +12,6 @@ import edu.kh.farmfarm.inquire.model.vo.InquireRoom;
 
 
 public interface AdminService {
-
-	
-	/** 관리자인지 확인
-	 * @return result
-	 */
-	int checkAdmin();
-
 	
 	/** 대시보드 통계 조회
 	 * @return statMap

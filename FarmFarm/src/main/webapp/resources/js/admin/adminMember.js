@@ -17,20 +17,30 @@ var memberSelectTable = document.getElementById("memberSelectTable");
 // optimize 
 /** 전체 회원 정보 조회 함수 */
 const selectMemberList = (cp) => {
-    $.ajax({
-        url: "/admin/selectMemberList",
-        data: { "cp": cp, "authFilter": authFilter, "statFilter": statFilter, "keyword": keyword },
-        dataType: "JSON",
-        type: "GET",
-        success: (map) => {
-
-            printMemberList(map.memberList, map.pagination);
-
-        },
-        error: () => {
-            console.log("cp 받아 회원 정보 조회 실패");
-        }
+    axios.get("/admin/member/list", {
+        params: { "cp": cp, "authFilter": authFilter, "statFilter": statFilter, "keyword": keyword}
+    })
+    .then((response) => { // 성공
+        const map = response.data;
+        printMemberList(map.memberList, map.pagination);
+    }).catch(() => {
+        console.log("회원 정보 조회 실패");
     });
+
+    // $.ajax({
+    //     url: "/admin/member/list",
+    //     data: { "cp": cp, "authFilter": authFilter, "statFilter": statFilter, "keyword": keyword },
+    //     dataType: "JSON",
+    //     type: "GET",
+    //     success: (map) => {
+
+    //         printMemberList(map.memberList, map.pagination);
+
+    //     },
+    //     error: () => {
+    //         console.log("cp 받아 회원 정보 조회 실패");
+    //     }
+    // });
 }
 
 
@@ -39,18 +49,30 @@ const selectMemberList = (cp) => {
  * @param hiddenNo
 */
 const selectMemberDetail = (hiddenNo) => {
-    $.ajax({
-        url: "/admin/selectMemberDetail",
-        data: { "hiddenNo": hiddenNo },
-        dataType: "JSON",
-        type: "GET",
-        success: (map) => {
-            printMemberDetail(map.memberDetailInfo, map.memberHistoryList);
-        },
-        error: () => {
-            console.log("회원 상세 정보 조회 실패");
-        }
+
+    axios.get("/admin/member/"+hiddenNo, {
+        params: { "hiddenNo": hiddenNo}
     })
+    .then((response) => { // 성공
+        const map = response.data;
+        printMemberDetail(map.memberDetailInfo, map.memberHistoryList);
+    }).catch(() => {
+        console.log("회원 상세 정보 조회 실패");
+    });
+ 
+
+    // $.ajax({
+    //     url: "/admin/member/" + hiddenNo,
+    //     data: { "hiddenNo": hiddenNo },
+    //     dataType: "JSON",
+    //     type: "GET",
+    //     success: (map) => {
+    //         printMemberDetail(map.memberDetailInfo, map.memberHistoryList);
+    //     },
+    //     error: () => {
+    //         console.log("회원 상세 정보 조회 실패");
+    //     }
+    // })
 }
 
 
@@ -323,7 +345,11 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
     memberBirth.innerText = "생년월일";
 
     const tdBirth = document.createElement("td");
-    tdBirth.innerText = memberDetailInfo.memberBirth;
+    if(memberDetailInfo.memberBirth != null) {
+        tdBirth.innerText = memberDetailInfo.memberBirth;
+    } else {
+        tdBirth.innerText = "";
+    }
 
 
     // 3)
@@ -532,18 +558,14 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
             document.getElementById("memberHistorySpan").style.height = '150px';
             document.getElementById("memberHistorySpan").style.overflow = 'hidden';
         } else  {
-            document.getElementById("memberHistorySpan").style.height = '400px';
+            // document.getElementById("memberHistorySpan").style.height = '400px';
+            document.getElementById("memberHistorySpan").classList.add("member-history");
+            document.getElementById("memberHistorySpan").style.height = '500px';
+            document.getElementById("memberHistorySpan").style.overflow = 'scroll';
+            
         }
 
-        // if (history.reportPenalty == null) {
-            // tdReportDate.innerHTML = "";
-            // tdReport.innerHTML = "";
-            // tdReportReason.innerHTML = "";
-        // }
-
-
         // 3) 신고 처리 내역
-        
         if (history.processDate != null){
             if (history.memberDelFl == 'N') {
                 // 강제 탈퇴 버튼 활성화
@@ -899,7 +921,6 @@ for(let i=0; i<dropBtn2TextArr.length; i++){
 
 
 // todo: 강제 탈퇴 시키기 (by 관리자)
-//fixme: 안 비워줘서 바로바로 적용이 안되는 것 같다..
 // 강제 탈퇴 버튼 클릭 시 모달 열리기
 const adminDelBtn = document.getElementById("adminDelBtn");
 
@@ -912,31 +933,51 @@ adminDelBtn.addEventListener('click', () => {
 // 모달에서 강제 탈퇴 제출 버튼 클릭 시
 document.getElementById("adminDelSubmitBtn").addEventListener('click', () => {
 
-    $.ajax({
-        url: "/admin/kickout",
-        data: { "hiddenNo": hiddenNo },
-        type: "POST",
-        success: (result) => {
-            if (result > 0) {
-                adminModalClose();
+    //fix: restful api로 바꾸기 + axios로 변경
+    axios.put("/admin/member/"+hiddenNo+ "/kickout")
+    .then((response) => { // 성공
+        const result = response.data;
+        
+        if (result > 0) {
+            adminModalClose();
 
-                selectMemberList(cp);
-                selectMemberDetail(hiddenNo);
+            selectMemberList(cp);
+            selectMemberDetail(hiddenNo);
 
-                console.log("강제 탈퇴 완료");
-                messageModalOpen("강제 탈퇴 되었습니다.");
+            console.log("강제 탈퇴 완료");
+            messageModalOpen("강제 탈퇴 되었습니다.");
 
-                //fixme: 시간 남을 때 모달이랑, 스크롤 위치 수정
-
-
-            } else {
-                console.log("강퇴 처리 실패");
-            }
-        },
-        error: () => {
-            console.log("강퇴 처리 오류");
+        } else {
+            console.log("강퇴 처리 실패");
         }
+
+    }).catch(() => {
+         console.log("강퇴 처리 오류");
     });
+
+
+    // $.ajax({
+    //     url: "/admin/kickout",
+    //     data: { "hiddenNo": hiddenNo },
+    //     type: "POST",
+    //     success: (result) => {
+    //         if (result > 0) {
+    //             adminModalClose();
+
+    //             selectMemberList(cp);
+    //             selectMemberDetail(hiddenNo);
+
+    //             console.log("강제 탈퇴 완료");
+    //             messageModalOpen("강제 탈퇴 되었습니다.");
+
+    //         } else {
+    //             console.log("강퇴 처리 실패");
+    //         }
+    //     },
+    //     error: () => {
+    //         console.log("강퇴 처리 오류");
+    //     }
+    // });
 });
 
 

@@ -15,6 +15,9 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    /* 가로 스크롤바 제거 */
+    overflow-x:hidden;
 }
 
 main{

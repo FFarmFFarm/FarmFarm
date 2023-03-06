@@ -6,7 +6,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
@@ -20,19 +23,10 @@ public class AdminProcessController {
 	private AdminProcessService service;
 	
 	// 회원 관리 - 강제 탈퇴 (신고 내역 없어도 가능)
-	@PostMapping("/admin/kickout")
+	@PutMapping("/admin/member/{memberNo}/kickout")
 	@ResponseBody
-	public int memberKickout(@SessionAttribute(value="loginMember") Member loginMember, int hiddenNo) {
-		
-		// 관리자인지 확인
-		int result = service.checkAdmin();
-		
-		if(result == 1  && loginMember != null) {
-			
-			result = service.memberKickout(hiddenNo);
-		}
-		
-		return result;
+	public int memberKickout(@PathVariable("memberNo") int hiddenNo) {
+		return service.memberKickout(hiddenNo);
 	}
 	
 	
@@ -45,102 +39,57 @@ public class AdminProcessController {
 	
 	
 	// 신고 계정 - 강제탈퇴  // 신고된 회원 강제 탈퇴 + REPORT 테이블 변경하기 + 판매자면 판매상품 지우기
-	@PostMapping("/report/kickout")
+	@PutMapping("/report/M/{memberNo}/kickout")
 	@ResponseBody
-	public int reportMemberKickout(@SessionAttribute(value="loginMember") Member loginMember, 
-									int hiddenNo, int authority) {
-		
-		// 관리자인지 확인
-		int result = service.checkAdmin();
-		
-		if(result == 1  && loginMember != null) {
-			
-			result = service.reportMemberKickout(hiddenNo, authority);
-		}
-		return result;
+	public int reportMemberKickout(@PathVariable("memberNo") int hiddenNo, 
+									@RequestParam(value="authority", required=false, defaultValue="0") int authority) {
+		return service.reportMemberKickout(hiddenNo, authority);
 	}
 	
 	
 	// 신고 계정 - 정지   // 스케쥴러로 7일 뒤에 풀기
-	@PostMapping("/report/bannedAccount")
+	@PutMapping("/report/M/{memberNo}/suspension")
 	@ResponseBody
-	public int reportMemberBanned(@SessionAttribute(value="loginMember") Member loginMember, int hiddenNo) {
-		// 관리자인지 확인
-		int result = service.checkAdmin();
-		
-		if(result == 1  && loginMember != null) {
+	public int reportMemberBanned(@PathVariable("memberNo") int hiddenNo) {
 			
-			result = service.reportMemberBanned(hiddenNo);
-		}
-		return result;
+		return service.reportMemberBanned(hiddenNo);
 	}
-	
-	
-	
 	
 	
 	
 	
 	// 신고 계정 - 반려
-	@PostMapping("/report/leaveAccount")
+	@PutMapping("/report/M/{memberNo}/hold")
 	@ResponseBody
-	public int reportMemberLeave(@SessionAttribute(value="loginMember") Member loginMember, int hiddenNo) {
-		
-		// 관리자인지 확인
-		int result = service.checkAdmin();
-		
-		if(result == 1  && loginMember != null) {
-			
-			result = service.reportMemberLeave(hiddenNo);
-		}
-		return result;
-		
+	public int reportMemberLeave(@PathVariable("memberNo") int hiddenNo) {
+		return service.reportMemberLeave(hiddenNo);
 	}
 	
 	
 	
 	
 	// 신고 게시글(판매글, 커뮤니티 게시글, 커뮤니티 댓글) - 삭제
-	@GetMapping("/report/deleteContent")
+	@PutMapping("/report/{reportType}/{contentNo}/delete")
 	@ResponseBody
-	public int reportDeleteContent(@SessionAttribute(value="loginMember") Member loginMember,
-									int hiddenContentNo, String reportType) {
-		// 관리자인지 확인
-		int result = service.checkAdmin();
-
-		
-		if(result == 1  && loginMember != null) {
-			
-			result = service.reportDeleteContent(hiddenContentNo, reportType);
-		}
-		return result;
+	public int reportDeleteContent(@PathVariable("contentNo") int hiddenContentNo, 
+									@PathVariable("reportType")	String reportType) {
+		return service.reportDeleteContent(hiddenContentNo, reportType);
 	}
 	
 
 	
 	// 신고 게시글 - 반려
-	@GetMapping("/report/LeaveContent")
+	@PutMapping("/report/{reportType}/{contentNo}/hold")
 	@ResponseBody
-	public int reportLeaveContent(@SessionAttribute(value="loginMember") Member loginMember,
-									int hiddenContentNo, String reportType) {
-		// 관리자인지 확인
-		int result = service.checkAdmin();
+	public int reportLeaveContent(@PathVariable("contentNo") int hiddenContentNo, 
+									@PathVariable("reportType")	String reportType) {
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("hiddenContentNo", hiddenContentNo);
 		paramMap.put("reportType", reportType);
-		
-		if(result == 1  && loginMember != null) {
 			
-			result = service.reportLeaveContent(paramMap);
-		}
-		return result;
+		return service.reportLeaveContent(paramMap);
 	}
-	
-	
-	
-
-	
 	
 
 }
