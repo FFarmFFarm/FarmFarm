@@ -26,5 +26,7 @@ public class Comment {
 	private int authority; // 권한 
 	
 	private int parentNo; // 부모댓글의 회원번호
+	
+	private int checkok; // 비밀댓글 여부
 
 }
