@@ -945,9 +945,6 @@ accountKickOutBtn.addEventListener('click', () => {
                 console.log("강제 탈퇴 완료");
                 messageModalOpen("해당 계정이 강제 탈퇴되었습니다.");
 
-                //fixme: 시간 남을 때 모달이랑, 스크롤 위치 수정
-
-            
             } else {
                 console.log("강퇴 처리 실패");
             }

@@ -6,7 +6,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
@@ -20,9 +22,9 @@ public class AdminProcessController {
 	private AdminProcessService service;
 	
 	// 회원 관리 - 강제 탈퇴 (신고 내역 없어도 가능)
-	@PostMapping("/admin/kickout")
+	@PutMapping("/admin/member/{memberNo}/kickout")
 	@ResponseBody
-	public int memberKickout(int hiddenNo) {
+	public int memberKickout(@PathVariable("memberNo") int hiddenNo) {
 		return service.memberKickout(hiddenNo);
 	}
 	
