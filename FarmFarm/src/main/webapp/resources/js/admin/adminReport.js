@@ -19,19 +19,33 @@ var allNew = 'new'; // 전체 신고 조회 누적 모달하고 구분하기 위
 /** 미처리 신고 조회 함수 ajax */
 const selectNewReportList = (cp) => {
 
-    $.ajax({
-        url: "/admin/selectNewReportList",
-        data: {"cp": cp, "sortFilter": sortFilter},
-        dataType: "JSON",
-        type: "GET",
-        success: (map) => {
-            printNewReportList(map.newReportList, map.pagination, map.reportListCount, map.reportAllListCount);
-            console.log("미처리 신고 내역 조회 성공");
-        },
-        error: () => {
-            console.log("미처리 신고 내역 조회 실패");
-        }
+    axios.get("/admin/report/issues", {
+        params: {"cp": cp, "sortFilter": sortFilter}
     })
+    .then((response) => { // 성공
+        const map = response.data;
+        printNewReportList(map.newReportList, map.pagination, map.reportListCount, map.reportAllListCount);
+        console.log("미처리 신고 내역 조회 성공");
+
+    }).catch(() => {
+         console.log("미처리 신고 내역 조회 실패");
+    });
+
+
+
+    // $.ajax({
+    //     url: "/admin/selectNewReportList",
+    //     data: {"cp": cp, "sortFilter": sortFilter},
+    //     dataType: "JSON",
+    //     type: "GET",
+    //     success: (map) => {
+    //         printNewReportList(map.newReportList, map.pagination, map.reportListCount, map.reportAllListCount);
+    //         console.log("미처리 신고 내역 조회 성공");
+    //     },
+    //     error: () => {
+    //         console.log("미처리 신고 내역 조회 실패");
+    //     }
+    // })
 }
 
 
@@ -39,50 +53,84 @@ const selectNewReportList = (cp) => {
 //optimize
 /** 미처리 신고 상세 모달창 함수 ajax */
 const selectNewReportDetail = (hiddenReportNo) => {
-    $.ajax({
-        url: "/admin/selectNewReportDetail",
-        data: {"hiddenReportNo": hiddenReportNo},
-        type: "POST",
-        success: (newReportDetail) => {
 
-            printNewReportDetail(newReportDetail);
-            console.log("미처리 신고 상세 조회 성공");
-
-        }, 
-        error: () => {
-            console.log("미처리 신고 상세 조회 실패");
-        }
+    axios.get('/admin/report/issues/' + hiddenReportNo,{
+        params: {"hiddenReportNo": hiddenReportNo}
     })
+    .then((response) => { // 성공
+        const newReportDetail = response.data;
+        printNewReportDetail(newReportDetail);
+        console.log("미처리 신고 상세 조회 성공");
+
+    }).catch(() => {
+         console.log("미처리 신고 상세 조회 실패");
+    });
+
+
+
+    // $.ajax({
+    //     url: "/admin/selectNewReportDetail",
+    //     data: {"hiddenReportNo": hiddenReportNo},
+    //     type: "POST",
+    //     success: (newReportDetail) => {
+
+    //         printNewReportDetail(newReportDetail);
+    //         console.log("미처리 신고 상세 조회 성공");
+
+    //     }, 
+    //     error: () => {
+    //         console.log("미처리 신고 상세 조회 실패");
+    //     }
+    // })
 }
 
 
 
 //optimize
 /**신고 누적 기록 모달창 함수 ajax */
-const selectReportAccumulate = (hiddenReportType, hiddenMemberNo, hiddenContentNo) => {
-    $.ajax({
-        url: "/admin/selectReportAccumulate",
-        data: {"reportType": hiddenReportType,
-                "memberNo": hiddenMemberNo,
-                "contentNo": hiddenContentNo,
-                "allNew": allNew},
-        dataType: "JSON",
-        type: "POST",
-        success: (map) => {
+const selectReportAccumulate = (hiddenReportType, hiddenMemberNo, hiddenContentNo, hiddenReportNo) => {
 
-            printAccumulate(map.accumMemberList, map.accumContentList);
-            // if(hiddenReportType == 'M'){
-            //     printAccumMember(map.accumMemberList);
-            // } else {
-            //     printAccumContent(map.accumContentList);
-            // }
-
-            console.log("신고 누적 기록 조회 성공");
-        }, 
-        error: () => {
-            console.log("신고 누적 기록 조회 실패");
-        }
+    axios.get('/admin/report/'+hiddenReportNo+'/accumulation',{
+        params: {"reportType": hiddenReportType,
+                 "memberNo": hiddenMemberNo,
+                 "contentNo": hiddenContentNo,
+                 "allNew": allNew,
+                 "reportNo" : hiddenReportNo,},
     })
+    .then((response) => { // 성공
+        const map = response.data;
+        printAccumulate(map.accumMemberList, map.accumContentList);
+        console.log("신고 누적 기록 조회 성공");
+
+    }).catch(() => {
+        console.log("신고 누적 기록 조회 실패");
+    });
+
+
+
+    // $.ajax({
+    //     url: "/admin/selectReportAccumulate",
+    //     data: {"reportType": hiddenReportType,
+    //             "memberNo": hiddenMemberNo,
+    //             "contentNo": hiddenContentNo,
+    //             "allNew": allNew},
+    //     dataType: "JSON",
+    //     type: "POST",
+    //     success: (map) => {
+
+    //         printAccumulate(map.accumMemberList, map.accumContentList);
+    //         // if(hiddenReportType == 'M'){
+    //         //     printAccumMember(map.accumMemberList);
+    //         // } else {
+    //         //     printAccumContent(map.accumContentList);
+    //         // }
+
+    //         console.log("신고 누적 기록 조회 성공");
+    //     }, 
+    //     error: () => {
+    //         console.log("신고 누적 기록 조회 실패");
+    //     }
+    // })
 }
 
 
@@ -240,11 +288,11 @@ for(let i=0; i<reportListRow.length; i++){
 
         selectNewReportDetail(hiddenReportNo);
 
-        console.log("jsp에서 한 행 클릭했을때=====");
-        console.log("hiddenReportNo: " + hiddenReportNo);
-        console.log("hiddenMemberNo : " + hiddenMemberNo);
-        console.log("hiddenContentNo : " + hiddenContentNo);
-        console.log("hiddenReportType : " + hiddenReportType);
+        // console.log("jsp에서 한 행 클릭했을때=====");
+        // console.log("hiddenReportNo: " + hiddenReportNo);
+        // console.log("hiddenMemberNo : " + hiddenMemberNo);
+        // console.log("hiddenContentNo : " + hiddenContentNo);
+        // console.log("hiddenReportType : " + hiddenReportType);
     })
 }
 
@@ -360,13 +408,13 @@ const printNewReportDetail = (newReportDetail) => {
         hiddenReportType = newReportDetail.reportType; // 게시글 정지, 반려용
 
         console.log("신고 누적 용 값---------");
-        console.log("hiddenMemberNo: " + hiddenMemberNo);
-        console.log("hiddenContentNo: " + hiddenContentNo);
-        console.log("hiddenReportType: " + hiddenReportType);
+        // console.log("hiddenMemberNo: " + hiddenMemberNo);
+        // console.log("hiddenContentNo: " + hiddenContentNo);
+        // console.log("hiddenReportType: " + hiddenReportType);
 
         reportDetailModalClose();
         accumModalOpen();
-        selectReportAccumulate(hiddenReportType, hiddenMemberNo, hiddenContentNo);
+        selectReportAccumulate(hiddenReportType, hiddenMemberNo, hiddenContentNo, hiddenReportNo);
     })
 
     // 3)
@@ -533,12 +581,12 @@ const printNewReportDetail = (newReportDetail) => {
     // hiddenReportNo = newReportDetail.reportNo;  
 
     
-    console.log("상세 모달---------");
-    console.log("hiddenReportNo: " + hiddenReportNo);
-    console.log("hiddenMemberNo: " + hiddenMemberNo);
-    console.log("hiddenContentNo: " + hiddenContentNo);
-    console.log("hiddenReportType: " + hiddenReportType);
-    console.log("authority: " + hiddenAuthority);
+    // console.log("상세 모달---------");
+    // console.log("hiddenReportNo: " + hiddenReportNo);
+    // console.log("hiddenMemberNo: " + hiddenMemberNo);
+    // console.log("hiddenContentNo: " + hiddenContentNo);
+    // console.log("hiddenReportType: " + hiddenReportType);
+    // console.log("authority: " + hiddenAuthority);
 
     // 버튼
     // 회원신고 -> 반려, 강제정지, 탈퇴
@@ -934,26 +982,47 @@ window.addEventListener('click', (e) => {
 accountKickOutBtn.addEventListener('click', () => {
     console.log("계정 탈퇴 클릭");
 
-    $.ajax({
-        url: "/report/kickout",
-        data: { "hiddenNo": hiddenMemberNo, "authority":hiddenAuthority},
-        type: "POST",
-        success: (result) => {
-            if(result > 0){
-                reportDetailModalClose();
-                selectNewReportList(cp);
-                console.log("강제 탈퇴 완료");
-                messageModalOpen("해당 계정이 강제 탈퇴되었습니다.");
+    axios.put('/report/M/'+hiddenMemberNo+'/kickout',{
+        params: {"authority" : hiddenAuthority},
+    })
+    .then((response) => { // 성공
+        const result = response.data;
+        if(result > 0){
+            reportDetailModalClose();
+            selectNewReportList(cp);
+            
+            console.log("강제 탈퇴 완료");
+            messageModalOpen("해당 계정이 강제 탈퇴되었습니다.");
 
-            } else {
-                console.log("강퇴 처리 실패");
-            }
-        },
-        error: () => {
-            console.log("강퇴 처리 오류");
-            messageModalOpen("오류 발생");
+        } else {
+            console.log("강퇴 처리 실패");
         }
+
+    }).catch(() => {
+        console.log("강퇴 처리 오류");
+        messageModalOpen("오류 발생");
     });
+
+    // $.ajax({
+    //     url: "/report/kickout",
+    //     data: { "hiddenNo": hiddenMemberNo, "authority":hiddenAuthority},
+    //     type: "POST",
+    //     success: (result) => {
+    //         if(result > 0){
+    //             reportDetailModalClose();
+    //             selectNewReportList(cp);
+    //             console.log("강제 탈퇴 완료");
+    //             messageModalOpen("해당 계정이 강제 탈퇴되었습니다.");
+
+    //         } else {
+    //             console.log("강퇴 처리 실패");
+    //         }
+    //     },
+    //     error: () => {
+    //         console.log("강퇴 처리 오류");
+    //         messageModalOpen("오류 발생");
+    //     }
+    // });
 })
 
 
@@ -961,24 +1030,43 @@ accountKickOutBtn.addEventListener('click', () => {
 accountLeaveBtn.addEventListener('click', () => {
     console.log("계정 반려 클릭");
 
-    $.ajax({
-        url: "/report/leaveAccount",
-        data: {"hiddenNo":hiddenMemberNo},
-        type: "POST",
-        success: (result) => {
-            if(result > 0){
-                reportDetailModalClose();
-                selectNewReportList(cp);
+    axios.put('/report/M/'+hiddenMemberNo+'/hold')
+    .then((response) => { // 성공
+        const result = response.data;
+        if(result > 0){
+            reportDetailModalClose();
+            selectNewReportList(cp);
 
-                console.log("계정 반려");
-                messageModalOpen("해당 계정이 활성화 상태를 유지합니다.");
-            }
-        },
-        error: () => {
-            console.log("계정 반려 오류");
-            messageModalOpen("오류 발생");
+            console.log("계정 반려");
+            messageModalOpen("해당 계정이 활성화 상태를 유지합니다.");
+
+        } else {
+            console.log("계정 반려 실패");
         }
-    })
+
+    }).catch(() => {
+        console.log("계정 반려 오류");
+        messageModalOpen("오류 발생");
+    });
+
+    // $.ajax({
+    //     url: "/report/leaveAccount",
+    //     data: {"hiddenNo":hiddenMemberNo},
+    //     type: "POST",
+    //     success: (result) => {
+    //         if(result > 0){
+    //             reportDetailModalClose();
+    //             selectNewReportList(cp);
+
+    //             console.log("계정 반려");
+    //             messageModalOpen("해당 계정이 활성화 상태를 유지합니다.");
+    //         }
+    //     },
+    //     error: () => {
+    //         console.log("계정 반려 오류");
+    //         messageModalOpen("오류 발생");
+    //     }
+    // })
 })
 
 
@@ -986,24 +1074,43 @@ accountLeaveBtn.addEventListener('click', () => {
 accountBannedBtn.addEventListener('click', () => {
     console.log("계정 정지 클릭");
 
-    $.ajax({
-        url: "/report/bannedAccount",
-        data: {"hiddenNo":hiddenMemberNo},
-        type: "POST",
-        success: (result) => {
-            if(result > 0){
-                reportDetailModalClose();
-                selectNewReportList(cp);
+    axios.put('/report/M/'+hiddenMemberNo+'/suspension')
+    .then((response) => { // 성공
+        const result = response.data;
+        if(result > 0){
+            reportDetailModalClose();
+            selectNewReportList(cp);
 
-                console.log("계정 정지");
-                messageModalOpen("해당 계정이 7일간 정지됩니다.")
-            }
-        },
-        error: () => {
-            console.log("계정 정지 오류");
-            messageModalOpen("오류 발생");
+            console.log("계정 정지");
+            messageModalOpen("해당 계정이 7일간 정지됩니다.")
+
+        } else {
+            console.log("계정 정지 실패");
         }
-    })
+
+    }).catch(() => {
+        console.log("계정 정지 오류");
+        messageModalOpen("오류 발생");
+    });
+
+    // $.ajax({
+    //     url: "/report/bannedAccount",
+    //     data: {"hiddenNo":hiddenMemberNo},
+    //     type: "POST",
+    //     success: (result) => {
+    //         if(result > 0){
+    //             reportDetailModalClose();
+    //             selectNewReportList(cp);
+
+    //             console.log("계정 정지");
+    //             messageModalOpen("해당 계정이 7일간 정지됩니다.")
+    //         }
+    //     },
+    //     error: () => {
+    //         console.log("계정 정지 오류");
+    //         messageModalOpen("오류 발생");
+    //     }
+    // })
 })
 
 
@@ -1013,24 +1120,44 @@ accountBannedBtn.addEventListener('click', () => {
 contentDeleteBtn.addEventListener('click', () => {
     console.log("게시글 삭제 클릭");
 
-    $.ajax({
-        url: "/report/deleteContent",
-        data: {"hiddenContentNo":hiddenContentNo, "reportType":hiddenReportType},
-        type: "GET",
-        success: (result) => {
-            if(result > 0){
-                reportDetailModalClose();
-                selectNewReportList(cp);
+    
+    axios.put('/report/'+hiddenReportType+'/'+hiddenContentNo+'/delete')
+    .then((response) => { // 성공
+        const result = response.data;
+        if(result > 0){
+            reportDetailModalClose();
+            selectNewReportList(cp);
 
-                console.log("게시글 삭제");
-                messageModalOpen("해당 게시글/댓글이 삭제되었습니다.")
-            }
-        },
-        error: () => {
-            console.log("게시글/댓글 삭제 오류");
-            messageModalOpen("오류 발생");
+            console.log("게시글/댓글 삭제");
+            messageModalOpen("해당 게시글/댓글이 삭제되었습니다.")
+
+        } else {
+            console.log("게시글/댓글 삭제 실패");
         }
-    })
+
+    }).catch(() => {
+        console.log("게시글/댓글 삭제 오류");
+        messageModalOpen("오류 발생");
+    });
+
+    // $.ajax({
+    //     url: "/report/deleteContent",
+    //     data: {"hiddenContentNo":hiddenContentNo, "reportType":hiddenReportType},
+    //     type: "GET",
+    //     success: (result) => {
+    //         if(result > 0){
+    //             reportDetailModalClose();
+    //             selectNewReportList(cp);
+
+    //             console.log("게시글 삭제");
+    //             messageModalOpen("해당 게시글/댓글이 삭제되었습니다.")
+    //         }
+    //     },
+    //     error: () => {
+    //         console.log("게시글/댓글 삭제 오류");
+    //         messageModalOpen("오류 발생");
+    //     }
+    // })
 })
 
 
@@ -1040,24 +1167,43 @@ contentLeaveBtn.addEventListener('click', () => {
     console.log("게시글 반려 클릭");
     // console.log(hiddenContentNo);
 
-    $.ajax({
-        url: "/report/LeaveContent",
-        data: {"hiddenContentNo":hiddenContentNo, "reportType":hiddenReportType},
-        type: "GET",
-        success: (result) => {
-            if(result > 0){
-                reportDetailModalClose();
-                selectNewReportList(cp);
+    axios.put('/report/'+hiddenReportType+'/'+hiddenContentNo+'/hold')
+    .then((response) => { // 성공
+        const result = response.data;
+        if(result > 0){
+            reportDetailModalClose();
+            selectNewReportList(cp);
 
-                console.log("게시글 반려");
-                messageModalOpen("해당 게시글/댓글이 활성화 상태를 유지합니다.")
-            }
-        }, 
-        error: () => {
-            console.log("게시글/댓글 반려 오류");
-            messageModalOpen("오류 발생");
-        } 
-    })
+            console.log("게시글/댓글 반려");
+            messageModalOpen("해당 게시글/댓글이 활성화 상태를 유지합니다.")
+
+        } else {
+            console.log("게시글/댓글 반려 실패");
+        }
+
+    }).catch(() => {
+        console.log("게시글/댓글 반려 오류");
+        messageModalOpen("오류 발생");
+    });
+
+    // $.ajax({
+    //     url: "/report/LeaveContent",
+    //     data: {"hiddenContentNo":hiddenContentNo, "reportType":hiddenReportType},
+    //     type: "GET",
+    //     success: (result) => {
+    //         if(result > 0){
+    //             reportDetailModalClose();
+    //             selectNewReportList(cp);
+
+    //             console.log("게시글 반려");
+    //             messageModalOpen("해당 게시글/댓글이 활성화 상태를 유지합니다.")
+    //         }
+    //     }, 
+    //     error: () => {
+    //         console.log("게시글/댓글 반려 오류");
+    //         messageModalOpen("오류 발생");
+    //     } 
+    // })
 })
 
 

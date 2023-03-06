@@ -345,7 +345,11 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
     memberBirth.innerText = "생년월일";
 
     const tdBirth = document.createElement("td");
-    tdBirth.innerText = memberDetailInfo.memberBirth;
+    if(memberDetailInfo.memberBirth != null) {
+        tdBirth.innerText = memberDetailInfo.memberBirth;
+    } else {
+        tdBirth.innerText = "";
+    }
 
 
     // 3)
@@ -930,9 +934,7 @@ adminDelBtn.addEventListener('click', () => {
 document.getElementById("adminDelSubmitBtn").addEventListener('click', () => {
 
     //fix: restful api로 바꾸기 + axios로 변경
-    axios.put("/admin/member/"+hiddenNo+ "/kickout", {
-        params: { "hiddenNo": hiddenNo}
-    })
+    axios.put("/admin/member/"+hiddenNo+ "/kickout")
     .then((response) => { // 성공
         const result = response.data;
         

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -47,7 +48,7 @@ public class AdminReportController {
 	
 	// ajax
 	// 미처리 신고 내역 조회 
-	@GetMapping("/admin/selectNewReportList")
+	@GetMapping("/admin/report/issues")
 	@ResponseBody
 	public String adminReportPage(@RequestParam(value="cp", required=false, defaultValue="1") int cp,	
 								  @RequestParam(value = "sortFilter", required=false, defaultValue = "default") String sortFilter) {
@@ -64,9 +65,9 @@ public class AdminReportController {
 	
 	// ajax
 	// 미처리 신고 상세 조회(모달창 내부 내용)
-	@PostMapping("/admin/selectNewReportDetail")
+	@GetMapping("/admin/report/issues/{reportNo}")
 	@ResponseBody
-	public Admin adminNeweportDetail(int hiddenReportNo) {
+	public Admin adminNeweportDetail(@PathVariable("reportNo") int hiddenReportNo) {
 		
 		Admin newReportDetail = new Admin();
 		
@@ -79,9 +80,10 @@ public class AdminReportController {
 
 	
 	// 신고 누적 기록 조회 (신고 누적 모달)
-	@PostMapping("/admin/selectReportAccumulate")
+	@GetMapping("/admin/report/{reportNo}/accumulation")
 	@ResponseBody
-	public String selectReportAccumulate(@RequestParam(value="memberNo", required=false, defaultValue="0") int memberNo,
+	public String selectReportAccumulate(@PathVariable("reportNo") int reportNo,
+										 @RequestParam(value="memberNo", required=false, defaultValue="0") int memberNo,
 										 @RequestParam(value="contentNo", required=false, defaultValue="0") int contentNo,
 										 @RequestParam(value="reportType", required=false ) String reportType,
 										 @RequestParam(value="allNew", required=false) String allNew
@@ -135,7 +137,7 @@ public class AdminReportController {
 	
 	// -- ajax
 	// 전체 신고 내역
-	@GetMapping("/admin/selectReportList")
+	@GetMapping("/admin/report/list")
 	@ResponseBody
 	public String adminReportListPage(@SessionAttribute(value="loginMember") Member loginMember,
 										@RequestParam(value="cp", required=false, defaultValue="1") int cp,
@@ -162,9 +164,10 @@ public class AdminReportController {
 	
 	// ajax
 	// 전체 신고 상세 조회(모달창 내부 내용)
-	@PostMapping("/admin/selectReportDetail")
+	@GetMapping("/admin/report/list/{reportNo}")
 	@ResponseBody
-	public Admin selectReportDetail(@SessionAttribute(value="loginMember") Member loginMember, int hiddenReportNo) {
+	public Admin selectReportDetail(@SessionAttribute(value="loginMember") Member loginMember, 
+									@PathVariable("reportNo") int hiddenReportNo) {
 		
 		Admin reportDetail = new Admin();
 		

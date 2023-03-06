@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
@@ -38,17 +39,18 @@ public class AdminProcessController {
 	
 	
 	// 신고 계정 - 강제탈퇴  // 신고된 회원 강제 탈퇴 + REPORT 테이블 변경하기 + 판매자면 판매상품 지우기
-	@PostMapping("/report/kickout")
+	@PutMapping("/report/M/{memberNo}/kickout")
 	@ResponseBody
-	public int reportMemberKickout(int hiddenNo, int authority) {
+	public int reportMemberKickout(@PathVariable("memberNo") int hiddenNo, 
+									@RequestParam(value="authority", required=false, defaultValue="0") int authority) {
 		return service.reportMemberKickout(hiddenNo, authority);
 	}
 	
 	
 	// 신고 계정 - 정지   // 스케쥴러로 7일 뒤에 풀기
-	@PostMapping("/report/bannedAccount")
+	@PutMapping("/report/M/{memberNo}/suspension")
 	@ResponseBody
-	public int reportMemberBanned(int hiddenNo) {
+	public int reportMemberBanned(@PathVariable("memberNo") int hiddenNo) {
 			
 		return service.reportMemberBanned(hiddenNo);
 	}
@@ -57,9 +59,9 @@ public class AdminProcessController {
 	
 	
 	// 신고 계정 - 반려
-	@PostMapping("/report/leaveAccount")
+	@PutMapping("/report/M/{memberNo}/hold")
 	@ResponseBody
-	public int reportMemberLeave(int hiddenNo) {
+	public int reportMemberLeave(@PathVariable("memberNo") int hiddenNo) {
 		return service.reportMemberLeave(hiddenNo);
 	}
 	
@@ -67,18 +69,20 @@ public class AdminProcessController {
 	
 	
 	// 신고 게시글(판매글, 커뮤니티 게시글, 커뮤니티 댓글) - 삭제
-	@GetMapping("/report/deleteContent")
+	@PutMapping("/report/{reportType}/{contentNo}/delete")
 	@ResponseBody
-	public int reportDeleteContent(int hiddenContentNo, String reportType) {
+	public int reportDeleteContent(@PathVariable("contentNo") int hiddenContentNo, 
+									@PathVariable("reportType")	String reportType) {
 		return service.reportDeleteContent(hiddenContentNo, reportType);
 	}
 	
 
 	
 	// 신고 게시글 - 반려
-	@GetMapping("/report/LeaveContent")
+	@PutMapping("/report/{reportType}/{contentNo}/hold")
 	@ResponseBody
-	public int reportLeaveContent(int hiddenContentNo, String reportType) {
+	public int reportLeaveContent(@PathVariable("contentNo") int hiddenContentNo, 
+									@PathVariable("reportType")	String reportType) {
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("hiddenContentNo", hiddenContentNo);
