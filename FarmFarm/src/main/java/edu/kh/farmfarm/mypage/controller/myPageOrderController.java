@@ -17,6 +17,11 @@ public class myPageOrderController {
 	private MyPageService service;
 	
 	
+	/** 반품 신청 페이지로 이동
+	 * @param orderNo
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/return/{orderNo}")
 	public String returnOrder(
 			@PathVariable("orderNo") int orderNo,

@@ -169,16 +169,15 @@ for (let btn of wishDeleteBtn) {
 }
 
 const deleteWish = (productNo) => {
-  $.ajax({
-    url: "/wish/delete",
-    data: { "productNo": productNo },
-    success: (result) => {
 
-      selectWishList(selectCp());
 
-    },
-    error: () => {
-      console.log('찜목록 삭제중 에러 발생')
-    }
+  axios.delete('/wish/' + productNo)
+  .then((response) => {
+    messageModalOpen("삭제되었습니다.");
+    selectWishList(selectCp());
   })
+  .catch((error) => {
+    console.log('찜목록 삭제중 에러 발생');
+  });
+
 }
