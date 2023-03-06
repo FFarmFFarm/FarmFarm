@@ -25,13 +25,6 @@ public class AdminServiceImpl implements AdminService{
 	@Autowired
 	private AdminDAO dao;
 	
-	// 관리자인지 확인
-	@Override
-	public int checkAdmin() {
-		return dao.checkAdmin();
-	}
-	
-	
 	// 대시보드 통계 조회
 	@Override
 	public Map<String, Object> selectStats() {
