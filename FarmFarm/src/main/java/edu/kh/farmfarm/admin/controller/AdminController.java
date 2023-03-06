@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -96,7 +97,7 @@ public class AdminController {
 	
 	
 	// 전체 회원 조회 (정렬, 페이지네이션, 검색)
-	@GetMapping("/admin/selectMemberList")
+	@GetMapping("/admin/member/list")
 	@ResponseBody
 	public String selectMember(@RequestParam(value="cp", required=false, defaultValue="1") int cp,
 								@RequestParam(value="authFilter", required=false, defaultValue="0") String authFilter,
@@ -124,9 +125,9 @@ public class AdminController {
 	
 	
 	// 회원 상세 조회
-	@GetMapping("/admin/selectMemberDetail")
+	@GetMapping("/admin/member/{memberNo}")
 	@ResponseBody
-	public String selectMemberDetail(int hiddenNo) {
+	public String selectMemberDetail(@PathVariable ("memberNo") int hiddenNo) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 		
