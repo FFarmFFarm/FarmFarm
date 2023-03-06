@@ -941,10 +941,7 @@ accountKickOutBtn.addEventListener('click', () => {
         success: (result) => {
             if(result > 0){
                 reportDetailModalClose();
-
                 selectNewReportList(cp);
-           
-                
                 console.log("강제 탈퇴 완료");
                 messageModalOpen("해당 계정이 강제 탈퇴되었습니다.");
 

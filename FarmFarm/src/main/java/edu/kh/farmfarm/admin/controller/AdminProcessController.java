@@ -22,17 +22,8 @@ public class AdminProcessController {
 	// 회원 관리 - 강제 탈퇴 (신고 내역 없어도 가능)
 	@PostMapping("/admin/kickout")
 	@ResponseBody
-	public int memberKickout(@SessionAttribute(value="loginMember") Member loginMember, int hiddenNo) {
-		
-		// 관리자인지 확인
-		int result = service.checkAdmin();
-		
-		if(result == 1  && loginMember != null) {
-			
-			result = service.memberKickout(hiddenNo);
-		}
-		
-		return result;
+	public int memberKickout(int hiddenNo) {
+		return service.memberKickout(hiddenNo);
 	}
 	
 	
@@ -47,36 +38,18 @@ public class AdminProcessController {
 	// 신고 계정 - 강제탈퇴  // 신고된 회원 강제 탈퇴 + REPORT 테이블 변경하기 + 판매자면 판매상품 지우기
 	@PostMapping("/report/kickout")
 	@ResponseBody
-	public int reportMemberKickout(@SessionAttribute(value="loginMember") Member loginMember, 
-									int hiddenNo, int authority) {
-		
-		// 관리자인지 확인
-		int result = service.checkAdmin();
-		
-		if(result == 1  && loginMember != null) {
-			
-			result = service.reportMemberKickout(hiddenNo, authority);
-		}
-		return result;
+	public int reportMemberKickout(int hiddenNo, int authority) {
+		return service.reportMemberKickout(hiddenNo, authority);
 	}
 	
 	
 	// 신고 계정 - 정지   // 스케쥴러로 7일 뒤에 풀기
 	@PostMapping("/report/bannedAccount")
 	@ResponseBody
-	public int reportMemberBanned(@SessionAttribute(value="loginMember") Member loginMember, int hiddenNo) {
-		// 관리자인지 확인
-		int result = service.checkAdmin();
-		
-		if(result == 1  && loginMember != null) {
+	public int reportMemberBanned(int hiddenNo) {
 			
-			result = service.reportMemberBanned(hiddenNo);
-		}
-		return result;
+		return service.reportMemberBanned(hiddenNo);
 	}
-	
-	
-	
 	
 	
 	
@@ -84,17 +57,8 @@ public class AdminProcessController {
 	// 신고 계정 - 반려
 	@PostMapping("/report/leaveAccount")
 	@ResponseBody
-	public int reportMemberLeave(@SessionAttribute(value="loginMember") Member loginMember, int hiddenNo) {
-		
-		// 관리자인지 확인
-		int result = service.checkAdmin();
-		
-		if(result == 1  && loginMember != null) {
-			
-			result = service.reportMemberLeave(hiddenNo);
-		}
-		return result;
-		
+	public int reportMemberLeave(int hiddenNo) {
+		return service.reportMemberLeave(hiddenNo);
 	}
 	
 	
@@ -103,17 +67,8 @@ public class AdminProcessController {
 	// 신고 게시글(판매글, 커뮤니티 게시글, 커뮤니티 댓글) - 삭제
 	@GetMapping("/report/deleteContent")
 	@ResponseBody
-	public int reportDeleteContent(@SessionAttribute(value="loginMember") Member loginMember,
-									int hiddenContentNo, String reportType) {
-		// 관리자인지 확인
-		int result = service.checkAdmin();
-
-		
-		if(result == 1  && loginMember != null) {
-			
-			result = service.reportDeleteContent(hiddenContentNo, reportType);
-		}
-		return result;
+	public int reportDeleteContent(int hiddenContentNo, String reportType) {
+		return service.reportDeleteContent(hiddenContentNo, reportType);
 	}
 	
 
@@ -121,26 +76,14 @@ public class AdminProcessController {
 	// 신고 게시글 - 반려
 	@GetMapping("/report/LeaveContent")
 	@ResponseBody
-	public int reportLeaveContent(@SessionAttribute(value="loginMember") Member loginMember,
-									int hiddenContentNo, String reportType) {
-		// 관리자인지 확인
-		int result = service.checkAdmin();
+	public int reportLeaveContent(int hiddenContentNo, String reportType) {
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("hiddenContentNo", hiddenContentNo);
 		paramMap.put("reportType", reportType);
-		
-		if(result == 1  && loginMember != null) {
 			
-			result = service.reportLeaveContent(paramMap);
-		}
-		return result;
+		return service.reportLeaveContent(paramMap);
 	}
-	
-	
-	
-
-	
 	
 
 }

@@ -532,18 +532,14 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
             document.getElementById("memberHistorySpan").style.height = '150px';
             document.getElementById("memberHistorySpan").style.overflow = 'hidden';
         } else  {
-            document.getElementById("memberHistorySpan").style.height = '400px';
+            // document.getElementById("memberHistorySpan").style.height = '400px';
+            document.getElementById("memberHistorySpan").classList.add("member-history");
+            document.getElementById("memberHistorySpan").style.height = '500px';
+            document.getElementById("memberHistorySpan").style.overflow = 'scroll';
+            
         }
 
-        // if (history.reportPenalty == null) {
-            // tdReportDate.innerHTML = "";
-            // tdReport.innerHTML = "";
-            // tdReportReason.innerHTML = "";
-        // }
-
-
         // 3) 신고 처리 내역
-        
         if (history.processDate != null){
             if (history.memberDelFl == 'N') {
                 // 강제 탈퇴 버튼 활성화

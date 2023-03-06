@@ -43,22 +43,12 @@ public class AdminController {
 	public String dashboard(@SessionAttribute(value="loginMember") Member loginMember, Model model,
 							@RequestHeader(value="referer") String referer) {
 		
-		// 관리자인지 확인
-		int result = service.checkAdmin();
-
+		// 대시보드 통계 조회
 		Map<String, Object> statMap = new HashMap<String, Object>();
-		
-		// 관리자일 때만 && 로그인했을 때
-		if(result == 1 && loginMember != null) {
-
-			// 대시보드 통계 조회
-			statMap = service.selectStats(); //statMap
-		}
-		
+		statMap = service.selectStats(); //statMap
 		model.addAttribute("statMap", statMap);
-		
 		return "admin/dashboard";
-		
+			
 	}
 	
 	
@@ -67,20 +57,13 @@ public class AdminController {
 	// 날짜별 회원가입자 수 + 주문 수 (최근 30일간)
 	@GetMapping("/dashboard/signUpGraph")
 	@ResponseBody
-	public String signUpGraph(@SessionAttribute(value="loginMember") Member loginMember) {
-		// 관리자인지 확인
-		int result = service.checkAdmin();
+	public String signUpGraph() {
 
 		Map<String, Object> graphMap = new HashMap<String, Object>();
 		
-		// 관리자일 때만 && 로그인했을 때
-		if(result == 1 && loginMember != null) {
-
-			// 회원가입자 수, 주문 수 조회
-			graphMap = service.selectGraph();
+		// 회원가입자 수, 주문 수 조회
+		graphMap = service.selectGraph();
 			
-		}
-		
 		return new Gson().toJson(graphMap);
 	}
 
@@ -102,23 +85,12 @@ public class AdminController {
 		paramMap.put("authFilter", authFilter);
 		paramMap.put("statFilter", statFilter);
 		
-		// 관리자인지 확인 (관리자면 result==1)
-		int result = service.checkAdmin();
-		
+		// 전체 회원 정보 조회 + 페이지네이션 + 정렬
 		Map<String, Object> map = new HashMap<String, Object>();
-		
-		if(result == 1 && loginMember != null) {
-
-			// 전체 회원 정보 조회 + 페이지네이션 + 정렬
-			map = service.selectMember(paramMap, cp);
-	
-		} else {
-			System.out.println("관리자만 접근 가능합니다.");
-		}
-		
+		map = service.selectMember(paramMap, cp);
 		model.addAttribute("map", map);
-		
 		return "admin/adminMember";
+			
 	}
 	
 	
@@ -126,8 +98,7 @@ public class AdminController {
 	// 전체 회원 조회 (정렬, 페이지네이션, 검색)
 	@GetMapping("/admin/selectMemberList")
 	@ResponseBody
-	public String selectMember(@SessionAttribute(value="loginMember") Member loginMember, 
-								@RequestParam(value="cp", required=false, defaultValue="1") int cp,
+	public String selectMember(@RequestParam(value="cp", required=false, defaultValue="1") int cp,
 								@RequestParam(value="authFilter", required=false, defaultValue="0") String authFilter,
 								@RequestParam(value="statFilter", required=false, defaultValue="0") String statFilter,
 								@RequestParam(value="keyword", required=false) String keyword) {
@@ -141,21 +112,12 @@ public class AdminController {
 			paramMap.put("keyword", keyword);
 		}
 		
-		// 관리자인지 확인 (관리자면 result==1)
-		int result = service.checkAdmin();
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		
-		if(result == 1 && loginMember != null) {
 
-			// 전체 회원 정보 조회 + 페이지네이션 + 정렬
-			map = service.selectMember(paramMap, cp);
+		// 전체 회원 정보 조회 + 페이지네이션 + 정렬
+		map = service.selectMember(paramMap, cp);
 	
-		} else {
-			System.out.println("관리자만 접근 가능합니다.");
-		}
-		
-		
 		return new Gson().toJson(map);
 	}
 	
@@ -164,28 +126,16 @@ public class AdminController {
 	// 회원 상세 조회
 	@GetMapping("/admin/selectMemberDetail")
 	@ResponseBody
-	public String selectMemberDetail(@SessionAttribute(value="loginMember") Member loginMember,
-										int hiddenNo) {
-		// 관리자인지 확인 (관리자면 result==1)
-		int result = service.checkAdmin();
+	public String selectMemberDetail(int hiddenNo) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 		
-		if(result == 1 && loginMember != null) {
-
-			// 전체 회원 정보 조회 + 페이지네이션 + 정렬
-			map = service.selectMemberDetail(hiddenNo);
+		// 전체 회원 정보 조회 + 페이지네이션 + 정렬
+		map = service.selectMemberDetail(hiddenNo);
 	
-		} else {
-			System.out.println("관리자만 접근 가능합니다.");
-		}
-		
-		
 		return new Gson().toJson(map);
 		
 	}
-	
-	
 	
 	
 }
