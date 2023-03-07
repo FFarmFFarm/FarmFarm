@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -78,7 +80,7 @@ public class AdminSellerAuthController {
 	
 	// ajax(2페이지부터)
 	// 판매자 정보 조회
-	@GetMapping("/admin/selectSellerList")
+	@GetMapping("/admin/seller/list")
 	@ResponseBody
 	public String adminSellerAuthPage(@SessionAttribute(value="loginMember") Member loginMember,
 										@RequestParam(value="cp", required=false, defaultValue="1") int cp,
@@ -103,10 +105,10 @@ public class AdminSellerAuthController {
 	
 	
 	// 판매자인증 신청서 조회
-	@PostMapping("/admin/selectAuthPaper")
+	@GetMapping("/admin/seller/{sellerNo}")
 	@ResponseBody
 	public Admin selectAuthPaper(@SessionAttribute(value = "loginMember") Member loginMember,
-									int hiddenNo) {
+								@PathVariable("sellerNo") int hiddenNo) {
 		
 		Admin authPaper = new Admin();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 
@@ -119,9 +121,10 @@ public class AdminSellerAuthController {
 	
 	
 	// 판매자 승인
-	@PostMapping("/admin/sellerApprove")
+	@PutMapping("/admin/seller/{sellerNo}/approve")
 	@ResponseBody
-	public int sellerApprove(@SessionAttribute(value = "loginMember") Member loginMember, int hiddenNo) {
+	public int sellerApprove(@SessionAttribute(value = "loginMember") Member loginMember, 
+			 				@PathVariable("sellerNo") int hiddenNo) {
 
 		// 해당 회원번호의 인증 승인
 		return service.sellerApprove(hiddenNo);
@@ -131,9 +134,10 @@ public class AdminSellerAuthController {
 	
 	
 	// 판매자 거절 (인증 보류)
-	@PostMapping("/admin/sellerDeny")
+	@PutMapping("/admin/seller/{sellerNo}/deny")
 	@ResponseBody
-	public int sellerDeny(@SessionAttribute(value = "loginMember") Member loginMember, int hiddenNo,
+	public int sellerDeny(@SessionAttribute(value = "loginMember") Member loginMember, 
+							@PathVariable("sellerNo") int hiddenNo,
 							@RequestParam(value="denyReason", required=false) String denyReason
 							) {
 		// 해당 회원번호의 인증 보류
