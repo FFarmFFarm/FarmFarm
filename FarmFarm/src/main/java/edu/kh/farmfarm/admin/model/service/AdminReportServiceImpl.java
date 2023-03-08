@@ -50,8 +50,8 @@ public class AdminReportServiceImpl implements AdminReportService{
 	
 	// 미처리 신고 상세 조회
 	@Override
-	public Admin selectNewReportDetail(int hiddenReportNo) {
-		return dao.selectNewReportDetail(hiddenReportNo);
+	public Admin selectNewReportDetail(int reportNo) {
+		return dao.selectNewReportDetail(reportNo);
 	}
 	
 	
@@ -90,8 +90,8 @@ public class AdminReportServiceImpl implements AdminReportService{
 	
 	// 전체 신고 기록 - 상세 내역
 	@Override
-	public Admin selectReportDetail(int hiddenReportNo) {
-		return dao.selectReportDetail(hiddenReportNo);
+	public Admin selectReportDetail(int reportNo) {
+		return dao.selectReportDetail(reportNo);
 	}
 	
 

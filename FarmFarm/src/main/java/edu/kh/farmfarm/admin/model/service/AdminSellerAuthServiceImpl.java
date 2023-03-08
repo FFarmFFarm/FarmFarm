@@ -52,9 +52,9 @@ public class AdminSellerAuthServiceImpl implements AdminSellerAuthService{
 	
 	// 인증 신청서 조회
 	@Override
-	public Admin selectAuthPaper(int hiddenNo) {
+	public Admin selectAuthPaper(int memberNo) {
 		
-		Admin authPaper = dao.selectAuthPaper(hiddenNo);
+		Admin authPaper = dao.selectAuthPaper(memberNo);
 		
 		return authPaper;
 	}
@@ -62,14 +62,14 @@ public class AdminSellerAuthServiceImpl implements AdminSellerAuthService{
 	
 	// 판매자 인증 승인
 	@Override
-	public int sellerApprove(int hiddenNo) {
+	public int sellerApprove(int memberNo) {
 		
 		// 회원 권한을 판매자로 변경
-		int result = dao.sellerApprove(hiddenNo);
+		int result = dao.sellerApprove(memberNo);
 		
 		if(result > 0) {
 			// 판매자 인증 처리 일자 수정
-			result = dao.updateAuthDate(hiddenNo);
+			result = dao.updateAuthDate(memberNo);
 		}
 		return result;
 	}
@@ -79,15 +79,15 @@ public class AdminSellerAuthServiceImpl implements AdminSellerAuthService{
 	
 	// 판매자 인증 보류
 	@Override
-	public int sellerDeny(int hiddenNo, String denyReason) {
+	public int sellerDeny(int memberNo, String denyReason) {
 		
 		// 회원 권한을 인증 보류로 변경
-		int result = dao.sellerDeny(hiddenNo, denyReason);
+		int result = dao.sellerDeny(memberNo, denyReason);
 		
 		if(result > 0) {
 			
 			// 판매자 인증 처리 일자 수정
-			result = dao.updateAuthDate(hiddenNo);
+			result = dao.updateAuthDate(memberNo);
 		}
 		
 		return result;

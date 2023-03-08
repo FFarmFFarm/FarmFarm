@@ -133,8 +133,8 @@ public class AdminDAO {
 	 * @param inputMemberId
 	 * @return memberDetailList
 	 */
-	public Admin selectMemberDetail(int hiddenNo) {
-		return sqlSession.selectOne("adminMapper.selectMemberDetail", hiddenNo);
+	public Admin selectMemberDetail(int memberNo) {
+		return sqlSession.selectOne("adminMapper.selectMemberDetail", memberNo);
 	}
 
 	
@@ -143,8 +143,8 @@ public class AdminDAO {
 	 * @param inputMemberId
 	 * @return memberHistoryList
 	 */
-	public List<Admin> selectMemberHistory(int hiddenNo) {
-		return sqlSession.selectList("adminMapper.selectMemberHistory", hiddenNo);
+	public List<Admin> selectMemberHistory(int memberNo) {
+		return sqlSession.selectList("adminMapper.selectMemberHistory", memberNo);
 	}
 
 	

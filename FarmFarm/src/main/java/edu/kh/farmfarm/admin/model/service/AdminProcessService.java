@@ -17,35 +17,35 @@ public interface AdminProcessService {
 	 * @param inputMemberId
 	 * @return result
 	 */
-	int memberKickout(int hiddenNo);
+	int memberKickout(int memberNo);
 
 
 	/** 회원 강제 탈퇴 (신고 내역O)
 	 * @param hiddenId
 	 * @return result
 	 */
-	int reportMemberKickout(int hiddenNo, int authority);
+	int reportMemberKickout(int memberNo, int authority);
 	
 	
 	/** 신고 계정 정지
 	 * @param hiddenNo
 	 * @return result
 	 */
-	int reportMemberBanned(int hiddenNo);
+	int reportMemberBanned(int memberNo);
 
 
 	/** 신고 계정 반려
 	 * @param hiddenNo
 	 * @return result
 	 */
-	int reportMemberLeave(int hiddenNo);
+	int reportMemberLeave(int memberNo);
 
 
 	/** 신고 게시글 삭제
 	 * @param paramMap
 	 * @return result
 	 */
-	int reportDeleteContent(int hiddenContentNo, String reportType);
+	int reportDeleteContent(int contentNo, String reportType);
 
 
 	/** 신고 게시글 반려
