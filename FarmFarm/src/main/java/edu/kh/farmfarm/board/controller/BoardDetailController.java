@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -140,7 +141,7 @@ public class BoardDetailController {
 	
 	
 	// 게시글 좋아요
-	@GetMapping("/boardLikeInsert")
+	@PostMapping("/boardLikeInsert")
 	@ResponseBody
 	public int boardLikeInsert(
 			@RequestParam Map<String, Object> likeMap) {
@@ -149,10 +150,18 @@ public class BoardDetailController {
 	
 	
 	// 게시글 좋아요 취소
-	@GetMapping("/boardLikeDelete")
+	@DeleteMapping("/boardLike/{boardNo}/{memberNo}")
 	@ResponseBody
 	public int boardLikeDelete(
-			@RequestParam Map<String, Object> likeMap) {
+			@PathVariable int boardNo,
+			@PathVariable int memberNo) {
+		
+		Map<String, Object> likeMap = new HashMap<String, Object>();
+		
+		likeMap.put("boardNo", boardNo);
+		likeMap.put("memberNo", memberNo);
+		System.out.println(likeMap);
+		
 		return serivce.boardLikeDelete(likeMap);
 	}
 
