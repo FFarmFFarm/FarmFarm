@@ -676,7 +676,7 @@ const deleteComment = (commentNo)=>{
         //     }
         // })
 
-        axios.delete('/board/comment/'+commentNo)
+        axios.patch('/board/comment/'+commentNo)
             .then(function (response) {
                 console.log(response);
                 if(response.data > 0){
@@ -711,7 +711,7 @@ const adDeleteComment = (commentNo)=>{
         //     }
         // })
 
-        axios.delete('/board/comment/'+commentNo)
+        axios.patch('/board/comment/'+commentNo)
         .then(function (response) {
             console.log(response);
             if(response.data > 0){
