@@ -163,6 +163,10 @@ public class MyPageDAO {
 	}
 
 
+	/** 구매 확정
+	 * @param orderNo
+	 * @return
+	 */
 	public int orderConfirm(int orderNo) {
 		return sqlSession.update("myPageMapper.orderConfirm", orderNo);
 	}

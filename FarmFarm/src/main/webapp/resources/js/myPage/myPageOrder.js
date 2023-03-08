@@ -182,24 +182,39 @@ document.getElementById('cancelConfirmBtn').addEventListener('click', () => {
 
 
 /* 주문 취소 ajax */
-const orderCancel = (orderNo) => {
+const orderCancel = () => {
 
-  $.ajax({
-    url: "/order/cancel",
-    data: {"orderNo": confirmOrderNo},
-    success: (result) => {
-      if (result > 0) {
+  // $.ajax({
+  //   url: "/order/cancel",
+  //   data: {"orderNo": confirmOrderNo},
+  //   success: (result) => {
+  //     if (result > 0) {
 
-        let cp = selectCp();
-        console.log(cp);
+  //       let cp = selectCp();
+  //       console.log(cp);
 
-        selectOrderList(cp);
+  //       selectOrderList(cp);
 
-        messageModalOpen('주문이 취소되었습니다.');
-      }
+  //       messageModalOpen('주문이 취소되었습니다.');
+  //     }
       
+  //   }
+  // });
+
+  axios.patch('/order/' + confirmOrderNo)
+  .then((response) => {
+    if (response.data > 0) {
+
+      let cp = selectCp();
+      console.log(cp);
+
+      selectOrderList(cp);
+
+      messageModalOpen('주문이 취소되었습니다.');
     }
-  });
+  }).catch((err) => {
+    console.log("주문 취소 도중 예외 발생\n" + err);
+  }); 
 
 
 }
@@ -249,7 +264,7 @@ document.getElementById('orderConfirmBtn').addEventListener('click', () => {
 /* 주문 구매 확정하는 Function */
 const orderConfirmation = (orderNo) => {
 
-  axios.put('/order/' + orderNo + '/confirm')
+  axios.patch('/order/' + orderNo + '/confirm')
   .then((result) => {
     if (result > 0) {
       const message = '주문번호 ' + orderNo + '번 구매가 확정되었습니다.'

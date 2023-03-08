@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -156,11 +157,11 @@ public class ReviewController {
 	}
 	
 	
-	/** 후기 삭제
+	/** 리뷰 삭제
 	 * @param reviewNo
 	 * @return result
 	 */
-	@DeleteMapping("/review/{reviewNo}")
+	@PatchMapping("/review/{reviewNo}")
 	public int deleteReview(@PathVariable("reviewNo") int reviewNo) {
 		
 		return service.deleteReview(reviewNo);
