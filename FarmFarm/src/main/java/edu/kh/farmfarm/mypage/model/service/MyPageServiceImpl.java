@@ -59,6 +59,9 @@ public class MyPageServiceImpl implements MyPageService {
 
 	
 	
+	/** 작성 후기 조회
+	 *
+	 */
 	@Override
 	public Map<String, Object> selectReviewList(Member loginMember, int cp) {
 		
@@ -197,7 +200,6 @@ public class MyPageServiceImpl implements MyPageService {
 	 */
 	@Override
 	public int defaultBgImg(Member loginMember) {
-		// TODO Auto-generated method stub
 		return dao.defaultBgImg(loginMember);
 	}
 	

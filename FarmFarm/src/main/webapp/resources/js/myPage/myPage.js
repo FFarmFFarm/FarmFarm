@@ -52,7 +52,7 @@ XBtn.addEventListener('click', () => {
     memberBgImg.src = "/resources/images/default/bgImg.png";
     
 
-    axios.put('/myPage/bgImg')
+    axios.patch('/myPage/bgImg')
     .then((result) => {
       console.log("성공");
       if (result > 0) {
