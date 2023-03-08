@@ -77,20 +77,34 @@ function requestPay() {
 /* 결제 검증 완료 시 주문서 Form 제출 및 DB 저장*/
 const confirmBuy = (impUid) => {
 
-  $.ajax({
-    url: '/order/confirmBuy',
-    data: { "orderPrice": orderPrice, 'impUid':impUid},
-    success: (result) => { 
-      if (result != '실패') {
-        document.getElementById('impUid').value = result;
-        console.log(result);
-        document.getElementById("orderForm").submit();
-      } else {
-        alert("결제 실패");
+  // $.ajax({
+  //   url: '/order/confirm',
+  //   data: { "orderPrice": orderPrice, 'impUid':impUid},
+  //   success: (result) => { 
+  //     if (result != '실패') {
+  //       document.getElementById('impUid').value = result;
+  //       console.log(result);
+  //       document.getElementById("orderForm").submit();
+  //     } else {
+  //       alert("결제 실패");
         
-      }
-    }
-  })
+  //     }
+  //   }
+  // })
+
+  axios.get('/order/confirm/' + impUid, {
+    params: {"orderPrice": orderPrice}
+  }).then((response) => {
+    if (response.data != '실패') {
+      document.getElementById('impUid').value = response.data;
+      document.getElementById("orderForm").submit();
+    } else {
+      alert("결제 실패");
+      
+    }   
+  }).catch((err) => {
+    console.log("결제 검증 도중 예외 발생\n" + err);
+  });
 
 }
 
@@ -129,19 +143,29 @@ btn.addEventListener('click', (e) => {
 })
 
 
-/* 토큰 얻어오기 */
-const getToken = () => { 
-  $.ajax({
-    url: "/order/token",
-    data: { 'orderNo': confirmOrderNo },
-    dataType: 'json',
-    success: (data) => { 
-      console.log(data.response.access_token);
-      const access_token = data.response.access_token;
-      return access_token;
-    }
-  })
-}
+// /* 토큰 얻어오기 */
+// const getToken = () => { 
+
+//   // $.ajax({
+//   //   url: "/order/token",
+//   //   data: { 'orderNo': confirmOrderNo },
+//   //   dataType: 'json',
+//   //   success: (data) => { 
+//   //     console.log(data.response.access_token);
+//   //     const access_token = data.response.access_token;
+//   //     return access_token;
+//   //   }
+//   // })
+
+//   axios.get('/order/token/' + confirmOrderNo)
+//   .then((response) => {
+//     console.log(response.data.response.access_token);
+//     const access_token = response.data.response.access_token;
+//     return access_token;
+//   }).catch((err) => {
+//     console.log("결제 토큰 발급 중 예외 발생\n" + err);
+//   });
+// }
 
 
 /* 주문 알림을 발생시키는 함수 */

@@ -14,7 +14,7 @@
 
    <!-- DataSource : java에서 Connection Pool을 지원하기 위한 인터페이스(Connection 상위호환) -->
    <!-- destroy-method="close" : 주어진 세션을 자동으로 반환(close)하는 설정 -->
-   <bean id="dataSource"
+<!--    <bean id="dataSource"
       class="org.apache.commons.dbcp2.BasicDataSource"
       destroy-method="close">
 
@@ -25,16 +25,24 @@
       <property name="username" value="farmfarm" />
       <property name="password" value="farm678901" />
 
-      <!-- SQL이 수행된 후 자동으로 Commit 되는것을 지정 -->
+      SQL이 수행된 후 자동으로 Commit 되는것을 지정
       <property name="defaultAutoCommit" value="false" />
 
-      <!-- 커넥션 풀 설정 -->
-      <property name="initialSize" value="10" /> <!-- 초기 커넥션 수, 기본 0 -->
-      <property name="maxTotal" value="50" /> <!-- 최대 커넥션 수, 기본 8 -->
-      <property name="maxIdle" value="20" /> <!-- 유휴 상태로 존재할 수 있는 커넥션 최대 수, 기본 8 -->
-      <property name="minIdle" value="10" /> <!-- 유휴 상태로 존재할 수 있는 커넥션 최소 수, 기본 0 -->
-      <property name="maxWaitMillis" value="-1" /> <!-- 예외 발생 전 커넥션이 반환 될 떄 까지 대기하는 최대 시간(ms), 기본 -1(무기한) -->
-   </bean>
+      커넥션 풀 설정
+      <property name="initialSize" value="10" /> 초기 커넥션 수, 기본 0
+      <property name="maxTotal" value="50" /> 최대 커넥션 수, 기본 8
+      <property name="maxIdle" value="20" /> 유휴 상태로 존재할 수 있는 커넥션 최대 수, 기본 8
+      <property name="minIdle" value="10" /> 유휴 상태로 존재할 수 있는 커넥션 최소 수, 기본 0
+      <property name="maxWaitMillis" value="-1" /> 예외 발생 전 커넥션이 반환 될 떄 까지 대기하는 최대 시간(ms), 기본 -1(무기한)
+   </bean> -->
+   
+   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	    <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+	    <property name="url" value="jdbc:oracle:thin:@famrfarm_high?TNS_ADMIN=\\farmfarmHosting\\Wallet_famrfarm"/>
+	    <property name="username" value="ADMIN"/>
+	    <property name="password" value="Farmfarm678901"/>
+	    
+	</bean>
    
       
    <!-- JDBC 수행 내용을 로그로 출력하는 객체를 bean 등록 -->

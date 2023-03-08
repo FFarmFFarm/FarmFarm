@@ -24,6 +24,8 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -149,9 +151,11 @@ public class OrderController {
 	 * @return
 	 * @throws IOException
 	 */
-	@GetMapping("/order/confirmBuy")
+	@GetMapping("/order/confirm/{impUid}")
 	@ResponseBody
-	public String confirmBuy(int orderPrice, String impUid) throws IOException {
+	public String confirmBuy(
+			int orderPrice, 
+			@PathVariable("impUid") String impUid) throws IOException {
 		
 		String token = service.getToken();
 		System.out.println(token);
@@ -182,9 +186,10 @@ public class OrderController {
 	 * @return
 	 * @throws IOException
 	 */
-	@GetMapping("/order/cancel")
+	@PatchMapping("/order/{orderNo}")
 	@ResponseBody
-	public int orderCancel(int orderNo) throws IOException {
+	public int orderCancel(
+			@PathVariable("orderNo")int orderNo) throws IOException {
 		
 		
 //		주문 결제 IMP_UID 얻어오기

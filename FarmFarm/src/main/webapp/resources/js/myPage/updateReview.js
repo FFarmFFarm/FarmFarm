@@ -237,14 +237,21 @@ document.getElementById('submitBtn').addEventListener('click', () => {
 
 /* cp를 받아 리뷰 목록 조회해오기 */
 const selectReviewList = (cp) => {
-  $.ajax({
-    url: "/review/list",
-    data: { "cp": cp },
-    dataType: "json",
-    success: (map) => {
-      printReviewList(map.reviewList, map.pagination);
-    },
-    error: () => { }
+  // $.ajax({
+  //   url: "/review/list/" + cp,
+  //   dataType: "json",
+  //   success: (map) => {
+  //     printReviewList(map.reviewList, map.pagination);
+  //   },
+  //   error: () => { }
+  // });
+
+  axios.get('/review/list/' + cp)
+  .then((response) => {
+    const map = response.data;
+    printReviewList(map.reviewList, map.pagination);
+  }).catch((err) => {
+    console.log("리뷰 목록 조회 중 에러 발생\n" + err);
   });
 }
 
@@ -407,9 +414,13 @@ const printReviewList = (reviewList, pagination) => {
 
 }
 
+/**
+ * 후기 삭제
+ * @param {*} reviewNo 
+ */
 const deleteReview = (reviewNo) => {
 
-  axios.delete('/review/' + reviewNo)
+  axios.patch('/review/' + reviewNo)
   .then((response) => {
     messageModalOpen("삭제되었습니다.");
     selectReviewList(1);
