@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -55,12 +57,14 @@ public class myPageRestController {
 	 * @param cp
 	 * @return
 	 */
-	@GetMapping("/review/list")
+	@GetMapping("/reviews/{currentPage}")
 	public String selectReviewList(
 			@SessionAttribute("loginMember")Member loginMember,
-			@RequestParam(value="cp", required=false, defaultValue = "1") int cp
+			@PathVariable(value="currentPage", required=false) Optional<Integer> currentPage
 			) {
 		
+//		currentPage에 값이 존재하면 그 값을, 존재하지 않으면 1을 cp에 대입
+		int cp = currentPage.isPresent() ? currentPage.get() : 1;
 		
 		Map<String, Object> map = service.selectReviewList(loginMember, cp);
 		
@@ -160,7 +164,7 @@ public class myPageRestController {
 	 * @param loginMember
 	 * @return
 	 */
-	@PutMapping("/myPage/bgImg")
+	@PatchMapping("/myPage/bgImg")
 	public int defaultBgImg(@SessionAttribute("loginMember") Member loginMember) {
 		
 		loginMember.setMypageImg("/resources/images/default/bgImg.png");
@@ -173,7 +177,7 @@ public class myPageRestController {
 	 * @param orderNo
 	 * @return
 	 */
-	@GetMapping("/order/{orderNo}/confirm")
+	@PatchMapping("/order/{orderNo}/confirm")
 	public int orderConfirm(@PathVariable("orderNo") int orderNo) {
 		
 		return service.orderConfirm(orderNo);
