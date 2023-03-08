@@ -85,7 +85,7 @@ public class AdminProcessController {
 									@PathVariable("reportType")	String reportType) {
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("hiddenContentNo", contentNo);
+		paramMap.put("contentNo", contentNo);
 		paramMap.put("reportType", reportType);
 			
 		return service.reportLeaveContent(paramMap);

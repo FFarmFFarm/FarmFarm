@@ -91,7 +91,7 @@ public class AdminProcessServiceImpl implements AdminProcessService{
 		}
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("hiddenContentNo", contentNo);
+		paramMap.put("contentNo", contentNo);
 		paramMap.put("reportType", reportType);
 		
 		// 삭제 후 신고 상태 변경, 처리 일자 추가
