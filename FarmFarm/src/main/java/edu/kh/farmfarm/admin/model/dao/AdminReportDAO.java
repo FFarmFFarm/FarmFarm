@@ -59,8 +59,8 @@ public class AdminReportDAO {
 	 * @param hiddenNo
 	 * @return newReportDetail
 	 */
-	public Admin selectNewReportDetail(int hiddenReportNo) {
-		return sqlSession.selectOne("adminReportMapper.selectNewReportDetail", hiddenReportNo);
+	public Admin selectNewReportDetail(int reportNo) {
+		return sqlSession.selectOne("adminReportMapper.selectNewReportDetail", reportNo);
 	}
 
 
@@ -128,8 +128,8 @@ public class AdminReportDAO {
 	 * @param hiddenReportNo
 	 * @return reportDetail
 	 */
-	public Admin selectReportDetail(int hiddenReportNo) {
-		return sqlSession.selectOne("adminReportMapper.selectReportDetail", hiddenReportNo);
+	public Admin selectReportDetail(int reportNo) {
+		return sqlSession.selectOne("adminReportMapper.selectReportDetail", reportNo);
 	}
 
 

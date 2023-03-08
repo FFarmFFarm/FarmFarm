@@ -18,7 +18,7 @@ public interface AdminReportService {
 	 * @param hiddenNo
 	 * @return newReportDetail
 	 */
-	Admin selectNewReportDetail(int hiddenReportNo);
+	Admin selectNewReportDetail(int reportNo);
 
 
 
@@ -43,7 +43,7 @@ public interface AdminReportService {
 	 * @param hiddenReportNo
 	 * @return reportDetail
 	 */
-	Admin selectReportDetail(int hiddenReportNo);
+	Admin selectReportDetail(int reportNo);
 
 
 }

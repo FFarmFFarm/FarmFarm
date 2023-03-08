@@ -49,8 +49,8 @@ public class AdminSellerAuthDAO {
 	 * @param hiddenNo
 	 * @return authPaper
 	 */
-	public Admin selectAuthPaper(int hiddenNo) {
-		return sqlSession.selectOne("adminSellerMapper.selectAuthPaper", hiddenNo);
+	public Admin selectAuthPaper(int memberNo) {
+		return sqlSession.selectOne("adminSellerMapper.selectAuthPaper", memberNo);
 	}
 
 
@@ -59,8 +59,8 @@ public class AdminSellerAuthDAO {
 	 * @param hiddenNo
 	 * @return result
 	 */
-	public int sellerApprove(int hiddenNo) {
-		return sqlSession.update("adminSellerMapper.sellerApprove", hiddenNo);
+	public int sellerApprove(int memberNo) {
+		return sqlSession.update("adminSellerMapper.sellerApprove", memberNo);
 	}
 
 
@@ -69,8 +69,8 @@ public class AdminSellerAuthDAO {
 	 * @param hiddenNo
 	 * @return result
 	 */
-	public int updateAuthDate(int hiddenNo) {
-		return sqlSession.update("adminSellerMapper.updateAuthDate", hiddenNo);
+	public int updateAuthDate(int memberNo) {
+		return sqlSession.update("adminSellerMapper.updateAuthDate", memberNo);
 	}
 
 
@@ -79,14 +79,14 @@ public class AdminSellerAuthDAO {
 	 * @param hiddenNo
 	 * @return
 	 */
-	public int sellerDeny(int hiddenNo, String denyReason) {
+	public int sellerDeny(int memberNo, String denyReason) {
 		
 		// 판매자 인증 보류
-		int result = sqlSession.update("adminSellerMapper.sellerDeny", hiddenNo);
+		int result = sqlSession.update("adminSellerMapper.sellerDeny", memberNo);
 		
 		
 		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("hiddenNo", hiddenNo);
+		param.put("memberNo", memberNo);
 		param.put("denyReason", denyReason);
 		
 		
@@ -94,7 +94,7 @@ public class AdminSellerAuthDAO {
 		if(result > 0) {
 			
 			// 사유가 입력되어 있는지 확인
-			int checkDenyReason = sqlSession.selectOne("adminSellerMapper.checkDenyReason", hiddenNo);
+			int checkDenyReason = sqlSession.selectOne("adminSellerMapper.checkDenyReason", memberNo);
 
 			
 			if(checkDenyReason > 0) {

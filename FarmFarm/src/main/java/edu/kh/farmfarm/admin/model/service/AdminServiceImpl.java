@@ -72,13 +72,13 @@ public class AdminServiceImpl implements AdminService{
 	
 	// 회원 상세 조회
 	@Override
-	public Map<String, Object> selectMemberDetail(int hiddenNo) {
+	public Map<String, Object> selectMemberDetail(int memberNo) {
 		
 		// 회원 상세 조회(회원 정보)
-		Admin memberDetailInfo = dao.selectMemberDetail(hiddenNo);
+		Admin memberDetailInfo = dao.selectMemberDetail(memberNo);
 		
 		// 회원 상세 조회(계정상태 변경 내역)
-		List<Admin> memberHistoryList = dao.selectMemberHistory(hiddenNo);
+		List<Admin> memberHistoryList = dao.selectMemberHistory(memberNo);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("memberDetailInfo", memberDetailInfo);
