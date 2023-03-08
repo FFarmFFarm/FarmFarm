@@ -91,7 +91,7 @@
 		LEFT JOIN ADDRESS USING(MEMBER_NO)
 		LEFT JOIN "SELLER" USING(MEMBER_NO)
 		LEFT JOIN "SELLER_AUTH" USING(MEMBER_NO)
-		<if test='sellerFilter == 0'> <!-- 구매자 -->
+		<if test='sellerFilter == 0'> <!-- 인증대기 -->
 			WHERE AUTHORITY = 3
 		</if>
 		<if test='sellerFilter == 1'> <!-- 판매자 OR 인증대기 OR 인증 보류-->
@@ -113,7 +113,7 @@
 		LEFT JOIN ADDRESS USING(MEMBER_NO)
 		LEFT JOIN "SELLER" USING(MEMBER_NO)
 		LEFT JOIN "SELLER_AUTH" USING(MEMBER_NO)
-		WHERE MEMBER_NO = #{hiddenNo}
+		WHERE MEMBER_NO = #{memberNo}
 	</select>
 	
 	
@@ -121,14 +121,14 @@
 	<update id="sellerApprove">
 		UPDATE MEMBER SET
 		AUTHORITY = 1
-		WHERE MEMBER_NO = #{hiddenNo}
+		WHERE MEMBER_NO = #{memberNo}
 	</update>
 
 	<!-- 판매자 인증 처리 시 처리 날짜 추가 -->
 	<update id="updateAuthDate">
 		UPDATE "SELLER" SET
 		AUTH_DATE = SYSDATE
-		WHERE MEMBER_NO = #{hiddenNo}
+		WHERE MEMBER_NO = #{memberNo}
 	</update>
 
 
@@ -136,28 +136,28 @@
 	<update id="sellerDeny">
 		UPDATE MEMBER SET
 		AUTHORITY = 4
-		WHERE MEMBER_NO = #{hiddenNo}
+		WHERE MEMBER_NO = #{memberNo}
 	</update>
 	
 
-	<!-- 해당 회원번호의 판매자 인증 사유가 있는지 확인 -->
+	<!-- 해당 회원번호의 인증 보류 사유가 있는지 확인 -->
 	<select id="checkDenyReason" resultType="_int">
 		SELECT COUNT(*) 
 		FROM "SELLER_AUTH"
-		WHERE MEMBER_NO = #{hiddenNo}
+		WHERE MEMBER_NO = #{memberNo}
 	</select>
 
 	<!-- 판매자 인증 보류 사유 업데이트  -->
 	<insert id="updateDenyReason">
 		UPDATE "SELLER_AUTH" SET
 		AUTH_DENY_REASON = #{denyReason}
-		WHERE MEMBER_NO = #{hiddenNo}
+		WHERE MEMBER_NO = #{memberNo}
 	</insert>
 	
 	<!-- 판매자 인증 보류 사유 삽입  -->
 	<insert id="insertDenyReason">
 		INSERT INTO "SELLER_AUTH"
-		VALUES(#{hiddenNo}, #{denyReason})
+		VALUES(#{memberNo}, #{denyReason})
 	</insert>
 	
 	

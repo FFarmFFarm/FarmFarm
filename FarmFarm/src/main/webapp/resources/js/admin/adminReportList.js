@@ -60,9 +60,7 @@ const selectReportList = (cp) => {
 //optimize: 전체 신고 상세 모달창 함수 ajax
 const selectReportDetail = (hiddenReportNo) => {
 
-    axios.get('/admin/report/list/' + hiddenReportNo,{
-        params: {"hiddenReportNo": hiddenReportNo},
-    })
+    axios.get('/admin/report/list/' + hiddenReportNo)
     .then((response) => { 
         const reportDetail = response.data;
         printReportDetail(reportDetail);
@@ -1185,7 +1183,7 @@ window.addEventListener('click', (e) => {
 accountKickOutBtn.addEventListener('click', () => {
     console.log("계정 탈퇴 클릭");
 
-    axios.put('/report/M/'+hiddenMemberNo+'/kickout',{
+    axios.patch('/report/M/'+hiddenMemberNo+'/kickout',{
         params: {"authority":hiddenAuthority},
     })
     .then((response) => { // 성공
@@ -1239,7 +1237,7 @@ accountKickOutBtn.addEventListener('click', () => {
 accountLeaveBtn.addEventListener('click', () => {
     console.log("계정 반려 클릭");
 
-    axios.put('/report/M/'+hiddenMemberNo+'/hold')
+    axios.patch('/report/M/'+hiddenMemberNo+'/hold')
     .then((response) => { // 성공
         const result = response.data;
         if(result > 0){
@@ -1284,7 +1282,7 @@ accountLeaveBtn.addEventListener('click', () => {
 accountBannedBtn.addEventListener('click', () => {
     console.log("계정 정지 클릭");
 
-    axios.put('/report/M/'+hiddenMemberNo+'/suspension')
+    axios.patch('/report/M/'+hiddenMemberNo+'/suspension')
     .then((response) => { // 성공
         const result = response.data;
         if(result > 0){
@@ -1331,7 +1329,7 @@ accountBannedBtn.addEventListener('click', () => {
 contentDeleteBtn.addEventListener('click', () => {
     console.log("게시글 삭제 클릭");
 
-    axios.put('/report/'+hiddenReportType+'/'+hiddenContentNo+'/delete')
+    axios.patch('/report/'+hiddenReportType+'/'+hiddenContentNo+'/delete')
     .then((response) => { // 성공
         const result = response.data;
         if(result > 0){
@@ -1377,7 +1375,7 @@ contentLeaveBtn.addEventListener('click', () => {
     console.log("게시글 반려 클릭");
     // console.log(hiddenContentNo);
 
-    axios.put('/report/'+hiddenReportType+'/'+hiddenContentNo+'/hold')
+    axios.patch('/report/'+hiddenReportType+'/'+hiddenContentNo+'/hold')
     .then((response) => { // 성공
         const result = response.data;
         if(result > 0){

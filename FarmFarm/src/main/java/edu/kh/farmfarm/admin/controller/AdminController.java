@@ -127,12 +127,12 @@ public class AdminController {
 	// 회원 상세 조회
 	@GetMapping("/admin/member/{memberNo}")
 	@ResponseBody
-	public String selectMemberDetail(@PathVariable ("memberNo") int hiddenNo) {
+	public String selectMemberDetail(@PathVariable ("memberNo") int memberNo) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 		
 		// 전체 회원 정보 조회 + 페이지네이션 + 정렬
-		map = service.selectMemberDetail(hiddenNo);
+		map = service.selectMemberDetail(memberNo);
 	
 		return new Gson().toJson(map);
 		

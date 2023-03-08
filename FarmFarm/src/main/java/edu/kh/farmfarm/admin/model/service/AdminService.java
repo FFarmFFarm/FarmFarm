@@ -39,7 +39,7 @@ public interface AdminService {
 	 * @param inputMemberId
 	 * @return map
 	 */
-	Map<String, Object> selectMemberDetail(int hiddenNo);
+	Map<String, Object> selectMemberDetail(int memberNo);
 
 
 

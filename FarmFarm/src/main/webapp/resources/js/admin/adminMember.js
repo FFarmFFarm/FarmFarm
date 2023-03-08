@@ -50,9 +50,7 @@ const selectMemberList = (cp) => {
 */
 const selectMemberDetail = (hiddenNo) => {
 
-    axios.get("/admin/member/"+hiddenNo, {
-        params: { "hiddenNo": hiddenNo}
-    })
+    axios.get("/admin/member/"+hiddenNo)
     .then((response) => { // 성공
         const map = response.data;
         printMemberDetail(map.memberDetailInfo, map.memberHistoryList);
@@ -934,7 +932,7 @@ adminDelBtn.addEventListener('click', () => {
 document.getElementById("adminDelSubmitBtn").addEventListener('click', () => {
 
     //fix: restful api로 바꾸기 + axios로 변경
-    axios.put("/admin/member/"+hiddenNo+ "/kickout")
+    axios.patch("/admin/member/"+hiddenNo+ "/kickout")
     .then((response) => { // 성공
         const result = response.data;
         

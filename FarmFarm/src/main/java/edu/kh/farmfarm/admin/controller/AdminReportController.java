@@ -67,12 +67,12 @@ public class AdminReportController {
 	// 미처리 신고 상세 조회(모달창 내부 내용)
 	@GetMapping("/admin/report/issues/{reportNo}")
 	@ResponseBody
-	public Admin adminNeweportDetail(@PathVariable("reportNo") int hiddenReportNo) {
+	public Admin adminNeweportDetail(@PathVariable("reportNo") int reportNo) {
 		
 		Admin newReportDetail = new Admin();
 		
 		// 미처리 신고 상세 조회
-		newReportDetail = service.selectNewReportDetail(hiddenReportNo);
+		newReportDetail = service.selectNewReportDetail(reportNo);
 	
 		return newReportDetail;
 	}
@@ -167,12 +167,12 @@ public class AdminReportController {
 	@GetMapping("/admin/report/list/{reportNo}")
 	@ResponseBody
 	public Admin selectReportDetail(@SessionAttribute(value="loginMember") Member loginMember, 
-									@PathVariable("reportNo") int hiddenReportNo) {
+									@PathVariable("reportNo") int reportNo) {
 		
 		Admin reportDetail = new Admin();
 		
 		// 전체 신고 상세 조회
-		reportDetail = service.selectReportDetail(hiddenReportNo);
+		reportDetail = service.selectReportDetail(reportNo);
 	
 		return reportDetail;
 	}
