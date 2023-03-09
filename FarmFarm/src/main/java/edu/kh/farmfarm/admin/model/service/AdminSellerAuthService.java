@@ -22,14 +22,14 @@ public interface AdminSellerAuthService {
 	 * @param hiddenNo
 	 * @return authPaper
 	 */
-	Admin selectAuthPaper(int hiddenNo);
+	Admin selectAuthPaper(int memberNo);
 
 
 	/** 판매자 인증 승인
 	 * @param hiddenNo
 	 * @return result
 	 */
-	int sellerApprove(int hiddenNo);
+	int sellerApprove(int memberNo);
 
 	
 	
@@ -37,7 +37,7 @@ public interface AdminSellerAuthService {
 	 * @param hiddenNo
 	 * @return result
 	 */
-	int sellerDeny(int hiddenNo, String denyReason);
+	int sellerDeny(int memberNo, String denyReason);
 	
 	
 	/** 판매자 인증 보류 사유 가져오기

@@ -260,7 +260,7 @@
 				ORDER BY MEMBER_NO)
 			WHERE RANKING = 1  <!-- 상세 조회랑 RANKING 차이 -->
 			AND DUPL_FLAG = 1
-			AND MEMBER_NO = #{hiddenNo}
+			AND MEMBER_NO = #{memberNo}
 	</select>
 	
 	
@@ -289,7 +289,7 @@
 				AND DEFAULT_FL = 'Y'
 				ORDER BY MEMBER_NO)
 			WHERE DUPL_FLAG = 1
-			AND MEMBER_NO = #{hiddenNo}
+			AND MEMBER_NO = #{memberNo}
 	</select>
 	
 	

@@ -239,7 +239,7 @@
 				LEFT JOIN MEMBER MC ON(MC.MEMBER_NO = C.MEMBER_NO))
 		WHERE REPORT_PENALTY IS NULL
 		AND RANKING = 1
-		AND REPORT_NO = #{hiddenReportNo}
+		AND REPORT_NO = #{reportNo}
 	</select>
 
 
@@ -369,7 +369,7 @@
 	<update id="memberKickout">
 		UPDATE MEMBER SET
 		MEMBER_DEL_FL = 'Y'
-		WHERE MEMBER_NO = #{hiddenNo}
+		WHERE MEMBER_NO = #{memberNo}
 	</update>
 	
 	
@@ -379,7 +379,7 @@
 		REPORT_PENALTY = 'Y',
 		PROCESS_DATE = CURRENT_DATE
 		WHERE REPORT_TYPE = 'M'
-		AND REPORT_TARGET_NO = #{hiddenNo}
+		AND REPORT_TARGET_NO = #{memberNo}
 	</update>
 	
 	<!-- 판매자 강제 탈퇴 시, 판매글 삭제 -->
@@ -387,7 +387,7 @@
 		UPDATE POST SET
 		POST_DEL_FL = 'Y'
 		WHERE POST_DEL_FL = 'N'
-		AND MEMBER_NO = #{hiddenNo}
+		AND MEMBER_NO = #{memberNo}
 	</update>
 	
 	
@@ -398,7 +398,7 @@
 		REPORT_PENALTY = 'N',
 		PROCESS_DATE = CURRENT_DATE
 		WHERE REPORT_TYPE = 'M'
-		AND REPORT_TARGET_NO = #{hiddenNo}
+		AND REPORT_TARGET_NO = #{memberNo}
 	</update>
 	
 	
@@ -406,14 +406,14 @@
 	<update id="reportDeleteBoard">
 		UPDATE BOARD SET
 		BOARD_DEL_FL = 'Y'
-		WHERE BOARD_NO = #{hiddenContentNo}
+		WHERE BOARD_NO = #{contentNo}
 	</update>
 	
 	<!-- 신고 판매글 삭제 -->
 	<update id="reportDeletePost">
 		UPDATE "POST" SET
 		POST_DEL_FL = 'Y'
-		WHERE POST_NO = #{hiddenContentNo}
+		WHERE POST_NO = #{contentNo}
 	</update>
 	
 	<!-- 신고 커뮤니티 댓글 삭제 -->
@@ -421,7 +421,7 @@
 		UPDATE "COMMENT" SET
 		COMMENT_DEL_FL = 'Y',
 		COMMENT_CONTENT = '관리자 권한으로 삭제된 댓글입니다.'
-		WHERE COMMENT_NO = #{hiddenContentNo}
+		WHERE COMMENT_NO = #{contentNo}
 	</update>
 	
 	
@@ -431,7 +431,7 @@
 		REPORT_PENALTY = 'Y',
 		PROCESS_DATE = CURRENT_DATE
 		WHERE REPORT_TYPE = #{reportType}
-		AND REPORT_TARGET_NO = #{hiddenContentNo}
+		AND REPORT_TARGET_NO = #{contentNo}
 	</update>
 	
 	
@@ -441,7 +441,7 @@
 		REPORT_PENALTY = 'N',
 		PROCESS_DATE = CURRENT_DATE
 		WHERE REPORT_TYPE = #{reportType}
-		AND REPORT_TARGET_NO = #{hiddenContentNo}
+		AND REPORT_TARGET_NO = #{contentNo}
 	</update>
 	
 	
@@ -740,7 +740,7 @@
 					LEFT JOIN "COMMENT" C ON(REPORT_TARGET_NO = COMMENT_NO)
 					LEFT JOIN MEMBER MC ON(MC.MEMBER_NO = C.MEMBER_NO))
 				WHERE RANKING = 1
-				AND REPORT_NO = #{hiddenReportNo}
+				AND REPORT_NO = #{reportNo}
 	</select>
 	
 	

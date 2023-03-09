@@ -7,7 +7,7 @@
 */
 
 var numCount = 0;
-var hiddenNo = 0;  // 인증신청서, 승인, 거부에 사용
+var hiddenNo = 0;  // (판매자회원번호) 인증신청서, 승인, 거부에 사용
 var keyword;
 // var hiddenId = null;
 
@@ -543,8 +543,8 @@ document.getElementById('authApproveBtn').addEventListener('click', () => {
 
     $.ajax({
         url: '/admin/seller/' + hiddenNo + '/approve',
-        data: { "hiddenNo": hiddenNo },
-        type: 'PUT',
+        data: { "memberNo": hiddenNo },
+        type: 'PATCH',
         success: (result) => {
 
             if (result > 0) {
@@ -573,10 +573,10 @@ document.getElementById('denyBtn').addEventListener('click', () => {
     $.ajax({
         url: '/admin/seller/' + hiddenNo + '/deny',
         data: {
-            "hiddenNo": hiddenNo,
+            "memberNo": hiddenNo,
             "denyReason": denyReason
         },
-        type: 'PUT',
+        type: 'PATCH',
         success: (result) => {
 
             if (result > 0) {

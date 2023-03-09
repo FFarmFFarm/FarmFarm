@@ -54,9 +54,7 @@ const selectNewReportList = (cp) => {
 /** 미처리 신고 상세 모달창 함수 ajax */
 const selectNewReportDetail = (hiddenReportNo) => {
 
-    axios.get('/admin/report/issues/' + hiddenReportNo,{
-        params: {"hiddenReportNo": hiddenReportNo}
-    })
+    axios.get('/admin/report/issues/' + hiddenReportNo)
     .then((response) => { // 성공
         const newReportDetail = response.data;
         printNewReportDetail(newReportDetail);
@@ -94,8 +92,8 @@ const selectReportAccumulate = (hiddenReportType, hiddenMemberNo, hiddenContentN
         params: {"reportType": hiddenReportType,
                  "memberNo": hiddenMemberNo,
                  "contentNo": hiddenContentNo,
-                 "allNew": allNew,
-                 "reportNo" : hiddenReportNo,},
+                 "allNew": allNew 
+                 /*"reportNo" : hiddenReportNo, */},
     })
     .then((response) => { // 성공
         const map = response.data;
@@ -982,7 +980,7 @@ window.addEventListener('click', (e) => {
 accountKickOutBtn.addEventListener('click', () => {
     console.log("계정 탈퇴 클릭");
 
-    axios.put('/report/M/'+hiddenMemberNo+'/kickout',{
+    axios.patch('/report/M/'+ hiddenMemberNo +'/kickout',{
         params: {"authority" : hiddenAuthority},
     })
     .then((response) => { // 성공
@@ -1030,7 +1028,7 @@ accountKickOutBtn.addEventListener('click', () => {
 accountLeaveBtn.addEventListener('click', () => {
     console.log("계정 반려 클릭");
 
-    axios.put('/report/M/'+hiddenMemberNo+'/hold')
+    axios.patch('/report/M/'+hiddenMemberNo+'/hold')
     .then((response) => { // 성공
         const result = response.data;
         if(result > 0){
@@ -1074,7 +1072,7 @@ accountLeaveBtn.addEventListener('click', () => {
 accountBannedBtn.addEventListener('click', () => {
     console.log("계정 정지 클릭");
 
-    axios.put('/report/M/'+hiddenMemberNo+'/suspension')
+    axios.patch('/report/M/'+hiddenMemberNo+'/suspension')
     .then((response) => { // 성공
         const result = response.data;
         if(result > 0){
@@ -1121,7 +1119,7 @@ contentDeleteBtn.addEventListener('click', () => {
     console.log("게시글 삭제 클릭");
 
     
-    axios.put('/report/'+hiddenReportType+'/'+hiddenContentNo+'/delete')
+    axios.patch('/report/'+hiddenReportType+'/'+hiddenContentNo+'/delete')
     .then((response) => { // 성공
         const result = response.data;
         if(result > 0){
@@ -1132,7 +1130,7 @@ contentDeleteBtn.addEventListener('click', () => {
             messageModalOpen("해당 게시글/댓글이 삭제되었습니다.")
 
         } else {
-            console.log("게시글/댓글 삭제 실패");
+            console.log("미처리 게시글/댓글 삭제 실패");
         }
 
     }).catch(() => {
@@ -1167,7 +1165,7 @@ contentLeaveBtn.addEventListener('click', () => {
     console.log("게시글 반려 클릭");
     // console.log(hiddenContentNo);
 
-    axios.put('/report/'+hiddenReportType+'/'+hiddenContentNo+'/hold')
+    axios.patch('/report/'+hiddenReportType+'/'+hiddenContentNo+'/hold')
     .then((response) => { // 성공
         const result = response.data;
         if(result > 0){

@@ -60,10 +60,12 @@ if(likeBtn != null){
     
         // 좋아요 취소하는 경우
         if(heartIcon.classList.contains("checkLike")){
+            console.log(boardNo + ", " + memberNo);
             $.ajax({
-                url : "/boardLikeDelete",
+                url : "/boardLike/"+boardNo+"/"+memberNo,
+                type : 'delete',
                 data : {"boardNo":boardNo, "memberNo":memberNo},
-                success : (result)=>{
+                success : result=>{
     
                     if(result>0){ // 좋아요 취소 성공
                         heartIcon.classList.remove("checkLike");
@@ -83,6 +85,7 @@ if(likeBtn != null){
             // 좋아요 누르기
             $.ajax({
                 url:"/boardLikeInsert",
+                type : 'post',
                 data : {"boardNo":boardNo, "memberNo":memberNo},
                 success : result=>{
         

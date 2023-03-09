@@ -29,8 +29,8 @@ public class AdminProcessDAO {
 	 * @param inputMemberId
 	 * @return result
 	 */
-	public int memberKickout(int hiddenNo) {
-		return sqlSession.update("adminReportMapper.memberKickout", hiddenNo);
+	public int memberKickout(int memberNo) {
+		return sqlSession.update("adminReportMapper.memberKickout", memberNo);
 	}
 
 
@@ -38,8 +38,8 @@ public class AdminProcessDAO {
 	 * @param hiddenNo
 	 * @return result
 	 */
-	public int changeReportStatus(int hiddenNo) {
-		return sqlSession.update("adminReportMapper.changeReportStatus", hiddenNo);
+	public int changeReportStatus(int memberNo) {
+		return sqlSession.update("adminReportMapper.changeReportStatus", memberNo);
 	}
 	
 	
@@ -48,8 +48,8 @@ public class AdminProcessDAO {
 	 * @param hiddenNo
 	 * @return result
 	 */
-	public int deletePostofSeller(int hiddenNo) {
-		return sqlSession.update("adminReportMapper.deletePostofSeller", hiddenNo);
+	public int deletePostofSeller(int memberNo) {
+		return sqlSession.update("adminReportMapper.deletePostofSeller", memberNo);
 	}
 
 
@@ -58,10 +58,10 @@ public class AdminProcessDAO {
 	 * @param hiddenNo
 	 * @return result
 	 */
-	public int reportMemberBanned(int hiddenNo) {
+	public int reportMemberBanned(int memberNo) {
 		// 위 신고 상태 변경과 같은 쿼리문 사용.
 		// 여기에 탈퇴까지 하면 -> 강퇴  // 여기서 멈추면 -> 정지
-		return sqlSession.update("adminReportMapper.changeReportStatus", hiddenNo);  
+		return sqlSession.update("adminReportMapper.changeReportStatus", memberNo);  
 	}
 
 	
@@ -69,8 +69,8 @@ public class AdminProcessDAO {
 	 * @param hiddenNo
 	 * @return result
 	 */
-	public int reportMemberLeave(int hiddenNo) {
-		return sqlSession.update("adminReportMapper.reportMemberLeave", hiddenNo);
+	public int reportMemberLeave(int memberNo) {
+		return sqlSession.update("adminReportMapper.reportMemberLeave", memberNo);
 	}
 
 
@@ -79,8 +79,8 @@ public class AdminProcessDAO {
 	 * @param hiddenContentNo
 	 * @return result
 	 */
-	public int reportDeleteBoard(int hiddenContentNo) {
-		return sqlSession.update("adminReportMapper.reportDeleteBoard", hiddenContentNo);
+	public int reportDeleteBoard(int contentNo) {
+		return sqlSession.update("adminReportMapper.reportDeleteBoard", contentNo);
 	}
 
 
@@ -88,8 +88,8 @@ public class AdminProcessDAO {
 	 * @param hiddenContentNo
 	 * @return result
 	 */
-	public int reportDeletePost(int hiddenContentNo) {
-		return sqlSession.update("adminReportMapper.reportDeletePost", hiddenContentNo);
+	public int reportDeletePost(int contentNo) {
+		return sqlSession.update("adminReportMapper.reportDeletePost", contentNo);
 	}
 
 	
@@ -98,8 +98,8 @@ public class AdminProcessDAO {
 	 * @param hiddenContentNo
 	 * @return result
 	 */
-	public int reportDeleteComment(int hiddenContentNo) {
-		return sqlSession.update("adminReportMapper.reportDeleteComment", hiddenContentNo);
+	public int reportDeleteComment(int contentNo) {
+		return sqlSession.update("adminReportMapper.reportDeleteComment", contentNo);
 	}
 
 	
