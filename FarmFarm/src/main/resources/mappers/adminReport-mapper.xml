@@ -377,7 +377,7 @@
 	<update id = "changeReportStatus">
 		UPDATE REPORT SET
 		REPORT_PENALTY = 'Y',
-		PROCESS_DATE = SYSDATE
+		PROCESS_DATE = CURRENT_DATE
 		WHERE REPORT_TYPE = 'M'
 		AND REPORT_TARGET_NO = #{memberNo}
 	</update>
@@ -396,7 +396,7 @@
 	<update id="reportMemberLeave">
 		UPDATE REPORT SET
 		REPORT_PENALTY = 'N',
-		PROCESS_DATE = SYSDATE
+		PROCESS_DATE = CURRENT_DATE
 		WHERE REPORT_TYPE = 'M'
 		AND REPORT_TARGET_NO = #{memberNo}
 	</update>
@@ -429,7 +429,7 @@
 	<update id="changeReportStatusCt">
 		UPDATE REPORT SET
 		REPORT_PENALTY = 'Y',
-		PROCESS_DATE = SYSDATE
+		PROCESS_DATE = CURRENT_DATE
 		WHERE REPORT_TYPE = #{reportType}
 		AND REPORT_TARGET_NO = #{contentNo}
 	</update>
@@ -439,7 +439,7 @@
 	<update id="reportLeaveContent">
 		UPDATE REPORT SET
 		REPORT_PENALTY = 'N',
-		PROCESS_DATE = SYSDATE
+		PROCESS_DATE = CURRENT_DATE
 		WHERE REPORT_TYPE = #{reportType}
 		AND REPORT_TARGET_NO = #{contentNo}
 	</update>

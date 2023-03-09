@@ -23,7 +23,6 @@ import edu.kh.farmfarm.member.model.VO.Member;
 import edu.kh.farmfarm.mypage.model.vo.Comment;
 
 @RestController
-@Controller
 public class CommentController {
 	
 	@Autowired
@@ -40,7 +39,6 @@ public class CommentController {
 	
 	// 댓글 추가
 	@PostMapping("/board/comment")
-	@ResponseBody
 	public int commentWrite(@RequestBody Comment comment) {
 		
 		int check = comment.getCheckok();
@@ -59,7 +57,6 @@ public class CommentController {
 	
 	// 댓글을 수정
 	@PutMapping("/board/comment")
-	@ResponseBody
 	public int commentUpdate(Comment comment) {
 		return serivce.commentUpdate(comment);
 	}
@@ -68,7 +65,6 @@ public class CommentController {
 	
 	// 댓글을 삭제
 	@PatchMapping("/board/comment/{commentNo}")
-	@ResponseBody
 	public int commentDelete(@PathVariable("commentNo") int commentNo,
 			@SessionAttribute("loginMember") Member loginMember) {
 		

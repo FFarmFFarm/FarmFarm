@@ -36,14 +36,32 @@
       <property name="maxWaitMillis" value="-1" /> 예외 발생 전 커넥션이 반환 될 떄 까지 대기하는 최대 시간(ms), 기본 -1(무기한)
    </bean> -->
    
-   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+<!--    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 	    <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
 	    <property name="url" value="jdbc:oracle:thin:@famrfarm_high?TNS_ADMIN=\\farmfarmHosting\\Wallet_famrfarm"/>
+	    <property name="url" value="jdbc:oracle:thin:@famrfarm_medium?TNS_ADMIN=./src/main/resources/wallet"/>
 	    <property name="username" value="ADMIN"/>
 	    <property name="password" value="Farmfarm678901"/>
 	    
 	</bean>
-   
+    -->
+    
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+    	<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+
+		<property name="url"
+		
+		value="jdbc:oracle:thin:@(description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1521)(host=adb.ap-chuncheon-1.oraclecloud.com))(connect_data=(service_name=gb8a9f5e03d4eaa_famrfarm_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))" />
+		
+		<property name="username" value="ADMIN" />
+		
+		<property name="password" value="Farmfarm678901" />
+		
+	
+	
+		
+	
+	</bean>
       
    <!-- JDBC 수행 내용을 로그로 출력하는 객체를 bean 등록 -->
 	<bean id="logDataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
