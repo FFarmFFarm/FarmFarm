@@ -47,8 +47,9 @@ public class ExceptionController {
 		public String exceptionHandler(Exception e, Model model) {
 			
 			e.printStackTrace();
+			String s = e.getLocalizedMessage();
 			
-			model.addAttribute("errorKind", "알 수 없는 오류가 발생했습니다");
+			model.addAttribute("errorKind", s);
 			model.addAttribute("errorTitle", "잠시 후 다시 시도해주세요");
 			model.addAttribute("errorDetail", "문제가 지속될 경우 고객행복센터로 문의해 주세요");
 			model.addAttribute("e", e);

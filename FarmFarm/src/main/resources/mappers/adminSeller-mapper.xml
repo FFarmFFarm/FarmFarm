@@ -127,7 +127,7 @@
 	<!-- 판매자 인증 처리 시 처리 날짜 추가 -->
 	<update id="updateAuthDate">
 		UPDATE "SELLER" SET
-		AUTH_DATE = SYSDATE
+		AUTH_DATE = CURRENT_DATE
 		WHERE MEMBER_NO = #{hiddenNo}
 	</update>
 
