@@ -30,7 +30,7 @@ public class CommentController {
 	
 	
 	// 댓글 불러오기
-	@GetMapping("/board/comment/list")
+	@GetMapping("/comments/list")
 	public String commentList( int boardNo) {
 		List<Comment> coList = serivce.commentList(boardNo);
 		return new Gson().toJson(coList);
@@ -38,7 +38,7 @@ public class CommentController {
 	
 	
 	// 댓글 추가
-	@PostMapping("/board/comment")
+	@PostMapping("/comments")
 	public int commentWrite(@RequestBody Comment comment) {
 		
 		int check = comment.getCheckok();
@@ -56,7 +56,7 @@ public class CommentController {
 	
 	
 	// 댓글을 수정
-	@PutMapping("/board/comment")
+	@PutMapping("/comments")
 	public int commentUpdate(Comment comment) {
 		return serivce.commentUpdate(comment);
 	}
@@ -64,7 +64,7 @@ public class CommentController {
 	
 	
 	// 댓글을 삭제
-	@PatchMapping("/board/comment/{commentNo}")
+	@PatchMapping("/comments/{commentNo}")
 	public int commentDelete(@PathVariable("commentNo") int commentNo,
 			@SessionAttribute("loginMember") Member loginMember) {
 		

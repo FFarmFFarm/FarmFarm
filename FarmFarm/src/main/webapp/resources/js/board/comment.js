@@ -2,7 +2,7 @@
 function selectCommentList(){
 
     $.ajax({
-        url : "/board/comment/list",
+        url : "/comments/list",
         data : {"boardNo" : boardNo},
         dataType : "JSON",
         success : (coList)=>{
@@ -232,7 +232,7 @@ function selectCommentList(){
                                 writeTimeReply.append(commentReply, commentReport);
                             }
                             if(memberNo == comment.parentNo){
-                                writeTimeReply.append(commentReply, commentReport);
+                                writeTimeReply.append(commentReply);
                             }
                         }
                         if(comment.commentDelFl != 'S'){
@@ -330,7 +330,7 @@ const commentFunction=(checkok)=>{
             // });
 
             // axios를 이용한 댓글 달기
-            axios.post('/board/comment', {
+            axios.post('/comments', {
                 'boardNo' : boardNo,
                 'memberNo' : memberNo,
                 'commentContent' : writeComment.value,
@@ -499,7 +499,7 @@ function sendCo(parentNo, btn){
     // });
 
     // axios를 이용한 댓글 달기
-    axios.post('/board/comment', {
+    axios.post('/comments', {
         "boardNo" : boardNo,
         "memberNo" : memberNo,
         "commentContent" : commentContent,
@@ -634,7 +634,7 @@ function updateComment(commentNo, btn){
     const commentContent = btn.parentElement.previousElementSibling.value;
 
     $.ajax({
-        url : "/board/comment",
+        url : "/comments",
         type : 'put',
         data : {"commentNo" : commentNo,
                 "commentContent" : commentContent},
@@ -676,7 +676,7 @@ const deleteComment = (commentNo)=>{
         //     }
         // })
 
-        axios.patch('/board/comment/'+commentNo)
+        axios.patch('/comments/'+commentNo)
             .then(function (response) {
                 console.log(response);
                 if(response.data > 0){
@@ -711,7 +711,7 @@ const adDeleteComment = (commentNo)=>{
         //     }
         // })
 
-        axios.patch('/board/comment/'+commentNo)
+        axios.patch('/comments/'+commentNo)
         .then(function (response) {
             console.log(response);
             if(response.data > 0){

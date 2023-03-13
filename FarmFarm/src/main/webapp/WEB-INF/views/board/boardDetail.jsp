@@ -30,9 +30,9 @@
             </section>
             <section class="board-nav">
                 <div class="board-nav-area">
-                    <a href="/board/${1}" id="type1">자유게시판</a>
-                    <a href="/board/${2}" id="type2">팁</a>
-                    <a href="/board/${3}" id="type3">질문</a>
+                    <a href="/boards/${1}" id="type1">자유게시판</a>
+                    <a href="/boards/${2}" id="type2">팁</a>
+                    <a href="/boards/${3}" id="type3">질문</a>
                 </div>
             </section>
             <section class="board-title-content">

@@ -62,7 +62,7 @@ if(likeBtn != null){
         if(heartIcon.classList.contains("checkLike")){
             console.log(boardNo + ", " + memberNo);
             $.ajax({
-                url : "/boardLike/"+boardNo+"/"+memberNo,
+                url : "/boards/"+boardNo+"/"+memberNo+"/like",
                 type : 'delete',
                 data : {"boardNo":boardNo, "memberNo":memberNo},
                 success : result=>{
@@ -84,7 +84,7 @@ if(likeBtn != null){
         else{
             // 좋아요 누르기
             $.ajax({
-                url:"/boardLikeInsert",
+                url:"/boards/"+boardNo+"/"+memberNo+"/like",
                 type : 'post',
                 data : {"boardNo":boardNo, "memberNo":memberNo},
                 success : result=>{
@@ -151,10 +151,10 @@ if(boardDelete != null){
     boardDelete.addEventListener("click", ()=>{
         
         if(confirm("게시글을 삭제하시겠습니까?")){
-            axios.delete('/board/'+ boardTypeNo +"/"+ boardNo)
+            axios.delete('/boards/'+ boardTypeNo +"/"+ boardNo)
             .then(function (response) {
                 if(response.data > 0){
-                    location.href = '/board/'+boardTypeNo;
+                    location.href = '/boards/'+boardTypeNo;
                     console.log(response);
                     alert("삭제 되었습니다.");
                 }else{
@@ -172,10 +172,10 @@ const adminBoardDelete = document.getElementById("adminBoardDelete");
 if(adminBoardDelete != null){
     adminBoardDelete.addEventListener("click", ()=>{
         if(confirm("관리자 권한으로 게시글을 삭제하시겠습니까?")){
-            axios.delete('/board/'+ boardTypeNo +"/"+ boardNo)
+            axios.delete('/boards/'+ boardTypeNo +"/"+ boardNo)
             .then(function (response) {
                 if(response.data > 0){
-                    location.href = '/board/'+boardTypeNo;
+                    location.href = '/boards/'+boardTypeNo;
                     console.log(response);
                     alert("삭제 되었습니다.");
                 }else{
@@ -196,7 +196,7 @@ if(boardUpdate != null){
         
         if(confirm("게시글을 수정하시겠습니까?")){
             const pathname = location.pathname
-            location.href = pathname + "/update" + location.search;
+            location.href = pathname + "/edit" + location.search;
         }
     })
 }
