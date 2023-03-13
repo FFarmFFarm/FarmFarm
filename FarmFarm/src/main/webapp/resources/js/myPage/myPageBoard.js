@@ -45,7 +45,7 @@ for (let page of pageBox) {
 /* cp를 받아 게시글 목록 조회해오기 */
 const selectBoardList = (cp) => {
   $.ajax({
-    url: "/board/list",
+    url: "/boards/list",
     data: { "cp": cp, "sortFl": sortFl },
     dataType: "json",
     success: (map) => {
@@ -58,7 +58,7 @@ const selectBoardList = (cp) => {
 /* cp를 받아 게시글 목록 조회해오기 */
 const selectBoardListBySoltFl = (cp, sortFl) => {
   $.ajax({
-    url: "/board/list",
+    url: "/boards/list",
     data: { "cp": cp, "sortFl": sortFl },
     dataType: "json",
     success: (map) => {
@@ -103,7 +103,7 @@ const printBoardList = (boardList, pagination) => {
 
     const boardTitle = document.createElement('a');
     boardTitle.classList.add('board-title', 'title-line');
-    boardTitle.href = '/board/' + board.boardTypeNo + '/' + board.boardNo;
+    boardTitle.href = '/boards/' + board.boardTypeNo + '/' + board.boardNo;
 
     const titleDiv = document.createElement('div');
 

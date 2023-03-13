@@ -147,7 +147,7 @@ const createPostBox = (postMap) => {
             // 필요한 div 생성
             const postBox = document.createElement("a");
             postBox.classList.add("post-box");
-            postBox.setAttribute("href", "/post/" + post.postNo)
+            postBox.setAttribute("href", "/posts/" + post.postNo)
             // 이미지
             const postThumbnail = document.createElement("div");
             postThumbnail.classList.add("post-thumbnail");

@@ -60,7 +60,7 @@
           <c:forEach var="product" items="${order.productList}">
           <div class="order-one">
           <input type="hidden" id="productPrice" value="${product.productPrice}"/>
-            <a href="/product/${product.productNo}" class="order-thumbnail">
+            <a href="/products/${product.productNo}" class="order-thumbnail">
               <img
                 src="${product.productImg}"
                 alt=""
@@ -68,7 +68,7 @@
               />
             </a>
             <div class="order-total">
-              <a href="/product/${product.productNo}" class="product-title">${product.productName}</a>
+              <a href="/products/${product.productNo}" class="product-title">${product.productName}</a>
               <div class="order-detail">
                 <div class="order-price"><span><fmt:formatNumber value="${product.productPrice}" pattern="#,###" /></span>원</div>
                 <span class="or">|</span>
@@ -116,7 +116,7 @@
               <c:if test="${order.orderStatus == 1}"> 
                 <c:if test="${product.productStatus == 0}">
                 <button type="button" class="confirmation" id="${order.orderNo}">구매확정</button>
-                <a href="/return/${order.orderNo}" type="button" class="return" id="${order.orderNo}/${product.productNo}">반품요청</a>
+                <a href="/returns/${order.orderNo}" type="button" class="return" id="${order.orderNo}/${product.productNo}">반품요청</a>
                 </c:if>
                 <c:if test="${product.productStatus == 1}">
                 <button type="button" class="return" disabled>반품 진행중</button>

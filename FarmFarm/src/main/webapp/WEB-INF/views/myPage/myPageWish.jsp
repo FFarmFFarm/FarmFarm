@@ -45,7 +45,7 @@
           <c:if test="${!empty wishList}">
           <c:forEach var="wish" items="${wishList}">
             <div class="wish">
-              <a href="/product/${wish.productNo}" class="wish-thumbnail">
+              <a href="/products/${wish.productNo}" class="wish-thumbnail">
               <c:if test="${! empty wish.productImg}">
                 <img
                   src="${wish.productImg}"
@@ -56,7 +56,7 @@
               </a>
               <div class="wish-info">
                 <span class="wish-reg-date">${wish.wishDate}</span>
-                <a href="/product/${wish.productNo}" class="wish-title">${wish.productName}</a>
+                <a href="/products/${wish.productNo}" class="wish-title">${wish.productName}</a>
                 <span class="wish-price"><span> ${wish.productPrice}</span>원</span>
               </div>
               <button type="button" class="delete-wish-btn" id="${wish.productNo}">

@@ -59,7 +59,7 @@ public class MyPageController {
 	/** 마이페이지 작성 후기
 	 * @return
 	 */
-	@GetMapping("/review")
+	@GetMapping("/reviews")
 	public String myPageReview(
 			@SessionAttribute("loginMember")Member loginMember,
 			Model model,
@@ -80,7 +80,7 @@ public class MyPageController {
 	/** 마이페이지 작성 게시글
 	 * @return
 	 */
-	@GetMapping("/board")
+	@GetMapping("/boards")
 	public String myPageBoard(
 		@SessionAttribute("loginMember")Member loginMember, 
 		Model model,
@@ -109,7 +109,7 @@ public class MyPageController {
 	 * @param cp
 	 * @return
 	 */
-	@GetMapping("/comment")
+	@GetMapping("/comments")
 	public String myPageComment(
 			@SessionAttribute("loginMember")Member loginMember, 
 			Model model,
@@ -134,7 +134,7 @@ public class MyPageController {
 	/** 마이페이지 찜목록
 	 * @return
 	 */
-	@GetMapping("/wishList")
+	@GetMapping("/wishes")
 	public String myPageWishList(
 			@SessionAttribute("loginMember")Member loginMember, 
 			Model model,

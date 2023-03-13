@@ -36,7 +36,7 @@ public class InquireController {
 	 * @param loginMember
 	 * @return inquireNo
 	 */
-	@GetMapping("/inquire/join")
+	@GetMapping("/inquiries/join")
 	public int inquireEnter(int memberNo2, @SessionAttribute("loginMember")Member loginMember) {
 		
         Map<String, Integer> map = new HashMap<String, Integer>();
@@ -59,7 +59,7 @@ public class InquireController {
 	 * @param loginMember
 	 * @return messageList
 	 */
-	@GetMapping("/inquire/{inquireNo}")
+	@GetMapping("/inquiries/{inquireNo}")
 	public String selectInquire(@PathVariable("inquireNo") int inquireNo, @SessionAttribute("loginMember") Member loginMember) {
 		Map<String , Object> paramMap = new HashMap<String, Object>();
 		
@@ -80,7 +80,7 @@ public class InquireController {
 	 * @param loginMember
 	 * @return unreadCount
 	 */
-	@GetMapping("/inquire/read")
+	@GetMapping("/inquiries/read")
 	public int unreadCheck(@SessionAttribute("loginMember")Member loginMember) {
 		
 		int unreadCount = service.unreadCheck(loginMember.getMemberNo());
@@ -94,7 +94,7 @@ public class InquireController {
 	 * @param messageImg
 	 * @return data
 	 */
-	@PostMapping("/inquire/images")
+	@PostMapping("/inquiries/images")
 	public String inquireImgUpload(@RequestParam(value="messageImg") MultipartFile messageImg,
 			HttpServletRequest req) throws Exception {
 		

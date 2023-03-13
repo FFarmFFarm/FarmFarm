@@ -36,7 +36,7 @@ public class ProductDetailController {
 	 * @param sortFl
 	 * @return
 	 */
-	@GetMapping("/product/{productNo}")
+	@GetMapping("/products/{productNo}")
 	public String myPageReview(
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			@PathVariable("productNo") int productNo,
@@ -70,7 +70,7 @@ public class ProductDetailController {
 	 * @param memberNo
 	 * @return
 	 */
-	@PostMapping("/wish/{memberNo}/{productNo}")
+	@PostMapping("/wishes/{memberNo}/{productNo}")
 	@ResponseBody
 	public int addWish(@PathVariable("memberNo") int memberNo, 
 			@PathVariable("productNo") int productNo) {
@@ -87,7 +87,7 @@ public class ProductDetailController {
 	 * @param memberNo
 	 * @return
 	 */
-	@DeleteMapping("/wish/{memberNo}/{productNo}")
+	@DeleteMapping("/wishes/{memberNo}/{productNo}")
 	@ResponseBody
 	public int removeWish(@PathVariable("memberNo") int memberNo, 
 			@PathVariable("productNo") int productNo) {
@@ -103,7 +103,7 @@ public class ProductDetailController {
 	 * @param productNo
 	 * @return
 	 */
-	@GetMapping("/product/{productNo}/stock")
+	@GetMapping("/products/{productNo}/stock")
 	@ResponseBody
 	public int productStock(@PathVariable("productNo") int productNo) {
 		
