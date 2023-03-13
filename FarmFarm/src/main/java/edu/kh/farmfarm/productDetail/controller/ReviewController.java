@@ -36,7 +36,7 @@ public class ReviewController {
 	 * @param reviewNo
 	 * @return
 	 */
-	@GetMapping("/review/{reviewNo}")
+	@GetMapping("/reviews/{reviewNo}")
 	public String reviewDetail(int memberNo, 
 			@PathVariable("reviewNo") int reviewNo) {
 		
@@ -54,7 +54,7 @@ public class ReviewController {
 	 * @param productNo
 	 * @return
 	 */
-	@GetMapping("/review/images")
+	@GetMapping("/reviews/images")
 	public String selectImgReview(int productNo) {
 		
 		List<Review> reviewList = service.selectImgReview(productNo);
@@ -68,7 +68,7 @@ public class ReviewController {
 	 * @param reviewNo
 	 * @return
 	 */
-	@GetMapping("/help/add")
+	@PostMapping("/helps")
 	public int addHelp(@SessionAttribute("loginMember") Member loginMember, int reviewNo) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -84,7 +84,7 @@ public class ReviewController {
 	 * @param reviewNo
 	 * @return
 	 */
-	@GetMapping("/help/remove")
+	@DeleteMapping("/helps")
 	public int removeHelp(@SessionAttribute("loginMember") Member loginMember, int reviewNo) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -102,7 +102,7 @@ public class ReviewController {
 	 * @param cp
 	 * @return
 	 */
-	@GetMapping("/review")
+	@GetMapping("/reviews")
 	public String selectReviewList(int productNo,
 			@SessionAttribute(name = "loginMember", required = false) Member loginMember,
 			@RequestParam(name = "sortFl", required = false, defaultValue = "R") String sortFl,
@@ -134,7 +134,7 @@ public class ReviewController {
 	 * @return
 	 * @throws Exception
 	 */
-	@PostMapping("/review/{reviewNo}")
+	@PostMapping("/reviews/{reviewNo}")
 	public int updateReview(Review review,
 			@SessionAttribute("loginMember") Member loginMember,
 			HttpSession session,
@@ -161,7 +161,7 @@ public class ReviewController {
 	 * @param reviewNo
 	 * @return result
 	 */
-	@PatchMapping("/review/{reviewNo}")
+	@PatchMapping("/reviews/{reviewNo}")
 	public int deleteReview(@PathVariable("reviewNo") int reviewNo) {
 		
 		return service.deleteReview(reviewNo);

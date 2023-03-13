@@ -85,7 +85,7 @@
                                         <span>(${product.regDate})</span>
                                     </td>
                                     <td class="product-title">
-                                        <a href="/product/${product.productNo}" class="product-url">
+                                        <a href="/products/${product.productNo}" class="product-url">
                                             <div class="product-img">
                                                 <img src="${product.productImgAddress}">
                                             </div>

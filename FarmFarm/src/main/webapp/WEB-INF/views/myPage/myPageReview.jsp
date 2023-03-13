@@ -46,7 +46,7 @@
             <div class="review">
               <div>
               <div class="review-container">
-                <a href="/product/${review.productNo}" class="review-title">
+                <a href="/products/${review.productNo}" class="review-title">
                   ${review.productName}
                 </a>
                 <div class="review-content show-btn">

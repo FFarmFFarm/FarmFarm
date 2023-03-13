@@ -2,7 +2,7 @@
 /* 읽지 않은 메세지 수 체크 후 상담 아이콘에 표시 */
 document.addEventListener('DOMContentLoaded', () => { 
 
-  axios.get("/inquire/read")
+  axios.get("/inquiries/read")
   .then((response) => {
     console.log(response);
     if (response.data > 0) {
@@ -32,7 +32,7 @@ if (inquireBtn != undefined) {
 /* 상담방이 없으면 만들고, 있으면 해당 상담방 번호 반환 */
 const createInquire = () => {
 
-  axios.get("/inquire/join", {
+  axios.get("/inquiries/join", {
     params: {
       'memberNo': loginMemberNo,
       'memberNo2': 0
@@ -100,7 +100,7 @@ const closeInquire = (inquireContainer) => {
 /* 상담방 메세지 목록 조회 */
 const selectInquire = (inquireNo) => { 
 
-  axios.get("/inquire/" + inquireNo)
+  axios.get("/inquiries/" + inquireNo)
   .then((response) => {
     const messageList = response.data;
       fillInquireModal(messageList);
@@ -372,7 +372,7 @@ if(inquireImage!=undefined) {
       const formData = new FormData(form);
 
 
-      axios.post("/inquire/images", formData, {
+      axios.post("/inquiries/images", formData, {
         processData: false,
         contentType: false,
       })

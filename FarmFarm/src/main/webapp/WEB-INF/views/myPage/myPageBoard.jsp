@@ -72,7 +72,7 @@
                 />
               </c:if>
               </div>
-              <a href="/board/${board.boardTypeNo}/${board.boardNo}" class="board-title title-line">
+              <a href="/boards/${board.boardTypeNo}/${board.boardNo}" class="board-title title-line">
                 <c:if test="${fn:length(board.boardTitle) >= 27}">
                 <div>${board.boardTitle}...</div>
                 </c:if>

@@ -24,7 +24,7 @@ import edu.kh.farmfarm.postDetail.model.service.PostDetailService;
 import edu.kh.farmfarm.postDetail.model.vo.Post;
 import edu.kh.farmfarm.productDetail.model.vo.Product;
 
-@RequestMapping("/post")
+@RequestMapping("/posts")
 @Controller
 public class PostDetailController {
 	

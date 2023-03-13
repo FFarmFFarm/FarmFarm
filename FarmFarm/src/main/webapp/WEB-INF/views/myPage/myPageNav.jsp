@@ -9,16 +9,16 @@
                 <a href="/myPage" class="ordered">
                   <span>주문 내역</span><i class="fa-solid fa-chevron-right"></i
                 ></a>
-                <a href="/myPage/review" class="review-wrote">
+                <a href="/myPage/reviews" class="review-wrote">
                   <span>작성 후기</span><i class="fa-solid fa-chevron-right"></i
                 ></a>
-                <a href="/myPage/board" class="board-wrote">
+                <a href="/myPage/boards" class="board-wrote">
                   <span> 작성 게시글</span><i class="fa-solid fa-chevron-right"></i
                 ></a>
-                <a href="/myPage/comment" class="comment-wrote">
+                <a href="/myPage/comments" class="comment-wrote">
                   <span>작성 댓글</span><i class="fa-solid fa-chevron-right"></i
                 ></a>
-                <a href="/myPage/wishList" class="wish">
+                <a href="/myPage/wishes" class="wish">
                   <span>찜 목록</span><i class="fa-solid fa-chevron-right"></i
                 ></a>
                 <a href="/myPage/notify" class="alert">

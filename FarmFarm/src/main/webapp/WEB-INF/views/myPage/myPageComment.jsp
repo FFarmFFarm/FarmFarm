@@ -51,7 +51,7 @@
             <div class="comment">
               <div class="comment-container">
                 <span class="comment-content">${comment.commentContent}</span>
-                <a href="/board/${comment.boardTypeNo}/${comment.boardNo}" 
+                <a href="/boards/${comment.boardTypeNo}/${comment.boardNo}" 
                   class="comment-title">
                   ${comment.boardTitle}[${comment.commentCount}]
                 </a>

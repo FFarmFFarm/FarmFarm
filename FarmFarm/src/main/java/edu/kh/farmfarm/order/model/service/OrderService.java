@@ -9,6 +9,7 @@ import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import edu.kh.farmfarm.mypage.model.vo.Order;
+import edu.kh.farmfarm.order.model.vo.ImpToken;
 import edu.kh.farmfarm.order.model.vo.Return;
 import edu.kh.farmfarm.productDetail.model.vo.Product;
 
@@ -55,7 +56,7 @@ public interface OrderService {
 	 * @param impUid
 	 * @return
 	 */
-	int paymentCancel(String token, Order order) throws IOException;
+	ImpToken paymentCancel(String token, Order order) throws IOException;
 
 	/** 자정마다 주문한지 7일 지난 주문 구매 확정
 	 * 

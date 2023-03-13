@@ -32,7 +32,7 @@ public class AdminInquireController {
 	private InquireService inquireService;
 	
 //	상담 관리 페이지로 이동
-	@GetMapping("/admin/inquire")
+	@GetMapping("/admin/inquiries")
 	public String inquirePage(Model model) {
 		
 		
@@ -44,7 +44,7 @@ public class AdminInquireController {
 	}
 	
 //	상담방 메세지 목록 조회
-	@GetMapping("/admin/inquire/{inquireNo}")
+	@GetMapping("/admin/inquiries/{inquireNo}")
 	@ResponseBody
 	public String selectMessageList(@PathVariable("inquireNo") int inquireNo, 
 			@SessionAttribute("loginMember")Member loginMember) {
@@ -66,7 +66,7 @@ public class AdminInquireController {
 	}
 	
 //	상담방 목록 조회
-	@GetMapping("/inquire/list")
+	@GetMapping("/inquiries/list")
 	@ResponseBody
 	public String selectInquireList() {
 		
@@ -82,7 +82,7 @@ public class AdminInquireController {
 	 * @param loginMember
 	 * @return
 	 */
-	@PutMapping("/inquire/{inquireNo}/read")
+	@PutMapping("/inquiries/{inquireNo}/read")
 	@ResponseBody
 	public int updateMessageRead(@PathVariable("inquireNo") int inquireNo,
 			@SessionAttribute("loginMember")Member loginMember) {

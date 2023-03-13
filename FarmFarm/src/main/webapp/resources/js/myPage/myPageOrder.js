@@ -92,7 +92,7 @@ document.getElementById('submitBtn').addEventListener('click', () => {
     const formData = new FormData(form);
 
     $.ajax({
-      url: "/review",
+      url: "/reviews",
       data: formData,
       type: "POST",
       contentType: false,
@@ -201,7 +201,7 @@ const orderCancel = () => {
   //   }
   // });
 
-  axios.patch('/order/' + confirmOrderNo)
+  axios.patch('/orders/' + confirmOrderNo)
   .then((response) => {
     if (response.data > 0) {
 
@@ -264,7 +264,7 @@ document.getElementById('orderConfirmBtn').addEventListener('click', () => {
 /* 주문 구매 확정하는 Function */
 const orderConfirmation = (orderNo) => {
 
-  axios.patch('/order/' + orderNo + '/confirm')
+  axios.patch('/orders/' + orderNo + '/confirm')
   .then((result) => {
     if (result > 0) {
       const message = '주문번호 ' + orderNo + '번 구매가 확정되었습니다.'
@@ -467,7 +467,7 @@ for (let page of pageBox) {
 const selectOrderList = (cp) => {
 
   $.ajax({
-    url: "/order/list",
+    url: "/orders/list",
     data: { "cp": cp },
     dataType: "json",
     success: (map) => {
@@ -531,7 +531,7 @@ const printOrderList = (orderList, pagination) => {
 
 
       const orderThumbnail = document.createElement('a');
-      orderThumbnail.href = '/product/' + product.productNo;
+      orderThumbnail.href = '/products/' + product.productNo;
       orderThumbnail.classList.add('order-thumbnail');
 
       orderOne.append(orderThumbnail);
@@ -548,7 +548,7 @@ const printOrderList = (orderList, pagination) => {
       orderOne.append(orderTotal);
 
       const productTitle = document.createElement('a');
-      productTitle.href = '/product/' + product.productNo;
+      productTitle.href = '/products/' + product.productNo;
       productTitle.classList.add('product-title');
       productTitle.innerText = product.productName;
 
@@ -710,7 +710,7 @@ const printOrderList = (orderList, pagination) => {
 
           a.innerText = '반품요청';
           a.classList.add('return');
-          a.href = '/return/' + order.orderNo;
+          a.href = '/returns/' + order.orderNo;
           buttonArea.append(button1, a);
 
           /* 구매확정 버튼 클릭 시 주문 구매 확정 */
@@ -758,7 +758,7 @@ const printOrderList = (orderList, pagination) => {
     
               document.getElementById('modalProductThumbnail').setAttribute('src', product.productImg);
               document.getElementById('modalProductName').innerHTML = product.productName;
-              document.getElementById('modalProductName').href = '/product/' + product.productNo;
+              document.getElementById('modalProductName').href = '/products/' + product.productNo;
               document.getElementById('productNoInput').value = product.productNo;
               document.getElementById('orderNoInput').value = order.orderNo;
     

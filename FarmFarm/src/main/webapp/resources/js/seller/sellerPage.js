@@ -236,7 +236,7 @@ const createPostList = (postMap)=>{
       postHead.classList.add("post-head");
 
       const postTitle = document.createElement('a');
-      postTitle.href = "/post/" + post.postNo;
+      postTitle.href = "/posts/" + post.postNo;
       postTitle.classList.add("post-title");
       postTitle.innerText = post.postTitle;
 
