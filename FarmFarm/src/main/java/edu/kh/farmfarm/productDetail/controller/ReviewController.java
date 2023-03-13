@@ -79,6 +79,7 @@ public class ReviewController {
 		return service.addHelp(map);
 	}
 	
+	
 	/** 도움돼요 취소
 	 * @param loginMember
 	 * @param reviewNo
@@ -94,6 +95,7 @@ public class ReviewController {
 		
 		return service.removeHelp(map);
 	}
+	
 	
 	/** 리뷰 목록 조회
 	 * @param productNo
