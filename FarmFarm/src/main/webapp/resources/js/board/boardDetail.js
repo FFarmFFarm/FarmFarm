@@ -151,7 +151,7 @@ if(boardDelete != null){
     boardDelete.addEventListener("click", ()=>{
         
         if(confirm("게시글을 삭제하시겠습니까?")){
-            axios.delete('/boards/'+ boardTypeNo +"/"+ boardNo)
+            axios.patch('/boards/'+ boardTypeNo +"/"+ boardNo)
             .then(function (response) {
                 if(response.data > 0){
                     location.href = '/boards/'+boardTypeNo;
