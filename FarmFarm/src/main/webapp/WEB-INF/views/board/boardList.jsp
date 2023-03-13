@@ -35,12 +35,12 @@
         </section>
         <section class="board-nav">
             <div class="board-nav-area">
-                <a id="type1" href="/board/${1}">자유게시판</a>
-                <a id="type2" href="/board/${2}">팁</a>
-                <a id="type3" href="/board/${3}">질문</a>
+                <a id="type1" href="/boards/${1}">자유게시판</a>
+                <a id="type2" href="/boards/${2}">팁</a>
+                <a id="type3" href="/boards/${3}">질문</a>
             </div>
         </section>
-        <form action="/board/${boardTypeNo}" class="board-search">
+        <form action="/boards/${boardTypeNo}" class="board-search">
             <section class="board-search-area">
                 <select name="key" id="search-key">
                     <option value="t">제목</option>
@@ -92,7 +92,7 @@
                                     <span class="board-no">${board.boardNo}</span>
                                     <span class="board-title">
                                         <c:if test="${loginMember.authority != 1}">
-                                            <a href="/board/${boardTypeNo}/${board.boardNo}?cp=${pagination.currentPage}${sURL}" class="goBoard">
+                                            <a href="/boards/${boardTypeNo}/${board.boardNo}?cp=${pagination.currentPage}${sURL}" class="goBoard">
                                                 ${board.boardTitle}&nbsp;(${board.commentCount})</a>
                                         </c:if>
                                         <c:if test="${loginMember.authority == 1}"><a class="goBoard">${board.boardTitle}&nbsp;(${board.commentCount})</a></c:if>
@@ -146,7 +146,7 @@
                     </ul>
 
                     <c:if test="${!empty loginMember && loginMember.authority != 1}">
-                        <a href="/board/write/${boardTypeNo}" class="board-write">글쓰기</a>
+                        <a href="/boards/${boardTypeNo}/writing" class="board-write">글쓰기</a>
                     </c:if>
                 </div>
             </div>

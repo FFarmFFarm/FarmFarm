@@ -23,7 +23,7 @@
             <div class="board-top-title">와글와글 수정하기</div>
         </section>
 
-        <form action="/board/${boardTypeNo}/${board.boardNo}/update" method="post" encType="multipart/form-data">
+        <form action="/boards/${boardTypeNo}/${board.boardNo}/edit" method="post" encType="multipart/form-data">
             <section class="board-nav">
                 <div class="board-nav-area">
                     <span id="type1">자유게시판</span>

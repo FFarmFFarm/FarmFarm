@@ -42,7 +42,7 @@ public class BoardListController {
 	}
 	
 	// 와글와글 게시판의 목록 불러오기
-	@GetMapping("/board/{boardTypeNo}")
+	@GetMapping("/boards/{boardTypeNo}")
 	public String boardList (
 			@PathVariable("boardTypeNo") int boardTypeNo,
 			Model model,
@@ -67,7 +67,7 @@ public class BoardListController {
 	
 //	// 와글와글 게시판의 목록 불러오기
 	// + ajax로 요청한 목록 + 정렬
-	@GetMapping("/board/list/{boardTypeNo}")
+	@GetMapping("/boards/list/{boardTypeNo}")
 	@ResponseBody
 	public String boardList (
 			Model model,
@@ -101,7 +101,7 @@ public class BoardListController {
 
 
 	// 프로필 클릭시 모달
-	@GetMapping("/board/member/{memberNo}")
+	@GetMapping("/boards/member/{memberNo}")
 	@ResponseBody
 	public String selectMemPro(
 			@SessionAttribute("loginMember") Member loginMember,
