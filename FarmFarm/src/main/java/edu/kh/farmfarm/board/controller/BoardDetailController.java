@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -202,7 +203,7 @@ public class BoardDetailController {
 //	}
 	
 	// 게시글 삭제 - 수정 후 코드
-	@DeleteMapping("/boards/{boardTypeNo}/{boardNo}")
+	@PatchMapping("/boards/{boardTypeNo}/{boardNo}")
 	@ResponseBody
 	public int boardDelete(
 			@PathVariable("boardNo") int boardNo) {
