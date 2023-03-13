@@ -60,7 +60,7 @@ public class OrderController {
 	 * @param ra
 	 * @return
 	 */
-	@PostMapping("/return/{orderNo}")
+	@PostMapping("/returns/{orderNo}")
 	public String returnOrder(Return returnInfo, ProductList pList, 
 			@RequestHeader(value = "referer") String referer, RedirectAttributes ra) {
 			
@@ -91,7 +91,7 @@ public class OrderController {
 	 * @param model
 	 * @return
 	 */
-	@PostMapping("/orderPage")
+	@GetMapping("/orders")
 	public String orderPage(ProductList pList, Model model) {
 		
 		List<Product> productList = new ArrayList<>();
@@ -118,7 +118,7 @@ public class OrderController {
 	 * @param ra
 	 * @throws IOException
 	 */
-	@PostMapping("/order")
+	@PostMapping("/orders")
 	public String order(Order order, ProductList pList, @RequestHeader("referer")String referer,
 			@SessionAttribute("loginMember")Member loginMember,
 			RedirectAttributes ra) throws IOException {
@@ -151,7 +151,7 @@ public class OrderController {
 	 * @return
 	 * @throws IOException
 	 */
-	@GetMapping("/order/confirm/{impUid}")
+	@GetMapping("/orders/confirm/{impUid}")
 	@ResponseBody
 	public String confirmBuy(
 			int orderPrice, 
@@ -186,7 +186,7 @@ public class OrderController {
 	 * @return
 	 * @throws IOException
 	 */
-	@PatchMapping("/order/{orderNo}")
+	@PatchMapping("/orders/{orderNo}")
 	@ResponseBody
 	public int orderCancel(
 			@PathVariable("orderNo")int orderNo) throws IOException {
@@ -201,15 +201,16 @@ public class OrderController {
 		
 		
 //		imp_uid 이용해서 환불 요청하기
-		int result = service.paymentCancel(token, order);
+		ImpToken impUid = service.paymentCancel(token, order);
 		
-		if(result > 0) {
+		if(impUid != null) {
 			
-			result = service.orderCancel(orderNo);
+			int result = service.orderCancel(orderNo);
+			return result;
 		}
 		
 		
-		return result;
+		return 0;
 	}
 	
 

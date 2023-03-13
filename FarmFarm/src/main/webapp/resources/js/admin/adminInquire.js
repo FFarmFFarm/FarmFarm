@@ -32,7 +32,7 @@ if (inquireRoomList != undefined) {
 const selectMessageList = inquireNo => {
 
 
-  axios.get("/admin/inquire/" + inquireNo)
+  axios.get("/admin/inquiries/" + inquireNo)
   .then((response) => {
     const messageList = response.data;
     console.log(messageList);
@@ -139,7 +139,7 @@ const fillInquireRoom = (messageList) => {
 /* 상담방 목록 조회 */
 const selectInquireList = (inquireNo) => {
 
-  axios.get("/inquire/list")
+  axios.get("/inquiries/list")
   .then((response) => {
     console.log(response.data);
     fillInquireList(response.data, inquireNo);
@@ -309,7 +309,7 @@ if (inquireImage != undefined) {
       const formData = new FormData(form);
 
 
-      axios.post("/inquire/imgUpload", formData, {
+      axios.post("/inquiries/images", formData, {
         processData: false,
         contentType: false
       }).then((response) => {
@@ -407,7 +407,7 @@ inquireSock.onmessage = function (e) {
  * @param {} inquireNo 
  */
 const updateMessageRead = (inquireNo) => {
-  axios.put("/inquire/" +inquireNo+ "/read")
+  axios.put("/inquiries/" +inquireNo+ "/read")
   .then((response) => {
     console.log('메세지 읽음처리');
   }).catch((err) => {

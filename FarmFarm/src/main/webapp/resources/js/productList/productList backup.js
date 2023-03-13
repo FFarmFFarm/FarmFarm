@@ -142,7 +142,7 @@ const createProductBox = (productMap) => {
             // 필요한 div 생성
             const productBox = document.createElement("a");
             productBox.classList.add("product-box");
-            productBox.setAttribute("href", "/product/" + product.productNo)
+            productBox.setAttribute("href", "/products/" + product.productNo)
             // 이미지
             const productContent = document.createElement("div");
             productContent.classList.add("product-content");

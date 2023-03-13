@@ -40,7 +40,7 @@
                     </div>
                 </c:when>
                 <c:otherwise>
-                    <form action="/orderPage" method="POST" id="orderPage">
+                    <form action="/orders" method="GET" id="orderPage">
                         <div class="product-container">
                             <div class="cart-headline" id="cartHeadline">
                                 <label class="check-label">
@@ -78,7 +78,7 @@
                                             </label>
                                         </c:otherwise>
                                     </c:choose>
-                                        <a href="/product/${cart.productNo}" class="cart-thumbnail">
+                                        <a href="/products/${cart.productNo}" class="cart-thumbnail">
                                             <img
                                             src="${cart.productImg}"
                                             alt=""
@@ -86,7 +86,7 @@
                                             />
                                         </a>
                                         <div class="cart-product-name">
-                                            <a href="/product/${cart.productNo}">
+                                            <a href="/products/${cart.productNo}">
                                                 <p>${cart.productName}</p>
                                             </a>
                                         </div>

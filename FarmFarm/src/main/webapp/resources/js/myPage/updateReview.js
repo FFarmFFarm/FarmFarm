@@ -65,7 +65,7 @@ const selectReview = (reviewNo) => {
 
 
   $.ajax({
-    url: '/review/' + reviewNo,
+    url: '/reviews/' + reviewNo,
     data: { "memberNo": memberNo },
     dataType: 'json',
     success: (review) => {
@@ -100,7 +100,7 @@ const fillReviewForm = (review) => {
   modalProductThumbnail.src = review.productThumbnail;
 
   modalProductName.removeAttribute('href');
-  modalProductName.href = '/product/' + review.productNo;
+  modalProductName.href = '/products/' + review.productNo;
   modalProductName.innerHTML = review.productName;
 
 
@@ -209,7 +209,7 @@ document.getElementById('submitBtn').addEventListener('click', () => {
     const formData = new FormData(form);
 
     $.ajax({
-      url: "/review/" + formData.reviewNo,
+      url: "/reviews/" + formData.reviewNo,
       data: formData,
       type: "POST",
       contentType: false,
@@ -246,7 +246,7 @@ const selectReviewList = (cp) => {
   //   error: () => { }
   // });
 
-  axios.get('/review/list/' + cp)
+  axios.get('/reviews/list/' + cp)
   .then((response) => {
     const map = response.data;
     printReviewList(map.reviewList, map.pagination);
@@ -287,7 +287,7 @@ const printReviewList = (reviewList, pagination) => {
 
       const reviewTitle = document.createElement('a');
       reviewTitle.classList.add('review-title');
-      reviewTitle.href = "/product/" + review.productNo;
+      reviewTitle.href = "/products/" + review.productNo;
 
       reviewTitle.innerText = review.productName;
 
@@ -420,7 +420,7 @@ const printReviewList = (reviewList, pagination) => {
  */
 const deleteReview = (reviewNo) => {
 
-  axios.patch('/review/' + reviewNo)
+  axios.patch('/reviews/' + reviewNo)
   .then((response) => {
     messageModalOpen("삭제되었습니다.");
     selectReviewList(1);

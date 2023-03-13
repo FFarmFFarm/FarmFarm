@@ -92,7 +92,7 @@ const confirmBuy = (impUid) => {
   //   }
   // })
 
-  axios.get('/order/confirm/' + impUid, {
+  axios.get('/orders/confirm/' + impUid, {
     params: {"orderPrice": orderPrice}
   }).then((response) => {
     if (response.data != '실패') {

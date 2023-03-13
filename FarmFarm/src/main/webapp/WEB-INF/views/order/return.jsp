@@ -32,7 +32,7 @@
 
 
 
-          <form class="order" action="/return/${order.orderNo}" method="POST"  id="returnForm">
+          <form class="order" action="/returns/${order.orderNo}" method="POST"  id="returnForm">
             <div class="order-info-container">
               <div class="order-info">
                 <span class="order-no" id="${order.orderNo}">주문번호 <span>${order.orderNo}</span></span>
@@ -50,7 +50,7 @@
             <div class="order-one">
                
             <input type="checkbox" class="productNo" id="productNoInput" name="pList[${vs.index}].productNo" value="${product.productNo}">
-            <a href="/product/${product.productNo}" class="order-thumbnail">
+            <a href="/products/${product.productNo}" class="order-thumbnail">
               <img
                 src="${product.productImg}"
                 alt=""
@@ -59,7 +59,7 @@
             </a>
 
             <div class="order-total">
-              <a href="/product/${product.productNo}" class="product-title">${product.productName}</a>
+              <a href="/products/${product.productNo}" class="product-title">${product.productName}</a>
               <div class="order-detail">
                 <div class="order-price"><span>${product.productPrice}</span>원</div>
                 <span class="or">|</span>

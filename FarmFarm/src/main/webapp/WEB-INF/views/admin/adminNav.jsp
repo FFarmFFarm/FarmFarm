@@ -24,7 +24,7 @@
         </div>
         <a href="/admin/member" class="admin-nav-sub">회원 관리</a>
         <a href="/admin/seller" class="admin-nav-sub">판매자 인증 관리</a>
-        <a href="/admin/inquire" class="admin-nav-sub" id="inquireBtn">
+        <a href="/admin/inquiries" class="admin-nav-sub" id="inquireBtn">
             상담 관리
 
             <i class="fa-solid fa-circle hide" id="newMessage"></i>

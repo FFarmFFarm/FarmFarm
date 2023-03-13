@@ -68,7 +68,7 @@
           </c:if>
           </c:forEach>
         </div>
-        <form action="/orderPage" method="POST" class="summary-area" id="orderPage">
+        <form action="/orders" method="GET" class="summary-area" id="orderPage">
           <input type="hidden" name="pList[0].productNo" value="${product.productNo}">
           <input type="hidden" name="pList[0].productImg" value="${productImgList[0].productImgAddress}">
           <input type="hidden" name="pList[0].productPrice" value="${fn:replace(product.productPrice, ',', '')}">

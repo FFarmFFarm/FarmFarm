@@ -66,7 +66,7 @@ if (document.getElementById('wishBtn') != null) {
 
 /* 찜하기 Function*/
 const addWish = (productNo, wishBtn) => {
-  axios.post('/wish/' + loginMemberNo + "/" + productNo)
+  axios.post('/wishes/' + loginMemberNo + "/" + productNo)
   .then((result) => {
     wishBtn.classList.remove('wish-unclicked');
     wishBtn.classList.add('wish-clicked');
@@ -79,7 +79,7 @@ const addWish = (productNo, wishBtn) => {
 
 /* 찜취소  Function*/
 const removeWish = (productNo, wishBtn) => {
-  axios.delete('/wish/' + loginMemberNo + "/" + productNo)
+  axios.delete('/wishes/' + loginMemberNo + "/" + productNo)
   .then((result) => {
     wishBtn.classList.remove('wish-clicked');
     wishBtn.classList.add('wish-unclicked');
@@ -147,7 +147,7 @@ if (document.getElementById('orderBtn') != undefined) {
         const amount = document.getElementById('productAmount').innerText;
         
         // 상품 실 재고 확인 후 주문 수량 이상일 때만 주문 가능하게
-        axios.get('/product/' + getProductNo() + '/stock' )
+        axios.get('/products/' + getProductNo() + '/stock' )
         .then((result) => {
           console.log("현재 상품 재고 수량: " + stock);
             // !실재고 수량이 0보다 크고 선택된 수량보다 같거나 클때만 주문서로 이동
@@ -327,7 +327,7 @@ const selectImgReview = () => {
   const productNo = getProductNo();
 
   $.ajax({
-    url: "/review/images",
+    url: "/reviews/images",
     data: { "productNo": productNo },
     dataType: "json",
     success: (reviewList) => {
@@ -427,7 +427,7 @@ const selectReview = (reviewNo, loginMemberNo) => {
   }
 
   $.ajax({
-    url: '/review/' + reviewNo,
+    url: '/reviews/' + reviewNo,
     data: { "memberNo": loginMemberNo },
     dataType: 'json',
     success: (review) => {
@@ -715,7 +715,8 @@ const helpedClick = (helpedBtn, reviewNo) => {
 const addHelp = (reviewNo, helpedBtn) => {
 
   $.ajax({
-    url: '/help/add',
+    url: '/helps',
+    type: 'post',
     data: { "reviewNo": reviewNo },
     success: (result) => {
       if (result > 0) {
@@ -735,7 +736,8 @@ const addHelp = (reviewNo, helpedBtn) => {
 const removeHelp = (reviewNo, helpedBtn) => {
 
   $.ajax({
-    url: '/help/remove',
+    url: '/helps',
+    type: 'delete',
     data: { "reviewNo": reviewNo },
     success: (result) => {
       if (result > 0) {
@@ -783,7 +785,7 @@ if (reviewNext != undefined) {
 /* cp를 전달받아 리뷰를 조회하는 Function */
 const selectReviewList = (productNo, cp) => {
   $.ajax({
-    url: '/review',
+    url: '/reviews',
     data: { "productNo": productNo, "cp": cp, "sortFl": sortFl },
     dataType: 'json',
     success: (map) => {
@@ -1056,7 +1058,7 @@ document.getElementById('sortNewest').addEventListener('click', (e) => {
 /* sortFl을 전달받아 리뷰를 조회하는 Function */
 const selectReviewListBySort = (productNo, sortFL) => {
   $.ajax({
-    url: '/review',
+    url: '/reviews',
     data: { "productNo": productNo, "sortFl": sortFL },
     dataType: 'json',
     success: (map) => {
@@ -1132,7 +1134,7 @@ const selectReviewUpdate = (reviewNo) => {
   console.log(reviewNo);
 
   $.ajax({
-    url: '/review/' + reviewNo,
+    url: '/reviews/' + reviewNo,
     data: { "memberNo": loginMemberNo },
     dataType: 'json',
     success: (review) => {
@@ -1170,7 +1172,7 @@ const fillReviewForm = (review) => {
   modalProductThumbnail.src = review.productThumbnail;
   
   modalProductName.removeAttribute('href');
-  modalProductName.href = '/product/' + review.productNo;
+  modalProductName.href = '/products/' + review.productNo;
   modalProductName.innerHTML = review.productName;
   
   
@@ -1289,7 +1291,7 @@ document.getElementById('submitBtn').addEventListener('click', () => {
     const formData = new FormData(form);
 
     $.ajax({
-      url: "/review/" + formData.reviewNo,
+      url: "/reviews/" + formData.reviewNo,
       data: formData,
       type: "POST",
       contentType: false,

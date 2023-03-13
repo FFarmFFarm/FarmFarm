@@ -16,7 +16,7 @@ for(let page of pageBox) {
 /* cp를 받아 리뷰 목록 조회해오기 */
 const selectCommentList = (cp)=>{
   $.ajax({
-    url:"/comment/list", 
+    url:"/comments/list", 
     data: {"cp":cp},
     dataType: "json",
     success: (map)=>{
@@ -51,7 +51,7 @@ const printCommentList = (commentList, pagination)=>{
 
     const boardTitle = document.createElement('a');
     boardTitle.classList.add('comment-title');
-    boardTitle.href = '/board/' + comment.boardTypeNo + '/' + comment.boardNo;
+    boardTitle.href = '/boards/' + comment.boardTypeNo + '/' + comment.boardNo;
     boardTitle.innerHTML = comment.boardTitle + '[' + comment.commentCount + ']';
 
     commentContainer.append(commentContent, boardTitle);

@@ -29,7 +29,7 @@
   </head>
   <body>
     <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-    <form action="/order" method="POST" id="orderForm">
+    <form action="/orders" method="POST" id="orderForm">
       <div class="order-title">주문서</div>
       <section class="product-container">
         <ul>
