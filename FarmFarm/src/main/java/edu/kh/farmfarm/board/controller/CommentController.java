@@ -30,7 +30,7 @@ public class CommentController {
 	
 	
 	// 댓글 불러오기
-	@GetMapping("/comments/list")
+	@GetMapping("/comments/lists")
 	public String commentList( int boardNo) {
 		List<Comment> coList = serivce.commentList(boardNo);
 		return new Gson().toJson(coList);
