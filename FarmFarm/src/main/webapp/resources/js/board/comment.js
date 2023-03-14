@@ -2,7 +2,7 @@
 function selectCommentList(){
 
     $.ajax({
-        url : "/comments/list",
+        url : "/comments/lists",
         data : {"boardNo" : boardNo},
         dataType : "JSON",
         success : (coList)=>{
