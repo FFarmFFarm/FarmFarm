@@ -74,7 +74,7 @@ public class AdminController {
 	// 회원 관리 --------------------------------------------------------------------------------
 	// 전체 회원 조회 페이지로 이동
 	// JSP 
-	@GetMapping("/admin/member")
+	@GetMapping("/admin/members")
 	public String adminMemberPage(@SessionAttribute(value="loginMember") Member loginMember, 
 									Model model,
 									@RequestParam(value="cp", required=false, defaultValue="1") int cp,
@@ -97,7 +97,7 @@ public class AdminController {
 	
 	
 	// 전체 회원 조회 (정렬, 페이지네이션, 검색)
-	@GetMapping("/admin/member/list")
+	@GetMapping("/admin/members/list")
 	@ResponseBody
 	public String selectMember(@RequestParam(value="cp", required=false, defaultValue="1") int cp,
 								@RequestParam(value="authFilter", required=false, defaultValue="0") String authFilter,
@@ -125,7 +125,7 @@ public class AdminController {
 	
 	
 	// 회원 상세 조회
-	@GetMapping("/admin/member/{memberNo}")
+	@GetMapping("/admin/members/{memberNo}")
 	@ResponseBody
 	public String selectMemberDetail(@PathVariable ("memberNo") int memberNo) {
 		

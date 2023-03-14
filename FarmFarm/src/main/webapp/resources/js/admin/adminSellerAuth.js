@@ -17,7 +17,7 @@ var keyword;
 /** 판매자 정보 조회 함수 ajax */
 const selectSellerList = (cp) => {
     $.ajax({
-        url: "/admin/seller/list",
+        url: "/admin/sellers/list",
         data: { "cp": cp, "sellerFilter": sellerFilter, "keyword": keyword },
         dataType: "JSON",
         type: "GET",
@@ -37,7 +37,7 @@ const selectSellerList = (cp) => {
 /** 인증 신청서 조회 함수 ajax */
 const selectAuthPaper = (hiddenNo) => {
     $.ajax({
-        url: "/admin/seller/" + hiddenNo,
+        url: "/admin/sellers/" + hiddenNo,
         data: { "hiddenNo": hiddenNo },
         type: "GET",
         success: (authPaper) => {
@@ -542,7 +542,7 @@ allSellerBtn.addEventListener('click', () => {
 document.getElementById('authApproveBtn').addEventListener('click', () => {
 
     $.ajax({
-        url: '/admin/seller/' + hiddenNo + '/approve',
+        url: '/admin/sellers/' + hiddenNo + '/approve',
         data: { "memberNo": hiddenNo },
         type: 'PATCH',
         success: (result) => {
@@ -571,7 +571,7 @@ document.getElementById('denyBtn').addEventListener('click', () => {
     const denyReason = document.getElementById('denyReason').value;
 
     $.ajax({
-        url: '/admin/seller/' + hiddenNo + '/deny',
+        url: '/admin/sellers/' + hiddenNo + '/deny',
         data: {
             "memberNo": hiddenNo,
             "denyReason": denyReason

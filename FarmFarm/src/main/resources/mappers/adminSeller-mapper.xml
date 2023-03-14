@@ -70,7 +70,7 @@
 		LEFT JOIN ADDRESS USING(MEMBER_NO)
 		LEFT JOIN "SELLER" USING(MEMBER_NO)
 		<if test='sellerFilter == 0'>
-			WHERE AUTHORITY = 3
+			WHERE AUTHORITY = 3 
 		</if>
 		<if test='sellerFilter == 1'>
 			WHERE (AUTHORITY = 1 OR AUTHORITY = 3 OR AUTHORITY = 4)
