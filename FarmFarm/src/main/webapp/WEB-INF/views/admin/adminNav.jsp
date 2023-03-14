@@ -22,8 +22,8 @@
                 팜팜 관리
             </span>
         </div>
-        <a href="/admin/member" class="admin-nav-sub">회원 관리</a>
-        <a href="/admin/seller" class="admin-nav-sub">판매자 인증 관리</a>
+        <a href="/admin/members" class="admin-nav-sub">회원 관리</a>
+        <a href="/admin/sellers" class="admin-nav-sub">판매자 인증 관리</a>
         <a href="/admin/inquiries" class="admin-nav-sub" id="inquireBtn">
             상담 관리
 

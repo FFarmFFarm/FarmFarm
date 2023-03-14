@@ -60,7 +60,7 @@ public class AdminSellerAuthController {
 	
 	//-- jsp (첫페이지)
 	// 판매자 정보 조회
-	@GetMapping("/admin/seller")
+	@GetMapping("/admin/sellers")
 	public String adminSellerAuthPage(@SessionAttribute(value="loginMember") Member loginMember,
 										@RequestParam(value="cp", required=false, defaultValue="1") int cp,
 										@RequestParam(value="preSellerFilter", required=false, defaultValue="0") int sellerFilter,
@@ -81,7 +81,7 @@ public class AdminSellerAuthController {
 	
 	// ajax(2페이지부터)
 	// 판매자 정보 조회
-	@GetMapping("/admin/seller/list")
+	@GetMapping("/admin/sellers/list")
 	@ResponseBody
 	public String adminSellerAuthPage(@SessionAttribute(value="loginMember") Member loginMember,
 										@RequestParam(value="cp", required=false, defaultValue="1") int cp,
@@ -106,7 +106,7 @@ public class AdminSellerAuthController {
 	
 	
 	// 판매자인증 신청서 조회
-	@GetMapping("/admin/seller/{memberNo}")
+	@GetMapping("/admin/sellers/{memberNo}")
 	@ResponseBody
 	public Admin selectAuthPaper(@SessionAttribute(value = "loginMember") Member loginMember,
 								@PathVariable("memberNo") int memberNo) {
@@ -122,7 +122,7 @@ public class AdminSellerAuthController {
 	
 	
 	// 판매자 승인
-	@PatchMapping("/admin/seller/{memberNo}/approve")
+	@PatchMapping("/admin/sellers/{memberNo}/approve")
 	@ResponseBody
 	public int sellerApprove(@SessionAttribute(value = "loginMember") Member loginMember, 
 			 				@PathVariable("memberNo") int memberNo) {
@@ -135,7 +135,7 @@ public class AdminSellerAuthController {
 	
 	
 	// 판매자 거절 (인증 보류)
-	@PatchMapping("/admin/seller/{memberNo}/deny")
+	@PatchMapping("/admin/sellers/{memberNo}/deny")
 	@ResponseBody
 	public int sellerDeny(@SessionAttribute(value = "loginMember") Member loginMember, 
 							@PathVariable("memberNo") int memberNo,

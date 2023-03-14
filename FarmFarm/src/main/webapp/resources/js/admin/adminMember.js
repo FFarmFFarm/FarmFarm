@@ -17,7 +17,7 @@ var memberSelectTable = document.getElementById("memberSelectTable");
 // optimize 
 /** 전체 회원 정보 조회 함수 */
 const selectMemberList = (cp) => {
-    axios.get("/admin/member/list", {
+    axios.get("/admin/members/list", {
         params: { "cp": cp, "authFilter": authFilter, "statFilter": statFilter, "keyword": keyword}
     })
     .then((response) => { // 성공
@@ -50,7 +50,7 @@ const selectMemberList = (cp) => {
 */
 const selectMemberDetail = (hiddenNo) => {
 
-    axios.get("/admin/member/"+hiddenNo)
+    axios.get("/admin/members/"+hiddenNo)
     .then((response) => { // 성공
         const map = response.data;
         printMemberDetail(map.memberDetailInfo, map.memberHistoryList);
