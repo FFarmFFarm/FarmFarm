@@ -59,10 +59,10 @@ public class BannedAccountActivateScheduling {
 //			System.out.println(cal.getTime()); // Wed Jan 04 17:05:08 KST 2023
 			
 			// 7일 더하기
-//			cal.add(Calendar.DATE, 7);
+			cal.add(Calendar.DATE, 7);
 			
 			// 테스트용 (5분 뒤)
-			cal.add(Calendar.MINUTE, 1);
+//			cal.add(Calendar.MINUTE, 1);
 			
 			// processDate에서 7일 더한 날짜 (sdf 포맷으로 변경)
 			String afterDate = sdf.format(cal.getTime());
