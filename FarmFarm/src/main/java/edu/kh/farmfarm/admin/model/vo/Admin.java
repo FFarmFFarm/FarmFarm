@@ -66,4 +66,7 @@ public class Admin {
 	private String authDenyReason; // 판매자인증 보류 사유
 	
 	private int duplFlag; // 신고타입은 같고 reportTargetNo가 다를 때, 구분하기 
+	
+	private int reportMVolume; // 날짜(처리일자)별 총 횟수
+	
 }

@@ -90,7 +90,7 @@ const selectMember = (memberNo) => {
   console.log(targetMemberNo);
 
   $.ajax({
-    url : "/board/member/" + memberNo,
+    url : "/boards/member/" + memberNo,
     data : {"memberNo" : memberNo},
     dataType : "JSON",
     success : (member)=>{
