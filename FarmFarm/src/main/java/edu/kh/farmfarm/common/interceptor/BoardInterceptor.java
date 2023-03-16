@@ -38,6 +38,7 @@ public class BoardInterceptor implements HandlerInterceptor {
 			return true;
 		} else {
 			resp.sendRedirect("/notfound");
+			
 			return true;
 		}
 
