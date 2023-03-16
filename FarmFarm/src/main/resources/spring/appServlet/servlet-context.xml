@@ -54,7 +54,15 @@
 		</interceptor>
 	</interceptors>  -->
 	
-	
+		<!-- 인터셉터 등록/매핑주소 설정 -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/boards/*/*" /> 
+			<exclude-mapping path="/boards/list/*"/> 
+			<beans:bean id="boardInterceptor"  
+				class="edu.kh.farmfarm.common.interceptor.BoardInterceptor"/>
+		</interceptor> 
+	</interceptors>
 	
 	
 	<!-- 스프링 스케쥴러 어노테이션 인식 -->
