@@ -118,4 +118,6 @@ public class NotifyController {
 		
 		return new Gson().toJson(notifyMap);
 	}
+	
+	
 }

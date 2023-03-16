@@ -447,5 +447,12 @@
 		FROM BOARD_IMG bi 
 		WHERE BOARD_IMG_ADDRESS IS NOT NULL
 	</select>
+	
+	
+	<select id="selectBoardDelete" resultType="int">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE BOARD_NO = #{boardNo} AND BOARD_DEL_FL = 'N'
+	</select>
 
 </mapper>

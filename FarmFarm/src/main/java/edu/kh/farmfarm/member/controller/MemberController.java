@@ -37,7 +37,7 @@ public class MemberController {
 
 	// 로그인 화면
 	@GetMapping("/login")
-	public String loginPage(@RequestHeader("referer")String referer,
+	public String loginPage(@RequestHeader(value="referer", required=false, defaultValue="/login")String referer,
 			Model model) {
 		
 		model.addAttribute("previousPage", referer);

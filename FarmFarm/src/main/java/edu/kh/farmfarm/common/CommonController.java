@@ -3,6 +3,7 @@ package edu.kh.farmfarm.common;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -59,5 +60,11 @@ public class CommonController {
 		}
 		
 		return new Gson().toJson(result);
+	}
+	
+	// 없는 페이지 접근 시
+	@GetMapping("/notfound")
+	public String notFound() {
+		return "/common/notfound";
 	}
 }

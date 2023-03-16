@@ -1,10 +1,18 @@
 // 새로고침
-document.getElementById('retry').addEventListener('click', ()=>{
-  const url = location.href;
-  location.href = url;
-})
+const retry = document.getElementById('retry');
+if (retry != null) {
+  retry.addEventListener('click', () => {
+    const url = location.href;
+    location.href = url;
+  })
+}
+
 
 // 뒤로가기
-document.getElementById('goBack').addEventListener('click', ()=>{
-  history.back();
-})
+const goBack = document.getElementById('goBack');
+if (goBack != null) {
+  goBack.addEventListener('click', () => {
+    console.log(history);
+    history.back();
+  })
+}

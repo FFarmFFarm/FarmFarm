@@ -68,5 +68,10 @@ public interface NotifyService {
 	NotifyOrder selectTransaction(int orderNo);
 
 	
+	/** 게시글 삭제 여부 조회
+	 * @param boardNo
+	 * @return
+	 */
+	int isBoardDelete(int boardNo);
 	
 }	
