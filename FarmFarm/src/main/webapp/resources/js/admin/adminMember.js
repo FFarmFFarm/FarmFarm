@@ -133,8 +133,8 @@ const printMemberList = (memberList, pagination) => {
         // 아이디
         const td3 = document.createElement("td");
 
-        if (member.memberId.length > 9) {
-            td3.innerText = member.memberId.substring(0, 9) + '...';
+        if (member.memberId.length > 7) {
+            td3.innerText = member.memberId.substring(0, 7) + '...';
         } else {
             td3.innerText = member.memberId;
         }
@@ -143,8 +143,8 @@ const printMemberList = (memberList, pagination) => {
         // 닉네임
         const td4 = document.createElement("td");
 
-        if (member.memberNickname.length > 9) {
-            td4.innerText = member.memberNickname.substring(0, 9) + '...';
+        if (member.memberNickname.length > 7) {
+            td4.innerText = member.memberNickname.substring(0, 7) + '...';
         } else {
             td4.innerText = member.memberNickname;
         }
@@ -552,13 +552,14 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
 
         let volume = history.reportVolume;
 
-        if(volume <= 2 || history.reportPenalty == null) {
+        if(volume <= 2 || history.reportPenalty == null || (history.reportPenalty =='N' && history.processDate != null)) {
             document.getElementById("memberHistorySpan").style.height = '150px';
             document.getElementById("memberHistorySpan").style.overflow = 'hidden';
         } else  {
             // document.getElementById("memberHistorySpan").style.height = '400px';
             document.getElementById("memberHistorySpan").classList.add("member-history");
-            document.getElementById("memberHistorySpan").style.height = '500px';
+            document.getElementById("memberHistorySpan").style.height = 'auto';
+            document.getElementById("memberHistorySpan").style.maxHeight = '300px';
             document.getElementById("memberHistorySpan").style.overflow = 'scroll';
             
         }
@@ -572,8 +573,9 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
                 adminDelBtn.disabled = false;
 
 
+                // 정지(Y), 정지 후 활성화(A) 상태
                 if (history.reportPenalty == 'Y' || history.reportPenalty == 'A') {
-                    tdReportDate.innerText = history.reportDate;
+                    tdReportDate.innerText = history.processDate;
                     // tdReportDate.innerText = history.processDate;
                     // fixme: 원래 processDate가 맞음. 정지 계정이 활성화된 시각임.
                     // 원래 정지 해제 스케줄링을 매 초로 했었는데 부하가 너무 심해서
@@ -585,19 +587,19 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
 
                     if(volume == 1){
                         tdReportReason.innerText = history.reportReason
-                    } else if (volume > 1) {
-                        tdReportReason.innerText = history.reportReason + " 외 " + (volume -1) + "건";
+                    } else if (history.reportMVolume > 1) {
+                        tdReportReason.innerText = history.reportReason + " 외 " + history.reportMVolume + "건";
                     }
-
+                } else {
+                    tdReport.innerHTML = "신고 반려";
+                    tdReportDate.innerHTML = history.processDate;
+                    tdReportReason.innerText = history.reportReason + " 외 " + history.reportMVolume + "건";
                 }
     
                 // 강제 탈퇴 버튼 활성화
                 adminDelBtn.style.backgroundColor = '#C43819';
                 adminDelBtn.style.cursor = 'pointer';
                 adminDelBtn.disabled = false;
-                
-                // }
-
                 
 
             }
@@ -608,23 +610,6 @@ const printMemberDetail = (memberDetailInfo, memberHistoryList) => {
             tdReportReason.innerText = "";
         }
 
-        // 강제 탈퇴 버튼 누르면,
-        // if(history.reportPenalty == 'Y'){
-        // adminDelBtn.addEventListener('click', () => {
-
-        //     // 가입일자, 가입 상태에 취소선 긋기
-        //     td4.style.textDecoration = 'line-through';
-        //     td5.style.textDecoration = 'line-through';
-
-        //     // 강제 탈퇴 버튼 비활성화
-        //     adminDelBtn.style.backgroundColor = 'lightgray';
-        //     adminDelBtn.style.cursor = 'default';
-        //     adminDelBtn.disabled = true;
-        // })
-
-        // 신고 처리 내역이 있을 때 조립
-        // if (history.reportPenalty != null) {
-        // }
         trReport.append(tdReportDate, tdReport, tdReportReason);
         tbodyHistory.append(trReport);
     }
@@ -1040,8 +1025,8 @@ const searchNoResult = () => {
 // jsp 첫 페이지 글자 자르기
 const mId = document.getElementsByClassName("mId");
 for (let i = 0; i < mId.length; i++) {
-    if (mId[i].innerText.length > 9) {
-        mId[i].innerText = mId[i].innerText.substring(0, 9) + '...';
+    if (mId[i].innerText.length > 7) {
+        mId[i].innerText = mId[i].innerText.substring(0, 7) + '...';
     } else {
         mId[i].innerText;
     }
@@ -1049,8 +1034,8 @@ for (let i = 0; i < mId.length; i++) {
 
 const mNickname = document.getElementsByClassName("mNickname");
 for (let i = 0; i < mId.length; i++) {
-    if (mNickname[i].innerText.length > 9) {
-        mNickname[i].innerText = mNickname[i].innerText.substring(0, 9) + '...';
+    if (mNickname[i].innerText.length > 7) {
+        mNickname[i].innerText = mNickname[i].innerText.substring(0, 7) + '...';
     } else {
         mNickname[i].innerText;
     }

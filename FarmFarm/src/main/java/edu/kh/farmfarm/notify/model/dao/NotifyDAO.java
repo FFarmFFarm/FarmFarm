@@ -105,6 +105,15 @@ public class NotifyDAO {
 	}
 
 
+	/** 게시글 삭제 여부 확인
+	 * @param boardNo
+	 * @return
+	 */
+	public int isBoardDelete(int boardNo) {
+		return sqlSession.selectOne("boardMapper.selectBoardDelete", boardNo);
+	}
+
+
 	
 	
 }
