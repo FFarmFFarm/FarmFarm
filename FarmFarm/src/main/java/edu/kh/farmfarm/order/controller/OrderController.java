@@ -201,9 +201,9 @@ public class OrderController {
 		
 		
 //		imp_uid 이용해서 환불 요청하기
-		ImpToken impUid = service.paymentCancel(token, order);
+		ImpToken cancelInfo = service.paymentCancel(token, order);
 		
-		if(impUid != null) {
+		if(cancelInfo != null) {
 			
 			int result = service.orderCancel(orderNo);
 			return result;

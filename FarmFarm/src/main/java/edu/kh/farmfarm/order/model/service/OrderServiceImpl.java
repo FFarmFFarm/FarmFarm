@@ -53,6 +53,9 @@ public class OrderServiceImpl implements OrderService{
 	
 	private RestTemplate restTemplate = new RestTemplate();
 
+	/** 반품 하기
+	 *
+	 */
 	@Override
 	@Transactional
 	public int insertReturn(Return returnInfo, List<Product> productList) {
@@ -210,10 +213,10 @@ public class OrderServiceImpl implements OrderService{
 		
 		try {
 			HttpEntity<JSONObject> entity = new HttpEntity<>(body , headers);
-			ImpToken impUid = restTemplate.postForObject("https://api.iamport.kr/payments/cancel", entity, ImpToken.class);
+			ImpToken cancelInfo = restTemplate.postForObject("https://api.iamport.kr/payments/cancel", entity, ImpToken.class);
 			
-			System.out.println(impUid.toString());
-			return impUid;
+			System.out.println(cancelInfo.toString());
+			return cancelInfo;
 				
 		} catch (Exception e) {
 			e.printStackTrace();
