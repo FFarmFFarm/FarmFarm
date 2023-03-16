@@ -89,5 +89,12 @@ public class NotifyServiceImpl implements NotifyService {
 		return dao.selectTransaction(orderNo);
 	}
 
+	// 게시글 삭제여부 확인
+	@Override
+	public int isBoardDelete(int boardNo) {
+		// TODO Auto-generated method stub
+		return dao.isBoardDelete(boardNo);
+	}
+
 
 }

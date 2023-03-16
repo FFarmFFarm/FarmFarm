@@ -324,8 +324,9 @@ main{
 /* 홈버튼 영역 */
 .btn-area{
   width: 280px;
+  margin-top: 30px !important;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   transition-duration: 0.2s;
 }
@@ -337,6 +338,7 @@ main{
 .btn-area > a{
   width: 80px;
   height: 40px;
+  margin: 0px 5px;
   border-radius: 10px;
   display: flex;
   justify-content: center;
