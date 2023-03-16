@@ -485,19 +485,19 @@ const printNewReportDetail = (newReportDetail) => {
         }
         if(newReportDetail.reportType == 'B'){ // 커뮤니티 게시글
             move.classList.add('move');
-            move.href = "/board/"+ newReportDetail.boardType + "/" + newReportDetail.reportTargetNo; 
+            move.href = "/boards/"+ newReportDetail.boardType + "/" + newReportDetail.reportTargetNo; 
             move.innerHTML = "[ " + newReportDetail.title + " ]";
         }
 
         if(newReportDetail.reportType == 'P'){ //판매글
             move.classList.add('move');
-            move.href = "/post/" + newReportDetail.reportTargetNo;
+            move.href = "/posts/" + newReportDetail.reportTargetNo;
             move.innerHTML = "[ " + newReportDetail.title + " ]";
         }
 
         if(newReportDetail.reportType == 'C'){ //커뮤니티 댓글
             move.classList.add('move');
-            move.href = "/board/" + newReportDetail.boardType + "/" + newReportDetail.commentBoardNo + "?cp=" + cp + "#co" + newReportDetail.contentNo;
+            move.href = "/boards/" + newReportDetail.boardType + "/" + newReportDetail.commentBoardNo + "?cp=" + cp + "#co" + newReportDetail.contentNo;
             move.innerHTML = "[ " + newReportDetail.commentMemberId + " ]";
         }
 
