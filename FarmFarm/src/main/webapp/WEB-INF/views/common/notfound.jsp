@@ -37,7 +37,7 @@
               &nbsp;
               <span>홈으로</span>
           </a>
-          <a id="goBack">
+          <a href="${referer}" id="goBack">
             <i class="fa-solid fa-rotate-left"></i>
             &nbsp;
             <span>뒤로가기</span>
