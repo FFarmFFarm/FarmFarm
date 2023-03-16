@@ -41,8 +41,7 @@ public class AdminController {
 	// 대시보드 -----------------------------------------------------------
 	// 통계 조회
 	@GetMapping("/admin")
-	public String dashboard(@SessionAttribute(value="loginMember") Member loginMember, Model model,
-							@RequestHeader(value="referer") String referer) {
+	public String dashboard(@SessionAttribute(value="loginMember") Member loginMember, Model model) {
 		
 		// 대시보드 통계 조회
 		Map<String, Object> statMap = new HashMap<String, Object>();
