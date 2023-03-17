@@ -59,6 +59,7 @@
 		<interceptor>
 			<mapping path="/boards/*/*" /> 
 			<exclude-mapping path="/boards/list/*"/> 
+			<exclude-mapping path="/boards/*/writing"/> 
 			<beans:bean id="boardInterceptor"  
 				class="edu.kh.farmfarm.common.interceptor.BoardInterceptor"/>
 		</interceptor> 
